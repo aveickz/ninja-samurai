@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Картотека карточек</title>
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <h1>Картотека карточек</h1>
+    <p class="subtitle">Настольная игра — полный набор</p>
+    <div class="stats">
+      <div class="stat-item">
+        <span class="stat-value" id="stat-types"></span>
+        <span class="stat-label">типов карт</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-value" id="stat-total"></span>
+        <span class="stat-label">карт в колоде</span>
+      </div>
+    </div>
+    <p class="count"></p>
+  </header>
+
+  <div class="filter-bar" id="filter-bar"></div>
+
+  <p class="section-label">Набор карт</p>
+  <div class="grid" id="grid"></div>
+
+  <!-- База данных карт -->
+  <script src="cards.js"></script>
+  <!-- jQuery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <!-- Логика приложения -->
+  <script src="scripts/app.js"></script>
+
+</body>
+</html>
