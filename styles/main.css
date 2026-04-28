@@ -175,19 +175,29 @@ body {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  cursor: default;
-  transition: transform 0.2s ease;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  transition: transform 0.25s ease;
 }
 
-.card-item:hover {
-  transform: translateY(-5px);
+.card-item:hover:not(.is-zoomed) {
+  transform: translateY(-5px) scale(1.02);
 }
 
-.card-item:hover .card {
+.card-item:hover:not(.is-zoomed) .card {
   box-shadow: 0 16px 40px #000000bb, 0 0 20px #c8860033;
 }
 
-.card-item:hover .card-art {
+/* ── Zoomed state ── */
+.card-item.is-zoomed {
+  transform: scale(2);
+  z-index: 100;
+  cursor: zoom-out;
+}
+
+.card-item.is-zoomed .card {
+  box-shadow: 0 32px 80px #000000ee, 0 0 40px #c8860066;
 }
 
 /* ── Card (арт-блок) ── */
@@ -205,8 +215,8 @@ body {
   position: absolute;
   inset: 0;
   top: 40px;
-  left: 3px;
-  max-width: 190px;
+  left: 4px;
+  max-width: 191px;
   display: block;
   transition: transform 0.3s ease;
 }

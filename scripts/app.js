@@ -69,10 +69,28 @@ $(function () {
       $('<div>', { class: 'card-qty', text: '×' + (card.qty || 1) })
     );
 
-    return $('<div>', { class: 'card-item ' + typeClasses, 'data-types': card.types.join(' ') }).append(
+    var $item = $('<div>', { class: 'card-item ' + typeClasses, 'data-types': card.types.join(' ') }).append(
       $card,
       $footer
     );
+
+    $item.on('click', function (e) {
+      var $this = $(this);
+      var isOpen = $this.hasClass('is-zoomed');
+
+      // Закрыть все остальные
+      $('.card-item.is-zoomed').not($this).removeClass('is-zoomed');
+
+      // Переключить текущую
+      $this.toggleClass('is-zoomed', !isOpen);
+
+      // Клик вне карточки — закрыть
+      if (!isOpen) {
+        e.stopPropagation();
+      }
+    });
+
+    return $item;
   }
 
   // ── Фильтрация ────────────────────────────────────────────────────
@@ -138,6 +156,14 @@ $(function () {
 
   $.each(CARDS, function (_, card) {
     $grid.append(buildCard(card));
+  });
+
+  // ── Закрытие зума кликом вне карточки или Escape ──────────────────
+  $(document).on('click', function () {
+    $('.card-item.is-zoomed').removeClass('is-zoomed');
+  });
+  $(document).on('keydown', function (e) {
+    if (e.key === 'Escape') $('.card-item.is-zoomed').removeClass('is-zoomed');
   });
 
   // ── Статистика в шапке ────────────────────────────────────────────
