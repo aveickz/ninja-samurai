@@ -9,7 +9,7 @@
 /* Salma Pro Med Narrow — положите файл в папку fonts/ с именем SalmaPro-MedNarrow.woff */
 @font-face {
   font-family: 'Salma Pro Med Narrow';
-  src: url('../fonts/Salma_Pro_Med_Narrow') format('woff'), url('../fonts/Salma_Pro_Med_Narrow.ttf') format('truetype'), ;
+  src: url('../fonts/Salma_Pro_Med_Narrow.woff') format('woff'), url('../fonts/Salma_Pro_Med_Narrow.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -274,8 +274,7 @@ body {
   left: 0;
   right: 0;
   background: linear-gradient(to right, #FEDF86, #F6F6C9);
-  padding: 8px;
-  padding-top: 14px;
+  padding: 5px 4px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;

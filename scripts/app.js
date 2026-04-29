@@ -104,7 +104,8 @@ $(function () {
     var $item = $('<div>', {
       class: 'card-item ' + typeClasses,
       'data-types': card.types.join(' '),
-      'data-group': card.group || 'action'
+      'data-group': card.group || 'action',
+      'data-qty': card.qty || 1
     }).append(
       $card,
       $footer
@@ -169,7 +170,8 @@ $(function () {
 
   // ── Фильтрация ────────────────────────────────────────────────────
   function applyFilter() {
-    var total = 0;
+    var totalTypes = 0;
+    var totalQty = 0;
     var isAll = activeFilters.size === 0;
 
     // Показываем/скрываем разделители
@@ -182,9 +184,12 @@ $(function () {
       var visible = isAll ||
         cardTypes.some(function (t) { return activeFilters.has(t); });
       $(this).toggleClass('card--hidden', !visible);
-      if (visible) total++;
+      if (visible) {
+        totalTypes++;
+        totalQty += parseInt($(this).data('qty'), 10) || 1;
+      }
     });
-    $('.count').text(total + ' карточек');
+    $('.count').text(totalTypes + ' видов · ' + totalQty + ' карт в колоде');
 
     // Подсветка активных кнопок
     $('.filter-btn').each(function () {
