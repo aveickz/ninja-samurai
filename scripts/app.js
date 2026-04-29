@@ -81,8 +81,22 @@ $(function () {
     // Внутренний блок арта — маска + заголовок + описание
     var $card = $('<div>', { class: 'card' }).append(
 
+      // Слой 0: фон группы (только для weapon)
+      card.group === 'weapon'
+        ? $('<img>', { class: 'card-bg', src: 'media/weapon_bg.png', alt: '', draggable: false })
+        : null,
+
       // Слой 1: арт (самый нижний)
-      $('<img>', { class: 'card-art', src: card.img, alt: card.title, loading: 'lazy' }),
+      $('<img>', { class: 'card-art', src: card.img, alt: card.title, loading: 'lazy' })
+        .on('load', function () {
+          // После загрузки арта выставляем top у card-desc-wrap = нижнему краю арта
+          var $img = $(this);
+          var $wrap = $img.closest('.card').find('.card-desc-wrap');
+          if (!$wrap.length) return;
+          var artBottom = $img[0].offsetTop + $img[0].offsetHeight; // px от верха .card
+          var cardH = $img.closest('.card')[0].offsetHeight;
+          $wrap.css('top', (artBottom / cardH * 100).toFixed(3) + '%');
+        }),
 
       // Слой 2: маска/рамка поверх арта
       $('<img>', { class: 'card-mask', src: 'media/mask.png', alt: '', draggable: false }),
@@ -95,11 +109,11 @@ $(function () {
         $('<span>', { class: 'card-title', text: card.title })
       ),
 
-      // Слой 4: жёлтая плашка с описанием внизу
-      $('<div>', { class: 'card-desc-wrap' }).append(
+      // Слой 4: жёлтая плашка с описанием внизу (только если есть текст)
+      card.desc ? $('<div>', { class: 'card-desc-wrap' }).append(
         $('<img>', { class: 'card-delimiter', src: 'media/delimiter.png', alt: '', draggable: false }),
         $('<div>', { class: 'card-desc', text: card.desc })
-      )
+      ) : null
     );
 
     // Внешний контейнер: card + footer (типы слева, qty справа)

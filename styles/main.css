@@ -370,18 +370,28 @@ body {
   transition: box-shadow 0.2s ease;
 }
 
-/* Слой 1: арт карточки
-   top выверен по mask.png: заголовок заканчивается на y=134/978=13.7%,
-   арт начинается чуть ниже (+4px запас) → 14.11% */
+/* Слой 0: фоновое изображение группы (weapon_bg.png и т.п.)
+   Заполняет ту же зону, что и card-art, но лежит ниже него. */
+.card-bg {
+  position: absolute;
+  top: 13%;
+  left: 1.5%;
+  width: 97%;
+  height: auto;
+  display: block;
+  z-index: 0;
+}
+
+/* Слой 1: арт карточки — абсолютно позиционирован внутри .card.
+   Ширина всегда 100% от .card; высота пропорциональна оригиналу. */
 .card-art {
   position: absolute;
-  inset: 0;
   top: 13%;
-  left: 1.6%;
-  width: auto;
-  max-width: 98.36%;
+  left: 1.5%;
+  width: 97%;
+  height: auto;
   display: block;
-  transition: transform 0.3s ease;
+  z-index: 1;
 }
 
 /* hover управляется через .card-item:hover .card-art */
@@ -431,7 +441,9 @@ body {
   text-shadow: 0 1px 2px rgba(255,255,255,0.1);
 }
 
-/* Слой 4: жёлтая плашка с описанием внизу */
+/* Слой 4: жёлтая плашка с описанием внизу.
+   top выставляется через JS после загрузки card-art (= нижний край арта).
+   bottom: 0 растягивает плашку до нижнего края .card. */
 .card-desc-wrap {
   position: absolute;
   bottom: 0;
