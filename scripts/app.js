@@ -174,10 +174,8 @@ $(function () {
     var totalQty = 0;
     var isAll = activeFilters.size === 0;
 
-    // Показываем/скрываем разделители
-    $('[data-group-divider]').each(function () {
-      $(this).toggleClass('group-divider--hidden', !isAll);
-    });
+    // Считаем видимые карточки по группам
+    var visibleByGroup = {};
 
     $('#grid .card-item').each(function () {
       var cardTypes = $(this).data('types').split(' ');
@@ -187,8 +185,17 @@ $(function () {
       if (visible) {
         totalTypes++;
         totalQty += parseInt($(this).data('qty'), 10) || 1;
+        var g = $(this).data('group');
+        visibleByGroup[g] = (visibleByGroup[g] || 0) + 1;
       }
     });
+
+    // Показываем разделитель только если в группе есть видимые карточки
+    $('[data-group-divider]').each(function () {
+      var g = $(this).data('group-divider');
+      $(this).toggleClass('group-divider--hidden', !visibleByGroup[g]);
+    });
+
     $('.count').text(totalTypes + ' видов · ' + totalQty + ' карт в колоде');
 
     // Подсветка активных кнопок
