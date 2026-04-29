@@ -2,28 +2,56 @@ $(function () {
 
   // ── Мета типов ────────────────────────────────────────────────────
   var TYPE_META = {
-    action:       { label: 'Действие',      color: '#8a7040' },
-    weapon:       { label: 'Оружие',        color: '#a03030' },
-    trap:         { label: 'Ловушка',       color: '#7a3a8a' },
-    character:    { label: 'Персонаж',      color: '#2a6a8a' },
-    modifier:     { label: 'Модификатор',   color: '#3a6a3a' },
-    defense:      { label: 'Защита',        color: '#2a5a7a' },
-    stance:       { label: 'Стойка',        color: '#7a5a20' },
-    effect:       { label: 'Эффект',        color: '#5a3a7a' },
-    intervention: { label: 'Вмешательство', color: '#8a5020' },
-    group:        { label: 'Групповая',     color: '#4a6a2a' }
+    action:       { label: 'Действие',      color: '#FFDDDD' },
+    weapon:       { label: 'Оружие',        color: '#ED1C24' },
+    trap:         { label: 'Ловушка',       color: '#5f8598' },
+    character:    { label: 'Персонаж',      color: '#6C8CC7' },
+    modifier:     { label: 'Модификатор',   color: '#ED1C24' },
+    defense:      { label: 'Защита',        color: '#dca300' },
+    stance:       { label: 'Стойка',        color: '#A78B6B' },
+    effect:       { label: 'Эффект',        color: '#FFDDDD' },
+    intervention: { label: 'Вмешательство', color: '#3B8476' },
+    group:        { label: 'Групповая',     color: '#FFDDDD' }
   };
 
   var ALL_TYPES = Object.keys(TYPE_META);
 
+  // ── Цвета верхней плашки по группе ───────────────────────────────
+  var GROUP_TITLE_COLOR = {
+    defense:      '#dca300',
+    trap:         '#43525A',
+    weapon:       '#231F20',
+    stance:       '#A78B6B',
+    modifier:     '#ED1C24',
+    group:        '#231F20',
+    effect:       '#231F20',
+    intervention: '#3B8476',
+    character:    '#6C8CC7',
+    action:       '#231F20'
+  };
+
+  // ── Порядок и названия групп ──────────────────────────────────────
+  var GROUP_ORDER = [
+    'weapon', 'trap', 'defense', 'stance', 'modifier',
+    'group', 'effect', 'action', 'intervention', 'character'
+  ];
+
+  var GROUP_LABELS = {
+    weapon:       'Оружие',
+    trap:         'Ловушки',
+    defense:      'Защита',
+    stance:       'Стойки',
+    modifier:     'Модификаторы',
+    group:        'Групповые действия',
+    effect:       'Эффекты',
+    action:       'Действия',
+    intervention: 'Вмешательства',
+    character:    'Персонажи'
+  };
+
   // ── Состояние фильтра ─────────────────────────────────────────────
   // activeFilters — Set активных типов; пусто = показывать все
   var activeFilters = new Set();
-
-  // ── Утилиты ───────────────────────────────────────────────────────
-  function pad(n) {
-    return n < 10 ? '0' + n : '' + n;
-  }
 
   // ── Построение тегов типов на карточке ───────────────────────────
   function buildTypeTags(types) {
@@ -53,7 +81,10 @@ $(function () {
       $('<img>', { class: 'card-mask', src: 'mask.png', alt: '', draggable: false }),
 
       // Слой 3: заголовок в верхней полосе маски
-      $('<div>', { class: 'card-title-wrap' }).append(
+      $('<div>', {
+        class: 'card-title-wrap',
+        css: { background: GROUP_TITLE_COLOR[card.group] || '#231F20' }
+      }).append(
         $('<span>', { class: 'card-title', text: card.title })
       ),
 
@@ -69,7 +100,11 @@ $(function () {
       $('<div>', { class: 'card-qty', text: '×' + (card.qty || 1) })
     );
 
-    var $item = $('<div>', { class: 'card-item ' + typeClasses, 'data-types': card.types.join(' ') }).append(
+    var $item = $('<div>', {
+      class: 'card-item ' + typeClasses,
+      'data-types': card.types.join(' '),
+      'data-group': card.group || 'action'
+    }).append(
       $card,
       $footer
     );
@@ -93,12 +128,57 @@ $(function () {
     return $item;
   }
 
+  // ── Разделитель группы ────────────────────────────────────────────
+  function buildGroupDivider(groupKey) {
+    var label = GROUP_LABELS[groupKey] || groupKey;
+    var color = (TYPE_META[groupKey] || {}).color || '#7a5a2a';
+    return $('<div>', {
+      class: 'group-divider',
+      'data-group-divider': groupKey,
+      css: { '--group-color': color }
+    }).append(
+      $('<div>', { class: 'group-divider-line' }),
+      $('<span>', { class: 'group-divider-label', text: label }),
+      $('<div>', { class: 'group-divider-line' })
+    );
+  }
+
+  // ── Рендер: всё в $grid с разделителями ──────────────────────────
+  var $grid = $('#grid');
+
+  // Группируем карты по group в правильном порядке
+  var grouped = {};
+  $.each(CARDS, function (_, card) {
+    var g = card.group || 'action';
+    if (!grouped[g]) grouped[g] = [];
+    grouped[g].push(card);
+  });
+
+  // Рендерим группу за группой
+  $.each(GROUP_ORDER, function (_, groupKey) {
+    var cards = grouped[groupKey];
+    if (!cards || cards.length === 0) return;
+
+    $grid.append(buildGroupDivider(groupKey));
+
+    $.each(cards, function (_, card) {
+      $grid.append(buildCard(card));
+    });
+  });
+
   // ── Фильтрация ────────────────────────────────────────────────────
   function applyFilter() {
     var total = 0;
+    var isAll = activeFilters.size === 0;
+
+    // Показываем/скрываем разделители
+    $('[data-group-divider]').each(function () {
+      $(this).toggleClass('group-divider--hidden', !isAll);
+    });
+
     $('#grid .card-item').each(function () {
       var cardTypes = $(this).data('types').split(' ');
-      var visible = activeFilters.size === 0 ||
+      var visible = isAll ||
         cardTypes.some(function (t) { return activeFilters.has(t); });
       $(this).toggleClass('card--hidden', !visible);
       if (visible) total++;
@@ -150,13 +230,6 @@ $(function () {
         .appendTo($bar);
     });
   }
-
-  // ── Рендер карточек ───────────────────────────────────────────────
-  var $grid = $('#grid');
-
-  $.each(CARDS, function (_, card) {
-    $grid.append(buildCard(card));
-  });
 
   // ── Закрытие зума кликом вне карточки или Escape ──────────────────
   $(document).on('click', function () {

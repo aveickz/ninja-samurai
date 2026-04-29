@@ -248,13 +248,13 @@ body {
   justify-content: center;
   padding: 0 8%;
   pointer-events: none;
-  background: black;
+  background: #231F20;
 }
 
 .card-title {
   font-family: 'Han Zi', 'Georgia', serif;
   font-size: 10pt;
-  color: #white;
+  color:  #ffffff;
   font-weight: bold;
   text-align: center;
   white-space: nowrap;
@@ -262,7 +262,7 @@ body {
   text-overflow: ellipsis;
   max-width: 100%;
   /* лёгкая тень для читаемости */
-  text-shadow: 0 1px 3px rgba(255,255,255,0.3);
+  text-shadow: 0 1px 2px rgba(255,255,255,0.1);
 }
 
 /* Слой 4: жёлтая плашка с описанием внизу */
@@ -331,5 +331,50 @@ body {
 
 /* ── Hidden card (filtered out) ── */
 .card-item.card--hidden {
+  display: none;
+}
+
+/* ── Group divider ── */
+.group-divider {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 28px 0 8px;
+}
+
+.group-divider:first-child {
+  margin-top: 0;
+}
+
+.group-divider-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    to var(--line-dir, right),
+    transparent,
+    color-mix(in srgb, var(--group-color, #7a5a2a) 60%, #5a3e1b) 40%,
+    color-mix(in srgb, var(--group-color, #7a5a2a) 60%, #5a3e1b)
+  );
+}
+
+.group-divider-line:last-child {
+  --line-dir: left;
+}
+
+.group-divider-label {
+  font-family: 'Han Zi', 'Georgia', serif;
+  font-size: 2rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--group-color, #a08050) 80%, #f0c060);
+  text-shadow:
+    0 0 18px color-mix(in srgb, var(--group-color, #a08050) 50%, transparent),
+    0 1px 0 #000;
+  white-space: nowrap;
+  padding: 0 4px;
+}
+
+.group-divider--hidden {
   display: none;
 }
