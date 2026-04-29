@@ -85,7 +85,7 @@ $(function () {
       $('<img>', { class: 'card-art', src: card.img, alt: card.title, loading: 'lazy' }),
 
       // Слой 2: маска/рамка поверх арта
-      $('<img>', { class: 'card-mask', src: 'mask.png', alt: '', draggable: false }),
+      $('<img>', { class: 'card-mask', src: 'media/mask.png', alt: '', draggable: false }),
 
       // Слой 3: заголовок в верхней полосе маски
       $('<div>', {
@@ -97,7 +97,7 @@ $(function () {
 
       // Слой 4: жёлтая плашка с описанием внизу
       $('<div>', { class: 'card-desc-wrap' }).append(
-        $('<img>', { class: 'card-delimiter', src: 'delimiter.png', alt: '', draggable: false }),
+        $('<img>', { class: 'card-delimiter', src: 'media/delimiter.png', alt: '', draggable: false }),
         $('<div>', { class: 'card-desc', text: card.desc })
       )
     );
