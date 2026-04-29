@@ -212,13 +212,16 @@ body {
   transition: box-shadow 0.2s ease;
 }
 
-/* Слой 1: арт карточки */
+/* Слой 1: арт карточки
+   top выверен по mask.png: заголовок заканчивается на y=134/978=13.7%,
+   арт начинается чуть ниже (+4px запас) → 14.11% */
 .card-art {
   position: absolute;
   inset: 0;
-  top: 40px;
-  left: 4px;
-  max-width: 191px;
+  top: 13%;
+  left: 1.6%;
+  width: auto;
+  max-width: 98.36%;
   display: block;
   transition: transform 0.3s ease;
 }
@@ -238,13 +241,16 @@ body {
   z-index: 100;
 }
 
-/* Слой 3: заголовок в верхней полосе маски (~12.5% высоты) */
+/* Слой 3: заголовок в верхней полосе маски
+   Позиции выверены по пикселям mask.png (611×978):
+   - разделительная линия заголовка: y=124–134 из 978 → 13.7% высоты
+   - боковые отступы рамки: ~5px из 611 → 0.82% ширины */
 .card-title-wrap {
   position: absolute;
-  top: 3px;
-  left: 3px;
-  right: 3px;
-  height: 38px;
+  top: 1.2%;
+  left: 1.5%;
+  right: 1.5%;
+  height: 11.8%;
   display: flex;
   align-items: center;
   justify-content: center;
