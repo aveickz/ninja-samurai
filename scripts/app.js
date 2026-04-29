@@ -89,16 +89,41 @@ $(function () {
       // Слой 1: арт (самый нижний)
       $('<img>', { class: 'card-art', src: card.img, alt: card.title, loading: 'lazy' })
         .on('load', function () {
-          // После загрузки арта выставляем top у card-desc-wrap = нижнему краю арта
+          // После загрузки арта выставляем top у card-desc-wrap = нижнему краю арта,
+          // но не выше минимума, нужного для вмещения текста описания.
           var $img = $(this);
-          var $wrap = $img.closest('.card').find('.card-desc-wrap');
+          var $card = $img.closest('.card');
+          var $wrap = $card.find('.card-desc-wrap');
           if (!$wrap.length) return;
-          var artBottom = $img[0].offsetTop + $img[0].offsetHeight; // px от верха .card
-          var cardH = $img.closest('.card')[0].offsetHeight;
-          $wrap.css('top', (artBottom / cardH * 100).toFixed(3) + '%');
+
+          var cardH    = $card[0].offsetHeight;
+          var artBottom = $img[0].offsetTop + $img[0].offsetHeight;
+
+          // Измеряем минимальную высоту: убираем top-ограничение, даём блоку
+          // сжаться до содержимого, читаем scrollHeight, потом восстанавливаем.
+          $wrap.css('top', '');
+          var minH = $wrap[0].scrollHeight;
+
+          // top не должен быть ниже (cardH - minH), иначе текст не влезет
+          var topPx = Math.min(artBottom, cardH - minH);
+          $wrap.css('top', ( (topPx / cardH * 100) - 2.5).toFixed(3) + '%');
         }),
 
-      // Слой 2: маска/рамка поверх арта
+      // Слой 2: иконки из icons[] — вертикальный стек в левом верхнем углу арта
+      card.icons && card.icons.length
+        ? $('<div>', { class: 'card-icons' }).append(
+            $.map(card.icons, function (icon) {
+              return $('<img>', {
+                class: 'card-icon',
+                src: 'media/' + icon + '.png',
+                alt: icon,
+                draggable: false
+              });
+            })
+          )
+        : null,
+
+      // Слой 3: маска/рамка поверх арта
       $('<img>', { class: 'card-mask', src: 'media/mask.png', alt: '', draggable: false }),
 
       // Слой 3: заголовок в верхней полосе маски

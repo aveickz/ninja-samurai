@@ -391,12 +391,30 @@ body {
   width: 97%;
   height: auto;
   display: block;
-  z-index: 1;
+  z-index: 2;
 }
 
 /* hover управляется через .card-item:hover .card-art */
 
-/* Слой 2: рамка/маска поверх арта */
+/* Слой 2: иконки — вертикальный стек в левом верхнем углу зоны арта */
+.card-icons {
+  position: absolute;
+  top: 14%;
+  left: 4%;
+  display: flex;
+  flex-direction: column;
+  gap: 3%;
+  z-index: 50;
+  pointer-events: none;
+}
+
+.card-icon {
+  display: block;
+  width: 32%;
+  margin-bottom: -3px;
+}
+
+/* Слой 3: рамка/маска поверх арта */
 .card-mask {
   position: absolute;
   inset: 0;
@@ -456,6 +474,7 @@ body {
   justify-content: flex-end;
   align-items: flex-start;
   margin: 4px;
+  z-index: 10;
 }
 
 .card-delimiter {
