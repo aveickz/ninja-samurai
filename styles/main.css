@@ -242,6 +242,27 @@ body {
   color: #7a6040;
 }
 
+/* ── Блок соотношения оружия и защиты ── */
+.stats-ratio {
+  margin-top: 16px;
+  border-top: 1px solid #3a2a10;
+  padding-top: 12px;
+}
+
+.stats-ratio-title {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #7a5a2a;
+  margin-bottom: 6px;
+}
+
+.stats-ratio-value {
+  font-size: 0.82rem;
+  font-weight: bold;
+  color: #e8d5a3;
+}
+
 .filter-btn {
   font-family: 'Georgia', serif;
   font-size: 0.72rem;

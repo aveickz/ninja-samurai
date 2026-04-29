@@ -322,6 +322,22 @@ $(function () {
         $('<td>', { text: pct })
       ).appendTo($tbody);
     });
+
+    // ── Соотношение оружия к защите ──────────────────────────────────
+    var weaponQty = 0, defenseQty = 0;
+    $.each(CARDS, function (_, card) {
+      var qty = card.qty || 1;
+      if (card.types.indexOf('weapon') !== -1)  weaponQty  += qty;
+      if (card.types.indexOf('defense') !== -1) defenseQty += qty;
+    });
+    var ratio = defenseQty > 0 ? (weaponQty / defenseQty).toFixed(2) : '—';
+
+    var ratioText = 'Оружие (' + weaponQty + ') / Защита (' + defenseQty + ') = ' + ratio + ' : 1';
+    $('#stats-ratio').remove();
+    $('<div>', { id: 'stats-ratio', class: 'stats-ratio' }).append(
+      $('<p>', { class: 'stats-ratio-title', text: 'Оружие vs Защита' }),
+      $('<p>', { class: 'stats-ratio-value', text: ratioText })
+    ).appendTo('.sidebar-stats');
   }
 
   // ── Инициализация ─────────────────────────────────────────────────
