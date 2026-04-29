@@ -52,9 +52,11 @@ $(function () {
   // ── Состояние фильтра ─────────────────────────────────────────────
   // activeFilters — Set активных типов; пусто = показывать все
   var activeFilters = new Set();
+  // poisonFilter — true = показывать только ядовитые карты
+  var poisonFilter = false;
 
   // ── Построение тегов типов на карточке ───────────────────────────
-  function buildTypeTags(types) {
+  function buildTypeTags(types, poison) {
     var $wrap = $('<div>', { class: 'card-types' });
     $.each(types, function (_, t) {
       var meta = TYPE_META[t] || { label: t, color: '#555' };
@@ -64,6 +66,12 @@ $(function () {
         css: { '--tag-color': meta.color }
       }).appendTo($wrap);
     });
+    if (poison) {
+      $('<span>', {
+        class: 'type-tag type-tag--poison',
+        text: 'Яд'
+      }).appendTo($wrap);
+    }
     return $wrap;
   }
 
@@ -97,7 +105,7 @@ $(function () {
 
     // Внешний контейнер: card + footer (типы слева, qty справа)
     var $footer = $('<div>', { class: 'card-footer' }).append(
-      buildTypeTags(card.types),
+      buildTypeTags(card.types, card.poison),
       $('<div>', { class: 'card-qty', text: '×' + (card.qty || 1) })
     );
 
@@ -105,7 +113,8 @@ $(function () {
       class: 'card-item ' + typeClasses,
       'data-types': card.types.join(' '),
       'data-group': card.group || 'action',
-      'data-qty': card.qty || 1
+      'data-qty': card.qty || 1,
+      'data-poison': card.poison ? '1' : '0'
     }).append(
       $card,
       $footer
@@ -179,8 +188,10 @@ $(function () {
 
     $('#grid .card-item').each(function () {
       var cardTypes = $(this).data('types').split(' ');
-      var visible = isAll ||
-        cardTypes.some(function (t) { return activeFilters.has(t); });
+      var isPoison = $(this).data('poison') === '1' || $(this).data('poison') === 1;
+      var typeMatch = isAll || cardTypes.some(function (t) { return activeFilters.has(t); });
+      var poisonMatch = !poisonFilter || isPoison;
+      var visible = typeMatch && poisonMatch;
       $(this).toggleClass('card--hidden', !visible);
       if (visible) {
         totalTypes++;
@@ -202,7 +213,9 @@ $(function () {
     $('.filter-btn').each(function () {
       var t = $(this).data('type');
       if (t === '__all__') {
-        $(this).toggleClass('active', activeFilters.size === 0);
+        $(this).toggleClass('active', activeFilters.size === 0 && !poisonFilter);
+      } else if (t === '__poison__') {
+        $(this).toggleClass('active', poisonFilter);
       } else {
         $(this).toggleClass('active', activeFilters.has(t));
       }
@@ -217,6 +230,19 @@ $(function () {
     $('<button>', { class: 'filter-btn active', text: 'Все', 'data-type': '__all__' })
       .on('click', function () {
         activeFilters.clear();
+        poisonFilter = false;
+        applyFilter();
+      })
+      .appendTo($bar);
+
+    // Кнопка «Яд»
+    $('<button>', {
+      class: 'filter-btn filter-btn--poison',
+      text: '☠ Яд',
+      'data-type': '__poison__'
+    })
+      .on('click', function () {
+        poisonFilter = !poisonFilter;
         applyFilter();
       })
       .appendTo($bar);

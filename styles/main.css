@@ -330,6 +330,32 @@ body {
   padding: 1px 5px;
 }
 
+.type-tag--poison {
+  color: #7fff7f;
+  background: #0d2e0d;
+  border-color: #3a8a3a;
+}
+
+/* ── Кнопка фильтра «Яд» ── */
+.filter-btn--poison {
+  --tag-color: #3a8a3a;
+  color: #7fff7f;
+  border-color: #2a5a2a;
+  background: #0d2e0d;
+}
+
+.filter-btn--poison:hover {
+  border-color: #3a8a3a;
+  color: #afffaf;
+}
+
+.filter-btn--poison.active {
+  color: #0d2e0d;
+  background: #4caf50;
+  border-color: #7fff7f;
+  box-shadow: 0 0 12px #4caf5066;
+}
+
 /* Количество — справа внизу */
 .card-qty {
   font-family: 'Georgia', serif;
