@@ -90,6 +90,7 @@ $(function () {
 
       // Слой 4: жёлтая плашка с описанием внизу
       $('<div>', { class: 'card-desc-wrap' }).append(
+        $('<img>', { class: 'card-delimiter', src: 'delimiter.png', alt: '', draggable: false }),
         $('<div>', { class: 'card-desc', text: card.desc })
       )
     );

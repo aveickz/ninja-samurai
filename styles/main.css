@@ -231,7 +231,7 @@ body {
   height: 100%;
   display: block;
   /* multiply — белые пиксели маски «пропускают» арт, тёмные перекрывают */
-  mix-blend-mode: multiply;
+  /*mix-blend-mode: multiply;*/
   pointer-events: none;
   z-index: 100;
 }
@@ -273,11 +273,22 @@ body {
   right: 0;
   background: linear-gradient(to right, #FEDF86, #F6F6C9);
   padding: 8px;
+  padding-top: 14px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   align-items: flex-start;
   margin: 4px;
+}
+
+.card-delimiter {
+  position: absolute;
+  top: -2px;
+  left: -4px;
+  right: 0;
+  width: calc(100% + 8px);
+  display: block;
+  pointer-events: none;
 }
 
 .card-desc {
