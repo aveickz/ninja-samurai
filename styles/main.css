@@ -342,6 +342,26 @@ body {
   border-color: #3a8a3a;
 }
 
+/* ── Кнопка фильтра «На печать» ── */
+.filter-btn--print {
+  --tag-color: #4a7a9b;
+  color: #a8d4f0;
+  border-color: #2a4a6a;
+  background: #0d1e2e;
+}
+
+.filter-btn--print:hover {
+  border-color: #4a7a9b;
+  color: #d0eaff;
+}
+
+.filter-btn--print.active {
+  color: #0d1e2e;
+  background: #4a9bd4;
+  border-color: #a8d4f0;
+  box-shadow: 0 0 12px #4a9bd466;
+}
+
 /* ── Кнопка фильтра «Яд» ── */
 .filter-btn--poison {
   --tag-color: #3a8a3a;

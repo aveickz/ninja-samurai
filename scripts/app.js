@@ -50,10 +50,9 @@ $(function () {
   };
 
   // ── Состояние фильтра ─────────────────────────────────────────────
-  // activeFilters — Set активных типов; пусто = показывать все
-  var activeFilters = new Set();
-  // poisonFilter — true = показывать только ядовитые карты
-  var poisonFilter = false;
+  // activeMode: null = все, '__poison__' = яд, '__print__' = на печать,
+  //             или строка типа ('weapon', 'trap', …)
+  var activeMode = null;
 
   // ── Построение тегов типов на карточке ───────────────────────────
   function buildTypeTags(types, poison) {
@@ -114,7 +113,8 @@ $(function () {
       'data-types': card.types.join(' '),
       'data-group': card.group || 'action',
       'data-qty': card.qty || 1,
-      'data-poison': card.poison ? '1' : '0'
+      'data-poison': card.poison ? '1' : '0',
+      'data-toprint': card.toPrint ? '1' : '0'
     }).append(
       $card,
       $footer
@@ -181,17 +181,24 @@ $(function () {
   function applyFilter() {
     var totalTypes = 0;
     var totalQty = 0;
-    var isAll = activeFilters.size === 0;
-
-    // Считаем видимые карточки по группам
     var visibleByGroup = {};
 
     $('#grid .card-item').each(function () {
       var cardTypes = $(this).data('types').split(' ');
-      var isPoison = $(this).data('poison') === '1' || $(this).data('poison') === 1;
-      var typeMatch = isAll || cardTypes.some(function (t) { return activeFilters.has(t); });
-      var poisonMatch = !poisonFilter || isPoison;
-      var visible = typeMatch && poisonMatch;
+      var isPoison  = $(this).data('poison')  === '1' || $(this).data('poison')  === 1;
+      var isToPrint = $(this).data('toprint') === '1' || $(this).data('toprint') === 1;
+
+      var visible;
+      if (activeMode === '__poison__') {
+        visible = isPoison;
+      } else if (activeMode === '__print__') {
+        visible = isToPrint;
+      } else if (activeMode) {
+        visible = cardTypes.indexOf(activeMode) !== -1;
+      } else {
+        visible = true;
+      }
+
       $(this).toggleClass('card--hidden', !visible);
       if (visible) {
         totalTypes++;
@@ -213,11 +220,9 @@ $(function () {
     $('.filter-btn').each(function () {
       var t = $(this).data('type');
       if (t === '__all__') {
-        $(this).toggleClass('active', activeFilters.size === 0 && !poisonFilter);
-      } else if (t === '__poison__') {
-        $(this).toggleClass('active', poisonFilter);
+        $(this).toggleClass('active', activeMode === null);
       } else {
-        $(this).toggleClass('active', activeFilters.has(t));
+        $(this).toggleClass('active', activeMode === t);
       }
     });
   }
@@ -229,25 +234,36 @@ $(function () {
     // Кнопка «Все»
     $('<button>', { class: 'filter-btn active', text: 'Все', 'data-type': '__all__' })
       .on('click', function () {
-        activeFilters.clear();
-        poisonFilter = false;
+        activeMode = null;
         applyFilter();
       })
       .appendTo($bar);
 
-    // Кнопка «Яд»
+    // Кнопка «Яд» (эксклюзивный режим)
     $('<button>', {
       class: 'filter-btn filter-btn--poison',
       text: '☠ Яд',
       'data-type': '__poison__'
     })
       .on('click', function () {
-        poisonFilter = !poisonFilter;
+        activeMode = activeMode === '__poison__' ? null : '__poison__';
         applyFilter();
       })
       .appendTo($bar);
 
-    // Кнопка на каждый тип
+    // Кнопка «На печать» (эксклюзивный режим)
+    $('<button>', {
+      class: 'filter-btn filter-btn--print',
+      text: '🖨 На печать',
+      'data-type': '__print__'
+    })
+      .on('click', function () {
+        activeMode = activeMode === '__print__' ? null : '__print__';
+        applyFilter();
+      })
+      .appendTo($bar);
+
+    // Кнопка на каждый тип (эксклюзивный режим)
     $.each(ALL_TYPES, function (_, t) {
       var meta = TYPE_META[t];
       $('<button>', {
@@ -257,13 +273,7 @@ $(function () {
         css: { '--tag-color': meta.color }
       })
         .on('click', function () {
-          // Если этот тип уже активен — снимаем (возврат к «Все»)
-          if (activeFilters.has(t)) {
-            activeFilters.clear();
-          } else {
-            activeFilters.clear();
-            activeFilters.add(t);
-          }
+          activeMode = activeMode === t ? null : t;
           applyFilter();
         })
         .appendTo($bar);

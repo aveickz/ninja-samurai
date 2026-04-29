@@ -8,6 +8,7 @@ const CARDS = [
     types: ["weapon"],
     qty: 1,
     group: "weapon",
+    toPrint: false,
     poison: false,
     desc: "Дальность 1, сила 2.",
     img: "cards/card_2_katana.png"
@@ -18,6 +19,7 @@ const CARDS = [
     types: ["weapon"],
     qty: 1,
     group: "weapon",
+    toPrint: false,
     poison: false,
     desc: "Дальность 1, сила 1.",
     img: "cards/card_1_syuko.png"
@@ -28,6 +30,7 @@ const CARDS = [
     types: ["weapon"],
     qty: 1,
     group: "weapon",
+    toPrint: false,
     poison: false,
     desc: "Дальность 1, сила 3. Атакуемый игрок скидывает случайную карту в случае успешной атаки.",
     img: "cards/card_3_kanabo.png"
@@ -38,6 +41,7 @@ const CARDS = [
     types: ["weapon"],
     qty: 1,
     group: "weapon",
+    toPrint: false,
     poison: false,
     desc: "Дальность 1, сила 0. Вы берёте карту из колоды в случае успешной атаки.",
     img: "cards/card_4_bokken.png"
@@ -48,6 +52,7 @@ const CARDS = [
     types: ["weapon"],
     qty: 1,
     group: "weapon",
+    toPrint: false,
     poison: false,
     desc: "Дальность 2, сила 1. Нельзя защититься. Игнорирует ловушки. Можно производить атаку будучи в дуэли. Нельзя атаковать Сёгуна.",
     img: "cards/card_5_kinzhal_predatelya.png"
@@ -58,6 +63,7 @@ const CARDS = [
     types: ["weapon"],
     qty: 1,
     group: "weapon",
+    toPrint: false,
     poison: false,
     desc: "Дальность 2, сила 1. Можно воспользоваться либо как обычным оружием 1/2, либо как метательным оружием 3/1.",
     img: "cards/card_6_boevoy_veer.png"
@@ -68,6 +74,7 @@ const CARDS = [
     types: ["weapon"],
     qty: 1,
     group: "weapon",
+    toPrint: false,
     poison: false,
     desc: "Дальность 2, сила 2.",
     img: "cards/card_7_kusarigama.png"
@@ -78,6 +85,7 @@ const CARDS = [
     types: ["weapon"],
     qty: 1,
     group: "weapon",
+    toPrint: false,
     poison: false,
     desc: "Дальность 1, сила 2.",
     img: "cards/card_8_wakizashi.png"
@@ -88,6 +96,7 @@ const CARDS = [
     types: ["weapon", "defense"],
     qty: 1,
     group: "weapon",
+    toPrint: false,
     poison: false,
     desc: "Дальность 1, сила 1. Можно использовать как карту Защиты.",
     img: "cards/card_9_shipastyy_shchit.png"
@@ -98,6 +107,7 @@ const CARDS = [
     types: ["weapon"],
     qty: 1,
     group: "weapon",
+    toPrint: false,
     poison: false,
     desc: "Дальность 1, сила 1. Атакуемый игрок скидывает случайную карту в случае успешной атаки.",
     img: "cards/card_10_tonfa.png"
@@ -108,6 +118,7 @@ const CARDS = [
     types: ["weapon"],
     qty: 1,
     group: "weapon",
+    toPrint: false,
     poison: false,
     desc: "Дальность 1, сила 3.",
     img: "cards/card_11_kama.png"
@@ -118,6 +129,7 @@ const CARDS = [
     types: ["weapon"],
     qty: 3,
     group: "weapon",
+    toPrint: false,
     poison: false,
     desc: "Дальность 3, сила 3. Только Сёгун может проводить прямую атаку этим оружием. Можно сыграть как вмешательство, чтобы передать эту карту Сёгуну в обмен на другую в закрытую.",
     img: "cards/card_12_mech_syoguna.png"
@@ -128,6 +140,7 @@ const CARDS = [
     types: ["weapon"],
     qty: 1,
     group: "weapon",
+    toPrint: false,
     poison: false,
     desc: "Дальность 1, сила 4.",
     img: "cards/card_13_tekko_kagi.png"
@@ -138,6 +151,7 @@ const CARDS = [
     types: ["weapon"],
     qty: 1,
     group: "weapon",
+    toPrint: false,
     poison: false,
     desc: "Дальность 1, сила 2.",
     img: "cards/card_14_nunchaki.png"
@@ -148,6 +162,7 @@ const CARDS = [
     types: ["weapon"],
     qty: 1,
     group: "weapon",
+    toPrint: false,
     poison: false,
     desc: "Дальность 1, сила 2.",
     img: "cards/card_15_mango.png"
@@ -158,6 +173,7 @@ const CARDS = [
     types: ["weapon"],
     qty: 1,
     group: "weapon",
+    toPrint: false,
     poison: false,
     desc: "Дальность 1, сила 3.",
     img: "cards/card_16_mekko.png"
@@ -168,6 +184,7 @@ const CARDS = [
     types: ["weapon"],
     qty: 1,
     group: "weapon",
+    toPrint: false,
     poison: false,
     desc: "Дальность 1, сила 1.",
     img: "cards/card_17_makado.png"
@@ -178,6 +195,7 @@ const CARDS = [
     types: ["weapon"],
     qty: 1,
     group: "weapon",
+    toPrint: false,
     poison: false,
     desc: "Дальность 1, сила 2.",
     img: "cards/card_18_say.png"
@@ -188,6 +206,7 @@ const CARDS = [
     types: ["weapon"],
     qty: 1,
     group: "weapon",
+    toPrint: false,
     poison: false,
     desc: "Дальность 1, сила 1. Атакуемый игрок скидывает случайную карту в случае успешной атаки.",
     img: "cards/card_23_yavara.png"
@@ -198,6 +217,7 @@ const CARDS = [
     types: ["weapon"],
     qty: 1,
     group: "weapon",
+    toPrint: false,
     poison: true,
     desc: "Дальность 2, сила 1. Можно воспользоваться либо как обычным оружием 1/2, либо как метательным оружием 3/1.",
     img: "cards/card_19_otravlennyy_boevoy_veer.png"
@@ -208,6 +228,7 @@ const CARDS = [
     types: ["weapon"],
     qty: 1,
     group: "weapon",
+    toPrint: false,
     poison: true,
     desc: "Дальность 3, сила 1. Можно воспользоваться либо как обычным оружием 1/2, либо как метательным оружием 3/1.",
     img: "cards/card_20_otravlennyy_say.png"
@@ -218,6 +239,7 @@ const CARDS = [
     types: ["weapon"],
     qty: 1,
     group: "weapon",
+    toPrint: false,
     poison: false,
     desc: "Дальность 1, сила 1.",
     img: "cards/card_21_dzyutte.png"
@@ -228,6 +250,7 @@ const CARDS = [
     types: ["weapon"],
     qty: 1,
     group: "weapon",
+    toPrint: false,
     poison: false,
     desc: "Дальность 1, сила 2.",
     img: "cards/card_22_nunti.png"
@@ -238,6 +261,7 @@ const CARDS = [
     types: ["weapon"],
     qty: 2,
     group: "weapon",
+    toPrint: false,
     poison: false,
     desc: "Дальность 2, сила 1. Атакуемый игрок теряет стойку в случае успешной атаки.",
     img: "cards/card_24_bo.png"
@@ -248,6 +272,7 @@ const CARDS = [
     types: ["weapon"],
     qty: 2,
     group: "weapon",
+    toPrint: false,
     poison: false,
     desc: "Дальность 2, сила 3. Атакуемый игрок теряет стойку в случае успешной атаки.",
     img: "cards/card_25_nodati.png"
@@ -258,6 +283,7 @@ const CARDS = [
     types: ["weapon"],
     qty: 2,
     group: "weapon",
+    toPrint: false,
     poison: false,
     desc: "Дальность 2, сила 2. В случае успешной атаки вы забираете карту из руки врага.",
     img: "cards/card_26_kyoketsusyoge.png"
@@ -268,6 +294,7 @@ const CARDS = [
     types: ["weapon"],
     qty: 2,
     group: "weapon",
+    toPrint: false,
     poison: false,
     desc: "Дальность 2, сила 1. В случае успешной атаки вы забираете карту из руки врага.",
     img: "cards/card_27_manriki.png"
@@ -278,6 +305,7 @@ const CARDS = [
     types: ["weapon"],
     qty: 2,
     group: "weapon",
+    toPrint: false,
     poison: false,
     desc: "Дальность >1, сила 2. Может ударить на любом расстоянии более двух.",
     img: "cards/card_28_naginata.png"
@@ -288,6 +316,7 @@ const CARDS = [
     types: ["weapon"],
     qty: 2,
     group: "weapon",
+    toPrint: false,
     poison: false,
     desc: "Дальность 2, сила 1.",
     img: "cards/card_29_yari.png"
@@ -298,6 +327,7 @@ const CARDS = [
     types: ["weapon"],
     qty: 2,
     group: "weapon",
+    toPrint: false,
     poison: false,
     desc: "Дальность 2, сила 1.",
     img: "cards/card_31_kamayari.png"
@@ -308,6 +338,7 @@ const CARDS = [
     types: ["weapon"],
     qty: 2,
     group: "weapon",
+    toPrint: false,
     poison: true,
     desc: "Дальность 2, сила 2.",
     img: "cards/card_30_otravlennyy_yari.png"
@@ -318,6 +349,7 @@ const CARDS = [
     types: ["weapon"],
     qty: 3,
     group: "weapon",
+    toPrint: false,
     poison: false,
     desc: "Дальность >1, сила 1.",
     img: "cards/card_34_syuriken.png"
@@ -328,6 +360,7 @@ const CARDS = [
     types: ["weapon"],
     qty: 3,
     group: "weapon",
+    toPrint: false,
     poison: false,
     desc: "Дальность 3, сила 2.",
     img: "cards/card_33_dayku.png"
@@ -338,6 +371,7 @@ const CARDS = [
     types: ["weapon"],
     qty: 3,
     group: "weapon",
+    toPrint: false,
     poison: true,
     desc: "Дальность 3, сила 1.",
     img: "cards/card_32_otravlennyy_syuriken.png"
@@ -348,6 +382,7 @@ const CARDS = [
     types: ["weapon"],
     qty: 3,
     group: "weapon",
+    toPrint: false,
     poison: false,
     desc: "Дальность >1, сила 2.",
     img: "cards/card_36_kunay.png"
@@ -358,6 +393,7 @@ const CARDS = [
     types: ["weapon"],
     qty: 3,
     group: "weapon",
+    toPrint: false,
     poison: false,
     desc: "Дальность 3, сила 1. В случае успешной атаки это оружие возвращается вам в руку.",
     img: "cards/card_37_bumerang.png"
@@ -368,6 +404,7 @@ const CARDS = [
     types: ["weapon"],
     qty: 3,
     group: "weapon",
+    toPrint: false,
     poison: true,
     desc: "Дальность 3, сила 1.",
     img: "cards/card_35_otravlennyy_dayku.png"
@@ -378,6 +415,7 @@ const CARDS = [
     types: ["weapon", "trap"],
     qty: 3,
     group: "weapon",
+    toPrint: false,
     poison: false,
     desc: "Дальность 3, сила 0. Можно использовать как ловушку, которая наносит одну рану атакующему в ответ.",
     img: "cards/card_38_makibishi.png"
@@ -388,6 +426,7 @@ const CARDS = [
     types: ["weapon"],
     qty: 3,
     group: "weapon",
+    toPrint: false,
     poison: true,
     desc: "Дальность 3, сила 1. Атака игнорирует ловушки и защиту, и вы берёте карту из колоды.",
     img: "cards/card_39_drotik_s_yadom.png"
@@ -398,6 +437,7 @@ const CARDS = [
     types: ["weapon"],
     qty: 3,
     group: "weapon",
+    toPrint: false,
     poison: true,
     desc: "Дальность >1, сила 1.",
     img: "cards/card_40_otravlennyy_kunay.png"
@@ -410,6 +450,7 @@ const CARDS = [
     types: ["trap"],
     qty: 1,
     group: "trap",
+    toPrint: false,
     poison: false,
     desc: "ЛОВУШКА. Вы забираете у атакующего две карты.",
     img: "cards/card_41_silok.png"
@@ -420,6 +461,7 @@ const CARDS = [
     types: ["trap"],
     qty: 1,
     group: "trap",
+    toPrint: false,
     poison: false,
     desc: "ЛОВУШКА. Атака не проходит.",
     img: "cards/card_42_chuchelo.png"
@@ -430,6 +472,7 @@ const CARDS = [
     types: ["trap"],
     qty: 1,
     group: "trap",
+    toPrint: false,
     poison: false,
     desc: "ЛОВУШКА. Атакующий получает две раны от владельца ловушки.",
     img: "cards/card_43_kapkan.png"
@@ -440,6 +483,7 @@ const CARDS = [
     types: ["trap"],
     qty: 1,
     group: "trap",
+    toPrint: false,
     poison: false,
     desc: "ЛОВУШКА. Изначальная атака не проходит и обращается обратно, равная силе оружия. Атакующий может защититься от рикошета.",
     img: "cards/card_44_rikoshet.png"
@@ -450,6 +494,7 @@ const CARDS = [
     types: ["trap"],
     qty: 1,
     group: "trap",
+    toPrint: false,
     poison: true,
     desc: "ЛОВУШКА. Враг отравляется ядом. Если он уже отравлен, то получает 1 рану.",
     img: "cards/card_45_poganka.png"
@@ -460,6 +505,7 @@ const CARDS = [
     types: ["trap"],
     qty: 1,
     group: "trap",
+    toPrint: false,
     poison: false,
     desc: "ЛОВУШКА. Атакующий теряет свою стойку и сбрасывает две карты с руки на ваш выбор.",
     img: "cards/card_46_boevoy_banan.png"
@@ -470,6 +516,7 @@ const CARDS = [
     types: ["trap"],
     qty: 1,
     group: "trap",
+    toPrint: false,
     poison: false,
     desc: "Ловушка. Вы оскорбляете атакующего.",
     img: "cards/card_47_oskorblenie.png"
@@ -482,6 +529,7 @@ const CARDS = [
     types: ["defense"],
     qty: 1,
     group: "defense",
+    toPrint: false,
     poison: false,
     desc: "ЗАЩИТА ~ Атакующий получает одну рану от вас.",
     img: "cards/card_48_zashchita.png"
@@ -492,6 +540,7 @@ const CARDS = [
     types: ["defense"],
     qty: 1,
     group: "defense",
+    toPrint: false,
     poison: false,
     desc: "ЗАЩИТА ~ Атакующий получает одну рану от вас.",
     img: "cards/card_49_skrytyy_kinzhal.png"
@@ -502,6 +551,7 @@ const CARDS = [
     types: ["defense"],
     qty: 1,
     group: "defense",
+    toPrint: false,
     poison: true,
     desc: "ЗАЩИТА ~ Атакующий получает отравление ядом.",
     img: "cards/card_50_yadovitye_naruchi.png"
@@ -512,6 +562,7 @@ const CARDS = [
     types: ["defense"],
     qty: 1,
     group: "defense",
+    toPrint: false,
     poison: false,
     desc: "ЗАЩИТА ~ Вы забираете у атакующего случайную карту.",
     img: "cards/card_52_idealnyy_moment.png"
@@ -522,6 +573,7 @@ const CARDS = [
     types: ["defense"],
     qty: 1,
     group: "defense",
+    toPrint: false,
     poison: false,
     desc: "ЗАЩИТА ~ Вы также берёте карту из колоды.",
     img: "cards/card_53_vyderzka_samuray.png"
@@ -532,6 +584,7 @@ const CARDS = [
     types: ["defense"],
     qty: 1,
     group: "defense",
+    toPrint: false,
     poison: false,
     desc: "ЗАЩИТА ~ Вы можете выбрать сколько ран вы хотите получить при атаке, и за каждую рану берёте карту из колоды.",
     img: "cards/card_51_karmannik.png"
@@ -542,6 +595,7 @@ const CARDS = [
     types: ["defense"],
     qty: 1,
     group: "defense",
+    toPrint: false,
     poison: false,
     desc: "ЗАЩИТА ~ Атакующий сбрасывает случайную карту.",
     img: "cards/card_54_oshelomlenie.png"
@@ -552,6 +606,7 @@ const CARDS = [
     types: ["defense"],
     qty: 1,
     group: "defense",
+    toPrint: false,
     poison: false,
     desc: "ЗАЩИТА ~ Вы забираете не метательное оружие врага себе в руку.",
     img: "cards/card_55_zakhvat.png"
@@ -562,6 +617,7 @@ const CARDS = [
     types: ["defense", "intervention"],
     qty: 1,
     group: "defense",
+    toPrint: false,
     poison: false,
     desc: "ВМЕШАТЕЛЬСТВО~ЗАЩИТА. Можно сыграть в любой момент за любого игрока.",
     img: "cards/card_56_blok.png"
@@ -574,6 +630,7 @@ const CARDS = [
     types: ["stance"],
     qty: 1,
     group: "stance",
+    toPrint: false,
     poison: false,
     desc: "СТОЙКА ~ Вы обескровлены для других игроков весь раунд, но в начале своего хода вы сбрасываете эту стойку.",
     img: "cards/card_57_ten.png"
@@ -584,6 +641,7 @@ const CARDS = [
     types: ["stance"],
     qty: 1,
     group: "stance",
+    toPrint: false,
     poison: false,
     desc: "СТОЙКА ~ Вы находитесь дальше от всех на единицу при атаках по вам. Ваши атаки могут достать дальше на один.",
     img: "cards/card_58_vsadnik.png"
@@ -594,6 +652,7 @@ const CARDS = [
     types: ["stance"],
     qty: 1,
     group: "stance",
+    toPrint: false,
     poison: false,
     desc: "СТОЙКА ~ При выставлении восстановить два жетона стойкости и перед каждой фазой набора вы можете: восстановить жетон стойкости любому игроку ИЛИ снять яд или один эффект любому игроку, сбросив карту.",
     img: "cards/card_59_lotos.png"
@@ -604,6 +663,7 @@ const CARDS = [
     types: ["stance"],
     qty: 1,
     group: "stance",
+    toPrint: false,
     poison: false,
     desc: "СТОЙКА ~ Каждый раз при прямой атаке по вам снижаете урон на один. Дополнительно можете скинуть карту с руки за каждое снижение урона (не менее одного).",
     img: "cards/card_60_shchitonosec.png"
@@ -614,6 +674,7 @@ const CARDS = [
     types: ["stance"],
     qty: 1,
     group: "stance",
+    toPrint: false,
     poison: false,
     desc: "СТОЙКА ~ Каждый раз нанести врагу на одну рану больше по врагу взять одну карту из колоды после атаки вы можете: взять карту из колоды.",
     img: "cards/card_61_master_boya.png"
@@ -624,6 +685,7 @@ const CARDS = [
     types: ["stance"],
     qty: 1,
     group: "stance",
+    toPrint: false,
     poison: false,
     desc: "СТОЙКА ~ Раз в свой ход вы можете: восстановить жетон стойкости любому игроку ИЛИ снять яд или один эффект любому игроку, сбросив карту.",
     img: "cards/card_62_kapellan.png"
@@ -634,6 +696,7 @@ const CARDS = [
     types: ["stance"],
     qty: 1,
     group: "stance",
+    toPrint: false,
     poison: false,
     desc: "СТОЙКА ~ При атаке по врагу вы можете: сделать вашу атаку отравленной ядом ИЛИ сбросив две карты, сделать врага беззащитным от атаки.",
     img: "cards/card_63_assassin.png"
@@ -646,6 +709,7 @@ const CARDS = [
     types: ["modifier"],
     qty: 1,
     group: "modifier",
+    toPrint: false,
     poison: true,
     desc: "МОДИФИКАТОР ~ Ваша атака теперь накладывает отравление.",
     img: "cards/card_64_flakon_yada.png"
@@ -656,6 +720,7 @@ const CARDS = [
     types: ["modifier"],
     qty: 1,
     group: "modifier",
+    toPrint: false,
     poison: false,
     desc: "МОДИФИКАТОР ~ Ваша атака наносит на одну рану больше.",
     img: "cards/card_65_tochilo.png"
@@ -666,6 +731,7 @@ const CARDS = [
     types: ["modifier"],
     qty: 1,
     group: "modifier",
+    toPrint: false,
     poison: false,
     desc: "МОДИФИКАТОР ~ Дальность и сила атаки меняются местами.",
     img: "cards/card_66_in_i_yan.png"
@@ -676,6 +742,7 @@ const CARDS = [
     types: ["modifier"],
     qty: 1,
     group: "modifier",
+    toPrint: false,
     poison: false,
     desc: "МОДИФИКАТОР ~ Ваша атака игнорирует ловушки.",
     img: "cards/card_67_udar_teni.png"
@@ -686,6 +753,7 @@ const CARDS = [
     types: ["modifier"],
     qty: 1,
     group: "modifier",
+    toPrint: false,
     poison: false,
     desc: "МОДИФИКАТОР ~ Дальность вашей атаки увеличивается на единицу.",
     img: "cards/card_68_vypad.png"
@@ -696,6 +764,7 @@ const CARDS = [
     types: ["modifier"],
     qty: 1,
     group: "modifier",
+    toPrint: false,
     poison: false,
     desc: "МОДИФИКАТОР ~ От вашей атаки невозможно защититься, однако ловушки продолжают действовать.",
     img: "cards/card_69_postup_vetra.png"
@@ -706,6 +775,7 @@ const CARDS = [
     types: ["modifier"],
     qty: 1,
     group: "modifier",
+    toPrint: false,
     poison: false,
     desc: "МОДИФИКАТОР ~ Атаку можно провести даже по обескровленному игроку. Сёгун наносит на одну рану больше.",
     img: "cards/card_70_gnev_syoguna.png"
@@ -716,6 +786,7 @@ const CARDS = [
     types: ["modifier"],
     qty: 1,
     group: "modifier",
+    toPrint: false,
     poison: false,
     desc: "МОДИФИКАТОР ~ В случае успешной атаки вы восстанавливаете себе столько жетонов здоровья, сколько нанесли ран.",
     img: "cards/card_71_celebnyy_klinok.png"
@@ -726,6 +797,7 @@ const CARDS = [
     types: ["modifier"],
     qty: 1,
     group: "modifier",
+    toPrint: false,
     poison: false,
     desc: "МОДИФИКАТОР ~ Атака наносит удар по двум целям одновременно. Однако сила и дальность снижаются на один.",
     img: "cards/card_72_poryv_yarosti.png"
@@ -736,6 +808,7 @@ const CARDS = [
     types: ["modifier"],
     qty: 1,
     group: "modifier",
+    toPrint: false,
     poison: false,
     desc: "МОДИФИКАТОР ~ Ваша атака может бить на любом расстоянии и вы наносите на одну рану больше, но вы теряете один жетон стойкости. Нельзя применить на пороге смерти.",
     img: "cards/card_73_povyazka_kamikadze.png"
@@ -746,6 +819,7 @@ const CARDS = [
     types: ["modifier"],
     qty: 1,
     group: "modifier",
+    toPrint: false,
     poison: false,
     desc: "МОДИФИКАТОР ~ Увеличивает дальность атаки на два, но сила атаки (не оружия) становится равна единице. Делает атаку метательной.",
     img: "cards/card_74_sokrushitelnyy_udar.png"
@@ -756,6 +830,7 @@ const CARDS = [
     types: ["modifier"],
     qty: 1,
     group: "modifier",
+    toPrint: false,
     poison: false,
     desc: "МОДИФИКАТОР ~ Итоговая сила атаки становится равна вашему количеству жетонов здоровья.",
     img: "cards/card_75_brosok.png"
@@ -766,6 +841,7 @@ const CARDS = [
     types: ["modifier"],
     qty: 1,
     group: "modifier",
+    toPrint: false,
     poison: false,
     desc: "МОДИФИКАТОР ~ Отравленный противник получит на две раны больше.",
     img: "cards/card_76_kipyashchiy_yad.png"
@@ -776,6 +852,7 @@ const CARDS = [
     types: ["modifier"],
     qty: 1,
     group: "modifier",
+    toPrint: false,
     poison: false,
     desc: "МОДИФИКАТОР ~ Вы не тратите свою попытку атаки в данном ударе.",
     img: "cards/card_77_dlan_syoguna.png"
@@ -786,6 +863,7 @@ const CARDS = [
     types: ["modifier"],
     qty: 1,
     group: "modifier",
+    toPrint: false,
     poison: false,
     desc: "МОДИФИКАТОР ~ От вашей атаки невозможно защититься, и ловушки не действуют.",
     img: "cards/card_78_dukh_syoguna.png"
@@ -796,6 +874,7 @@ const CARDS = [
     types: ["modifier"],
     qty: 1,
     group: "modifier",
+    toPrint: false,
     poison: false,
     desc: "МОДИФИКАТОР ~ Ваша атака оружием полностью игнорирует все бонусы от стойки и персонажа врага.",
     img: "cards/card_80_pronzitelnyy_udar.png"
@@ -806,6 +885,7 @@ const CARDS = [
     types: ["modifier"],
     qty: 1,
     group: "modifier",
+    toPrint: false,
     poison: false,
     desc: "МОДИФИКАТОР ~ Ваша базовая сила атаки оружием удваивается.",
     img: "cards/card_79_kriticheskiy_udar.png"
@@ -818,6 +898,7 @@ const CARDS = [
     types: ["group", "action"],
     qty: 1,
     group: "group",
+    toPrint: false,
     poison: false,
     desc: "Восстановите два жетона стойкости, а все остальные активные игроки один.",
     img: "cards/card_81_celitelnyye_istochniki.png"
@@ -828,6 +909,7 @@ const CARDS = [
     types: ["group", "action"],
     qty: 1,
     group: "group",
+    toPrint: false,
     poison: false,
     desc: "Остальные активные игроки скидывают карту защиты или оружия, либо отдают вам карту из руки на свой выбор.",
     img: "cards/card_82_mirotvortsy.png"
@@ -838,6 +920,7 @@ const CARDS = [
     types: ["group", "action"],
     qty: 1,
     group: "group",
+    toPrint: false,
     poison: false,
     desc: "Все активные игроки теряют стойку. Сёгун не участвует в потасовке.",
     img: "cards/card_83_potasovka.png"
@@ -848,6 +931,7 @@ const CARDS = [
     types: ["group", "action"],
     qty: 1,
     group: "group",
+    toPrint: false,
     poison: false,
     desc: "Вы берёте три карты, остальные активные игроки берут по одной.",
     img: "cards/card_84_chaynaya_tseremoniya.png"
@@ -858,6 +942,7 @@ const CARDS = [
     types: ["group", "action"],
     qty: 1,
     group: "group",
+    toPrint: false,
     poison: false,
     desc: "Все ловушки на столе открываются, но продолжают действовать.",
     img: "cards/card_85_prosvietlenie.png"
@@ -868,6 +953,7 @@ const CARDS = [
     types: ["group", "action"],
     qty: 1,
     group: "group",
+    toPrint: false,
     poison: false,
     desc: "Играется в паре с картой не метательного оружия с дальностью более одного. Минуя ловушки, активные игроки получают урон от оружия (без бонусов) или скидывают защиту. Тратит атаку.",
     img: "cards/card_86_vikhr_yarosti.png"
@@ -878,6 +964,7 @@ const CARDS = [
     types: ["group", "action"],
     qty: 1,
     group: "group",
+    toPrint: false,
     poison: false,
     desc: "Играется в паре с картой метательного оружия. Минуя ловушки, активные игроки получают две раны или скидывают защиту. Тратит атаку.",
     img: "cards/card_86_vikhr_yarosti.png"
@@ -888,6 +975,7 @@ const CARDS = [
     types: ["group", "effect"],
     qty: 2,
     group: "group",
+    toPrint: false,
     poison: true,
     desc: "Все активные игроки получают отравление ядом.",
     img: "cards/card_87_bochka_zlovoniya.png"
@@ -898,6 +986,7 @@ const CARDS = [
     types: ["group", "action"],
     qty: 1,
     group: "group",
+    toPrint: false,
     poison: false,
     desc: "Остальные активные игроки скидывают карту оружия или жетон стойкости.",
     img: "cards/card_88_grad_strel.png"
@@ -908,6 +997,7 @@ const CARDS = [
     types: ["group", "action"],
     qty: 1,
     group: "group",
+    toPrint: false,
     poison: false,
     desc: "Все ловушки на столе сбрасываются в сброс.",
     img: "cards/card_89_boevoy_krik.png"
@@ -920,6 +1010,7 @@ const CARDS = [
     types: ["effect"],
     qty: 1,
     group: "effect",
+    toPrint: false,
     poison: false,
     desc: "ПОСТОЯННЫЙ эффект. Все атаки по вам наносят на одну рану больше.",
     img: "cards/card_90_metka_ubiytsy.png"
@@ -930,6 +1021,7 @@ const CARDS = [
     types: ["effect"],
     qty: 1,
     group: "effect",
+    toPrint: false,
     poison: false,
     desc: "ПОСТОЯННЫЙ эффект. Вас нельзя отравить ядом. Текущее отравление снимается.",
     img: "cards/card_91_protivoyadie.png"
@@ -940,6 +1032,7 @@ const CARDS = [
     types: ["effect"],
     qty: 1,
     group: "effect",
+    toPrint: false,
     poison: false,
     desc: "ПОСТОЯННЫЙ эффект. Каждое лечение по игроку снижается на единицу. Также все негативные эффекты от отравления удваиваются.",
     img: "cards/card_92_ukus_zmeyi.png"
@@ -950,6 +1043,7 @@ const CARDS = [
     types: ["effect"],
     qty: 1,
     group: "effect",
+    toPrint: false,
     poison: false,
     desc: "ПОСТОЯННЫЙ эффект. Атаки по вам могут быть произведены без ограничения дальности.",
     img: "cards/card_93_kaginava.png"
@@ -960,6 +1054,7 @@ const CARDS = [
     types: ["effect"],
     qty: 1,
     group: "effect",
+    toPrint: false,
     poison: false,
     desc: "ПОСТОЯННЫЙ эффект. Выбранный игрок не может производить прямые атаки оружием.",
     img: "cards/card_94_razoruzhenie.png"
@@ -970,6 +1065,7 @@ const CARDS = [
     types: ["effect"],
     qty: 1,
     group: "effect",
+    toPrint: false,
     poison: false,
     desc: "РАЗОВЫЙ эффект. Следующий игровой ход выбранный игрок будто обескровлен.",
     img: "cards/card_95_zavesa_dyma.png"
@@ -980,6 +1076,7 @@ const CARDS = [
     types: ["effect"],
     qty: 1,
     group: "effect",
+    toPrint: false,
     poison: false,
     desc: "ПОСТОЯННЫЙ эффект. Атаки игрока не может бить дальше расстояния в единицу.",
     img: "cards/card_97_pyl_v_glaza.png"
@@ -990,6 +1087,7 @@ const CARDS = [
     types: ["effect", "action"],
     qty: 2,
     group: "effect",
+    toPrint: false,
     poison: false,
     desc: "Выбранный игрок скидывает один выбранный вами эффект. Вы можете восстановить жизнь или взять карту из колоды.",
     img: "cards/card_96_palochka_blagovoniy.png"
@@ -1000,6 +1098,7 @@ const CARDS = [
     types: ["effect", "action"],
     qty: 1,
     group: "effect",
+    toPrint: false,
     poison: false,
     desc: "Выбранный игрок скидывает все эффекты. За каждый сброшенный эффект вы можете восстановить жизнь или взять карту из колоды.",
     img: "cards/card_98_chasha_blagovoniy.png"
@@ -1010,6 +1109,7 @@ const CARDS = [
     types: ["effect"],
     qty: 1,
     group: "effect",
+    toPrint: false,
     poison: false,
     desc: "ПОСТОЯННЫЙ эффект. Следующая атака не может нанести более одной раны.",
     img: "cards/card_99_slabost.png"
@@ -1020,6 +1120,7 @@ const CARDS = [
     types: ["effect"],
     qty: 1,
     group: "effect",
+    toPrint: false,
     poison: false,
     desc: "ПОСТОЯННЫЙ эффект. Игрок не может защищаться от атак.",
     img: "cards/card_100_bezzashchitnost.png"
@@ -1030,6 +1131,7 @@ const CARDS = [
     types: ["effect"],
     qty: 1,
     group: "effect",
+    toPrint: false,
     poison: false,
     desc: "ПОСТОЯННЫЙ эффект. Выбранный игрок наносит на одну рану больше.",
     img: "cards/card_101_dukh_lidera.png"
@@ -1040,6 +1142,7 @@ const CARDS = [
     types: ["effect"],
     qty: 1,
     group: "effect",
+    toPrint: false,
     poison: false,
     desc: "ПОСТОЯННЫЙ эффект. За ход вы можете сделать на одну прямую атаку меньше.",
     img: "cards/card_102_bessilie.png"
@@ -1050,6 +1153,7 @@ const CARDS = [
     types: ["effect"],
     qty: 1,
     group: "effect",
+    toPrint: false,
     poison: false,
     desc: "РАЗОВЫЙ эффект. Выбранный игрок автоматически защищается от атаки.",
     img: "cards/card_103_egida.png"
@@ -1062,6 +1166,7 @@ const CARDS = [
     types: ["action"],
     qty: 1,
     group: "action",
+    toPrint: false,
     poison: false,
     desc: "Выбранный игрок избавляется от яда и получает жетон стойкости.",
     img: "cards/card_104_vasabi.png"
@@ -1072,6 +1177,7 @@ const CARDS = [
     types: ["action"],
     qty: 1,
     group: "action",
+    toPrint: false,
     poison: false,
     desc: "Поменяйте эту карту на любую из сброса не глубже последних 10, но не ранее последних 3.",
     img: "cards/card_105_zov_predkov.png"
@@ -1082,6 +1188,7 @@ const CARDS = [
     types: ["action", "effect"],
     qty: 4,
     group: "action",
+    toPrint: false,
     poison: false,
     desc: "Любой выбранный активный игрок восстанавливает два жетона стойкости.",
     img: "cards/card_106_shvy.png"
@@ -1092,6 +1199,7 @@ const CARDS = [
     types: ["action"],
     qty: 1,
     group: "action",
+    toPrint: false,
     poison: false,
     desc: "Вы умираете и отдаёте жетон чести другому игроку. Таким образом нельзя потерять последний жетон чести.",
     img: "cards/card_107_seppuku.png"
@@ -1102,6 +1210,7 @@ const CARDS = [
     types: ["action"],
     qty: 1,
     group: "action",
+    toPrint: false,
     poison: false,
     desc: "Можете сбросить эту карту совместно с другими (максимум 3). За каждую сброшенную карту, включая эту, берёте новую карту из колоды.",
     img: "cards/card_108_sake.png"
@@ -1112,6 +1221,7 @@ const CARDS = [
     types: ["action"],
     qty: 1,
     group: "action",
+    toPrint: false,
     poison: false,
     desc: "Другой выбранный игрок скидывает свою текущую стойку, за это вы берёте карту. Или можете сбросить эту карту, чтобы взять две новых из колоды.",
     img: "cards/card_109_podsechka.png"
@@ -1122,6 +1232,7 @@ const CARDS = [
     types: ["action"],
     qty: 1,
     group: "action",
+    toPrint: false,
     poison: false,
     desc: "Вы сбрасываете жетон чести в сброс, и за это получаете семь карт из колоды. Не считается смертью.",
     img: "cards/card_110_predatelstvo.png"
@@ -1132,6 +1243,7 @@ const CARDS = [
     types: ["action"],
     qty: 1,
     group: "action",
+    toPrint: false,
     poison: false,
     desc: "Можете обезвредить любую ловушку на столе, за это вы берёте карту. Или можете сбросить эту карту, чтобы взять две новых из колоды.",
     img: "cards/card_111_sapyor.png"
@@ -1142,6 +1254,7 @@ const CARDS = [
     types: ["action"],
     qty: 1,
     group: "action",
+    toPrint: false,
     poison: false,
     desc: "Количество жетонов жизни выбранного игрока становится равно вашему.",
     img: "cards/card_112_ekvilibrium.png"
@@ -1152,6 +1265,7 @@ const CARDS = [
     types: ["action"],
     qty: 1,
     group: "action",
+    toPrint: false,
     poison: false,
     desc: "Восстановите все недостающие жетоны стойкости. Другой игрок на ваш выбор берёт одну карту из колоды.",
     img: "cards/card_113_peredyshka.png"
@@ -1162,6 +1276,7 @@ const CARDS = [
     types: ["action"],
     qty: 1,
     group: "action",
+    toPrint: false,
     poison: false,
     desc: "Выбранный игрок показывает всем свои карты с руки до следующего действия.",
     img: "cards/card_114_yasnovidenie.png"
@@ -1172,6 +1287,7 @@ const CARDS = [
     types: ["action", "effect"],
     qty: 1,
     group: "action",
+    toPrint: false,
     poison: true,
     desc: "Отравляет выбранного активного игрока. Если игрок уже отравлен, он получает одну рану.",
     img: "cards/card_116_yad_fugu.png"
@@ -1182,6 +1298,7 @@ const CARDS = [
     types: ["action"],
     qty: 1,
     group: "action",
+    toPrint: false,
     poison: false,
     desc: "Вы меняетесь с выбранным игроком количеством жетонов стойкости.",
     img: "cards/card_115_obmen_dush.png"
@@ -1192,6 +1309,7 @@ const CARDS = [
     types: ["action"],
     qty: 1,
     group: "action",
+    toPrint: false,
     poison: false,
     desc: "Либо сыграйте эту карту, чтобы взять три новых из колоды, или оставьте, чтобы получить победное очко (кроме Ронина).",
     img: "cards/card_117_dayme.png"
@@ -1202,6 +1320,7 @@ const CARDS = [
     types: ["action"],
     qty: 1,
     group: "action",
+    toPrint: false,
     poison: false,
     desc: "Очищает любого игрока от отравления и передаёт его любому другому.",
     img: "cards/card_118_perelivanie_krovi.png"
@@ -1212,6 +1331,7 @@ const CARDS = [
     types: ["action"],
     qty: 1,
     group: "action",
+    toPrint: false,
     poison: false,
     desc: "Сыграв эту карту, берите за каждый сброшенный жетон стойкости (кроме последнего) новую карту из колоды.",
     img: "cards/card_119_zhertva_krovi.png"
@@ -1224,6 +1344,7 @@ const CARDS = [
     types: ["intervention"],
     qty: 1,
     group: "intervention",
+    toPrint: false,
     poison: false,
     desc: "ВМЕШАТЕЛЬСТВО. Восстановите все жетоны стойкости отравленному ядом игроку и снимите само отравление.",
     img: "cards/card_120_istselenie.png"
@@ -1234,6 +1355,7 @@ const CARDS = [
     types: ["intervention"],
     qty: 1,
     group: "intervention",
+    toPrint: false,
     poison: false,
     desc: "ВМЕШАТЕЛЬСТВО. Сыграйте эту карту, чтобы нанести две раны отравленному ядом игроку.",
     img: "cards/card_121_smert_ot_fugu.png"
@@ -1244,6 +1366,7 @@ const CARDS = [
     types: ["intervention"],
     qty: 1,
     group: "intervention",
+    toPrint: false,
     poison: false,
     desc: "ВМЕШАТЕЛЬСТВО. Сыграйте эту карту, чтобы восстановить любому игроку один жетон стойкости.",
     img: "cards/card_122_imbir.png"
@@ -1254,6 +1377,7 @@ const CARDS = [
     types: ["intervention"],
     qty: 1,
     group: "intervention",
+    toPrint: false,
     poison: false,
     desc: "ВМЕШАТЕЛЬСТВО. Сыграйте эту карту, чтобы нанести одну рану любому выбранному игроку.",
     img: "cards/card_123_udar_drakona.png"
@@ -1264,6 +1388,7 @@ const CARDS = [
     types: ["intervention"],
     qty: 1,
     group: "intervention",
+    toPrint: false,
     poison: false,
     desc: "ВМЕШАТЕЛЬСТВО. Сыграйте эту карту, чтобы перенаправить прямую атаку оружия на себя.",
     img: "cards/card_124_podvig.png"
@@ -1274,6 +1399,7 @@ const CARDS = [
     types: ["intervention"],
     qty: 1,
     group: "intervention",
+    toPrint: false,
     poison: false,
     desc: "ВМЕШАТЕЛЬСТВО. Сыграйте эту карту, чтобы обменяться в закрытую с любым игроком картами на ваше обоюдное усмотрение.",
     img: "cards/card_125_ruka_pomoshchi.png"
@@ -1284,6 +1410,7 @@ const CARDS = [
     types: ["intervention"],
     qty: 1,
     group: "intervention",
+    toPrint: false,
     poison: false,
     desc: "ВМЕШАТЕЛЬСТВО. Сыграйте эту карту, чтобы передать любому игроку в закрытую любую другую карту из своей руки.",
     img: "cards/card_126_vestochka.png"
@@ -1294,6 +1421,7 @@ const CARDS = [
     types: ["intervention", "effect"],
     qty: 1,
     group: "intervention",
+    toPrint: false,
     poison: false,
     desc: "ВМЕШАТЕЛЬСТВО. ЭФФЕКТ. Выбранный игрок симулирует смерть, оставляя один жетон стойкости. Следующий раунд он обескровлен. В начале хода игрока эффект пропадает. Можно сыграть во время прямой атаки оружием по игроку.",
     img: "cards/card_127_simulyant.png"
@@ -1306,6 +1434,7 @@ const CARDS = [
     types: ["action"],
     qty: 1,
     group: "action",
+    toPrint: false,
     poison: false,
     desc: "Заберите одну случайную карту с руки любого активного игрока.",
     img: "cards/card_128_vorovstvo.png"
@@ -1316,6 +1445,7 @@ const CARDS = [
     types: ["action"],
     qty: 1,
     group: "action",
+    toPrint: false,
     poison: false,
     desc: "Можете выбрать любой эффект на столе и переложить его на любого игрока.",
     img: "cards/card_129_kukla_vudu.png"
@@ -1326,6 +1456,7 @@ const CARDS = [
     types: ["action"],
     qty: 1,
     group: "action",
+    toPrint: false,
     poison: false,
     desc: "Вы забираете выбранный эффект игрока на себя.",
     img: "cards/card_130_durman.png"
@@ -1336,6 +1467,7 @@ const CARDS = [
     types: ["action"],
     qty: 1,
     group: "action",
+    toPrint: false,
     poison: false,
     desc: "Забираете у игрока жетон стойкости и добавляете его себе.",
     img: "cards/card_131_sifon_zhizni.png"
@@ -1346,6 +1478,7 @@ const CARDS = [
     types: ["action"],
     qty: 1,
     group: "action",
+    toPrint: false,
     poison: false,
     desc: "Вы забираете ловушку другого игрока себе в руку.",
     img: "cards/card_132_obman.png"
@@ -1358,6 +1491,7 @@ const CARDS = [
     types: ["character"],
     qty: 5,
     group: "character",
+    toPrint: false,
     poison: false,
     desc: "Ваши атаки на расстоянии один наносят на одну рану больше. За каждую рану, полученную от оружия, вы берёте карту из колоды. Раз за ход можете обменять жетоны стойкости на новые карты из колоды.",
     img: "cards/card_133_ryudzo.png"
@@ -1368,6 +1502,7 @@ const CARDS = [
     types: ["character"],
     qty: 5,
     group: "character",
+    toPrint: false,
     poison: false,
     desc: "Ваши атаки метательным оружием наносят на одну рану больше. Атаки по вам оружием с дальностью 1 наносят на одну рану меньше. Дайкю не имеет ограничений дальности.",
     img: "cards/card_135_usivaka.png"
@@ -1378,6 +1513,7 @@ const CARDS = [
     types: ["character"],
     qty: 5,
     group: "character",
+    toPrint: false,
     poison: false,
     desc: "В фазе набора вы берёте дополнительную карту и можете брать из сброса. В случае воровства или ошеломления и реакции на групповые действия, сами выбираете какую карту отдавать.",
     img: "cards/card_136_taranaga.png"
@@ -1388,6 +1524,7 @@ const CARDS = [
     types: ["character"],
     qty: 5,
     group: "character",
+    toPrint: false,
     poison: false,
     desc: "Вашу стойку не могут украсть или сбросить. Вы не теряете стойку при смерти. На вас не действуют карты, заставляющие сбросить случайную карту. Полностью деревянные оружия наносят дополнительную рану.",
     img: "cards/card_138_kokoro.png"
@@ -1398,6 +1535,7 @@ const CARDS = [
     types: ["character"],
     qty: 4,
     group: "character",
+    toPrint: false,
     poison: false,
     desc: "Ваши прямые атаки игнорируют ловушки. Вы можете сыграть карту оружия как карту защиты, при этом получая одну рану.",
     img: "cards/card_139_handzo.png"
@@ -1408,6 +1546,7 @@ const CARDS = [
     types: ["character"],
     qty: 5,
     group: "character",
+    toPrint: false,
     poison: false,
     desc: "Ваши ловушки не могут обезвредить, украсть или просветить. Вы можете воспользоваться активной ловушкой как защитой, потеряв бонусы от ловушки.",
     img: "cards/card_140_iyo.png"
@@ -1418,6 +1557,7 @@ const CARDS = [
     types: ["character"],
     qty: 5,
     group: "character",
+    toPrint: false,
     poison: false,
     desc: "Вместо нанесения ран вы можете объявить, что будете воровать карты. Раз в ход вы можете сбросить три карты, чтобы взять две новых из колоды. У вас не могут воровать карты.",
     img: "cards/card_141_taka.png"
