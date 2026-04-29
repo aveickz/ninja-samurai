@@ -9,7 +9,7 @@ const CARDS = [
     qty: 1,
     group: "weapon",
     desc: "Дальность 1, сила 2.",
-    img: "cards/01_geysha.jpg"
+    img: "cards/card_2_katana.png"
   },
   {
     id: 2,
@@ -18,7 +18,7 @@ const CARDS = [
     qty: 1,
     group: "weapon",
     desc: "Дальность 1, сила 1.",
-    img: "cards/01_geysha.jpg"
+    img: "cards/card_1_syuko.png"
   },
   {
     id: 3,
@@ -27,7 +27,7 @@ const CARDS = [
     qty: 1,
     group: "weapon",
     desc: "Дальность 1, сила 3. Атакуемый игрок скидывает случайную карту в случае успешной атаки.",
-    img: "cards/01_geysha.jpg"
+    img: "cards/card_3_kanabo.png"
   },
   {
     id: 4,
@@ -36,7 +36,7 @@ const CARDS = [
     qty: 1,
     group: "weapon",
     desc: "Дальность 1, сила 0. Вы берёте карту из колоды в случае успешной атаки.",
-    img: "cards/01_geysha.jpg"
+    img: "cards/card_4_bokken.png"
   },
   {
     id: 5,
@@ -45,7 +45,7 @@ const CARDS = [
     qty: 1,
     group: "weapon",
     desc: "Дальность 2, сила 1. Нельзя защититься. Игнорирует ловушки. Можно производить атаку будучи в дуэли. Нельзя атаковать Сёгуна.",
-    img: "cards/01_geysha.jpg"
+    img: "cards/card_5_kinzhal_predatelya.png"
   },
   {
     id: 6,
@@ -54,7 +54,7 @@ const CARDS = [
     qty: 1,
     group: "weapon",
     desc: "Дальность 2, сила 1. Можно воспользоваться либо как обычным оружием 1/2, либо как метательным оружием 3/1.",
-    img: "cards/01_geysha.jpg"
+    img: "cards/card_6_boevoy_veer.png"
   },
   {
     id: 7,
@@ -63,7 +63,7 @@ const CARDS = [
     qty: 1,
     group: "weapon",
     desc: "Дальность 2, сила 2.",
-    img: "cards/01_geysha.jpg"
+    img: "cards/card_7_kusarigama.png"
   },
   {
     id: 8,
@@ -72,7 +72,7 @@ const CARDS = [
     qty: 1,
     group: "weapon",
     desc: "Дальность 1, сила 2.",
-    img: "cards/01_geysha.jpg"
+    img: "cards/card_8_wakizashi.png"
   },
   {
     id: 9,
@@ -81,7 +81,7 @@ const CARDS = [
     qty: 1,
     group: "weapon",
     desc: "Дальность 1, сила 1. Можно использовать как карту Защиты.",
-    img: "cards/01_geysha.jpg"
+    img: "cards/card_9_shipastyy_shchit.png"
   },
   {
     id: 10,
@@ -90,7 +90,7 @@ const CARDS = [
     qty: 1,
     group: "weapon",
     desc: "Дальность 1, сила 1. Атакуемый игрок скидывает случайную карту в случае успешной атаки.",
-    img: "cards/02_tenevoy_pakt.jpg"
+    img: "cards/card_10_tonfa.png"
   },
   {
     id: 11,
@@ -99,7 +99,7 @@ const CARDS = [
     qty: 1,
     group: "weapon",
     desc: "Дальность 1, сила 3.",
-    img: "cards/02_tenevoy_pakt.jpg"
+    img: "cards/card_11_kama.png"
   },
   {
     id: 12,
@@ -108,7 +108,7 @@ const CARDS = [
     qty: 3,
     group: "weapon",
     desc: "Дальность 3, сила 3. Только Сёгун может проводить прямую атаку этим оружием. Можно сыграть как вмешательство, чтобы передать эту карту Сёгуну в обмен на другую в закрытую.",
-    img: "cards/02_tenevoy_pakt.jpg"
+    img: "cards/card_12_mech_syoguna.png"
   },
   {
     id: 13,
@@ -117,7 +117,7 @@ const CARDS = [
     qty: 1,
     group: "weapon",
     desc: "Дальность 1, сила 4.",
-    img: "cards/02_tenevoy_pakt.jpg"
+    img: "cards/card_13_tekko_kagi.png"
   },
   {
     id: 14,
@@ -126,7 +126,7 @@ const CARDS = [
     qty: 1,
     group: "weapon",
     desc: "Дальность 1, сила 2.",
-    img: "cards/02_tenevoy_pakt.jpg"
+    img: "cards/card_14_nunchaki.png"
   },
   {
     id: 15,
@@ -135,7 +135,7 @@ const CARDS = [
     qty: 1,
     group: "weapon",
     desc: "Дальность 1, сила 2.",
-    img: "cards/02_tenevoy_pakt.jpg"
+    img: "cards/card_15_mango.png"
   },
   {
     id: 16,
@@ -144,7 +144,7 @@ const CARDS = [
     qty: 1,
     group: "weapon",
     desc: "Дальность 1, сила 3.",
-    img: "cards/02_tenevoy_pakt.jpg"
+    img: "cards/card_16_mekko.png"
   },
   {
     id: 17,
@@ -153,7 +153,7 @@ const CARDS = [
     qty: 1,
     group: "weapon",
     desc: "Дальность 1, сила 1.",
-    img: "cards/02_tenevoy_pakt.jpg"
+    img: "cards/card_17_makado.png"
   },
   {
     id: 18,
@@ -162,7 +162,7 @@ const CARDS = [
     qty: 1,
     group: "weapon",
     desc: "Дальность 1, сила 2.",
-    img: "cards/02_tenevoy_pakt.jpg"
+    img: "cards/card_18_say.png"
   },
   {
     id: 19,
@@ -171,7 +171,7 @@ const CARDS = [
     qty: 1,
     group: "weapon",
     desc: "Дальность 1, сила 1. Атакуемый игрок скидывает случайную карту в случае успешной атаки.",
-    img: "cards/03_vyzhivshiy.jpg"
+    img: "cards/card_23_yavara.png"
   },
   {
     id: 20,
@@ -180,7 +180,7 @@ const CARDS = [
     qty: 1,
     group: "weapon",
     desc: "Дальность 2, сила 1. Можно воспользоваться либо как обычным оружием 1/2, либо как метательным оружием 3/1.",
-    img: "cards/03_vyzhivshiy.jpg"
+    img: "cards/card_19_otravlennyy_boevoy_veer.png"
   },
   {
     id: 21,
@@ -189,7 +189,7 @@ const CARDS = [
     qty: 1,
     group: "weapon",
     desc: "Дальность 3, сила 1. Можно воспользоваться либо как обычным оружием 1/2, либо как метательным оружием 3/1.",
-    img: "cards/03_vyzhivshiy.jpg"
+    img: "cards/card_20_otravlennyy_say.png"
   },
   {
     id: 22,
@@ -198,7 +198,7 @@ const CARDS = [
     qty: 1,
     group: "weapon",
     desc: "Дальность 1, сила 1.",
-    img: "cards/03_vyzhivshiy.jpg"
+    img: "cards/card_21_dzyutte.png"
   },
   {
     id: 23,
@@ -207,7 +207,7 @@ const CARDS = [
     qty: 1,
     group: "weapon",
     desc: "Дальность 1, сила 2.",
-    img: "cards/03_vyzhivshiy.jpg"
+    img: "cards/card_22_nunti.png"
   },
   {
     id: 24,
@@ -216,7 +216,7 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     desc: "Дальность 2, сила 1. Атакуемый игрок теряет стойку в случае успешной атаки.",
-    img: "cards/04_makibishi.jpg"
+    img: "cards/card_24_bo.png"
   },
   {
     id: 25,
@@ -225,7 +225,7 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     desc: "Дальность 2, сила 3. Атакуемый игрок теряет стойку в случае успешной атаки.",
-    img: "cards/04_makibishi.jpg"
+    img: "cards/card_25_nodati.png"
   },
   {
     id: 26,
@@ -234,7 +234,7 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     desc: "Дальность 2, сила 2. В случае успешной атаки вы забираете карту из руки врага.",
-    img: "cards/04_makibishi.jpg"
+    img: "cards/card_26_kyoketsusyoge.png"
   },
   {
     id: 27,
@@ -243,7 +243,7 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     desc: "Дальность 2, сила 1. В случае успешной атаки вы забираете карту из руки врага.",
-    img: "cards/04_makibishi.jpg"
+    img: "cards/card_27_manriki.png"
   },
   {
     id: 28,
@@ -252,7 +252,7 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     desc: "Дальность >1, сила 2. Может ударить на любом расстоянии более двух.",
-    img: "cards/04_makibishi.jpg"
+    img: "cards/card_28_naginata.png"
   },
   {
     id: 29,
@@ -261,7 +261,7 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     desc: "Дальность 2, сила 1.",
-    img: "cards/04_makibishi.jpg"
+    img: "cards/card_29_yari.png"
   },
   {
     id: 30,
@@ -270,7 +270,7 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     desc: "Дальность 2, сила 1.",
-    img: "cards/04_makibishi.jpg"
+    img: "cards/card_31_kamayari.png"
   },
   {
     id: 31,
@@ -279,7 +279,7 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     desc: "Дальность 2, сила 2.",
-    img: "cards/04_makibishi.jpg"
+    img: "cards/card_30_otravlennyy_yari.png"
   },
   {
     id: 32,
@@ -288,7 +288,7 @@ const CARDS = [
     qty: 3,
     group: "weapon",
     desc: "Дальность >1, сила 1.",
-    img: "cards/05_vmeshatelstvo.jpg"
+    img: "cards/card_34_syuriken.png"
   },
   {
     id: 33,
@@ -297,7 +297,7 @@ const CARDS = [
     qty: 3,
     group: "weapon",
     desc: "Дальность 3, сила 2.",
-    img: "cards/05_vmeshatelstvo.jpg"
+    img: "cards/card_33_dayku.png"
   },
   {
     id: 34,
@@ -306,7 +306,7 @@ const CARDS = [
     qty: 3,
     group: "weapon",
     desc: "Дальность 3, сила 1.",
-    img: "cards/05_vmeshatelstvo.jpg"
+    img: "cards/card_32_otravlennyy_syuriken.png"
   },
   {
     id: 35,
@@ -315,7 +315,7 @@ const CARDS = [
     qty: 3,
     group: "weapon",
     desc: "Дальность >1, сила 2.",
-    img: "cards/05_vmeshatelstvo.jpg"
+    img: "cards/card_36_kunay.png"
   },
   {
     id: 36,
@@ -324,7 +324,7 @@ const CARDS = [
     qty: 3,
     group: "weapon",
     desc: "Дальность 3, сила 1. В случае успешной атаки это оружие возвращается вам в руку.",
-    img: "cards/05_vmeshatelstvo.jpg"
+    img: "cards/card_37_bumerang.png"
   },
   {
     id: 37,
@@ -333,7 +333,7 @@ const CARDS = [
     qty: 3,
     group: "weapon",
     desc: "Дальность 3, сила 1.",
-    img: "cards/05_vmeshatelstvo.jpg"
+    img: "cards/card_35_otravlennyy_dayku.png"
   },
   {
     id: 38,
@@ -342,7 +342,7 @@ const CARDS = [
     qty: 3,
     group: "weapon",
     desc: "Дальность 3, сила 0. Можно использовать как ловушку, которая наносит одну рану атакующему в ответ.",
-    img: "cards/04_makibishi.jpg"
+    img: "cards/card_38_makibishi.png"
   },
   {
     id: 39,
@@ -351,7 +351,7 @@ const CARDS = [
     qty: 3,
     group: "weapon",
     desc: "Дальность 3, сила 1. Атака игнорирует ловушки и защиту, и вы берёте карту из колоды.",
-    img: "cards/05_vmeshatelstvo.jpg"
+    img: "cards/card_39_drotik_s_yadom.png"
   },
   {
     id: 40,
@@ -360,7 +360,7 @@ const CARDS = [
     qty: 3,
     group: "weapon",
     desc: "Дальность >1, сила 1.",
-    img: "cards/05_vmeshatelstvo.jpg"
+    img: "cards/card_40_otravlennyy_kunay.png"
   },
 
   // ── ЛОВУШКИ (стр. 7) ─────────────────────────────────────────────
@@ -371,7 +371,7 @@ const CARDS = [
     qty: 1,
     group: "trap",
     desc: "ЛОВУШКА. Вы забираете у атакующего две карты.",
-    img: "cards/02_tenevoy_pakt.jpg"
+    img: "cards/card_41_silok.png"
   },
   {
     id: 42,
@@ -380,7 +380,7 @@ const CARDS = [
     qty: 1,
     group: "trap",
     desc: "ЛОВУШКА. Атака не проходит.",
-    img: "cards/02_tenevoy_pakt.jpg"
+    img: "cards/card_42_chuchelo.png"
   },
   {
     id: 43,
@@ -389,7 +389,7 @@ const CARDS = [
     qty: 1,
     group: "trap",
     desc: "ЛОВУШКА. Атакующий получает две раны от владельца ловушки.",
-    img: "cards/02_tenevoy_pakt.jpg"
+    img: "cards/card_43_kapkan.png"
   },
   {
     id: 44,
@@ -398,7 +398,7 @@ const CARDS = [
     qty: 1,
     group: "trap",
     desc: "ЛОВУШКА. Изначальная атака не проходит и обращается обратно, равная силе оружия. Атакующий может защититься от рикошета.",
-    img: "cards/02_tenevoy_pakt.jpg"
+    img: "cards/card_44_rikoshet.png"
   },
   {
     id: 45,
@@ -407,7 +407,7 @@ const CARDS = [
     qty: 1,
     group: "trap",
     desc: "ЛОВУШКА. Враг отравляется ядом. Если он уже отравлен, то получает 1 рану.",
-    img: "cards/02_tenevoy_pakt.jpg"
+    img: "cards/card_45_poganka.png"
   },
   {
     id: 46,
@@ -416,7 +416,7 @@ const CARDS = [
     qty: 1,
     group: "trap",
     desc: "ЛОВУШКА. Атакующий теряет свою стойку и сбрасывает две карты с руки на ваш выбор.",
-    img: "cards/02_tenevoy_pakt.jpg"
+    img: "cards/card_46_boevoy_banan.png"
   },
   {
     id: 47,
@@ -425,7 +425,7 @@ const CARDS = [
     qty: 1,
     group: "trap",
     desc: "Ловушка. Вы оскорбляете атакующего.",
-    img: "cards/02_tenevoy_pakt.jpg"
+    img: "cards/card_47_oskorblenie.png"
   },
 
   // ── ЗАЩИТА (стр. 8) ──────────────────────────────────────────────
@@ -436,7 +436,7 @@ const CARDS = [
     qty: 1,
     group: "defense",
     desc: "ЗАЩИТА ~ Атакующий получает одну рану от вас.",
-    img: "cards/11_besstrasie.jpg"
+    img: "cards/card_48_zashchita.png"
   },
   {
     id: 49,
@@ -445,7 +445,7 @@ const CARDS = [
     qty: 1,
     group: "defense",
     desc: "ЗАЩИТА ~ Атакующий получает одну рану от вас.",
-    img: "cards/11_besstrasie.jpg"
+    img: "cards/card_49_skrytyy_kinzhal.png"
   },
   {
     id: 50,
@@ -454,7 +454,7 @@ const CARDS = [
     qty: 1,
     group: "defense",
     desc: "ЗАЩИТА ~ Атакующий получает отравление ядом.",
-    img: "cards/11_besstrasie.jpg"
+    img: "cards/card_50_yadovitye_naruchi.png"
   },
   {
     id: 51,
@@ -463,7 +463,7 @@ const CARDS = [
     qty: 1,
     group: "defense",
     desc: "ЗАЩИТА ~ Вы забираете у атакующего случайную карту.",
-    img: "cards/11_besstrasie.jpg"
+    img: "cards/card_52_idealnyy_moment.png"
   },
   {
     id: 52,
@@ -472,7 +472,7 @@ const CARDS = [
     qty: 1,
     group: "defense",
     desc: "ЗАЩИТА ~ Вы также берёте карту из колоды.",
-    img: "cards/11_besstrasie.jpg"
+    img: "cards/card_53_vyderzka_samuray.png"
   },
   {
     id: 53,
@@ -481,7 +481,7 @@ const CARDS = [
     qty: 1,
     group: "defense",
     desc: "ЗАЩИТА ~ Вы можете выбрать сколько ран вы хотите получить при атаке, и за каждую рану берёте карту из колоды.",
-    img: "cards/11_besstrasie.jpg"
+    img: "cards/card_51_karmannik.png"
   },
   {
     id: 54,
@@ -490,7 +490,7 @@ const CARDS = [
     qty: 1,
     group: "defense",
     desc: "ЗАЩИТА ~ Атакующий сбрасывает случайную карту.",
-    img: "cards/11_besstrasie.jpg"
+    img: "cards/card_54_oshelomlenie.png"
   },
   {
     id: 55,
@@ -499,7 +499,7 @@ const CARDS = [
     qty: 1,
     group: "defense",
     desc: "ЗАЩИТА ~ Вы забираете не метательное оружие врага себе в руку.",
-    img: "cards/11_besstrasie.jpg"
+    img: "cards/card_55_zakhvat.png"
   },
   {
     id: 56,
@@ -508,7 +508,7 @@ const CARDS = [
     qty: 1,
     group: "defense",
     desc: "ВМЕШАТЕЛЬСТВО~ЗАЩИТА. Можно сыграть в любой момент за любого игрока.",
-    img: "cards/11_besstrasie.jpg"
+    img: "cards/card_56_blok.png"
   },
 
   // ── СТОЙКИ (стр. 9) ──────────────────────────────────────────────
@@ -519,7 +519,7 @@ const CARDS = [
     qty: 1,
     group: "stance",
     desc: "СТОЙКА ~ Вы обескровлены для других игроков весь раунд, но в начале своего хода вы сбрасываете эту стойку.",
-    img: "cards/03_vyzhivshiy.jpg"
+    img: "cards/card_57_ten.png"
   },
   {
     id: 58,
@@ -528,7 +528,7 @@ const CARDS = [
     qty: 1,
     group: "stance",
     desc: "СТОЙКА ~ Вы находитесь дальше от всех на единицу при атаках по вам. Ваши атаки могут достать дальше на один.",
-    img: "cards/03_vyzhivshiy.jpg"
+    img: "cards/card_58_vsadnik.png"
   },
   {
     id: 59,
@@ -537,7 +537,7 @@ const CARDS = [
     qty: 1,
     group: "stance",
     desc: "СТОЙКА ~ При выставлении восстановить два жетона стойкости и перед каждой фазой набора вы можете: восстановить жетон стойкости любому игроку ИЛИ снять яд или один эффект любому игроку, сбросив карту.",
-    img: "cards/03_vyzhivshiy.jpg"
+    img: "cards/card_59_lotos.png"
   },
   {
     id: 60,
@@ -546,7 +546,7 @@ const CARDS = [
     qty: 1,
     group: "stance",
     desc: "СТОЙКА ~ Каждый раз при прямой атаке по вам снижаете урон на один. Дополнительно можете скинуть карту с руки за каждое снижение урона (не менее одного).",
-    img: "cards/03_vyzhivshiy.jpg"
+    img: "cards/card_60_shchitonosec.png"
   },
   {
     id: 61,
@@ -555,7 +555,7 @@ const CARDS = [
     qty: 1,
     group: "stance",
     desc: "СТОЙКА ~ Каждый раз нанести врагу на одну рану больше по врагу взять одну карту из колоды после атаки вы можете: взять карту из колоды.",
-    img: "cards/03_vyzhivshiy.jpg"
+    img: "cards/card_61_master_boya.png"
   },
   {
     id: 62,
@@ -564,7 +564,7 @@ const CARDS = [
     qty: 1,
     group: "stance",
     desc: "СТОЙКА ~ Раз в свой ход вы можете: восстановить жетон стойкости любому игроку ИЛИ снять яд или один эффект любому игроку, сбросив карту.",
-    img: "cards/03_vyzhivshiy.jpg"
+    img: "cards/card_62_kapellan.png"
   },
   {
     id: 63,
@@ -573,7 +573,7 @@ const CARDS = [
     qty: 1,
     group: "stance",
     desc: "СТОЙКА ~ При атаке по врагу вы можете: сделать вашу атаку отравленной ядом ИЛИ сбросив две карты, сделать врага беззащитным от атаки.",
-    img: "cards/03_vyzhivshiy.jpg"
+    img: "cards/card_63_assassin.png"
   },
 
   // ── МОДИФИКАТОРЫ (стр. 10–11) ─────────────────────────────────────
@@ -584,7 +584,7 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     desc: "МОДИФИКАТОР ~ Ваша атака теперь накладывает отравление.",
-    img: "cards/09_plagiat.jpg"
+    img: "cards/card_64_flakon_yada.png"
   },
   {
     id: 65,
@@ -593,7 +593,7 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     desc: "МОДИФИКАТОР ~ Ваша атака наносит на одну рану больше.",
-    img: "cards/09_plagiat.jpg"
+    img: "cards/card_65_tochilo.png"
   },
   {
     id: 66,
@@ -602,7 +602,7 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     desc: "МОДИФИКАТОР ~ Дальность и сила атаки меняются местами.",
-    img: "cards/09_plagiat.jpg"
+    img: "cards/card_66_in_i_yan.png"
   },
   {
     id: 67,
@@ -611,7 +611,7 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     desc: "МОДИФИКАТОР ~ Ваша атака игнорирует ловушки.",
-    img: "cards/09_plagiat.jpg"
+    img: "cards/card_67_udar_teni.png"
   },
   {
     id: 68,
@@ -620,7 +620,7 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     desc: "МОДИФИКАТОР ~ Дальность вашей атаки увеличивается на единицу.",
-    img: "cards/09_plagiat.jpg"
+    img: "cards/card_68_vypad.png"
   },
   {
     id: 69,
@@ -629,7 +629,7 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     desc: "МОДИФИКАТОР ~ От вашей атаки невозможно защититься, однако ловушки продолжают действовать.",
-    img: "cards/09_plagiat.jpg"
+    img: "cards/card_69_postup_vetra.png"
   },
   {
     id: 70,
@@ -638,7 +638,7 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     desc: "МОДИФИКАТОР ~ Атаку можно провести даже по обескровленному игроку. Сёгун наносит на одну рану больше.",
-    img: "cards/09_plagiat.jpg"
+    img: "cards/card_70_gnev_syoguna.png"
   },
   {
     id: 71,
@@ -647,7 +647,7 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     desc: "МОДИФИКАТОР ~ В случае успешной атаки вы восстанавливаете себе столько жетонов здоровья, сколько нанесли ран.",
-    img: "cards/09_plagiat.jpg"
+    img: "cards/card_71_celebnyy_klinok.png"
   },
   {
     id: 72,
@@ -656,7 +656,7 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     desc: "МОДИФИКАТОР ~ Атака наносит удар по двум целям одновременно. Однако сила и дальность снижаются на один.",
-    img: "cards/09_plagiat.jpg"
+    img: "cards/card_72_poryv_yarosti.png"
   },
   {
     id: 73,
@@ -665,7 +665,7 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     desc: "МОДИФИКАТОР ~ Ваша атака может бить на любом расстоянии и вы наносите на одну рану больше, но вы теряете один жетон стойкости. Нельзя применить на пороге смерти.",
-    img: "cards/09_plagiat.jpg"
+    img: "cards/card_73_povyazka_kamikadze.png"
   },
   {
     id: 74,
@@ -674,7 +674,7 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     desc: "МОДИФИКАТОР ~ Увеличивает дальность атаки на два, но сила атаки (не оружия) становится равна единице. Делает атаку метательной.",
-    img: "cards/09_plagiat.jpg"
+    img: "cards/card_74_sokrushitelnyy_udar.png"
   },
   {
     id: 75,
@@ -683,7 +683,7 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     desc: "МОДИФИКАТОР ~ Итоговая сила атаки становится равна вашему количеству жетонов здоровья.",
-    img: "cards/09_plagiat.jpg"
+    img: "cards/card_75_brosok.png"
   },
   {
     id: 76,
@@ -692,7 +692,7 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     desc: "МОДИФИКАТОР ~ Отравленный противник получит на две раны больше.",
-    img: "cards/09_plagiat.jpg"
+    img: "cards/card_76_kipyashchiy_yad.png"
   },
   {
     id: 77,
@@ -701,7 +701,7 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     desc: "МОДИФИКАТОР ~ Вы не тратите свою попытку атаки в данном ударе.",
-    img: "cards/09_plagiat.jpg"
+    img: "cards/card_77_dlan_syoguna.png"
   },
   {
     id: 78,
@@ -710,7 +710,7 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     desc: "МОДИФИКАТОР ~ От вашей атаки невозможно защититься, и ловушки не действуют.",
-    img: "cards/09_plagiat.jpg"
+    img: "cards/card_78_dukh_syoguna.png"
   },
   {
     id: 79,
@@ -719,7 +719,7 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     desc: "МОДИФИКАТОР ~ Ваша атака оружием полностью игнорирует все бонусы от стойки и персонажа врага.",
-    img: "cards/09_plagiat.jpg"
+    img: "cards/card_80_pronzitelnyy_udar.png"
   },
   {
     id: 80,
@@ -728,7 +728,7 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     desc: "МОДИФИКАТОР ~ Ваша базовая сила атаки оружием удваивается.",
-    img: "cards/09_plagiat.jpg"
+    img: "cards/card_79_kriticheskiy_udar.png"
   },
 
   // ── ГРУППОВЫЕ ДЕЙСТВИЯ (стр. 12) ─────────────────────────────────
@@ -739,7 +739,7 @@ const CARDS = [
     qty: 1,
     group: "group",
     desc: "Восстановите два жетона стойкости, а все остальные активные игроки один.",
-    img: "cards/08_obrok.jpg"
+    img: "cards/card_81_celitelnyye_istochniki.png"
   },
   {
     id: 82,
@@ -748,7 +748,7 @@ const CARDS = [
     qty: 1,
     group: "group",
     desc: "Остальные активные игроки скидывают карту защиты или оружия, либо отдают вам карту из руки на свой выбор.",
-    img: "cards/08_obrok.jpg"
+    img: "cards/card_82_mirotvortsy.png"
   },
   {
     id: 83,
@@ -757,7 +757,7 @@ const CARDS = [
     qty: 1,
     group: "group",
     desc: "Все активные игроки теряют стойку. Сёгун не участвует в потасовке.",
-    img: "cards/08_obrok.jpg"
+    img: "cards/card_83_potasovka.png"
   },
   {
     id: 84,
@@ -766,7 +766,7 @@ const CARDS = [
     qty: 1,
     group: "group",
     desc: "Вы берёте три карты, остальные активные игроки берут по одной.",
-    img: "cards/08_obrok.jpg"
+    img: "cards/card_84_chaynaya_tseremoniya.png"
   },
   {
     id: 85,
@@ -775,7 +775,7 @@ const CARDS = [
     qty: 1,
     group: "group",
     desc: "Все ловушки на столе открываются, но продолжают действовать.",
-    img: "cards/08_obrok.jpg"
+    img: "cards/card_85_prosvietlenie.png"
   },
   {
     id: 86,
@@ -784,7 +784,7 @@ const CARDS = [
     qty: 1,
     group: "group",
     desc: "Играется в паре с картой не метательного оружия с дальностью более одного. Минуя ловушки, активные игроки получают урон от оружия (без бонусов) или скидывают защиту. Тратит атаку.",
-    img: "cards/08_obrok.jpg"
+    img: "cards/card_86_vikhr_yarosti.png"
   },
   {
     id: 87,
@@ -793,7 +793,7 @@ const CARDS = [
     qty: 1,
     group: "group",
     desc: "Играется в паре с картой метательного оружия. Минуя ловушки, активные игроки получают две раны или скидывают защиту. Тратит атаку.",
-    img: "cards/08_obrok.jpg"
+    img: "cards/card_86_vikhr_yarosti.png"
   },
   {
     id: 88,
@@ -802,7 +802,7 @@ const CARDS = [
     qty: 2,
     group: "group",
     desc: "Все активные игроки получают отравление ядом.",
-    img: "cards/13_bochka_zlovoniya.jpg"
+    img: "cards/card_87_bochka_zlovoniya.png"
   },
   {
     id: 89,
@@ -811,7 +811,7 @@ const CARDS = [
     qty: 1,
     group: "group",
     desc: "Остальные активные игроки скидывают карту оружия или жетон стойкости.",
-    img: "cards/08_obrok.jpg"
+    img: "cards/card_88_grad_strel.png"
   },
   {
     id: 90,
@@ -820,7 +820,7 @@ const CARDS = [
     qty: 1,
     group: "group",
     desc: "Все ловушки на столе сбрасываются в сброс.",
-    img: "cards/08_obrok.jpg"
+    img: "cards/card_89_boevoy_krik.png"
   },
 
   // ── ЭФФЕКТЫ постоянные/разовые (стр. 13–14) ──────────────────────
@@ -831,7 +831,7 @@ const CARDS = [
     qty: 1,
     group: "effect",
     desc: "ПОСТОЯННЫЙ эффект. Все атаки по вам наносят на одну рану больше.",
-    img: "cards/16_palochka_blagovoniy.jpg"
+    img: "cards/card_90_metka_ubiytsy.png"
   },
   {
     id: 92,
@@ -840,7 +840,7 @@ const CARDS = [
     qty: 1,
     group: "effect",
     desc: "ПОСТОЯННЫЙ эффект. Вас нельзя отравить ядом. Текущее отравление снимается.",
-    img: "cards/16_palochka_blagovoniy.jpg"
+    img: "cards/card_91_protivoyadie.png"
   },
   {
     id: 93,
@@ -849,7 +849,7 @@ const CARDS = [
     qty: 1,
     group: "effect",
     desc: "ПОСТОЯННЫЙ эффект. Каждое лечение по игроку снижается на единицу. Также все негативные эффекты от отравления удваиваются.",
-    img: "cards/16_palochka_blagovoniy.jpg"
+    img: "cards/card_92_ukus_zmeyi.png"
   },
   {
     id: 94,
@@ -858,7 +858,7 @@ const CARDS = [
     qty: 1,
     group: "effect",
     desc: "ПОСТОЯННЫЙ эффект. Атаки по вам могут быть произведены без ограничения дальности.",
-    img: "cards/16_palochka_blagovoniy.jpg"
+    img: "cards/card_93_kaginava.png"
   },
   {
     id: 95,
@@ -867,7 +867,7 @@ const CARDS = [
     qty: 1,
     group: "effect",
     desc: "ПОСТОЯННЫЙ эффект. Выбранный игрок не может производить прямые атаки оружием.",
-    img: "cards/16_palochka_blagovoniy.jpg"
+    img: "cards/card_94_razoruzhenie.png"
   },
   {
     id: 96,
@@ -876,7 +876,7 @@ const CARDS = [
     qty: 1,
     group: "effect",
     desc: "РАЗОВЫЙ эффект. Следующий игровой ход выбранный игрок будто обескровлен.",
-    img: "cards/16_palochka_blagovoniy.jpg"
+    img: "cards/card_95_zavesa_dyma.png"
   },
   {
     id: 97,
@@ -885,7 +885,7 @@ const CARDS = [
     qty: 1,
     group: "effect",
     desc: "ПОСТОЯННЫЙ эффект. Атаки игрока не может бить дальше расстояния в единицу.",
-    img: "cards/16_palochka_blagovoniy.jpg"
+    img: "cards/card_97_pyl_v_glaza.png"
   },
   {
     id: 98,
@@ -894,7 +894,7 @@ const CARDS = [
     qty: 2,
     group: "effect",
     desc: "Выбранный игрок скидывает один выбранный вами эффект. Вы можете восстановить жизнь или взять карту из колоды.",
-    img: "cards/16_palochka_blagovoniy.jpg"
+    img: "cards/card_96_palochka_blagovoniy.png"
   },
   {
     id: 99,
@@ -903,7 +903,7 @@ const CARDS = [
     qty: 1,
     group: "effect",
     desc: "Выбранный игрок скидывает все эффекты. За каждый сброшенный эффект вы можете восстановить жизнь или взять карту из колоды.",
-    img: "cards/16_palochka_blagovoniy.jpg"
+    img: "cards/card_98_chasha_blagovoniy.png"
   },
   {
     id: 100,
@@ -912,7 +912,7 @@ const CARDS = [
     qty: 1,
     group: "effect",
     desc: "ПОСТОЯННЫЙ эффект. Следующая атака не может нанести более одной раны.",
-    img: "cards/16_palochka_blagovoniy.jpg"
+    img: "cards/card_99_slabost.png"
   },
   {
     id: 101,
@@ -921,7 +921,7 @@ const CARDS = [
     qty: 1,
     group: "effect",
     desc: "ПОСТОЯННЫЙ эффект. Игрок не может защищаться от атак.",
-    img: "cards/16_palochka_blagovoniy.jpg"
+    img: "cards/card_100_bezzashchitnost.png"
   },
   {
     id: 102,
@@ -930,7 +930,7 @@ const CARDS = [
     qty: 1,
     group: "effect",
     desc: "ПОСТОЯННЫЙ эффект. Выбранный игрок наносит на одну рану больше.",
-    img: "cards/16_palochka_blagovoniy.jpg"
+    img: "cards/card_101_dukh_lidera.png"
   },
   {
     id: 103,
@@ -939,7 +939,7 @@ const CARDS = [
     qty: 1,
     group: "effect",
     desc: "ПОСТОЯННЫЙ эффект. За ход вы можете сделать на одну прямую атаку меньше.",
-    img: "cards/16_palochka_blagovoniy.jpg"
+    img: "cards/card_102_bessilie.png"
   },
   {
     id: 104,
@@ -948,7 +948,7 @@ const CARDS = [
     qty: 1,
     group: "effect",
     desc: "РАЗОВЫЙ эффект. Выбранный игрок автоматически защищается от атаки.",
-    img: "cards/16_palochka_blagovoniy.jpg"
+    img: "cards/card_103_egida.png"
   },
 
   // ── ДЕЙСТВИЯ (стр. 15–16) ─────────────────────────────────────────
@@ -959,7 +959,7 @@ const CARDS = [
     qty: 1,
     group: "action",
     desc: "Выбранный игрок избавляется от яда и получает жетон стойкости.",
-    img: "cards/14_zov_predkov.jpg"
+    img: "cards/card_104_vasabi.png"
   },
   {
     id: 106,
@@ -968,7 +968,7 @@ const CARDS = [
     qty: 1,
     group: "action",
     desc: "Поменяйте эту карту на любую из сброса не глубже последних 10, но не ранее последних 3.",
-    img: "cards/14_zov_predkov.jpg"
+    img: "cards/card_105_zov_predkov.png"
   },
   {
     id: 107,
@@ -977,7 +977,7 @@ const CARDS = [
     qty: 4,
     group: "action",
     desc: "Любой выбранный активный игрок восстанавливает два жетона стойкости.",
-    img: "cards/15_shvy.jpg"
+    img: "cards/card_106_shvy.png"
   },
   {
     id: 108,
@@ -986,7 +986,7 @@ const CARDS = [
     qty: 1,
     group: "action",
     desc: "Вы умираете и отдаёте жетон чести другому игроку. Таким образом нельзя потерять последний жетон чести.",
-    img: "cards/14_zov_predkov.jpg"
+    img: "cards/card_107_seppuku.png"
   },
   {
     id: 109,
@@ -995,7 +995,7 @@ const CARDS = [
     qty: 1,
     group: "action",
     desc: "Можете сбросить эту карту совместно с другими (максимум 3). За каждую сброшенную карту, включая эту, берёте новую карту из колоды.",
-    img: "cards/14_zov_predkov.jpg"
+    img: "cards/card_108_sake.png"
   },
   {
     id: 110,
@@ -1004,7 +1004,7 @@ const CARDS = [
     qty: 1,
     group: "action",
     desc: "Другой выбранный игрок скидывает свою текущую стойку, за это вы берёте карту. Или можете сбросить эту карту, чтобы взять две новых из колоды.",
-    img: "cards/14_zov_predkov.jpg"
+    img: "cards/card_109_podsechka.png"
   },
   {
     id: 111,
@@ -1013,7 +1013,7 @@ const CARDS = [
     qty: 1,
     group: "action",
     desc: "Вы сбрасываете жетон чести в сброс, и за это получаете семь карт из колоды. Не считается смертью.",
-    img: "cards/14_zov_predkov.jpg"
+    img: "cards/card_110_predatelstvo.png"
   },
   {
     id: 112,
@@ -1022,7 +1022,7 @@ const CARDS = [
     qty: 1,
     group: "action",
     desc: "Можете обезвредить любую ловушку на столе, за это вы берёте карту. Или можете сбросить эту карту, чтобы взять две новых из колоды.",
-    img: "cards/14_zov_predkov.jpg"
+    img: "cards/card_111_sapyor.png"
   },
   {
     id: 113,
@@ -1031,7 +1031,7 @@ const CARDS = [
     qty: 1,
     group: "action",
     desc: "Количество жетонов жизни выбранного игрока становится равно вашему.",
-    img: "cards/14_zov_predkov.jpg"
+    img: "cards/card_112_ekvilibrium.png"
   },
   {
     id: 114,
@@ -1040,7 +1040,7 @@ const CARDS = [
     qty: 1,
     group: "action",
     desc: "Восстановите все недостающие жетоны стойкости. Другой игрок на ваш выбор берёт одну карту из колоды.",
-    img: "cards/14_zov_predkov.jpg"
+    img: "cards/card_113_peredyshka.png"
   },
   {
     id: 115,
@@ -1049,7 +1049,7 @@ const CARDS = [
     qty: 1,
     group: "action",
     desc: "Выбранный игрок показывает всем свои карты с руки до следующего действия.",
-    img: "cards/14_zov_predkov.jpg"
+    img: "cards/card_114_yasnovidenie.png"
   },
   {
     id: 116,
@@ -1058,7 +1058,7 @@ const CARDS = [
     qty: 1,
     group: "action",
     desc: "Отравляет выбранного активного игрока. Если игрок уже отравлен, он получает одну рану.",
-    img: "cards/14_zov_predkov.jpg"
+    img: "cards/card_116_yad_fugu.png"
   },
   {
     id: 117,
@@ -1067,7 +1067,7 @@ const CARDS = [
     qty: 1,
     group: "action",
     desc: "Вы меняетесь с выбранным игроком количеством жетонов стойкости.",
-    img: "cards/14_zov_predkov.jpg"
+    img: "cards/card_115_obmen_dush.png"
   },
   {
     id: 118,
@@ -1076,7 +1076,7 @@ const CARDS = [
     qty: 1,
     group: "action",
     desc: "Либо сыграйте эту карту, чтобы взять три новых из колоды, или оставьте, чтобы получить победное очко (кроме Ронина).",
-    img: "cards/14_zov_predkov.jpg"
+    img: "cards/card_117_dayme.png"
   },
   {
     id: 119,
@@ -1085,7 +1085,7 @@ const CARDS = [
     qty: 1,
     group: "action",
     desc: "Очищает любого игрока от отравления и передаёт его любому другому.",
-    img: "cards/14_zov_predkov.jpg"
+    img: "cards/card_118_perelivanie_krovi.png"
   },
   {
     id: 120,
@@ -1094,7 +1094,7 @@ const CARDS = [
     qty: 1,
     group: "action",
     desc: "Сыграв эту карту, берите за каждый сброшенный жетон стойкости (кроме последнего) новую карту из колоды.",
-    img: "cards/14_zov_predkov.jpg"
+    img: "cards/card_119_zhertva_krovi.png"
   },
 
   // ── ВМЕШАТЕЛЬСТВА (стр. 17) ───────────────────────────────────────
@@ -1105,7 +1105,7 @@ const CARDS = [
     qty: 1,
     group: "intervention",
     desc: "ВМЕШАТЕЛЬСТВО. Восстановите все жетоны стойкости отравленному ядом игроку и снимите само отравление.",
-    img: "cards/05_vmeshatelstvo.jpg"
+    img: "cards/card_120_istselenie.png"
   },
   {
     id: 122,
@@ -1114,7 +1114,7 @@ const CARDS = [
     qty: 1,
     group: "intervention",
     desc: "ВМЕШАТЕЛЬСТВО. Сыграйте эту карту, чтобы нанести две раны отравленному ядом игроку.",
-    img: "cards/05_vmeshatelstvo.jpg"
+    img: "cards/card_121_smert_ot_fugu.png"
   },
   {
     id: 123,
@@ -1123,7 +1123,7 @@ const CARDS = [
     qty: 1,
     group: "intervention",
     desc: "ВМЕШАТЕЛЬСТВО. Сыграйте эту карту, чтобы восстановить любому игроку один жетон стойкости.",
-    img: "cards/05_vmeshatelstvo.jpg"
+    img: "cards/card_122_imbir.png"
   },
   {
     id: 124,
@@ -1132,7 +1132,7 @@ const CARDS = [
     qty: 1,
     group: "intervention",
     desc: "ВМЕШАТЕЛЬСТВО. Сыграйте эту карту, чтобы нанести одну рану любому выбранному игроку.",
-    img: "cards/05_vmeshatelstvo.jpg"
+    img: "cards/card_123_udar_drakona.png"
   },
   {
     id: 125,
@@ -1141,7 +1141,7 @@ const CARDS = [
     qty: 1,
     group: "intervention",
     desc: "ВМЕШАТЕЛЬСТВО. Сыграйте эту карту, чтобы перенаправить прямую атаку оружия на себя.",
-    img: "cards/05_vmeshatelstvo.jpg"
+    img: "cards/card_124_podvig.png"
   },
   {
     id: 126,
@@ -1150,7 +1150,7 @@ const CARDS = [
     qty: 1,
     group: "intervention",
     desc: "ВМЕШАТЕЛЬСТВО. Сыграйте эту карту, чтобы обменяться в закрытую с любым игроком картами на ваше обоюдное усмотрение.",
-    img: "cards/05_vmeshatelstvo.jpg"
+    img: "cards/card_125_ruka_pomoshchi.png"
   },
   {
     id: 127,
@@ -1159,7 +1159,7 @@ const CARDS = [
     qty: 1,
     group: "intervention",
     desc: "ВМЕШАТЕЛЬСТВО. Сыграйте эту карту, чтобы передать любому игроку в закрытую любую другую карту из своей руки.",
-    img: "cards/05_vmeshatelstvo.jpg"
+    img: "cards/card_126_vestochka.png"
   },
   {
     id: 128,
@@ -1168,7 +1168,7 @@ const CARDS = [
     qty: 1,
     group: "intervention",
     desc: "ВМЕШАТЕЛЬСТВО. ЭФФЕКТ. Выбранный игрок симулирует смерть, оставляя один жетон стойкости. Следующий раунд он обескровлен. В начале хода игрока эффект пропадает. Можно сыграть во время прямой атаки оружием по игроку.",
-    img: "cards/05_vmeshatelstvo.jpg"
+    img: "cards/card_127_simulyant.png"
   },
 
   // ── ПРОЧИЕ ДЕЙСТВИЯ (стр. 18) ─────────────────────────────────────
@@ -1179,7 +1179,7 @@ const CARDS = [
     qty: 1,
     group: "action",
     desc: "Заберите одну случайную карту с руки любого активного игрока.",
-    img: "cards/09_plagiat.jpg"
+    img: "cards/card_128_vorovstvo.png"
   },
   {
     id: 130,
@@ -1188,7 +1188,7 @@ const CARDS = [
     qty: 1,
     group: "action",
     desc: "Можете выбрать любой эффект на столе и переложить его на любого игрока.",
-    img: "cards/09_plagiat.jpg"
+    img: "cards/card_129_kukla_vudu.png"
   },
   {
     id: 131,
@@ -1197,7 +1197,7 @@ const CARDS = [
     qty: 1,
     group: "action",
     desc: "Вы забираете выбранный эффект игрока на себя.",
-    img: "cards/09_plagiat.jpg"
+    img: "cards/card_130_durman.png"
   },
   {
     id: 132,
@@ -1206,7 +1206,7 @@ const CARDS = [
     qty: 1,
     group: "action",
     desc: "Забираете у игрока жетон стойкости и добавляете его себе.",
-    img: "cards/09_plagiat.jpg"
+    img: "cards/card_131_sifon_zhizni.png"
   },
   {
     id: 133,
@@ -1215,7 +1215,7 @@ const CARDS = [
     qty: 1,
     group: "action",
     desc: "Вы забираете ловушку другого игрока себе в руку.",
-    img: "cards/09_plagiat.jpg"
+    img: "cards/card_132_obman.png"
   },
 
   // ── ПЕРСОНАЖИ (стр. 19) ───────────────────────────────────────────
@@ -1226,7 +1226,7 @@ const CARDS = [
     qty: 5,
     group: "character",
     desc: "Ваши атаки на расстоянии один наносят на одну рану больше. За каждую рану, полученную от оружия, вы берёте карту из колоды. Раз за ход можете обменять жетоны стойкости на новые карты из колоды.",
-    img: "cards/01_geysha.jpg"
+    img: "cards/card_133_ryudzo.png"
   },
   {
     id: 135,
@@ -1235,7 +1235,7 @@ const CARDS = [
     qty: 5,
     group: "character",
     desc: "Ваши атаки метательным оружием наносят на одну рану больше. Атаки по вам оружием с дальностью 1 наносят на одну рану меньше. Дайкю не имеет ограничений дальности.",
-    img: "cards/06_yuna.jpg"
+    img: "cards/card_135_usivaka.png"
   },
   {
     id: 136,
@@ -1244,7 +1244,7 @@ const CARDS = [
     qty: 5,
     group: "character",
     desc: "В фазе набора вы берёте дополнительную карту и можете брать из сброса. В случае воровства или ошеломления и реакции на групповые действия, сами выбираете какую карту отдавать.",
-    img: "cards/06_yuna.jpg"
+    img: "cards/card_136_taranaga.png"
   },
   {
     id: 137,
@@ -1253,7 +1253,7 @@ const CARDS = [
     qty: 5,
     group: "character",
     desc: "Вашу стойку не могут украсть или сбросить. Вы не теряете стойку при смерти. На вас не действуют карты, заставляющие сбросить случайную карту. Полностью деревянные оружия наносят дополнительную рану.",
-    img: "cards/06_yuna.jpg"
+    img: "cards/card_138_kokoro.png"
   },
   {
     id: 138,
@@ -1262,7 +1262,7 @@ const CARDS = [
     qty: 4,
     group: "character",
     desc: "Ваши прямые атаки игнорируют ловушки. Вы можете сыграть карту оружия как карту защиты, при этом получая одну рану.",
-    img: "cards/01_geysha.jpg"
+    img: "cards/card_139_handzo.png"
   },
   {
     id: 139,
@@ -1271,7 +1271,7 @@ const CARDS = [
     qty: 5,
     group: "character",
     desc: "Ваши ловушки не могут обезвредить, украсть или просветить. Вы можете воспользоваться активной ловушкой как защитой, потеряв бонусы от ловушки.",
-    img: "cards/06_yuna.jpg"
+    img: "cards/card_140_iyo.png"
   },
   {
     id: 140,
@@ -1280,6 +1280,6 @@ const CARDS = [
     qty: 5,
     group: "character",
     desc: "Вместо нанесения ран вы можете объявить, что будете воровать карты. Раз в ход вы можете сбросить три карты, чтобы взять две новых из колоды. У вас не могут воровать карты.",
-    img: "cards/06_yuna.jpg"
+    img: "cards/card_141_taka.png"
   }
 ];
