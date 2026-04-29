@@ -42,7 +42,7 @@ $(function () {
     defense:      'Защита',
     stance:       'Стойки',
     modifier:     'Модификаторы',
-    group:        'Групповые действия',
+    group:        'Групповые',
     effect:       'Эффекты',
     action:       'Действия',
     intervention: 'Вмешательства',
@@ -214,7 +214,7 @@ $(function () {
       $(this).toggleClass('group-divider--hidden', !visibleByGroup[g]);
     });
 
-    $('.count').text(totalTypes + ' видов · ' + totalQty + ' карт в колоде');
+    $('.count').text(totalTypes + ' видов · ' + totalQty + ' карт');
 
     // Подсветка активных кнопок
     $('.filter-btn').each(function () {
@@ -288,12 +288,45 @@ $(function () {
     if (e.key === 'Escape') $('.card-item.is-zoomed').removeClass('is-zoomed');
   });
 
-  // ── Статистика в шапке ────────────────────────────────────────────
+  // ── Статистика в шапке (общая, не зависит от фильтра) ───────────
   $('#stat-types').text(CARDS.length);
   $('#stat-total').text(CARDS.reduce(function (sum, c) { return sum + (c.qty || 1); }, 0));
 
+  // ── Статическая статистика по CARDS ──────────────────────────────
+  function buildStats() {
+    var totalQty = CARDS.reduce(function (sum, c) { return sum + (c.qty || 1); }, 0);
+    var totalTypes = CARDS.length;
+
+    $('#stat-types-live').text(totalTypes);
+    $('#stat-qty-live').text(totalQty);
+
+    // Считаем по группам из массива CARDS (не из DOM)
+    var groupStats = {};
+    $.each(CARDS, function (_, card) {
+      var g = card.group || 'action';
+      if (!groupStats[g]) groupStats[g] = { types: 0, qty: 0 };
+      groupStats[g].types++;
+      groupStats[g].qty += card.qty || 1;
+    });
+
+    var $tbody = $('#stats-table-body');
+    $.each(GROUP_ORDER, function (_, g) {
+      if (!groupStats[g]) return;
+      var s = groupStats[g];
+      var pct = (s.qty / totalQty * 100).toFixed(1) + '%';
+      var color = GROUP_TITLE_COLOR[g] || '#7a5a2a';
+      $('<tr>').append(
+        $('<td>', { text: GROUP_LABELS[g] || g }),
+        $('<td>', { text: s.types }),
+        $('<td>', { text: s.qty }),
+        $('<td>', { text: pct })
+      ).appendTo($tbody);
+    });
+  }
+
   // ── Инициализация ─────────────────────────────────────────────────
   buildFilters();
+  buildStats();
   applyFilter();
 
 });

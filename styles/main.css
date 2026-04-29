@@ -98,14 +98,135 @@ body {
   background: linear-gradient(to bottom, transparent, #5a3e1b, transparent);
 }
 
+/* ── Двухколоночный лейаут (фильтры | статистика) ── */
+.main-layout {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 32px;
+  max-width: 1100px;
+  margin: 0 auto 32px;
+  align-items: start;
+}
+
+.sidebar-title {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #7a5a2a;
+  border-bottom: 1px solid #3a2a10;
+  padding-bottom: 6px;
+  margin-bottom: 12px;
+}
+
 /* ── Filter bar ── */
 .filter-bar {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  justify-content: center;
-  max-width: 1100px;
-  margin: 0 auto 32px;
+  justify-content: flex-start;
+}
+
+/* ── Stats sidebar ── */
+.stats-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 14px;
+}
+
+.stats-summary-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: #a08050;
+  letter-spacing: 0.05em;
+}
+
+.stats-summary-row span:last-child {
+  color: #e8d5a3;
+  font-weight: bold;
+}
+
+.stats-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+  color: #a08050;
+}
+
+.stats-table thead th {
+  text-align: left;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6a5030;
+  font-weight: normal;
+  font-size: 0.7rem;
+  padding: 0 4px 6px;
+  border-bottom: 1px solid #3a2a10;
+}
+
+.stats-table thead th:not(:first-child) {
+  text-align: right;
+}
+
+.stats-table tbody tr {
+  border-bottom: 1px solid #2a1e0e;
+  transition: background 0.1s;
+}
+
+.stats-table tbody tr:hover {
+  background: #231a0e;
+}
+
+.stats-table td {
+  padding: 5px 4px;
+  vertical-align: middle;
+  color: #c8a870;
+}
+
+.stats-table td:not(:first-child) {
+  text-align: right;
+  font-weight: bold;
+  color: #e8d5a3;
+}
+
+.stats-group-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  margin-right: 5px;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+/* Колонка доли: мини-бар + число */
+.stats-table td:last-child {
+  min-width: 80px;
+}
+
+.stats-pct-bar-wrap {
+  display: inline-block;
+  width: 40px;
+  height: 4px;
+  background: #2a1e0e;
+  border-radius: 2px;
+  vertical-align: middle;
+  margin-right: 4px;
+  overflow: hidden;
+}
+
+.stats-pct-bar {
+  display: block;
+  height: 100%;
+  border-radius: 2px;
+  opacity: 0.7;
+  transition: width 0.3s ease;
+}
+
+.stats-pct-label {
+  vertical-align: middle;
+  color: #7a6040;
 }
 
 .filter-btn {
