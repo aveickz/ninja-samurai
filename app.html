@@ -9,33 +9,32 @@
 </head>
 <body>
 
-  <header class="site-header">
-    <h1>Ниндзя против Самураев</h1>
-    <p class="subtitle">Картотека</p>
-    <div class="stats">
-      <div class="stat-item">
-        <span class="stat-value" id="stat-types"></span>
-        <span class="stat-label">типов карт</span>
-      </div>
-      <div class="stat-divider"></div>
-      <div class="stat-item">
-        <span class="stat-value" id="stat-total"></span>
-        <span class="stat-label">карт в колоде</span>
-      </div>
-    </div>
-  </header>
+  <div class="page-top">
 
-  <div class="main-layout">
+    <div class="page-top-left">
 
-    <!-- Левая колонка: фильтры -->
-    <aside class="sidebar-filters">
-      <p class="sidebar-title">Фильтры</p>
+      <header class="site-header">
+        <h1>Ниндзя против Самураев</h1>
+        <p class="subtitle">Картотека</p>
+        <div class="stats">
+          <div class="stat-item">
+            <span class="stat-value" id="stat-types"></span>
+            <span class="stat-label">типов карт</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-value" id="stat-total"></span>
+            <span class="stat-label">карт в колоде</span>
+          </div>
+        </div>
+      </header>
+
       <div class="filter-bar" id="filter-bar"></div>
-    </aside>
 
-    <!-- Правая колонка: статистика -->
+    </div>
+
     <aside class="sidebar-stats">
-      <p class="sidebar-title">Статистика <span class="count"></span></p>
+      <p class="sidebar-title">Статистика</p>
       <div class="stats-summary">
         <div class="stats-summary-row">
           <span>Типов карт</span>
@@ -51,8 +50,8 @@
           <tr>
             <th>Группа</th>
             <th title="Количество типов карт">Типов</th>
-            <th title="Количество карт в колоде">В колоде</th>
-            <th title="Доля от общего количества карт">Доля</th>
+            <th title="Количество карт в колоде">Карт</th>
+            <th title="Доля от общего количества карт">%</th>
           </tr>
         </thead>
         <tbody id="stats-table-body"></tbody>
@@ -61,8 +60,10 @@
 
   </div>
 
-  <p class="section-label">Набор карт</p>
-  <div class="grid" id="grid"></div>
+  <div class="cards-section">
+    <p class="section-label">Набор карт <span class="count"></span></p>
+    <div class="grid" id="grid"></div>
+  </div>
 
   <!-- База данных карт -->
   <script src="cards.js"></script>

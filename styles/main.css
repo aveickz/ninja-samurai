@@ -98,14 +98,27 @@ body {
   background: linear-gradient(to bottom, transparent, #5a3e1b, transparent);
 }
 
-/* ── Двухколоночный лейаут (фильтры | статистика) ── */
-.main-layout {
+/* ── Верхняя зона: шапка+фильтры слева, статистика справа ── */
+.page-top {
   display: grid;
-  grid-template-columns: 1fr 280px;
-  gap: 32px;
+  grid-template-columns: 1fr 260px;
+  gap: 40px;
   max-width: 1100px;
   margin: 0 auto 32px;
   align-items: start;
+}
+
+/* Левая часть page-top не должна расширять общий макет */
+.page-top-left {
+  min-width: 0;
+}
+
+.page-top-left {
+  min-width: 0;
+}
+
+.sidebar-stats {
+  /* выравниваем по верху шапки */
 }
 
 .sidebar-title {
@@ -262,10 +275,15 @@ body {
   box-shadow: 0 0 10px #c8860055;
 }
 
+/* ── Секция карточек — ширина совпадает с page-top ── */
+.cards-section {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
 /* ── Section label ── */
 .section-label {
-  max-width: 1100px;
-  margin: 0 auto 16px;
+  margin: 0 0 16px;
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.2em;
@@ -279,8 +297,6 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 28px;
-  max-width: 1100px;
-  margin: 0 auto;
 }
 
 /* ── Card item (внешний контейнер) ── */

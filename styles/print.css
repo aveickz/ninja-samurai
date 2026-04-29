@@ -1,0 +1,113 @@
+@media print {
+
+  /* ── Скрываем всё кроме карточек ── */
+  .page-top,
+  .section-label,
+  .group-divider {
+    display: none !important;
+  }
+
+  .cards-section {
+    max-width: 100% !important;
+    margin: 0 !important;
+  }
+
+  /* ── Страница А4, поля 5мм ── */
+  @page {
+    size: A4 portrait;
+    margin: 5mm;
+  }
+
+  body {
+    background: #fff !important;
+    background-image: none !important;
+    color: #000;
+    padding: 0;
+    margin: 0;
+  }
+
+  /*
+    mask.png = 611 × 978 px, соотношение 611:978.
+    Ширина карточки фиксирована в 58mm — тогда mask.png масштабируется
+    пропорционально через aspect-ratio: 611/978 на блоке .card,
+    и height = 58 × 978/611 ≈ 92.9mm.
+    3 карточки по высоте: 3×92.9 + 2×4 = 286.7mm ≤ 287mm ✓
+    3 карточки по ширине: 3×58 + 2×4 = 182mm ≤ 200mm ✓
+  */
+
+  /* ── Сетка 3×3 на А4 ── */
+  .grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 58mm) !important;
+    gap: 4mm !important;
+    max-width: 100% !important;
+    width: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    align-items: start !important;
+  }
+
+  /* ── Принудительно печатать фоны (цвета плашек, градиенты) ── */
+  .card-title-wrap,
+  .card-desc-wrap {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ── Карточка: ширина фиксирована, высота — из aspect-ratio .card ── */
+  .card-item {
+    width: 58mm !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+    cursor: default !important;
+    transform: none !important;
+    z-index: auto !important;
+    box-shadow: none !important;
+    outline: 2px dashed #999;
+    outline-offset: 5px;
+    border-radius: 5px;
+  }
+
+  /* .card держит aspect-ratio: 611/978 из main.css —
+     при width=58mm высота получится ровно 58×978/611 ≈ 92.9mm,
+     а card-mask с width/height:100% впишется без деформации */
+  .card {
+    width: 58mm !important;
+    height: auto !important;
+    border-radius: 0 !important;
+  }
+
+  /* Скрываем карточки, скрытые фильтром */
+  .card-item.card--hidden {
+    display: none !important;
+  }
+
+  /* Скрываем футер карточки (теги типов и количество) */
+  .card-footer {
+    display: none !important;
+  }
+
+  /* mask.png и delimiter.png — поверх всего */
+  .card-mask {
+    z-index: 200 !important;
+  }
+
+  .card-delimiter {
+    z-index: 200 !important;
+  }
+
+  /* Убираем все тени с вложенных элементов */
+  .card,
+  .card * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  /* Hover и зум — отключить */
+  .card-item:hover,
+  .card-item.is-zoomed {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+}
