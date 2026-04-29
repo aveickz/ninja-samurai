@@ -53,10 +53,12 @@ body {
   margin-bottom: 6px;
 }
 
-.site-header .count {
-  font-size: 0.78rem;
+.count {
+  font-size: 0.7rem;
   color: #6a5030;
   letter-spacing: 0.1em;
+  margin-left: 10px;
+  opacity: 0.8;
 }
 
 /* ── Header stats ── */
