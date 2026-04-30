@@ -518,6 +518,28 @@ $(function () {
     ).appendTo('.sidebar-stats');
   }
 
+  // ── Печать: группируем карточки по 9 на страницу ─────────────────
+  function wrapForPrint() {
+    var $cards = $('#grid .card-item:not(.card--hidden)');
+    var pages = [];
+    for (var i = 0; i < $cards.length; i += 9) {
+      pages.push($cards.slice(i, i + 9));
+    }
+    // Оборачиваем каждую группу в .print-page
+    $.each(pages, function (_, $group) {
+      $group.wrapAll('<div class="print-page"></div>');
+    });
+  }
+
+  function unwrapAfterPrint() {
+    $('.print-page').each(function () {
+      $(this).replaceWith($(this).children());
+    });
+  }
+
+  window.addEventListener('beforeprint', wrapForPrint);
+  window.addEventListener('afterprint', unwrapAfterPrint);
+
   // ── Инициализация ─────────────────────────────────────────────────
   buildFilters();
   buildStats();

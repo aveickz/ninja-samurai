@@ -35,16 +35,29 @@
     3 карточки по ширине: 3×58 + 2×4 = 182mm ≤ 200mm ✓
   */
 
-  /* ── Сетка 3×3 на А4 ── */
+  /* ── Внешний грид отключаем, он теперь только контейнер ── */
   .grid {
-    display: grid !important;
-    grid-template-columns: repeat(3, 58mm) !important;
-    gap: 4mm !important;
-    max-width: 100% !important;
-    width: auto !important;
+    display: block !important;
     margin: 0 !important;
     padding: 0 !important;
-    align-items: start !important;
+  }
+
+  /* ── Каждая страница — сетка 3×3, ровно 9 карточек ── */
+  .print-page {
+    display: grid !important;
+    grid-template-columns: repeat(3, 58mm) !important;
+    grid-template-rows: repeat(3, auto) !important;
+    gap: 4mm !important;
+    width: 174mm !important; /* 3×58 + 2×4 = 174mm */
+    margin: 0 auto !important;
+    padding: 0 !important;
+    page-break-after: always !important;
+    break-after: page !important;
+  }
+
+  .print-page:last-child {
+    page-break-after: avoid !important;
+    break-after: avoid !important;
   }
 
   /* ── Принудительно печатать фоны (цвета плашек, градиенты) ── */
