@@ -743,7 +743,7 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     icons: ["modifier"],
-    tags: [],
+    tags: ["trash"],
     desc: "МОДИФИКАТОР ~ Дальность и сила атаки меняются местами.",
     img: "cards/card_66_in_i_yan.png"
   },

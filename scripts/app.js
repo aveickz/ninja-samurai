@@ -27,7 +27,8 @@ $(function () {
     effect:       '#231F20',
     intervention: '#3B8476',
     character:    '#6C8CC7',
-    action:       '#231F20'
+    action:       '#231F20',
+    trash:        '#3a3a3a'
   };
 
   // ── Порядок и названия групп ──────────────────────────────────────
@@ -46,7 +47,8 @@ $(function () {
     effect:       'Эффекты',
     action:       'Действия',
     intervention: 'Вмешательства',
-    character:    'Персонажи'
+    character:    'Персонажи',
+    trash:        'Корзина'
   };
 
   // ── Состояние фильтра ─────────────────────────────────────────────
@@ -235,6 +237,17 @@ $(function () {
     });
   });
 
+  // Псевдо-группа «Корзина» — карты с тегом trash, независимо от group
+  var trashCards = CARDS.filter(function (card) {
+    return (card.tags || []).indexOf('trash') !== -1;
+  });
+  if (trashCards.length > 0) {
+    $grid.append(buildGroupDivider('trash'));
+    $.each(trashCards, function (_, card) {
+      $grid.append(buildCard(card));
+    });
+  }
+
   // ── Фильтрация ────────────────────────────────────────────────────
   function applyFilter() {
     var totalTypes = 0;
@@ -266,6 +279,10 @@ $(function () {
         totalQty += parseInt($(this).data('qty'), 10) || 1;
         var g = $(this).data('group');
         visibleByGroup[g] = (visibleByGroup[g] || 0) + 1;
+        // Псевдо-группа корзины: считаем отдельно по тегу
+        if (cardTags.indexOf('trash') !== -1) {
+          visibleByGroup['trash'] = (visibleByGroup['trash'] || 0) + 1;
+        }
       }
     });
 
