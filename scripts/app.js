@@ -55,7 +55,7 @@ $(function () {
   var activeMode = null;
 
   // ── Построение тегов типов на карточке ───────────────────────────
-  function buildTypeTags(types, poison) {
+  function buildTypeTags(types, poison, toPrint) {
     var $wrap = $('<div>', { class: 'card-types' });
     $.each(types, function (_, t) {
       var meta = TYPE_META[t] || { label: t, color: '#555' };
@@ -69,6 +69,12 @@ $(function () {
       $('<span>', {
         class: 'type-tag type-tag--poison',
         text: 'Яд'
+      }).appendTo($wrap);
+    }
+    if (toPrint) {
+      $('<span>', {
+        class: 'type-tag type-tag--print',
+        text: 'На печать'
       }).appendTo($wrap);
     }
     return $wrap;
@@ -143,7 +149,7 @@ $(function () {
 
     // Внешний контейнер: card + footer (типы слева, qty справа)
     var $footer = $('<div>', { class: 'card-footer' }).append(
-      buildTypeTags(card.types, card.poison),
+      buildTypeTags(card.types, card.poison, card.toPrint),
       $('<div>', { class: 'card-qty', text: '×' + (card.qty || 1) })
     );
 
