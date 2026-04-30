@@ -628,7 +628,7 @@ const CARDS = [
     types: ["defense", "intervention"],
     qty: 1,
     group: "defense",
-    icons: [],
+    icons: ["intervention"],
     tags: [],
     desc: "ВМЕШАТЕЛЬСТВО~ЗАЩИТА. Можно сыграть в любой момент за любого игрока.",
     img: "cards/card_56_blok.png"

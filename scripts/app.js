@@ -332,6 +332,27 @@ $(function () {
       $(this).toggleClass('group-divider--hidden', !visibleByGroup[g]);
     });
 
+    // Переупорядочиваем группы: при активном type-фильтре группа,
+    // соответствующая фильтру, идёт первой
+    var isTypeFilter = activeMode && activeMode.indexOf('__') !== 0;
+    $('[data-group-divider]').each(function () {
+      $(this).css('order', '');
+    });
+    $('#grid .card-item').each(function () {
+      $(this).css('order', '');
+    });
+    if (isTypeFilter) {
+      $('[data-group-divider]').each(function () {
+        var g = $(this).data('group-divider');
+        $(this).css('order', g === activeMode ? -2 : '');
+      });
+      $('#grid .card-item').each(function () {
+        var $el = $(this);
+        var g = $el.attr('data-trash-pseudo') ? 'trash' : $el.data('group');
+        $el.css('order', g === activeMode ? -1 : '');
+      });
+    }
+
     $('.count').text(totalTypes + ' видов · ' + totalQty + ' карт');
 
     // Подсветка активных кнопок
