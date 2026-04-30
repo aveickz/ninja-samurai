@@ -464,9 +464,23 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 8%;
+  padding: 0 1%;
   pointer-events: none;
   background: #231F20;
+  overflow: visible;
+  z-index: 3;
+}
+
+.card-group-icon {
+  position: absolute;
+  top: 13%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: auto;
+  display: block;
+  pointer-events: none;
+  width: 16%;
+  z-index: 300;
 }
 
 .card-title {
@@ -481,6 +495,7 @@ body {
   max-width: 100%;
   /* лёгкая тень для читаемости */
   text-shadow: 0 1px 2px rgba(255,255,255,0.1);
+  margin-bottom: 2%;
 }
 
 /* Слой 4: жёлтая плашка с описанием внизу.

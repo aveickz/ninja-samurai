@@ -156,6 +156,14 @@ $(function () {
         $('<span>', { class: 'card-title', text: card.title })
       ),
 
+      // Слой 5: иконка группы — поверх маски, по центру низа плашки заголовка
+      $('<img>', {
+        class: 'card-group-icon',
+        src: 'media/' + (card.group === 'effect' ? 'effect8' : card.group) + '.png',
+        alt: '',
+        draggable: false
+      }),
+
       // Слой 4: жёлтая плашка с описанием внизу (только если есть текст)
       card.desc ? $('<div>', { class: 'card-desc-wrap' }).append(
         $('<img>', { class: 'card-delimiter', src: 'media/delimiter.png', alt: '', draggable: false }),
