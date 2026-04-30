@@ -69,7 +69,7 @@ $(function () {
   }
 
   // ── Построение тегов типов на карточке ───────────────────────────
-  function buildTypeTags(types, poison, toPrint) {
+  function buildTypeTags(types, tags) {
     var $wrap = $('<div>', { class: 'card-types' });
     $.each(types, function (_, t) {
       var meta = TYPE_META[t] || { label: t, color: '#555' };
@@ -79,13 +79,13 @@ $(function () {
         css: { '--tag-color': meta.color }
       }).appendTo($wrap);
     });
-    if (poison) {
+    if (tags.indexOf('poison') !== -1) {
       $('<span>', {
         class: 'type-tag type-tag--poison',
         text: 'Яд'
       }).appendTo($wrap);
     }
-    if (toPrint) {
+    if (tags.indexOf('toPrint') !== -1) {
       $('<span>', {
         class: 'type-tag type-tag--print',
         text: 'На печать'
@@ -103,7 +103,7 @@ $(function () {
 
       // Слой 0: фон группы (только для weapon)
       card.group === 'weapon'
-        ? $('<img>', { class: 'card-bg', src: card.poison ? 'media/weapon_bg_poisoned.png' : 'media/weapon_bg.png', alt: '', draggable: false })
+        ? $('<img>', { class: 'card-bg', src: card.tags.indexOf('poison') !== -1 ? 'media/weapon_bg_poisoned.png' : 'media/weapon_bg.png', alt: '', draggable: false })
         : null,
 
       // Слой 1: арт (самый нижний)
@@ -163,7 +163,7 @@ $(function () {
 
     // Внешний контейнер: card + footer (типы слева, qty справа)
     var $footer = $('<div>', { class: 'card-footer' }).append(
-      buildTypeTags(card.types, card.poison, card.toPrint),
+      buildTypeTags(card.types, card.tags || []),
       $('<div>', { class: 'card-qty', text: '×' + (card.qty || 1) })
     );
 
@@ -172,8 +172,7 @@ $(function () {
       'data-types': card.types.join(' '),
       'data-group': card.group || 'action',
       'data-qty': card.qty || 1,
-      'data-poison': card.poison ? '1' : '0',
-      'data-toprint': card.toPrint ? '1' : '0'
+      'data-tags': (card.tags || []).join(' ')
     }).append(
       $card,
       $footer
@@ -244,14 +243,13 @@ $(function () {
 
     $('#grid .card-item').each(function () {
       var cardTypes = $(this).data('types').split(' ');
-      var isPoison  = $(this).data('poison')  === '1' || $(this).data('poison')  === 1;
-      var isToPrint = $(this).data('toprint') === '1' || $(this).data('toprint') === 1;
+      var cardTags  = ($(this).data('tags') || '').toString().split(' ');
 
       var visible;
       if (activeMode === '__poison__') {
-        visible = isPoison;
+        visible = cardTags.indexOf('poison') !== -1;
       } else if (activeMode === '__print__') {
-        visible = isToPrint;
+        visible = cardTags.indexOf('toPrint') !== -1;
       } else if (activeMode) {
         visible = cardTypes.indexOf(activeMode) !== -1;
       } else {
