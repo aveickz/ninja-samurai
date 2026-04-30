@@ -378,6 +378,15 @@ $(function () {
     });
   }
 
+  // ── Вспомогательная: установить фильтр и записать в hash ─────────
+  var VALID_MODES = ALL_TYPES.concat(['__poison__', '__print__', '__draft__', '__trash__']);
+
+  function setFilter(mode) {
+    activeMode = mode;
+    location.hash = mode ? mode : '';
+    applyFilter();
+  }
+
   // ── Строим панель фильтров ────────────────────────────────────────
   function buildFilters() {
     var $bar = $('#filter-bar');
@@ -385,7 +394,7 @@ $(function () {
     // ── Ряд 1: «Все» ─────────────────────────────────────────────────
     var $row1 = $('<div>', { class: 'filter-row' }).appendTo($bar);
     $('<button>', { class: 'filter-btn active', text: 'Все', 'data-type': '__all__' })
-      .on('click', function () { activeMode = null; applyFilter(); })
+      .on('click', function () { setFilter(null); })
       .appendTo($row1);
 
     // ── Ряд 2: фильтры по группам ────────────────────────────────────
@@ -399,8 +408,7 @@ $(function () {
         css: { '--tag-color': meta.color }
       })
         .on('click', function () {
-          activeMode = activeMode === t ? null : t;
-          applyFilter();
+          setFilter(activeMode === t ? null : t);
         })
         .appendTo($row2);
     });
@@ -410,29 +418,25 @@ $(function () {
 
     $('<button>', { class: 'filter-btn filter-btn--poison', text: '☠ Яд', 'data-type': '__poison__' })
       .on('click', function () {
-        activeMode = activeMode === '__poison__' ? null : '__poison__';
-        applyFilter();
+        setFilter(activeMode === '__poison__' ? null : '__poison__');
       })
       .appendTo($row3);
 
     $('<button>', { class: 'filter-btn filter-btn--print', text: '🖨 На печать', 'data-type': '__print__' })
       .on('click', function () {
-        activeMode = activeMode === '__print__' ? null : '__print__';
-        applyFilter();
+        setFilter(activeMode === '__print__' ? null : '__print__');
       })
       .appendTo($row3);
 
     $('<button>', { class: 'filter-btn filter-btn--draft', text: '✏ Черновик', 'data-type': '__draft__' })
       .on('click', function () {
-        activeMode = activeMode === '__draft__' ? null : '__draft__';
-        applyFilter();
+        setFilter(activeMode === '__draft__' ? null : '__draft__');
       })
       .appendTo($row3);
 
     $('<button>', { class: 'filter-btn filter-btn--trash', text: '🗑 Корзина', 'data-type': '__trash__' })
       .on('click', function () {
-        activeMode = activeMode === '__trash__' ? null : '__trash__';
-        applyFilter();
+        setFilter(activeMode === '__trash__' ? null : '__trash__');
       })
       .appendTo($row3);
   }
@@ -544,6 +548,12 @@ $(function () {
   // ── Инициализация ─────────────────────────────────────────────────
   buildFilters();
   buildStats();
+
+  // Восстанавливаем фильтр из hash (если он валидный)
+  var hashMode = location.hash.replace(/^#/, '');
+  if (hashMode && VALID_MODES.indexOf(hashMode) !== -1) {
+    activeMode = hashMode;
+  }
   applyFilter();
 
 });
