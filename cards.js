@@ -1,4 +1,4 @@
-// Допустимые типы: weapon | trap | character | modifier | defense | stance | effect | intervention | group | action
+// Допустимые типы: weapon | trap | character | modifier | defense | stance | effect | intervention | aoe | action
 const CARDS = [
 
   // ── ОРУЖИЕ (стр. 1–5) ────────────────────────────────────────────
@@ -906,9 +906,9 @@ const CARDS = [
   {
     id: 81,
     title: "Целительные источники",
-    types: ["group", "action"],
+    types: ["aoe", "action"],
     qty: 1,
-    group: "group",
+    group: "aoe",
     icons: ["aoe"],
     tags: [],
     desc: "Восстановите два жетона жизни, а все остальные активные игроки один.",
@@ -917,9 +917,9 @@ const CARDS = [
   {
     id: 82,
     title: "Миротворцы",
-    types: ["group", "action"],
+    types: ["aoe", "action"],
     qty: 1,
-    group: "group",
+    group: "aoe",
     icons: ["aoe"],
     tags: [],
     desc: "Остальные активные игроки скидывают карту защиты или оружия, либо отдают вам карту из руки на свой выбор.",
@@ -928,9 +928,9 @@ const CARDS = [
   {
     id: 83,
     title: "Потасовка",
-    types: ["group", "action"],
+    types: ["aoe", "action"],
     qty: 1,
-    group: "group",
+    group: "aoe",
     icons: ["aoe"],
     tags: [],
     desc: "Все активные игроки теряют стойку. Сёгун не участвует в потасовке.",
@@ -939,9 +939,9 @@ const CARDS = [
   {
     id: 84,
     title: "Чайная церемония",
-    types: ["group", "action"],
+    types: ["aoe", "action"],
     qty: 1,
-    group: "group",
+    group: "aoe",
     icons: ["aoe"],
     tags: [],
     desc: "Вы берёте три карты, остальные активные игроки берут по одной.",
@@ -950,9 +950,9 @@ const CARDS = [
   {
     id: 85,
     title: "Просветление",
-    types: ["group", "action"],
+    types: ["aoe", "action"],
     qty: 1,
-    group: "group",
+    group: "aoe",
     icons: ["aoe"],
     tags: [],
     desc: "Все ловушки на столе открываются, но продолжают действовать.",
@@ -961,9 +961,9 @@ const CARDS = [
   {
     id: 86,
     title: "Вихрь ярости",
-    types: ["group", "action"],
+    types: ["aoe", "action"],
     qty: 1,
-    group: "group",
+    group: "aoe",
     icons: ["aoe"],
     tags: [],
     desc: "Играется в паре с картой не метательного оружия с дальностью более одного. Минуя ловушки, активные игроки получают урон от оружия (без бонусов) или скидывают защиту. Тратит атаку.",
@@ -972,9 +972,9 @@ const CARDS = [
   {
     id: 87,
     title: "Шквал огня",
-    types: ["group", "action"],
+    types: ["aoe", "action"],
     qty: 1,
-    group: "group",
+    group: "aoe",
     icons: ["aoe"],
     tags: [],
     desc: "Играется в паре с картой метательного оружия. Минуя ловушки, активные игроки получают две раны или скидывают защиту. Тратит атаку.",
@@ -983,9 +983,9 @@ const CARDS = [
   {
     id: 88,
     title: "Бочка зловония",
-    types: ["group", "effect"],
+    types: ["aoe", "effect"],
     qty: 2,
-    group: "group",
+    group: "aoe",
     icons: ["aoe", "poison"],
     tags: ["poison"],
     desc: "Все активные игроки получают отравление ядом.",
@@ -994,9 +994,9 @@ const CARDS = [
   {
     id: 89,
     title: "Град стрел",
-    types: ["group", "action"],
+    types: ["aoe", "action"],
     qty: 1,
-    group: "group",
+    group: "aoe",
     icons: ["aoe"],
     tags: [],
     desc: "Остальные активные игроки скидывают карту оружия или жетон жизни.",
@@ -1005,9 +1005,9 @@ const CARDS = [
   {
     id: 90,
     title: "Боевой крик",
-    types: ["group", "action"],
+    types: ["aoe", "action"],
     qty: 1,
-    group: "group",
+    group: "aoe",
     icons: ["aoe"],
     tags: [],
     desc: "Все ловушки на столе сбрасываются в сброс.",

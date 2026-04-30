@@ -11,7 +11,7 @@ $(function () {
     stance:       { label: 'Стойка',        color: '#A78B6B' },
     effect:       { label: 'Эффект',        color: '#FFDDDD' },
     intervention: { label: 'Вмешательство', color: '#3B8476' },
-    group:        { label: 'Групповая',     color: '#FFDDDD' }
+    aoe:          { label: 'Групповая',     color: '#FFDDDD' }
   };
 
   var ALL_TYPES = Object.keys(TYPE_META);
@@ -23,7 +23,7 @@ $(function () {
     weapon:       '#231F20',
     stance:       '#A78B6B',
     modifier:     '#ED1C24',
-    group:        '#231F20',
+    aoe:          '#231F20',
     effect:       '#231F20',
     intervention: '#3B8476',
     character:    '#6C8CC7',
@@ -34,7 +34,7 @@ $(function () {
   // ── Порядок и названия групп ──────────────────────────────────────
   var GROUP_ORDER = [
     'weapon', 'trap', 'defense', 'stance', 'modifier',
-    'group', 'effect', 'action', 'intervention', 'character'
+    'aoe', 'effect', 'action', 'intervention', 'character'
   ];
 
   var GROUP_LABELS = {
@@ -43,7 +43,7 @@ $(function () {
     defense:      'Защита',
     stance:       'Стойки',
     modifier:     'Модификаторы',
-    group:        'Групповые',
+    aoe:          'Групповые',
     effect:       'Эффекты',
     action:       'Действия',
     intervention: 'Вмешательства',
