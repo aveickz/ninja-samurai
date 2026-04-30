@@ -153,8 +153,19 @@ $(function () {
         class: 'card-title-wrap',
         css: { background: GROUP_TITLE_COLOR[card.group] || '#231F20' }
       }).append(
-        $('<span>', { class: 'card-title', text: card.title })
+        $('<span>', { class: 'card-title', text: card.title }),
+        card.subtitle
+          ? $('<span>', { class: 'card-subtitle', text: card.subtitle })
+          : null
       ),
+
+      // Слой HP: иконка сердца с числом — только для персонажей
+      card.hp != null
+        ? $('<div>', { class: 'card-hp' }).append(
+            $('<img>', { class: 'card-hp-img', src: 'media/hp.png', alt: '', draggable: false }),
+            $('<span>', { class: 'card-hp-value', text: card.hp })
+          )
+        : null,
 
       // Слой 5: иконка группы — поверх маски, по центру низа плашки заголовка
       $('<img>', {

@@ -462,8 +462,10 @@ body {
   right: 1.5%;
   height: 11.8%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 1px;
   padding: 0 1%;
   pointer-events: none;
   background: #231F20;
@@ -493,9 +495,48 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 100%;
-  /* лёгкая тень для читаемости */
   text-shadow: 0 1px 2px rgba(255,255,255,0.1);
   margin-bottom: 2%;
+}
+
+.card-subtitle {
+  font-family: 'Han Zi', 'Georgia', serif;
+  font-size: 6.5pt;
+  color: rgba(255, 255, 255, 0.75);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  letter-spacing: 0.04em;
+}
+
+.card-hp {
+  position: absolute;
+  top: 14%;
+  right: 4%;
+  width: 18%;
+  z-index: 500;
+  pointer-events: none;
+}
+
+.card-hp-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.card-hp-value {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -44%);
+  color: #ffffff;
+  font-family: 'Verdana', sans-serif;
+  font-size: 9pt;
+  font-weight: bold;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+  line-height: 1;
 }
 
 /* Слой 4: жёлтая плашка с описанием внизу.
