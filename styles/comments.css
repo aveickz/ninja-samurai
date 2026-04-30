@@ -1,0 +1,284 @@
+/*
+  comments.css — UI комментариев к карточкам.
+  Содержит:
+    – .card-comments-btn — бейдж 💬 в .card-footer (поведение в comments.js)
+    – .comments-overlay  — fixed-position панель на body со списком,
+                           формой и кнопкой закрытия
+    – связанные media queries для печати и узких экранов
+*/
+
+/* ── Бейдж комментариев на карточке ──────────────────────────────── */
+/*
+  Кнопка в .card-footer справа от .card-qty. Внутри только эмодзи —
+  количество не показываем, важен только факт наличия комментариев.
+  --has модификатор включается, когда у карточки уже есть комментарии
+  (определяется в comments.js по наличию ключа card_<ID>_comments).
+*/
+.card-comments-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 4px;
+  padding: 2px 5px;
+  background: #1a1208;
+  border: 1px solid #4a3520;
+  border-radius: 4px;
+  color: #8a6a3a;
+  font-family: 'Georgia', serif;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.card-comments-btn:hover {
+  background: #2a1c0a;
+  border-color: #c88600;
+  color: #f0c060;
+}
+
+.card-comments-btn--has {
+  background: #2a1c0a;
+  border-color: #c88600;
+  color: #f0c060;
+  /* Лёгкое свечение, чтобы наличие комментариев было заметно издалека */
+  box-shadow: 0 0 6px #c8860044;
+}
+
+.card-comments-btn--has:hover {
+  background: #3a2810;
+}
+
+.card-comments-icon {
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+/* На печать бейдж не выводим */
+@media print {
+  .card-comments-btn { display: none !important; }
+}
+
+/* ── Оверлей с панелью комментариев ──────────────────────────────── */
+/*
+  Оверлей висит на body (а не внутри .card-item), поэтому не масштабируется
+  transform'ом zoomed-карточки. Открывается по клику на .card-comments-btn,
+  закрывается крестиком, Escape, или кликом вне панели — логика в comments.js.
+*/
+.comments-overlay {
+  position: fixed;
+  top: 50%;
+  right: 24px;
+  transform: translateY(-50%);
+  width: 360px;
+  max-height: 80vh;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #2a1c0a 0%, #1f1408 100%);
+  border: 1px solid #6a5030;
+  border-radius: 8px;
+  box-shadow: 0 16px 48px #000000cc, 0 0 32px #c8860033;
+  color: #e8d5a3;
+  font-family: 'Georgia', serif;
+  overflow: hidden;
+  animation: comments-slide-in 0.2s ease-out;
+}
+
+@keyframes comments-slide-in {
+  from { opacity: 0; transform: translate(20px, -50%); }
+  to   { opacity: 1; transform: translate(0,    -50%); }
+}
+
+.comments-overlay-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px 12px 10px 16px;
+  border-bottom: 1px solid #4a3520;
+  background: #1a1208;
+}
+
+.comments-overlay-titles {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.comments-overlay-title {
+  font-size: 0.95rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #f0c060;
+}
+
+.comments-overlay-card {
+  font-size: 0.7rem;
+  color: #a08050;
+  letter-spacing: 0.04em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.comments-close {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #a08050;
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  font-family: 'Georgia', serif;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.comments-close:hover {
+  background: #2a1c0a;
+  border-color: #6a5030;
+  color: #f0c060;
+}
+
+.comments-list {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 10px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: #6a5030 transparent;
+}
+
+.comments-list::-webkit-scrollbar { width: 6px; }
+.comments-list::-webkit-scrollbar-thumb { background: #6a5030; border-radius: 3px; }
+
+.comments-list--loading,
+.comments-empty {
+  color: #8a6a3a;
+  font-style: italic;
+  text-align: center;
+  padding: 16px 0;
+  font-size: 0.85rem;
+}
+
+.comments-empty--error { color: #d06060; }
+
+.comment-item {
+  background: #1a1208;
+  border: 1px solid #3a2818;
+  border-radius: 6px;
+  padding: 8px 10px;
+}
+
+.comment-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 4px;
+  font-size: 0.7rem;
+}
+
+.comment-author {
+  color: #f0c060;
+  font-weight: bold;
+  letter-spacing: 0.04em;
+}
+
+.comment-date {
+  color: #6a5030;
+  font-variant-numeric: tabular-nums;
+}
+
+.comment-text {
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: #d8c599;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.comments-form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 16px 14px;
+  border-top: 1px solid #4a3520;
+  background: #1a1208;
+}
+
+.comments-author,
+.comments-text {
+  background: #0d0904;
+  border: 1px solid #4a3520;
+  border-radius: 4px;
+  color: #e8d5a3;
+  font-family: 'Georgia', serif;
+  font-size: 0.85rem;
+  padding: 6px 8px;
+  outline: none;
+  resize: vertical;
+}
+
+.comments-author:focus,
+.comments-text:focus {
+  border-color: #c88600;
+  box-shadow: 0 0 0 2px #c8860033;
+}
+
+.comments-text {
+  min-height: 56px;
+}
+
+.comments-error {
+  font-size: 0.75rem;
+  color: #d06060;
+}
+
+.comments-submit {
+  align-self: flex-end;
+  background: #c88600;
+  color: #1a1208;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 16px;
+  font-family: 'Georgia', serif;
+  font-size: 0.8rem;
+  font-weight: bold;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.comments-submit:hover { background: #f0c060; }
+.comments-submit:disabled {
+  background: #6a5030;
+  color: #8a6a3a;
+  cursor: not-allowed;
+}
+
+/* Узкие экраны: панель снизу, во всю ширину */
+@media (max-width: 800px) {
+  .comments-overlay {
+    top: auto;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: auto;
+    max-height: 60vh;
+    border-radius: 8px 8px 0 0;
+    transform: none;
+    animation: none;
+  }
+}
+
+/* Печать: оверлей не выводим */
+@media print {
+  .comments-overlay { display: none !important; }
+}

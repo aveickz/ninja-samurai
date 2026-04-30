@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Картотека карточек</title>
   <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/card.css">
+  <link rel="stylesheet" href="styles/comments.css">
   <link rel="stylesheet" href="styles/print.css" media="print">
 </head>
 <body>
@@ -66,11 +68,28 @@
   </div>
 
   <!-- База данных карт -->
-  <script src="cards.js"></script>
+  <script src="js/cards.js"></script>
   <!-- jQuery -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <!-- Внешний KV-стор (kvdb.io) -->
+  <script src="js/kvdb.js"></script>
+  <script>
+    // ── Конфиг для комментариев ────────────────────────────────────
+    // 1. Создайте bucket: curl -d 'email=YOU@example.com' https://kvdb.io
+    //    (один раз; ответ — короткий id, пропишите его ниже).
+    // 2. Подтвердите email по ссылке из письма от kvdb.io —
+    //    без этого записи блокируются.
+    // 3. Опционально: при создании задайте write_key и положите его
+    //    в writeKey ниже, иначе bucket будет публичным на запись.
+    window.KVDB_CONFIG = {
+      bucket:   'YWwXXK5poABCtyxee32wNx',  // например: 'Fd55uogXyxYdnXJvnyN8Xo'
+      writeKey: null
+    };
+  </script>
   <!-- Логика приложения -->
-  <script src="scripts/app.js"></script>
+  <script src="js/app.js"></script>
+  <!-- Комментарии (после app.js — нужен уже отрисованный #grid) -->
+  <script src="js/comments.js"></script>
 
 </body>
 </html>

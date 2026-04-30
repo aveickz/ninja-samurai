@@ -1,3 +1,12 @@
+/*
+  main.css — общая страница приложения.
+  Сюда НЕ кладём стили карточек (см. card.css) и стили
+  комментариев (см. comments.css).
+
+  Порядок подключения в app.html:
+    main.css → card.css → comments.css
+*/
+
 /* ── Fonts ── */
 @font-face {
   font-family: 'Han Zi';
@@ -287,6 +296,7 @@ body {
   color: #e8d5a3;
 }
 
+/* ── Кнопки фильтра ── */
 .filter-btn {
   font-family: 'Georgia', serif;
   font-size: 0.72rem;
@@ -318,316 +328,6 @@ body {
   border-color: #f0c060;
   color: #1a1208;
   box-shadow: 0 0 10px #c8860055;
-}
-
-/* ── Секция карточек — ширина совпадает с page-top ── */
-.cards-section {
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-/* ── Section label ── */
-.section-label {
-  margin: 0 0 16px;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: #7a5a2a;
-  border-bottom: 1px solid #3a2a10;
-  padding-bottom: 6px;
-}
-
-/* ── Grid ── */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 28px;
-}
-
-/* ── Card item (внешний контейнер) ── */
-/*
-  Структура:
-  .card-item           — внешний контейнер (hover, grid-cell)
-    .card              — арт-блок (маска + слои)
-      .card-art        — картинка
-      .card-mask       — mask.png, multiply
-      .card-title-wrap — заголовок в полосе маски
-      .card-desc-wrap  — жёлтая плашка описания
-    .card-types        — теги типов СНАРУЖИ арт-блока
-*/
-.card-item {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  cursor: pointer;
-  position: relative;
-  z-index: 0;
-  transition: transform 0.25s ease;
-}
-
-.card-item:hover:not(.is-zoomed) {
-  transform: translateY(-5px) scale(1.02);
-}
-
-.card-item:hover:not(.is-zoomed) .card {
-  box-shadow: 0 16px 40px #000000bb, 0 0 20px #c8860033;
-}
-
-/* ── Zoomed state ── */
-.card-item.is-zoomed {
-  transform: scale(2);
-  z-index: 100;
-  cursor: zoom-out;
-}
-
-.card-item.is-zoomed .card {
-  box-shadow: 0 32px 80px #000000ee, 0 0 40px #c8860066;
-}
-
-/* ── Card (арт-блок) ── */
-.card {
-  position: relative;
-  aspect-ratio: 611 / 978;
-  overflow: hidden;
-  border-radius: 6px;
-  box-shadow: 0 6px 24px #00000099;
-  transition: box-shadow 0.2s ease;
-}
-
-/* Слой 0: фоновое изображение группы (weapon_bg.png и т.п.)
-   Заполняет ту же зону, что и card-art, но лежит ниже него. */
-.card-bg {
-  position: absolute;
-  top: 13%;
-  left: 1.5%;
-  width: 97%;
-  height: auto;
-  display: block;
-  z-index: 0;
-}
-
-/* Слой 1: арт карточки — абсолютно позиционирован внутри .card.
-   Ширина всегда 100% от .card; высота пропорциональна оригиналу. */
-.card-art {
-  position: absolute;
-  top: 13%;
-  left: 1.5%;
-  width: 97%;
-  height: auto;
-  display: block;
-  z-index: 2;
-}
-
-/* hover управляется через .card-item:hover .card-art */
-
-/* Слой 2: иконки — вертикальный стек в левом верхнем углу зоны арта */
-.card-icons {
-  position: absolute;
-  top: 14%;
-  left: 4%;
-  display: flex;
-  flex-direction: column;
-  gap: 3%;
-  z-index: 50;
-  pointer-events: none;
-}
-
-.card-icon {
-  display: block;
-  width: 32%;
-  margin-bottom: -3px;
-}
-
-/* Слой 3: рамка/маска поверх арта */
-.card-mask {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-  /* multiply — белые пиксели маски «пропускают» арт, тёмные перекрывают */
-  /*mix-blend-mode: multiply;*/
-  pointer-events: none;
-  z-index: 100;
-}
-
-/* Слой 3: заголовок в верхней полосе маски
-   Позиции выверены по пикселям mask.png (611×978):
-   - разделительная линия заголовка: y=124–134 из 978 → 13.7% высоты
-   - боковые отступы рамки: ~5px из 611 → 0.82% ширины */
-.card-title-wrap {
-  position: absolute;
-  top: 1.2%;
-  left: 1.5%;
-  right: 1.5%;
-  height: 11.8%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1px;
-  padding: 0 1%;
-  pointer-events: none;
-  background: #231F20;
-  overflow: visible;
-  z-index: 3;
-}
-
-.card-group-icon {
-  position: absolute;
-  top: 13%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  height: auto;
-  display: block;
-  pointer-events: none;
-  width: 16%;
-  z-index: 300;
-}
-
-.card-title {
-  font-family: 'Han Zi', 'Georgia', serif;
-  font-size: 10pt;
-  color:  #ffffff;
-  font-weight: bold;
-  text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 100%;
-  text-shadow: 0 1px 2px rgba(255,255,255,0.1);
-  margin-bottom: 2%;
-}
-
-.card-subtitle {
-  font-family: 'Han Zi', 'Georgia', serif;
-  font-size: 6.5pt;
-  color: rgba(255, 255, 255, 0.75);
-  text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 100%;
-  letter-spacing: 0.04em;
-}
-
-.card-hp {
-  position: absolute;
-  top: 14%;
-  right: 4%;
-  width: 18%;
-  z-index: 500;
-  pointer-events: none;
-}
-
-.card-hp-img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.card-hp-value {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -44%);
-  color: #ffffff;
-  font-family: 'Verdana', sans-serif;
-  font-size: 9pt;
-  font-weight: bold;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.6);
-  line-height: 1;
-}
-
-/* Слой 4: жёлтая плашка с описанием внизу.
-   top выставляется через JS после загрузки card-art (= нижний край арта).
-   bottom: 0 растягивает плашку до нижнего края .card. */
-.card-desc-wrap {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: url('../media/paper.png') center / cover no-repeat;
-  padding: 5px 4px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-start;
-  margin: 4px;
-  z-index: 10;
-}
-
-.card-delimiter {
-  position: absolute;
-  top: -2px;
-  left: -4px;
-  right: 0;
-  width: calc(100% + 8px);
-  display: block;
-  pointer-events: none;
-}
-
-.card-desc {
-  font-family: 'Salma Pro Med Narrow', 'Georgia', sans-serif;
-  font-size: 10pt;
-  line-height: 0.9;
-  color: #1a1208;
-  text-align: left;
-  font-style: normal;
-  font-weight: lighter;
-  margin: auto 0;
-}
-
-/* ── Нижняя строка под карточкой: типы слева, qty справа ── */
-.card-footer {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 6px;
-}
-
-/* Теги типов — слева внизу */
-.card-types {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  justify-content: flex-start;
-}
-
-.type-tag {
-  font-family: 'Georgia', serif;
-  font-size: 0.55rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: color-mix(in srgb, var(--tag-color) 60%, #e8d5a3);
-  background: color-mix(in srgb, var(--tag-color) 20%, #2a1c0e);
-  border: 1px solid color-mix(in srgb, var(--tag-color) 55%, #e8d5a3);
-  border-radius: 3px;
-  padding: 1px 5px;
-}
-
-.type-tag--poison {
-  color: #7fff7f;
-  background: #0d2e0d;
-  border-color: #3a8a3a;
-}
-
-.type-tag--print {
-  color: #a8d4f0;
-  background: #0d1e2e;
-  border-color: #2a5a7a;
-}
-
-.type-tag--draft {
-  color: #f0d080;
-  background: #2a2000;
-  border-color: #7a6000;
-}
-
-.type-tag--trash {
-  color: #c0c0c0;
-  background: #1e1e1e;
-  border-color: #555555;
 }
 
 /* ── Кнопка фильтра «На печать» ── */
@@ -710,63 +410,19 @@ body {
   box-shadow: 0 0 12px #90909066;
 }
 
-/* Количество — справа внизу */
-.card-qty {
-  font-family: 'Georgia', serif;
-  font-size: 0.72rem;
-  font-weight: bold;
-  letter-spacing: 0.1em;
-  color: #a08050;
-  white-space: nowrap;
-  flex-shrink: 0;
+/* ── Секция карточек — ширина совпадает с page-top ── */
+.cards-section {
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
-/* ── Hidden card (filtered out) ── */
-.card-item.card--hidden {
-  display: none;
-}
-
-/* ── Group divider ── */
-.group-divider {
-  grid-column: 1 / -1;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin: 28px 0 8px;
-}
-
-.group-divider:first-child {
-  margin-top: 0;
-}
-
-.group-divider-line {
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(
-    to var(--line-dir, right),
-    transparent,
-    color-mix(in srgb, var(--group-color, #7a5a2a) 60%, #5a3e1b) 40%,
-    color-mix(in srgb, var(--group-color, #7a5a2a) 60%, #5a3e1b)
-  );
-}
-
-.group-divider-line:last-child {
-  --line-dir: left;
-}
-
-.group-divider-label {
-  font-family: 'Han Zi', 'Georgia', serif;
-  font-size: 2rem;
-  letter-spacing: 0.1em;
+/* ── Section label ── */
+.section-label {
+  margin: 0 0 16px;
+  font-size: 0.75rem;
   text-transform: uppercase;
-  color: color-mix(in srgb, var(--group-color, #a08050) 80%, #f0c060);
-  text-shadow:
-    0 0 18px color-mix(in srgb, var(--group-color, #a08050) 50%, transparent),
-    0 1px 0 #000;
-  white-space: nowrap;
-  padding: 0 4px;
-}
-
-.group-divider--hidden {
-  display: none;
+  letter-spacing: 0.2em;
+  color: #7a5a2a;
+  border-bottom: 1px solid #3a2a10;
+  padding-bottom: 6px;
 }

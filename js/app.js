@@ -190,6 +190,7 @@ $(function () {
 
     var $item = $('<div>', {
       class: 'card-item ' + typeClasses,
+      'data-card-id': card.id,
       'data-types': card.types.join(' '),
       'data-group': card.group || 'action',
       'data-qty': card.qty || 1,
