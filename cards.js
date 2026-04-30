@@ -106,7 +106,7 @@ const CARDS = [
     group: "weapon",
     toPrint: false,
     poison: false,
-    icons: ["melee1", "dmg1"],
+    icons: ["melee1", "dmg1", "defense"],
     desc: "Можно использовать как карту Защиты.",
     img: "cards/card_9_shipastyy_shchit.png"
   },
@@ -142,7 +142,7 @@ const CARDS = [
     group: "weapon",
     toPrint: false,
     poison: false,
-    icons: ["melee3", "dmg3"],
+    icons: ["ranged", "dmg3"],
     desc: "Только Сёгун может проводить прямую атаку этим оружием. Можно сыграть как вмешательство, чтобы передать эту карту Сёгуну в обмен на другую в закрытую.",
     img: "cards/card_12_mech_syoguna.png"
   },
@@ -196,15 +196,27 @@ const CARDS = [
   },
   {
     id: 17,
-    title: "МаКадо",
+    title: "Оно",
     types: ["weapon"],
     qty: 1,
     group: "weapon",
-    toPrint: false,
+    toPrint: true,
     poison: false,
     icons: ["melee1", "dmg1"],
     desc: "",
-    img: "cards/card_17_makado.png"
+    img: "cards/card_17_ono.png"
+  },
+  {
+    id: 317,
+    title: "Ната",
+    types: ["weapon"],
+    qty: 1,
+    group: "weapon",
+    toPrint: true,
+    poison: false,
+    icons: ["melee1", "dmg1"],
+    desc: "",
+    img: "cards/card_nata.png"
   },
   {
     id: 18,
@@ -240,7 +252,7 @@ const CARDS = [
     poison: true,
     icons: ["melee2", "dmg1", "poison"],
     desc: "Можно воспользоваться либо как обычным оружием 1/2, либо как метательным оружием 3/1.",
-    img: "cards/card_19_otravlennyy_boevoy_veer.png"
+    img: "cards/card_6_boevoy_veer.png"
   },
   {
     id: 21,
@@ -250,9 +262,9 @@ const CARDS = [
     group: "weapon",
     toPrint: false,
     poison: true,
-    icons: ["melee3", "dmg1", "poison"],
-    desc: "Можно воспользоваться либо как обычным оружием 1/2, либо как метательным оружием 3/1.",
-    img: "cards/card_20_otravlennyy_say.png"
+    icons: ["ranged", "dmg1", "poison"],
+    desc: "",
+    img: "cards/card_18_say.png"
   },
   {
     id: 22,
@@ -334,7 +346,7 @@ const CARDS = [
     group: "weapon",
     toPrint: false,
     poison: false,
-    icons: ["dmg2"],
+    icons: ["melee_gt1", "dmg2"],
     desc: "Может ударить на любом расстоянии более двух.",
     img: "cards/card_28_naginata.png"
   },
@@ -372,7 +384,7 @@ const CARDS = [
     poison: true,
     icons: ["melee2", "dmg2", "poison"],
     desc: "",
-    img: "cards/card_30_otravlennyy_yari.png"
+    img: "cards/card_29_yari.png"
   },
   {
     id: 32,
@@ -394,7 +406,7 @@ const CARDS = [
     group: "weapon",
     toPrint: false,
     poison: false,
-    icons: ["melee3", "dmg2"],
+    icons: ["ranged", "dmg2"],
     desc: "",
     img: "cards/card_33_dayku.png"
   },
@@ -406,9 +418,9 @@ const CARDS = [
     group: "weapon",
     toPrint: false,
     poison: true,
-    icons: ["melee3", "dmg1", "poison"],
+    icons: ["ranged", "dmg1", "poison"],
     desc: "",
-    img: "cards/card_32_otravlennyy_syuriken.png"
+    img: "cards/card_34_syuriken.png"
   },
   {
     id: 35,
@@ -418,7 +430,7 @@ const CARDS = [
     group: "weapon",
     toPrint: false,
     poison: false,
-    icons: ["dmg2"],
+    icons: ["ranged", "dmg2"],
     desc: "",
     img: "cards/card_36_kunay.png"
   },
@@ -430,7 +442,7 @@ const CARDS = [
     group: "weapon",
     toPrint: false,
     poison: false,
-    icons: ["melee3", "dmg1"],
+    icons: ["ranged", "dmg1"],
     desc: "В случае успешной атаки это оружие возвращается вам в руку.",
     img: "cards/card_37_bumerang.png"
   },
@@ -442,9 +454,9 @@ const CARDS = [
     group: "weapon",
     toPrint: false,
     poison: true,
-    icons: ["melee3", "dmg1", "poison"],
+    icons: ["ranged", "dmg2", "poison"],
     desc: "",
-    img: "cards/card_35_otravlennyy_dayku.png"
+    img: "cards/card_33_dayku.png"
   },
   {
     id: 38,
@@ -454,7 +466,7 @@ const CARDS = [
     group: "weapon",
     toPrint: false,
     poison: false,
-    icons: ["melee3", "dmg0"],
+    icons: ["ranged", "dmg0", "trap"],
     desc: "Можно использовать как ловушку, которая наносит одну рану атакующему в ответ.",
     img: "cards/card_38_makibishi.png"
   },
@@ -466,7 +478,7 @@ const CARDS = [
     group: "weapon",
     toPrint: false,
     poison: true,
-    icons: ["melee3", "dmg1", "poison"],
+    icons: ["ranged", "dmg1", "poison"],
     desc: "Атака игнорирует ловушки и защиту, и вы берёте карту из колоды.",
     img: "cards/card_39_drotik_s_yadom.png"
   },
@@ -478,9 +490,9 @@ const CARDS = [
     group: "weapon",
     toPrint: false,
     poison: true,
-    icons: ["dmg1", "poison"],
+    icons: ["ranged", "dmg1", "poison"],
     desc: "",
-    img: "cards/card_40_otravlennyy_kunay.png"
+    img: "cards/card_36_kunay.png"
   },
 
   // ── ЛОВУШКИ (стр. 7) ─────────────────────────────────────────────

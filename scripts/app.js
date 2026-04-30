@@ -83,7 +83,7 @@ $(function () {
 
       // Слой 0: фон группы (только для weapon)
       card.group === 'weapon'
-        ? $('<img>', { class: 'card-bg', src: 'media/weapon_bg.png', alt: '', draggable: false })
+        ? $('<img>', { class: 'card-bg', src: card.poison ? 'media/weapon_bg_poisoned.png' : 'media/weapon_bg.png', alt: '', draggable: false })
         : null,
 
       // Слой 1: арт (самый нижний)
