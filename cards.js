@@ -978,7 +978,7 @@ const CARDS = [
     icons: [],
     tags: [],
     desc: "Играется в паре с картой метательного оружия. Минуя ловушки, активные игроки получают две раны или скидывают защиту. Тратит атаку.",
-    img: "cards/card_86_vikhr_yarosti.png"
+    img: "cards/card_shkval_ognya.png"
   },
   {
     id: 88,
@@ -1095,9 +1095,9 @@ const CARDS = [
   {
     id: 98,
     title: "Палочка благовоний",
-    types: ["effect", "action"],
+    types: ["action"],
     qty: 2,
-    group: "effect",
+    group: "action",
     icons: [],
     tags: [],
     desc: "Выбранный игрок скидывает один выбранный вами эффект. Вы можете восстановить жизнь или взять карту из колоды.",
@@ -1106,9 +1106,9 @@ const CARDS = [
   {
     id: 99,
     title: "Чаша благовоний",
-    types: ["effect", "action"],
+    types: ["action"],
     qty: 1,
-    group: "effect",
+    group: "action",
     icons: [],
     tags: [],
     desc: "Выбранный игрок скидывает все эффекты. За каждый сброшенный эффект вы можете восстановить жизнь или взять карту из колоды.",
@@ -1196,7 +1196,7 @@ const CARDS = [
   {
     id: 107,
     title: "Швы",
-    types: ["action", "effect"],
+    types: ["action"],
     qty: 4,
     group: "action",
     icons: [],
@@ -1295,7 +1295,7 @@ const CARDS = [
   {
     id: 116,
     title: "Яд фугу",
-    types: ["action", "effect"],
+    types: ["action"],
     qty: 1,
     group: "action",
     icons: ["poison"],
