@@ -217,7 +217,7 @@ $(function () {
   // ── Рендер: всё в $grid с разделителями ──────────────────────────
   var $grid = $('#grid');
 
-  // Группируем карты по group в правильном порядке
+  // Группируем все карты по group (включая trash — они нужны в обоих местах)
   var grouped = {};
   $.each(CARDS, function (_, card) {
     var g = card.group || 'action';
@@ -225,7 +225,9 @@ $(function () {
     grouped[g].push(card);
   });
 
-  // Рендерим группу за группой
+  // Рендерим группу за группой.
+  // Trash-карты попадают сюда тоже, но помечаются data-trash-real="1"
+  // и по умолчанию скрыты — показываются только при активном __trash__ фильтре.
   $.each(GROUP_ORDER, function (_, groupKey) {
     var cards = grouped[groupKey];
     if (!cards || cards.length === 0) return;
@@ -233,18 +235,23 @@ $(function () {
     $grid.append(buildGroupDivider(groupKey));
 
     $.each(cards, function (_, card) {
-      $grid.append(buildCard(card));
+      var $item = buildCard(card);
+      if ((card.tags || []).indexOf('trash') !== -1) {
+        $item.attr('data-trash-real', '1').addClass('card--hidden');
+      }
+      $grid.append($item);
     });
   });
 
-  // Псевдо-группа «Корзина» — карты с тегом trash, независимо от group
+  // Псевдо-группа «Корзина» — те же trash-карты, помечены data-trash-pseudo="1"
+  // По умолчанию видимы; скрываются при активном __trash__ фильтре.
   var trashCards = CARDS.filter(function (card) {
     return (card.tags || []).indexOf('trash') !== -1;
   });
   if (trashCards.length > 0) {
     $grid.append(buildGroupDivider('trash'));
     $.each(trashCards, function (_, card) {
-      $grid.append(buildCard(card));
+      $grid.append(buildCard(card).attr('data-trash-pseudo', '1'));
     });
   }
 
@@ -253,36 +260,61 @@ $(function () {
     var totalTypes = 0;
     var totalQty = 0;
     var visibleByGroup = {};
+    var isTrashMode = activeMode === '__trash__';
 
     $('#grid .card-item').each(function () {
-      var cardTypes = $(this).data('types').split(' ');
-      var cardTags  = ($(this).data('tags') || '').toString().split(' ');
+      var $el       = $(this);
+      var isReal    = !!$el.attr('data-trash-real');
+      var isPseudo  = !!$el.attr('data-trash-pseudo');
+      var cardTypes = $el.data('types').split(' ');
+      var cardTags  = ($el.data('tags') || '').toString().split(' ');
 
       var visible;
-      if (activeMode === '__poison__') {
-        visible = cardTags.indexOf('poison') !== -1;
-      } else if (activeMode === '__print__') {
-        visible = cardTags.indexOf('toPrint') !== -1;
-      } else if (activeMode === '__draft__') {
-        visible = cardTags.indexOf('draft') !== -1;
-      } else if (activeMode === '__trash__') {
-        visible = cardTags.indexOf('trash') !== -1;
-      } else if (activeMode) {
-        visible = cardTypes.indexOf(activeMode) !== -1;
+
+      if (isPseudo) {
+        // Pseudo-копии в Корзине: скрыты в __trash__ режиме,
+        // иначе фильтруются так же как обычные карты
+        if (isTrashMode) {
+          visible = false;
+        } else if (activeMode === '__poison__') {
+          visible = cardTags.indexOf('poison') !== -1;
+        } else if (activeMode === '__print__') {
+          visible = cardTags.indexOf('toPrint') !== -1;
+        } else if (activeMode === '__draft__') {
+          visible = cardTags.indexOf('draft') !== -1;
+        } else if (activeMode) {
+          visible = cardTypes.indexOf(activeMode) !== -1;
+        } else {
+          visible = true;
+        }
+
+      } else if (isReal) {
+        // Real-копии в родных группах: видны только когда активен __trash__ фильтр
+        visible = isTrashMode;
+
       } else {
-        visible = true;
+        // Обычные карты (не trash): стандартная логика фильтрации
+        if (isTrashMode) {
+          visible = false;
+        } else if (activeMode === '__poison__') {
+          visible = cardTags.indexOf('poison') !== -1;
+        } else if (activeMode === '__print__') {
+          visible = cardTags.indexOf('toPrint') !== -1;
+        } else if (activeMode === '__draft__') {
+          visible = cardTags.indexOf('draft') !== -1;
+        } else if (activeMode) {
+          visible = cardTypes.indexOf(activeMode) !== -1;
+        } else {
+          visible = true;
+        }
       }
 
-      $(this).toggleClass('card--hidden', !visible);
+      $el.toggleClass('card--hidden', !visible);
       if (visible) {
         totalTypes++;
-        totalQty += parseInt($(this).data('qty'), 10) || 1;
-        var g = $(this).data('group');
+        totalQty += parseInt($el.data('qty'), 10) || 1;
+        var g = isPseudo ? 'trash' : $el.data('group');
         visibleByGroup[g] = (visibleByGroup[g] || 0) + 1;
-        // Псевдо-группа корзины: считаем отдельно по тегу
-        if (cardTags.indexOf('trash') !== -1) {
-          visibleByGroup['trash'] = (visibleByGroup['trash'] || 0) + 1;
-        }
       }
     });
 
@@ -309,63 +341,14 @@ $(function () {
   function buildFilters() {
     var $bar = $('#filter-bar');
 
-    // Кнопка «Все»
+    // ── Ряд 1: «Все» ─────────────────────────────────────────────────
+    var $row1 = $('<div>', { class: 'filter-row' }).appendTo($bar);
     $('<button>', { class: 'filter-btn active', text: 'Все', 'data-type': '__all__' })
-      .on('click', function () {
-        activeMode = null;
-        applyFilter();
-      })
-      .appendTo($bar);
+      .on('click', function () { activeMode = null; applyFilter(); })
+      .appendTo($row1);
 
-    // Кнопка «Яд» (эксклюзивный режим)
-    $('<button>', {
-      class: 'filter-btn filter-btn--poison',
-      text: '☠ Яд',
-      'data-type': '__poison__'
-    })
-      .on('click', function () {
-        activeMode = activeMode === '__poison__' ? null : '__poison__';
-        applyFilter();
-      })
-      .appendTo($bar);
-
-    // Кнопка «На печать» (эксклюзивный режим)
-    $('<button>', {
-      class: 'filter-btn filter-btn--print',
-      text: '🖨 На печать',
-      'data-type': '__print__'
-    })
-      .on('click', function () {
-        activeMode = activeMode === '__print__' ? null : '__print__';
-        applyFilter();
-      })
-      .appendTo($bar);
-
-    // Кнопка «Черновик» (эксклюзивный режим)
-    $('<button>', {
-      class: 'filter-btn filter-btn--draft',
-      text: '✏ Черновик',
-      'data-type': '__draft__'
-    })
-      .on('click', function () {
-        activeMode = activeMode === '__draft__' ? null : '__draft__';
-        applyFilter();
-      })
-      .appendTo($bar);
-
-    // Кнопка «Корзина» (эксклюзивный режим)
-    $('<button>', {
-      class: 'filter-btn filter-btn--trash',
-      text: '🗑 Корзина',
-      'data-type': '__trash__'
-    })
-      .on('click', function () {
-        activeMode = activeMode === '__trash__' ? null : '__trash__';
-        applyFilter();
-      })
-      .appendTo($bar);
-
-    // Кнопка на каждый тип (эксклюзивный режим)
+    // ── Ряд 2: фильтры по группам ────────────────────────────────────
+    var $row2 = $('<div>', { class: 'filter-row' }).appendTo($bar);
     $.each(ALL_TYPES, function (_, t) {
       var meta = TYPE_META[t];
       $('<button>', {
@@ -378,8 +361,39 @@ $(function () {
           activeMode = activeMode === t ? null : t;
           applyFilter();
         })
-        .appendTo($bar);
+        .appendTo($row2);
     });
+
+    // ── Ряд 3: фильтры по тегам ──────────────────────────────────────
+    var $row3 = $('<div>', { class: 'filter-row' }).appendTo($bar);
+
+    $('<button>', { class: 'filter-btn filter-btn--poison', text: '☠ Яд', 'data-type': '__poison__' })
+      .on('click', function () {
+        activeMode = activeMode === '__poison__' ? null : '__poison__';
+        applyFilter();
+      })
+      .appendTo($row3);
+
+    $('<button>', { class: 'filter-btn filter-btn--print', text: '🖨 На печать', 'data-type': '__print__' })
+      .on('click', function () {
+        activeMode = activeMode === '__print__' ? null : '__print__';
+        applyFilter();
+      })
+      .appendTo($row3);
+
+    $('<button>', { class: 'filter-btn filter-btn--draft', text: '✏ Черновик', 'data-type': '__draft__' })
+      .on('click', function () {
+        activeMode = activeMode === '__draft__' ? null : '__draft__';
+        applyFilter();
+      })
+      .appendTo($row3);
+
+    $('<button>', { class: 'filter-btn filter-btn--trash', text: '🗑 Корзина', 'data-type': '__trash__' })
+      .on('click', function () {
+        activeMode = activeMode === '__trash__' ? null : '__trash__';
+        applyFilter();
+      })
+      .appendTo($row3);
   }
 
   // ── Закрытие зума кликом вне карточки или Escape ──────────────────
@@ -391,20 +405,26 @@ $(function () {
   });
 
   // ── Статистика в шапке (общая, не зависит от фильтра) ───────────
-  $('#stat-types').text(CARDS.length);
-  $('#stat-total').text(CARDS.reduce(function (sum, c) { return sum + (c.qty || 1); }, 0));
+  // Считаем только активные карты (без trash и draft)
+  var activeCards = CARDS.filter(function (c) {
+    var tags = c.tags || [];
+    return tags.indexOf('trash') === -1 && tags.indexOf('draft') === -1;
+  });
+  $('#stat-types').text(activeCards.length);
+  $('#stat-total').text(activeCards.reduce(function (sum, c) { return sum + (c.qty || 1); }, 0));
 
   // ── Статическая статистика по CARDS ──────────────────────────────
   function buildStats() {
-    var totalQty = CARDS.reduce(function (sum, c) { return sum + (c.qty || 1); }, 0);
-    var totalTypes = CARDS.length;
+    // Активные карты (без trash и draft) — для основной статистики
+    var totalQty   = activeCards.reduce(function (sum, c) { return sum + (c.qty || 1); }, 0);
+    var totalTypes = activeCards.length;
 
     $('#stat-types-live').text(totalTypes);
     $('#stat-qty-live').text(totalQty);
 
-    // Считаем по группам из массива CARDS (не из DOM)
+    // Считаем по группам — только активные карты
     var groupStats = {};
-    $.each(CARDS, function (_, card) {
+    $.each(activeCards, function (_, card) {
       var g = card.group || 'action';
       if (!groupStats[g]) groupStats[g] = { types: 0, qty: 0 };
       groupStats[g].types++;
@@ -416,7 +436,6 @@ $(function () {
       if (!groupStats[g]) return;
       var s = groupStats[g];
       var pct = (s.qty / totalQty * 100).toFixed(1) + '%';
-      var color = GROUP_TITLE_COLOR[g] || '#7a5a2a';
       $('<tr>').append(
         $('<td>', { text: GROUP_LABELS[g] || g }),
         $('<td>', { text: s.types }),
@@ -425,9 +444,26 @@ $(function () {
       ).appendTo($tbody);
     });
 
-    // ── Соотношение оружия к защите ──────────────────────────────────
+    // Псевдо-группы Draft и Trash — считаем отдельно, без % от общего
+    var pseudoGroups = [
+      { key: 'draft', label: GROUP_LABELS['draft'] || 'Черновик' },
+      { key: 'trash', label: GROUP_LABELS['trash'] || 'Корзина' }
+    ];
+    $.each(pseudoGroups, function (_, pg) {
+      var cards = CARDS.filter(function (c) { return (c.tags || []).indexOf(pg.key) !== -1; });
+      if (!cards.length) return;
+      var qty = cards.reduce(function (sum, c) { return sum + (c.qty || 1); }, 0);
+      $('<tr>', { class: 'stats-row--pseudo' }).append(
+        $('<td>', { text: pg.label }),
+        $('<td>', { text: cards.length }),
+        $('<td>', { text: qty }),
+        $('<td>', { text: '—' })
+      ).appendTo($tbody);
+    });
+
+    // ── Соотношение оружия к защите (только активные карты) ─────────
     var weaponQty = 0, defenseQty = 0;
-    $.each(CARDS, function (_, card) {
+    $.each(activeCards, function (_, card) {
       var qty = card.qty || 1;
       if (card.types.indexOf('weapon') !== -1)  weaponQty  += qty;
       if (card.types.indexOf('defense') !== -1) defenseQty += qty;

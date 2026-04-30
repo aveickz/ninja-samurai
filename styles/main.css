@@ -134,9 +134,19 @@ body {
 /* ── Filter bar ── */
 .filter-bar {
   display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.filter-row {
+  display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  justify-content: flex-start;
+  gap: 6px;
+  padding: 6px 0;
+}
+
+.filter-row + .filter-row {
+  border-top: 1px solid #3a2a10;
 }
 
 /* ── Stats sidebar ── */
@@ -243,6 +253,20 @@ body {
 }
 
 /* ── Блок соотношения оружия и защиты ── */
+/* Псевдо-группы (Черновик, Корзина) в таблице статистики */
+.stats-row--pseudo td {
+  color: #6a5030;
+  font-style: italic;
+}
+
+.stats-row--pseudo td:not(:first-child) {
+  color: #7a6040;
+}
+
+.stats-row--pseudo:first-of-type {
+  border-top: 1px solid #3a2a10;
+}
+
 .stats-ratio {
   margin-top: 16px;
   border-top: 1px solid #3a2a10;
