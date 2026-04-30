@@ -54,7 +54,7 @@ const CARDS = [
     group: "weapon",
     icons: ["melee2", "dmg1"],
     tags: [],
-    desc: "Нельзя защититься. Игнорирует ловушки. Можно производить атаку будучи в дуэли. Нельзя атаковать Сёгуна.",
+    desc: "Нельзя защититься. Игнорирует ловушки.",
     img: "cards/card_5_kinzhal_predatelya.png"
   },
   {
@@ -788,7 +788,7 @@ const CARDS = [
     group: "modifier",
     icons: [],
     tags: [],
-    desc: "МОДИФИКАТОР ~ Атаку можно провести даже по обескровленному игроку. Сёгун наносит на одну рану больше.",
+    desc: "МОДИФИКАТОР ~ Атаку можно провести даже по обескровленному игроку.",
     img: "cards/card_70_gnev_syoguna.png"
   },
   {
@@ -906,7 +906,7 @@ const CARDS = [
   {
     id: 81,
     title: "Целительные источники",
-    types: ["aoe", "action"],
+    types: ["aoe"],
     qty: 1,
     group: "aoe",
     icons: [],
@@ -917,7 +917,7 @@ const CARDS = [
   {
     id: 82,
     title: "Миротворцы",
-    types: ["aoe", "action"],
+    types: ["aoe"],
     qty: 1,
     group: "aoe",
     icons: [],
@@ -928,18 +928,18 @@ const CARDS = [
   {
     id: 83,
     title: "Потасовка",
-    types: ["aoe", "action"],
+    types: ["aoe"],
     qty: 1,
     group: "aoe",
     icons: [],
     tags: [],
-    desc: "Все активные игроки теряют стойку. Сёгун не участвует в потасовке.",
+    desc: "Все активные игроки теряют стойку.",
     img: "cards/card_83_potasovka.png"
   },
   {
     id: 84,
     title: "Чайная церемония",
-    types: ["aoe", "action"],
+    types: ["aoe"],
     qty: 1,
     group: "aoe",
     icons: [],
@@ -950,7 +950,7 @@ const CARDS = [
   {
     id: 85,
     title: "Просветление",
-    types: ["aoe", "action"],
+    types: ["aoe"],
     qty: 1,
     group: "aoe",
     icons: [],
@@ -961,7 +961,7 @@ const CARDS = [
   {
     id: 86,
     title: "Вихрь ярости",
-    types: ["aoe", "action"],
+    types: ["aoe"],
     qty: 1,
     group: "aoe",
     icons: [],
@@ -972,7 +972,7 @@ const CARDS = [
   {
     id: 87,
     title: "Шквал огня",
-    types: ["aoe", "action"],
+    types: ["aoe"],
     qty: 1,
     group: "aoe",
     icons: [],
@@ -983,7 +983,7 @@ const CARDS = [
   {
     id: 88,
     title: "Бочка зловония",
-    types: ["aoe", "effect"],
+    types: ["aoe"],
     qty: 2,
     group: "aoe",
     icons: ["poison"],
@@ -994,7 +994,7 @@ const CARDS = [
   {
     id: 89,
     title: "Град стрел",
-    types: ["aoe", "action"],
+    types: ["aoe"],
     qty: 1,
     group: "aoe",
     icons: [],
@@ -1005,7 +1005,7 @@ const CARDS = [
   {
     id: 90,
     title: "Боевой крик",
-    types: ["aoe", "action"],
+    types: ["aoe"],
     qty: 1,
     group: "aoe",
     icons: [],
