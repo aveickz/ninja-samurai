@@ -80,16 +80,16 @@ $(function () {
       }).appendTo($wrap);
     });
     if (tags.indexOf('poison') !== -1) {
-      $('<span>', {
-        class: 'type-tag type-tag--poison',
-        text: 'Яд'
-      }).appendTo($wrap);
+      $('<span>', { class: 'type-tag type-tag--poison', text: 'Яд' }).appendTo($wrap);
     }
     if (tags.indexOf('toPrint') !== -1) {
-      $('<span>', {
-        class: 'type-tag type-tag--print',
-        text: 'На печать'
-      }).appendTo($wrap);
+      $('<span>', { class: 'type-tag type-tag--print', text: 'На печать' }).appendTo($wrap);
+    }
+    if (tags.indexOf('draft') !== -1) {
+      $('<span>', { class: 'type-tag type-tag--draft', text: 'Черновик' }).appendTo($wrap);
+    }
+    if (tags.indexOf('trash') !== -1) {
+      $('<span>', { class: 'type-tag type-tag--trash', text: 'Корзина' }).appendTo($wrap);
     }
     return $wrap;
   }
@@ -250,6 +250,10 @@ $(function () {
         visible = cardTags.indexOf('poison') !== -1;
       } else if (activeMode === '__print__') {
         visible = cardTags.indexOf('toPrint') !== -1;
+      } else if (activeMode === '__draft__') {
+        visible = cardTags.indexOf('draft') !== -1;
+      } else if (activeMode === '__trash__') {
+        visible = cardTags.indexOf('trash') !== -1;
       } else if (activeMode) {
         visible = cardTypes.indexOf(activeMode) !== -1;
       } else {
@@ -316,6 +320,30 @@ $(function () {
     })
       .on('click', function () {
         activeMode = activeMode === '__print__' ? null : '__print__';
+        applyFilter();
+      })
+      .appendTo($bar);
+
+    // Кнопка «Черновик» (эксклюзивный режим)
+    $('<button>', {
+      class: 'filter-btn filter-btn--draft',
+      text: '✏ Черновик',
+      'data-type': '__draft__'
+    })
+      .on('click', function () {
+        activeMode = activeMode === '__draft__' ? null : '__draft__';
+        applyFilter();
+      })
+      .appendTo($bar);
+
+    // Кнопка «Корзина» (эксклюзивный режим)
+    $('<button>', {
+      class: 'filter-btn filter-btn--trash',
+      text: '🗑 Корзина',
+      'data-type': '__trash__'
+    })
+      .on('click', function () {
+        activeMode = activeMode === '__trash__' ? null : '__trash__';
         applyFilter();
       })
       .appendTo($bar);
