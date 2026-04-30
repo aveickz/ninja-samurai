@@ -461,7 +461,7 @@ const CARDS = [
     types: ["trap"],
     qty: 1,
     group: "trap",
-    icons: ["trap"],
+    icons: [],
     tags: [],
     desc: "ЛОВУШКА. Вы забираете у атакующего две карты.",
     img: "cards/card_41_silok.png"
@@ -472,7 +472,7 @@ const CARDS = [
     types: ["trap"],
     qty: 1,
     group: "trap",
-    icons: ["trap"],
+    icons: [],
     tags: [],
     desc: "ЛОВУШКА. Атака не проходит.",
     img: "cards/card_42_chuchelo.png"
@@ -483,7 +483,7 @@ const CARDS = [
     types: ["trap"],
     qty: 1,
     group: "trap",
-    icons: ["trap"],
+    icons: [],
     tags: [],
     desc: "ЛОВУШКА. Атакующий получает две раны от владельца ловушки.",
     img: "cards/card_43_kapkan.png"
@@ -494,7 +494,7 @@ const CARDS = [
     types: ["trap"],
     qty: 1,
     group: "trap",
-    icons: ["trap"],
+    icons: [],
     tags: [],
     desc: "ЛОВУШКА. Изначальная атака не проходит и обращается обратно, равная силе оружия. Атакующий может защититься от рикошета.",
     img: "cards/card_44_rikoshet.png"
@@ -505,7 +505,7 @@ const CARDS = [
     types: ["trap"],
     qty: 1,
     group: "trap",
-    icons: ["trap", "poison"],
+    icons: ["poison"],
     tags: ["poison"],
     desc: "ЛОВУШКА. Враг отравляется ядом. Если он уже отравлен, то получает 1 рану.",
     img: "cards/card_45_poganka.png"
@@ -516,7 +516,7 @@ const CARDS = [
     types: ["trap"],
     qty: 1,
     group: "trap",
-    icons: ["trap"],
+    icons: [],
     tags: [],
     desc: "ЛОВУШКА. Атакующий теряет свою стойку и сбрасывает две карты с руки на ваш выбор.",
     img: "cards/card_46_boevoy_banan.png"
@@ -527,7 +527,7 @@ const CARDS = [
     types: ["trap"],
     qty: 1,
     group: "trap",
-    icons: ["trap"],
+    icons: [],
     tags: [],
     desc: "ЛОВУШКА. Вы оскорбляете атакующего.",
     img: "cards/card_47_oskorblenie.png"
@@ -540,7 +540,7 @@ const CARDS = [
     types: ["defense"],
     qty: 1,
     group: "defense",
-    icons: ["defense"],
+    icons: [],
     tags: [],
     desc: "",
     img: "cards/card_48_zashchita.png"
@@ -551,7 +551,7 @@ const CARDS = [
     types: ["defense"],
     qty: 1,
     group: "defense",
-    icons: ["defense"],
+    icons: [],
     tags: [],
     desc: "ЗАЩИТА ~ Атакующий получает одну рану от вас.",
     img: "cards/card_49_skrytyy_kinzhal.png"
@@ -562,7 +562,7 @@ const CARDS = [
     types: ["defense"],
     qty: 1,
     group: "defense",
-    icons: ["defense", "poison"],
+    icons: ["poison"],
     tags: ["poison"],
     desc: "ЗАЩИТА ~ Атакующий получает отравление ядом.",
     img: "cards/card_50_yadovitye_naruchi.png"
@@ -573,7 +573,7 @@ const CARDS = [
     types: ["defense"],
     qty: 1,
     group: "defense",
-    icons: ["defense"],
+    icons: [],
     tags: [],
     desc: "ЗАЩИТА ~ Вы забираете у атакующего случайную карту.",
     img: "cards/card_52_idealnyy_moment.png"
@@ -584,7 +584,7 @@ const CARDS = [
     types: ["defense"],
     qty: 1,
     group: "defense",
-    icons: ["defense"],
+    icons: [],
     tags: [],
     desc: "ЗАЩИТА ~ Вы также берёте карту из колоды.",
     img: "cards/card_53_vyderzka_samuray.png"
@@ -595,7 +595,7 @@ const CARDS = [
     types: ["defense"],
     qty: 1,
     group: "defense",
-    icons: ["defense"],
+    icons: [],
     tags: [],
     desc: "ЗАЩИТА ~ Вы можете выбрать сколько ран вы хотите получить при атаке, и за каждую рану берёте карту из колоды.",
     img: "cards/card_51_karmannik.png"
@@ -606,7 +606,7 @@ const CARDS = [
     types: ["defense"],
     qty: 1,
     group: "defense",
-    icons: ["defense"],
+    icons: [],
     tags: [],
     desc: "ЗАЩИТА ~ Атакующий сбрасывает случайную карту.",
     img: "cards/card_54_oshelomlenie.png"
@@ -617,7 +617,7 @@ const CARDS = [
     types: ["defense"],
     qty: 1,
     group: "defense",
-    icons: ["defense"],
+    icons: [],
     tags: [],
     desc: "ЗАЩИТА ~ Вы забираете неметательное оружие врага себе в руку.",
     img: "cards/card_55_zakhvat.png"
@@ -628,7 +628,7 @@ const CARDS = [
     types: ["defense", "intervention"],
     qty: 1,
     group: "defense",
-    icons: ["defense", "intervention"],
+    icons: [],
     tags: [],
     desc: "ВМЕШАТЕЛЬСТВО~ЗАЩИТА. Можно сыграть в любой момент за любого игрока.",
     img: "cards/card_56_blok.png"
@@ -641,7 +641,7 @@ const CARDS = [
     types: ["stance"],
     qty: 1,
     group: "stance",
-    icons: ["stance"],
+    icons: [],
     tags: [],
     desc: "СТОЙКА ~ Вы обескровлены для других игроков весь раунд, но в начале своего хода сбрасываете эту стойку.",
     img: "cards/card_57_ten.png"
@@ -652,7 +652,7 @@ const CARDS = [
     types: ["stance"],
     qty: 1,
     group: "stance",
-    icons: ["stance"],
+    icons: [],
     tags: [],
     desc: "СТОЙКА ~ Вы находитесь дальше от всех на единицу при атаках по вам. Ваши атаки могут достать дальше на один.",
     img: "cards/card_58_vsadnik.png"
@@ -663,7 +663,7 @@ const CARDS = [
     types: ["stance"],
     qty: 1,
     group: "stance",
-    icons: ["stance"],
+    icons: [],
     tags: [],
     desc: "СТОЙКА ~ При выставлении восстановить два жетона жизни и перед каждой фазой набора вы можете: восстановить жетон жизни любому игроку ИЛИ снять яд или один эффект любому игроку, сбросив карту.",
     img: "cards/card_59_lotos.png"
@@ -674,7 +674,7 @@ const CARDS = [
     types: ["stance"],
     qty: 1,
     group: "stance",
-    icons: ["stance"],
+    icons: [],
     tags: [],
     desc: "СТОЙКА ~ Каждый раз при прямой атаке по вам снижаете урон на один. Дополнительно можете скинуть карту с руки за каждое снижение урона (не менее одного).",
     img: "cards/card_60_shchitonosec.png"
@@ -685,7 +685,7 @@ const CARDS = [
     types: ["stance"],
     qty: 1,
     group: "stance",
-    icons: ["stance"],
+    icons: [],
     tags: [],
     desc: "СТОЙКА ~ После каждой успешной атаки вы наносите врагу на одну рану больше и можете взять одну карту из колоды.",
     img: "cards/card_61_master_boya.png"
@@ -696,7 +696,7 @@ const CARDS = [
     types: ["stance"],
     qty: 1,
     group: "stance",
-    icons: ["stance"],
+    icons: [],
     tags: [],
     desc: "СТОЙКА ~ Раз в свой ход вы можете: восстановить жетон жизни любому игроку ИЛИ снять яд или один эффект любому игроку, сбросив карту.",
     img: "cards/card_62_kapellan.png"
@@ -707,7 +707,7 @@ const CARDS = [
     types: ["stance"],
     qty: 1,
     group: "stance",
-    icons: ["stance"],
+    icons: [],
     tags: [],
     desc: "СТОЙКА ~ При атаке по врагу вы можете: сделать вашу атаку отравленной ядом ИЛИ сбросив две карты, сделать врага беззащитным от атаки.",
     img: "cards/card_63_assassin.png"
@@ -720,7 +720,7 @@ const CARDS = [
     types: ["modifier"],
     qty: 1,
     group: "modifier",
-    icons: ["modifier", "poison"],
+    icons: ["poison"],
     tags: ["poison"],
     desc: "МОДИФИКАТОР ~ Ваша атака теперь накладывает отравление.",
     img: "cards/card_64_flakon_yada.png"
@@ -731,7 +731,7 @@ const CARDS = [
     types: ["modifier"],
     qty: 1,
     group: "modifier",
-    icons: ["modifier"],
+    icons: [],
     tags: [],
     desc: "МОДИФИКАТОР ~ Ваша атака наносит на одну рану больше.",
     img: "cards/card_65_tochilo.png"
@@ -742,7 +742,7 @@ const CARDS = [
     types: ["modifier"],
     qty: 1,
     group: "modifier",
-    icons: ["modifier"],
+    icons: [],
     tags: ["trash"],
     desc: "МОДИФИКАТОР ~ Дальность и сила атаки меняются местами.",
     img: "cards/card_66_in_i_yan.png"
@@ -753,7 +753,7 @@ const CARDS = [
     types: ["modifier"],
     qty: 1,
     group: "modifier",
-    icons: ["modifier"],
+    icons: [],
     tags: [],
     desc: "МОДИФИКАТОР ~ Ваша атака игнорирует ловушки.",
     img: "cards/card_67_udar_teni.png"
@@ -764,7 +764,7 @@ const CARDS = [
     types: ["modifier"],
     qty: 1,
     group: "modifier",
-    icons: ["modifier"],
+    icons: [],
     tags: [],
     desc: "МОДИФИКАТОР ~ Дальность вашей атаки увеличивается на единицу.",
     img: "cards/card_68_vypad.png"
@@ -775,7 +775,7 @@ const CARDS = [
     types: ["modifier"],
     qty: 1,
     group: "modifier",
-    icons: ["modifier"],
+    icons: [],
     tags: [],
     desc: "МОДИФИКАТОР ~ От вашей атаки невозможно защититься, однако ловушки продолжают действовать.",
     img: "cards/card_69_postup_vetra.png"
@@ -786,7 +786,7 @@ const CARDS = [
     types: ["modifier"],
     qty: 1,
     group: "modifier",
-    icons: ["modifier"],
+    icons: [],
     tags: [],
     desc: "МОДИФИКАТОР ~ Атаку можно провести даже по обескровленному игроку. Сёгун наносит на одну рану больше.",
     img: "cards/card_70_gnev_syoguna.png"
@@ -797,7 +797,7 @@ const CARDS = [
     types: ["modifier"],
     qty: 1,
     group: "modifier",
-    icons: ["modifier"],
+    icons: [],
     tags: [],
     desc: "МОДИФИКАТОР ~ В случае успешной атаки вы восстанавливаете себе столько жетонов жизни, сколько нанесли ран.",
     img: "cards/card_71_celebnyy_klinok.png"
@@ -808,7 +808,7 @@ const CARDS = [
     types: ["modifier"],
     qty: 1,
     group: "modifier",
-    icons: ["modifier"],
+    icons: [],
     tags: [],
     desc: "МОДИФИКАТОР ~ Атака наносит удар по двум целям одновременно. Однако сила и дальность снижаются на один.",
     img: "cards/card_72_poryv_yarosti.png"
@@ -819,7 +819,7 @@ const CARDS = [
     types: ["modifier"],
     qty: 1,
     group: "modifier",
-    icons: ["modifier"],
+    icons: [],
     tags: [],
     desc: "МОДИФИКАТОР ~ Ваша атака может бить на любом расстоянии и вы наносите на одну рану больше, но вы теряете один жетон жизни. Нельзя применить на пороге смерти.",
     img: "cards/card_73_povyazka_kamikadze.png"
@@ -830,7 +830,7 @@ const CARDS = [
     types: ["modifier"],
     qty: 1,
     group: "modifier",
-    icons: ["modifier"],
+    icons: [],
     tags: [],
     desc: "МОДИФИКАТОР ~ Увеличивает дальность атаки на два, но сила атаки (не оружия) становится равна единице. Делает атаку метательной.",
     img: "cards/card_74_sokrushitelnyy_udar.png"
@@ -841,7 +841,7 @@ const CARDS = [
     types: ["modifier"],
     qty: 1,
     group: "modifier",
-    icons: ["modifier"],
+    icons: [],
     tags: [],
     desc: "МОДИФИКАТОР ~ Итоговая сила атаки становится равна вашему количеству жетонов жизни.",
     img: "cards/card_75_brosok.png"
@@ -852,7 +852,7 @@ const CARDS = [
     types: ["modifier"],
     qty: 1,
     group: "modifier",
-    icons: ["modifier"],
+    icons: [],
     tags: [],
     desc: "МОДИФИКАТОР ~ Отравленный противник получит на две раны больше.",
     img: "cards/card_76_kipyashchiy_yad.png"
@@ -863,7 +863,7 @@ const CARDS = [
     types: ["modifier"],
     qty: 1,
     group: "modifier",
-    icons: ["modifier"],
+    icons: [],
     tags: [],
     desc: "МОДИФИКАТОР ~ Вы не тратите свою попытку атаки в данном ударе.",
     img: "cards/card_77_dlan_syoguna.png"
@@ -874,7 +874,7 @@ const CARDS = [
     types: ["modifier"],
     qty: 1,
     group: "modifier",
-    icons: ["modifier"],
+    icons: [],
     tags: [],
     desc: "МОДИФИКАТОР ~ От вашей атаки невозможно защититься, и ловушки не действуют.",
     img: "cards/card_78_dukh_syoguna.png"
@@ -885,7 +885,7 @@ const CARDS = [
     types: ["modifier"],
     qty: 1,
     group: "modifier",
-    icons: ["modifier"],
+    icons: [],
     tags: [],
     desc: "МОДИФИКАТОР ~ Ваша атака оружием полностью игнорирует все бонусы от стойки и персонажа врага.",
     img: "cards/card_80_pronzitelnyy_udar.png"
@@ -896,7 +896,7 @@ const CARDS = [
     types: ["modifier"],
     qty: 1,
     group: "modifier",
-    icons: ["modifier"],
+    icons: [],
     tags: [],
     desc: "МОДИФИКАТОР ~ Ваша базовая сила атаки оружием удваивается.",
     img: "cards/card_79_kriticheskiy_udar.png"
@@ -909,7 +909,7 @@ const CARDS = [
     types: ["aoe", "action"],
     qty: 1,
     group: "aoe",
-    icons: ["aoe"],
+    icons: [],
     tags: [],
     desc: "Восстановите два жетона жизни, а все остальные активные игроки один.",
     img: "cards/card_81_celitelnyye_istochniki.png"
@@ -920,7 +920,7 @@ const CARDS = [
     types: ["aoe", "action"],
     qty: 1,
     group: "aoe",
-    icons: ["aoe"],
+    icons: [],
     tags: [],
     desc: "Остальные активные игроки скидывают карту защиты или оружия, либо отдают вам карту из руки на свой выбор.",
     img: "cards/card_82_mirotvortsy.png"
@@ -931,7 +931,7 @@ const CARDS = [
     types: ["aoe", "action"],
     qty: 1,
     group: "aoe",
-    icons: ["aoe"],
+    icons: [],
     tags: [],
     desc: "Все активные игроки теряют стойку. Сёгун не участвует в потасовке.",
     img: "cards/card_83_potasovka.png"
@@ -942,7 +942,7 @@ const CARDS = [
     types: ["aoe", "action"],
     qty: 1,
     group: "aoe",
-    icons: ["aoe"],
+    icons: [],
     tags: [],
     desc: "Вы берёте три карты, остальные активные игроки берут по одной.",
     img: "cards/card_84_chaynaya_tseremoniya.png"
@@ -953,7 +953,7 @@ const CARDS = [
     types: ["aoe", "action"],
     qty: 1,
     group: "aoe",
-    icons: ["aoe"],
+    icons: [],
     tags: [],
     desc: "Все ловушки на столе открываются, но продолжают действовать.",
     img: "cards/card_85_prosvietlenie.png"
@@ -964,7 +964,7 @@ const CARDS = [
     types: ["aoe", "action"],
     qty: 1,
     group: "aoe",
-    icons: ["aoe"],
+    icons: [],
     tags: [],
     desc: "Играется в паре с картой не метательного оружия с дальностью более одного. Минуя ловушки, активные игроки получают урон от оружия (без бонусов) или скидывают защиту. Тратит атаку.",
     img: "cards/card_86_vikhr_yarosti.png"
@@ -975,7 +975,7 @@ const CARDS = [
     types: ["aoe", "action"],
     qty: 1,
     group: "aoe",
-    icons: ["aoe"],
+    icons: [],
     tags: [],
     desc: "Играется в паре с картой метательного оружия. Минуя ловушки, активные игроки получают две раны или скидывают защиту. Тратит атаку.",
     img: "cards/card_86_vikhr_yarosti.png"
@@ -986,7 +986,7 @@ const CARDS = [
     types: ["aoe", "effect"],
     qty: 2,
     group: "aoe",
-    icons: ["aoe", "poison"],
+    icons: ["poison"],
     tags: ["poison"],
     desc: "Все активные игроки получают отравление ядом.",
     img: "cards/card_87_bochka_zlovoniya.png"
@@ -997,7 +997,7 @@ const CARDS = [
     types: ["aoe", "action"],
     qty: 1,
     group: "aoe",
-    icons: ["aoe"],
+    icons: [],
     tags: [],
     desc: "Остальные активные игроки скидывают карту оружия или жетон жизни.",
     img: "cards/card_88_grad_strel.png"
@@ -1008,7 +1008,7 @@ const CARDS = [
     types: ["aoe", "action"],
     qty: 1,
     group: "aoe",
-    icons: ["aoe"],
+    icons: [],
     tags: [],
     desc: "Все ловушки на столе сбрасываются в сброс.",
     img: "cards/card_89_boevoy_krik.png"
@@ -1021,7 +1021,7 @@ const CARDS = [
     types: ["effect"],
     qty: 1,
     group: "effect",
-    icons: ["effect8"],
+    icons: [],
     tags: [],
     desc: "ПОСТОЯННЫЙ эффект. Все атаки по вам наносят на одну рану больше.",
     img: "cards/card_90_metka_ubiytsy.png"
@@ -1032,7 +1032,7 @@ const CARDS = [
     types: ["effect"],
     qty: 1,
     group: "effect",
-    icons: ["effect8"],
+    icons: [],
     tags: [],
     desc: "ПОСТОЯННЫЙ эффект. Вас нельзя отравить ядом. Текущее отравление снимается.",
     img: "cards/card_91_protivoyadie.png"
@@ -1043,7 +1043,7 @@ const CARDS = [
     types: ["effect"],
     qty: 1,
     group: "effect",
-    icons: ["effect8"],
+    icons: [],
     tags: [],
     desc: "ПОСТОЯННЫЙ эффект. Каждое лечение по игроку снижается на единицу. Также все негативные эффекты от отравления удваиваются.",
     img: "cards/card_92_ukus_zmeyi.png"
@@ -1054,7 +1054,7 @@ const CARDS = [
     types: ["effect"],
     qty: 1,
     group: "effect",
-    icons: ["effect8"],
+    icons: [],
     tags: [],
     desc: "ПОСТОЯННЫЙ эффект. Атаки по вам могут быть произведены без ограничения дальности.",
     img: "cards/card_93_kaginava.png"
@@ -1065,7 +1065,7 @@ const CARDS = [
     types: ["effect"],
     qty: 1,
     group: "effect",
-    icons: ["effect8"],
+    icons: [],
     tags: [],
     desc: "ПОСТОЯННЫЙ эффект. Выбранный игрок не может производить прямые атаки оружием.",
     img: "cards/card_94_razoruzhenie.png"
@@ -1076,7 +1076,7 @@ const CARDS = [
     types: ["effect"],
     qty: 1,
     group: "effect",
-    icons: ["effect8"],
+    icons: [],
     tags: [],
     desc: "РАЗОВЫЙ эффект. Следующий игровой ход выбранный игрок будто обескровлен.",
     img: "cards/card_95_zavesa_dyma.png"
@@ -1087,7 +1087,7 @@ const CARDS = [
     types: ["effect"],
     qty: 1,
     group: "effect",
-    icons: ["effect8"],
+    icons: [],
     tags: [],
     desc: "ПОСТОЯННЫЙ эффект. Атаки игрока не могут бить дальше расстояния в единицу.",
     img: "cards/card_97_pyl_v_glaza.png"
@@ -1098,7 +1098,7 @@ const CARDS = [
     types: ["effect", "action"],
     qty: 2,
     group: "effect",
-    icons: ["effect8"],
+    icons: [],
     tags: [],
     desc: "Выбранный игрок скидывает один выбранный вами эффект. Вы можете восстановить жизнь или взять карту из колоды.",
     img: "cards/card_96_palochka_blagovoniy.png"
@@ -1109,7 +1109,7 @@ const CARDS = [
     types: ["effect", "action"],
     qty: 1,
     group: "effect",
-    icons: ["effect8"],
+    icons: [],
     tags: [],
     desc: "Выбранный игрок скидывает все эффекты. За каждый сброшенный эффект вы можете восстановить жизнь или взять карту из колоды.",
     img: "cards/card_98_chasha_blagovoniy.png"
@@ -1120,7 +1120,7 @@ const CARDS = [
     types: ["effect"],
     qty: 1,
     group: "effect",
-    icons: ["effect8"],
+    icons: [],
     tags: [],
     desc: "ПОСТОЯННЫЙ эффект. Следующая атака не может нанести более одной раны.",
     img: "cards/card_99_slabost.png"
@@ -1131,7 +1131,7 @@ const CARDS = [
     types: ["effect"],
     qty: 1,
     group: "effect",
-    icons: ["effect8"],
+    icons: [],
     tags: [],
     desc: "ПОСТОЯННЫЙ эффект. Игрок не может защищаться от атак.",
     img: "cards/card_100_bezzashchitnost.png"
@@ -1142,7 +1142,7 @@ const CARDS = [
     types: ["effect"],
     qty: 1,
     group: "effect",
-    icons: ["effect8"],
+    icons: [],
     tags: [],
     desc: "ПОСТОЯННЫЙ эффект. Выбранный игрок наносит на одну рану больше.",
     img: "cards/card_101_dukh_lidera.png"
@@ -1153,7 +1153,7 @@ const CARDS = [
     types: ["effect"],
     qty: 1,
     group: "effect",
-    icons: ["effect8"],
+    icons: [],
     tags: [],
     desc: "ПОСТОЯННЫЙ эффект. За ход вы можете сделать на одну прямую атаку меньше.",
     img: "cards/card_102_bessilie.png"
@@ -1164,7 +1164,7 @@ const CARDS = [
     types: ["effect"],
     qty: 1,
     group: "effect",
-    icons: ["effect8"],
+    icons: [],
     tags: [],
     desc: "РАЗОВЫЙ эффект. Выбранный игрок автоматически защищается от атаки.",
     img: "cards/card_103_egida.png"
@@ -1355,7 +1355,7 @@ const CARDS = [
     types: ["intervention"],
     qty: 1,
     group: "intervention",
-    icons: ["intervention"],
+    icons: [],
     tags: [],
     desc: "ВМЕШАТЕЛЬСТВО. Восстановите все жетоны стойкости отравленному ядом игроку и снимите само отравление.",
     img: "cards/card_120_istselenie.png"
@@ -1366,7 +1366,7 @@ const CARDS = [
     types: ["intervention"],
     qty: 1,
     group: "intervention",
-    icons: ["intervention"],
+    icons: [],
     tags: [],
     desc: "ВМЕШАТЕЛЬСТВО. Сыграйте эту карту, чтобы нанести две раны отравленному ядом игроку.",
     img: "cards/card_121_smert_ot_fugu.png"
@@ -1377,7 +1377,7 @@ const CARDS = [
     types: ["intervention"],
     qty: 1,
     group: "intervention",
-    icons: ["intervention"],
+    icons: [],
     tags: [],
     desc: "ВМЕШАТЕЛЬСТВО. Сыграйте эту карту, чтобы восстановить любому игроку один жетон жизни.",
     img: "cards/card_122_imbir.png"
@@ -1388,7 +1388,7 @@ const CARDS = [
     types: ["intervention"],
     qty: 1,
     group: "intervention",
-    icons: ["intervention"],
+    icons: [],
     tags: [],
     desc: "ВМЕШАТЕЛЬСТВО. Сыграйте эту карту, чтобы нанести одну рану любому выбранному игроку.",
     img: "cards/card_123_udar_drakona.png"
@@ -1399,7 +1399,7 @@ const CARDS = [
     types: ["intervention"],
     qty: 1,
     group: "intervention",
-    icons: ["intervention"],
+    icons: [],
     tags: [],
     desc: "ВМЕШАТЕЛЬСТВО. Сыграйте эту карту, чтобы перенаправить прямую атаку оружия на себя.",
     img: "cards/card_124_podvig.png"
@@ -1410,7 +1410,7 @@ const CARDS = [
     types: ["intervention"],
     qty: 1,
     group: "intervention",
-    icons: ["intervention"],
+    icons: [],
     tags: [],
     desc: "ВМЕШАТЕЛЬСТВО. Сыграйте эту карту, чтобы обменяться в закрытую с любым игроком картами на ваше обоюдное усмотрение.",
     img: "cards/card_125_ruka_pomoshchi.png"
@@ -1421,7 +1421,7 @@ const CARDS = [
     types: ["intervention"],
     qty: 1,
     group: "intervention",
-    icons: ["intervention"],
+    icons: [],
     tags: [],
     desc: "ВМЕШАТЕЛЬСТВО. Сыграйте эту карту, чтобы передать любому игроку в закрытую любую другую карту из своей руки.",
     img: "cards/card_126_vestochka.png"
@@ -1432,7 +1432,7 @@ const CARDS = [
     types: ["intervention", "effect"],
     qty: 1,
     group: "intervention",
-    icons: ["intervention"],
+    icons: [],
     tags: [],
     desc: "ВМЕШАТЕЛЬСТВО. ЭФФЕКТ. Выбранный игрок симулирует смерть, оставляя один жетон жизни. Следующий раунд он обескровлен. В начале хода игрока эффект пропадает. Можно сыграть во время прямой атаки оружием по игроку.",
     img: "cards/card_127_simulyant.png"
