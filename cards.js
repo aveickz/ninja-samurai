@@ -1498,7 +1498,9 @@ const CARDS = [
   // ── ПЕРСОНАЖИ (стр. 19) ───────────────────────────────────────────
   {
     id: 134,
-    title: "Рюдзо Исикава — Мастер ближнего боя",
+    title: "Рюдзо",
+    subtitle: "Мастер ближнего боя",
+    hp: 5,
     types: ["character"],
     qty: 5,
     group: "character",
@@ -1509,7 +1511,9 @@ const CARDS = [
   },
   {
     id: 135,
-    title: "Усивака — Безрассудный налётчик",
+    title: "Усивака",
+    subtitle: "Безрассудный налётчик",
+    hp: 5,
     types: ["character"],
     qty: 5,
     group: "character",
@@ -1520,7 +1524,9 @@ const CARDS = [
   },
   {
     id: 136,
-    title: "Таранага Норио — Искусный стратег",
+    title: "Таранага",
+    subtitle: "Искусный стратег",
+    hp: 5,
     types: ["character"],
     qty: 5,
     group: "character",
@@ -1531,7 +1537,9 @@ const CARDS = [
   },
   {
     id: 137,
-    title: "Кокоро — Непоколебимый великан",
+    title: "Кокоро",
+    subtitle: "Непоколебимый великан",
+    hp: 5,
     types: ["character"],
     qty: 5,
     group: "character",
@@ -1542,7 +1550,9 @@ const CARDS = [
   },
   {
     id: 138,
-    title: "Хандзо — Неуловимый синоби",
+    title: "Хандзо",
+    subtitle: "Неуловимый синоби",
+    hp: 4,
     types: ["character"],
     qty: 4,
     group: "character",
@@ -1553,7 +1563,9 @@ const CARDS = [
   },
   {
     id: 139,
-    title: "Иё — Знаток ловушек",
+    title: "Иё",
+    subtitle: "Знаток ловушек",
+    hp: 5,
     types: ["character"],
     qty: 5,
     group: "character",
@@ -1564,7 +1576,9 @@ const CARDS = [
   },
   {
     id: 140,
-    title: "Така — Ловкая воровка",
+    title: "Така",
+    subtitle: "Ловкая воровка",
+    hp: 5,
     types: ["character"],
     qty: 5,
     group: "character",
@@ -1572,5 +1586,31 @@ const CARDS = [
     tags: [],
     desc: "Вместо нанесения ран вы можете объявить, что будете воровать карты. Раз в ход вы можете сбросить три карты, чтобы взять две новых из колоды. У вас не могут воровать карты.",
     img: "cards/card_141_taka.png"
+  },
+  {
+    id: 141,
+    title: "Исикава",
+    subtitle: "Меткий лучник",
+    hp: 5,
+    types: ["character"],
+    qty: 5,
+    group: "character",
+    icons: [],
+    tags: [],
+    desc: "Ваши атаки метательным оружием наносят на одну рану больше. Атаки по вам оружием с дальностью 1 наносят на одну рану меньше. Дайкю не имеет ограничений дальности.",
+    img: "cards/card_141_isikawa.png"
+  },
+  {
+    id: 142,
+    title: "Норио",
+    subtitle: "Мирный монах",
+    hp: 5,
+    types: ["character"],
+    qty: 5,
+    group: "character",
+    icons: [],
+    tags: [],
+    desc: "Можете сбросить карту оружия раз за ход, чтобы восстановить жизнь или взять две карты из колоды. Полностью деревянные оружия наносят дополнительную рану.",
+    img: "cards/card_142_norio.png"
   }
 ];
