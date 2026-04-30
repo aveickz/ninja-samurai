@@ -1715,4 +1715,3 @@ const CARDS = [
     img: "cards/card_141_taka.png"
   }
 ];
-     

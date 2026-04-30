@@ -54,6 +54,20 @@ $(function () {
   //             или строка типа ('weapon', 'trap', …)
   var activeMode = null;
 
+  // ── Типографика: неразрывный пробел после коротких слов ──────────
+  // Возвращает HTML-строку — вставлять через .html(), не .text()
+  function typograph(text) {
+    if (!text) return '';
+    // Экранируем HTML-спецсимволы (desc не содержит разметки)
+    var escaped = text
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+    // После слова из 1–2 букв (кириллица или латиница) + пробел → &nbsp;
+    return escaped.replace(/(\s|^)([А-ЯЁа-яёA-Za-z]{1,2}) /g, '$1$2&nbsp;');
+  }
+
   // ── Построение тегов типов на карточке ───────────────────────────
   function buildTypeTags(types, poison, toPrint) {
     var $wrap = $('<div>', { class: 'card-types' });
@@ -143,7 +157,7 @@ $(function () {
       // Слой 4: жёлтая плашка с описанием внизу (только если есть текст)
       card.desc ? $('<div>', { class: 'card-desc-wrap' }).append(
         $('<img>', { class: 'card-delimiter', src: 'media/delimiter.png', alt: '', draggable: false }),
-        $('<div>', { class: 'card-desc', text: card.desc })
+        $('<div>', { class: 'card-desc' }).html(typograph(card.desc))
       ) : null
     );
 
