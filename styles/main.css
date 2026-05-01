@@ -174,6 +174,25 @@ body {
   letter-spacing: 0.05em;
 }
 
+/*
+  Неигровые карты (роли + персонажи) отображаются отдельной парой строк
+  в summary, со своим border-top и приглушённой палитрой.
+*/
+.stats-summary-row--non-playable {
+  color: #7a6040;
+}
+
+.stats-summary-row--non-playable:first-of-type {
+  border-top: 1px solid #3a2a10;
+  margin-top: 4px;
+  padding-top: 6px;
+}
+
+.stats-summary-row--non-playable span:last-child {
+  color: #c8a870;
+  font-weight: normal;
+}
+
 .stats-summary-row span:last-child {
   color: #e8d5a3;
   font-weight: bold;
@@ -274,6 +293,20 @@ body {
 
 .stats-row--pseudo:first-of-type {
   border-top: 1px solid #3a2a10;
+}
+
+/*
+  Неигровые группы (Роли, Персонажи) внутри основной таблицы — те же
+  активные карты, но в общий пул колоды не входят. Лёгкий курсив и
+  приглушение цвета, чтобы визуально отделить от «настоящей» колоды.
+*/
+.stats-row--non-playable td {
+  color: #8a7050;
+  font-style: italic;
+}
+
+.stats-row--non-playable td:not(:first-child) {
+  color: #a08868;
 }
 
 .stats-ratio {

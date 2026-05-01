@@ -56,6 +56,21 @@ $(function () {
     trash:        'Корзина'
   };
 
+  // ── Игровые / неигровые карты ────────────────────────────────────
+  // Карты групп role и character не разыгрываются — это мета-карты:
+  // role обозначает сторону игрока, character — фон для персонажа.
+  // В статистике процент рассчитывается только от игровых карт,
+  // а сами неигровые группы выводятся отдельной секцией.
+  var NON_PLAYABLE_GROUPS = ['role', 'character'];
+
+  /**
+   * Является ли карта игровой (учитывается в основном пуле колоды).
+   * Вычисляемое на лету свойство — не храним в данных карточки.
+   */
+  function isPlayable(card) {
+    return NON_PLAYABLE_GROUPS.indexOf(card.group) === -1;
+  }
+
   // ── Состояние фильтра ─────────────────────────────────────────────
   // activeMode: null = все, '__poison__' = яд, '__print__' = на печать,
   //             или строка типа ('weapon', 'trap', …)
@@ -422,8 +437,27 @@ $(function () {
       .appendTo($row1);
 
     // ── Ряд 2: фильтры по группам ────────────────────────────────────
+    // Кнопки идут в порядке убывания количества карт с этим типом
+    // (по уникальным id — qty не учитывается). Так у пользователя
+    // под рукой самые «толстые» категории, а редкие (Роли, и т.п.)
+    // отъезжают вправо.
+    var typeCounts = {};
+    $.each(ALL_TYPES, function (_, t) { typeCounts[t] = 0; });
+    $.each(CARDS, function (_, card) {
+      $.each(card.types || [], function (_, t) {
+        if (typeCounts[t] != null) typeCounts[t] += 1;
+      });
+    });
+    var sortedTypes = ALL_TYPES.slice().sort(function (a, b) {
+      // Сначала count убывая; при равенстве — стабильно по исходному порядку
+      // в TYPE_META (через индекс).
+      var diff = typeCounts[b] - typeCounts[a];
+      if (diff !== 0) return diff;
+      return ALL_TYPES.indexOf(a) - ALL_TYPES.indexOf(b);
+    });
+
     var $row2 = $('<div>', { class: 'filter-row' }).appendTo($bar);
-    $.each(ALL_TYPES, function (_, t) {
+    $.each(sortedTypes, function (_, t) {
       var meta = TYPE_META[t];
       $('<button>', {
         class: 'filter-btn',
@@ -488,8 +522,19 @@ $(function () {
     var totalQty   = activeCards.reduce(function (sum, c) { return sum + (c.qty || 1); }, 0);
     var totalTypes = activeCards.length;
 
-    $('#stat-types-live').text(totalTypes);
-    $('#stat-qty-live').text(totalQty);
+    // Делим активные карты на игровые и неигровые
+    var playableCards = activeCards.filter(isPlayable);
+    var otherCards    = activeCards.filter(function (c) { return !isPlayable(c); });
+
+    var playableTypes = playableCards.length;
+    var playableQty   = playableCards.reduce(function (s, c) { return s + (c.qty || 1); }, 0);
+    var otherTypes    = otherCards.length;
+    var otherQty      = otherCards.reduce(function (s, c) { return s + (c.qty || 1); }, 0);
+
+    $('#stat-playable-types').text(playableTypes);
+    $('#stat-playable-qty').text(playableQty);
+    $('#stat-other-types').text(otherTypes);
+    $('#stat-other-qty').text(otherQty);
 
     // Считаем по группам — только активные карты
     var groupStats = {};
@@ -501,11 +546,27 @@ $(function () {
     });
 
     var $tbody = $('#stats-table-body');
-    $.each(GROUP_ORDER, function (_, g) {
-      if (!groupStats[g]) return;
+    // Сортируем группы по убыванию qty (колонка «Карт»). Тай-брейк —
+    // индекс в GROUP_ORDER, чтобы порядок при равенстве оставался
+    // стабильным и предсказуемым.
+    var sortedGroups = GROUP_ORDER.slice()
+      .filter(function (g) { return !!groupStats[g]; })
+      .sort(function (a, b) {
+        var diff = groupStats[b].qty - groupStats[a].qty;
+        if (diff !== 0) return diff;
+        return GROUP_ORDER.indexOf(a) - GROUP_ORDER.indexOf(b);
+      });
+    $.each(sortedGroups, function (_, g) {
       var s = groupStats[g];
-      var pct = (s.qty / totalQty * 100).toFixed(1) + '%';
-      $('<tr>').append(
+      var groupIsPlayable = NON_PLAYABLE_GROUPS.indexOf(g) === -1;
+      // Процент считаем только от игровых карт; неигровые группы
+      // (Роли, Персонажи) показывают «—» — они в общий пул не входят.
+      var pct = groupIsPlayable
+        ? (playableQty > 0 ? (s.qty / playableQty * 100).toFixed(1) + '%' : '—')
+        : '—';
+      $('<tr>', {
+        class: groupIsPlayable ? '' : 'stats-row--non-playable'
+      }).append(
         $('<td>', { text: GROUP_LABELS[g] || g }),
         $('<td>', { text: s.types }),
         $('<td>', { text: s.qty }),
