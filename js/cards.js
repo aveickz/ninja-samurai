@@ -1513,7 +1513,7 @@ const CARDS = [
   },
   {
     id: 132,
-    title: "Сифон жизни",
+    title: "Кэцу нуги",
     types: ["action"],
     qty: 1,
     group: "action",
@@ -1524,7 +1524,7 @@ const CARDS = [
   },
   {
     id: 133,
-    title: "Обман",
+    title: "Перехват",
     types: ["action"],
     qty: 1,
     group: "action",
