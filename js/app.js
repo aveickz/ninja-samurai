@@ -302,6 +302,8 @@ $(function () {
           visible = cardTags.indexOf('toPrint') !== -1;
         } else if (activeMode === '__draft__') {
           visible = cardTags.indexOf('draft') !== -1;
+        } else if (activeMode === '__comments__') {
+          visible = $el.attr('data-has-comments') === '1';
         } else if (activeMode) {
           visible = cardTypes.indexOf(activeMode) !== -1;
         } else {
@@ -322,6 +324,11 @@ $(function () {
           visible = cardTags.indexOf('toPrint') !== -1;
         } else if (activeMode === '__draft__') {
           visible = cardTags.indexOf('draft') !== -1;
+        } else if (activeMode === '__comments__') {
+          // data-has-comments проставляется в comments.js после
+          // bucket.list: '1' если у карточки есть комментарии, иначе атрибут
+          // отсутствует. Если comments-модуль не загружен, фильтр пуст.
+          visible = $el.attr('data-has-comments') === '1';
         } else if (activeMode) {
           visible = cardTypes.indexOf(activeMode) !== -1;
         } else {
@@ -379,13 +386,21 @@ $(function () {
   }
 
   // ── Вспомогательная: установить фильтр и записать в hash ─────────
-  var VALID_MODES = ALL_TYPES.concat(['__poison__', '__print__', '__draft__', '__trash__']);
+  var VALID_MODES = ALL_TYPES.concat(['__poison__', '__print__', '__draft__', '__trash__', '__comments__']);
 
   function setFilter(mode) {
     activeMode = mode;
     location.hash = mode ? mode : '';
     applyFilter();
   }
+
+  // ── Публичный API фильтра — для comments.js и прочих расширений ───
+  window.CardFilter = {
+    setMode:    function (mode) { setFilter(mode || null); },
+    toggleMode: function (mode) { setFilter(activeMode === mode ? null : mode); },
+    getMode:    function () { return activeMode; },
+    apply:      function () { applyFilter(); }
+  };
 
   // ── Строим панель фильтров ────────────────────────────────────────
   function buildFilters() {

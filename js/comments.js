@@ -76,6 +76,29 @@ $(function () {
     return bucket.setJSON(commentsKey(cardId), list);
   }
 
+  /**
+   * Удалить один комментарий из массива по полю date.
+   * Стратегия защиты от гонок: всегда re-load перед записью, чтобы
+   * не затереть параллельные правки. Если после удаления массив пуст,
+   * полностью убираем ключ из kvdb (иначе loadCommentedCards увидит
+   * пустой массив и снова пометит карточку как «есть комментарии»).
+   * Возвращает Promise с новым массивом.
+   */
+  function deleteComment(cardId, commentDate) {
+    return loadComments(cardId).then(function (list) {
+      var idx = -1;
+      for (var i = 0; i < list.length; i++) {
+        if (list[i] && list[i].date === commentDate) { idx = i; break; }
+      }
+      if (idx < 0) return list;        // уже удалён кем-то ещё
+      list.splice(idx, 1);
+      if (list.length === 0) {
+        return bucket.del(commentsKey(cardId)).then(function () { return list; });
+      }
+      return saveComments(cardId, list).then(function () { return list; });
+    });
+  }
+
   // ── Бейдж на карточке ────────────────────────────────────────────
   function buildBadge(cardId) {
     var has = !!commentedCards[cardId];
@@ -116,6 +139,16 @@ $(function () {
     else             delete commentedCards[cardId];
     $('.card-comments-btn[data-card-id="' + cardId + '"]')
       .toggleClass('card-comments-btn--has', !!hasComments);
+    // Проставляем атрибут на все .card-item с тем же id (включая
+    // pseudo-копии в Корзине). Используется фильтром __comments__ в app.js.
+    var $items = $('.card-item[data-card-id="' + cardId + '"]');
+    if (hasComments) $items.attr('data-has-comments', '1');
+    else             $items.removeAttr('data-has-comments');
+    // Если активен фильтр «Комментарии», нужно пересчитать видимость:
+    // карта могла только что получить (или потерять) метку.
+    if (window.CardFilter && window.CardFilter.getMode() === '__comments__') {
+      window.CardFilter.apply();
+    }
   }
 
   // ── Массовая разметка бейджей на старте ─────────────────────────
@@ -135,6 +168,36 @@ $(function () {
     }).catch(function (err) {
       console.warn('[comments] не удалось загрузить список ключей:', err.message);
     });
+  }
+
+  // ── Кнопка фильтра «💬 Комментарии» ──────────────────────────────
+  // Появляется в .filter-bar только после успешной загрузки списка
+  // ключей с kvdb. До этого фильтра нет — нечем фильтровать.
+  // Логика фильтрации живёт в app.js (case '__comments__'); видимость
+  // карточек определяется по атрибуту data-has-comments, который мы
+  // ставим в markBadge.
+  function ensureCommentsFilterButton() {
+    if (!window.CardFilter) return;                       // app.js не готов
+    if (!$('.filter-btn--comments').length) {
+      var $row = $('.filter-bar .filter-row').last();
+      if (!$row.length) return;
+      $('<button>', {
+        type: 'button',
+        class: 'filter-btn filter-btn--comments',
+        text: '💬 Комментарии',
+        'data-type': '__comments__'
+      })
+        .on('click', function () {
+          window.CardFilter.toggleMode('__comments__');
+        })
+        .appendTo($row);
+    }
+    // Если фильтр уже включён через location.hash, app.js успел вызвать
+    // applyFilter ДО того как мы проставили data-has-comments —
+    // в этот момент сетка была пуста. Пересчитываем сейчас.
+    if (window.CardFilter.getMode() === '__comments__') {
+      window.CardFilter.apply();
+    }
   }
 
   // ── Оверлей с комментариями ──────────────────────────────────────
@@ -193,7 +256,30 @@ $(function () {
           $meta.append($('<span>', { class: 'comment-author', text: c.author }));
         }
         $meta.append($('<span>', { class: 'comment-date', text: fmtDate(c.date) }));
+
+        var $del = $('<button>', {
+          type: 'button',
+          class: 'comment-del',
+          title: 'Удалить комментарий',
+          html: '&times;'
+        }).on('click', function (e) {
+          e.stopPropagation();
+          if (!window.confirm('Удалить этот комментарий?')) return;
+          var $btn = $(this);
+          $btn.prop('disabled', true);
+          deleteComment(cardId, c.date).then(function (list) {
+            render(list);
+            markBadge(cardId, list.length > 0);
+          }).catch(function (err) {
+            var body = (err.body || '').trim();
+            var msg  = body || err.message;
+            window.alert('Не удалось удалить (' + (err.status || '?') + '): ' + msg);
+            $btn.prop('disabled', false);
+          });
+        });
+
         $('<div>', { class: 'comment-item' }).append(
+          $del,
           $meta,
           $('<div>', { class: 'comment-text', text: c.comment })
         ).appendTo($list);
@@ -282,7 +368,9 @@ $(function () {
   // .card-item уже в DOM.
   setTimeout(function () {
     attachBadges();
-    loadCommentedCards();
+    // Фильтр «Комментарии» доступен только после того как загрузится
+    // список ключей с kvdb (даже если он пуст — это сигнал «модуль готов»).
+    loadCommentedCards().then(ensureCommentsFilterButton);
   }, 0);
 
   // ── Экспорт для отладки ─────────────────────────────────────────
@@ -290,6 +378,7 @@ $(function () {
     bucket:   bucket,
     load:     loadComments,
     save:     saveComments,
+    del:      deleteComment,
     keyFor:   commentsKey,
     open:     openComments,
     close:    closeComments,

@@ -7,6 +7,32 @@
     – связанные media queries для печати и узких экранов
 */
 
+/* ── Кнопка фильтра «💬 Комментарии» ─────────────────────────────── */
+/*
+  Кнопка живёт в общей панели фильтров рядом с «Яд», «На печать» и т.п.
+  В DOM добавляется из comments.js только после успешного bucket.list,
+  поэтому до загрузки её нет вообще. Палитра — золото/коричневый,
+  чтобы перекликаться с бейджем 💬 на карточке.
+*/
+.filter-btn--comments {
+  --tag-color: #c88600;
+  color: #f0c060;
+  border-color: #6a5030;
+  background: #1a1208;
+}
+
+.filter-btn--comments:hover {
+  border-color: #c88600;
+  color: #ffe090;
+}
+
+.filter-btn--comments.active {
+  color: #1a1208;
+  background: #c88600;
+  border-color: #f0c060;
+  box-shadow: 0 0 12px #c8860066;
+}
+
 /* ── Бейдж комментариев на карточке ──────────────────────────────── */
 /*
   Кнопка в .card-footer справа от .card-qty. Внутри только эмодзи —
@@ -15,6 +41,8 @@
   (определяется в comments.js по наличию ключа card_<ID>_comments).
 */
 .card-comments-btn {
+  /* relative — якорь для красного кружка ::after (см. ниже) */
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -27,6 +55,8 @@
   font-family: 'Georgia', serif;
   line-height: 1;
   cursor: pointer;
+  /* overflow: visible нужен чтобы кружок мог выступать за border */
+  overflow: visible;
   transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
 
@@ -40,12 +70,47 @@
   background: #2a1c0a;
   border-color: #c88600;
   color: #f0c060;
-  /* Лёгкое свечение, чтобы наличие комментариев было заметно издалека */
-  box-shadow: 0 0 6px #c8860044;
 }
 
 .card-comments-btn--has:hover {
   background: #3a2810;
+}
+
+/*
+  Красный кружок «непрочитанных» в правом верхнем углу — заметный
+  индикатор, что у карточки уже есть комментарии. Появляется только
+  когда у бейджа стоит .card-comments-btn--has.
+  Тонкая тёмная обводка отделяет его от золотой рамки бейджа,
+  чтобы он читался даже на ярком hover-фоне.
+*/
+.card-comments-btn--has::after {
+  content: '';
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  width: 8px;
+  height: 8px;
+  background: #e8453a;
+  border: 1.5px solid #1a1208;
+  border-radius: 50%;
+  box-shadow: 0 0 4px #e8453a, 0 0 8px #e8453a55;
+  /* Лёгкая пульсация, чтобы привлекало взгляд при сканировании сетки */
+  animation: comments-dot-pulse 2.4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes comments-dot-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 #e8453aaa, 0 0 4px #e8453a;
+  }
+  50% {
+    box-shadow: 0 0 0 4px #e8453a00, 0 0 8px #e8453a99;
+  }
+}
+
+/* На печать кружок и пульсацию убираем — печатаем только структуру */
+@media print {
+  .card-comments-btn--has::after { display: none; }
 }
 
 .card-comments-icon {
@@ -170,10 +235,53 @@
 .comments-empty--error { color: #d06060; }
 
 .comment-item {
+  position: relative;
   background: #1a1208;
   border: 1px solid #3a2818;
   border-radius: 6px;
-  padding: 8px 10px;
+  /* extra padding-right оставляет место под кнопку .comment-del,
+     которая абсолютно позиционирована в правом верхнем углу */
+  padding: 8px 28px 8px 10px;
+}
+
+/* ── Кнопка удаления комментария — × в правом верхнем углу ── */
+.comment-del {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  color: #6a5030;
+  font-family: 'Georgia', serif;
+  font-size: 1rem;
+  line-height: 1;
+  padding: 0;
+  cursor: pointer;
+  opacity: 0.55;
+  transition: opacity 0.15s ease, background 0.15s ease,
+              color 0.15s ease, border-color 0.15s ease;
+}
+
+/* Кнопка проявляется при наведении на сам комментарий */
+.comment-item:hover .comment-del {
+  opacity: 1;
+}
+
+.comment-del:hover {
+  background: #2a1010;
+  border-color: #803030;
+  color: #e86060;
+}
+
+.comment-del:disabled {
+  cursor: not-allowed;
+  opacity: 0.3;
 }
 
 .comment-meta {
