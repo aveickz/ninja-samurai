@@ -377,6 +377,17 @@ const CARDS = [
     img: "cards/card_33_dayku.png"
   },
   {
+    id: 1033,
+    title: "Тэппо Юми",
+    types: ["weapon"],
+    qty: 2,
+    group: "weapon",
+    icons: ["ranged", "dmg2"],
+    tags: [],
+    desc: "",
+    img: "cards/card_teppo_umi.png"
+  },
+  {
     id: 34,
     title: "Отравленный сюрикен",
     types: ["weapon"],
@@ -507,7 +518,7 @@ const CARDS = [
     group: "trap",
     icons: ["poison"],
     tags: ["poison"],
-    desc: "ЛОВУШКА. Враг отравляется ядом. Если он уже отравлен, то получает 1 рану.",
+    desc: "ЛОВУШКА. Враг отравляется ядом.",
     img: "cards/card_45_poganka.png"
   },
   {
@@ -1300,7 +1311,7 @@ const CARDS = [
     group: "action",
     icons: ["poison"],
     tags: ["poison"],
-    desc: "Отравляет выбранного активного игрока. Если игрок уже отравлен, он получает одну рану.",
+    desc: "Отравляет выбранного активного игрока.",
     img: "cards/card_116_yad_fugu.png"
   },
   {
