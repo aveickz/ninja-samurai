@@ -6,7 +6,7 @@ $(function () {
     action:       { label: 'Действие',      color: '#FFDDDD' },
     weapon:       { label: 'Оружие',        color: '#ED1C24' },
     trap:         { label: 'Ловушка',       color: '#5f8598' },
-    character:    { label: 'Персонаж',      color: '#6C8CC7' },
+    character:    { label: 'Персонаж',      color: '#377cf4' },
     modifier:     { label: 'Модификатор',   color: '#ED1C24' },
     defense:      { label: 'Защита',        color: '#dca300' },
     stance:       { label: 'Стойка',        color: '#A78B6B' },
@@ -28,7 +28,7 @@ $(function () {
     aoe:          '#231F20',
     effect:       '#231F20',
     intervention: '#3B8476',
-    character:    '#6C8CC7',
+    character:    '#377cf4',
     action:       '#231F20',
     trash:        '#3a3a3a'
   };
@@ -213,7 +213,11 @@ $(function () {
     );
 
     var $item = $('<div>', {
-      class: 'card-item ' + typeClasses,
+      // card-character — отдельный модификатор для карт-персонажей,
+      // позволяет CSS-правилам подменять стили внутри (например, цвет
+      // заголовка). Добавляется только когда group === 'character'.
+      class: 'card-item ' + typeClasses +
+             (card.group === 'character' ? ' card-character' : ''),
       'data-card-id': card.id,
       'data-types': card.types.join(' '),
       'data-group': card.group || 'action',

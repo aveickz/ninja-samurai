@@ -170,16 +170,28 @@
   margin-bottom: 2%;
 }
 
+/*
+  Карты-персонажи (group: 'character') используют светлый фон плашки
+  заголовка через card.titleBgColor, поэтому стандартный белый title
+  на ней не читается. Внутри .card-character заголовок становится чёрным.
+*/
+.card-character .card-title {
+  color: #fff;
+  text-shadow: none;
+}
+
 .card-subtitle {
   font-family: 'Han Zi', 'Georgia', serif;
-  font-size: 6.5pt;
-  color: rgba(255, 255, 255, 0.75);
+  font-size: 5pt;
+  color: rgba(10, 10, 10, 0.75);
   text-align: center;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 100%;
   letter-spacing: 0.04em;
+  margin-top: -1%;
+  font-weight: bold;
 }
 
 .card-hp {
