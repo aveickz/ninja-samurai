@@ -1,5 +1,33 @@
-// Допустимые типы: weapon | trap | character | modifier | defense | stance | effect | intervention | aoe | action
+// Допустимые типы: role | weapon | trap | character | modifier | defense | stance | effect | intervention | aoe | action
 const CARDS = [
+
+  // ── РОЛИ ─────────────────────────────────────────────────────────
+  // Мета-карты, обозначающие сторону игрока. В колоде не участвуют —
+  // выдаются перед раздачей.
+  {
+    id: 200,
+    title: "Ниндзя",
+    titleBgColor: "#0D233C",
+    types: ["role"],
+    qty: 4,
+    group: "role",
+    icons: [],
+    tags: [],
+    desc: "",
+    img: "cards/card_role_ninja.png"
+  },
+  {
+    id: 201,
+    title: "Самурай",
+    titleBgColor: "#891511",
+    types: ["role"],
+    qty: 4,
+    group: "role",
+    icons: [],
+    tags: [],
+    desc: "",
+    img: "cards/card_role_samurai.png"
+  },
 
   // ── ОРУЖИЕ (стр. 1–5) ────────────────────────────────────────────
   {

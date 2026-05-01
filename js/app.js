@@ -2,6 +2,7 @@ $(function () {
 
   // ── Мета типов ────────────────────────────────────────────────────
   var TYPE_META = {
+    role:         { label: 'Роль',          color: '#9c6ec0' },
     action:       { label: 'Действие',      color: '#FFDDDD' },
     weapon:       { label: 'Оружие',        color: '#ED1C24' },
     trap:         { label: 'Ловушка',       color: '#5f8598' },
@@ -18,6 +19,7 @@ $(function () {
 
   // ── Цвета верхней плашки по группе ───────────────────────────────
   var GROUP_TITLE_COLOR = {
+    role:         '#5d3c75',
     defense:      '#dca300',
     trap:         '#43525A',
     weapon:       '#231F20',
@@ -32,12 +34,15 @@ $(function () {
   };
 
   // ── Порядок и названия групп ──────────────────────────────────────
+  // role идёт первой — это мета-карта (кто играет), не часть колоды.
   var GROUP_ORDER = [
+    'role',
     'weapon', 'trap', 'defense', 'stance', 'modifier',
     'aoe', 'effect', 'action', 'intervention', 'character'
   ];
 
   var GROUP_LABELS = {
+    role:         'Роли',
     weapon:       'Оружие',
     trap:         'Ловушки',
     defense:      'Защита',
@@ -151,7 +156,9 @@ $(function () {
       // Слой 3: заголовок в верхней полосе маски
       $('<div>', {
         class: 'card-title-wrap',
-        css: { background: GROUP_TITLE_COLOR[card.group] || '#231F20' }
+        // Приоритет: card.titleBgColor (per-card override) → GROUP_TITLE_COLOR
+        // по группе → дефолтный почти-чёрный.
+        css: { background: card.titleBgColor || GROUP_TITLE_COLOR[card.group] || '#231F20' }
       }).append(
         $('<span>', { class: 'card-title', text: card.title }),
         card.subtitle
@@ -168,12 +175,14 @@ $(function () {
         : null,
 
       // Слой 5: иконка группы — поверх маски, по центру низа плашки заголовка
+      // Если для группы нет media/<group>.png (например, новая группа без
+      // иконки), .on('error') скрывает <img> вместо показа ломаной картинки.
       $('<img>', {
         class: 'card-group-icon',
         src: 'media/' + (card.group === 'effect' ? 'effect8' : card.group) + '.png',
         alt: '',
         draggable: false
-      }),
+      }).on('error', function () { $(this).hide(); }),
 
       // Слой 4: жёлтая плашка с описанием внизу (только если есть текст)
       card.desc ? $('<div>', { class: 'card-desc-wrap' }).append(
