@@ -96,6 +96,17 @@
     display: none !important;
   }
 
+  /*
+    Карточки с тегом `trash` никогда не печатаются — ни real-копия в
+    родной группе, ни pseudo-копия в разделе «Корзина». wrapForPrint
+    в app.js уже отфильтровывает их до группировки по 9, но эта
+    CSS-страховка нужна на случай ручного print через DevTools или
+    если кто-то расширит wrapForPrint в будущем.
+  */
+  .card-item[data-tags~="trash"] {
+    display: none !important;
+  }
+
   /* Скрываем футер карточки (теги типов и количество) */
   .card-footer {
     display: none !important;

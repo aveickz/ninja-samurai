@@ -646,7 +646,13 @@ $(function () {
 
   // ── Печать: группируем карточки по 9 на страницу ─────────────────
   function wrapForPrint() {
-    var $cards = $('#grid .card-item:not(.card--hidden)');
+    // Карточки с тегом trash никогда не попадают в печатную версию —
+    // ни real-копии в родных группах, ни pseudo-копии в Корзине.
+    // Фильтруем их ДО группировки по 9, чтобы страницы не «дырявили».
+    var $cards = $('#grid .card-item:not(.card--hidden)').filter(function () {
+      var tags = ($(this).attr('data-tags') || '').split(/\s+/);
+      return tags.indexOf('trash') === -1;
+    });
     var pages = [];
     for (var i = 0; i < $cards.length; i += 9) {
       pages.push($cards.slice(i, i + 9));
