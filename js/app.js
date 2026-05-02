@@ -90,6 +90,38 @@ $(function () {
     return escaped.replace(/(\s|^)([А-ЯЁа-яёA-Za-z]{1,2}) /g, '$1$2&nbsp;');
   }
 
+  // ── Построение блока описания карточки ───────────────────────────
+  // Если в desc встречается конструкция "-ИЛИ-" (с любыми пробелами
+  // вокруг), описание разбивается на части, между которыми рисуется
+  // компактный аналог .group-divider — горизонтальные линии и слово
+  // «ИЛИ» по центру. CSS — в card.css.
+  function buildDescContent(desc) {
+    var parts = String(desc).split(/\s*-ИЛИ-\s*/)
+      .map(function (p) { return p.replace(/^\s+|\s+$/g, ''); })
+      .filter(function (p) { return p.length > 0; });
+
+    if (parts.length <= 1) {
+      return $('<div>', { class: 'card-desc' }).html(typograph(desc));
+    }
+
+    var $wrap = $('<div>', { class: 'card-desc card-desc--split' });
+    parts.forEach(function (part, i) {
+      if (i > 0) {
+        $wrap.append(
+          $('<div>', { class: 'card-desc-or' }).append(
+            $('<span>', { class: 'card-desc-or-line' }),
+            $('<span>', { class: 'card-desc-or-label', text: 'ИЛИ' }),
+            $('<span>', { class: 'card-desc-or-line' })
+          )
+        );
+      }
+      $wrap.append(
+        $('<div>', { class: 'card-desc-part' }).html(typograph(part))
+      );
+    });
+    return $wrap;
+  }
+
   // ── Построение тегов типов на карточке ───────────────────────────
   function buildTypeTags(types, tags) {
     var $wrap = $('<div>', { class: 'card-types' });
@@ -202,7 +234,7 @@ $(function () {
       // Слой 4: жёлтая плашка с описанием внизу (только если есть текст)
       card.desc ? $('<div>', { class: 'card-desc-wrap' }).append(
         $('<img>', { class: 'card-delimiter', src: 'media/delimiter.png', alt: '', draggable: false }),
-        $('<div>', { class: 'card-desc' }).html(typograph(card.desc))
+        buildDescContent(card.desc)
       ) : null
     );
 

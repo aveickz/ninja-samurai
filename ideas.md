@@ -54,3 +54,6 @@ Make old ones AOE into regular single cards?
 
 для ниндзя / самураев разные оружия (каждый из них имеет бонусы/штрафы?)
 добавить арбалет
+
+
+Same Team/Opposite Team mechanics/GRoup with trade-off

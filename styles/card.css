@@ -261,6 +261,59 @@
   margin: auto 0;
 }
 
+/*
+  Когда card.desc содержит конструкцию "-ИЛИ-", JS строит
+  .card-desc.card-desc--split со списком .card-desc-part и компактным
+  разделителем .card-desc-or между ними. Стилистика разделителя
+  повторяет .group-divider, но в палитре бумаги (тёмный коричневый
+  на жёлтом фоне card-desc-wrap).
+*/
+.card-desc--split {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 2px;
+  width: 100%;
+}
+
+.card-desc-part {
+  /* Унаследует font/color/text-align от .card-desc */
+  width: 100%;
+}
+
+.card-desc-or {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 3px 0 1px 0;
+  width: 100%;
+}
+
+.card-desc-or-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    to var(--or-line-dir, right),
+    transparent,
+    #5a3e1b 40%,
+    #5a3e1b
+  );
+}
+
+.card-desc-or-line:last-child {
+  --or-line-dir: left;
+}
+
+.card-desc-or-label {
+  font-family: 'Han Zi', 'Georgia', serif;
+  font-size: 5pt;
+  font-weight: bold;
+  color: #000;
+  letter-spacing: 0.18em;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
 /* ── Нижняя строка под карточкой: типы слева, qty справа ── */
 .card-footer {
   display: flex;
