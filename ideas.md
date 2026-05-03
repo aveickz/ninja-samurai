@@ -57,3 +57,5 @@ Make old ones AOE into regular single cards?
 
 
 Same Team/Opposite Team mechanics/GRoup with trade-off
+
+KUNAI = same as Боевой веер --- или melee 

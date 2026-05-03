@@ -77,6 +77,19 @@
   z-index: 0;
 }
 
+/* Слой 0.5: overlay поверх weapon_bg для оружия с iconsOr.
+   Та же зона и геометрия, что у .card-bg, но z-index выше — рисуется
+   ПОВЕРХ weapon_bg и ПОД card-art (z-index: 2). */
+.card-bg-or {
+  position: absolute;
+  top: 13%;
+  left: 1.5%;
+  width: 97%;
+  height: auto;
+  display: block;
+  z-index: 1;
+}
+
 /* Слой 1: арт карточки — абсолютно позиционирован внутри .card.
    Ширина всегда 100% от .card; высота пропорциональна оригиналу. */
 .card-art {
@@ -107,6 +120,26 @@
   display: block;
   width: 32%;
   margin-bottom: -3px;
+}
+
+/*
+  iconsOr — иконки альтернативной ветки (см. конструкцию "-ИЛИ-" в desc).
+  Зеркало .card-icons по углу: стек вертикальный и идёт сверху вниз
+  (как обычно), но заякорен в правом нижнем углу. Это значит, что
+  ПОСЛЕДНИЙ элемент массива касается угла, а первый — выше; порядок
+  в массиве не переворачиваем (array[0] — вверху стопки).
+  align-items: flex-end прижимает иконки к правому краю контейнера.
+*/
+.card-icons-or {
+  position: absolute;
+  bottom: 5%;
+  right: 4%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3%;
+  z-index: 50;
+  pointer-events: none;
 }
 
 /* Слой 3: рамка/маска поверх арта */

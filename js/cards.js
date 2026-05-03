@@ -21,7 +21,19 @@ const CARDS = [
     title: "Самурай",
     titleBgColor: "#891511",
     types: ["role"],
-    qty: 4,
+    qty: 3,
+    group: "role",
+    icons: [],
+    tags: [],
+    desc: "",
+    img: "cards/card_role_samurai.png"
+  },
+  {
+    id: 202,
+    title: "Сёгун",
+    titleBgColor: "#891511",
+    types: ["role"],
+    qty: 1,
     group: "role",
     icons: [],
     tags: [],
@@ -91,9 +103,10 @@ const CARDS = [
     types: ["weapon"],
     qty: 2,
     group: "weapon",
-    icons: ["melee2", "dmg1"],
+    icons: ["melee1", "dmg2"],
+    iconsOr: ["ranged", "dmg1"],
     tags: [],
-    desc: "Можно воспользоваться либо как обычным оружием 1/2, либо как метательным оружием 3/1.",
+    desc: "",
     img: "cards/card_6_boevoy_veer.png"
   },
   {
@@ -102,7 +115,8 @@ const CARDS = [
     types: ["weapon"],
     qty: 2,
     group: "weapon",
-    icons: ["melee2", "dmg2"],
+    icons: ["melee1", "dmg2"],
+    iconsOr: ["melee2", "dmg1"],
     tags: [],
     desc: "",
     img: "cards/card_7_kusarigama.png"
@@ -256,9 +270,10 @@ const CARDS = [
     types: ["weapon"],
     qty: 2,
     group: "weapon",
-    icons: ["melee2", "dmg1", "poison"],
+    icons: ["ranged", "dmg1", "poison"],
+    iconsOr: ["melee1", "dmg2", "poison"],
     tags: ["poison"],
-    desc: "Можно воспользоваться либо как обычным оружием 1/2, либо как метательным оружием 3/1.",
+    desc: "",
     img: "cards/card_6_boevoy_veer.png"
   },
   {
@@ -377,7 +392,7 @@ const CARDS = [
     types: ["weapon"],
     qty: 2,
     group: "weapon",
-    icons: ["melee2", "dmg2", "poison"],
+    icons: ["melee2", "dmg1", "poison"],
     tags: ["poison"],
     desc: "",
     img: "cards/card_29_yari.png"
@@ -432,7 +447,8 @@ const CARDS = [
     types: ["weapon"],
     qty: 2,
     group: "weapon",
-    icons: ["ranged", "dmg2"],
+    icons: ["ranged", "dmg1"],
+    iconsOr: ["melee2", "dmg2"],
     tags: [],
     desc: "",
     img: "cards/card_36_kunay.png"
@@ -465,7 +481,7 @@ const CARDS = [
     types: ["weapon", "trap"],
     qty: 2,
     group: "weapon",
-    icons: ["ranged", "dmg0", "trap"],
+    icons: ["ranged", "dmg1", "trap"],
     tags: [],
     desc: "Можно использовать как ловушку, которая наносит одну рану атакующему в ответ.",
     img: "cards/card_38_makibishi.png"
@@ -476,7 +492,7 @@ const CARDS = [
     types: ["weapon"],
     qty: 2,
     group: "weapon",
-    icons: ["ranged", "dmg1", "poison"],
+    icons: ["ranged", "dmg0", "poison"],
     tags: ["poison"],
     desc: "Атака игнорирует ловушки и защиту, и вы берёте карту из колоды.",
     img: "cards/card_39_drotik_s_yadom.png"
@@ -488,6 +504,7 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["ranged", "dmg1", "poison"],
+    iconsOr: ["melee1", "dmg2", "poison"],
     tags: ["poison"],
     desc: "",
     img: "cards/card_36_kunay.png"
@@ -715,7 +732,7 @@ const CARDS = [
     group: "stance",
     icons: [],
     tags: [],
-    desc: "СТОЙКА ~ При выставлении восстановить два жетона жизни и перед каждой фазой набора вы можете: восстановить жетон жизни любому игроку ИЛИ снять яд или один эффект любому игроку, сбросив карту.",
+    desc: "СТОЙКА ~ При выставлении восстановить два жетона жизни и перед каждой фазой набора вы можете: восстановить жетон жизни любому игроку -ИЛИ- снять яд или один эффект любому игроку, сбросив карту.",
     img: "cards/card_59_lotos.png"
   },
   {
@@ -737,7 +754,7 @@ const CARDS = [
     group: "stance",
     icons: [],
     tags: [],
-    desc: "СТОЙКА ~ После каждой успешной атаки вы наносите врагу на одну рану больше и можете взять одну карту из колоды.",
+    desc: "СТОЙКА ~ После каждой успешной атаки вы наносите врагу на одну рану больше -ИЛИ- можете взять одну карту из колоды.",
     img: "cards/card_61_master_boya.png"
   },
   {
@@ -748,7 +765,7 @@ const CARDS = [
     group: "stance",
     icons: [],
     tags: [],
-    desc: "СТОЙКА ~ Раз в свой ход вы можете: восстановить жетон жизни любому игроку ИЛИ снять яд или один эффект любому игроку, сбросив карту.",
+    desc: "СТОЙКА ~ Раз в свой ход вы можете: восстановить жетон жизни любому игроку -ИЛИ- снять яд или один эффект любому игроку, сбросив карту.",
     img: "cards/card_62_kapellan.png"
   },
   {
@@ -759,7 +776,7 @@ const CARDS = [
     group: "stance",
     icons: [],
     tags: [],
-    desc: "СТОЙКА ~ При атаке по врагу вы можете: сделать вашу атаку отравленной ядом ИЛИ сбросив две карты, сделать врага беззащитным от атаки.",
+    desc: "СТОЙКА ~ При атаке по врагу вы можете: сделать вашу атаку отравленной ядом -ИЛИ- сбросив две карты, сделать врага беззащитным от атаки.",
     img: "cards/card_63_assassin.png"
   },
 
@@ -1005,7 +1022,7 @@ const CARDS = [
     group: "intervention",
     icons: ["aoe"],
     tags: ["draft"],
-    desc: "Все ловушки на столе открываются, но продолжают действовать.",
+    desc: "ВМЕШАТЕЛЬСТВО. Все ловушки на столе открываются, но продолжают действовать.",
     img: "cards/card_85_prosvietlenie.png"
   },
   {
@@ -1458,11 +1475,11 @@ const CARDS = [
     id: 126,
     title: "Рука помощи",
     types: ["intervention"],
-    qty: 1,
+    qty: 4,
     group: "intervention",
     icons: [],
     tags: [],
-    desc: "ВМЕШАТЕЛЬСТВО. Сыграйте эту карту, чтобы обменяться в закрытую с любым игроком картами на ваше обоюдное усмотрение.",
+    desc: "ВМЕШАТЕЛЬСТВО. Сыграйте эту карту, чтобы передать любому игроку в закрытую любую другую карту из своей руки. -ИЛИ- Сыграйте эту карту, чтобы заставить другого игрока передать в вам в закрытую любую карту на его выбор.",
     img: "cards/card_125_ruka_pomoshchi.png"
   },
   {
@@ -1472,8 +1489,8 @@ const CARDS = [
     qty: 1,
     group: "intervention",
     icons: [],
-    tags: [],
-    desc: "ВМЕШАТЕЛЬСТВО. Сыграйте эту карту, чтобы передать любому игроку в закрытую любую другую карту из своей руки.",
+    tags: ["trash"],
+    desc: "ВМЕШАТЕЛЬСТВО. Сыграйте эту карту, чтобы передать любому игроку в закрытую любую другую карту из своей руки. (ушло в руку помощи)",
     img: "cards/card_126_vestochka.png"
   },
   {
@@ -1482,7 +1499,7 @@ const CARDS = [
     types: ["intervention", "effect"],
     qty: 1,
     group: "intervention",
-    icons: [],
+    icons: ["effect8"],
     tags: [],
     desc: "ВМЕШАТЕЛЬСТВО. ЭФФЕКТ. Выбранный игрок симулирует смерть (при его согласии), оставляя один жетон жизни. Следующий раунд он обескровлен. В начале хода игрока эффект пропадает. Можно сыграть во время прямой атаки оружием по игроку.",
     img: "cards/card_127_simulyant.png"

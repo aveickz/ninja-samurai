@@ -160,6 +160,19 @@ $(function () {
         ? $('<img>', { class: 'card-bg', src: card.tags.indexOf('poison') !== -1 ? 'media/weapon_bg_poisoned.png' : 'media/weapon_bg.png', alt: '', draggable: false })
         : null,
 
+      // Слой 0.5: overlay-фон для оружия с iconsOr — поверх weapon_bg,
+      // но под card-art. Сигналит, что у оружия есть альтернативная
+      // ветка использования (см. конструкцию "-ИЛИ-" в desc).
+      // Если файла media/weapon_bg_or.png нет — img молча прячется.
+      (card.group === 'weapon' && card.iconsOr && card.iconsOr.length)
+        ? $('<img>', {
+            class: 'card-bg-or',
+            src: 'media/weapon_bg_or.png',
+            alt: '',
+            draggable: false
+          }).on('error', function () { $(this).hide(); })
+        : null,
+
       // Слой 1: арт (самый нижний)
       $('<img>', { class: 'card-art', src: card.img, alt: card.title, loading: 'lazy' })
         .on('load', function () {
@@ -180,13 +193,42 @@ $(function () {
 
           // top не должен быть ниже (cardH - minH), иначе текст не влезет
           var topPx = Math.min(artBottom, cardH - minH);
-          $wrap.css('top', ( (topPx / cardH * 100) - 2.5).toFixed(3) + '%');
+          var topPct = (topPx / cardH * 100) - 2.5;
+          $wrap.css('top', topPct.toFixed(3) + '%');
+
+          // Если у карты есть стопка iconsOr — её нижний край прижимаем
+          // к верхнему краю плашки описания. Когда desc-wrap'а нет
+          // (мы выходим выше через `if (!$wrap.length) return`),
+          // icons-or остаётся в дефолтной позиции bottom: 14% из CSS.
+          var $iconsOr = $card.find('.card-icons-or');
+          if ($iconsOr.length) {
+            $iconsOr.css('bottom', (100 - topPct).toFixed(3) + '%');
+          }
         }),
 
       // Слой 2: иконки из icons[] — вертикальный стек в левом верхнем углу арта
       card.icons && card.icons.length
         ? $('<div>', { class: 'card-icons' }).append(
             $.map(card.icons, function (icon) {
+              return $('<img>', {
+                class: 'card-icon',
+                src: 'media/' + icon + '.png',
+                alt: icon,
+                draggable: false
+              });
+            })
+          )
+        : null,
+
+      // Слой 2b: иконки из iconsOr[] — зеркало icons по углу.
+      // Вертикальный стек заякорен в правом нижнем углу карты:
+      // ПОСЛЕДНИЙ элемент массива стоит в углу, первый — вверху стопки
+      // (порядок в массиве не переворачиваем). Обычно используется
+      // парно с конструкцией "-ИЛИ-" в desc: первая ветка описания
+      // обозначается icons, альтернатива — iconsOr.
+      card.iconsOr && card.iconsOr.length
+        ? $('<div>', { class: 'card-icons-or' }).append(
+            $.map(card.iconsOr, function (icon) {
               return $('<img>', {
                 class: 'card-icon',
                 src: 'media/' + icon + '.png',
