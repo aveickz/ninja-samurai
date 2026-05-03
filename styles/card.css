@@ -204,12 +204,20 @@
 }
 
 /*
-  Карты-персонажи (group: 'character') используют светлый фон плашки
-  заголовка через card.titleBgColor, поэтому стандартный белый title
-  на ней не читается. Внутри .card-character заголовок становится чёрным.
+  Карты-персонажи (group: 'character') используют тот же бумажный фон
+  для плашки заголовка, что и для .card-desc-wrap — единое «бумажное»
+  оформление сверху и снизу. Текст заголовка тёмный, чтобы читался
+  на тёплой бумаге.
+
+  Если у карты задан card.titleBgColor — он перебивает это правило
+  через inline style (см. логику в app.js).
 */
+.card-character .card-title-wrap {
+  background: url('../media/paper.png') center / cover no-repeat;
+}
+
 .card-character .card-title {
-  color: #fff;
+  color: #222;
   text-shadow: none;
 }
 

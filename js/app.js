@@ -6,7 +6,7 @@ $(function () {
     action:       { label: 'Действие',      color: '#FFDDDD' },
     weapon:       { label: 'Оружие',        color: '#ED1C24' },
     trap:         { label: 'Ловушка',       color: '#5f8598' },
-    character:    { label: 'Персонаж',      color: '#377cf4' },
+    character:    { label: 'Персонаж',      color: '#ddd' },
     modifier:     { label: 'Модификатор',   color: '#ED1C24' },
     defense:      { label: 'Защита',        color: '#dca300' },
     stance:       { label: 'Стойка',        color: '#A78B6B' },
@@ -28,7 +28,7 @@ $(function () {
     aoe:          '#231F20',
     effect:       '#231F20',
     intervention: '#3B8476',
-    character:    '#377cf4',
+    character:    '#ddd',
     action:       '#231F20',
     trash:        '#3a3a3a'
   };
@@ -243,17 +243,26 @@ $(function () {
       $('<img>', { class: 'card-mask', src: 'media/mask.png', alt: '', draggable: false }),
 
       // Слой 3: заголовок в верхней полосе маски
-      $('<div>', {
-        class: 'card-title-wrap',
-        // Приоритет: card.titleBgColor (per-card override) → GROUP_TITLE_COLOR
-        // по группе → дефолтный почти-чёрный.
-        css: { background: card.titleBgColor || GROUP_TITLE_COLOR[card.group] || '#231F20' }
-      }).append(
-        $('<span>', { class: 'card-title', text: card.title }),
-        card.subtitle
-          ? $('<span>', { class: 'card-subtitle', text: card.subtitle })
-          : null
-      ),
+      // Приоритет фона:
+      //   1. card.titleBgColor (per-card override) — самый высокий
+      //   2. для group=character ничего inline не ставим — паперовый
+      //      фон задаёт CSS-правило .card-character .card-title-wrap
+      //   3. иначе GROUP_TITLE_COLOR[group] || '#231F20'
+      (function () {
+        var titleBg = card.titleBgColor
+                   || (card.group === 'character'
+                         ? null
+                         : (GROUP_TITLE_COLOR[card.group] || '#231F20'));
+        var $tw = $('<div>', { class: 'card-title-wrap' });
+        if (titleBg) $tw.css('background', titleBg);
+        $tw.append(
+          $('<span>', { class: 'card-title', text: card.title }),
+          card.subtitle
+            ? $('<span>', { class: 'card-subtitle', text: card.subtitle })
+            : null
+        );
+        return $tw;
+      })(),
 
       // Слой HP: иконка сердца с числом — только для персонажей
       card.hp != null
