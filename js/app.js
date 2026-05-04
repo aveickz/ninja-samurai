@@ -289,10 +289,60 @@ $(function () {
       ) : null
     );
 
-    // Внешний контейнер: card + footer (типы слева, qty справа)
+    // Кнопка «поделиться» — видна только когда карта в зуме (CSS),
+    // ставит location.hash = card-<ID> и копирует полный URL в буфер.
+    // По этому хешу страница автоматически зумирует карту при загрузке
+    // (см. zoomCardById ниже). Кладём её в .card-footer перед местом,
+    // куда comments.js append'ит .card-comments-btn — получается
+    // последовательность qty → share → comment.
+    var $shareBtn = $('<button>', {
+      type: 'button',
+      class: 'card-share-btn',
+      title: 'Скопировать ссылку на карту',
+      html: '\u{1F517}'  // 🔗
+    }).on('click', function (e) {
+      e.stopPropagation();
+      e.preventDefault();
+      var hash = 'card-' + card.id;
+      var url = window.location.origin + window.location.pathname +
+                window.location.search + '#' + hash;
+      // Обновляем URL — пользователь может скопировать прямо из адресной
+      // строки. Браузер не прокручивает, потому что элемента id="card-<N>"
+      // у нас нет.
+      if (location.hash !== '#' + hash) {
+        location.hash = hash;
+      }
+
+      var $btn = $(this);
+      var orig = $btn.html();
+      function flash(sym, modCls) {
+        $btn.html(sym)
+            .removeClass('card-share-btn--ok card-share-btn--err')
+            .addClass(modCls);
+        setTimeout(function () {
+          $btn.html(orig).removeClass('card-share-btn--ok card-share-btn--err');
+        }, 1500);
+      }
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(
+          function () { flash('✓', 'card-share-btn--ok'); },
+          function () { flash('✗', 'card-share-btn--err'); }
+        );
+      } else {
+        // Fallback для контекстов без Clipboard API (file://, старые браузеры)
+        window.prompt('Скопируйте ссылку:', url);
+      }
+    }).on('mousedown', function (e) { e.stopPropagation(); });
+
+    // Внешний контейнер: card + footer (типы слева, qty + share + comment справа).
+    // share-кнопка появляется здесь сразу; .card-comments-btn будет
+    // добавлен позже модулем comments.js — таким образом получаем
+    // нужный порядок: ... qty | share | comment.
     var $footer = $('<div>', { class: 'card-footer' }).append(
       buildTypeTags(card.types, card.tags || []),
-      $('<div>', { class: 'card-qty', text: '×' + (card.qty || 1) })
+      $('<div>', { class: 'card-qty', text: '×' + (card.qty || 1) }),
+      $shareBtn
     );
 
     var $item = $('<div>', {
@@ -723,15 +773,58 @@ $(function () {
   window.addEventListener('beforeprint', wrapForPrint);
   window.addEventListener('afterprint', unwrapAfterPrint);
 
+  // ── Hash-роутинг для одиночной карты ─────────────────────────────
+  // Формат хеша: #card-<ID>. По нему страница автоматически зумирует
+  // карту (см. кнопку «поделиться» в zoom-режиме). Хеши вида
+  // VALID_MODES обрабатываются отдельно как фильтр (см. ниже).
+  function zoomCardById(cardId) {
+    if (cardId == null) return;
+    // Предпочитаем настоящую карту из её родной группы; pseudo-копия
+    // в Корзине — запасной вариант на случай если real-копии нет.
+    var $target = $('#grid .card-item[data-card-id="' + cardId + '"]:not([data-trash-pseudo])').first();
+    if (!$target.length) {
+      $target = $('#grid .card-item[data-card-id="' + cardId + '"]').first();
+    }
+    if (!$target.length) return;
+
+    // Если карта скрыта активным фильтром — снимаем фильтр.
+    if ($target.hasClass('card--hidden')) {
+      setFilter(null);
+    }
+
+    // Закрываем все остальные зумы и открываем нужный.
+    $('.card-item.is-zoomed').not($target).removeClass('is-zoomed');
+    $target.addClass('is-zoomed');
+
+    // Прокручиваем карту в видимую область.
+    setTimeout(function () {
+      if ($target[0].scrollIntoView) {
+        $target[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }, 50);
+  }
+
+  function applyCardHashIfAny() {
+    var m = /^card-(\d+)$/.exec(location.hash.replace(/^#/, ''));
+    if (m) zoomCardById(m[1]);
+  }
+
+  // Если кто-то меняет hash вручную / через back-forward / через
+  // клик по другой share-ссылке — переоткрываем нужную карту.
+  $(window).on('hashchange', applyCardHashIfAny);
+
   // ── Инициализация ─────────────────────────────────────────────────
   buildFilters();
   buildStats();
 
-  // Восстанавливаем фильтр из hash (если он валидный)
+  // Восстанавливаем фильтр из hash (если он валидный режим)
   var hashMode = location.hash.replace(/^#/, '');
   if (hashMode && VALID_MODES.indexOf(hashMode) !== -1) {
     activeMode = hashMode;
   }
   applyFilter();
+
+  // Hash вида card-<ID> — зумим карту после применения фильтра.
+  applyCardHashIfAny();
 
 });
