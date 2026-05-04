@@ -2,7 +2,6 @@ $(function () {
 
   // ── Мета типов ────────────────────────────────────────────────────
   var TYPE_META = {
-    role:         { label: 'Роль',          color: '#9c6ec0' },
     action:       { label: 'Действие',      color: '#FFDDDD' },
     weapon:       { label: 'Оружие',        color: '#ED1C24' },
     trap:         { label: 'Ловушка',       color: '#5f8598' },
@@ -12,14 +11,14 @@ $(function () {
     stance:       { label: 'Стойка',        color: '#A78B6B' },
     effect:       { label: 'Эффект',        color: '#FFDDDD' },
     intervention: { label: 'Вмешательство', color: '#3B8476' },
-    aoe:          { label: 'Групповая',     color: '#FFDDDD' }
+    aoe:          { label: 'Групповая',     color: '#FFDDDD' },
+    role:         { label: 'Роль',          color: '#9c6ec0' }
   };
 
   var ALL_TYPES = Object.keys(TYPE_META);
 
   // ── Цвета верхней плашки по группе ───────────────────────────────
   var GROUP_TITLE_COLOR = {
-    role:         '#5d3c75',
     defense:      '#dca300',
     trap:         '#43525A',
     weapon:       '#231F20',
@@ -29,6 +28,7 @@ $(function () {
     effect:       '#231F20',
     intervention: '#3B8476',
     character:    '#ddd',
+    role:         '#5d3c75',
     action:       '#231F20',
     trash:        '#3a3a3a'
   };
@@ -36,13 +36,11 @@ $(function () {
   // ── Порядок и названия групп ──────────────────────────────────────
   // role идёт первой — это мета-карта (кто играет), не часть колоды.
   var GROUP_ORDER = [
-    'role',
     'weapon', 'trap', 'defense', 'stance', 'modifier',
-    'aoe', 'effect', 'action', 'intervention', 'character'
+    'aoe', 'effect', 'action', 'intervention', 'character', 'role'
   ];
 
   var GROUP_LABELS = {
-    role:         'Роли',
     weapon:       'Оружие',
     trap:         'Ловушки',
     defense:      'Защита',
@@ -52,6 +50,7 @@ $(function () {
     effect:       'Эффекты',
     action:       'Действия',
     intervention: 'Вмешательства',
+    role:         'Роли',
     character:    'Персонажи',
     trash:        'Корзина'
   };

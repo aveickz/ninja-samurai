@@ -588,6 +588,17 @@ const CARDS = [
     desc: "ЛОВУШКА. Если вы остались в живых после атаки, восстановите все жетоны жизни.",
     img: "cards/card_phoenix_breath.png"
   },
+  {
+    id: 1049,
+    title: "Колотые раны?",
+    types: ["trap", "effect"],
+    qty: 1,
+    group: "trap",
+    icons: ["effect8"],
+    tags: ["draft"],
+    desc: "ЛОВУШКА. Переходит эффектом на атакующего, и он лишается возможности использовать оружие.",
+    img: "cards/card_todo.png"
+  },
 
   // ── ЗАЩИТА (стр. 8) ──────────────────────────────────────────────
   {
@@ -1065,7 +1076,7 @@ const CARDS = [
     qty: 1,
     group: "aoe",
     icons: [],
-    tags: ["draft", "trash"],
+    tags: ["trash"],
     desc: "Все ловушки на столе сбрасываются в сброс. (ушло в потасовку)",
     img: "cards/card_88_grad_strel.png"
   },

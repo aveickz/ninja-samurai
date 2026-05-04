@@ -52,10 +52,36 @@ Make old ones AOE into regular single cards?
 
 у ниндзя есть возможность поставить карту (дымовая завеса) НА ОДИН ХОД или два (для смены тьмы) (у самураев такая же? ТИПА ФОНАРЬ или фейрверк?)
 
-для ниндзя / самураев разные оружия (каждый из них имеет бонусы/штрафы?)
+для ниндзя / самураев разные оружия (каждый из них имеет бонусы/штрафы?)+
 добавить арбалет
 
 
 Same Team/Opposite Team mechanics/GRoup with trade-off
 
 KUNAI = same as Боевой веер --- или melee 
+
+
+&&& 
+
+Team cards Mechanics:
+SHARE DEFENSE
+SHARE CARDS (weapons?)
+share DISTANCE (they dont count towards distance!)
+share defense ability (кто угодно гтов взять подвиг)
+GROUP BONUS (attack, defense)
+share traps (or stances)
+
+ADD reactive effects to stances? (they are visible)
+
+===
+BIG interfaction IDEA (same as no-weapon punch):
+PLay defense no to block entirely but to MITIGATE some damage
+(same as cards, or you can add cards to mitigate?) (or each defense cards mitigates one damage)
+
+ok add some shared/reactive cards for poisoning/stances??
+
+
+TODO (STILL) 
+Ловушка которая потом становится эффектом на атакующего)
+(капкан мог стать тем что враг теряет каждый свой ход ХП (слишком редко))
+или сделать это беззащитным, или теряем возможнсоть ипользовать оружие (? остается рукопашный бой)
