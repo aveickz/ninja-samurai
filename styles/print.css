@@ -27,12 +27,23 @@
   }
 
   /*
-    mask.png = 611 × 978 px, соотношение 611:978.
-    Ширина карточки фиксирована в 58mm — тогда mask.png масштабируется
-    пропорционально через aspect-ratio: 611/978 на блоке .card,
-    и height = 58 × 978/611 ≈ 92.9mm.
-    3 карточки по высоте: 3×92.9 + 2×4 = 286.7mm ≤ 287mm ✓
-    3 карточки по ширине: 3×58 + 2×4 = 182mm ≤ 200mm ✓
+    mask.png = 611 × 978 px при 300 DPI (целевая плотность для печати).
+    Ширина в миллиметрах = 611 / 300 × 25.4 ≈ 51.7 mm.
+    На этой ширине mask.png выводится в нативной плотности — пиксели
+    не растягиваются, картинка остаётся резкой.
+
+    Высота получается через aspect-ratio: 611/978 на блоке .card,
+    то есть height = 51.7 × 978/611 ≈ 82.74 mm.
+
+    Сетка 3×3 раскладывается по всему печатному полю A4 (200×287 mm
+    после 5mm полей). justify-content / align-content: space-evenly
+    распределяют свободное пространство РАВНОМЕРНО:
+      по горизонтали: (200 − 3×51.7) / 4 ≈ 11.23 mm у каждого края
+                      и между колонками — итого 4 равных белых полосы;
+      по вертикали:   (287 − 3×82.74) / 4 ≈ 9.70 mm сверху, между
+                      рядами и снизу — тоже 4 равные полосы.
+    gap не используем — иначе он бы сложился с space-evenly и
+    промежутки между картами стали бы шире, чем у краёв.
   */
 
   /* ── Внешний грид отключаем, он теперь только контейнер ── */
@@ -45,11 +56,11 @@
   /* ── Каждая страница — сетка 3×3, ровно 9 карточек ── */
   .print-page {
     display: grid !important;
-    grid-template-columns: repeat(3, 58mm) !important;
+    grid-template-columns: repeat(3, 51.7mm) !important;
     grid-template-rows: repeat(3, auto) !important;
-    gap: 4mm !important;
-    width: 174mm !important; /* 3×58 + 2×4 = 174mm */
-    margin: 0 auto !important;
+    gap: 10mm !important;
+    width: 163.1mm !important; /* 3×51.7 + 2×4 = 163.1mm */
+    margin: 10mm auto !important;
     padding: 0 !important;
     page-break-after: always !important;
     break-after: page !important;
@@ -69,7 +80,7 @@
 
   /* ── Карточка: ширина фиксирована, высота — из aspect-ratio .card ── */
   .card-item {
-    width: 58mm !important;
+    width: 51.7mm !important;
     break-inside: avoid;
     page-break-inside: avoid;
     cursor: default !important;
@@ -81,11 +92,12 @@
     border-radius: 5px;
   }
 
-  /* .card держит aspect-ratio: 611/978 из main.css —
-     при width=58mm высота получится ровно 58×978/611 ≈ 92.9mm,
-     а card-mask с width/height:100% впишется без деформации */
+  /* .card держит aspect-ratio: 611/978 из card.css —
+     при width=51.7mm высота получится ровно 51.7×978/611 ≈ 82.74mm,
+     card-mask с width/height:100% впишется без деформации,
+     а 611×978 пикселей mask.png лягут в нативной плотности 300 DPI. */
   .card {
-    width: 58mm !important;
+    width: 51.7mm !important;
     height: auto !important;
     border-radius: 0 !important;
   }
