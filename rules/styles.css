@@ -48,15 +48,9 @@ html, body {
     radial-gradient(ellipse 150px 100px at 25% 65%, rgba(120, 70, 20, 0.16), transparent 70%),
     radial-gradient(ellipse 180px 120px at 78% 88%, rgba(120, 70, 20, 0.15), transparent 70%),
     radial-gradient(ellipse 100px 70px  at 50% 45%, rgba(120, 70, 20, 0.12), transparent 70%),
-    /* волокна */
-    repeating-linear-gradient(90deg,
-      transparent 0px, transparent 3px,
-      rgba(110, 70, 20, 0.04) 3px, rgba(110, 70, 20, 0.04) 4px),
-    repeating-linear-gradient(0deg,
-      transparent 0px, transparent 6px,
-      rgba(110, 70, 20, 0.025) 6px, rgba(110, 70, 20, 0.025) 7px),
-    /* база */
-    linear-gradient(180deg, var(--paper) 0%, var(--paper-dark) 100%);
+    /* фотография бумаги: тянется по ширине, повторяется по вертикали;
+       var(--paper) играет роль fallback'а, если PNG не загрузится */
+    url('paper.png') center top / 100% auto repeat-y var(--paper);
   box-shadow:
     0 0 0 1px rgba(60,30,10,0.4),
     0 30px 80px rgba(0,0,0,0.7),
