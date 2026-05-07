@@ -1,0 +1,303 @@
+/* ============================================================
+   print.css — печатная версия «Свитка правил»
+   Формат: A4 landscape, 2 страницы A5 на лист, со сгибом.
+   ============================================================
+
+   ИНСТРУКЦИЯ ПО ПЕЧАТИ
+   --------------------
+   1. Откройте rules.html в браузере и вызовите печать (Ctrl/Cmd + P).
+   2. Размер бумаги — A4, ориентация — Альбомная.
+   3. Поля — «Нет / None / 0».
+   4. Включите печать фоновой графики
+      (Background graphics / Печатать фон) — иначе пропадут
+      пунктирная линия сгиба, печати «ханко» и подложки выносок.
+   5. Каждый напечатанный лист = разворот двух страниц A5.
+      По центру листа пунктирная линия сгиба.
+   6. Для книжки со сшивкой по корешку (saddle-stitch) включите
+      в драйвере принтера режим «Booklet / Брошюра» — он сделает
+      правильный спуск полос (imposition) автоматически.
+      Без этого режима каждый лист — самостоятельный 2-страничный
+      разворот: складываете все листы пополам и просто
+      собираете в стопку по порядку.
+*/
+
+@media print {
+
+  /* ========== Лист бумаги ==========
+     Поля задаём именно здесь, на @page, — чтобы браузер
+     корректно нарезал длинный поток на множество A4-листов.
+     Если сделать высоту фиксированной на контейнере
+     (.scroll-inner { height: 210mm }), то всё, что не влезет
+     в первые две колонки, будет обрезано — листы дальше первого
+     просто не появятся. Поэтому контейнер высоту НЕ задаёт.
+  */
+  @page {
+    size: A4 landscape;
+    margin: 12mm 14mm;
+  }
+
+  /* Сохраняем все цветные плашки, печати и подложки */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* ========== Базовый сброс ========== */
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #fff !important;
+    color: #1c1410 !important;
+    font-family: 'PT Sans Narrow', 'PT Sans', Arial, sans-serif;
+    font-size: 9.5pt;
+    line-height: 1.42;
+  }
+
+  .scroll {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    background: #fff !important;
+    box-shadow: none !important;
+  }
+  .scroll::before,
+  .scroll::after { display: none !important; }
+
+  svg.pattern-corner { display: none !important; }
+
+  a { color: inherit; text-decoration: none; }
+
+
+  /* ========== Двухколоночный макет на A4 landscape ==========
+     Контейнер на всю ширину области печати, без фиксированной
+     высоты. Браузер сам поделит поток на нужное число листов A4,
+     каждый — в две колонки шириной A5. По центру — линия сгиба.
+  */
+  .scroll-inner {
+    padding: 0;
+    margin: 0;
+    width: auto;
+
+    column-count: 2;
+    column-gap: 26mm;              /* «корешок»: 13 мм с каждой стороны от сгиба */
+    column-fill: auto;             /* заполнять колонки сверху вниз */
+    column-rule: 0.5pt dashed rgba(120, 70, 20, 0.45);
+  }
+
+  /* Скрываем декоративную двойную рамку, она сделана через ::before/::after */
+  .scroll-inner::before,
+  .scroll-inner::after { display: none !important; }
+
+
+  /* ========== Обложка ==========
+     Занимает всю первую колонку (= первую страницу A5).
+  */
+  .header {
+    text-align: center;
+    margin: 0;
+    padding: 14mm 4mm 0;
+    break-inside: avoid;
+    break-after: column;           /* всё дальнейшее — со следующей A5 */
+    page-break-after: always;
+  }
+  .kanji-banner {
+    font-size: 30pt;
+    letter-spacing: 0.25em;
+    margin: 0 0 4mm;
+    color: #7a1410;
+    line-height: 1;
+  }
+  .kanji-sub {
+    font-size: 7pt;
+    letter-spacing: 0.3em;
+    color: #6a4a30;
+    margin: 0;
+  }
+  .title {
+    font-size: 22pt;
+    margin: 14mm 0 3mm;
+    letter-spacing: 0.06em;
+  }
+  .subtitle {
+    font-size: 10pt;
+    letter-spacing: 0.1em;
+  }
+  .hanko {
+    width: 18mm;
+    height: 18mm;
+    font-size: 10pt;
+    top: 0;
+    right: 4mm;
+    box-shadow:
+      inset 0 0 0 1pt rgba(255, 240, 220, 0.95),
+      inset 0 0 0 2pt #b1281d;
+  }
+
+  /* Кисть-разделитель сразу после обложки попадёт в верх 2-й колонки —
+     там она выглядит лишней, скрываем. */
+  .header + .brush-line { display: none; }
+
+
+  /* ========== Содержание ==========
+     В печатной версии оглавление не нужно — пользователь
+     листает брошюру руками, а не кликает по ссылкам.
+     Заодно прячем декоративную «кисть» сразу за TOC,
+     чтобы не оставалась лишняя линия в начале главного потока.
+  */
+  .toc,
+  .toc + .ornament { display: none !important; }
+
+
+  /* ========== Декоративные разделители ========== */
+  .ornament {
+    margin: 2.5mm 0;
+    font-size: 9pt;
+    letter-spacing: 0.5em;
+  }
+  .brush-line {
+    margin: 2mm auto;
+    height: 4px;
+    width: 55%;
+    opacity: 0.55;
+  }
+
+
+  /* ========== Главы ==========
+     Содержимое глав свободно перетекает между колонками
+     и листами. Целостность держим только у мелких неделимых
+     блоков (выноски, таблицы, списки порядка) и у заголовков —
+     заголовок не должен отрываться от первого абзаца главы.
+  */
+  section.chapter {
+    margin: 0 0 3mm;
+  }
+  h2.chapter-title {
+    font-size: 13pt;
+    margin: 0 0 2.5mm;
+    padding: 0;
+    letter-spacing: 0.05em;
+    line-height: 1.25;
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+  /* Плашка с палочками-тэлли — auto-ширина под номер главы */
+  h2.chapter-title::before {
+    margin-right: 2.5mm;
+    padding: 0.4mm 1.5mm 0.8mm;
+    font-size: 9pt;
+    letter-spacing: -0.06em;
+    line-height: 1;
+    border: 0.8pt solid #fff;
+    box-shadow:
+      0 0 0 0.4pt #7a1410,
+      0.6pt 0.9pt 0 rgba(0,0,0,0.18);
+    text-shadow: none;
+  }
+
+  section.chapter p {
+    margin: 0 0 1.6mm;
+    text-indent: 1.2em;
+    text-align: justify;
+    orphans: 3;
+    widows: 3;
+  }
+  /* У первого абзаца главы — буквица, и поднимать ещё и абзацный
+     отступ перед ней не нужно: получается некрасивая дырка. */
+  section.chapter p:first-of-type {
+    text-indent: 0;
+  }
+  section.chapter p:first-of-type::first-letter {
+    font-size: 2.4em;
+    line-height: 0.85;
+    padding: 1px 4px 0 0;
+    color: #7a1410;
+  }
+
+  section.chapter > h4 {
+    font-size: 10pt;
+    margin: 2.5mm 0 1mm;
+    padding-bottom: 1px;
+    color: #7a1410;
+    letter-spacing: 0.1em;
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+
+  /* ========== Выноски ========== */
+  aside.note {
+    font-size: 8pt;
+    padding: 3px 8px;
+    margin: 1.5mm 0;
+    line-height: 1.35;
+    border-left: 2pt double #7a1410;
+    background: rgba(177, 40, 29, 0.05) !important;
+    break-inside: avoid;
+  }
+
+
+  /* ========== Списки «порядка» ========== */
+  .order-list {
+    padding: 4px 8px 5px 12px;
+    margin: 1.5mm 0;
+    background: rgba(110, 70, 20, 0.06) !important;
+    border: 0.5pt solid rgba(110, 70, 20, 0.35);
+    break-inside: avoid;
+  }
+  .order-list h4 {
+    font-size: 9.5pt;
+    margin: 0 0 1mm;
+    letter-spacing: 0.2em;
+  }
+  .order-list ol { padding-left: 4mm; }
+  .order-list li {
+    font-size: 8.2pt;
+    padding: 0 0 0 6mm;
+    line-height: 1.35;
+  }
+  .order-list li::before { font-size: 9pt; }
+
+
+  /* ========== Таблицы балансировки ========== */
+  .balance-table {
+    font-size: 7.4pt;
+    margin: 1.5mm 0 3mm;
+    border: 0.5pt solid rgba(110, 70, 20, 0.4);
+    background: rgba(110, 70, 20, 0.05) !important;
+    break-inside: avoid;
+  }
+  .balance-table th,
+  .balance-table td {
+    padding: 2px 4px;
+    border: 0.4pt solid rgba(110, 70, 20, 0.35);
+    line-height: 1.2;
+  }
+  .balance-table thead th {
+    font-size: 7pt;
+    background: rgba(177, 40, 29, 0.12) !important;
+  }
+  .balance-table tbody td:first-child { font-size: 9pt; }
+
+
+  /* ========== Подвал ========== */
+  .footer {
+    margin-top: 4mm;
+    padding-top: 2mm;
+    font-size: 8pt;
+    text-align: center;
+    letter-spacing: 0.25em;
+    border-top: 0.5pt solid #6a4a30;
+    break-before: avoid;
+    page-break-before: avoid;
+  }
+  .footer .seal {
+    width: 10mm;
+    height: 10mm;
+    line-height: 10mm;
+    font-size: 8pt;
+    margin: 3mm 4px 0;
+    box-shadow:
+      inset 0 0 0 1pt rgba(255, 240, 220, 0.95),
+      inset 0 0 0 1.6pt #b1281d;
+  }
+}

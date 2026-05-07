@@ -35,7 +35,6 @@ html, body {
   min-height: 100vh;
 }
 
-body { counter-reset: chapter; }
 
 /* ================== СВИТОК ================== */
 .scroll {
@@ -248,11 +247,9 @@ body { counter-reset: chapter; }
   padding: 0;
   margin: 0;
   list-style: none;
-  counter-reset: toc;
 }
 
 .toc li {
-  counter-increment: toc;
   padding: 4px 0;
   font-family: 'PT Sans Narrow', sans-serif;
   font-size: 17px;
@@ -260,7 +257,7 @@ body { counter-reset: chapter; }
 }
 
 .toc li::before {
-  content: "其の" counter(toc, cjk-ideographic) " ・ ";
+  content: "・ ";
   color: var(--vermilion-dk);
   font-weight: 600;
   margin-right: 4px;
@@ -278,7 +275,6 @@ body { counter-reset: chapter; }
 section.chapter {
   margin: 50px 0;
   position: relative;
-  counter-increment: chapter;
 }
 
 h2.chapter-title {
@@ -292,8 +288,10 @@ h2.chapter-title {
   line-height: 1.3;
 }
 
+/* Значок главы — красный квадрат-печать с тематическим иероглифом,
+   взятым из атрибута data-mark на самом заголовке. */
 h2.chapter-title::before {
-  content: counter(chapter, cjk-ideographic);
+  content: attr(data-mark);
   position: absolute;
   left: 0;
   top: 50%;
@@ -302,8 +300,8 @@ h2.chapter-title::before {
   height: 56px;
   background: var(--vermilion-dk);
   color: var(--paper);
-  font-family: 'Han Zi Web', serif;
-  font-size: 30px;
+  font-family: 'Han Zi Web', 'Shippori Mincho', serif;
+  font-size: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -367,25 +365,21 @@ aside.note::before {
 
 .order-list ol {
   margin: 0;
-  padding-left: 24px;
+  padding-left: 18px;
   list-style: none;
-  counter-reset: ord;
 }
 
 .order-list li {
-  counter-increment: ord;
-  padding: 3px 0;
+  padding: 3px 0 3px 18px;
   position: relative;
-  padding-left: 28px;
 }
 
 .order-list li::before {
-  content: counter(ord, cjk-ideographic) "、";
+  content: "・";
   position: absolute;
   left: 0;
   color: var(--vermilion-dk);
   font-weight: 700;
-  font-family: 'Han Zi Web', serif;
 }
 
 /* ================== ПОДВАЛ ================== */
@@ -485,215 +479,8 @@ section.chapter > h4 {
   .title { font-size: 30px; }
   .toc ol { columns: 1; }
   h2.chapter-title { font-size: 24px; padding-left: 60px; }
-  h2.chapter-title::before { width: 46px; height: 46px; font-size: 24px; }
+  h2.chapter-title::before { width: 46px; height: 46px; font-size: 26px; }
   .hanko { width: 60px; height: 60px; font-size: 20px; top: -10px; right: -6px; }
 }
 
-/* ================== ПЕЧАТЬ — A5 КНИЖЕЧКА ================== */
-/*
-  Браузер выдаст страницы в линейном порядке (формат A5).
-  Чтобы получить сложенную книжку: в окне печати браузера выберите
-  «Параметры → Макет → Брошюра» (или в драйвере принтера —
-  Booklet / 2 страницы на лист с переплётом по центру),
-  печать на A4 со сгибом пополам = 4 страницы A5 на каждом листе.
-  Количество страниц должно быть кратно 4 — добавляйте пустые при необходимости.
-*/
-
-@page {
-  size: A5 portrait;
-  margin: 12mm 14mm 14mm 14mm;
-}
-
-@page :left {
-  margin-left: 18mm;   /* поле ближе к корешку */
-  margin-right: 12mm;
-  @bottom-left {
-    content: counter(page);
-    font-family: 'Han Zi Web', serif;
-    color: #7a1410;
-    font-size: 9pt;
-  }
-}
-@page :right {
-  margin-left: 12mm;
-  margin-right: 18mm;  /* поле ближе к корешку */
-  @bottom-right {
-    content: counter(page);
-    font-family: 'Han Zi Web', serif;
-    color: #7a1410;
-    font-size: 9pt;
-  }
-}
-@page :first {
-  @bottom-left { content: ""; }
-  @bottom-right { content: ""; }
-}
-
-@media print {
-  /* Чистый светлый фон для бумаги */
-  html, body {
-    background: #fff !important;
-    color: #1a1410 !important;
-    font-size: 10pt;
-    line-height: 1.45;
-  }
-
-  /* Свиток превращается в обычный лист */
-  .scroll {
-    max-width: 100%;
-    margin: 0;
-    background: #fff !important;
-    box-shadow: none !important;
-    padding: 0;
-  }
-  .scroll::before,
-  .scroll::after { display: none !important; }
-
-  .scroll-inner { padding: 0; }
-  .scroll-inner::before,
-  .scroll-inner::after { display: none !important; }
-
-  svg.pattern-corner { display: none !important; }
-
-  /* ОБЛОЖКА — отдельная страница */
-  .header {
-    page-break-after: always;
-    margin: 25mm 0 0;
-    padding-bottom: 0;
-    min-height: 160mm;
-  }
-  .kanji-banner {
-    font-size: 48pt;
-    letter-spacing: 0.25em;
-    margin-bottom: 6mm;
-  }
-  .kanji-sub { font-size: 8pt; }
-  .title { font-size: 24pt; margin: 14mm 0 4mm; }
-  .subtitle { font-size: 11pt; }
-  .hanko {
-    width: 22mm;
-    height: 22mm;
-    font-size: 13pt;
-    top: 0;
-    right: 0;
-    box-shadow:
-      inset 0 0 0 1.5pt rgba(255, 240, 220, 0.95),
-      inset 0 0 0 2.5pt #b1281d;
-  }
-
-  /* Линия-кисть после обложки скрыта (она перед TOC) */
-  .header + .brush-line { display: none; }
-
-  /* СОДЕРЖАНИЕ — отдельная страница */
-  .toc {
-    page-break-after: always;
-    margin: 8mm 0;
-    padding: 6mm 8mm;
-  }
-  .toc-title { font-size: 14pt; margin-bottom: 4mm; }
-  .toc ol { columns: 1; }
-  .toc li { font-size: 10pt; padding: 1.5mm 0; }
-
-  /* Орнаменты компактнее */
-  .ornament { margin: 4mm 0; font-size: 12pt; letter-spacing: 0.6em; }
-  .brush-line {
-    margin: 5mm auto;
-    height: 6px;
-    width: 50%;
-  }
-
-  /* ГЛАВЫ — стараемся не разрывать */
-  section.chapter {
-    page-break-inside: avoid;
-    margin: 0 0 6mm;
-  }
-  h2.chapter-title {
-    font-size: 16pt;
-    margin: 0 0 4mm;
-    padding-left: 16mm;
-    page-break-after: avoid;
-    letter-spacing: 0.05em;
-  }
-  h2.chapter-title::before {
-    width: 12mm;
-    height: 12mm;
-    font-size: 14pt;
-    border-width: 1pt;
-    box-shadow:
-      0 0 0 0.5pt #7a1410,
-      1pt 1.5pt 0 rgba(0,0,0,0.15);
-    text-shadow: none;
-  }
-
-  section.chapter p {
-    margin: 0 0 2.5mm;
-    text-indent: 1.4em;
-    orphans: 3;
-    widows: 3;
-  }
-  section.chapter p:first-of-type::first-letter {
-    font-size: 2.6em;
-    padding: 2px 6px 0 0;
-  }
-
-  /* Выноски */
-  aside.note {
-    font-size: 9.5pt;
-    padding: 6px 12px;
-    margin: 3mm 0;
-    page-break-inside: avoid;
-  }
-
-  /* Списки порядка */
-  .order-list {
-    page-break-inside: avoid;
-    padding: 8px 14px;
-    margin: 3mm 0;
-  }
-  .order-list h4 { font-size: 11pt; margin-bottom: 4px; }
-  .order-list li { font-size: 9.5pt; padding: 1px 0; padding-left: 22px; }
-  .order-list li::before { font-size: 11pt; }
-
-  /* Подвал — пусть остаётся с последней главой если влезет */
-  .footer {
-    margin-top: 8mm;
-    padding-top: 4mm;
-    page-break-before: avoid;
-  }
-  .footer .seal {
-    width: 14mm;
-    height: 14mm;
-    line-height: 14mm;
-    font-size: 11pt;
-    box-shadow:
-      inset 0 0 0 1.5pt rgba(255, 240, 220, 0.95),
-      inset 0 0 0 2.5pt #b1281d;
-  }
-
-  /* Подзаголовки внутри глав */
-  section.chapter > h4 {
-    font-size: 12pt;
-    margin: 4mm 0 2mm;
-    padding-bottom: 2px;
-    page-break-after: avoid;
-  }
-
-  /* Таблицы балансировки */
-  .balance-table {
-    font-size: 9pt;
-    margin: 2mm 0 4mm;
-    page-break-inside: avoid;
-  }
-  .balance-table th,
-  .balance-table td {
-    padding: 3px 5px;
-  }
-  .balance-table thead th { font-size: 8.5pt; }
-  .balance-table tbody td:first-child { font-size: 11pt; }
-
-  /* Сохраняем цветную печать декора (если принтер цветной) */
-  * {
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
-}
+/* === Печатные правила вынесены в отдельный файл print.css === */
