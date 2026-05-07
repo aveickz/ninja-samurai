@@ -1,0 +1,699 @@
+/* === Локальные шрифты === */
+@font-face {
+  font-family: 'Han Zi Web';
+  src: url('fonts/Han-Zi_Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --paper:        #efe1bf;
+  --paper-dark:   #d9c391;
+  --paper-deep:   #c4a86a;
+  --ink:          #1c1410;
+  --ink-soft:     #3a2a1d;
+  --ink-faded:    #6a4a30;
+  --vermilion:    #b1281d;
+  --vermilion-dk: #7a1410;
+  --gold:         #8b6a2a;
+  --shadow:       rgba(60, 30, 10, 0.35);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background:
+    radial-gradient(ellipse at top,    #2a1a10 0%, #150a05 70%),
+    #0a0503;
+  color: var(--ink);
+  font-family: 'PT Sans Narrow', 'PT Sans', Arial, sans-serif;
+  font-size: 18px;
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+body { counter-reset: chapter; }
+
+/* ================== СВИТОК ================== */
+.scroll {
+  max-width: 880px;
+  margin: 40px auto 80px;
+  position: relative;
+  background:
+    /* пятна и старение */
+    radial-gradient(ellipse 120px 80px at 12% 8%,  rgba(120, 70, 20, 0.18), transparent 70%),
+    radial-gradient(ellipse 200px 140px at 85% 22%, rgba(120, 70, 20, 0.14), transparent 70%),
+    radial-gradient(ellipse 150px 100px at 25% 65%, rgba(120, 70, 20, 0.16), transparent 70%),
+    radial-gradient(ellipse 180px 120px at 78% 88%, rgba(120, 70, 20, 0.15), transparent 70%),
+    radial-gradient(ellipse 100px 70px  at 50% 45%, rgba(120, 70, 20, 0.12), transparent 70%),
+    /* волокна */
+    repeating-linear-gradient(90deg,
+      transparent 0px, transparent 3px,
+      rgba(110, 70, 20, 0.04) 3px, rgba(110, 70, 20, 0.04) 4px),
+    repeating-linear-gradient(0deg,
+      transparent 0px, transparent 6px,
+      rgba(110, 70, 20, 0.025) 6px, rgba(110, 70, 20, 0.025) 7px),
+    /* база */
+    linear-gradient(180deg, var(--paper) 0%, var(--paper-dark) 100%);
+  box-shadow:
+    0 0 0 1px rgba(60,30,10,0.4),
+    0 30px 80px rgba(0,0,0,0.7),
+    inset 0 0 80px rgba(120, 70, 20, 0.25),
+    inset 0 0 200px rgba(80, 40, 10, 0.2);
+  padding: 0;
+  position: relative;
+}
+
+/* Деревянные роллики свитка */
+.scroll::before,
+.scroll::after {
+  content: "";
+  display: block;
+  height: 28px;
+  background:
+    linear-gradient(180deg,
+      #2c1a0c 0%, #4a2a14 15%, #6b3d1c 50%, #4a2a14 85%, #2c1a0c 100%);
+  box-shadow:
+    0 0 0 2px #1a0e06,
+    inset 0 2px 0 rgba(255, 220, 160, 0.08),
+    0 6px 18px rgba(0,0,0,0.5);
+  border-radius: 4px;
+  margin: 0 -18px;
+  position: relative;
+}
+.scroll::before {
+  margin-bottom: -1px;
+}
+.scroll::after {
+  margin-top: -1px;
+}
+
+/* Внутренние поля */
+.scroll-inner {
+  padding: 70px 70px 60px;
+  position: relative;
+}
+
+/* Декоративная двойная рамка */
+.scroll-inner::before {
+  content: "";
+  position: absolute;
+  inset: 28px;
+  border: 1px solid rgba(60, 30, 10, 0.35);
+  pointer-events: none;
+}
+.scroll-inner::after {
+  content: "";
+  position: absolute;
+  inset: 32px;
+  border: 1px solid rgba(60, 30, 10, 0.2);
+  pointer-events: none;
+}
+
+/* ================== ШАПКА ================== */
+.header {
+  text-align: center;
+  margin-bottom: 50px;
+  position: relative;
+  padding-bottom: 30px;
+}
+
+.kanji-banner {
+  font-family: 'Han Zi Web', 'Shippori Mincho', serif;
+  font-size: 64px;
+  color: var(--vermilion-dk);
+  letter-spacing: 0.4em;
+  margin: 0 0 12px;
+  text-shadow:
+    1px 1px 0 rgba(0,0,0,0.1),
+    0 0 30px rgba(177, 40, 29, 0.15);
+  line-height: 1;
+}
+
+.kanji-sub {
+  font-family: 'PT Sans Narrow', sans-serif;
+  font-size: 14px;
+  color: var(--ink-faded);
+  letter-spacing: 0.3em;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.title {
+  font-family: 'Han Zi Web', serif;
+  font-size: 46px;
+  font-weight: 400;
+  color: var(--ink);
+  margin: 24px 0 6px;
+  letter-spacing: 0.05em;
+}
+
+.subtitle {
+  font-family: 'PT Sans Narrow', sans-serif;
+  font-style: italic;
+  font-size: 18px;
+  color: var(--ink-soft);
+  margin: 0;
+  letter-spacing: 0.08em;
+}
+
+/* Красная печать ХАНКО */
+.hanko {
+  position: absolute;
+  top: 10px;
+  right: 0;
+  width: 78px;
+  height: 78px;
+  background: var(--vermilion);
+  color: var(--paper);
+  font-family: 'Han Zi Web', serif;
+  font-size: 26px;
+  line-height: 1.05;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transform: rotate(-6deg);
+  box-shadow:
+    inset 0 0 0 3px rgba(255, 240, 220, 0.85),
+    inset 0 0 0 5px var(--vermilion),
+    inset 0 0 12px rgba(0,0,0,0.4),
+    2px 4px 0 rgba(0,0,0,0.15);
+  opacity: 0.92;
+  letter-spacing: -0.05em;
+}
+.hanko::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 30% 30%, transparent 60%, rgba(120,10,10,0.3) 100%);
+  mix-blend-mode: multiply;
+}
+
+/* Декоративный разделитель */
+.ornament {
+  text-align: center;
+  margin: 36px 0;
+  color: var(--gold);
+  font-size: 22px;
+  letter-spacing: 1.2em;
+  user-select: none;
+}
+.ornament::before { content: "❖    ❖    ❖"; }
+
+.brush-line {
+  height: 16px;
+  background:
+    radial-gradient(ellipse 50% 90% at 50% 50%,
+      var(--ink) 0%,
+      var(--ink-soft) 30%,
+      transparent 70%);
+  opacity: 0.55;
+  margin: 28px auto;
+  width: 60%;
+  filter: blur(0.4px);
+}
+
+/* ================== СОДЕРЖАНИЕ ================== */
+.toc {
+  background:
+    repeating-linear-gradient(0deg,
+      transparent 0, transparent 30px,
+      rgba(110, 70, 20, 0.08) 30px, rgba(110, 70, 20, 0.08) 31px);
+  border: 1px double var(--ink-faded);
+  padding: 24px 30px;
+  margin: 40px 0;
+  position: relative;
+}
+
+.toc-title {
+  font-family: 'Han Zi Web', serif;
+  font-size: 22px;
+  color: var(--vermilion-dk);
+  margin: 0 0 16px;
+  text-align: center;
+  letter-spacing: 0.5em;
+  border-bottom: 1px solid var(--ink-faded);
+  padding-bottom: 10px;
+}
+
+.toc ol {
+  columns: 2;
+  column-gap: 40px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  counter-reset: toc;
+}
+
+.toc li {
+  counter-increment: toc;
+  padding: 4px 0;
+  font-family: 'PT Sans Narrow', sans-serif;
+  font-size: 17px;
+  break-inside: avoid;
+}
+
+.toc li::before {
+  content: "其の" counter(toc, cjk-ideographic) " ・ ";
+  color: var(--vermilion-dk);
+  font-weight: 600;
+  margin-right: 4px;
+}
+
+.toc a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px dotted transparent;
+  transition: border-color 0.2s;
+}
+.toc a:hover { border-bottom-color: var(--vermilion); }
+
+/* ================== СЕКЦИИ ================== */
+section.chapter {
+  margin: 50px 0;
+  position: relative;
+  counter-increment: chapter;
+}
+
+h2.chapter-title {
+  font-family: 'Han Zi Web', 'Shippori Mincho', serif;
+  font-size: 30px;
+  color: var(--ink);
+  margin: 0 0 24px;
+  padding: 0 0 0 70px;
+  position: relative;
+  letter-spacing: 0.1em;
+  line-height: 1.3;
+}
+
+h2.chapter-title::before {
+  content: counter(chapter, cjk-ideographic);
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 56px;
+  height: 56px;
+  background: var(--vermilion-dk);
+  color: var(--paper);
+  font-family: 'Han Zi Web', serif;
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--paper);
+  box-shadow:
+    0 0 0 1px var(--vermilion-dk),
+    2px 3px 0 rgba(0,0,0,0.2);
+  text-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+section.chapter p {
+  margin: 0 0 14px;
+  text-align: justify;
+  text-indent: 0;
+  color: var(--ink);
+}
+
+section.chapter p:first-of-type::first-letter {
+  font-family: 'Han Zi Web', serif;
+  font-size: 3.6em;
+  float: left;
+  line-height: 0.85;
+  padding: 6px 12px 0 0;
+  color: var(--vermilion-dk);
+  font-weight: 700;
+}
+
+/* Боковые «выноски» */
+aside.note {
+  border-left: 3px double var(--vermilion-dk);
+  background: rgba(177, 40, 29, 0.05);
+  padding: 12px 18px;
+  margin: 18px 0;
+  font-style: italic;
+  color: var(--ink-soft);
+  font-size: 15px;
+}
+
+aside.note::before {
+  content: "✦ ";
+  color: var(--vermilion-dk);
+  font-style: normal;
+  font-weight: 700;
+}
+
+/* Списки порядка */
+.order-list {
+  background: rgba(110, 70, 20, 0.06);
+  border: 1px solid rgba(110, 70, 20, 0.3);
+  padding: 18px 28px;
+  margin: 18px 0;
+}
+
+.order-list h4 {
+  font-family: 'Han Zi Web', serif;
+  color: var(--vermilion-dk);
+  margin: 0 0 8px;
+  font-size: 18px;
+  letter-spacing: 0.2em;
+}
+
+.order-list ol {
+  margin: 0;
+  padding-left: 24px;
+  list-style: none;
+  counter-reset: ord;
+}
+
+.order-list li {
+  counter-increment: ord;
+  padding: 3px 0;
+  position: relative;
+  padding-left: 28px;
+}
+
+.order-list li::before {
+  content: counter(ord, cjk-ideographic) "、";
+  position: absolute;
+  left: 0;
+  color: var(--vermilion-dk);
+  font-weight: 700;
+  font-family: 'Han Zi Web', serif;
+}
+
+/* ================== ПОДВАЛ ================== */
+.footer {
+  margin-top: 60px;
+  padding-top: 30px;
+  border-top: 1px solid var(--ink-faded);
+  text-align: center;
+  font-family: 'PT Sans Narrow', sans-serif;
+  font-size: 14px;
+  color: var(--ink-faded);
+  letter-spacing: 0.3em;
+}
+
+.footer .seal {
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  background: var(--vermilion);
+  color: var(--paper);
+  font-family: 'Han Zi Web', serif;
+  font-size: 18px;
+  line-height: 60px;
+  margin: 14px 8px 0;
+  text-align: center;
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 240, 220, 0.85),
+    inset 0 0 0 4px var(--vermilion),
+    inset 0 0 10px rgba(0,0,0,0.3);
+  transform: rotate(3deg);
+  opacity: 0.88;
+}
+
+/* Тонкий узор сэйгайха по краям */
+.scroll-inner > .pattern-corner {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  opacity: 0.18;
+  pointer-events: none;
+}
+.pattern-corner.tl { top: 36px; left: 36px; }
+.pattern-corner.tr { top: 36px; right: 36px; transform: scaleX(-1); }
+.pattern-corner.bl { bottom: 36px; left: 36px; transform: scaleY(-1); }
+.pattern-corner.br { bottom: 36px; right: 36px; transform: scale(-1, -1); }
+
+/* Подзаголовки внутри глав */
+section.chapter > h4 {
+  font-family: 'Han Zi Web', 'Shippori Mincho', serif;
+  color: var(--vermilion-dk);
+  font-size: 20px;
+  letter-spacing: 0.15em;
+  margin: 26px 0 10px;
+  padding-bottom: 4px;
+  border-bottom: 1px dotted var(--ink-faded);
+}
+
+/* Таблицы балансировки */
+.balance-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0 24px;
+  font-size: 15px;
+  background: rgba(110, 70, 20, 0.06);
+  border: 1px solid rgba(110, 70, 20, 0.35);
+}
+.balance-table th,
+.balance-table td {
+  border: 1px solid rgba(110, 70, 20, 0.3);
+  padding: 8px 10px;
+  text-align: center;
+  vertical-align: middle;
+}
+.balance-table thead th {
+  background: rgba(177, 40, 29, 0.12);
+  color: var(--vermilion-dk);
+  font-family: 'PT Sans Narrow', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.05em;
+  line-height: 1.3;
+}
+.balance-table tbody td:first-child {
+  font-weight: 700;
+  color: var(--vermilion-dk);
+  font-family: 'Han Zi Web', serif;
+  font-size: 18px;
+}
+
+/* Адаптив */
+@media (max-width: 720px) {
+  .scroll { margin: 16px; }
+  .scroll-inner { padding: 50px 28px 40px; }
+  .scroll-inner::before { inset: 16px; }
+  .scroll-inner::after  { inset: 19px; }
+  .kanji-banner { font-size: 44px; letter-spacing: 0.2em; }
+  .title { font-size: 30px; }
+  .toc ol { columns: 1; }
+  h2.chapter-title { font-size: 24px; padding-left: 60px; }
+  h2.chapter-title::before { width: 46px; height: 46px; font-size: 24px; }
+  .hanko { width: 60px; height: 60px; font-size: 20px; top: -10px; right: -6px; }
+}
+
+/* ================== ПЕЧАТЬ — A5 КНИЖЕЧКА ================== */
+/*
+  Браузер выдаст страницы в линейном порядке (формат A5).
+  Чтобы получить сложенную книжку: в окне печати браузера выберите
+  «Параметры → Макет → Брошюра» (или в драйвере принтера —
+  Booklet / 2 страницы на лист с переплётом по центру),
+  печать на A4 со сгибом пополам = 4 страницы A5 на каждом листе.
+  Количество страниц должно быть кратно 4 — добавляйте пустые при необходимости.
+*/
+
+@page {
+  size: A5 portrait;
+  margin: 12mm 14mm 14mm 14mm;
+}
+
+@page :left {
+  margin-left: 18mm;   /* поле ближе к корешку */
+  margin-right: 12mm;
+  @bottom-left {
+    content: counter(page);
+    font-family: 'Han Zi Web', serif;
+    color: #7a1410;
+    font-size: 9pt;
+  }
+}
+@page :right {
+  margin-left: 12mm;
+  margin-right: 18mm;  /* поле ближе к корешку */
+  @bottom-right {
+    content: counter(page);
+    font-family: 'Han Zi Web', serif;
+    color: #7a1410;
+    font-size: 9pt;
+  }
+}
+@page :first {
+  @bottom-left { content: ""; }
+  @bottom-right { content: ""; }
+}
+
+@media print {
+  /* Чистый светлый фон для бумаги */
+  html, body {
+    background: #fff !important;
+    color: #1a1410 !important;
+    font-size: 10pt;
+    line-height: 1.45;
+  }
+
+  /* Свиток превращается в обычный лист */
+  .scroll {
+    max-width: 100%;
+    margin: 0;
+    background: #fff !important;
+    box-shadow: none !important;
+    padding: 0;
+  }
+  .scroll::before,
+  .scroll::after { display: none !important; }
+
+  .scroll-inner { padding: 0; }
+  .scroll-inner::before,
+  .scroll-inner::after { display: none !important; }
+
+  svg.pattern-corner { display: none !important; }
+
+  /* ОБЛОЖКА — отдельная страница */
+  .header {
+    page-break-after: always;
+    margin: 25mm 0 0;
+    padding-bottom: 0;
+    min-height: 160mm;
+  }
+  .kanji-banner {
+    font-size: 48pt;
+    letter-spacing: 0.25em;
+    margin-bottom: 6mm;
+  }
+  .kanji-sub { font-size: 8pt; }
+  .title { font-size: 24pt; margin: 14mm 0 4mm; }
+  .subtitle { font-size: 11pt; }
+  .hanko {
+    width: 22mm;
+    height: 22mm;
+    font-size: 13pt;
+    top: 0;
+    right: 0;
+    box-shadow:
+      inset 0 0 0 1.5pt rgba(255, 240, 220, 0.95),
+      inset 0 0 0 2.5pt #b1281d;
+  }
+
+  /* Линия-кисть после обложки скрыта (она перед TOC) */
+  .header + .brush-line { display: none; }
+
+  /* СОДЕРЖАНИЕ — отдельная страница */
+  .toc {
+    page-break-after: always;
+    margin: 8mm 0;
+    padding: 6mm 8mm;
+  }
+  .toc-title { font-size: 14pt; margin-bottom: 4mm; }
+  .toc ol { columns: 1; }
+  .toc li { font-size: 10pt; padding: 1.5mm 0; }
+
+  /* Орнаменты компактнее */
+  .ornament { margin: 4mm 0; font-size: 12pt; letter-spacing: 0.6em; }
+  .brush-line {
+    margin: 5mm auto;
+    height: 6px;
+    width: 50%;
+  }
+
+  /* ГЛАВЫ — стараемся не разрывать */
+  section.chapter {
+    page-break-inside: avoid;
+    margin: 0 0 6mm;
+  }
+  h2.chapter-title {
+    font-size: 16pt;
+    margin: 0 0 4mm;
+    padding-left: 16mm;
+    page-break-after: avoid;
+    letter-spacing: 0.05em;
+  }
+  h2.chapter-title::before {
+    width: 12mm;
+    height: 12mm;
+    font-size: 14pt;
+    border-width: 1pt;
+    box-shadow:
+      0 0 0 0.5pt #7a1410,
+      1pt 1.5pt 0 rgba(0,0,0,0.15);
+    text-shadow: none;
+  }
+
+  section.chapter p {
+    margin: 0 0 2.5mm;
+    text-indent: 1.4em;
+    orphans: 3;
+    widows: 3;
+  }
+  section.chapter p:first-of-type::first-letter {
+    font-size: 2.6em;
+    padding: 2px 6px 0 0;
+  }
+
+  /* Выноски */
+  aside.note {
+    font-size: 9.5pt;
+    padding: 6px 12px;
+    margin: 3mm 0;
+    page-break-inside: avoid;
+  }
+
+  /* Списки порядка */
+  .order-list {
+    page-break-inside: avoid;
+    padding: 8px 14px;
+    margin: 3mm 0;
+  }
+  .order-list h4 { font-size: 11pt; margin-bottom: 4px; }
+  .order-list li { font-size: 9.5pt; padding: 1px 0; padding-left: 22px; }
+  .order-list li::before { font-size: 11pt; }
+
+  /* Подвал — пусть остаётся с последней главой если влезет */
+  .footer {
+    margin-top: 8mm;
+    padding-top: 4mm;
+    page-break-before: avoid;
+  }
+  .footer .seal {
+    width: 14mm;
+    height: 14mm;
+    line-height: 14mm;
+    font-size: 11pt;
+    box-shadow:
+      inset 0 0 0 1.5pt rgba(255, 240, 220, 0.95),
+      inset 0 0 0 2.5pt #b1281d;
+  }
+
+  /* Подзаголовки внутри глав */
+  section.chapter > h4 {
+    font-size: 12pt;
+    margin: 4mm 0 2mm;
+    padding-bottom: 2px;
+    page-break-after: avoid;
+  }
+
+  /* Таблицы балансировки */
+  .balance-table {
+    font-size: 9pt;
+    margin: 2mm 0 4mm;
+    page-break-inside: avoid;
+  }
+  .balance-table th,
+  .balance-table td {
+    padding: 3px 5px;
+  }
+  .balance-table thead th { font-size: 8.5pt; }
+  .balance-table tbody td:first-child { font-size: 11pt; }
+
+  /* Сохраняем цветную печать декора (если принтер цветной) */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}

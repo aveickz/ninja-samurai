@@ -36,8 +36,13 @@ ninja_samurai/
     │   ├── mask.png          # Рамка карточки (накладывается поверх арта)
     │   ├── delimiter.png     # Разделитель между артом и плашкой описания
     │   └── …                 # Иконки групп, hp.png, weapon_bg.png и т.п.
-    └── cards/
-        └── card_N_translit.png          # Арт карточек
+    ├── cards/
+    │   └── card_N_translit.png          # Арт карточек
+    └── rules/
+        ├── rules.html        # Правила игры (отдельная страница, ссылка в шапке)
+        ├── styles.css        # Стили только для rules.html
+        ├── cards.md          # Текстовое описание колоды
+        └── fonts/            # Шрифты для rules.html
 ```
 
 ## База данных — cards.js

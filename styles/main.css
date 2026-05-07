@@ -62,6 +62,31 @@ body {
   margin-bottom: 6px;
 }
 
+/* Внешние ссылки в шапке (например, «Правила игры»). Параграф-обёртка
+   нужен только чтобы линк лежал на отдельной строке без своего блока. */
+.site-header-links {
+  margin-bottom: 10px;
+}
+
+.site-header-link {
+  display: inline-block;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  color: #c8a870;
+  text-decoration: none;
+  padding: 3px 10px;
+  border: 1px solid #4a3520;
+  border-radius: 14px;
+  background: #231a0e;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.site-header-link:hover {
+  color: #f0c060;
+  border-color: #c88600;
+  background: #2a1c0a;
+}
+
 .count {
   font-size: 0.7rem;
   color: #6a5030;
