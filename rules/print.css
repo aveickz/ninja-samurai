@@ -150,12 +150,12 @@
 
   /* ========== Декоративные разделители ========== */
   .ornament {
-    margin: 2.5mm 0;
+    margin: 6mm 0;
     font-size: 9pt;
     letter-spacing: 0.5em;
   }
   .brush-line {
-    margin: 2mm auto;
+    margin: 7mm auto;
     height: 4px;
     width: 55%;
     opacity: 0.55;
@@ -169,24 +169,22 @@
      заголовок не должен отрываться от первого абзаца главы.
   */
   section.chapter {
-    margin: 0 0 3mm;
+    margin: 0 0 5mm;
   }
   h2.chapter-title {
     font-size: 13pt;
-    margin: 0 0 2.5mm;
-    padding: 0;
+    margin: 0 0 5mm;
+    padding-left: 11mm;            /* место под квадратный значок */
     letter-spacing: 0.05em;
     line-height: 1.25;
     break-after: avoid;
     page-break-after: avoid;
   }
-  /* Плашка с палочками-тэлли — auto-ширина под номер главы */
+  /* Квадратный значок главы с тематическим иероглифом */
   h2.chapter-title::before {
-    margin-right: 2.5mm;
-    padding: 0.4mm 1.5mm 0.8mm;
-    font-size: 9pt;
-    letter-spacing: -0.06em;
-    line-height: 1;
+    width: 8.5mm;
+    height: 8.5mm;
+    font-size: 11pt;
     border: 0.8pt solid #fff;
     box-shadow:
       0 0 0 0.4pt #7a1410,
@@ -219,6 +217,10 @@
     padding-bottom: 1px;
     color: #7a1410;
     letter-spacing: 0.1em;
+    /* Тонкая, слабоконтрастная подложечная линия — на печати
+       исходный «1px dotted» выглядит непропорционально тяжёлым,
+       поэтому переопределяем на волосяную (hairline) сплошную. */
+    border-bottom: 0.3pt solid rgba(106, 74, 48, 0.35);
     break-after: avoid;
     page-break-after: avoid;
   }

@@ -250,17 +250,33 @@ html, body {
 }
 
 .toc li {
-  padding: 4px 0;
+  padding: 5px 0;
   font-family: 'PT Sans Narrow', sans-serif;
   font-size: 17px;
   break-inside: avoid;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
+/* Мини-печать с тем же иероглифом, что и у соответствующей главы */
 .toc li::before {
-  content: "・ ";
-  color: var(--vermilion-dk);
-  font-weight: 600;
-  margin-right: 4px;
+  content: attr(data-mark);
+  flex: 0 0 auto;
+  width: 24px;
+  height: 24px;
+  background: var(--vermilion-dk);
+  color: var(--paper);
+  font-family: 'Han Zi Web', 'Shippori Mincho', serif;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--paper);
+  box-shadow:
+    0 0 0 1px var(--vermilion-dk),
+    1px 2px 0 rgba(0,0,0,0.18);
+  text-shadow: 0 0 4px rgba(0,0,0,0.25);
 }
 
 .toc a {
