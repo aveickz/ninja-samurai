@@ -232,7 +232,7 @@
   section.chapter p {
     margin: 0 0 1.6mm;
     text-indent: 1.2em;
-    text-align: justify;
+    text-align: left;
     orphans: 3;
     widows: 3;
   }

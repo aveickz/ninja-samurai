@@ -579,7 +579,7 @@ const CARDS = [
   },
   {
     id: 1049,
-    title: "Колотые раны?",
+    title: "Колотые раны",
     types: ["trap", "effect"],
     qty: 1,
     group: "trap",

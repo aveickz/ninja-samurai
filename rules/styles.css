@@ -324,7 +324,7 @@ h2.chapter-title::before {
 
 section.chapter p {
   margin: 0 0 14px;
-  text-align: justify;
+  text-align: left;
   text-indent: 0;
   color: var(--ink);
 }
