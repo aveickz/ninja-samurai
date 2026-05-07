@@ -17,6 +17,9 @@ $(function () {
 
   var ALL_TYPES = Object.keys(TYPE_META);
 
+  // Типы, для которых показывается блок-метка над описанием
+  var BLOCK_TYPES = ['trap', 'stance', 'modifier', 'intervention', 'defense', 'effect'];
+
   // ── Цвета верхней плашки по группе ───────────────────────────────
   var GROUP_TITLE_COLOR = {
     defense:      '#dca300',
@@ -94,13 +97,30 @@ $(function () {
   // вокруг), описание разбивается на части, между которыми рисуется
   // компактный аналог .group-divider — горизонтальные линии и слово
   // «ИЛИ» по центру. CSS — в card.css.
+  //
+  // Дополнительно: каждая часть может начинаться с type-префикса
+  // (UPPERCASE-русское слово, например ЛОВУШКА, ЗАЩИТА, МОДИФИКАТОР),
+  // отделённого от остального текста ` | `. Префикс выделяется в
+  // отдельный <span class="card-desc-prefix"> для стилизации (курсив).
+  // Сам разделитель `|` в DOM не выводим — он только маркер в данных.
+  function renderDescPart(text) {
+    var m = /^([А-ЯЁ][А-ЯЁ\s]*?)\s*\|\s+/.exec(text);
+    if (m) {
+      var prefix = m[1].replace(/\s+/g, ' ').trim();
+      var rest = text.slice(m[0].length);
+      return '<span class="card-desc-prefix">' + prefix + '</span> ' +
+             typograph(rest);
+    }
+    return typograph(text);
+  }
+
   function buildDescContent(desc) {
     var parts = String(desc).split(/\s*-ИЛИ-\s*/)
       .map(function (p) { return p.replace(/^\s+|\s+$/g, ''); })
       .filter(function (p) { return p.length > 0; });
 
     if (parts.length <= 1) {
-      return $('<div>', { class: 'card-desc' }).html(typograph(desc));
+      return $('<div>', { class: 'card-desc' }).html(renderDescPart(desc));
     }
 
     var $wrap = $('<div>', { class: 'card-desc card-desc--split' });
@@ -115,7 +135,7 @@ $(function () {
         );
       }
       $wrap.append(
-        $('<div>', { class: 'card-desc-part' }).html(typograph(part))
+        $('<div>', { class: 'card-desc-part' }).html(renderDescPart(part))
       );
     });
     return $wrap;
@@ -282,10 +302,26 @@ $(function () {
       }).on('error', function () { $(this).hide(); }),
 
       // Слой 4: жёлтая плашка с описанием внизу (только если есть текст)
-      card.desc ? $('<div>', { class: 'card-desc-wrap' }).append(
-        $('<img>', { class: 'card-delimiter', src: 'media/delimiter.png', alt: '', draggable: false }),
-        buildDescContent(card.desc)
-      ) : null
+      card.desc ? (function () {
+        var blockLabels = card.types
+          .filter(function (t) { return BLOCK_TYPES.indexOf(t) !== -1; })
+          .map(function (t) { return (TYPE_META[t] || {}).label || t; });
+
+        var $descContent = buildDescContent(card.desc);
+
+        if (blockLabels.length) {
+          var $span = $('<span>', { class: 'card-block-types', text: blockLabels.join(' · ') + ' ·' });
+          var $target = $descContent.hasClass('card-desc--split')
+            ? $descContent.find('.card-desc-part').first()
+            : $descContent;
+          $target.prepend($span);
+        }
+
+        return $('<div>', { class: 'card-desc-wrap' }).append(
+          $('<img>', { class: 'card-delimiter', src: 'media/delimiter.png', alt: '', draggable: false }),
+          $descContent
+        );
+      })() : null
     );
 
     // Кнопка «поделиться» — видна только когда карта в зуме (CSS),

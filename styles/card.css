@@ -291,6 +291,19 @@
   pointer-events: none;
 }
 
+/* Блок-метка типа карты (Ловушка, Стойка, Модификатор…) —
+   отображается над текстом описания для соответствующих типов.
+   Капитель + серый цвет + меньший размер, чтобы не конкурировать
+   с основным текстом, но задавать контекст с первого взгляда. */
+.card-block-types {
+  font-family: 'Salma Pro Med Narrow', 'Georgia', sans-serif;
+  font-variant: small-caps;
+  text-transform: uppercase;
+  color: #555550;
+  letter-spacing: 0.01em;
+  margin-right: 3px;
+}
+
 .card-desc {
   font-family: 'Salma Pro Med Narrow', 'Georgia', sans-serif;
   font-size: 10pt;
@@ -300,6 +313,20 @@
   font-style: normal;
   font-weight: lighter;
   margin: auto 0;
+}
+
+/*
+  Type-префикс в начале desc — например «ЛОВУШКА», «ЗАЩИТА»,
+  «МОДИФИКАТОР». В данных карты он отделяется от остального текста
+  через ` | `; рендерер вычленяет его в <span class="card-desc-prefix">.
+  Здесь делаем его курсивом + жирным, чтобы зрительно отделить
+  от тела описания. Цвет немного темнее основного текста.
+*/
+.card-desc-prefix {
+  font-style: italic;
+  font-weight: bold;
+  letter-spacing: 0.04em;
+  color: #3a2410;
 }
 
 /*
