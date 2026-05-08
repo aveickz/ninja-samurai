@@ -468,6 +468,46 @@ body {
   box-shadow: 0 0 12px #90909066;
 }
 
+/* ── Кнопка фильтра «Клановые» ── */
+.filter-btn--rolectx {
+  --tag-color: #7a3a8a;
+  color: #d0a0e0;
+  border-color: #5a2a6a;
+  background: #1e0a2a;
+}
+
+.filter-btn--rolectx:hover {
+  border-color: #c070d0;
+  color: #eac0f8;
+}
+
+.filter-btn--rolectx.active {
+  color: #1e0a2a;
+  background: #c070d0;
+  border-color: #e0a0f0;
+  box-shadow: 0 0 12px #c070d066;
+}
+
+/* ── Кнопка фильтра «HP» ── */
+.filter-btn--hpctx {
+  --tag-color: #a02020;
+  color: #f08080;
+  border-color: #6a1010;
+  background: #2a0a0a;
+}
+
+.filter-btn--hpctx:hover {
+  border-color: #e05050;
+  color: #ffb0b0;
+}
+
+.filter-btn--hpctx.active {
+  color: #2a0a0a;
+  background: #e05050;
+  border-color: #ffb0b0;
+  box-shadow: 0 0 12px #e0505066;
+}
+
 /* ── Секция карточек — ширина совпадает с page-top ── */
 .cards-section {
   max-width: 1100px;

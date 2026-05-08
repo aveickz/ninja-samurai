@@ -109,9 +109,38 @@ $(function () {
       var prefix = m[1].replace(/\s+/g, ' ').trim();
       var rest = text.slice(m[0].length);
       return '<span class="card-desc-prefix">' + prefix + '</span> ' +
-             typograph(rest);
+             applyRoleCtxLabels(typograph(rest));
     }
-    return typograph(text);
+    return applyRoleCtxLabels(typograph(text));
+  }
+
+  // Заменяет {текст} в уже типографированной HTML-строке на
+  // <span class="card-desc-label card-desc-label-<kind>">текст</span>.
+  // Kind определяется по корневому маркеру в тексте (регистронезависимо).
+  var DESC_LABEL_KINDS = [
+    { kind: 'samurai',   root: 'самур' },
+    { kind: 'ninja',     root: 'ниндз'  },
+    { kind: 'deathdoor', root: 'порог'  }
+  ];
+
+  function detectDescLabelKind(text) {
+    var lower = text.toLowerCase();
+    for (var i = 0; i < DESC_LABEL_KINDS.length; i++) {
+      if (lower.indexOf(DESC_LABEL_KINDS[i].root) !== -1) {
+        return DESC_LABEL_KINDS[i].kind;
+      }
+    }
+    return null;
+  }
+
+  function applyRoleCtxLabels(html) {
+    return html
+      .replace(/\[NL\]/g, '<br>')
+      .replace(/\{([^}]+)\}/g, function (_, inner) {
+        var kind = detectDescLabelKind(inner);
+        var cls = 'card-desc-label' + (kind ? ' card-desc-label-' + kind : '');
+        return '<span class="' + cls + '">' + inner + '</span>';
+      });
   }
 
   function buildDescContent(desc) {
@@ -390,7 +419,8 @@ $(function () {
       'data-types': card.types.join(' '),
       'data-group': card.group || 'action',
       'data-qty': card.qty || 1,
-      'data-tags': (card.tags || []).join(' ')
+      'data-tags': (card.tags || []).join(' '),
+      'data-icons': (card.icons || []).join(' ')
     }).append(
       $card,
       $footer
@@ -483,7 +513,8 @@ $(function () {
       var isReal    = !!$el.attr('data-trash-real');
       var isPseudo  = !!$el.attr('data-trash-pseudo');
       var cardTypes = $el.data('types').split(' ');
-      var cardTags  = ($el.data('tags') || '').toString().split(' ');
+      var cardTags  = ($el.data('tags')  || '').toString().split(' ');
+      var cardIcons = ($el.data('icons') || '').toString().split(' ');
 
       var visible;
 
@@ -500,6 +531,10 @@ $(function () {
           visible = cardTags.indexOf('draft') !== -1;
         } else if (activeMode === '__comments__') {
           visible = $el.attr('data-has-comments') === '1';
+        } else if (activeMode === '__rolectx__') {
+          visible = cardIcons.indexOf('rolectx') !== -1;
+        } else if (activeMode === '__hpctx__') {
+          visible = cardIcons.indexOf('hpctx') !== -1;
         } else if (activeMode) {
           visible = cardTypes.indexOf(activeMode) !== -1;
         } else {
@@ -525,6 +560,10 @@ $(function () {
           // bucket.list: '1' если у карточки есть комментарии, иначе атрибут
           // отсутствует. Если comments-модуль не загружен, фильтр пуст.
           visible = $el.attr('data-has-comments') === '1';
+        } else if (activeMode === '__rolectx__') {
+          visible = cardIcons.indexOf('rolectx') !== -1;
+        } else if (activeMode === '__hpctx__') {
+          visible = cardIcons.indexOf('hpctx') !== -1;
         } else if (activeMode) {
           visible = cardTypes.indexOf(activeMode) !== -1;
         } else {
@@ -582,7 +621,7 @@ $(function () {
   }
 
   // ── Вспомогательная: установить фильтр и записать в hash ─────────
-  var VALID_MODES = ALL_TYPES.concat(['__poison__', '__print__', '__draft__', '__trash__', '__comments__']);
+  var VALID_MODES = ALL_TYPES.concat(['__poison__', '__print__', '__draft__', '__trash__', '__comments__', '__rolectx__', '__hpctx__']);
 
   function setFilter(mode) {
     activeMode = mode;
@@ -667,6 +706,18 @@ $(function () {
     $('<button>', { class: 'filter-btn filter-btn--trash', text: '🗑 Корзина', 'data-type': '__trash__' })
       .on('click', function () {
         setFilter(activeMode === '__trash__' ? null : '__trash__');
+      })
+      .appendTo($row3);
+
+    $('<button>', { class: 'filter-btn filter-btn--rolectx', text: '⚔ Клановые', 'data-type': '__rolectx__' })
+      .on('click', function () {
+        setFilter(activeMode === '__rolectx__' ? null : '__rolectx__');
+      })
+      .appendTo($row3);
+
+    $('<button>', { class: 'filter-btn filter-btn--hpctx', text: '❤ HP', 'data-type': '__hpctx__' })
+      .on('click', function () {
+        setFilter(activeMode === '__hpctx__' ? null : '__hpctx__');
       })
       .appendTo($row3);
   }
@@ -847,6 +898,22 @@ $(function () {
   // Если кто-то меняет hash вручную / через back-forward / через
   // клик по другой share-ссылке — переоткрываем нужную карту.
   $(window).on('hashchange', applyCardHashIfAny);
+
+  // ── Динамические свойства карт ────────────────────────────────────
+  // hasRoleContext: true когда в icons есть 'rolectx'
+  // hasHpCtx:      true когда в icons есть 'hpctx'
+  CARDS.forEach(function (card) {
+    Object.defineProperty(card, 'hasRoleContext', {
+      get: function () { return (this.icons || []).indexOf('rolectx') !== -1; },
+      enumerable: false,
+      configurable: true
+    });
+    Object.defineProperty(card, 'hasHpCtx', {
+      get: function () { return (this.icons || []).indexOf('hpctx') !== -1; },
+      enumerable: false,
+      configurable: true
+    });
+  });
 
   // ── Инициализация ─────────────────────────────────────────────────
   buildFilters();

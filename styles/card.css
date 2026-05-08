@@ -304,6 +304,29 @@
   margin-right: 3px;
 }
 
+/* Метки в описании: {текст} → выделенный span без скобок.
+   Базовый класс + опциональный модификатор вида. */
+.card-desc-label {
+  font-family: 'Salma Pro Med Narrow', 'Georgia', sans-serif;
+  font-style: italic;
+  font-variant: small-caps;
+  color: #3a2410;
+  letter-spacing: 0.02em;
+  font-size: 9pt;
+}
+
+.card-desc-label-samurai {
+  color: #6b0e0a;
+}
+
+.card-desc-label-ninja {
+  color: #1a1060;
+}
+
+.card-desc-label-deathdoor {
+  color: #4b2a08;
+}
+
 .card-desc {
   font-family: 'Salma Pro Med Narrow', 'Georgia', sans-serif;
   font-size: 10pt;
