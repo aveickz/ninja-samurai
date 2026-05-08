@@ -484,3 +484,47 @@ body {
   border-bottom: 1px solid #3a2a10;
   padding-bottom: 6px;
 }
+
+/* ── Embed-режим (?embed=<ID>) ── */
+/* Скрывает весь UI, показывает одну карту на белом фоне — для <iframe>. */
+body.embed-mode {
+  background: #ffffff;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+body.embed-mode .page-top,
+body.embed-mode .section-label {
+  display: none !important;
+}
+
+body.embed-mode .cards-section {
+  width: auto;
+}
+
+body.embed-mode #grid {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+body.embed-mode .card-item:not(.card--hidden) {
+  width: 240px;
+  cursor: default;
+}
+
+body.embed-mode .card-item:hover {
+  transform: none;
+}
+
+body.embed-mode .card-item .card,
+body.embed-mode .card-item:hover .card {
+  box-shadow: none;
+}
+
+body.embed-mode .card-footer {
+  display: none;
+}

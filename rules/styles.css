@@ -50,7 +50,7 @@ html, body {
     radial-gradient(ellipse 100px 70px  at 50% 45%, rgba(120, 70, 20, 0.12), transparent 70%),
     /* фотография бумаги: тянется по ширине, повторяется по вертикали;
        var(--paper) играет роль fallback'а, если PNG не загрузится */
-    url('paper.png') center top / 100% auto repeat-y var(--paper);
+    url('media/paper.png') center top / 100% auto repeat-y var(--paper);
   box-shadow:
     0 0 0 1px rgba(60,30,10,0.4),
     0 30px 80px rgba(0,0,0,0.7),

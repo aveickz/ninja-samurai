@@ -339,11 +339,11 @@ $(function () {
       e.stopPropagation();
       e.preventDefault();
       var hash = 'card-' + card.id;
-      var url = window.location.origin + window.location.pathname +
-                window.location.search + '#' + hash;
-      // Обновляем URL — пользователь может скопировать прямо из адресной
-      // строки. Браузер не прокручивает, потому что элемента id="card-<N>"
-      // у нас нет.
+      // Embed-URL — для вставки в iframe: показывает только эту карту
+      // на белом фоне. Обычный hash-URL обновляем для навигации внутри
+      // приложения (зум при перезагрузке), но в буфер кладём embed.
+      var embedUrl = window.location.origin + window.location.pathname +
+                     '?embed=' + card.id;
       if (location.hash !== '#' + hash) {
         location.hash = hash;
       }
@@ -360,13 +360,13 @@ $(function () {
       }
 
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(url).then(
+        navigator.clipboard.writeText(embedUrl).then(
           function () { flash('✓', 'card-share-btn--ok'); },
           function () { flash('✗', 'card-share-btn--err'); }
         );
       } else {
         // Fallback для контекстов без Clipboard API (file://, старые браузеры)
-        window.prompt('Скопируйте ссылку:', url);
+        window.prompt('Скопируйте ссылку:', embedUrl);
       }
     }).on('mousedown', function (e) { e.stopPropagation(); });
 
@@ -861,5 +861,22 @@ $(function () {
 
   // Hash вида card-<ID> — зумим карту после применения фильтра.
   applyCardHashIfAny();
+
+  // ── Embed-режим: ?embed=<ID> ──────────────────────────────────────
+  // Скрывает весь UI и показывает одну карту на белом фоне —
+  // удобно для вставки в <iframe> на других страницах.
+  var embedId = (new URLSearchParams(window.location.search)).get('embed');
+  if (embedId) {
+    document.body.classList.add('embed-mode');
+    $('#grid .card-item').each(function () {
+      var $el = $(this);
+      if (String($el.data('card-id')) !== String(embedId)) {
+        $el.addClass('card--hidden');
+      } else {
+        $el.removeClass('card--hidden');
+      }
+    });
+    $('[data-group-divider]').addClass('group-divider--hidden');
+  }
 
 });
