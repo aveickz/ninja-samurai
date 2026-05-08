@@ -820,7 +820,7 @@ const CARDS = [
     types: ["modifier"],
     qty: 3,
     group: "modifier",
-    icons: ["ninja"],
+    icons: ["rolectx"],
     tags: [],
     desc: "Ваша атака игнорирует ловушки и от неё невозможности защититься.",
     img: "cards/card_67_udar_teni.png"
@@ -930,7 +930,7 @@ const CARDS = [
     types: ["modifier"],
     qty: 1,
     group: "modifier",
-    icons: ["samurai"],
+    icons: ["rolectx"],
     tags: [],
     desc: "Вы не тратите свою попытку атаки в данном ударе.",
     img: "cards/card_77_dlan_syoguna.png"
@@ -1243,8 +1243,8 @@ const CARDS = [
     qty: 1,
     group: "effect",
     icons: [],
-    tags: [],
-    desc: "Выбранный игрок автоматически защищается от атаки.",
+    tags: ["trash"],
+    desc: "Выбранный игрок автоматически защищается от атаки. Новая механика игра и так позволяет многим помонать зашищаться.",
     img: "cards/card_103_egida.png"
   },
 
@@ -1288,7 +1288,7 @@ const CARDS = [
     types: ["action"],
     qty: 1,
     group: "action",
-    icons: ["samurai"],
+    icons: ["rolectx"],
     tags: [],
     desc: "Вы выкладываете все карты перед собой в октрытую, ваши активные союзники могут забрать любые ваши карты себе, не превышая ограничение в 8 карт, остальное идёт в сброс. Потом вы умираете и победное очко другому игроку. Таким образом нельзя потерять последнее победное очко. Ниндзя не могут пользоваться этой картой.",
     img: "cards/card_107_seppuku.png"
@@ -1488,7 +1488,7 @@ const CARDS = [
     types: ["intervention"],
     qty: 1,
     group: "intervention",
-    icons: ["samurai"],
+    icons: ["rolectx"],
     tags: [],
     desc: "Сыграйте эту карту, чтобы перенаправить прямую атаку оружия на себя.",
     img: "cards/card_124_podvig.png"
