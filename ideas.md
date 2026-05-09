@@ -71,7 +71,7 @@ share defense ability (кто угодно гтов взять подвиг)
 GROUP BONUS (attack, defense)
 share traps (or stances)
 
-ADD reactive effects to stances? (they are visible)
+ADD reactive effects to stances? (NO)
 
 ===
 BIG interfaction IDEA (same as no-weapon punch):

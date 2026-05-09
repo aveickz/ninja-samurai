@@ -138,7 +138,8 @@ $(function () {
   var DESC_LABEL_KINDS = [
     { kind: 'samurai',   root: 'самур' },
     { kind: 'ninja',     root: 'ниндз'  },
-    { kind: 'deathdoor', root: 'порог'  }
+    { kind: 'deathdoor', root: 'порог'  },
+    { kind: 'deathrattle', root: 'смерт'  },
   ];
 
   function detectDescLabelKind(text) {
@@ -733,7 +734,7 @@ $(function () {
       })
       .appendTo($row3);
 
-    $('<button>', { class: 'filter-btn filter-btn--hpctx', text: '❤ HP', 'data-type': '__hpctx__' })
+    $('<button>', { class: 'filter-btn filter-btn--hpctx', text: '❤ Low/Full HP', 'data-type': '__hpctx__' })
       .on('click', function () {
         setFilter(activeMode === '__hpctx__' ? null : '__hpctx__');
       })
