@@ -78,18 +78,34 @@ $(function () {
   //             или строка типа ('weapon', 'trap', …)
   var activeMode = null;
 
-  // ── Типографика: неразрывный пробел после коротких слов ──────────
-  // Возвращает HTML-строку — вставлять через .html(), не .text()
-  function typograph(text) {
+  // ── Типографика ───────────────────────────────────────────────────
+
+  // Экранирует HTML-спецсимволы в сыром тексте.
+  function escapeHtml(text) {
     if (!text) return '';
-    // Экранируем HTML-спецсимволы (desc не содержит разметки)
-    var escaped = text
+    return text
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;');
-    // После слова из 1–2 букв (кириллица или латиница) + пробел → &nbsp;
-    return escaped.replace(/(\s|^)([А-ЯЁа-яёA-Za-z]{1,2}) /g, '$1$2&nbsp;');
+  }
+
+  // Применяет &nbsp; после коротких слов (1–2 буквы) к уже готовому
+  // HTML: обходит теги и обрабатывает каждый текстовый узел отдельно,
+  // благодаря чему текст после <br> и внутри <span> тоже покрывается.
+  function typographHtml(html) {
+    if (!html) return '';
+    return html.replace(/(<[^>]+>)|([^<]+)/g, function (match, tag, text) {
+      if (text) {
+        return text.replace(/(\s|^)([А-ЯЁа-яёA-Za-z]{1,2}) /g, '$1$2&nbsp;');
+      }
+      return match; // тег оставляем как есть
+    });
+  }
+
+  // Оставляем typograph для обратной совместимости (используется вне renderDescPart).
+  function typograph(text) {
+    return typographHtml(escapeHtml(text));
   }
 
   // ── Построение блока описания карточки ───────────────────────────
@@ -103,15 +119,17 @@ $(function () {
   // отделённого от остального текста ` | `. Префикс выделяется в
   // отдельный <span class="card-desc-prefix"> для стилизации (курсив).
   // Сам разделитель `|` в DOM не выводим — он только маркер в данных.
+  //
+  // Порядок обработки: escapeHtml → applyLabels → typographHtml,
+  // чтобы &nbsp; применялся уже после вставки всех span и <br>.
   function renderDescPart(text) {
     var m = /^([А-ЯЁ][А-ЯЁ\s]*?)\s*\|\s+/.exec(text);
     if (m) {
-      var prefix = m[1].replace(/\s+/g, ' ').trim();
-      var rest = text.slice(m[0].length);
-      return '<span class="card-desc-prefix">' + prefix + '</span> ' +
-             applyRoleCtxLabels(typograph(rest));
+      var prefix = escapeHtml(m[1].replace(/\s+/g, ' ').trim());
+      var rest   = applyLabels(escapeHtml(text.slice(m[0].length)));
+      return typographHtml('<span class="card-desc-prefix">' + prefix + '</span> ' + rest);
     }
-    return applyRoleCtxLabels(typograph(text));
+    return typographHtml(applyLabels(escapeHtml(text)));
   }
 
   // Заменяет {текст} в уже типографированной HTML-строке на
@@ -133,7 +151,7 @@ $(function () {
     return null;
   }
 
-  function applyRoleCtxLabels(html) {
+  function applyLabels(html) {
     return html
       .replace(/\[NL\]/g, '<br>')
       .replace(/\{([^}]+)\}/g, function (_, inner) {
@@ -259,7 +277,7 @@ $(function () {
         ? $('<div>', { class: 'card-icons' }).append(
             $.map(card.icons, function (icon) {
               return $('<img>', {
-                class: 'card-icon',
+                class: 'card-icon card-icon-' + icon,
                 src: 'media/' + icon + '.png',
                 alt: icon,
                 draggable: false
@@ -278,7 +296,7 @@ $(function () {
         ? $('<div>', { class: 'card-icons-or' }).append(
             $.map(card.iconsOr, function (icon) {
               return $('<img>', {
-                class: 'card-icon',
+                class: 'card-icon card-icon-' + icon,
                 src: 'media/' + icon + '.png',
                 alt: icon,
                 draggable: false

@@ -142,6 +142,15 @@
   pointer-events: none;
 }
 
+/*
+  Specific card icons go here
+ */
+.card-icon-rolectx, .card-icon-hpctx {
+  margin-top: -3px;
+  margin-bottom: -8px;
+  margin-left: -4px;
+}
+
 /* Слой 3: рамка/маска поверх арта */
 .card-mask {
   position: absolute;
