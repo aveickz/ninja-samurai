@@ -2,10 +2,12 @@ A vintage comic-style card illustration in Bang-style layout.
 Action: dynamic motion, metal tension, impact moment frozen
 Style: bold black outlines, flat shading, minimal detail, retro comic style
 Restrictions: no icons in top-left corner, no gradients, no realism, no excessive detail Paper texture background 
+
 Top banner title: "Сон Ёкая"
+
 Scene: Нарисуй крупным планом как ниндзя с довольным лицом тащит ящик с ловушками: среди которых Макибиши, Шкурка банана, и хлопушки
+
 Colors: brown, dark red, white, lime, metal
+
 Use reference image, but DON'T RENDER the bottom text area
 Aspect ratio is 7:10
-
-Дыхание феникса
