@@ -63,13 +63,14 @@ KUNAI = same as Боевой веер --- или melee
 
 &&& 
 
-Team cards Mechanics:
+Team aura/Enemy objective cards Mechanics:
 SHARE DEFENSE
 SHARE CARDS (weapons?)
 share DISTANCE (they dont count towards distance!)
 share defense ability (кто угодно гтов взять подвиг)
-GROUP BONUS (attack, defense)
+GROUP BONUS (attack, defense, effects)
 share traps (or stances)
+ADD team bonus (like +1 dmg, +1 block damage)
 
 ADD reactive effects to stances? (NO)
 

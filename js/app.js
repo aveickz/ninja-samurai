@@ -12,7 +12,8 @@ $(function () {
     effect:       { label: 'Эффект',        color: '#FFDDDD' },
     intervention: { label: 'Вмешательство', color: '#3B8476' },
     aoe:          { label: 'Групповая',     color: '#FFDDDD' },
-    role:         { label: 'Роль',          color: '#9c6ec0' }
+    role:         { label: 'Роль',          color: '#9c6ec0' },
+    teamaura:     { label: 'Командная Аура', color: '#4a8a6a' }
   };
 
   var ALL_TYPES = Object.keys(TYPE_META);
@@ -28,6 +29,7 @@ $(function () {
     stance:       '#A78B6B',
     modifier:     '#ED1C24',
     aoe:          '#231F20',
+    teamaura:     '#2a5a40',
     effect:       '#231F20',
     intervention: '#3B8476',
     character:    '#ddd',
@@ -40,7 +42,7 @@ $(function () {
   // role идёт первой — это мета-карта (кто играет), не часть колоды.
   var GROUP_ORDER = [
     'weapon', 'trap', 'defense', 'stance', 'modifier',
-    'aoe', 'effect', 'action', 'intervention', 'character', 'role'
+    'aoe', 'teamaura', 'effect', 'action', 'intervention',  'character', 'role',
   ];
 
   var GROUP_LABELS = {
@@ -54,6 +56,7 @@ $(function () {
     action:       'Действия',
     intervention: 'Вмешательства',
     role:         'Роли',
+    teamaura:     'Командная Аура',
     character:    'Персонажи',
     trash:        'Корзина'
   };
@@ -439,7 +442,9 @@ $(function () {
       'data-group': card.group || 'action',
       'data-qty': card.qty || 1,
       'data-tags': (card.tags || []).join(' '),
-      'data-icons': (card.icons || []).join(' ')
+      'data-icons': (card.icons || []).join(' '),
+      'data-has-todo': ((card.desc || '').toLowerCase().indexOf('todo') !== -1 ||
+                        (card.img  || '').indexOf('card_todo.png') !== -1) ? '1' : null
     }).append(
       $card,
       $footer
@@ -547,7 +552,8 @@ $(function () {
         } else if (activeMode === '__print__') {
           visible = cardTags.indexOf('toPrint') !== -1;
         } else if (activeMode === '__draft__') {
-          visible = cardTags.indexOf('draft') !== -1;
+          visible = cardTags.indexOf('draft') !== -1 ||
+                    $el.attr('data-has-todo') === '1';
         } else if (activeMode === '__comments__') {
           visible = $el.attr('data-has-comments') === '1';
         } else if (activeMode === '__rolectx__') {
@@ -573,7 +579,8 @@ $(function () {
         } else if (activeMode === '__print__') {
           visible = cardTags.indexOf('toPrint') !== -1;
         } else if (activeMode === '__draft__') {
-          visible = cardTags.indexOf('draft') !== -1;
+          visible = cardTags.indexOf('draft') !== -1 ||
+                    $el.attr('data-has-todo') === '1';
         } else if (activeMode === '__comments__') {
           // data-has-comments проставляется в comments.js после
           // bucket.list: '1' если у карточки есть комментарии, иначе атрибут
@@ -816,22 +823,47 @@ $(function () {
       ).appendTo($tbody);
     });
 
-    // Псевдо-группы Draft и Trash — считаем отдельно, без % от общего
-    var pseudoGroups = [
-      { key: 'draft', label: GROUP_LABELS['draft'] || 'Черновик' },
-      { key: 'trash', label: GROUP_LABELS['trash'] || 'Корзина' }
-    ];
-    $.each(pseudoGroups, function (_, pg) {
-      var cards = CARDS.filter(function (c) { return (c.tags || []).indexOf(pg.key) !== -1; });
-      if (!cards.length) return;
-      var qty = cards.reduce(function (sum, c) { return sum + (c.qty || 1); }, 0);
+    // Псевдо-тег Trash — одна суммарная строка
+    var trashCards = CARDS.filter(function (c) { return (c.tags || []).indexOf('trash') !== -1; });
+    if (trashCards.length) {
       $('<tr>', { class: 'stats-row--pseudo' }).append(
-        $('<td>', { text: pg.label }),
-        $('<td>', { text: cards.length }),
-        $('<td>', { text: qty }),
+        $('<td>', { text: GROUP_LABELS['trash'] || 'Корзина' }),
+        $('<td>', { text: trashCards.length }),
+        $('<td>', { text: trashCards.reduce(function (s, c) { return s + (c.qty || 1); }, 0) }),
         $('<td>', { text: '—' })
       ).appendTo($tbody);
-    });
+    }
+
+    // Псевдо-тег Draft — разбиваем по группам, чтобы черновики
+    // отдельных групп (например Командная Аура) были видны отдельно.
+    var draftCards = CARDS.filter(function (c) { return (c.tags || []).indexOf('draft') !== -1; });
+    if (draftCards.length) {
+      // Группируем draft-карты по group
+      var draftByGroup = {};
+      $.each(draftCards, function (_, c) {
+        var g = c.group || 'action';
+        if (!draftByGroup[g]) draftByGroup[g] = [];
+        draftByGroup[g].push(c);
+      });
+
+      // Выводим в порядке GROUP_ORDER, затем всё что осталось
+      var draftGroupOrder = GROUP_ORDER.concat(
+        Object.keys(draftByGroup).filter(function (g) { return GROUP_ORDER.indexOf(g) === -1; })
+      );
+
+      $.each(draftGroupOrder, function (_, g) {
+        var cards = draftByGroup[g];
+        if (!cards || !cards.length) return;
+        var qty = cards.reduce(function (s, c) { return s + (c.qty || 1); }, 0);
+        var label = (GROUP_LABELS[g] || g) + ' ✏';
+        $('<tr>', { class: 'stats-row--pseudo' }).append(
+          $('<td>', { text: label }),
+          $('<td>', { text: cards.length }),
+          $('<td>', { text: qty }),
+          $('<td>', { text: '—' })
+        ).appendTo($tbody);
+      });
+    }
 
     // ── Соотношение оружия к защите (только активные карты) ─────────
     var weaponQty = 0, defenseQty = 0;
@@ -929,6 +961,14 @@ $(function () {
     });
     Object.defineProperty(card, 'hasHpCtx', {
       get: function () { return (this.icons || []).indexOf('hpctx') !== -1; },
+      enumerable: false,
+      configurable: true
+    });
+    Object.defineProperty(card, 'hasTodo', {
+      get: function () {
+        return (this.desc || '').toLowerCase().indexOf('todo') !== -1 ||
+               (this.img  || '').indexOf('card_todo.png') !== -1;
+      },
       enumerable: false,
       configurable: true
     });
