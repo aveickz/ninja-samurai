@@ -529,6 +529,7 @@ $(function () {
   function applyFilter() {
     var totalTypes = 0;
     var totalQty = 0;
+    var trashTypes = 0;
     var visibleByGroup = {};
     var isTrashMode = activeMode === '__trash__';
 
@@ -599,8 +600,12 @@ $(function () {
 
       $el.toggleClass('card--hidden', !visible);
       if (visible) {
-        totalTypes++;
-        totalQty += parseInt($el.data('qty'), 10) || 1;
+        if (isPseudo) {
+          trashTypes++;
+        } else {
+          totalTypes++;
+          totalQty += parseInt($el.data('qty'), 10) || 1;
+        }
         var g = isPseudo ? 'trash' : $el.data('group');
         visibleByGroup[g] = (visibleByGroup[g] || 0) + 1;
       }
@@ -633,7 +638,11 @@ $(function () {
       });
     }
 
-    $('.count').text(totalTypes + ' видов · ' + totalQty + ' карт');
+    var countText = isTrashMode
+      ? totalTypes + ' видов · ' + totalQty + ' карт'
+      : totalTypes + ' видов · ' + totalQty + ' карт' +
+        (trashTypes > 0 ? ' · 🗑 ' + trashTypes + ' в корзине' : '');
+    $('.count').text(countText);
 
     // Подсветка активных кнопок
     $('.filter-btn').each(function () {
