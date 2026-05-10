@@ -785,9 +785,10 @@ $(function () {
     $('#stat-other-types').text(otherTypes);
     $('#stat-other-qty').text(otherQty);
 
-    // Считаем по группам — только активные карты
+    // Считаем по группам — все карты кроме trash
     var groupStats = {};
-    $.each(activeCards, function (_, card) {
+    $.each(CARDS, function (_, card) {
+      if ((card.tags || []).indexOf('trash') !== -1) return;
       var g = card.group || 'action';
       if (!groupStats[g]) groupStats[g] = { types: 0, qty: 0 };
       groupStats[g].types++;
@@ -834,35 +835,15 @@ $(function () {
       ).appendTo($tbody);
     }
 
-    // Псевдо-тег Draft — разбиваем по группам, чтобы черновики
-    // отдельных групп (например Командная Аура) были видны отдельно.
+    // Псевдо-тег Draft — одна суммарная строка
     var draftCards = CARDS.filter(function (c) { return (c.tags || []).indexOf('draft') !== -1; });
     if (draftCards.length) {
-      // Группируем draft-карты по group
-      var draftByGroup = {};
-      $.each(draftCards, function (_, c) {
-        var g = c.group || 'action';
-        if (!draftByGroup[g]) draftByGroup[g] = [];
-        draftByGroup[g].push(c);
-      });
-
-      // Выводим в порядке GROUP_ORDER, затем всё что осталось
-      var draftGroupOrder = GROUP_ORDER.concat(
-        Object.keys(draftByGroup).filter(function (g) { return GROUP_ORDER.indexOf(g) === -1; })
-      );
-
-      $.each(draftGroupOrder, function (_, g) {
-        var cards = draftByGroup[g];
-        if (!cards || !cards.length) return;
-        var qty = cards.reduce(function (s, c) { return s + (c.qty || 1); }, 0);
-        var label = (GROUP_LABELS[g] || g) + ' ✏';
-        $('<tr>', { class: 'stats-row--pseudo' }).append(
-          $('<td>', { text: label }),
-          $('<td>', { text: cards.length }),
-          $('<td>', { text: qty }),
-          $('<td>', { text: '—' })
-        ).appendTo($tbody);
-      });
+      $('<tr>', { class: 'stats-row--pseudo' }).append(
+        $('<td>', { text: '✏ Черновик' }),
+        $('<td>', { text: draftCards.length }),
+        $('<td>', { text: draftCards.reduce(function (s, c) { return s + (c.qty || 1); }, 0) }),
+        $('<td>', { text: '—' })
+      ).appendTo($tbody);
     }
 
     // ── Соотношение оружия к защите (только активные карты) ─────────
