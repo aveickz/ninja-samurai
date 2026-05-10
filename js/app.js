@@ -757,13 +757,17 @@ $(function () {
   });
 
   // ── Статистика в шапке (общая, не зависит от фильтра) ───────────
-  // Считаем только активные карты (без trash и draft)
+  // activeCards — база для sidebar-статистики: без корзины и без черновиков.
   var activeCards = CARDS.filter(function (c) {
-    var tags = c.tags || [];
-    return tags.indexOf('trash') === -1 && tags.indexOf('draft') === -1;
+    return (c.tags || []).indexOf('trash') === -1;
   });
-  $('#stat-types').text(activeCards.length);
-  $('#stat-total').text(activeCards.reduce(function (sum, c) { return sum + (c.qty || 1); }, 0));
+
+  // Блок .stats в шапке: все карты кроме корзины (черновики входят).
+  var nonTrashCards = CARDS.filter(function (c) {
+    return (c.tags || []).indexOf('trash') === -1;
+  });
+  $('#stat-types').text(nonTrashCards.length);
+  $('#stat-total').text(nonTrashCards.reduce(function (sum, c) { return sum + (c.qty || 1); }, 0));
 
   // ── Статическая статистика по CARDS ──────────────────────────────
   function buildStats() {
@@ -784,6 +788,10 @@ $(function () {
     $('#stat-playable-qty').text(playableQty);
     $('#stat-other-types').text(otherTypes);
     $('#stat-other-qty').text(otherQty);
+
+    // Корзина в summary — только типов (qty не важна)
+    var trashAll = CARDS.filter(function (c) { return (c.tags || []).indexOf('trash') !== -1; });
+    $('#stat-trash-types').text(trashAll.length);
 
     // Считаем по группам — все карты кроме trash
     var groupStats = {};
@@ -824,16 +832,8 @@ $(function () {
       ).appendTo($tbody);
     });
 
-    // Псевдо-тег Trash — одна суммарная строка
+    // Корзина — только в stats-summary (см. ниже), не в таблице
     var trashCards = CARDS.filter(function (c) { return (c.tags || []).indexOf('trash') !== -1; });
-    if (trashCards.length) {
-      $('<tr>', { class: 'stats-row--pseudo' }).append(
-        $('<td>', { text: GROUP_LABELS['trash'] || 'Корзина' }),
-        $('<td>', { text: trashCards.length }),
-        $('<td>', { text: trashCards.reduce(function (s, c) { return s + (c.qty || 1); }, 0) }),
-        $('<td>', { text: '—' })
-      ).appendTo($tbody);
-    }
 
     // Псевдо-тег Draft — одна суммарная строка
     var draftCards = CARDS.filter(function (c) { return (c.tags || []).indexOf('draft') !== -1; });
