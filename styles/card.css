@@ -484,6 +484,11 @@
   display: none;
 }
 
+/* Клоны для «Печать количеством» — всегда скрыты на экране */
+.card-print-clone {
+  display: none;
+}
+
 /*
   Кнопка «поделиться ссылкой» — сидит в .card-footer слева от
   .card-comments-btn (бейдж комментариев добавляется comments.js

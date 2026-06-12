@@ -506,10 +506,23 @@ $(function () {
 
     $.each(cards, function (_, card) {
       var $item = buildCard(card);
-      if ((card.tags || []).indexOf('trash') !== -1) {
+      var isTrash = (card.tags || []).indexOf('trash') !== -1;
+      if (isTrash) {
         $item.attr('data-trash-real', '1').addClass('card--hidden');
       }
       $grid.append($item);
+
+      // Клоны для режима «Печать количеством»: qty-1 копий, всегда скрыты на экране.
+      if (!isTrash) {
+        var qty = card.qty || 1;
+        for (var q = 1; q < qty; q++) {
+          $grid.append(
+            $item.clone(false)
+              .addClass('card-print-clone card--hidden')
+              .removeAttr('id')
+          );
+        }
+      }
     });
   });
 
@@ -535,6 +548,7 @@ $(function () {
 
     $('#grid .card-item').each(function () {
       var $el       = $(this);
+      if ($el.hasClass('card-print-clone')) return; // клоны управляются отдельно
       var isReal    = !!$el.attr('data-trash-real');
       var isPseudo  = !!$el.attr('data-trash-pseudo');
       var cardTypes = $el.data('types').split(' ');
@@ -755,6 +769,16 @@ $(function () {
         setFilter(activeMode === '__hpctx__' ? null : '__hpctx__');
       })
       .appendTo($row3);
+
+    // ── Ряд 4: опции печати ──────────────────────────────────────────
+    var $row4 = $('<div>', { class: 'filter-row filter-row--print-options' }).appendTo($bar);
+    var $cb = $('<input>', { type: 'checkbox', id: 'print-qty-checkbox', class: 'print-qty-checkbox' });
+    $cb.on('change', function () {
+      document.body.classList.toggle('print-qty-mode', this.checked);
+    });
+    $('<label>', { class: 'print-qty-label', 'for': 'print-qty-checkbox' })
+      .append($cb, $('<span>', { text: ' Печать количеством (Quantity Based Print)' }))
+      .appendTo($row4);
   }
 
   // ── Закрытие зума кликом вне карточки или Escape ──────────────────
@@ -874,9 +898,21 @@ $(function () {
 
   // ── Печать: группируем карточки по 9 на страницу ─────────────────
   function wrapForPrint() {
+    var isQtyMode = document.body.classList.contains('print-qty-mode');
+
+    if (isQtyMode) {
+      // Открываем клоны для видимых не-trash карт, чтобы они попали
+      // в выборку и разложились по print-page вместе с оригиналами.
+      $('#grid .card-item:not(.card--hidden):not([data-trash-real]):not([data-trash-pseudo]):not(.card-print-clone)')
+        .each(function () {
+          var cardId = $(this).data('card-id');
+          $('#grid .card-print-clone[data-card-id="' + cardId + '"]')
+            .removeClass('card--hidden');
+        });
+    }
+
     // Карточки с тегом trash никогда не попадают в печатную версию —
     // ни real-копии в родных группах, ни pseudo-копии в Корзине.
-    // Фильтруем их ДО группировки по 9, чтобы страницы не «дырявили».
     var $cards = $('#grid .card-item:not(.card--hidden)').filter(function () {
       var tags = ($(this).attr('data-tags') || '').split(/\s+/);
       return tags.indexOf('trash') === -1;
@@ -885,13 +921,14 @@ $(function () {
     for (var i = 0; i < $cards.length; i += 9) {
       pages.push($cards.slice(i, i + 9));
     }
-    // Оборачиваем каждую группу в .print-page
     $.each(pages, function (_, $group) {
       $group.wrapAll('<div class="print-page"></div>');
     });
   }
 
   function unwrapAfterPrint() {
+    // Возвращаем все клоны в скрытое состояние
+    $('#grid .card-print-clone').addClass('card--hidden');
     $('.print-page').each(function () {
       $(this).replaceWith($(this).children());
     });
@@ -908,9 +945,9 @@ $(function () {
     if (cardId == null) return;
     // Предпочитаем настоящую карту из её родной группы; pseudo-копия
     // в Корзине — запасной вариант на случай если real-копии нет.
-    var $target = $('#grid .card-item[data-card-id="' + cardId + '"]:not([data-trash-pseudo])').first();
+    var $target = $('#grid .card-item[data-card-id="' + cardId + '"]:not([data-trash-pseudo]):not(.card-print-clone)').first();
     if (!$target.length) {
-      $target = $('#grid .card-item[data-card-id="' + cardId + '"]').first();
+      $target = $('#grid .card-item[data-card-id="' + cardId + '"]:not(.card-print-clone)').first();
     }
     if (!$target.length) return;
 

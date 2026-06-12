@@ -508,6 +508,35 @@ body {
   box-shadow: 0 0 12px #e0505066;
 }
 
+/* ── Чекбокс «Печать количеством» ── */
+.filter-row--print-options {
+  padding-top: 8px;
+  border-top: 1px solid #3a2a10;
+}
+
+.print-qty-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: #a08050;
+  cursor: pointer;
+  user-select: none;
+}
+
+.print-qty-checkbox {
+  width: 13px;
+  height: 13px;
+  accent-color: #c8860a;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.print-qty-label:hover {
+  color: #e8d5a3;
+}
+
 /* ── Секция карточек — ширина совпадает с page-top ── */
 .cards-section {
   max-width: 1100px;

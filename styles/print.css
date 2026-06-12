@@ -109,6 +109,15 @@
   }
 
   /*
+    Режим «Печать количеством»: клоны видны в print-page,
+    только если wrapForPrint убрал с них card--hidden.
+    :not(.card--hidden) нужен, чтобы клоны скрытых карт не просочились.
+  */
+  .print-qty-mode .card-print-clone:not(.card--hidden) {
+    display: block !important;
+  }
+
+  /*
     Карточки с тегом `trash` никогда не печатаются — ни real-копия в
     родной группе, ни pseudo-копия в разделе «Корзина». wrapForPrint
     в app.js уже отфильтровывает их до группировки по 9, но эта
