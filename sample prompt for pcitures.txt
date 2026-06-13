@@ -3,11 +3,42 @@ Action: dynamic motion, metal tension, impact moment frozen
 Style: bold black outlines, flat shading, minimal detail, retro comic style
 Restrictions: no icons in top-left corner, no gradients, no realism, no excessive detail Paper texture background 
 
-Top banner title: "Сон Ёкая"
+Top banner title: "<TITLE>"
 
-Scene: Нарисуй крупным планом как ниндзя с довольным лицом тащит ящик с ловушками: среди которых Макибиши, Шкурка банана, и хлопушки
-
-Colors: brown, dark red, white, lime, metal
+Scene: <DESC>
 
 Use reference image, but DON'T RENDER the bottom text area
 Aspect ratio is 7:10
+
+Color Sets available:
+1. Crimson Sunrise
+colors: crimson red, orange, ivory white, warm beige, black, steel gray, gold
+
+2. Moonlit Ninja
+colors: dark navy, teal blue, forest green, olive, bone white, moon yellow
+
+3. Phoenix Fire
+colors: burnt orange, golden yellow, amber, red, charcoal black, sand beige, white
+
+4. Sacred Spring
+colors: sage green, mint green, aqua blue, cream, warm gray, pale gold
+
+5. Poison Lotus
+colors: purple, dark violet, acid green, lime, black, pale yellow
+
+6. Battlefield Dust
+colors: brown, khaki, dust yellow, dark olive, rust red, ivory
+
+7. Emerald Oni
+colors: emerald green, lime, orange, scarlet, black, white, cyan
+
+8. Cherry Blossom
+colors: sakura pink, coral, cream, warm red, brown, sky blue, gold
+
+9. Imperial Gold
+colors: gold, dark red, ivory, bronze, black, orange
+
+10. Yokai Twilight
+colors: deep purple, indigo, midnight blue, pale green, lavender, ghostly white
+
+Pick Three Sets Randomly and generate 3 images using each different color set.
