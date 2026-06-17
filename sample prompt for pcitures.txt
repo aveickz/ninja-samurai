@@ -10,6 +10,10 @@ Scene: <DESC>
 Use reference image, but DON'T RENDER the bottom text area
 Aspect ratio is 7:10
 
+Colors: 
+
+Draw this card!
+
 Color Sets available:
 1. Crimson Sunrise
 colors: crimson red, orange, ivory white, warm beige, black, steel gray, gold

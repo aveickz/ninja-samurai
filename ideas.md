@@ -86,3 +86,18 @@ TODO (STILL)
 Ловушка которая потом становится эффектом на атакующего)
 (капкан мог стать тем что враг теряет каждый свой ход ХП (слишком редко))
 или сделать это беззащитным, или теряем возможнсоть ипользовать оружие (? остается рукопашный бой)
+
+
+TODO: add contidionals to CARDS:
+IF YOU HAVE POISON
+IF YOU HAVE TRAP
+IF YOU HAVE STANCE
+IF YOU HAVE EFFECTS
+IF YOU HAVE TEAMAURA?
+
+TODO: 
+defffensive on-hit/on-kill affix to stances
+on-kill into effects
+
+add to stance: after-hit you can set a TRAP as Intervention
+
