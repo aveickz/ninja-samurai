@@ -13,7 +13,7 @@ $(function () {
     intervention: { label: 'Вмешательство', color: '#3B8476' },
     aoe:          { label: 'Групповая',     color: '#FFDDDD' },
     role:         { label: 'Роль',          color: '#9c6ec0' },
-    teamaura:     { label: 'Командная Аура', color: '#4a8a6a' }
+    teamaura:     { label: 'Командная Аура', color: '#93a32e' }
   };
 
   var ALL_TYPES = Object.keys(TYPE_META);
@@ -29,7 +29,7 @@ $(function () {
     stance:       '#A78B6B',
     modifier:     '#ED1C24',
     aoe:          '#231F20',
-    teamaura:     '#2a5a40',
+    teamaura:     '#93a32e',
     effect:       '#231F20',
     intervention: '#3B8476',
     character:    '#ddd',
