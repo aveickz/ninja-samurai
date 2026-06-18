@@ -101,3 +101,8 @@ on-kill into effects
 
 add to stance: after-hit you can set a TRAP as Intervention
 
+TODO: SOME PAIR OF STANCE-WEAPON combinations (e.g. polearm weapon + horse = BONUS)
+ASSASIN + CLAWS
+AND etc.
+?><
+Типа в стойке ассамина отправленые орудия ... TODO
