@@ -185,6 +185,10 @@
     opacity: 0.55;
   }
 
+  /* Кистевой разделитель после каждой главы избыточен —
+     у заголовка следующей главы свои штрихи. */
+  section.chapter + .brush-line { display: none; }
+
 
   /* ========== Главы ==========
      Содержимое глав свободно перетекает между колонками
@@ -194,58 +198,95 @@
   */
   section.chapter {
     margin: 0 0 5mm;
+    position: relative;
+    /* Правое поле под вертикальный кандзи-маркер */
+    padding-right: 14mm;
   }
-  h2.chapter-title {
-    font-size: 13pt;
-    margin: 0 0 5mm;
-    padding: 1mm 0 0 11mm;         /* место под квадратный значок + headroom */
-    min-height: 8.5mm;             /* не ниже значка — иначе он торчит выше */
+
+  /* Кандзи-маркер главы на правом поле */
+  section.chapter::before {
+    content: attr(data-mark);
+    position: absolute;
+    right: 0;
+    top: 0;
+    writing-mode: vertical-rl;
+    font-family: 'Han Zi Web', 'Shippori Mincho', serif;
+    font-size: 28pt;
+    line-height: 1;
     letter-spacing: 0.05em;
-    line-height: 1.25;
+    color: rgba(122, 20, 16, 0.32);
+  }
+
+  h2.chapter-title {
+    font-family: 'Han Zi Web', 'Shippori Mincho', serif;
+    font-size: 17pt;
+    margin: 0 0 4mm;
+    padding: 0;
+    min-height: 0;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    font-weight: 400;
+    text-transform: uppercase;
+    text-align: center;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4mm;
+
     /* Не разрывать заголовок между листами и не отрывать его
-       от первого абзаца главы. Если на странице остался кусочек
-       места, на котором заголовок не помещается целиком, —
-       вся пачка переезжает на следующий лист. */
+       от первого абзаца главы. */
     break-inside: avoid;
     page-break-inside: avoid;
     break-after: avoid;
     page-break-after: avoid;
   }
-  /* Квадратный значок главы с тематическим иероглифом.
-     На печати привязываем его к верху заголовка, а не к центру:
-     в исходном «top: 50% / translateY(-50%)» значок выступает
-     над h2 и при разрыве на новый лист может оказаться обрезан
-     краем страницы. */
-  h2.chapter-title::before {
-    top: 0;
-    transform: none;
-    width: 8.5mm;
-    height: 8.5mm;
-    font-size: 11pt;
-    border: 0.8pt solid #fff;
-    box-shadow:
-      0 0 0 0.4pt #7a1410,
-      0.6pt 0.9pt 0 rgba(0,0,0,0.18);
+
+  /* Кистевые штрихи по обе стороны заголовка */
+  h2.chapter-title::before,
+  h2.chapter-title::after {
+    content: "";
+    flex: 1;
+    height: 1.5pt;
+    background: radial-gradient(
+      ellipse 50% 90% at 50% 50%,
+      #1c1410 0%,
+      #3a2a1d 30%,
+      transparent 70%
+    );
+    opacity: 0.55;
+    /* отменяем все «бейдж»-свойства */
+    width: auto;
+    border: none;
+    box-shadow: none;
     text-shadow: none;
+    transform: none;
+    left: auto;
+    right: auto;
+    top: auto;
+    display: block;
+    position: static;
   }
 
   section.chapter p {
-    margin: 0 0 1.6mm;
-    text-indent: 1.2em;
+    margin: 0 0 1.4mm;
+    text-indent: 1.5em;
     text-align: left;
     orphans: 3;
     widows: 3;
   }
-  /* У первого абзаца главы — буквица, и поднимать ещё и абзацный
-     отступ перед ней не нужно: получается некрасивая дырка. */
+  /* Буквица убрана — все абзацы единого ритма, включая первый. */
   section.chapter p:first-of-type {
-    text-indent: 0;
+    text-indent: 1.5em;
   }
   section.chapter p:first-of-type::first-letter {
-    font-size: 2.4em;
-    line-height: 0.85;
-    padding: 1px 4px 0 0;
-    color: #7a1410;
+    font-size: inherit;
+    line-height: inherit;
+    padding: 0;
+    color: inherit;
+    float: none;
+    font-family: inherit;
+    font-weight: inherit;
   }
 
   section.chapter > h4 {

@@ -7,6 +7,15 @@
   font-display: swap;
 }
 
+/* Декоративный display-шрифт для заголовков глав:
+   узкие рисованные кириллические буквы. */
+@font-face {
+  font-family: 'Salma Pro';
+  src: url('fonts/Salma_Pro_Med_Narrow.woff') format('woff'),
+       url('fonts/Salma_Pro_Med_Narrow.ttf') format('truetype');
+  font-display: swap;
+}
+
 :root {
   --paper:        #efe1bf;
   --paper-dark:   #d9c391;
@@ -200,7 +209,7 @@ html, body {
 .ornament::before { content: "❖    ❖    ❖"; }
 
 .brush-line {
-  height: 16px;
+  height: 4px;
   background:
     radial-gradient(ellipse 50% 90% at 50% 50%,
       var(--ink) 0%,
@@ -211,6 +220,10 @@ html, body {
   width: 60%;
   filter: blur(0.4px);
 }
+
+/* Кистевой разделитель после каждой главы избыточен — у заголовка
+   следующей главы уже есть собственные штрихи слева и справа. */
+section.chapter + .brush-line { display: none; }
 
 /* ================== СОДЕРЖАНИЕ ================== */
 .toc {
@@ -285,58 +298,79 @@ html, body {
 section.chapter {
   margin: 50px 0;
   position: relative;
+  /* Резервируем правое поле под вертикальный кандзи-маркер главы */
+  padding-right: 56px;
 }
 
-h2.chapter-title {
-  font-family: 'Han Zi Web', 'Shippori Mincho', serif;
-  font-size: 30px;
-  color: var(--ink);
-  margin: 0 0 24px;
-  padding: 0 0 0 70px;
-  position: relative;
-  letter-spacing: 0.1em;
-  line-height: 1.3;
-}
-
-/* Значок главы — красный квадрат-печать с тематическим иероглифом,
-   взятым из атрибута data-mark на самом заголовке. */
-h2.chapter-title::before {
+/* Кандзи-маркер главы: крупный, вертикальный, приглушённо-красный,
+   как водяной знак на правом поле. data-mark копируется на section
+   с дочернего h2.chapter-title скриптом typograph.js. */
+section.chapter::before {
   content: attr(data-mark);
   position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 56px;
-  height: 56px;
-  background: var(--vermilion-dk);
-  color: var(--paper);
+  right: 0;
+  top: 0;
+  writing-mode: vertical-rl;
   font-family: 'Han Zi Web', 'Shippori Mincho', serif;
-  font-size: 32px;
+  font-size: 56px;
+  line-height: 1;
+  letter-spacing: 0.05em;
+  color: rgba(122, 20, 16, 0.32);
+}
+
+/* Заголовок главы как в макете: рисованный иероглифический
+   шрифт по центру, по обе стороны от текста — кистевые штрихи
+   (flex-элементы, занимающие всё свободное место). */
+h2.chapter-title {
+  font-family: 'Han Zi Web', 'Shippori Mincho', serif;
+  font-size: 40px;
+  color: var(--ink);
+  margin: 0 0 20px;
+  padding: 0;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  font-weight: 400;
+  text-transform: uppercase;
+  text-align: center;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid var(--paper);
-  box-shadow:
-    0 0 0 1px var(--vermilion-dk),
-    2px 3px 0 rgba(0,0,0,0.2);
-  text-shadow: 0 0 10px rgba(0,0,0,0.3);
+  gap: 20px;
+}
+
+/* Штрихи-разделители по обе стороны заголовка. */
+h2.chapter-title::before,
+h2.chapter-title::after {
+  content: "";
+  flex: 1;
+  height: 3px;
+  background: radial-gradient(
+    ellipse 50% 90% at 50% 50%,
+    var(--ink) 0%,
+    var(--ink-soft) 30%,
+    transparent 70%
+  );
+  opacity: 0.55;
+  filter: blur(0.4px);
 }
 
 section.chapter p {
-  margin: 0 0 14px;
+  margin: 0 0 6px;
   text-align: left;
-  text-indent: 0;
+  text-indent: 1.5em;
   color: var(--ink);
 }
 
+/* Буквицу убираем — все абзацы единого ритма, как в макете. */
 section.chapter p:first-of-type::first-letter {
-  font-family: 'Han Zi Web', serif;
-  font-size: 3.6em;
-  float: left;
-  line-height: 0.85;
-  padding: 6px 12px 0 0;
-  color: var(--vermilion-dk);
-  font-weight: 700;
+  font-family: inherit;
+  font-size: inherit;
+  float: none;
+  line-height: inherit;
+  padding: 0;
+  color: inherit;
+  font-weight: inherit;
 }
 
 /* Боковые «выноски» */
@@ -481,15 +515,17 @@ section.chapter > h4 {
 
 /* Адаптив */
 @media (max-width: 720px) {
-  .scroll { margin: 16px; }
-  .scroll-inner { padding: 50px 28px 40px; }
-  .scroll-inner::before { inset: 16px; }
-  .scroll-inner::after  { inset: 19px; }
+  .scroll { margin: 16px auto; }
+  .scroll-inner { padding: 10mm 10mm; }
+  .scroll-inner::before { inset: 12px; }
+  .scroll-inner::after  { inset: 15px; }
   .kanji-banner { font-size: 44px; letter-spacing: 0.2em; }
   .title { font-size: 30px; }
   .toc ol { columns: 1; }
-  h2.chapter-title { font-size: 24px; padding-left: 60px; }
-  h2.chapter-title::before { width: 46px; height: 46px; font-size: 26px; }
+  /* Глава: уменьшаем правое поле под кандзи и сам кандзи */
+  section.chapter { padding-right: 40px; }
+  h2.chapter-title { font-size: 22px; }
+  h2.chapter-title::before { font-size: 42px; }
   .hanko { width: 60px; height: 60px; font-size: 20px; top: -10px; right: -6px; }
 }
 

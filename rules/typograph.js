@@ -94,7 +94,25 @@
     }
   }
 
+  /* Копируем data-mark с h2.chapter-title на родительский
+     section.chapter — чтобы CSS section.chapter::before мог
+     прочитать атрибут через attr(data-mark). Так удалось
+     обойтись без 14 правок HTML. */
+  function syncChapterMarks() {
+    var titles = document.querySelectorAll(
+      'section.chapter > h2.chapter-title[data-mark]'
+    );
+    for (var i = 0; i < titles.length; i++) {
+      var h2 = titles[i];
+      var section = h2.parentNode;
+      if (section && !section.hasAttribute('data-mark')) {
+        section.setAttribute('data-mark', h2.getAttribute('data-mark'));
+      }
+    }
+  }
+
   function run() {
+    syncChapterMarks();
     process(document.body);
   }
 
