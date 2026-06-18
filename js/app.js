@@ -779,6 +779,56 @@ $(function () {
     $('<label>', { class: 'print-qty-label', 'for': 'print-qty-checkbox' })
       .append($cb, $('<span>', { text: ' Печать количеством (Quantity Based Print)' }))
       .appendTo($row4);
+
+    // Чекбокс «Печать рубашек» — после каждой страницы фронтов
+    // wrapForPrint вставляет страницу с рубашками (см. ниже).
+    var $backsCb = $('<input>', {
+      type: 'checkbox',
+      id:   'print-backs-checkbox',
+      class: 'print-backs-checkbox'
+    });
+    $backsCb.on('change', function () {
+      document.body.classList.toggle('print-backs-mode', this.checked);
+    });
+    $('<label>', {
+      class: 'print-backs-label',
+      'for': 'print-backs-checkbox',
+      title: 'После каждых 9 карточек добавляет страницу с рубашками для duplex-печати'
+    })
+      .append($backsCb, $('<span>', { text: ' Печать рубашек' }))
+      .appendTo($row4);
+
+    // ── CMYK soft-proof через Fogra39 ICC ──────────────────────────
+    // Тоггл подгружает styles/proof-cmyk-baked.css и тоглит
+    // body.proof-cmyk-baked. Логика сидит в инлайн-скрипте app.html
+    // (window.CmykProof.{on,off,toggle}); тут только UI.
+    var $cmykCb = $('<input>', {
+      type:  'checkbox',
+      id:    'cmyk-proof-checkbox',
+      class: 'cmyk-proof-checkbox'
+    });
+    $cmykCb.on('change', function () {
+      if (window.CmykProof) window.CmykProof.toggle();
+    });
+    $('<label>', {
+      class: 'cmyk-proof-label',
+      'for': 'cmyk-proof-checkbox',
+      title: 'Превью с эмуляцией офсетной печати (Fogra39 ICC)'
+    }).append(
+      $cmykCb,
+      $('<span>', { text: ' 🎨 CMYK preview (Fogra39)' })
+    ).appendTo($row4);
+
+    // Синхронизация чекбокса с реальным состоянием:
+    //   • при загрузке (если ?proof=cmyk был в URL — head-скрипт
+    //     уже включил его до того, как мы построили UI)
+    //   • при будущих изменениях через head-скрипт / URL
+    function syncCmykCheckbox() {
+      $cmykCb.prop('checked',
+        !!(window.CmykProof && window.CmykProof.isOn()));
+    }
+    syncCmykCheckbox();
+    document.addEventListener('cmyk-proof-change', syncCmykCheckbox);
   }
 
   // ── Закрытие зума кликом вне карточки или Escape ──────────────────
@@ -924,10 +974,40 @@ $(function () {
     $.each(pages, function (_, $group) {
       $group.wrapAll('<div class="print-page"></div>');
     });
+
+    // ── Печать рубашек ──
+    // Если включён режим, после каждой страницы фронтов вставляем
+    // зеркальную страницу-рубашку: те же 9 позиций в той же сетке,
+    // но каждая карта заменена на media/backs/{group}.png.
+    // Двусторонняя печать с duplex-flip укладывает их корректно.
+    if (document.body.classList.contains('print-backs-mode')) {
+      $('.print-page').each(function () {
+        var $frontPage = $(this);
+        var $backPage = $('<div>', { class: 'print-page print-page--back' });
+        $frontPage.children('.card-item').each(function () {
+          var group = $(this).attr('data-group');
+          var img = (group === 'role')      ? 'media/backs/role.png'
+                  : (group === 'character') ? 'media/backs/character.png'
+                  :                            'media/backs/default.png';
+          $('<div>', { class: 'card-item card-item--back' })
+            .append($('<img>', {
+              class: 'card-back-img',
+              src: img,
+              alt: '',
+              draggable: false
+            }).on('error', function () { $(this).hide(); }))
+            .appendTo($backPage);
+        });
+        $frontPage.after($backPage);
+      });
+    }
   }
 
   function unwrapAfterPrint() {
-    // Возвращаем все клоны в скрытое состояние
+    // Синтетические страницы-рубашки — выкидываем целиком, иначе при
+    // повторной печати они задвоятся.
+    $('.print-page--back').remove();
+    // Возвращаем qty-клоны в скрытое состояние
     $('#grid .card-print-clone').addClass('card--hidden');
     $('.print-page').each(function () {
       $(this).replaceWith($(this).children());

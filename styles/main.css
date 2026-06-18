@@ -537,6 +537,58 @@ body {
   color: #e8d5a3;
 }
 
+/* ── Чекбокс «🎨 CMYK preview» ── */
+/* Сидит на том же ряду filter-row--print-options, что и
+   «Печать количеством». Поведение — в head-скрипте app.html. */
+.cmyk-proof-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: #a08050;
+  cursor: pointer;
+  user-select: none;
+  margin-left: 18px;
+}
+
+.cmyk-proof-checkbox {
+  width: 13px;
+  height: 13px;
+  accent-color: #c8860a;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.cmyk-proof-label:hover {
+  color: #e8d5a3;
+}
+
+/* ── Чекбокс «Печать рубашек» — третий чекбокс в ряду опций печати ── */
+.print-backs-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: #a08050;
+  cursor: pointer;
+  user-select: none;
+  margin-left: 18px;
+}
+
+.print-backs-checkbox {
+  width: 13px;
+  height: 13px;
+  accent-color: #c8860a;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.print-backs-label:hover {
+  color: #e8d5a3;
+}
+
 /* ── Секция карточек — ширина совпадает с page-top ── */
 .cards-section {
   max-width: 1100px;

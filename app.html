@@ -8,6 +8,74 @@
   <link rel="stylesheet" href="styles/card.css">
   <link rel="stylesheet" href="styles/comments.css">
   <link rel="stylesheet" href="styles/print.css" media="print">
+  <!--
+    CMYK soft-proof через Fogra39 ICC.
+
+    Включается двумя способами:
+      • ?proof=cmyk в URL (для шаринга ссылки)
+      • кнопка «🎨 CMYK preview» в строке фильтров — она тогглит
+        тот же режим и обновляет URL через history.replaceState.
+
+    Подключаем proof-cmyk-baked.css — он содержит палитру, прогнанную
+    через ICC (sRGB → CMYK → sRGB) реальным lcms-engine'ом.
+    Это работает в ЛЮБОМ браузере: внутри обычные #hex значения,
+    никакого @color-profile / color() не используется.
+
+    Альтернативный proof-cmyk.css (spec-based, через @color-profile)
+    оставлен в репо для будущего, когда браузеры догонят CSS Color 4.
+  -->
+  <script>
+    (function () {
+      window.CmykProof = {
+        on:  function () { setProof(true);  },
+        off: function () { setProof(false); },
+        toggle: function () {
+          setProof(!document.body.classList.contains('proof-cmyk-baked'));
+        },
+        isOn: function () {
+          return document.body.classList.contains('proof-cmyk-baked');
+        }
+      };
+      function setProof(on) {
+        var linkId = 'proof-cmyk-link';
+        var existing = document.getElementById(linkId);
+        if (on) {
+          if (!existing) {
+            var link = document.createElement('link');
+            link.id = linkId;
+            link.rel = 'stylesheet';
+            link.href = 'styles/proof-cmyk-baked.css';
+            document.head.appendChild(link);
+          }
+          if (document.body) document.body.classList.add('proof-cmyk-baked');
+        } else {
+          if (existing) existing.remove();
+          if (document.body) document.body.classList.remove('proof-cmyk-baked');
+        }
+        // Синхронизируем URL — чтобы ссылку можно было шарить
+        // и чтобы перезагрузка сохраняла состояние.
+        try {
+          var url = new URL(location.href);
+          if (on)  url.searchParams.set('proof', 'cmyk');
+          else     url.searchParams.delete('proof');
+          history.replaceState(null, '', url);
+        } catch (e) { /* ignore старые браузеры */ }
+        // Кнопка-тоггл в фильтр-баре подсветится — app.js слушает
+        // событие cmyk-proof-change.
+        document.dispatchEvent(new CustomEvent('cmyk-proof-change',
+          { detail: { on: on } }));
+      }
+
+      // Инициализация: если ?proof=cmyk в URL — включаем сразу.
+      if (/[?&]proof=cmyk\b/.test(location.search)) {
+        // body ещё может быть не готов — подождём DOMContentLoaded
+        if (document.body) setProof(true);
+        else document.addEventListener('DOMContentLoaded', function () {
+          setProof(true);
+        });
+      }
+    })();
+  </script>
 </head>
 <body>
 

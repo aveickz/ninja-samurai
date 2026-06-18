@@ -49,7 +49,7 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["melee1", "dmg2"],
-    tags: [],
+    tags: ["toPrint"],
     desc: "При наличии стойки вы наносите на 1 рану больше.",
     img: "cards/card_2_katana.png"
   },
@@ -227,7 +227,7 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["melee1", "dmg1"],
-    tags: ["toPrint"],
+    tags: [],
     desc: "",
     img: "cards/card_17_ono.png"
   },
@@ -238,7 +238,7 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["melee1", "dmg1"],
-    tags: ["toPrint"],
+    tags: [],
     desc: "",
     img: "cards/card_nata.png"
   },
@@ -448,7 +448,7 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["ranged", "dmg1", "poison"],
-    tags: ["poison"],
+    tags: ["poison", "toPrint"],
     desc: "",
     img: "cards/card_34_syuriken.png"
   },
@@ -551,7 +551,7 @@ const CARDS = [
     qty: 2,
     group: "trap",
     icons: ["effect8"],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Атакующий получает две раны от владельца ловушки. Также эта карта переходит на атакующего эффектом, не дающим ему атаковать дальше дистанции в 1.",
     img: "cards/card_43_kapkan.png"
   },
@@ -608,7 +608,7 @@ const CARDS = [
     qty: 8,
     group: "defense",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "",
     img: "cards/card_48_zashchita.png"
   },
@@ -742,7 +742,7 @@ const CARDS = [
     qty: 2,
     group: "stance",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "При выставлении восстановить два жетона жизни.[NL]Перед каждой фазой набора вы можете: восстановить жетон жизни любому игроку {ИЛИ} взять карту из колоды.",
     img: "cards/card_59_lotos.png"
   },
@@ -1037,7 +1037,7 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Ваше текущее количество жетонов победы добавляется к силе атаки.",
     img: "cards/card_victory_strike.png"
   },
@@ -1093,7 +1093,7 @@ const CARDS = [
     qty: 1,
     group: "intervention",
     icons: ["aoe"],
-    tags: ["draft"],
+    tags: ["toPrint"],
     desc: "Все ловушки на столе открываются, но продолжают действовать. За каждую просветлённую ловушку вы берёте карту из колоды.",
     img: "cards/card_85_prosvietlenie.png"
   },
@@ -1248,7 +1248,7 @@ const CARDS = [
     qty: 3,
     group: "effect",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Все атаки по вам наносят на одну рану больше, и атакующий берёт 1 карту из колоды.[NL]{Убивший вас игрок} берёт две карты из колоды.",
     img: "cards/card_90_metka_ubiytsy.png"
   },
@@ -2015,7 +2015,7 @@ const CARDS = [
     qty: 1,
     group: "teamaura",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Персонажи {союзников} не учитываются при расчёте дистанции для совершения прямых атак.",
     img: "cards/card_march.png"
   },

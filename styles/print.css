@@ -87,7 +87,12 @@
     transform: none !important;
     z-index: auto !important;
     box-shadow: none !important;
-    outline: 2px dashed #999;
+    /* Пунктирную обводку оставляем «на своём месте», но делаем
+       прозрачной — на бумагу она не идёт, отступ outline-offset
+       при этом продолжает удерживать визуальный зазор между картами.
+       Если нужно вернуть как линию для резки — заменить transparent
+       на #999 (или любой видимый цвет). */
+    outline: 2px dashed transparent;
     outline-offset: 5px;
     border-radius: 5px;
   }
@@ -154,6 +159,44 @@
   .card-item.is-zoomed {
     transform: none !important;
     box-shadow: none !important;
+  }
+
+  /* ── Печать рубашек ──
+     .print-page--back — синтетическая страница, добавляется в
+     wrapForPrint после каждой страницы фронтов. Структура полностью
+     совпадает с обычной .print-page (та же 3×3 сетка с одинаковыми
+     gap'ами через space-evenly), чтобы при duplex-печати рубашки
+     легли ровно над лицевой стороной. */
+  .print-page--back {
+    /* наследует все правила .print-page */
+  }
+
+  /* .card-item--back — клон-плейсхолдер, шириной как обычный
+     card-item, с тем же пунктирным outline'ом для ориентира при
+     резке. Внутри только одна картинка-рубашка. */
+  .card-item--back {
+    width: 51.7mm !important;
+    aspect-ratio: 611 / 978;
+    break-inside: avoid;
+    page-break-inside: avoid;
+    /* Та же логика, что и для .card-item: outline в проявленном виде
+       не печатаем, но оставляем правило + offset, чтобы рамка ровно
+       совпадала с лицевой стороной при duplex-печати. */
+    outline: 2px dashed transparent;
+    outline-offset: 5px;
+    border-radius: 5px;
+    overflow: hidden;
+    background: transparent;
+  }
+
+  .card-back-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* печатаем фон-картинку как есть, без коррекции */
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 
 }
