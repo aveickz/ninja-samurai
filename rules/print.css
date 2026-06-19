@@ -289,45 +289,79 @@
     font-weight: inherit;
   }
 
+  /* Подзаголовки внутри глав — простой второй уровень:
+     обычный sans-шрифт тела, слева, жирность; без иероглифа,
+     без мазка, без линий. */
   section.chapter > h4 {
+    font-family: inherit;
     font-size: 10pt;
+    font-weight: 700;
     margin: 2.5mm 0 1mm;
-    padding-bottom: 1px;
-    color: #7a1410;
-    letter-spacing: 0.1em;
-    /* Тонкая, слабоконтрастная подложечная линия — на печати
-       исходный «1px dotted» выглядит непропорционально тяжёлым,
-       поэтому переопределяем на волосяную (hairline) сплошную. */
-    border-bottom: 0.3pt solid rgba(106, 74, 48, 0.35);
+    padding: 0;
+    color: #3a2a1d;                /* var(--ink-soft) */
+    letter-spacing: 0;
+    border: none;
+    text-align: left;
+
     break-after: avoid;
     page-break-after: avoid;
   }
 
 
-  /* ========== Выноски ========== */
+  /* ========== Выноски ==========
+     Без курсива и плашки. Слева — кистевой штрих, в начале — 注. */
   aside.note {
+    position: relative;
     font-size: 8pt;
-    padding: 3px 8px;
+    padding: 1mm 2mm 1mm 7mm;
     margin: 1.5mm 0;
     line-height: 1.35;
-    border-left: 2pt double #7a1410;
-    background: rgba(177, 40, 29, 0.05) !important;
+    font-style: normal;
+    color: #1c1410;
+    background-image: radial-gradient(
+      ellipse 50% 90% at 50% 50%,
+      #3a2a1d 0%,
+      #6a4a30 30%,
+      transparent 70%
+    ) !important;
+    background-size: 1pt 100%;
+    background-repeat: no-repeat;
+    background-position: left center;
+    border: none;
     break-inside: avoid;
   }
 
+  aside.note::before {
+    content: "注";
+    font-family: 'Han Zi Web', 'Shippori Mincho', serif;
+    font-size: 10pt;
+    color: #7a1410;
+    position: absolute;
+    left: 2mm;
+    top: 50%;
+    transform: translateY(-50%);
+    line-height: 1;
+    font-style: normal;
+    font-weight: 400;
+  }
 
-  /* ========== Списки «порядка» ========== */
+
+  /* ========== Списки «порядка» — без плашки и рамки. ========== */
   .order-list {
-    padding: 4px 8px 5px 12px;
+    padding: 0;
     margin: 1.5mm 0;
-    background: rgba(110, 70, 20, 0.06) !important;
-    border: 0.5pt solid rgba(110, 70, 20, 0.35);
+    background: none !important;
+    border: none;
     break-inside: avoid;
   }
   .order-list h4 {
+    font-family: inherit;
     font-size: 9.5pt;
+    font-weight: 700;
     margin: 0 0 1mm;
-    letter-spacing: 0.2em;
+    letter-spacing: 0;
+    color: #3a2a1d;
+    text-align: left;
   }
   .order-list ol { padding-left: 4mm; }
   .order-list li {

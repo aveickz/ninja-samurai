@@ -373,38 +373,65 @@ section.chapter p:first-of-type::first-letter {
   font-weight: inherit;
 }
 
-/* Боковые «выноски» */
-aside.note {
-  border-left: 3px double var(--vermilion-dk);
-  background: rgba(177, 40, 29, 0.05);
-  padding: 12px 18px;
-  margin: 18px 0;
+/* Боковые «выноски» — без фона и курсива.
+   Слева — вертикальный кистевой штрих (через background-image),
+   с мягко затухающими краями, как настоящий мазок туши.
+   В начале — иероглиф 注 «внимание/заметка», классический
+   японский маркер примечания. */
+/*
+  card-term — inline-метка слова, которое на настоящей карточке
+  стоит в фигурных скобках (служебный маркер условия в desc).
+  В правилах скобки убираем как технический артефакт и стилизуем
+  слово как на самой карте: жирно-курсивом и приглушённо-серым.
+  Палитра свитка тёплая, поэтому «серый» здесь — ink-faded
+  (#6a4a30), а не нейтрально-холодный.
+*/
+em.card-term {
   font-style: italic;
-  color: var(--ink-soft);
-  font-size: 15px;
-}
-
-aside.note::before {
-  content: "✦ ";
-  color: var(--vermilion-dk);
-  font-style: normal;
   font-weight: 700;
+  color: var(--ink-faded);
+  letter-spacing: 0.01em;
 }
 
-/* Списки порядка */
+aside.note {
+  position: relative;
+  /* Левый отступ был 36px — освобождал место под иероглиф 注.
+     Сейчас иероглиф убран, оставляем только запас под кистевой
+     штрих в левом крае (background-image ниже). */
+  padding: 6px 14px 6px 18px;
+  margin: 18px 0;
+  color: var(--ink);
+  font-size: 15px;
+
+  background-image: radial-gradient(
+    ellipse 50% 90% at 50% 50%,
+    var(--ink-soft) 0%,
+    var(--ink-faded) 30%,
+    transparent 70%
+  );
+  background-size: 5px 100%;
+  background-repeat: no-repeat;
+  background-position: left center;
+}
+
+/* Списки порядка — без плашки и рамки, единый ритм с телом текста. */
 .order-list {
-  background: rgba(110, 70, 20, 0.06);
-  border: 1px solid rgba(110, 70, 20, 0.3);
-  padding: 18px 28px;
+  background: none;
+  border: none;
+  padding: 0;
   margin: 18px 0;
 }
 
+/* Заголовок «Атакующий» / «Защищающийся» — обычный жирный
+   подзаголовок, как и section.chapter > h4. */
 .order-list h4 {
-  font-family: 'Han Zi Web', serif;
-  color: var(--vermilion-dk);
+  font-family: inherit;
+  color: var(--ink-soft);
   margin: 0 0 8px;
   font-size: 18px;
-  letter-spacing: 0.2em;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-align: left;
 }
 
 .order-list ol {
@@ -470,15 +497,19 @@ aside.note::before {
 .pattern-corner.bl { bottom: 36px; left: 36px; transform: scaleY(-1); }
 .pattern-corner.br { bottom: 36px; right: 36px; transform: scale(-1, -1); }
 
-/* Подзаголовки внутри глав */
+/* Подзаголовки внутри глав. Скромный второй уровень: обычный
+   sans-шрифт тела текста, тёмно-чернильный цвет, выровнено слева;
+   единственное, что отличает от тела — жирность. */
 section.chapter > h4 {
-  font-family: 'Han Zi Web', 'Shippori Mincho', serif;
-  color: var(--vermilion-dk);
+  font-family: inherit;
+  color: var(--ink-soft);
   font-size: 20px;
-  letter-spacing: 0.15em;
+  font-weight: 700;
+  letter-spacing: 0;
   margin: 26px 0 10px;
-  padding-bottom: 4px;
-  border-bottom: 1px dotted var(--ink-faded);
+  padding: 0;
+  border: none;
+  text-align: left;
 }
 
 /* Таблицы балансировки */
