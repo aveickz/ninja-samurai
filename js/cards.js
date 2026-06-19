@@ -40,6 +40,18 @@ const CARDS = [
     desc: "",
     img: "cards/card_role_samurai.png"
   },
+  {
+    id: 203,
+    title: "Placeholder",
+    titleBgColor: "#891511",
+    types: ["role"],
+    qty: 1,
+    group: "role",
+    icons: [],
+    tags: [],
+    desc: "",
+    img: "cards/card_todo_white.png"
+  },
 
   // ── ОРУЖИЕ (стр. 1–5) ────────────────────────────────────────────
   {
@@ -94,7 +106,7 @@ const CARDS = [
     group: "weapon",
     icons: ["melee2", "dmg1", "rolectx"],
     tags: [],
-    desc: "От удара {ниндзи} нельзя защититься, и он игнорирует ловушки.",
+    desc: "В стойке {ассасина} наносит на одну рану больше.[NL]От удара {ниндзи} нельзя защититься, и он игнорирует ловушки.",
     img: "cards/card_5_kinzhal_predatelya.png"
   },
   {
@@ -140,7 +152,7 @@ const CARDS = [
     group: "weapon",
     icons: ["melee1", "dmg1", "defense"],
     tags: [],
-    desc: "Можно использовать как карту Защиты.",
+    desc: "Можно использовать как карту Защиты. В стойке {щитоносца} наносит на одну рану больше.",
     img: "cards/card_9_shipastyy_shchit.png"
   },
   {
@@ -339,7 +351,7 @@ const CARDS = [
     group: "weapon",
     icons: ["melee2", "dmg3"],
     tags: [],
-    desc: "Атакуемый игрок теряет стойку в случае успешной атаки.",
+    desc: "",
     img: "cards/card_25_nodati.png"
   },
   {
@@ -383,7 +395,7 @@ const CARDS = [
     group: "weapon",
     icons: ["melee2", "dmg1"],
     tags: [],
-    desc: "",
+    desc: "В стойке {всадника} наносит на одну рану больше.",
     img: "cards/card_29_yari.png"
   },
   {
@@ -394,7 +406,7 @@ const CARDS = [
     group: "weapon",
     icons: ["melee2", "dmg1"],
     tags: [],
-    desc: "",
+    desc: "В стойке {всадника} наносит на одну рану больше.",
     img: "cards/card_31_kamayari.png"
   },
   {
@@ -405,7 +417,7 @@ const CARDS = [
     group: "weapon",
     icons: ["melee2", "dmg1", "poison"],
     tags: ["poison"],
-    desc: "",
+    desc: "В стойке {всадника} наносит на одну рану больше.",
     img: "cards/card_29_yari.png"
   },
   {
@@ -427,7 +439,7 @@ const CARDS = [
     group: "weapon",
     icons: ["ranged", "dmg2"],
     tags: [],
-    desc: "",
+    desc: "В стойке {лучника} наносит на одну рану больше.",
     img: "cards/card_33_dayku.png"
   },
   {
@@ -483,7 +495,7 @@ const CARDS = [
     group: "weapon",
     icons: ["ranged", "dmg2", "poison"],
     tags: ["poison"],
-    desc: "",
+    desc: "В стойке {лучника} наносит на одну рану больше.",
     img: "cards/card_33_dayku.png"
   },
   {
@@ -572,9 +584,9 @@ const CARDS = [
     types: ["trap"],
     qty: 2,
     group: "trap",
-    icons: [],
+    icons: ["rolectx", "effect8"],
     tags: [],
-    desc: "Вы оскорбляете атакующего. Иногда это хуже смерти :) TODO: перейти эффектом в ярость?",
+    desc: "Вы оскорбляете атакующего. Для {самурая} это хуже смерти, и он получает эту карту как эффект бешенства, сбрасывая каждый раз карту при прямой атаке.",
     img: "cards/card_47_oskorblenie.png"
   },
   {
@@ -595,8 +607,8 @@ const CARDS = [
     qty: 2,
     group: "trap",
     icons: ["effect8"],
-    tags: ["draft"],
-    desc: "Переходит эффектом на атакующего, и он лишается возможности использовать оружие.",
+    tags: [],
+    desc: "Переходит эффектом на атакующего, и он лишается возможности использовать оружие для прямых атак.",
     img: "cards/card_glass_wounds.png"
   },
 
@@ -660,11 +672,11 @@ const CARDS = [
     id: 53,
     title: "Карманник",
     types: ["defense"],
-    qty: 4,
+    qty: 2,
     group: "defense",
     icons: [],
     tags: [],
-    desc: "Вы также забираете у атакующего случайную карту. TODO: reduce qty?",
+    desc: "Вы также забираете у атакующего случайную карту.",
     img: "cards/card_51_karmannik.png"
   },
   {
@@ -675,7 +687,7 @@ const CARDS = [
     group: "defense",
     icons: [],
     tags: [],
-    desc: "Атакующий сбрасывает случайную карту. TODO: remove all Stagger?",
+    desc: "Атакующий сбрасывает случайную карту.[NL]В стойке {щитоносца} вы берёте 1 карту из колоды.",
     img: "cards/card_54_oshelomlenie.png"
   },
   {
@@ -806,9 +818,10 @@ const CARDS = [
     types: ["stance"],
     qty: 1,
     group: "stance",
+    icons: ["hpctx"],
     tags: [],
-    desc: "TODO: low/max/mid HP different effects?[NL]{На пороге вашей смерти}",
-    img: "cards/card_todo.png",
+    desc: "[NL]{При полном здоровье} совершая прямые атаки вы берёте 2 карты из колоды.[NL]{На пороге смерти} ваши атаки наносят дополнительно 2 раны.",
+    img: "cards/card_musin.png",
   },
   {
     id: 1166,
@@ -829,7 +842,7 @@ const CARDS = [
     group: "modifier",
     icons: ["poison"],
     tags: ["poison"],
-    desc: "Ваша атака теперь накладывает отравление.",
+    desc: "Ваша атака теперь накладывает отравление и наносит на 1 рану больше.",
     img: "cards/card_64_flakon_yada.png"
   },
   {
@@ -939,7 +952,7 @@ const CARDS = [
     group: "modifier",
     icons: [],
     tags: [],
-    desc: "Меняет ваше оружие на метательное с базовой силой атаки 1. TODO: reduce quantity?",
+    desc: "Меняет ваше оружие на метательное с базовой силой атаки 1.",
     img: "cards/card_75_brosok.png"
   },
   {
@@ -1170,7 +1183,7 @@ const CARDS = [
     qty: 1,
     group: "aoe",
     icons: ["charges"],
-    tags: [],
+    tags: ["trash", "draft"],
     desc: "За каждого активного союзника, ваши союзника берут по карте из колоды.",
     img: "cards/card_todo.png"
   },
@@ -1181,7 +1194,7 @@ const CARDS = [
     qty: 1,
     group: "aoe",
     icons: ["charges"],
-    tags: [],
+    tags: ["draft", "trash"],
     desc: "За каждого активного союзника, ваши союзника восстанавливают 1 жетон здоровья.",
     img: "cards/card_todo.png"
   },
@@ -1245,7 +1258,7 @@ const CARDS = [
     id: 91,
     title: "Метка убийцы",
     types: ["effect"],
-    qty: 3,
+    qty: 4,
     group: "effect",
     icons: [],
     tags: ["toPrint"],
@@ -1256,7 +1269,7 @@ const CARDS = [
     id: 92,
     title: "Противоядие",
     types: ["effect"],
-    qty: 2,
+    qty: 1,
     group: "effect",
     icons: [],
     tags: [],
@@ -1278,7 +1291,7 @@ const CARDS = [
     id: 94,
     title: "Кагинава",
     types: ["effect"],
-    qty: 2,
+    qty: 3,
     group: "effect",
     icons: [],
     tags: [],
@@ -1289,7 +1302,7 @@ const CARDS = [
     id: 95,
     title: "Разоружение",
     types: ["effect"],
-    qty: 2,
+    qty: 1,
     group: "effect",
     icons: [],
     tags: [],
@@ -1311,7 +1324,7 @@ const CARDS = [
     id: 97,
     title: "Пыль в глаза",
     types: ["effect"],
-    qty: 2,
+    qty: 1,
     group: "effect",
     icons: [],
     tags: [],
@@ -1333,7 +1346,7 @@ const CARDS = [
     id: 100,
     title: "Слабость",
     types: ["effect"],
-    qty: 2,
+    qty: 1,
     group: "effect",
     icons: [],
     tags: [],
@@ -1358,7 +1371,7 @@ const CARDS = [
     qty: 2,
     group: "effect",
     icons: [],
-    tags: ["thrash"],
+    tags: ["trash", "draft"],
     desc: "Выбранный игрок берёт на одну карту больше в фазе набора. TODO: remove?",
     img: "cards/card_101_dukh_lidera.png"
   },
@@ -1366,7 +1379,7 @@ const CARDS = [
     id: 103,
     title: "Бессилие",
     types: ["effect"],
-    qty: 2,
+    qty: 1,
     group: "effect",
     icons: [],
     tags: [],
@@ -1386,13 +1399,13 @@ const CARDS = [
   },
   {
     id: 4104,
-    title: "?CURSE?",
+    title: "Проклятье",
     types: ["effect"],
-    qty: 2,
+    qty: 1,
     group: "effect",
     icons: [],
     tags: [],
-    desc: "TODO: Curse - type effect, that goes to killer",
+    desc: "Получая любой вид урона, вы получаете на 2 раны больше. Проклятье переходит на убившего вас игрока.",
     img: "cards/card_todo.png"
   },
 
@@ -1427,7 +1440,7 @@ const CARDS = [
     group: "action",
     icons: ["hpctx"],
     tags: [],
-    desc: "Любой выбранный активный игрок восстанавливает 2 жетона жизни. {На пороге вашей смерти} вы можете вылечить другого игрока на 3 жизни.",
+    desc: "Любой выбранный активный игрок восстанавливает 2 жетона жизни. В стойке {капеллана} восстанавливает на 1 жизнь больше.[NL]{На пороге вашей смерти} вы можете вылечить другого игрока на 3 жизни.",
     img: "cards/card_106_shvy.png"
   },
   {
@@ -1459,7 +1472,7 @@ const CARDS = [
     qty: 2,
     group: "action",
     icons: [],
-    tags: [],
+    tags: ["draft", "trash"],
     desc: "Другой выбранный активный игрок скидывает свою текущую стойку, за это вы берёте карту. Или можете сбросить эту карту, чтобы взять две новых из колоды. TODO: remove carD entirelly? Or make something else based on having a condition of having STAANCE?",
     img: "cards/card_46_boevoy_banan.png"
   },
@@ -1504,7 +1517,7 @@ const CARDS = [
     group: "action",
     icons: ["hpctx"],
     tags: [],
-    desc: "Восстановите все недостающие жетоны стойкости. Любой игрок на ваш выбор берёт одну карту из колоды. -ИЛИ- {При полном здоровье} Вместо одной карты — две.",
+    desc: "Восстановите все недостающие жетоны стойкости. Любой другой игрок на ваш выбор берёт одну карту из колоды.[NL]{При полном здоровье} вместо одной карты — две, и можете взять карты себе.",
     img: "cards/card_113_peredyshka.png"
   },
   {
@@ -1522,11 +1535,11 @@ const CARDS = [
     id: 116,
     title: "Яд фугу",
     types: ["action"],
-    qty: 2,
+    qty: 1,
     group: "action",
     icons: ["poison"],
     tags: ["poison"],
-    desc: "Отравляет выбранного активного игрока. TODO: way too simple of a card!",
+    desc: "Отравляет выбранного активного игрока.",
     img: "cards/card_116_yad_fugu.png"
   },
   {
@@ -1614,7 +1627,7 @@ const CARDS = [
     group: "action",
     icons: [],
     tags: [],
-    desc: "Заставьте мёртвого игрока выложить все карты на стол, и можете забрать любые две из них. После карты опять скрываются. TODO: нет действия на живых? Может для ниндзя и самурая по раздному (например Самураи только союзников, ниндзя и врагов) и со штрафом?",
+    desc: "Заставьте мёртвого игрока выложить все карты на стол, и можете забрать любые 2 из них. После карты опять скрываются. У живых игроков можно просто своровать 2 случайных карты.",
     img: "cards/card_loot_corpse.png"
   },
   {
@@ -1756,11 +1769,11 @@ const CARDS = [
     id: 129,
     title: "Воровство",
     types: ["action"],
-    qty: 3,
+    qty: 2,
     group: "action",
     icons: [],
     tags: [],
-    desc: "Заберите одну случайную карту с руки любого активного игрока. TODO: remake?",
+    desc: "Заберите одну случайную карту с руки любого активного игрока.",
     img: "cards/card_128_vorovstvo.png"
   },
   {
@@ -2037,8 +2050,8 @@ const CARDS = [
     qty: 1,
     group: "teamaura",
     icons: [],
-    tags: ["draft"],
-    desc: "Любой {союзник} может разыграть карту защиты с руки как вмешательство в защиту другого союзника. Бонусы карты защиты при этом не сохраняются. TODO: punish the holder?",
+    tags: [],
+    desc: "Любой {союзник} может разыграть карту защиты с руки как вмешательство в защиту другого союзника. Бонусы карты защиты при этом не сохраняются.",
     img: "cards/card_back_to_back.png"
   },
   {
