@@ -87,12 +87,9 @@
     transform: none !important;
     z-index: auto !important;
     box-shadow: none !important;
-    /* Пунктирную обводку оставляем «на своём месте», но делаем
-       прозрачной — на бумагу она не идёт, отступ outline-offset
-       при этом продолжает удерживать визуальный зазор между картами.
-       Если нужно вернуть как линию для резки — заменить transparent
-       на #999 (или любой видимый цвет). */
-    outline: 2px dashed transparent;
+    /* Серый пунктир — guide для резки ножницами/ножом, печатается
+       вокруг каждой карты. Backs его не печатают (см. .card-item--back). */
+    outline: 2px dashed #999;
     outline-offset: 5px;
     border-radius: 5px;
   }

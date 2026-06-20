@@ -13,13 +13,13 @@ $(function () {
     intervention: { label: 'Вмешательство', color: '#3B8476' },
     aoe:          { label: 'Групповая',     color: '#FFDDDD' },
     role:         { label: 'Роль',          color: '#9c6ec0' },
-    teamaura:     { label: 'Командная Аура', color: '#93a32e' }
+    aura:         { label: 'Аура',          color: '#93a32e' }
   };
 
   var ALL_TYPES = Object.keys(TYPE_META);
 
   // Типы, для которых показывается блок-метка над описанием
-  var BLOCK_TYPES = ['trap', 'stance', 'modifier', 'intervention', 'defense', 'effect'];
+  var BLOCK_TYPES = ['trap', 'stance', 'modifier', 'intervention', 'defense', 'effect', 'aura'];
 
   // ── Цвета верхней плашки по группе ───────────────────────────────
   var GROUP_TITLE_COLOR = {
@@ -29,7 +29,7 @@ $(function () {
     stance:       '#A78B6B',
     modifier:     '#ED1C24',
     aoe:          '#231F20',
-    teamaura:     '#93a32e',
+    aura:     '#93a32e',
     effect:       '#231F20',
     intervention: '#3B8476',
     character:    '#ddd',
@@ -42,7 +42,7 @@ $(function () {
   // role идёт первой — это мета-карта (кто играет), не часть колоды.
   var GROUP_ORDER = [
     'weapon', 'trap', 'defense', 'stance', 'modifier',
-    'aoe', 'teamaura', 'effect', 'action', 'intervention',  'character', 'role',
+    'aoe', 'aura', 'effect', 'action', 'intervention',  'character', 'role',
   ];
 
   var GROUP_LABELS = {
@@ -56,7 +56,7 @@ $(function () {
     action:       'Действия',
     intervention: 'Вмешательства',
     role:         'Роли',
-    teamaura:     'Командная Аура',
+    aura:         'Аура',
     character:    'Персонажи',
     trash:        'Корзина'
   };
