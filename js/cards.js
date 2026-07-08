@@ -61,7 +61,7 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["melee1", "dmg2"],
-    tags: ["toPrint"],
+    tags: [],
     desc: "При наличии стойки вы наносите на 1 рану больше.",
     img: "cards/card_2_katana.png"
   },
@@ -460,7 +460,7 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["ranged", "dmg1", "poison"],
-    tags: ["poison", "toPrint"],
+    tags: ["poison", ],
     desc: "",
     img: "cards/card_34_syuriken.png"
   },
@@ -563,7 +563,7 @@ const CARDS = [
     qty: 2,
     group: "trap",
     icons: ["effect8"],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Атакующий получает две раны от владельца ловушки. Также эта карта переходит на атакующего эффектом, не дающим ему атаковать дальше дистанции в 1.",
     img: "cards/card_43_kapkan.png"
   },
@@ -620,7 +620,7 @@ const CARDS = [
     qty: 8,
     group: "defense",
     icons: [],
-    tags: ["toPrint"],
+    tags: [],
     desc: "",
     img: "cards/card_48_zashchita.png"
   },
@@ -754,7 +754,7 @@ const CARDS = [
     qty: 2,
     group: "stance",
     icons: [],
-    tags: ["toPrint"],
+    tags: [],
     desc: "При выставлении восстановить два жетона жизни.[NL]Перед каждой фазой набора вы можете: восстановить жетон жизни любому игроку {ИЛИ} взять карту из колоды.",
     img: "cards/card_59_lotos.png"
   },
@@ -1050,7 +1050,7 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     icons: [],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Ваше текущее количество жетонов победы добавляется к силе атаки.",
     img: "cards/card_victory_strike.png"
   },
@@ -1106,7 +1106,7 @@ const CARDS = [
     qty: 1,
     group: "intervention",
     icons: ["aoe"],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Все ловушки, кроме вашей, на столе открываются, но продолжают действовать. За каждую просветлённую ловушку вы берёте карту из колоды.",
     img: "cards/card_85_prosvietlenie.png"
   },
@@ -1261,7 +1261,7 @@ const CARDS = [
     qty: 4,
     group: "effect",
     icons: [],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Все атаки по вам наносят на одну рану больше, и атакующий берёт 1 карту из колоды.[NL]{Убивший вас игрок} берёт две карты из колоды.",
     img: "cards/card_90_metka_ubiytsy.png"
   },
@@ -1407,6 +1407,17 @@ const CARDS = [
     tags: [],
     desc: "Получая любой вид урона, вы получаете на 2 раны больше. Проклятье переходит на убившего вас игрока.",
     img: "cards/card_curse.png"
+  },
+  {
+    id: 5104,
+    title: "Доспех",
+    types: ["effect"],
+    qty: 2,
+    group: "effect",
+    icons: [],
+    tags: ["toPrint"],
+    desc: "Сложность атак по вам увеличивается на 1.",
+    img: "cards/card_armor.png"
   },
 
   // ── ДЕЙСТВИЯ (стр. 15–16) ─────────────────────────────────────────
@@ -1985,8 +1996,8 @@ const CARDS = [
     qty: 1,
     group: "character",
     icons: [],
-    tags: [],
-    desc: "За каждый восстановленный жетон жизни другим от вашего лица и за каждый восстановленный себе берёте карту из колоды. Можете перенаправить лечебный эффект с себя на союзника." +
+    tags: ["toPrint"],
+    desc: "За каждый восстановленный жетон здоровья в команде вы берёте карту из колоды. Можете перенаправить лечебный эффект с себя на союзника. " +
           "[NL]{После вашей смерти} каждый союзник восстанавливает 1 жетон жизни, не давая вам карты из колоды.",
     img: "cards/card_145_manase.png"
   },
@@ -1999,8 +2010,8 @@ const CARDS = [
     qty: 1,
     group: "character",
     icons: [],
-    tags: [],
-    desc: "Если вы отравлены, то все ваши атаки автоматически отравлены, вы не теряете одну жизнь в конце хода при отравлении. В фазе набора за каждого отравленного игрока на столе берите дополнительно одну карту." +
+    tags: ["toPrint"],
+    desc: "Если вы отравлены, то все ваши атаки автоматически отравлены, и вы не испытываете отрицательных эффектов от яда. В фазе набора за каждого отравленного игрока на столе берите дополнительно одну карту." +
           "[NL]{После вашей смерти} все враги отравляются ядом, а союзники исцеляются от яда.",
     img: "cards/card_minamoto.png"
   },
@@ -2017,7 +2028,7 @@ const CARDS = [
     qty: 1,
     group: "aura",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Все атаки {союзников} наносят +1 рану.",
     img: "cards/card_leader.png"
   },
@@ -2028,7 +2039,7 @@ const CARDS = [
     qty: 1,
     group: "aura",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Все {союзники} получают на одну рану меньше от любой прямой атаки (не менее 1).",
     img: "cards/card_rare.png"
   },
@@ -2040,7 +2051,7 @@ const CARDS = [
     group: "aura",
     icons: [],
     tags: ["toPrint"],
-    desc: "Персонажи {союзников} не учитываются при расчёте дистанции для совершения прямых атак.",
+    desc: "Сложность атак по вашей команде увеличивается на 1.",
     img: "cards/card_march.png"
   },
   {
@@ -2061,7 +2072,7 @@ const CARDS = [
     qty: 1,
     group: "aura",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Любой {союзник} может разыграть карту защиты с руки как вмешательство в защиту другого союзника. Бонусы карты защиты при этом не сохраняются.",
     img: "cards/card_back_to_back.png"
   },
@@ -2072,7 +2083,7 @@ const CARDS = [
     qty: 1,
     group: "aura",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "В фазе набора каждый {союзник} берёт +1 карту из колоды.",
     img: "cards/card_camp.png"
   },
@@ -2083,8 +2094,8 @@ const CARDS = [
     qty: 1,
     group: "aura",
     icons: [],
-    tags: [],
-    desc: "{Враги} не могут атаковать дальше дистанции 1.",
+    tags: ["toPrint"],
+    desc: "{Враги} не могут проводить метательные атаки.",
     img: "cards/card_95_zavesa_dyma.png"
   },
   {
@@ -2094,7 +2105,7 @@ const CARDS = [
     qty: 1,
     group: "aura",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Любой живой {союзник} может по согласию принять прямую атаку оружия по другому союзнику на себя (как Подвиг), но получает на 1 рану больше.",
     img: "cards/card_war_duty.png"
   },
@@ -2105,7 +2116,7 @@ const CARDS = [
     qty: 1,
     group: "aura",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "В начале хода любой {союзник} восстанавливает 1 жетон жизни.",
     img: "cards/card_hospital.png"
   },
@@ -2116,7 +2127,7 @@ const CARDS = [
     qty: 1,
     group: "aura",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "{Враги} после нанесения ран прямой атакой по вашим союзникам получают от носителя ауры 1 рану.[NL]{Носитель} не может пользоваться метательным оружием.",
     img: "cards/card_warden.png"
   },
@@ -2127,7 +2138,7 @@ const CARDS = [
     qty: 1,
     group: "aura",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "При совершении прямой атаки оружием (до действий защищающегося), любой {союзник} может с согласия атакующего выставить оружие (как вмешательство), а его забрать себе.",
     img: "cards/card_arsenal.png"
   },
@@ -2139,7 +2150,7 @@ const CARDS = [
     qty: 1,
     group: "aura",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Раз в свой ход любой {союзник} может обменяться с соратником в закрытую по согласию картами.",
     img: "cards/card_discreete_deal.png"
   },

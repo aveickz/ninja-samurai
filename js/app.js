@@ -192,6 +192,78 @@ $(function () {
     return $wrap;
   }
 
+  // ── Позиционирование yellow-плашки описания ─────────────────────
+  // Плашка .card-desc-wrap встаёт впритык под нижним краем арта:
+  // top задаётся в процентах, чтобы значение оставалось корректным
+  // и на экране, и в печати (там та же карта, только шире).
+  //
+  // Функция устойчива к трём типичным гонкам:
+  //   1. Layout ещё не устоялся (image load сработал до grid-reflow) →
+  //      retry на requestAnimationFrame.
+  //   2. Salma Pro ещё не подгружен → минимальная высота описания
+  //      считается fallback-шрифтом и оказывается меньше реальной →
+  //      верхний край плашки уезжает слишком низко → sanity-clamp
+  //      удерживает результат в разумном диапазоне.
+  //   3. Cached image — жёлтый .complete + naturalWidth > 0 после
+  //      подписки на 'load' не всегда триггерит handler → руками
+  //      вызываем positionDescWrap на всех картах после первого
+  //      applyFilter() и повторно после document.fonts.ready.
+  function positionDescWrap(imgEl) {
+    if (!imgEl) return;
+    var $img = $(imgEl);
+    var $card = $img.closest('.card');
+    var $wrap = $card.find('.card-desc-wrap');
+    if (!$wrap.length) return;
+
+    var cardH = $card[0].offsetHeight;
+    var artH  = imgEl.offsetHeight;
+
+    // Layout ещё не готов — попробуем на следующем кадре.
+    if (cardH < 80 || artH < 40) {
+      requestAnimationFrame(function () { positionDescWrap(imgEl); });
+      return;
+    }
+
+    var artBottom = imgEl.offsetTop + artH;
+
+    $wrap.css('top', '');
+    var minH = $wrap[0].scrollHeight;
+
+    var topPx  = Math.min(artBottom, cardH - minH);
+    var topPct = (topPx / cardH * 100) - 2.5;
+
+    // Sanity clamp: заголовок сидит на ~14% сверху, поэтому плашка
+    // описания не может быть выше того, а очень низко (>82%) она
+    // тоже быть не должна — там не остаётся места для текста.
+    // Если расчёт вышел за эти границы — значит layout / шрифт
+    // выдали нам мусор, показываем безопасный дефолт.
+    if (!isFinite(topPct) || topPct < 30 || topPct > 82) {
+      topPct = Math.min(82, Math.max(30, isFinite(topPct) ? topPct : 60));
+    }
+
+    $wrap.css('top', topPct.toFixed(3) + '%');
+
+    var $iconsOr = $card.find('.card-icons-or');
+    if ($iconsOr.length) {
+      $iconsOr.css('bottom', (100 - topPct).toFixed(3) + '%');
+    }
+  }
+
+  // Прогнать positionDescWrap по ВСЕМ card-art'ам, которые уже
+  // загружены (в т. ч. cached, для которых 'load' мог сработать
+  // до подписки), либо готовы к замеру. Используется:
+  //   • сразу после первого applyFilter — на старте
+  //   • после document.fonts.ready — если Salma Pro подъехал позже
+  //   • на beforeprint — измеряем в контексте print media,
+  //     чтобы страница гарантированно ушла с правильными top-ами
+  function recomputeAllDescWraps() {
+    $('#grid .card-art').each(function () {
+      if (this.complete && this.naturalWidth > 0) {
+        positionDescWrap(this);
+      }
+    });
+  }
+
   // ── Построение тегов типов на карточке ───────────────────────────
   function buildTypeTags(types, tags) {
     var $wrap = $('<div>', { class: 'card-types' });
@@ -243,37 +315,14 @@ $(function () {
           }).on('error', function () { $(this).hide(); })
         : null,
 
-      // Слой 1: арт (самый нижний)
+      // Слой 1: арт (самый нижний).
+      // Позиционирование yellow-плашки описания вычисляется через
+      // positionDescWrap (см. определение ниже) — оно retry-safe:
+      // если layout ещё не готов / шрифт не загрузился, откладывает
+      // повторный замер до следующего кадра.
       $('<img>', { class: 'card-art', src: card.img, alt: card.title, loading: 'lazy' })
         .on('load', function () {
-          // После загрузки арта выставляем top у card-desc-wrap = нижнему краю арта,
-          // но не выше минимума, нужного для вмещения текста описания.
-          var $img = $(this);
-          var $card = $img.closest('.card');
-          var $wrap = $card.find('.card-desc-wrap');
-          if (!$wrap.length) return;
-
-          var cardH    = $card[0].offsetHeight;
-          var artBottom = $img[0].offsetTop + $img[0].offsetHeight;
-
-          // Измеряем минимальную высоту: убираем top-ограничение, даём блоку
-          // сжаться до содержимого, читаем scrollHeight, потом восстанавливаем.
-          $wrap.css('top', '');
-          var minH = $wrap[0].scrollHeight;
-
-          // top не должен быть ниже (cardH - minH), иначе текст не влезет
-          var topPx = Math.min(artBottom, cardH - minH);
-          var topPct = (topPx / cardH * 100) - 2.5;
-          $wrap.css('top', topPct.toFixed(3) + '%');
-
-          // Если у карты есть стопка iconsOr — её нижний край прижимаем
-          // к верхнему краю плашки описания. Когда desc-wrap'а нет
-          // (мы выходим выше через `if (!$wrap.length) return`),
-          // icons-or остаётся в дефолтной позиции bottom: 14% из CSS.
-          var $iconsOr = $card.find('.card-icons-or');
-          if ($iconsOr.length) {
-            $iconsOr.css('bottom', (100 - topPct).toFixed(3) + '%');
-          }
+          positionDescWrap(this);
         }),
 
       // Слой 2: иконки из icons[] — вертикальный стек в левом верхнем углу арта
@@ -975,6 +1024,26 @@ $(function () {
       $group.wrapAll('<div class="print-page"></div>');
     });
 
+    // Перед тем как принтер сделает первый layout-pass в @media print,
+    // принудительно снимаем lazy у всех card-art (иначе они грузятся
+    // прямо в процессе print flow'а и мешают замерам).
+    $('#grid .card-art[loading="lazy"]').removeAttr('loading');
+
+    // На печати НЕ полагаемся на JS-computed top% для .card-desc-wrap
+    // и bottom% для .card-icons-or — эта эвристика собрана под screen-
+    // layout, а при переходе в @media print у нас есть три разъезжающих
+    // фактора: (а) шрифт может рендериться другой — фаллбэк отличается,
+    // (б) offsetHeight у cached-lazy картинок иногда возвращает мусор,
+    // (в) natural aspect картинки vs 611/978 карты часто не совпадают
+    // и плашка «схлопывается» до нескольких миллиметров.
+    // Сбрасываем inline и отдаём позиционирование чистому CSS:
+    // .card-desc-wrap { bottom: 0 } + height=fit-content — плашка
+    // всегда встаёт снизу, натуральной высотой под свой текст. Иконки
+    // iconsOr возвращаются в дефолтные 14% от низа карты. Это гарантирует,
+    // что описание никогда не обрезается и не переполняется на бумаге.
+    $('#grid .card-desc-wrap').css('top', '');
+    $('#grid .card-icons-or').css('bottom', '');
+
     // ── Печать рубашек ──
     // Если включён режим, после каждой страницы фронтов вставляем
     // зеркальную страницу-рубашку: те же 9 позиций в той же сетке,
@@ -1012,6 +1081,10 @@ $(function () {
     $('.print-page').each(function () {
       $(this).replaceWith($(this).children());
     });
+    // На экране мы хотим красивое JS-позиционирование yellow-плашки
+    // вплотную к нижнему краю арта — восстанавливаем его после того,
+    // как print-flow завершился и inline-стили были сброшены выше.
+    recomputeAllDescWraps();
   }
 
   window.addEventListener('beforeprint', wrapForPrint);
@@ -1094,6 +1167,18 @@ $(function () {
 
   // Hash вида card-<ID> — зумим карту после применения фильтра.
   applyCardHashIfAny();
+
+  // Одноразовые пересчёты позиции yellow-плашки описания:
+  //   1. следующий кадр после первого layout — на случай, если
+  //      cached-image'ам браузер не отправил 'load' после подписки;
+  //   2. document.fonts.ready — Salma Pro / Han Zi могут подгрузиться
+  //      уже после первого замера, и scrollHeight у desc окажется
+  //      меньше реальной высоты. После загрузки шрифтов пересчитываем
+  //      и подгоняем верхний край плашки заново.
+  requestAnimationFrame(recomputeAllDescWraps);
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(recomputeAllDescWraps);
+  }
 
   // ── Embed-режим: ?embed=<ID> ──────────────────────────────────────
   // Скрывает весь UI и показывает одну карту на белом фоне —
