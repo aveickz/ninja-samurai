@@ -463,7 +463,8 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["melee2", "dmg1"],
-    tags: [],
+    iconsOr: ["ranged", "dmg1"],
+    tags: ["toPrint"],
     desc: "В стойке {всадника} наносит на одну рану больше.",
     enDesc: "In the {Horseman} stance, deals 1 extra wound.",
     img: "cards/card_29_yari.png"
@@ -489,7 +490,8 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["melee2", "dmg1", "poison"],
-    tags: ["poison"],
+    iconsOr: ["ranged", "dmg1", "poison"],
+    tags: ["poison", "toPrint"],
     desc: "В стойке {всадника} наносит на одну рану больше.",
     enDesc: "In the {Horseman} stance, deals 1 extra wound.",
     img: "cards/card_29_yari.png"
@@ -1697,8 +1699,8 @@ const CARDS = [
     group: "action",
     icons: [],
     tags: [],
-    desc: "Поменяйте эту карту на любую из сброса не глубже последних 10, но не ранее последних 3.",
-    enDesc: "Swap this card for any card among the last 10 in the discard pile, but not among the last 3.",
+    desc: "Поменяйте эту карту на любую из сброса не глубже последних 10, но не ранее последних 3. TODO: добор из сброса запрещён (мета-правило №7) — переделать на обмен с рукой другого игрока.",
+    enDesc: "Swap this card for any card among the last 10 in the discard pile, but not among the last 3. TODO: drawing from the discard pile is banned (meta-rule 7) — rework into a swap with another player.",
     img: "cards/card_105_zov_predkov.png"
   },
   {
@@ -2048,9 +2050,9 @@ const CARDS = [
     qty: 4,
     group: "intervention",
     icons: [],
-    tags: [],
-    desc: "Сыграйте эту карту, чтобы передать любому игроку в закрытую любую другую карту из своей руки. -ИЛИ- Сыграйте эту карту, чтобы заставить другого игрока передать вам в закрытую любую карту на его выбор.",
-    enDesc: "Play this card to pass any other card from your hand to any player, face down. -OR- Play this card to force another player to pass you a card of their choice, face down.",
+    tags: ["toPrint"],
+    desc: "Сыграйте эту карту, чтобы любой игрок вашей команды передал в закрытую любую карту из своей руки другому игроку команды — карту и получателя он выбирает сам. -ИЛИ- Сыграйте эту карту, чтобы заставить другого игрока передать вам в закрытую любую карту на его выбор.",
+    enDesc: "Play this card to let any player on your team pass a card from their hand, face down, to another player on the team — they choose both the card and the recipient. -OR- Play this card to force another player to pass you a card of their choice, face down.",
     img: "cards/card_125_ruka_pomoshchi.png"
   },
   {
@@ -2207,8 +2209,8 @@ const CARDS = [
     group: "action",
     icons: [],
     tags: [],
-    desc: "Объявляете один из четырёх типов карт: Оружие, Ловушка, Стойка или Защита. Берёте из сброса в обратном порядке первую попавшуюся карту заданного типа.",
-    enDesc: "Name one of four card types: Weapon, Trap, Stance or Defense. Search the discard pile from the top down and take the first card of that type.",
+    desc: "Объявляете один из четырёх типов карт: Оружие, Ловушка, Стойка или Защита. Берёте из сброса в обратном порядке первую попавшуюся карту заданного типа. TODO: добор из сброса запрещён (мета-правило №7) — искать карту заданного типа среди открытых карт на столе.",
+    enDesc: "Name one of four card types: Weapon, Trap, Stance or Defense. Search the discard pile from the top down and take the first card of that type. TODO: drawing from the discard pile is banned (meta-rule 7) — search the face-up cards on the table instead.",
     img: "cards/card_ekai.png"
   },
   {
@@ -2254,8 +2256,8 @@ const CARDS = [
     tags: [],
     desc: "В фазе набора вы берёте дополнительную карту и можете брать из сброса. " +
           "В случае воровства, ошеломления или реакции на групповые действия сами выбираете, какую карту отдавать." +
-          "[NL]{После вашей смерти} ваши союзники берут по одной карте из колоды.",
-    enDesc: "In the draw phase you take an extra card and may draw from the discard pile. When robbed, staggered or reacting to group actions, you choose which card to give up.[NL]{After your death} your allies each draw a card from the deck.",
+          "[NL]{После вашей смерти} ваши союзники берут по одной карте из колоды. TODO: добор из сброса запрещён (мета-правило №7) — увести свойство в team draw/share.",
+    enDesc: "In the draw phase you take an extra card and may draw from the discard pile. When robbed, staggered or reacting to group actions, you choose which card to give up.[NL]{After your death} your allies each draw a card from the deck. TODO: drawing from the discard pile is banned (meta-rule 7) — move the ability toward team draw/share.",
     img: "cards/card_136_taranaga.png"
   },
   {
