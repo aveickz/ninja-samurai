@@ -1,0 +1,99 @@
+# Палитры для арта карт
+
+30 именованных наборов. Скопированы один-в-один из `sample prompt for pcitures.txt`
+в корне репозитория — это исторический оригинал промпта; при расхождении
+источник правды здесь.
+
+В промпт палитра уходит **и перечислением, и запретом**:
+`Colors: <Name> - <colors>. Only these colors, no other hues.`
+Одно перечисление держит гамму заметно хуже.
+
+1. Crimson Sunrise
+colors: crimson red, orange, ivory white, warm beige, black, steel gray, gold
+
+2. Moonlit Ninja
+colors: dark navy, teal blue, forest green, olive, bone white, moon yellow
+
+3. Phoenix Fire
+colors: burnt orange, golden yellow, amber, red, charcoal black, sand beige, white
+
+4. Sacred Spring
+colors: sage green, mint green, aqua blue, cream, warm gray, pale gold
+
+5. Poison Lotus
+colors: purple, dark violet, acid green, lime, black, bone white
+
+6. Jade Emperor
+colors: jade green, emerald green, ivory white, pale gold, charcoal black, warm gray
+
+7. Blood Moon
+colors: dark crimson, scarlet red, moon yellow, black, parchment beige, steel gray
+
+8. Autumn Temple
+colors: rust orange, ochre, cream, dark brown, olive green, black
+
+9. Shadow Bamboo
+colors: bamboo green, dark teal, khaki, bone white, charcoal black, moss green
+
+10. Storm Lantern
+colors: navy blue, electric cyan, silver gray, ivory white, black, moon yellow
+
+11. Indigo Night
+colors: indigo, midnight blue, turquoise, cream, charcoal black, pale yellow
+
+12. Golden Koi
+colors: orange, amber, gold, ivory white, dark brown, black
+
+13. Silent Forest
+colors: dark green, moss green, olive, beige, bone white, black
+
+14. Oni Flame
+colors: blood red, burnt orange, black, steel gray, ivory white, gold
+
+15. Yokai Dream
+colors: lavender purple, plum, dark navy, cream, pale pink, black
+
+16. Frost Ronin
+colors: ice blue, pale cyan, navy blue, bone white, steel gray, black
+
+17. Cherry Blossom
+colors: sakura pink, coral red, cream, warm gray, black, pale gold
+
+18. Desert Warrior
+colors: sand beige, terracotta, brown, ivory white, black, bronze
+
+19. Imperial Banner
+colors: vermillion red, golden yellow, cream, charcoal black, warm beige
+
+20. Thunder Shrine
+colors: deep blue, violet, lightning yellow, ivory white, black
+
+21. Dragon Scale
+colors: emerald green, turquoise, dark blue, pale gold, black, cream
+
+22. Iron Fortress
+colors: gunmetal gray, steel blue, ivory white, dark brown, black, gold
+
+23. Celestial Fox
+colors: orange red, cream, dark navy, pale turquoise, black
+
+24. Lotus Garden
+colors: mint green, soft pink, cream, warm gray, olive green, black
+
+25. Shogun Bronze
+colors: bronze, ochre, dark red, ivory white, black, steel gray
+
+26. Ghost Lantern
+colors: dark purple, midnight blue, pale cyan, bone white, black
+
+27. Rising Sun
+colors: vermillion red, orange, cream, black, gold, warm beige
+
+28. Emerald Poison
+colors: emerald green, lime green, dark teal, ivory white, black
+
+29. Raven Wing
+colors: charcoal black, dark blue, silver gray, bone white, muted cyan
+
+30. Mystic Shrine
+colors: royal purple, magenta, pale gold, cream, black, dark violet
