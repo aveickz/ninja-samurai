@@ -114,6 +114,7 @@ $(function () {
       h1:            'Ниндзя против Самураев',
       subtitle:      'Картотека',
       rulesLink:     '📖 Правила игры',
+      rulesHref:     'rules/rules.html',
       statTypes:     'типов карт',
       statTotal:     'карт в колоде',
       sidebarTitle:  'Статистика',
@@ -164,6 +165,7 @@ $(function () {
       h1:            'Ninja vs Samurai',
       subtitle:      'Card Catalogue',
       rulesLink:     '📖 Game Rules',
+      rulesHref:     'rules/rules-en.html',
       statTypes:     'card types',
       statTotal:     'cards in deck',
       sidebarTitle:  'Statistics',
@@ -1376,6 +1378,10 @@ $(function () {
     });
     $('[data-i18n-title]').each(function () {
       $(this).attr('title', t($(this).attr('data-i18n-title')));
+    });
+    // Ссылка на правила ведёт в свой файл: rules.html / rules-en.html.
+    $('[data-i18n-href]').each(function () {
+      $(this).attr('href', t($(this).attr('data-i18n-href')));
     });
 
     // Кнопки фильтров.

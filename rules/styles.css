@@ -561,3 +561,55 @@ section.chapter > h4 {
 }
 
 /* === Печатные правила вынесены в отдельный файл print.css === */
+
+
+/* ── Переключатель языка RU|EN ──────────────────────────────────────
+   Стоит под подзаголовком шапки свитка. Две «печати» тушью: активный
+   язык залит, неактивный — только контур и уходит по клику на второй
+   файл. Русская версия — rules.html, английская — rules-en.html.     */
+.lang-switch {
+  margin: 10px 0 0;
+  text-align: center;
+  font-family: 'PT Sans Narrow', sans-serif;
+  letter-spacing: 0.14em;
+  line-height: 1;
+}
+
+.lang-switch a,
+.lang-switch .lang-switch-current {
+  display: inline-block;
+  padding: 3px 9px;
+  font-size: 13px;
+  font-weight: 700;
+  border: 1px solid #8a6a44;
+  text-decoration: none;
+}
+
+.lang-switch a {
+  color: #8a6a44;
+  background: transparent;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+.lang-switch a:hover {
+  color: #f2e6cf;
+  background: #8a6a44;
+}
+
+.lang-switch .lang-switch-current {
+  color: #f2e6cf;
+  background: #6b4a28;
+  border-color: #6b4a28;
+  cursor: default;
+}
+
+/* Первый сегмент прижат ко второму — единая печать из двух половин. */
+.lang-switch a + .lang-switch-current,
+.lang-switch .lang-switch-current + a {
+  border-left: 0;
+}
+
+/* На бумаге язык уже выбран — переключатель не нужен. */
+@media print {
+  .lang-switch { display: none; }
+}

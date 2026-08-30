@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Samurai vs Ninja — Scroll of Rules</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="print.css" media="print">
+<!-- Тот же typograph.js, что и в русской версии. Список коротких слов
+     в нём кириллический, по английскому тексту не срабатывает — но
+     нужен syncChapterMarks(), который копирует data-mark на section. -->
+<script src="typograph.js" defer></script>
+</head>
+<body>
+
+<div class="scroll">
+  <div class="scroll-inner">
+
+    <!-- Декоративные углы (сэйгайха SVG) -->
+    <svg class="pattern-corner tl" viewBox="0 0 80 80">
+      <defs>
+        <pattern id="seig" x="0" y="0" width="20" height="10" patternUnits="userSpaceOnUse">
+          <path d="M0,10 A10,10 0 0,1 20,10" fill="none" stroke="#1c1410" stroke-width="1"/>
+          <path d="M-10,10 A10,10 0 0,1 10,10" fill="none" stroke="#1c1410" stroke-width="1"/>
+        </pattern>
+      </defs>
+      <rect width="80" height="80" fill="url(#seig)"/>
+    </svg>
+    <svg class="pattern-corner tr" viewBox="0 0 80 80"><rect width="80" height="80" fill="url(#seig)"/></svg>
+    <svg class="pattern-corner bl" viewBox="0 0 80 80"><rect width="80" height="80" fill="url(#seig)"/></svg>
+    <svg class="pattern-corner br" viewBox="0 0 80 80"><rect width="80" height="80" fill="url(#seig)"/></svg>
+
+    <header class="header">
+      <div class="hanko">侍<br>忍</div>
+      <h1 class="kanji-banner">侍 対 忍者</h1>
+      <p class="kanji-sub">— SAMURAI VS NINJA —</p>
+      <p class="lang-switch"><a href="rules.html">RU</a><span class="lang-switch-current">EN</span></p>
+    </header>
+
+    <div class="brush-line"></div>
+
+    <!-- Содержание -->
+    <nav class="toc">
+      <h3 class="toc-title">目 録</h3>
+      <ol>
+        <li data-mark="序"><a href="#about">About the Game</a></li>
+        <li data-mark="備"><a href="#setup">Setting Up</a></li>
+        <li data-mark="戦"><a href="#flow">Course of Play</a></li>
+        <li data-mark="終"><a href="#ending">End of the Game</a></li>
+        <li data-mark="衆"><a href="#players">Player Counts</a></li>
+        <li data-mark="札"><a href="#cards">Cards</a></li>
+        <li data-mark="武"><a href="#weapons">Attack and Defense</a></li>
+        <li data-mark="罠"><a href="#traps">Traps</a></li>
+        <li data-mark="構"><a href="#stances">Stances</a></li>
+        <li data-mark="雄"><a href="#characters">Characters</a></li>
+        <li data-mark="術"><a href="#effects">Effects</a></li>
+        <li data-mark="毒"><a href="#poison">Poison</a></li>
+        <li data-mark="介"><a href="#interventions">Intervention</a></li>
+        <li data-mark="陣"><a href="#auras">Team Aura</a></li>
+        <li data-mark="条"><a href="#conditional">Conditional Bonuses</a></li>
+        <li data-mark="順"><a href="#order">Order of Resolution</a></li>
+      </ol>
+    </nav>
+
+    <div class="ornament"></div>
+
+    <!-- ============ ГЛАВА 1: О ИГРЕ ============ -->
+    <section class="chapter" id="about">
+      <h2 class="chapter-title" data-mark="序">About the Game</h2>
+      <p>Samurai vs Ninja grew out of «Bang! The Samurai Sword», but it has drifted a long way from it. This is a saga of two clans at war — the samurai and the ninja; the disciplined code of honour of Bushido against the secretive, cunning path of the Shinobi. The game is played in the open: character cards and team allegiances are visible to everyone from the very start. Only the cards in your hand stay hidden.</p>
+    </section>
+
+    <div class="brush-line"></div>
+
+    <!-- ============ ГЛАВА 2: ПОДГОТОВКА К ИГРЕ ============ -->
+    <section class="chapter" id="setup">
+      <h2 class="chapter-title" data-mark="備">Setting Up</h2>
+      <p>Before the game begins, players work through four steps in order: they split into sides, take their seats, draw character cards, and set out their starting life and victory points.</p>
+
+      <h4>Choosing sides</h4>
+      <p>Sides are formed either by common agreement or by random draw. With an even number of players the teams are equal — half samurai, half ninja. With an odd number, one side gets an extra player; which side that is must be settled beforehand by common agreement.</p>
+      <p>Every game includes a <strong>Shogun</strong>. This is the same role as an ordinary samurai, but there is always exactly one such card in play. The Shogun marks the player each round begins with. If roles are dealt at random, the Shogun card is drawn along with the rest; if sides are agreed on, the Shogun is appointed before the game starts.</p>
+
+      <h4>Seating</h4>
+      <p>Once sides are set, players take their places at the table. The intended seating alternates sides: samurai — ninja — samurai — ninja, and so on. By common agreement you may sit however you like, but the game was designed around alternating seats.</p>
+
+      <h4>Drawing characters</h4>
+      <p>All character cards are shuffled into one face-down pile, and each player draws one at random regardless of their role. The character card is placed face up in front of the player — its abilities will serve them for the whole game.</p>
+
+      <h4>Setting out points</h4>
+      <p>Each player sets out their starting life, as printed on their character card (the number inside the heart). By default every player also has <strong>four victory points</strong>. In modes with equal (even) teams this value is the same for everyone. For odd player counts, the starting victory points and the number of cards drawn in the draw phase are adjusted according to the tables below.</p>
+    </section>
+
+    <div class="brush-line"></div>
+
+    <!-- ============ ГЛАВА 3: ХОД ПАРТИИ ============ -->
+    <section class="chapter" id="flow">
+      <h2 class="chapter-title" data-mark="戦">Course of Play</h2>
+      <p>The game runs as a sequence of player turns. Every turn opens with the draw phase — the player takes three cards from the deck. Then, during their turn, a player may: make up to two weapon attacks against any living player, play action and group cards, trade cards, set a Trap in front of themselves, apply Effects, and change their Stance. At the end of the turn a player may hold no more than eight cards — any surplus is discarded at their own choosing.</p>
+    </section>
+
+    <div class="brush-line"></div>
+
+    <!-- ============ ГЛАВА 4: ОКОНЧАНИЕ ПАРТИИ ============ -->
+    <section class="chapter" id="ending">
+      <h2 class="chapter-title" data-mark="終">End of the Game</h2>
+      <p>The game runs until one of three conditions is met: the deck runs out — in which case the turn during which the last card was drawn is the final one, and victory points are counted once it ends; or one of the players loses every one of their victory points; or the game is ended early by common agreement — in which case it is customary to finish the current round up to the player seated before the Shogun, and then count victory points.</p>
+    </section>
+
+    <div class="brush-line"></div>
+
+    <!-- ============ ГЛАВА 5: СОСТАВ ИГРОКОВ ============ -->
+    <section class="chapter" id="players">
+      <h2 class="chapter-title" data-mark="衆">Player Counts</h2>
+      <p>The game is built for an even number of players. In the author's experience the most balanced and the most fun mode is three on three. With an odd number of players, small adjustments even the teams out: the smaller side's starting victory points change, as does the number of cards players take in the draw phase. Detailed balance tables follow.</p>
+      <p>Since the players themselves decide before the game whether the larger team will be ninja or samurai, the tables below name the teams neutrally — <strong>A</strong> and <strong>B</strong>.</p>
+
+      <h4>2 versus 3</h4>
+      <table class="balance-table">
+        <thead>
+          <tr>
+            <th>Team</th>
+            <th>Players</th>
+            <th>Victory points per player</th>
+            <th>Victory points per team</th>
+            <th>Draw phase cards per player</th>
+            <th>Draw phase cards per team</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>A</td><td>2</td><td>5</td><td>10</td><td>4</td><td>8</td></tr>
+          <tr><td>B</td><td>3</td><td>3</td><td>9</td><td>3</td><td>9</td></tr>
+        </tbody>
+      </table>
+
+      <h4>3 versus 4</h4>
+      <table class="balance-table">
+        <thead>
+          <tr>
+            <th>Team</th>
+            <th>Players</th>
+            <th>Victory points per player</th>
+            <th>Victory points per team</th>
+            <th>Draw phase cards per player</th>
+            <th>Draw phase cards per team</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>A</td><td>3</td><td>4</td><td>12</td><td>4</td><td>12</td></tr>
+          <tr><td>B</td><td>4</td><td>3</td><td>12</td><td>3</td><td>12</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <div class="brush-line"></div>
+
+    <!-- ============ ГЛАВА 6: КАРТЫ ============ -->
+    <section class="chapter" id="cards">
+      <h2 class="chapter-title" data-mark="札">Cards</h2>
+      <p>Every player's turn opens with either a draw phase or a recovery phase. In the draw phase you take three cards from the deck as a baseline.</p>
+      <aside class="note">In modes with unequal teams, players on the smaller side draw one extra card in the draw phase — exact values are in the tables in the «Player Counts» chapter.</aside>
+      <p>The recovery phase happens instead if you have bled out. In this phase you may first discard any number of cards from your hand and then draw back up, so that you end with no more than seven cards in hand.</p>
+      <p>During your turn you may discard two cards of the same type — Weapon, Trap, Stance, Defense, Effect, Intervention, Modifier or group card — to draw one new card from the deck. Or you may discard two identical cards to draw two new cards from the deck.</p>
+      <aside class="note">At the end of your turn you cannot hold more than eight cards. If you do, you must discard the surplus, choosing which cards go.</aside>
+    </section>
+
+    <div class="brush-line"></div>
+
+    <!-- ============ ГЛАВА 7: АТАКИ, ОРУЖИЕ И ЗАЩИТА ============ -->
+    <section class="chapter" id="weapons">
+      <h2 class="chapter-title" data-mark="武">Attack and Defense</h2>
+      <p>On your turn you may make at most two weapon attacks against other players. To attack you need a Weapon card. Every Weapon card states its range and its attack power. You may only attack players within that range. Players who have bled out are not counted when measuring attack range and cannot be targeted, barring special cases.</p>
+      <p>The attacking player lays down the Weapon card and declares their target. The defender may either take the blow with dignity and suffer wounds equal to the attack power, or play a Defense card to block the attack. If a Trap lies in front of the defending player, it is their own choice whether to trigger it or to play a Defense card. If the attack is blocked successfully, none of the attacker's additional effects happen.</p>
+      <aside class="note">Attacks with thrown weapons do not trigger Traps. Weapons can also be strengthened with poison.</aside>
+      <aside class="note">With no weapon in hand you may still attack bare-handed at range 1 with attack power 1, but this counts as both of your weapon attacks.</aside>
+      <p>One of the defender's teammates may play their own Defense card to help absorb part of the damage — this counts as an Intervention. Such a card reduces the final number of wounds by one; its own special effects (return damage, poison and so on) do not fire. At most one such card from allies is allowed per attack.</p>
+      <p>Any weapon attack may be strengthened with a single special Modifier card with a red banner. The order in which positive and negative bonuses stack is described in detail in the «Order of Resolution» chapter.</p>
+    </section>
+
+    <div class="brush-line"></div>
+
+    <!-- ============ ГЛАВА 8: ЛОВУШКИ ============ -->
+    <section class="chapter" id="traps">
+      <h2 class="chapter-title" data-mark="罠">Traps</h2>
+      <p>On their turn any player may set at most one Trap in front of themselves, placing a special Trap card face down and standing the trap figurine on top of it. During your turn you may swap the active Trap in front of you for a new one from your hand as often as you like, taking the current one back into your hand.</p>
+      <p>When you are attacked, the Trap triggers if you do not intend to defend. If you play a Defense card, the Trap is left untouched. Thrown weapons and their attacks never trigger a Trap. A player's Traps can be interacted with even after that player has bled out. On death you automatically discard your Trap card.</p>
+      <p>There are cards that reveal Traps — in that case the Trap card is turned face up, with the trap figurine left standing on it.</p>
+      <aside class="note">If revealing, stealing or triggering a Trap shows that the card used was not a proper Trap card, that player dies immediately and hands a victory point to whoever initiated the action. A Trap resolves even if the attack was lethal.</aside>
+    </section>
+
+    <div class="brush-line"></div>
+
+    <!-- ============ ГЛАВА 9: СТОЙКИ ============ -->
+    <section class="chapter" id="stances">
+      <h2 class="chapter-title" data-mark="構え">Stances</h2>
+      <p>Once during your turn you may put a special Stance card into play. Place it beside your character card. Your Stance stays active until you die or lose it by some other particular means.</p>
+      <p>Only one Stance can be active at a time. If you already had an active Stance when you play a new one, you discard the current Stance card.</p>
+      <aside class="note">The active abilities of a Stance can be used immediately.</aside>
+    </section>
+
+    <div class="brush-line"></div>
+
+    <!-- ============ ГЛАВА 10: ПЕРСОНАЖИ ============ -->
+    <section class="chapter" id="characters">
+      <h2 class="chapter-title" data-mark="人物">Characters</h2>
+      <p>Before the game every player draws a character card at random. These cards have their own card back. Once drawn, place your character face up in front of you and read its abilities carefully. They will serve you for the whole game.</p>
+      <aside class="note">The number inside the heart is the maximum amount of life that character can have.</aside>
+    </section>
+
+    <div class="brush-line"></div>
+
+    <!-- ============ ГЛАВА 11: ЭФФЕКТЫ ============ -->
+    <section class="chapter" id="effects">
+      <h2 class="chapter-title" data-mark="術">Effects</h2>
+      <p>Much like the lingering action of poison, cards of a special type called Effects can be placed on a player. Effects are either permanent or one-shot. Permanent Effects last until the player dies, while one-shot Effects disappear once they fire. Most Effects are harmful.</p>
+      <p>Effects can be stolen, moved or removed with special incense-stick cards. Effects may be placed on any player who has not bled out.</p>
+      <p>When an Effect card is played, it is placed face up to the right of that player's character card. A player may hold any number of Effects, but cannot hold two Effects of the same name.</p>
+      <aside class="note">On death a player loses every Effect and discards those cards.</aside>
+    </section>
+
+    <div class="brush-line"></div>
+
+    <!-- ============ ГЛАВА 12: ЯД ============ -->
+    <section class="chapter" id="poison">
+      <h2 class="chapter-title" data-mark="毒">Poison</h2>
+      <p>Players can be poisoned, either by making poisoned weapon attacks or through the action of other cards. Cards that carry poison are marked with a special icon. A poisoned player is marked with the poison figurine placed on top of their character card.</p>
+
+      <div class="order-list">
+        <h4>The three afflictions of the poisoned</h4>
+        <ol>
+          <li>A poisoned player is weakened, and their attack power is reduced by one. But if the weapon's base power is greater than zero, the player still deals at least one wound.</li>
+          <li>A poisoned attack against an already poisoned player has its power increased by one.</li>
+          <li>A poisoned player loses one life at the end of their turn. If that kills them, the victory point goes to the discard pile.</li>
+        </ol>
+      </div>
+    </section>
+
+    <div class="brush-line"></div>
+
+    <!-- ============ ГЛАВА 13: ВМЕШАТЕЛЬСТВО ============ -->
+    <section class="chapter" id="interventions">
+      <h2 class="chapter-title" data-mark="介">Intervention</h2>
+      <p>Intervention is a special card type that can be played outside your own turn. An Intervention card may be played in the middle of someone else's action — an attack, an Effect, any other card — or at any moment when nothing at all is happening at the table. This is the core mechanic for pulling players into events beyond their own turn.</p>
+      <p>When any player plays an Intervention card, an <strong>intervention transaction</strong> opens. While it is open, any player (including the key player) may add their own card to the shared open pool. Every card in the transaction counts as played simultaneously — neither speed nor the order of laying cards down matters. The transaction closes on its own once nobody wishes to add another Intervention.</p>
+      <p>When it resolves, the <strong>key player</strong> — the defender in a direct attack, or whoever's life the transaction has put at risk — decides the order and the manner in which the played cards apply, choosing the outcome most favourable to themselves. Every contradiction (simultaneous healing and wounding, a redirected attack and an added blow, an Effect applied and removed) is read in their favour.</p>
+      <aside class="note">Intervention is meant as a strategic decision, not a contest of reflexes — discussing, bargaining and thinking it over are all allowed.</aside>
+    </section>
+
+    <div class="brush-line"></div>
+
+    <!-- ============ ГЛАВА 14: КОМАНДНАЯ АУРА ============ -->
+    <section class="chapter" id="auras">
+      <h2 class="chapter-title" data-mark="陣">Team Aura</h2>
+      <p>Team Auras are powerful cards that bend the rules substantially in favour of the team that played them. An Aura's effect reaches every player at the table — allies and opponents alike — so active Auras have to be watched constantly, and your own turns recalculated around them.</p>
+
+      <h4>Playing one</h4>
+      <p>Any player may play an Aura card on their turn. Place it face up in front of your character card, so that everyone at the table can see who has which Aura active.</p>
+
+      <h4>The limit</h4>
+      <p>A single player cannot have more than one Aura at a time. To play a new Aura, the current one must first be discarded.</p>
+
+      <h4>Stacking within a team</h4>
+      <p>Several players on the same team may hold different Auras at once — the effects do not cancel one another, they stack. Before each of your turns, check the whole «field of Auras»: it affects ranges, attack power, the draw phase and much else, depending on the cards.</p>
+
+      <h4>How long they last</h4>
+      <p>An Aura stays in play as long as its owner is alive and has not replaced it. When the owner dies, the Aura card is discarded along with the rest of their face-up cards (Stance, Effects, Trap).</p>
+
+      <aside class="note">The Aura is the loudest card in the game in terms of consequences. Before laying one down it is worth talking it over with your allies: holding an Aura back for a critical moment often beats playing it while things are calm.</aside>
+    </section>
+
+    <div class="brush-line"></div>
+
+    <!-- ============ ГЛАВА 15: УСЛОВНЫЕ БОНУСЫ ============ -->
+    <section class="chapter" id="conditional">
+      <h2 class="chapter-title" data-mark="条">Conditional Bonuses</h2>
+      <p>Many cards in the deck work differently depending on the situation at the table — who is playing them, what state that player is in, and what lies in front of them. Such cards carry <strong>conditional bonuses</strong>: the base effect always fires, and extra modifiers are added to it (or subtracted from it) when a particular condition is met. Conditions are marked out explicitly on the card — worth noticing while you are still reading it.</p>
+
+      <p><strong>Faction bonuses.</strong> Some cards behave differently in the hands of a samurai and a ninja: one side gets a boost, the other a penalty (discarding a card, losing life, a restricted action). When conditions fire, the Shogun follows the rules of his own faction — the samurai. For example: a weapon whose blow a <em class="card-term">Ninja</em> cannot defend against, while a <em class="card-term">Samurai</em> pays for the attack with a discarded card.</p>
+
+      <p><strong>Health context.</strong> A card may refer to two states of a player:</p>
+      <ul>
+        <li><em class="card-term">At death's door</em> — the player has a single life left. This state opens up «desperate» bonuses: added damage, healing for allies, protective effects, risk and reward.</li>
+        <li><em class="card-term">At full health</em> — the player is at the maximum life printed on their character card. This usually brings out «forward» bonuses: extra card draw, stronger attacks, a wider set of actions.</li>
+      </ul>
+
+      <p><strong>Poison conditions.</strong> The poison from the «Poison» chapter is not just a baseline affliction but a trigger for other cards. The marker <em class="card-term">If you are Poisoned</em> unlocks a compensating bonus on certain cards, precisely for the poisoned player. Attacks and effects against a poisoned opponent usually hit harder. A few cards count the total number of poisonings at the table and scale with it. Remember: poison blocks Stance bonuses — two conditions on one and the same card can stop working at once.</p>
+
+      <p><strong>Stance conditions.</strong> An active Stance in front of a player is a common condition for strengthening weapons, defense and actions. There is a general bonus, <em class="card-term">With a Stance in play</em> (which fires for any active Stance), and a specific one — <em class="card-term">in the Archer stance</em>, <em class="card-term">in the Horseman stance</em>, <em class="card-term">in the Assassin stance</em>, <em class="card-term">in the Shield Bearer stance</em>, <em class="card-term">in the Chaplain stance</em>. These pairings set up «archetypes»: long-range weapons usually lean on the Archer or the Horseman, defense on the Shield Bearer, healing on the Chaplain. If there is no active Stance (or you are poisoned), the conditional bonus does not apply, but the card's base effect still works.</p>
+    </section>
+
+    <div class="brush-line"></div>
+
+    <!-- ============ ГЛАВА 16: ПОРЯДОК ============ -->
+    <section class="chapter" id="order">
+      <h2 class="chapter-title" data-mark="順">Order of Resolution</h2>
+      <p>Positive and negative bonuses stack from the most permanent to the most temporary.</p>
+
+      <div class="order-list">
+        <h4>Attacker</h4>
+        <ol>
+          <li>Character</li>
+          <li>Stance</li>
+          <li>Team Aura</li>
+          <li>Poison</li>
+          <li>Permanent Effect</li>
+          <li>One-shot Effect</li>
+          <li>Weapon</li>
+          <li>Weapon Modifier</li>
+        </ol>
+      </div>
+
+      <div class="order-list">
+        <h4>Defender</h4>
+        <ol>
+          <li>Character</li>
+          <li>Stance</li>
+          <li>Team Aura</li>
+          <li>Poison</li>
+          <li>Permanent Effect</li>
+          <li>One-shot Effect</li>
+          <li>Trap</li>
+          <li>Defense</li>
+        </ol>
+      </div>
+
+      <aside class="note">Limits, once encountered, hold to the end. A weapon with a base power of zero can still deal zero even under a «no less than one» floor.</aside>
+    </section>
+
+    <div class="ornament"></div>
+
+    <footer class="footer">
+      ・ END OF THE SCROLL ・<br>
+      <span class="seal">完</span>
+      <span class="seal" style="transform:rotate(-4deg);">侍</span>
+      <span class="seal" style="transform:rotate(2deg);">忍</span>
+    </footer>
+
+  </div>
+</div>
+
+</body>
+</html>
