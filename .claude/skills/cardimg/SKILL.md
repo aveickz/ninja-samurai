@@ -84,6 +84,16 @@ description: Сгенерировать арт для карты «Самура�
 Хорошая находка из сочинённых - это кандидат в `references/palettes.md`.
 Дописывай туда только по просьбе пользователя.
 
+**Палитру модель держит хуже всего остального, и сносит её в одну сторону.**
+30.08.2026 из четырёх наборов два доехали точно, а два уехали к привычной
+японской плакатной гамме: `Cherry Blossom` растеряла розовое и пришла кремово-
+коралловой, `Kite Sky` (синий с бирюзой) вернулась ярко-жёлтой с чёрным. У
+модели сильный приор на киноварь-жёлтое-кремовое, и чем дальше набор от него,
+тем вероятнее снос. Практический вывод: **необычную гамму ставь минимум в двух
+вариантах из четырёх** - шанс, что доедет хоть один, заметно выше, чем при
+одной попытке. Запрет `Only these colors, no other hues` помогает, но не
+гарантирует.
+
 Обе половины четвёрки подчиняются общему правилу: **визуально далёкие друг от
 друга** наборы, не две зелёные и не две красные подряд. Ориентир для тех, что
 берутся из файла:
@@ -173,7 +183,7 @@ description: Сгенерировать арт для карты «Самура�
 Подставь `<...>` и вытяни **в одну строку**:
 
 ```
-A vintage comic-style card illustration in Bang-style layout. Action: <КОМПОЗИЦИЯ С ОСИ A>, dynamic motion, impact moment frozen. Style: bold black outlines, flat shading, large simple shapes, retro comic poster, light paper grain. Restrictions: no icons in top-left corner, no gradients, no realism, no cross-hatching, no engraving lines, no stippling, no crowd scenes, no rubble fields. Complexity limit: at most two figures and two props in the whole image; leave at least a third of the frame as empty flat colour with no linework; the picture must still read clearly as a silhouette at thumbnail size. Top banner title is the Cyrillic word <TITLE> - render exactly this string, letter for letter, and no other text anywhere in the image. Scene: <DESC>. DO NOT RENDER the bottom text area. Aspect ratio is 7:10. Colors: <НАЗВАНИЕ ПАЛИТРЫ> - <перечисление цветов>. Only these colors, no other hues. Use them at full poster saturation - vivid high-chroma flat fills, no muddy or greyed-down mixes, no dark wash laid over the whole picture. The background must be one large area of a bright light colour filling much of the frame. Draw this card!
+A vintage comic-style card illustration in Bang-style layout. Action: <КОМПОЗИЦИЯ С ОСИ A>, dynamic motion, impact moment frozen. Style: bold black outlines, flat shading, large simple shapes, retro comic poster, light paper grain. Restrictions: no icons in top-left corner, no gradients, no realism, no rubble fields, no detailed crowds. Complexity limit: at most two fully drawn figures and four props; one simple background element is allowed - a gate, a banner, a moon, a sun disc; short hatching only inside the shadows on the main figures, never on backgrounds; leave at least a fifth of the frame as empty flat colour with no linework; the picture must still read clearly as a silhouette at thumbnail size. Top banner title is the Cyrillic word <TITLE> - render exactly this string, letter for letter, and no other text anywhere in the image. Scene: <DESC>. DO NOT RENDER the bottom text area. Aspect ratio is 7:10. Colors: <НАЗВАНИЕ ПАЛИТРЫ> - <перечисление цветов>. Only these colors, no other hues. Use them at full poster saturation - vivid high-chroma flat fills, no muddy or greyed-down mixes, no dark wash laid over the whole picture. The background must be one large area of a bright light colour filling much of the frame. Draw this card!
 ```
 
 **Блок «Complexity limit» - не украшение, а основная защита от перегруза.**
@@ -182,9 +192,15 @@ A vintage comic-style card illustration in Bang-style layout. Action: <КОМП�
 плане и сплошной штриховкой. Держат только счётные требования - сколько фигур,
 сколько предметов, сколько пустого поля - и функциональный критерий «читается
 силуэтом в размер миниатюры», который для печатной карты и есть настоящая цель.
-Запреты `no cross-hatching, no engraving lines, no stippling` убирают гравюрную
-штриховку: она главный источник визуального шума, хотя манеру задаёт именно она,
-так что если карта станет слишком «плоской» - снимай сначала `no stippling`.
+
+**Числа в этом блоке - ручка громкости, крути их, а не прилагательные.**
+Первая редакция была строже (два предмета, треть кадра пустой, полный запрет
+штриховки) и дала перелёт - карты вышли слишком голыми. Текущие значения
+(четыре предмета, пятая часть кадра, штриховка разрешена в тенях главных фигур,
+один фоновый объект) - это тот же лимит, ослабленный примерно на треть.
+Просят «поменьше деталей» - снижай числа и возвращай `no stippling`,
+`no cross-hatching`; просят «побольше» - поднимай. Заменять всё это словами
+вроде `more detailed` бессмысленно, проверено.
 
 **Сцена тоже должна быть скупой.** Перечисление вроде «брошенное снаряжение
 длинным следом, знамёна, строй врагов» модель отработает буквально и забьёт
