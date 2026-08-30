@@ -31,7 +31,14 @@ import sys
 from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor
 
-IMG_GEN = pathlib.Path.home() / ".claude" / "imagegen" / "img_gen.py"
+# Скилл img переехал: скрипты лежат рядом с его SKILL.md, а в ~/.claude/imagegen/
+# осталась только папка out/ с результатами. Старый путь проверяем первым - на
+# машинах, где img_gen.py ещё лежит по-старому, ничего не меняется.
+IMG_GEN_CANDIDATES = [
+    pathlib.Path.home() / ".claude" / "imagegen" / "img_gen.py",
+    pathlib.Path.home() / ".claude" / "skills" / "img" / "scripts" / "img_gen.py",
+]
+IMG_GEN = next((p for p in IMG_GEN_CANDIDATES if p.is_file()), IMG_GEN_CANDIDATES[0])
 
 TIERS = {
     # (model, effort, size, timeout)
@@ -95,7 +102,8 @@ def main():
     args = ap.parse_args()
 
     if not IMG_GEN.is_file():
-        sys.exit(f"не найден img_gen.py: {IMG_GEN}")
+        sys.exit("не найден img_gen.py, проверены пути:\n  " +
+                 "\n  ".join(str(p) for p in IMG_GEN_CANDIDATES))
 
     variants = json.loads(pathlib.Path(args.spec).read_text(encoding="utf-8"))
     if not isinstance(variants, list) or not variants:

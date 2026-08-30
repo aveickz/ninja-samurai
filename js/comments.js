@@ -184,7 +184,10 @@ $(function () {
       $('<button>', {
         type: 'button',
         class: 'filter-btn filter-btn--comments',
-        text: '💬 Комментарии',
+        // Кнопка приезжает после старта, когда язык уже выбран —
+        // подпись берём из app.js, если он её отдаёт.
+        text: (window.CardLang && window.CardLang.get() === 'en')
+                ? '💬 Comments' : '💬 Комментарии',
         'data-type': '__comments__'
       })
         .on('click', function () {

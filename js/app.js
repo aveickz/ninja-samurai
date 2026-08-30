@@ -1,19 +1,21 @@
 $(function () {
 
   // ── Мета типов ────────────────────────────────────────────────────
+  // label — русская подпись, labelEn — английская. Выбор между ними
+  // делает typeLabel() по текущему LANG (см. секцию «Язык интерфейса»).
   var TYPE_META = {
-    action:       { label: 'Действие',      color: '#FFDDDD' },
-    weapon:       { label: 'Оружие',        color: '#ED1C24' },
-    trap:         { label: 'Ловушка',       color: '#5f8598' },
-    character:    { label: 'Персонаж',      color: '#ddd' },
-    modifier:     { label: 'Модификатор',   color: '#ED1C24' },
-    defense:      { label: 'Защита',        color: '#dca300' },
-    stance:       { label: 'Стойка',        color: '#A78B6B' },
-    effect:       { label: 'Эффект',        color: '#FFDDDD' },
-    intervention: { label: 'Вмешательство', color: '#3B8476' },
-    aoe:          { label: 'Групповая',     color: '#FFDDDD' },
-    role:         { label: 'Роль',          color: '#9c6ec0' },
-    aura:         { label: 'Аура',          color: '#93a32e' }
+    action:       { label: 'Действие',      labelEn: 'Action',       color: '#FFDDDD' },
+    weapon:       { label: 'Оружие',        labelEn: 'Weapon',       color: '#ED1C24' },
+    trap:         { label: 'Ловушка',       labelEn: 'Trap',         color: '#5f8598' },
+    character:    { label: 'Персонаж',      labelEn: 'Character',    color: '#ddd' },
+    modifier:     { label: 'Модификатор',   labelEn: 'Modifier',     color: '#ED1C24' },
+    defense:      { label: 'Защита',        labelEn: 'Defense',      color: '#dca300' },
+    stance:       { label: 'Стойка',        labelEn: 'Stance',       color: '#A78B6B' },
+    effect:       { label: 'Эффект',        labelEn: 'Effect',       color: '#FFDDDD' },
+    intervention: { label: 'Вмешательство', labelEn: 'Intervention', color: '#3B8476' },
+    aoe:          { label: 'Групповая',     labelEn: 'Group',        color: '#FFDDDD' },
+    role:         { label: 'Роль',          labelEn: 'Role',         color: '#9c6ec0' },
+    aura:         { label: 'Аура',          labelEn: 'Aura',         color: '#93a32e' }
   };
 
   var ALL_TYPES = Object.keys(TYPE_META);
@@ -61,6 +63,22 @@ $(function () {
     trash:        'Корзина'
   };
 
+  var GROUP_LABELS_EN = {
+    weapon:       'Weapons',
+    trap:         'Traps',
+    defense:      'Defense',
+    stance:       'Stances',
+    modifier:     'Modifiers',
+    aoe:          'Group Cards',
+    effect:       'Effects',
+    action:       'Actions',
+    intervention: 'Interventions',
+    role:         'Roles',
+    aura:         'Auras',
+    character:    'Characters',
+    trash:        'Trash'
+  };
+
   // ── Игровые / неигровые карты ────────────────────────────────────
   // Карты групп role и character не разыгрываются — это мета-карты:
   // role обозначает сторону игрока, character — фон для персонажа.
@@ -80,6 +98,147 @@ $(function () {
   // activeMode: null = все, '__poison__' = яд, '__print__' = на печать,
   //             или строка типа ('weapon', 'trap', …)
   var activeMode = null;
+
+  // ── Язык интерфейса ───────────────────────────────────────────────
+  // Два языка: 'ru' (по умолчанию) и 'en'. Тексты карт берутся из
+  // полей enTitle/enDesc в cards.js, интерфейс — из словаря UI_TEXT.
+  //
+  // Состояние живёт в URL (?lang=en), как ?proof=cmyk и #фильтр:
+  // localStorage в проекте запрещён, а ссылкой на английскую версию
+  // надо уметь делиться.
+  var LANG = /[?&]lang=en\b/.test(location.search) ? 'en' : 'ru';
+
+  var UI_TEXT = {
+    ru: {
+      docTitle:      'Картотека карточек',
+      h1:            'Ниндзя против Самураев',
+      subtitle:      'Картотека',
+      rulesLink:     '📖 Правила игры',
+      statTypes:     'типов карт',
+      statTotal:     'карт в колоде',
+      sidebarTitle:  'Статистика',
+      playableTypes: 'Игровых типов',
+      playableQty:   'Игровых карт',
+      otherTypes:    'Неигровых типов',
+      otherQty:      'Неигровых карт',
+      trashTypes:    '🗑 Корзина (типов)',
+      thGroup:       'Группа',
+      thTypes:       'Типов',
+      thQty:         'Карт',
+      thPct:         '%',
+      thTypesTitle:  'Количество типов карт',
+      thQtyTitle:    'Количество карт в колоде',
+      thPctTitle:    'Доля от общего количества карт',
+      sectionLabel:  'Набор карт',
+      all:           'Все',
+      poison:        '☠ Яд',
+      print:         '🖨 На печать',
+      draft:         '✏ Черновик',
+      trash:         '🗑 Корзина',
+      rolectx:       '⚔ Клановые',
+      hpctx:         '❤ Low/Full HP',
+      comments:      '💬 Комментарии',
+      printQty:      ' Печать количеством (Quantity Based Print)',
+      printBacks:    ' Печать рубашек',
+      printBacksTip: 'После каждых 9 карточек добавляет страницу с рубашками для duplex-печати',
+      cmyk:          ' 🎨 CMYK preview (Fogra39)',
+      cmykTip:       'Превью с эмуляцией офсетной печати (Fogra39 ICC)',
+      draftRow:      '✏ Черновик',
+      ratioTitle:    'Оружие vs Защита',
+      ratioText:     function (w, d, r) {
+        return 'Оружие (' + w + ') / Защита (' + d + ') = ' + r + ' : 1';
+      },
+      countText:     function (types, qty, trash) {
+        return types + ' видов · ' + qty + ' карт' +
+               (trash > 0 ? ' · 🗑 ' + trash + ' в корзине' : '');
+      },
+      or:            'ИЛИ',
+      tagPoison:     'Яд',
+      tagPrint:      'На печать',
+      tagDraft:      'Черновик',
+      tagTrash:      'Корзина',
+      langTitle:     'Interface language'
+    },
+    en: {
+      docTitle:      'Card Catalogue',
+      h1:            'Ninja vs Samurai',
+      subtitle:      'Card Catalogue',
+      rulesLink:     '📖 Game Rules',
+      statTypes:     'card types',
+      statTotal:     'cards in deck',
+      sidebarTitle:  'Statistics',
+      playableTypes: 'Playable types',
+      playableQty:   'Playable cards',
+      otherTypes:    'Non-playable types',
+      otherQty:      'Non-playable cards',
+      trashTypes:    '🗑 Trash (types)',
+      thGroup:       'Group',
+      thTypes:       'Types',
+      thQty:         'Cards',
+      thPct:         '%',
+      thTypesTitle:  'Number of card types',
+      thQtyTitle:    'Number of cards in the deck',
+      thPctTitle:    'Share of the total card count',
+      sectionLabel:  'Card Set',
+      all:           'All',
+      poison:        '☠ Poison',
+      print:         '🖨 To print',
+      draft:         '✏ Draft',
+      trash:         '🗑 Trash',
+      rolectx:       '⚔ Clan',
+      hpctx:         '❤ Low/Full HP',
+      comments:      '💬 Comments',
+      printQty:      ' Quantity Based Print',
+      printBacks:    ' Print card backs',
+      printBacksTip: 'Adds a page of card backs after every 9 cards, for duplex printing',
+      cmyk:          ' 🎨 CMYK preview (Fogra39)',
+      cmykTip:       'Preview emulating offset print (Fogra39 ICC)',
+      draftRow:      '✏ Draft',
+      ratioTitle:    'Weapons vs Defense',
+      ratioText:     function (w, d, r) {
+        return 'Weapons (' + w + ') / Defense (' + d + ') = ' + r + ' : 1';
+      },
+      countText:     function (types, qty, trash) {
+        return types + ' types · ' + qty + ' cards' +
+               (trash > 0 ? ' · 🗑 ' + trash + ' in trash' : '');
+      },
+      or:            'OR',
+      tagPoison:     'Poison',
+      tagPrint:      'To print',
+      tagDraft:      'Draft',
+      tagTrash:      'Trash',
+      langTitle:     'Язык интерфейса'
+    }
+  };
+
+  // Строка из словаря по текущему языку.
+  function t(key) {
+    return UI_TEXT[LANG][key];
+  }
+
+  // Подпись типа карты: label / labelEn.
+  function typeLabel(type) {
+    var meta = TYPE_META[type];
+    if (!meta) return type;
+    return (LANG === 'en' && meta.labelEn) ? meta.labelEn : meta.label;
+  }
+
+  // Название группы-разделителя.
+  function groupLabel(groupKey) {
+    var dict = (LANG === 'en') ? GROUP_LABELS_EN : GROUP_LABELS;
+    return dict[groupKey] || GROUP_LABELS[groupKey] || groupKey;
+  }
+
+  // Название и описание карты. Если для en поля нет или оно пустое,
+  // откатываемся на русское — карта без перевода всё равно читается.
+  function cardTitle(card) {
+    return (LANG === 'en' && card.enTitle) ? card.enTitle : card.title;
+  }
+
+  function cardDesc(card) {
+    if (LANG !== 'en') return card.desc;
+    return (card.enDesc != null && card.enDesc !== '') ? card.enDesc : card.desc;
+  }
 
   // ── Типографика ───────────────────────────────────────────────────
 
@@ -138,18 +297,28 @@ $(function () {
   // Заменяет {текст} в уже типографированной HTML-строке на
   // <span class="card-desc-label card-desc-label-<kind>">текст</span>.
   // Kind определяется по корневому маркеру в тексте (регистронезависимо).
+  // У каждого вида — корни на обоих языках: подсветка бейджа должна
+  // работать одинаково для «{На пороге вашей смерти}» и «{At death's door}».
   var DESC_LABEL_KINDS = [
-    { kind: 'samurai',   root: 'самур' },
-    { kind: 'ninja',     root: 'ниндз'  },
-    { kind: 'deathdoor', root: 'порог'  },
-    { kind: 'deathrattle', root: 'смерт'  },
+    { kind: 'samurai',     roots: ['самур', 'samurai'] },
+    { kind: 'ninja',       roots: ['ниндз', 'ninja'] },
+    // deathdoor проверяется РАНЬШЕ deathrattle: английское
+    // «at death's door» содержит и 'door', и 'death', и должно
+    // достаться порогу смерти, а не посмертному эффекту. В русском
+    // та же коллизия: «{На пороге вашей смерти}» содержит и 'порог',
+    // и 'смерт'.
+    { kind: 'deathdoor',   roots: ['порог', "death's door"] },
+    { kind: 'deathrattle', roots: ['смерт', 'death'] },
   ];
 
   function detectDescLabelKind(text) {
     var lower = text.toLowerCase();
     for (var i = 0; i < DESC_LABEL_KINDS.length; i++) {
-      if (lower.indexOf(DESC_LABEL_KINDS[i].root) !== -1) {
-        return DESC_LABEL_KINDS[i].kind;
+      var roots = DESC_LABEL_KINDS[i].roots;
+      for (var j = 0; j < roots.length; j++) {
+        if (lower.indexOf(roots[j]) !== -1) {
+          return DESC_LABEL_KINDS[i].kind;
+        }
       }
     }
     return null;
@@ -165,8 +334,13 @@ $(function () {
       });
   }
 
+  // Разделитель веток описания: `-ИЛИ-` в русском тексте, `-OR-` в
+  // английском. Регулярка понимает оба, чтобы одна и та же функция
+  // работала с desc и enDesc.
+  var OR_SPLIT_RE = /\s*-(?:ИЛИ|OR)-\s*/;
+
   function buildDescContent(desc) {
-    var parts = String(desc).split(/\s*-ИЛИ-\s*/)
+    var parts = String(desc).split(OR_SPLIT_RE)
       .map(function (p) { return p.replace(/^\s+|\s+$/g, ''); })
       .filter(function (p) { return p.length > 0; });
 
@@ -180,7 +354,7 @@ $(function () {
         $wrap.append(
           $('<div>', { class: 'card-desc-or' }).append(
             $('<span>', { class: 'card-desc-or-line' }),
-            $('<span>', { class: 'card-desc-or-label', text: 'ИЛИ' }),
+            $('<span>', { class: 'card-desc-or-label', text: t('or') }),
             $('<span>', { class: 'card-desc-or-line' })
           )
         );
@@ -267,27 +441,58 @@ $(function () {
   // ── Построение тегов типов на карточке ───────────────────────────
   function buildTypeTags(types, tags) {
     var $wrap = $('<div>', { class: 'card-types' });
-    $.each(types, function (_, t) {
-      var meta = TYPE_META[t] || { label: t, color: '#555' };
+    $.each(types, function (_, type) {
+      var meta = TYPE_META[type] || { color: '#555' };
       $('<span>', {
         class: 'type-tag',
-        text: meta.label,
+        text: typeLabel(type),
         css: { '--tag-color': meta.color }
       }).appendTo($wrap);
     });
     if (tags.indexOf('poison') !== -1) {
-      $('<span>', { class: 'type-tag type-tag--poison', text: 'Яд' }).appendTo($wrap);
+      $('<span>', { class: 'type-tag type-tag--poison', text: t('tagPoison') }).appendTo($wrap);
     }
     if (tags.indexOf('toPrint') !== -1) {
-      $('<span>', { class: 'type-tag type-tag--print', text: 'На печать' }).appendTo($wrap);
+      $('<span>', { class: 'type-tag type-tag--print', text: t('tagPrint') }).appendTo($wrap);
     }
     if (tags.indexOf('draft') !== -1) {
-      $('<span>', { class: 'type-tag type-tag--draft', text: 'Черновик' }).appendTo($wrap);
+      $('<span>', { class: 'type-tag type-tag--draft', text: t('tagDraft') }).appendTo($wrap);
     }
     if (tags.indexOf('trash') !== -1) {
-      $('<span>', { class: 'type-tag type-tag--trash', text: 'Корзина' }).appendTo($wrap);
+      $('<span>', { class: 'type-tag type-tag--trash', text: t('tagTrash') }).appendTo($wrap);
     }
     return $wrap;
+  }
+
+  // ── Жёлтая плашка описания ────────────────────────────────────────
+  // Вынесена из buildCard отдельной функцией: при переключении языка
+  // содержимое плашки пересобирается на месте, без перестройки всей
+  // карточки (см. applyLanguage).
+  function buildDescWrap(card) {
+    var desc = cardDesc(card);
+    if (!desc) return null;
+
+    var blockLabels = card.types
+      .filter(function (type) { return BLOCK_TYPES.indexOf(type) !== -1; })
+      .map(typeLabel);
+
+    var $descContent = buildDescContent(desc);
+
+    if (blockLabels.length) {
+      var $span = $('<span>', {
+        class: 'card-block-types',
+        text: blockLabels.join(' · ') + ' ·'
+      });
+      var $target = $descContent.hasClass('card-desc--split')
+        ? $descContent.find('.card-desc-part').first()
+        : $descContent;
+      $target.prepend($span);
+    }
+
+    return $('<div>', { class: 'card-desc-wrap' }).append(
+      $('<img>', { class: 'card-delimiter', src: 'media/delimiter.png', alt: '', draggable: false }),
+      $descContent
+    );
   }
 
   // ── Построение карточки ───────────────────────────────────────────
@@ -375,7 +580,7 @@ $(function () {
         var $tw = $('<div>', { class: 'card-title-wrap' });
         if (titleBg) $tw.css('background', titleBg);
         $tw.append(
-          $('<span>', { class: 'card-title', text: card.title }),
+          $('<span>', { class: 'card-title', text: cardTitle(card) }),
           card.subtitle
             ? $('<span>', { class: 'card-subtitle', text: card.subtitle })
             : null
@@ -402,26 +607,7 @@ $(function () {
       }).on('error', function () { $(this).hide(); }),
 
       // Слой 4: жёлтая плашка с описанием внизу (только если есть текст)
-      card.desc ? (function () {
-        var blockLabels = card.types
-          .filter(function (t) { return BLOCK_TYPES.indexOf(t) !== -1; })
-          .map(function (t) { return (TYPE_META[t] || {}).label || t; });
-
-        var $descContent = buildDescContent(card.desc);
-
-        if (blockLabels.length) {
-          var $span = $('<span>', { class: 'card-block-types', text: blockLabels.join(' · ') + ' ·' });
-          var $target = $descContent.hasClass('card-desc--split')
-            ? $descContent.find('.card-desc-part').first()
-            : $descContent;
-          $target.prepend($span);
-        }
-
-        return $('<div>', { class: 'card-desc-wrap' }).append(
-          $('<img>', { class: 'card-delimiter', src: 'media/delimiter.png', alt: '', draggable: false }),
-          $descContent
-        );
-      })() : null
+      buildDescWrap(card)
     );
 
     // Кнопка «поделиться» — видна только когда карта в зуме (CSS),
@@ -520,7 +706,7 @@ $(function () {
 
   // ── Разделитель группы ────────────────────────────────────────────
   function buildGroupDivider(groupKey) {
-    var label = GROUP_LABELS[groupKey] || groupKey;
+    var label = groupLabel(groupKey);
     var color = (TYPE_META[groupKey] || {}).color || '#7a5a2a';
     return $('<div>', {
       class: 'group-divider',
@@ -535,6 +721,12 @@ $(function () {
 
   // ── Рендер: всё в $grid с разделителями ──────────────────────────
   var $grid = $('#grid');
+
+  // Индекс карт по id — для переключения языка. Через jQuery .data()
+  // это не сделать: qty-клоны создаются через .clone(false) и данные
+  // не наследуют, а data-card-id у них есть. id уникален по колоде.
+  var CARD_BY_ID = {};
+  $.each(CARDS, function (_, card) { CARD_BY_ID[String(card.id)] = card; });
 
   // Группируем все карты по group (включая trash — они нужны в обоих местах)
   var grouped = {};
@@ -701,11 +893,8 @@ $(function () {
       });
     }
 
-    var countText = isTrashMode
-      ? totalTypes + ' видов · ' + totalQty + ' карт'
-      : totalTypes + ' видов · ' + totalQty + ' карт' +
-        (trashTypes > 0 ? ' · 🗑 ' + trashTypes + ' в корзине' : '');
-    $('.count').text(countText);
+    $('.count').text(t('countText')(totalTypes, totalQty,
+                                    isTrashMode ? 0 : trashTypes));
 
     // Подсветка активных кнопок
     $('.filter-btn').each(function () {
@@ -741,7 +930,7 @@ $(function () {
 
     // ── Ряд 1: «Все» ─────────────────────────────────────────────────
     var $row1 = $('<div>', { class: 'filter-row' }).appendTo($bar);
-    $('<button>', { class: 'filter-btn active', text: 'Все', 'data-type': '__all__' })
+    $('<button>', { class: 'filter-btn active', text: t('all'), 'data-type': '__all__' })
       .on('click', function () { setFilter(null); })
       .appendTo($row1);
 
@@ -766,16 +955,16 @@ $(function () {
     });
 
     var $row2 = $('<div>', { class: 'filter-row' }).appendTo($bar);
-    $.each(sortedTypes, function (_, t) {
-      var meta = TYPE_META[t];
+    $.each(sortedTypes, function (_, type) {
+      var meta = TYPE_META[type];
       $('<button>', {
         class: 'filter-btn',
-        text: meta.label,
-        'data-type': t,
+        text: typeLabel(type),
+        'data-type': type,
         css: { '--tag-color': meta.color }
       })
         .on('click', function () {
-          setFilter(activeMode === t ? null : t);
+          setFilter(activeMode === type ? null : type);
         })
         .appendTo($row2);
     });
@@ -783,37 +972,37 @@ $(function () {
     // ── Ряд 3: фильтры по тегам ──────────────────────────────────────
     var $row3 = $('<div>', { class: 'filter-row' }).appendTo($bar);
 
-    $('<button>', { class: 'filter-btn filter-btn--poison', text: '☠ Яд', 'data-type': '__poison__' })
+    $('<button>', { class: 'filter-btn filter-btn--poison', text: t('poison'), 'data-type': '__poison__' })
       .on('click', function () {
         setFilter(activeMode === '__poison__' ? null : '__poison__');
       })
       .appendTo($row3);
 
-    $('<button>', { class: 'filter-btn filter-btn--print', text: '🖨 На печать', 'data-type': '__print__' })
+    $('<button>', { class: 'filter-btn filter-btn--print', text: t('print'), 'data-type': '__print__' })
       .on('click', function () {
         setFilter(activeMode === '__print__' ? null : '__print__');
       })
       .appendTo($row3);
 
-    $('<button>', { class: 'filter-btn filter-btn--draft', text: '✏ Черновик', 'data-type': '__draft__' })
+    $('<button>', { class: 'filter-btn filter-btn--draft', text: t('draft'), 'data-type': '__draft__' })
       .on('click', function () {
         setFilter(activeMode === '__draft__' ? null : '__draft__');
       })
       .appendTo($row3);
 
-    $('<button>', { class: 'filter-btn filter-btn--trash', text: '🗑 Корзина', 'data-type': '__trash__' })
+    $('<button>', { class: 'filter-btn filter-btn--trash', text: t('trash'), 'data-type': '__trash__' })
       .on('click', function () {
         setFilter(activeMode === '__trash__' ? null : '__trash__');
       })
       .appendTo($row3);
 
-    $('<button>', { class: 'filter-btn filter-btn--rolectx', text: '⚔ Клановые', 'data-type': '__rolectx__' })
+    $('<button>', { class: 'filter-btn filter-btn--rolectx', text: t('rolectx'), 'data-type': '__rolectx__' })
       .on('click', function () {
         setFilter(activeMode === '__rolectx__' ? null : '__rolectx__');
       })
       .appendTo($row3);
 
-    $('<button>', { class: 'filter-btn filter-btn--hpctx', text: '❤ Low/Full HP', 'data-type': '__hpctx__' })
+    $('<button>', { class: 'filter-btn filter-btn--hpctx', text: t('hpctx'), 'data-type': '__hpctx__' })
       .on('click', function () {
         setFilter(activeMode === '__hpctx__' ? null : '__hpctx__');
       })
@@ -826,7 +1015,7 @@ $(function () {
       document.body.classList.toggle('print-qty-mode', this.checked);
     });
     $('<label>', { class: 'print-qty-label', 'for': 'print-qty-checkbox' })
-      .append($cb, $('<span>', { text: ' Печать количеством (Quantity Based Print)' }))
+      .append($cb, $('<span>', { 'data-i18n': 'printQty', text: t('printQty') }))
       .appendTo($row4);
 
     // Чекбокс «Печать рубашек» — после каждой страницы фронтов
@@ -842,9 +1031,10 @@ $(function () {
     $('<label>', {
       class: 'print-backs-label',
       'for': 'print-backs-checkbox',
-      title: 'После каждых 9 карточек добавляет страницу с рубашками для duplex-печати'
+      'data-i18n-title': 'printBacksTip',
+      title: t('printBacksTip')
     })
-      .append($backsCb, $('<span>', { text: ' Печать рубашек' }))
+      .append($backsCb, $('<span>', { 'data-i18n': 'printBacks', text: t('printBacks') }))
       .appendTo($row4);
 
     // ── CMYK soft-proof через Fogra39 ICC ──────────────────────────
@@ -862,10 +1052,11 @@ $(function () {
     $('<label>', {
       class: 'cmyk-proof-label',
       'for': 'cmyk-proof-checkbox',
-      title: 'Превью с эмуляцией офсетной печати (Fogra39 ICC)'
+      'data-i18n-title': 'cmykTip',
+      title: t('cmykTip')
     }).append(
       $cmykCb,
-      $('<span>', { text: ' 🎨 CMYK preview (Fogra39)' })
+      $('<span>', { 'data-i18n': 'cmyk', text: t('cmyk') })
     ).appendTo($row4);
 
     // Синхронизация чекбокса с реальным состоянием:
@@ -935,7 +1126,7 @@ $(function () {
       groupStats[g].qty += card.qty || 1;
     });
 
-    var $tbody = $('#stats-table-body');
+    var $tbody = $('#stats-table-body').empty();
     // Сортируем группы по убыванию qty (колонка «Карт»). Тай-брейк —
     // индекс в GROUP_ORDER, чтобы порядок при равенстве оставался
     // стабильным и предсказуемым.
@@ -957,7 +1148,7 @@ $(function () {
       $('<tr>', {
         class: groupIsPlayable ? '' : 'stats-row--non-playable'
       }).append(
-        $('<td>', { text: GROUP_LABELS[g] || g }),
+        $('<td>', { text: groupLabel(g) }),
         $('<td>', { text: s.types }),
         $('<td>', { text: s.qty }),
         $('<td>', { text: pct })
@@ -971,7 +1162,7 @@ $(function () {
     var draftCards = CARDS.filter(function (c) { return (c.tags || []).indexOf('draft') !== -1; });
     if (draftCards.length) {
       $('<tr>', { class: 'stats-row--pseudo' }).append(
-        $('<td>', { text: '✏ Черновик' }),
+        $('<td>', { text: t('draftRow') }),
         $('<td>', { text: draftCards.length }),
         $('<td>', { text: draftCards.reduce(function (s, c) { return s + (c.qty || 1); }, 0) }),
         $('<td>', { text: '—' })
@@ -987,10 +1178,10 @@ $(function () {
     });
     var ratio = defenseQty > 0 ? (weaponQty / defenseQty).toFixed(2) : '—';
 
-    var ratioText = 'Оружие (' + weaponQty + ') / Защита (' + defenseQty + ') = ' + ratio + ' : 1';
+    var ratioText = t('ratioText')(weaponQty, defenseQty, ratio);
     $('#stats-ratio').remove();
     $('<div>', { id: 'stats-ratio', class: 'stats-ratio' }).append(
-      $('<p>', { class: 'stats-ratio-title', text: 'Оружие vs Защита' }),
+      $('<p>', { class: 'stats-ratio-title', text: t('ratioTitle') }),
       $('<p>', { class: 'stats-ratio-value', text: ratioText })
     ).appendTo('.sidebar-stats');
   }
@@ -1154,6 +1345,101 @@ $(function () {
     });
   });
 
+  // ── Переключение языка ────────────────────────────────────────────
+  // Грид строится один раз, поэтому смена языка не перестраивает
+  // карточки, а обновляет в них текстовые узлы: заголовок, жёлтую
+  // плашку описания и теги типов. Всё остальное (арт, иконки, маска,
+  // позиция плашки) остаётся на месте.
+  //
+  // Кнопки спецрежимов фильтра — по data-type; кнопки типов карт
+  // берут подпись из typeLabel(). Кнопка «💬 Комментарии» приезжает
+  // из comments.js позже, но попадает в тот же цикл.
+  var FILTER_LABEL_KEY = {
+    '__all__':      'all',
+    '__poison__':   'poison',
+    '__print__':    'print',
+    '__draft__':    'draft',
+    '__trash__':    'trash',
+    '__rolectx__':  'rolectx',
+    '__hpctx__':    'hpctx',
+    '__comments__': 'comments'
+  };
+
+  function applyLanguage(lang) {
+    LANG = (lang === 'en') ? 'en' : 'ru';
+    document.documentElement.setAttribute('lang', LANG);
+    document.title = t('docTitle');
+
+    // Статические строки разметки и подписи, созданные из JS.
+    $('[data-i18n]').each(function () {
+      $(this).text(t($(this).attr('data-i18n')));
+    });
+    $('[data-i18n-title]').each(function () {
+      $(this).attr('title', t($(this).attr('data-i18n-title')));
+    });
+
+    // Кнопки фильтров.
+    $('.filter-btn').each(function () {
+      var $btn = $(this);
+      var type = $btn.attr('data-type');
+      if (FILTER_LABEL_KEY[type]) $btn.text(t(FILTER_LABEL_KEY[type]));
+      else if (TYPE_META[type])   $btn.text(typeLabel(type));
+    });
+
+    // Разделители групп.
+    $('[data-group-divider]').each(function () {
+      var $div = $(this);
+      $div.children('.group-divider-label').text(groupLabel($div.data('group-divider')));
+    });
+
+    // Карточки — включая qty-клоны и pseudo-копии в Корзине.
+    $('#grid .card-item').each(function () {
+      var $el = $(this);
+      var card = CARD_BY_ID[String($el.attr('data-card-id'))];
+      if (!card) return;
+
+      $el.find('.card-title').first().text(cardTitle(card));
+
+      var $oldWrap = $el.find('.card-desc-wrap').first();
+      var $newWrap = buildDescWrap(card);
+      if ($oldWrap.length && $newWrap) $oldWrap.replaceWith($newWrap);
+
+      // .card-types меняем точечно: рядом в футере живёт кнопка
+      // комментариев от comments.js, её трогать нельзя.
+      $el.find('.card-types').first()
+         .replaceWith(buildTypeTags(card.types, card.tags || []));
+    });
+
+    buildStats();
+    applyFilter();
+    // Плашки описания пересчитываем: у английского текста другая
+    // высота, а top у .card-desc-wrap завязан на неё.
+    recomputeAllDescWraps();
+
+    // Синхронизируем URL — чтобы ссылкой на английскую версию можно
+    // было поделиться и чтобы перезагрузка сохраняла выбор.
+    try {
+      var url = new URL(location.href);
+      if (LANG === 'en') url.searchParams.set('lang', 'en');
+      else               url.searchParams.delete('lang');
+      history.replaceState(null, '', url);
+    } catch (e) { /* ignore старые браузеры */ }
+
+    $('.lang-btn').each(function () {
+      $(this).toggleClass('active', $(this).attr('data-lang') === LANG);
+    });
+  }
+
+  $(document).on('click', '.lang-btn', function () {
+    applyLanguage($(this).attr('data-lang'));
+  });
+
+  // Публичный API — для отладки из консоли и внешних расширений.
+  window.CardLang = {
+    get: function () { return LANG; },
+    set: applyLanguage
+  };
+
   // ── Инициализация ─────────────────────────────────────────────────
   buildFilters();
   buildStats();
@@ -1164,6 +1450,11 @@ $(function () {
     activeMode = hashMode;
   }
   applyFilter();
+
+  // Локализуем статику разметки и подсвечиваем активную кнопку языка.
+  // Карточки на этот момент уже собраны нужным языком — LANG читается
+  // из URL до рендера — но строки в app.html лежат по-русски.
+  applyLanguage(LANG);
 
   // Hash вида card-<ID> — зумим карту после применения фильтра.
   applyCardHashIfAny();
