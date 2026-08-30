@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Тёмные карты — риск на офсете</title>
+<style>
+  :root {
+    --bg: #1a1208; --panel: #241a0e; --line: #4a3520;
+    --ink: #e8dcc4; --dim: #8a7350; --gold: #c8a870; --hot: #e0603a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 28px 22px 60px;
+    background: var(--bg); color: var(--ink);
+    font: 15px/1.5 'PT Sans Narrow', 'Segoe UI', sans-serif;
+  }
+  header { max-width: 1180px; margin: 0 auto 26px; }
+  h1 { margin: 0 0 6px; font-size: 25px; letter-spacing: .06em; color: var(--gold); font-weight: 700; }
+  .sub { margin: 0 0 16px; color: var(--dim); font-size: 14px; }
+  .note {
+    max-width: 760px; margin: 0; padding: 12px 15px;
+    background: var(--panel); border-left: 3px solid var(--gold);
+    font-size: 13.5px; color: #cdbb96;
+  }
+  .note b { color: var(--ink); }
+  .note code { color: var(--gold); font-family: ui-monospace, Consolas, monospace; font-size: 12.5px; }
+
+  .grid {
+    max-width: 1180px; margin: 26px auto 0;
+    display: grid; gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  }
+  .card {
+    margin: 0; padding: 14px; position: relative;
+    background: var(--panel); border: 1px solid var(--line);
+  }
+  .rank {
+    position: absolute; top: 10px; right: 12px;
+    font-size: 26px; font-weight: 700; color: #3a2a14; line-height: 1;
+  }
+  iframe {
+    display: block; width: 300px; height: 470px;
+    margin: 0 auto; border: 0; background: #fff;
+  }
+  figcaption { margin-top: 12px; }
+  h2 { margin: 0; font-size: 17px; font-weight: 700; letter-spacing: .03em; }
+  .id { color: var(--dim); font-weight: 400; font-size: 13px; }
+  .meta { margin: 2px 0 9px; color: var(--dim); font-size: 13px; }
+
+  .bar { height: 5px; background: #3a2a14; margin-bottom: 10px; }
+  .bar span { display: block; height: 100%; background: var(--hot); }
+
+  dl { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px 10px; margin: 0; }
+  dl div { text-align: center; padding: 5px 2px; background: #1e1509; }
+  dt { color: var(--dim); font-size: 11px; letter-spacing: .05em; text-transform: uppercase; }
+  dd { margin: 1px 0 0; font-size: 16px; font-weight: 700; }
+  dd.hot { color: var(--hot); }
+
+  @media print {
+    body { background: #fff; color: #000; padding: 10mm; }
+    .card { background: #fff; border-color: #999; break-inside: avoid; }
+    .rank { color: #ccc; }
+    dl div { background: #f2f2f2; }
+    .note { background: #f6f6f6; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Тёмные карты — риск на офсете</h1>
+  <p class="sub">14 карт категории «критично» · замер по ICC Coated_Fogra39L_VIGC_300 · отсортировано по площади мазни</p>
+  <p class="note">
+    <b>Мазня</b> — доля кадра, где пиксель одновременно тёмный (L*&lt;25) и залит краской свыше 260%.
+    В таких зонах не остаётся тонального запаса: на бумаге соседние оттенки сливаются в одну плашку.
+    <b>Тень sd</b> — разброс светлоты внутри тёмных масс; ниже 9.5 означает плоский чернильный слиток без деталей.
+    Само по себе перекрашивание в CMYK арты почти не портит — медианное падение светлоты по колоде
+    <b>0.1 L*</b>. Проблема не в охвате, а в том, что светлого фона в кадре нет:
+    у этих карт его от <b>0 до 10%</b> при медиане по колоде 4.3%.
+    Пересчитать: <code>py -3 tools/print-darkness.py . report.csv</code>
+  </p>
+</header>
+
+<div class="grid">
+
+    <figure class="card">
+      <div class="rank">1</div>
+      <iframe src="app.html?embed=1136" loading="lazy" title="Укол вслепую"></iframe>
+      <figcaption>
+        <h2>Укол вслепую <span class="id">#1136</span></h2>
+        <p class="meta">action · тираж 1</p>
+        <div class="bar" title="доля мазни в кадре">
+          <span style="width:85%"></span>
+        </div>
+        <dl>
+          <div><dt>мазня</dt><dd class="hot">85%</dd></div>
+          <div><dt>тень sd</dt><dd>5.5</dd></div>
+          <div><dt>тёмное</dt><dd>97%</dd></div>
+          <div><dt>светлое</dt><dd>0.2%</dd></div>
+          <div><dt>L* печ.</dt><dd>4</dd></div>
+          <div><dt>краска</dt><dd>298%</dd></div>
+        </dl>
+      </figcaption>
+    </figure>
+
+    <figure class="card">
+      <div class="rank">2</div>
+      <iframe src="app.html?embed=1211" loading="lazy" title="Подпольная сеть"></iframe>
+      <figcaption>
+        <h2>Подпольная сеть <span class="id">#1211</span></h2>
+        <p class="meta">aura · тираж 1</p>
+        <div class="bar" title="доля мазни в кадре">
+          <span style="width:68%"></span>
+        </div>
+        <dl>
+          <div><dt>мазня</dt><dd class="hot">68%</dd></div>
+          <div><dt>тень sd</dt><dd>5.6</dd></div>
+          <div><dt>тёмное</dt><dd>98%</dd></div>
+          <div><dt>светлое</dt><dd>0.0%</dd></div>
+          <div><dt>L* печ.</dt><dd>5</dd></div>
+          <div><dt>краска</dt><dd>295%</dd></div>
+        </dl>
+      </figcaption>
+    </figure>
+
+    <figure class="card">
+      <div class="rank">3</div>
+      <iframe src="app.html?embed=91" loading="lazy" title="Метка убийцы"></iframe>
+      <figcaption>
+        <h2>Метка убийцы <span class="id">#91</span></h2>
+        <p class="meta">effect · тираж 4</p>
+        <div class="bar" title="доля мазни в кадре">
+          <span style="width:52%"></span>
+        </div>
+        <dl>
+          <div><dt>мазня</dt><dd class="hot">52%</dd></div>
+          <div><dt>тень sd</dt><dd>8.5</dd></div>
+          <div><dt>тёмное</dt><dd>97%</dd></div>
+          <div><dt>светлое</dt><dd>0.0%</dd></div>
+          <div><dt>L* печ.</dt><dd>10</dd></div>
+          <div><dt>краска</dt><dd>286%</dd></div>
+        </dl>
+      </figcaption>
+    </figure>
+
+    <figure class="card">
+      <div class="rank">4</div>
+      <iframe src="app.html?embed=47" loading="lazy" title="Оскорбление"></iframe>
+      <figcaption>
+        <h2>Оскорбление <span class="id">#47</span></h2>
+        <p class="meta">trap · тираж 2</p>
+        <div class="bar" title="доля мазни в кадре">
+          <span style="width:50%"></span>
+        </div>
+        <dl>
+          <div><dt>мазня</dt><dd class="hot">50%</dd></div>
+          <div><dt>тень sd</dt><dd>7.9</dd></div>
+          <div><dt>тёмное</dt><dd>77%</dd></div>
+          <div><dt>светлое</dt><dd>6.1%</dd></div>
+          <div><dt>L* печ.</dt><dd>19</dd></div>
+          <div><dt>краска</dt><dd>291%</dd></div>
+        </dl>
+      </figcaption>
+    </figure>
+
+    <figure class="card">
+      <div class="rank">5</div>
+      <iframe src="app.html?embed=111" loading="lazy" title="Предательство"></iframe>
+      <figcaption>
+        <h2>Предательство <span class="id">#111</span></h2>
+        <p class="meta">action · тираж 1</p>
+        <div class="bar" title="доля мазни в кадре">
+          <span style="width:49%"></span>
+        </div>
+        <dl>
+          <div><dt>мазня</dt><dd class="hot">49%</dd></div>
+          <div><dt>тень sd</dt><dd>9.3</dd></div>
+          <div><dt>тёмное</dt><dd>90%</dd></div>
+          <div><dt>светлое</dt><dd>3.6%</dd></div>
+          <div><dt>L* печ.</dt><dd>14</dd></div>
+          <div><dt>краска</dt><dd>298%</dd></div>
+        </dl>
+      </figcaption>
+    </figure>
+
+    <figure class="card">
+      <div class="rank">6</div>
+      <iframe src="app.html?embed=64" loading="lazy" title="Флакон яда"></iframe>
+      <figcaption>
+        <h2>Флакон яда <span class="id">#64</span></h2>
+        <p class="meta">modifier · тираж 1</p>
+        <div class="bar" title="доля мазни в кадре">
+          <span style="width:47%"></span>
+        </div>
+        <dl>
+          <div><dt>мазня</dt><dd class="hot">47%</dd></div>
+          <div><dt>тень sd</dt><dd>8.3</dd></div>
+          <div><dt>тёмное</dt><dd>78%</dd></div>
+          <div><dt>светлое</dt><dd>1.1%</dd></div>
+          <div><dt>L* печ.</dt><dd>18</dd></div>
+          <div><dt>краска</dt><dd>284%</dd></div>
+        </dl>
+      </figcaption>
+    </figure>
+
+    <figure class="card">
+      <div class="rank">7</div>
+      <iframe src="app.html?embed=99" loading="lazy" title="Чаша благовоний"></iframe>
+      <figcaption>
+        <h2>Чаша благовоний <span class="id">#99</span></h2>
+        <p class="meta">action · тираж 3</p>
+        <div class="bar" title="доля мазни в кадре">
+          <span style="width:46%"></span>
+        </div>
+        <dl>
+          <div><dt>мазня</dt><dd class="hot">46%</dd></div>
+          <div><dt>тень sd</dt><dd>8.7</dd></div>
+          <div><dt>тёмное</dt><dd>88%</dd></div>
+          <div><dt>светлое</dt><dd>0.8%</dd></div>
+          <div><dt>L* печ.</dt><dd>14</dd></div>
+          <div><dt>краска</dt><dd>296%</dd></div>
+        </dl>
+      </figcaption>
+    </figure>
+
+    <figure class="card">
+      <div class="rank">8</div>
+      <iframe src="app.html?embed=67" loading="lazy" title="Удар тени"></iframe>
+      <figcaption>
+        <h2>Удар тени <span class="id">#67</span></h2>
+        <p class="meta">modifier · тираж 1</p>
+        <div class="bar" title="доля мазни в кадре">
+          <span style="width:43%"></span>
+        </div>
+        <dl>
+          <div><dt>мазня</dt><dd class="hot">43%</dd></div>
+          <div><dt>тень sd</dt><dd>8.8</dd></div>
+          <div><dt>тёмное</dt><dd>73%</dd></div>
+          <div><dt>светлое</dt><dd>10.2%</dd></div>
+          <div><dt>L* печ.</dt><dd>24</dd></div>
+          <div><dt>краска</dt><dd>280%</dd></div>
+        </dl>
+      </figcaption>
+    </figure>
+
+    <figure class="card">
+      <div class="rank">9</div>
+      <iframe src="app.html?embed=63" loading="lazy" title="Ассасин"></iframe>
+      <figcaption>
+        <h2>Ассасин <span class="id">#63</span></h2>
+        <p class="meta">stance · тираж 2</p>
+        <div class="bar" title="доля мазни в кадре">
+          <span style="width:42%"></span>
+        </div>
+        <dl>
+          <div><dt>мазня</dt><dd class="hot">42%</dd></div>
+          <div><dt>тень sd</dt><dd>8.7</dd></div>
+          <div><dt>тёмное</dt><dd>91%</dd></div>
+          <div><dt>светлое</dt><dd>3.0%</dd></div>
+          <div><dt>L* печ.</dt><dd>14</dd></div>
+          <div><dt>краска</dt><dd>298%</dd></div>
+        </dl>
+      </figcaption>
+    </figure>
+
+    <figure class="card">
+      <div class="rank">10</div>
+      <iframe src="app.html?embed=116" loading="lazy" title="Яд фугу"></iframe>
+      <figcaption>
+        <h2>Яд фугу <span class="id">#116</span></h2>
+        <p class="meta">action · тираж 1</p>
+        <div class="bar" title="доля мазни в кадре">
+          <span style="width:42%"></span>
+        </div>
+        <dl>
+          <div><dt>мазня</dt><dd class="hot">42%</dd></div>
+          <div><dt>тень sd</dt><dd>8.4</dd></div>
+          <div><dt>тёмное</dt><dd>94%</dd></div>
+          <div><dt>светлое</dt><dd>0.0%</dd></div>
+          <div><dt>L* печ.</dt><dd>12</dd></div>
+          <div><dt>краска</dt><dd>286%</dd></div>
+        </dl>
+      </figcaption>
+    </figure>
+
+    <figure class="card">
+      <div class="rank">11</div>
+      <iframe src="app.html?embed=61" loading="lazy" title="Мастер боя"></iframe>
+      <figcaption>
+        <h2>Мастер боя <span class="id">#61</span></h2>
+        <p class="meta">stance · тираж 2</p>
+        <div class="bar" title="доля мазни в кадре">
+          <span style="width:40%"></span>
+        </div>
+        <dl>
+          <div><dt>мазня</dt><dd class="hot">40%</dd></div>
+          <div><dt>тень sd</dt><dd>6.0</dd></div>
+          <div><dt>тёмное</dt><dd>51%</dd></div>
+          <div><dt>светлое</dt><dd>0.8%</dd></div>
+          <div><dt>L* печ.</dt><dd>31</dd></div>
+          <div><dt>краска</dt><dd>297%</dd></div>
+        </dl>
+      </figcaption>
+    </figure>
+
+    <figure class="card">
+      <div class="rank">12</div>
+      <iframe src="app.html?embed=42" loading="lazy" title="Чучело"></iframe>
+      <figcaption>
+        <h2>Чучело <span class="id">#42</span></h2>
+        <p class="meta">trap · тираж 2</p>
+        <div class="bar" title="доля мазни в кадре">
+          <span style="width:39%"></span>
+        </div>
+        <dl>
+          <div><dt>мазня</dt><dd class="hot">39%</dd></div>
+          <div><dt>тень sd</dt><dd>8.9</dd></div>
+          <div><dt>тёмное</dt><dd>90%</dd></div>
+          <div><dt>светлое</dt><dd>1.3%</dd></div>
+          <div><dt>L* печ.</dt><dd>14</dd></div>
+          <div><dt>краска</dt><dd>292%</dd></div>
+        </dl>
+      </figcaption>
+    </figure>
+
+    <figure class="card">
+      <div class="rank">13</div>
+      <iframe src="app.html?embed=85" loading="lazy" title="Просветление"></iframe>
+      <figcaption>
+        <h2>Просветление <span class="id">#85</span></h2>
+        <p class="meta">intervention · тираж 1</p>
+        <div class="bar" title="доля мазни в кадре">
+          <span style="width:38%"></span>
+        </div>
+        <dl>
+          <div><dt>мазня</dt><dd class="hot">38%</dd></div>
+          <div><dt>тень sd</dt><dd>7.6</dd></div>
+          <div><dt>тёмное</dt><dd>94%</dd></div>
+          <div><dt>светлое</dt><dd>0.4%</dd></div>
+          <div><dt>L* печ.</dt><dd>12</dd></div>
+          <div><dt>краска</dt><dd>287%</dd></div>
+        </dl>
+      </figcaption>
+    </figure>
+
+    <figure class="card">
+      <div class="rank">14</div>
+      <iframe src="app.html?embed=132" loading="lazy" title="Кэцу нуги"></iframe>
+      <figcaption>
+        <h2>Кэцу нуги <span class="id">#132</span></h2>
+        <p class="meta">action · тираж 1</p>
+        <div class="bar" title="доля мазни в кадре">
+          <span style="width:38%"></span>
+        </div>
+        <dl>
+          <div><dt>мазня</dt><dd class="hot">38%</dd></div>
+          <div><dt>тень sd</dt><dd>9.2</dd></div>
+          <div><dt>тёмное</dt><dd>82%</dd></div>
+          <div><dt>светлое</dt><dd>0.4%</dd></div>
+          <div><dt>L* печ.</dt><dd>18</dd></div>
+          <div><dt>краска</dt><dd>298%</dd></div>
+        </dl>
+      </figcaption>
+    </figure>
+</div>
+
+</body>
+</html>

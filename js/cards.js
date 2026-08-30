@@ -2221,7 +2221,7 @@ const CARDS = [
     qty: 1,
     group: "action",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "У выбранного игрока текущее и недостающее количество жетонов жизни меняются местами.",
     enDesc: "The chosen player's current and missing life swap places.",
     img: "cards/card_motusa.png"
