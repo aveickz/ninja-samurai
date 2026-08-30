@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Charges — идеи карт</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      max-width: 1500px;
+      margin: 24px auto;
+      padding: 0 20px;
+      color: #1a1a1a;
+      line-height: 1.5;
+    }
+    h1 { font-size: 26px; margin-bottom: 8px; }
+    h2 { font-size: 22px; margin-top: 36px; padding-bottom: 6px; border-bottom: 2px solid #d8d3c8; }
+    p, li { font-size: 14px; }
+    .legend {
+      background: #f5f3ee;
+      border-left: 3px solid #9b8755;
+      padding: 12px 16px;
+      margin: 16px 0;
+      font-size: 13px;
+    }
+    .legend code { background: #ece8de; padding: 1px 5px; border-radius: 3px; }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 16px 0 32px;
+      table-layout: fixed;
+    }
+    col.col-card    { width: 320px; }
+    col.col-effect  { width: auto; }
+    th, td {
+      border: 1px solid #d8d3c8;
+      padding: 12px 14px;
+      vertical-align: top;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+    th {
+      background: #f5f3ee;
+      text-align: left;
+      font-weight: 600;
+    }
+    td.card-cell {
+      padding: 4px;
+      text-align: center;
+      background: #fafafa;
+    }
+    .stub-card {
+      width: 300px;
+      height: 470px;
+      border: 2px dashed #6b8caf;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      color: #2e5a8c;
+      font-size: 14px;
+      padding: 20px;
+      box-sizing: border-box;
+      background: linear-gradient(135deg, #f3f7fb 0%, #e8eef6 100%);
+      text-align: center;
+    }
+    .stub-card .stub-banner {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #6b8caf;
+      margin-bottom: 12px;
+    }
+    .stub-card .stub-name {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+      color: #1f3d63;
+    }
+    .stub-card .stub-formula {
+      font-size: 13px;
+      font-family: "Courier New", monospace;
+      color: #4a6c8e;
+      margin: 12px 0;
+      padding: 6px 10px;
+      background: rgba(255,255,255,0.5);
+      border-radius: 4px;
+    }
+    .stub-card .stub-flavor {
+      font-style: italic;
+      font-size: 13px;
+      color: #5d7b9c;
+      margin-top: 12px;
+      padding: 0 10px;
+    }
+    .stub-card .stub-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .effect-block {
+      margin-bottom: 8px;
+    }
+    .effect-block strong {
+      display: inline-block;
+      margin-right: 6px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 1px 8px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      vertical-align: 2px;
+    }
+    /* Источник Charges */
+    .badge-poison    { background: #4a8c4a; color: #fff; }
+    .badge-dead      { background: #555;    color: #fff; }
+    .badge-stance    { background: #2e5a8c; color: #fff; }
+    .badge-trap      { background: #8c6b3e; color: #fff; }
+    .badge-effect    { background: #6b4a8c; color: #fff; }
+    .badge-bleed     { background: #b58117; color: #fff; }
+    .badge-hp        { background: #b83a3a; color: #fff; }
+    .badge-active    { background: #2e7d4f; color: #fff; }
+    /* Группировка */
+    .badge-all       { background: #444;    color: #fff; }
+    .badge-allies    { background: #2e7da5; color: #fff; }
+    .badge-enemies   { background: #a52e2e; color: #fff; }
+    /* Тип карты */
+    .badge-attack    { background: #8c2e2e; color: #fff; }
+    .badge-defense   { background: #2e5a8c; color: #fff; }
+    .badge-aoe       { background: #b58117; color: #fff; }
+    .badge-action    { background: #4a8c4a; color: #fff; }
+    .badge-interv    { background: #6b4a8c; color: #fff; }
+    .flavor {
+      color: #6a5b3e;
+      font-style: italic;
+      font-size: 13px;
+      margin-top: 6px;
+    }
+    .meta {
+      color: #888;
+      font-size: 12px;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Charges — идеи карт</h1>
+
+<p>
+  10 идей карт типа <strong>Charges</strong> — эффект масштабируется от количества видимых
+  на столе аспектов. Концептуальное обоснование, шаблоны и список «что можно считать» — в
+  <code>new-mechanics-ideas.md</code> №7.
+</p>
+
+<div class="legend">
+  <strong>Источник Charges (что считаем):</strong>
+  <span class="badge badge-poison">отравленные</span>
+  <span class="badge badge-dead">мёртвые</span>
+  <span class="badge badge-stance">стойки</span>
+  <span class="badge badge-trap">ловушки</span>
+  <span class="badge badge-effect">эффекты</span>
+  <span class="badge badge-bleed">обескровленные</span>
+  <span class="badge badge-hp">HP</span>
+  <span class="badge badge-active">активные</span>
+  <br><br>
+  <strong>Группировка:</strong>
+  <span class="badge badge-all">все</span>
+  <span class="badge badge-allies">союзники</span>
+  <span class="badge badge-enemies">враги</span>
+  <br><br>
+  <strong>Тип карты:</strong>
+  <span class="badge badge-attack">Атака/мод.</span>
+  <span class="badge badge-defense">Защита</span>
+  <span class="badge badge-aoe">Групповая</span>
+  <span class="badge badge-action">Действие</span>
+  <span class="badge badge-interv">Вмешательство</span>
+</div>
+
+<h2>Идеи</h2>
+
+<table>
+  <colgroup>
+    <col class="col-card">
+    <col class="col-effect">
+  </colgroup>
+  <thead>
+    <tr>
+      <th>Карта</th>
+      <th>Эффект и образ</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr>
+      <td class="card-cell">
+        <div class="stub-card">
+          <div class="stub-banner">Charges · Модификатор</div>
+          <div class="stub-name">Кислотный взрыв</div>
+          <div class="stub-formula">+1 рана × отравленные враги</div>
+          <div class="stub-flavor">«Чем больше яда в воздухе, тем громче взрыв»</div>
+          <div class="stub-tags">
+            <span class="badge badge-poison">отравленные</span>
+            <span class="badge badge-enemies">враги</span>
+            <span class="badge badge-attack">Атака</span>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="effect-block">
+          <strong>Эффект.</strong> Атака наносит <strong>+1 рану за каждого отравленного врага</strong> на столе.
+        </div>
+        <div class="flavor">Образ — отравленный клинок взрывается на касании, и каждая капля яда в воздухе питает реакцию. Чем больше отравленных, тем громче взрыв.</div>
+        <div class="meta">Классический Charges по самому распространённому аспекту — отравлению. Хорошо синхронизируется с темой Plague и Бочкой зловония.</div>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="card-cell">
+        <div class="stub-card">
+          <div class="stub-banner">Charges · Модификатор</div>
+          <div class="stub-name">Гнев Бога Войны</div>
+          <div class="stub-formula">+1 рана × мёртвые союзники</div>
+          <div class="stub-flavor">«За каждого павшего товарища — удар отомщения»</div>
+          <div class="stub-tags">
+            <span class="badge badge-dead">мёртвые</span>
+            <span class="badge badge-allies">союзники</span>
+            <span class="badge badge-attack">Атака</span>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="effect-block">
+          <strong>Эффект.</strong> Атака наносит <strong>+1 рану за каждого мёртвого союзника</strong> на столе.
+        </div>
+        <div class="flavor">Образ — Хатимана, синтоистского бога войны, призывают мстить за падших. Чем больше погибших союзников, тем тяжелее удар клинка.</div>
+        <div class="meta">«Подарок на конец партии» — карта особенно мощна, когда команда потеряла людей. Создаёт интересные финальные ходы.</div>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="card-cell">
+        <div class="stub-card">
+          <div class="stub-banner">Charges · Групповая</div>
+          <div class="stub-name">Цунами</div>
+          <div class="stub-formula">N ран всем активным,<br>где N = стойки на столе</div>
+          <div class="stub-flavor">«Волна сбивает всех, кто упёрся в позицию»</div>
+          <div class="stub-tags">
+            <span class="badge badge-stance">стойки</span>
+            <span class="badge badge-all">все</span>
+            <span class="badge badge-aoe">Групповая</span>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="effect-block">
+          <strong>Эффект.</strong> Все активные игроки получают N ран, где N = количество <strong>активных стоек на столе</strong>.
+        </div>
+        <div class="flavor">Образ — цунами, которое не выбирает, кого валить. Тот, кто упёрся в землю стойкой, лишь сильнее ловит волну. В легендах о землетрясениях Намадзу — гигантский сом — встряхивает мир именно так.</div>
+        <div class="meta">Симметричный «штраф» для всей команды — наказывает позиционную игру через стойки. Очень редкий тип Charges «волна на стойки».</div>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="card-cell">
+        <div class="stub-card">
+          <div class="stub-banner">Charges · Вмешательство</div>
+          <div class="stub-name">Очищение огнём</div>
+          <div class="stub-formula">+1 HP игроку × ловушки у врагов</div>
+          <div class="stub-flavor">«Огонь, в котором сгорают чужие капканы, греет своих»</div>
+          <div class="stub-tags">
+            <span class="badge badge-trap">ловушки</span>
+            <span class="badge badge-enemies">враги</span>
+            <span class="badge badge-interv">Вмешательство</span>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="effect-block">
+          <strong>Эффект.</strong> Восстанавливает любому игроку <strong>1 HP за каждую активную ловушку на столе у врагов</strong>.
+        </div>
+        <div class="flavor">Образ — синтоистский обряд хараэ, очищение огнём, в котором сгорают всё нечистое. Чем больше у врагов хитростей-капканов, тем сильнее очищение.</div>
+        <div class="meta">Антипод тактике врагов: чем больше ловушек настроили — тем больше лечат своих. Естественный counter ниндзя-стиля.</div>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="card-cell">
+        <div class="stub-card">
+          <div class="stub-banner">Charges · Групповая</div>
+          <div class="stub-name">Стая саранчи</div>
+          <div class="stub-formula">+1 карта всем × ⌊эффекты / 2⌋</div>
+          <div class="stub-flavor">«Рой собирается там, где больше всего следов»</div>
+          <div class="stub-tags">
+            <span class="badge badge-effect">эффекты</span>
+            <span class="badge badge-all">все</span>
+            <span class="badge badge-aoe">Групповая</span>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="effect-block">
+          <strong>Эффект.</strong> Каждый игрок берёт <strong>+1 карту за каждые два эффекта на столе</strong> (округление вниз).
+        </div>
+        <div class="flavor">Образ — нашествие саранчи 蝗害, описанное в хрониках Сэнгоку. Рой собирается там, где земля уже истерзана: чем больше следов колдовства и сглаза, тем гуще туча.</div>
+        <div class="meta">Поощряет «грязную» партию — когда стол захламлён эффектами. Способствует темпу (правило №7) через массовый добор.</div>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="card-cell">
+        <div class="stub-card">
+          <div class="stub-banner">Charges · Модификатор</div>
+          <div class="stub-name">Знамя поражения</div>
+          <div class="stub-formula">+1 рана × обескровленные игроки</div>
+          <div class="stub-flavor">«Добивающий удар — тем убедительнее, чем больше павших вокруг»</div>
+          <div class="stub-tags">
+            <span class="badge badge-bleed">обескровленные</span>
+            <span class="badge badge-all">все</span>
+            <span class="badge badge-attack">Атака</span>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="effect-block">
+          <strong>Эффект.</strong> Атака наносит <strong>+1 рану за каждого обескровленного игрока</strong> (включая союзников) на столе.
+        </div>
+        <div class="flavor">Образ — самурай поднимает знамя над полем боя, видя сколько вокруг уже не встанет. Чем больше павших, тем громче зов клинка.</div>
+        <div class="meta">«Финальный буст» — мощно в концовке, когда обескровленных много. Считает всех, не только врагов — добивает партию.</div>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="card-cell">
+        <div class="stub-card">
+          <div class="stub-banner">Charges · Модификатор</div>
+          <div class="stub-name">Кровавый пир</div>
+          <div class="stub-formula">+1 рана × ⌊недостающие HP цели / 2⌋</div>
+          <div class="stub-flavor">«Ослабевший враг — лёгкая добыча»</div>
+          <div class="stub-tags">
+            <span class="badge badge-hp">HP</span>
+            <span class="badge badge-enemies">враги</span>
+            <span class="badge badge-attack">Атака</span>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="effect-block">
+          <strong>Эффект.</strong> Атака наносит <strong>+1 рану за каждые два недостающих жетона жизни</strong> у цели (округление вниз).
+        </div>
+        <div class="flavor">Образ — ёкаи, питающиеся слабостью раненых. В фольклоре существа вроде Гаки или Дзикининки слетались на тех, кто уже не мог защититься. Кровь раненого пахнет громче.</div>
+        <div class="meta">Альтернатива «Гневу сёгуна» по соседнему аспекту: вместо «можно атаковать обескровленного» — «бьёт сильнее по раненому». Хорошо ложится в low HP контекст из идеи №5.</div>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="card-cell">
+        <div class="stub-card">
+          <div class="stub-banner">Charges · Действие</div>
+          <div class="stub-name">Расцветающая засада</div>
+          <div class="stub-formula">1 рана выбранному × ваши ловушки</div>
+          <div class="stub-flavor">«Капканы охотника закрываются разом»</div>
+          <div class="stub-tags">
+            <span class="badge badge-trap">ловушки</span>
+            <span class="badge badge-allies">свои</span>
+            <span class="badge badge-action">Действие</span>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="effect-block">
+          <strong>Эффект.</strong> Сбросьте все свои активные ловушки. Выбранный игрок получает <strong>1 рану за каждую сброшенную ловушку</strong>.
+        </div>
+        <div class="flavor">Образ — мастер ловушек, который годами расставляет капканы, и однажды захлопывает их все одновременно. Расцветание сакуры — лепестки опадают разом, ловушки срабатывают в один миг.</div>
+        <div class="meta">Превращает ловушки в одноразовый «банк урона». Особенно интересен для Иё — она бы могла применять это, минуя свои иммунитеты на ловушки.</div>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="card-cell">
+        <div class="stub-card">
+          <div class="stub-banner">Charges · Действие</div>
+          <div class="stub-name">Эликсир жизни</div>
+          <div class="stub-formula">N HP союзнику,<br>где N = активные союзники</div>
+          <div class="stub-flavor">«Жизненная сила команды передаётся одному»</div>
+          <div class="stub-tags">
+            <span class="badge badge-active">активные</span>
+            <span class="badge badge-allies">союзники</span>
+            <span class="badge badge-action">Действие</span>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="effect-block">
+          <strong>Эффект.</strong> Выбранный союзник восстанавливает <strong>1 HP за каждого живого активного союзника</strong> (включая вас).
+        </div>
+        <div class="flavor">Образ — древний даосский ритуал передачи ки: воины кладут руки на одного, и их совокупная сила вливается в него. Чем больше круг — тем мощнее лечение.</div>
+        <div class="meta">Командное лечение, которое естественно слабеет к концу партии (союзники гибнут — лечение падает). Создаёт «окно» в начале партии, когда команда полная.</div>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="card-cell">
+        <div class="stub-card">
+          <div class="stub-banner">Charges · Модификатор</div>
+          <div class="stub-name">Кара богов</div>
+          <div class="stub-formula">+1 рана × эффекты на цели</div>
+          <div class="stub-flavor">«На обвешанного проклятиями — все стрелы летят точнее»</div>
+          <div class="stub-tags">
+            <span class="badge badge-effect">эффекты</span>
+            <span class="badge badge-enemies">враги</span>
+            <span class="badge badge-attack">Атака</span>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="effect-block">
+          <strong>Эффект.</strong> Атака наносит <strong>+1 рану за каждый эффект на цели</strong> (Метка убийцы, Слабость, Кагинава, любые наложенные эффекты).
+        </div>
+        <div class="flavor">Образ — синтоистская идея цуми (穢れ), скверны. Игрок, на котором много злых наговоров, отмечен богами как мишень. Каждый эффект — как ярлык на спине: «бей сюда».</div>
+        <div class="meta">Поощряет накопление эффектов на одной цели до решающего удара — финиширующий ход для самурая-стратега.</div>
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+
+<h2>Модификаторы атаки (масштабирующиеся)</h2>
+
+<p>
+  Пять модификаторов атаки, добавляющих <strong>+N рана</strong> за разные источники Charges.
+  Все проверяются в момент разыгрывания, не создают фоновой нагрузки. Цель — дать самураю-стратегу
+  набор инструментов «накапливай ситуацию — взрывай в нужный момент».
+</p>
+
+<table>
+  <colgroup>
+    <col class="col-card">
+    <col class="col-effect">
+  </colgroup>
+  <thead>
+    <tr>
+      <th>Карта</th>
+      <th>Эффект и образ</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr>
+      <td class="card-cell">
+        <div class="stub-card">
+          <div class="stub-banner">Charges · Модификатор</div>
+          <div class="stub-name">Шторм клинков</div>
+          <div class="stub-formula">+1 рана × союзники со стойкой</div>
+          <div class="stub-flavor">«Когда команда в позе — главный удар силён общей решимостью»</div>
+          <div class="stub-tags">
+            <span class="badge badge-stance">стойки</span>
+            <span class="badge badge-allies">союзники</span>
+            <span class="badge badge-attack">Атака</span>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="effect-block">
+          <strong>Эффект.</strong> Атака наносит <strong>+1 рану за каждого живого союзника с активной стойкой</strong> (включая вас).
+        </div>
+        <div class="flavor">Образ — построение «копья» (яри-бусума) в самурайских войсках: когда все встают в позицию, удар главного бойца идёт сквозь линии врага. Чем плотнее строй своих, тем тяжелее удар.</div>
+        <div class="meta">Мотивирует команду занимать стойки. Хорошо синхронизируется с темой Кокоро/Сайго (Stance).</div>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="card-cell">
+        <div class="stub-card">
+          <div class="stub-banner">Charges · Модификатор</div>
+          <div class="stub-name">Симфония железа</div>
+          <div class="stub-formula">+1 рана × оружие в вашей руке</div>
+          <div class="stub-flavor">«Полный арсенал — каждый клинок откликается в ударе»</div>
+          <div class="stub-tags">
+            <span class="badge badge-active">арсенал</span>
+            <span class="badge badge-allies">свои</span>
+            <span class="badge badge-attack">Атака</span>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="effect-block">
+          <strong>Эффект.</strong> Атака наносит <strong>+1 рану за каждую карту оружия в вашей руке</strong>, включая разыгрываемую.
+        </div>
+        <div class="flavor">Образ — самурай, у пояса которого висят дайсё (большой и малый меч), нож, веер. Когда арсенал собран — каждое оружие откликается в общем такте боя.</div>
+        <div class="meta">Считается <strong>только своя рука</strong> — правило №9 (закрытые руки) соблюдается. Поощряет «не сбрасывать оружие до решающего хода».</div>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="card-cell">
+        <div class="stub-card">
+          <div class="stub-banner">Charges · Модификатор</div>
+          <div class="stub-name">Покинутый замок</div>
+          <div class="stub-formula">+1 рана × мёртвые враги</div>
+          <div class="stub-flavor">«Вражеский лагерь рассыпается — последние воины бьются без надежды»</div>
+          <div class="stub-tags">
+            <span class="badge badge-dead">мёртвые</span>
+            <span class="badge badge-enemies">враги</span>
+            <span class="badge badge-attack">Атака</span>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="effect-block">
+          <strong>Эффект.</strong> Атака наносит <strong>+1 рану за каждого мёртвого врага</strong> на столе.
+        </div>
+        <div class="flavor">Образ — последние защитники падшего замка. Когда товарищи мертвы, оставшийся боец уязвимее обычного: страх и одиночество замедляют клинок.</div>
+        <div class="meta">Зеркальная пара к «Гневу Бога Войны» (мёртвые союзники → +1 рана). Вместе они создают «качели возмездия»: чем больше пал, тем сильнее обе стороны бьют.</div>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="card-cell">
+        <div class="stub-card">
+          <div class="stub-banner">Charges · Модификатор</div>
+          <div class="stub-name">Удар в спину</div>
+          <div class="stub-formula">+1 рана × союзники на дистанции 1 от цели</div>
+          <div class="stub-flavor">«Соратники вокруг отвлекают цель — клинок идёт точнее»</div>
+          <div class="stub-tags">
+            <span class="badge badge-active">соседи</span>
+            <span class="badge badge-allies">союзники</span>
+            <span class="badge badge-attack">Атака</span>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="effect-block">
+          <strong>Эффект.</strong> Атака наносит <strong>+1 рану за каждого живого союзника на дистанции 1 от цели</strong> (включая того, кто атакует, если он рядом).
+        </div>
+        <div class="flavor">Образ — фланговая атака. Когда вокруг жертвы стоят свои, защититься от всех направлений невозможно — клинок находит брешь между плечами.</div>
+        <div class="meta">Мотивирует команду стягиваться к выбранной мишени. Хорошо синхронизируется с командной картой «Строевая подготовка» (нулевая дистанция между союзниками — все «рядом»).</div>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="card-cell">
+        <div class="stub-card">
+          <div class="stub-banner">Charges · Модификатор</div>
+          <div class="stub-name">Натиск стаи</div>
+          <div class="stub-formula">+1 рана × эффекты на вас</div>
+          <div class="stub-flavor">«Ярость превращает каждое проклятие в силу»</div>
+          <div class="stub-tags">
+            <span class="badge badge-effect">эффекты</span>
+            <span class="badge badge-allies">на себя</span>
+            <span class="badge badge-attack">Атака</span>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="effect-block">
+          <strong>Эффект.</strong> Атака наносит <strong>+1 рану за каждый эффект на вас</strong> (Метка убийцы, Слабость, Бессилие — любой наложенный эффект).
+        </div>
+        <div class="flavor">Образ — «асура» (阿修羅), демон ярости из буддийской мифологии, чья сила растёт от страдания. Чем больше проклятий на нём, тем безжалостнее удар. Антипод смирения.</div>
+        <div class="meta">Поощряет «принимать на себя дебаффы и обращать их в урон». Зеркальная пара к «Каре богов» (эффекты на цели → урон): там бьём по «проклятому», здесь «проклятый» бьёт сам.</div>
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+
+<h2>Групповые: бонус от союзников</h2>
+
+<p>
+  Четыре групповые карты, у которых эффект масштабируется от <strong>состояния союзников</strong>.
+  Команда коллективно «удобряет почву» — копит стойки, ловушки, мёртвых, отравленных врагов —
+  чтобы потом разыграть такую карту с максимальным эффектом. Это превращает партию в коллективное
+  накопление, а не в индивидуальные ходы.
+</p>
+
+<table>
+  <colgroup>
+    <col class="col-card">
+    <col class="col-effect">
+  </colgroup>
+  <thead>
+    <tr>
+      <th>Карта</th>
+      <th>Эффект и образ</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr>
+      <td class="card-cell">
+        <div class="stub-card">
+          <div class="stub-banner">Charges · Групповая</div>
+          <div class="stub-name">Сбор клана</div>
+          <div class="stub-formula">+N HP союзникам,<br>где N = стойки у союзников</div>
+          <div class="stub-flavor">«Слаженный строй питает силу — каждый воин подтягивается к крепким»</div>
+          <div class="stub-tags">
+            <span class="badge badge-stance">стойки</span>
+            <span class="badge badge-allies">союзники</span>
+            <span class="badge badge-aoe">Групповая</span>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="effect-block">
+          <strong>Эффект.</strong> Все живые союзники восстанавливают N HP, где N = <strong>количество активных стоек у союзников</strong> (включая вашу).
+        </div>
+        <div class="flavor">Образ — собрание клана перед битвой. Когда все стоят в позе, силы перетекают между ними. Раненые подтягиваются к стоящим в стойке — старшие делятся ки с младшими.</div>
+        <div class="meta">Стимулирует команду занимать стойки. Парный с «Штормом клинков» — оба источника Charges считают стойки союзников; один лечит, другой бьёт.</div>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="card-cell">
+        <div class="stub-card">
+          <div class="stub-banner">Charges · Групповая</div>
+          <div class="stub-name">Призыв духов</div>
+          <div class="stub-formula">+1 карта союзникам × ловушки у союзников</div>
+          <div class="stub-flavor">«Расставленные капканы зовут охотников — добор у каждого»</div>
+          <div class="stub-tags">
+            <span class="badge badge-trap">ловушки</span>
+            <span class="badge badge-allies">союзники</span>
+            <span class="badge badge-aoe">Групповая</span>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="effect-block">
+          <strong>Эффект.</strong> Каждый живой союзник берёт <strong>+1 карту за каждую активную ловушку у союзников</strong>.
+        </div>
+        <div class="flavor">Образ — синтоистский обряд, в котором охотники призывают духов леса на свои капканы. Чем больше расставленных капканов, тем щедрее духи делятся с командой подарками.</div>
+        <div class="meta">Стимулирует команду расставлять ловушки. Синергия с темой Иё (Trap) — она копит ловушки, остальные дополняют, потом кто-то взрывает добор.</div>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="card-cell">
+        <div class="stub-card">
+          <div class="stub-banner">Charges · Групповая</div>
+          <div class="stub-name">Кровь дракона</div>
+          <div class="stub-formula">N ран выбранному врагу,<br>где N = отравленные враги</div>
+          <div class="stub-flavor">«Команда добивает того, кто отметил поле своей кровью»</div>
+          <div class="stub-tags">
+            <span class="badge badge-poison">отравленные</span>
+            <span class="badge badge-enemies">враги</span>
+            <span class="badge badge-aoe">Групповая</span>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="effect-block">
+          <strong>Эффект.</strong> Выбранный враг получает <strong>N ран</strong>, где N = <strong>количество отравленных врагов</strong> на столе (включая выбранного, если он отравлен).
+        </div>
+        <div class="flavor">Образ — Ямата-но Орочи, восьмиголовый дракон, чьи раны зажигают огонь по всему телу. Чем больше у врага «отравленных голов», тем сильнее общий удар клана.</div>
+        <div class="meta">Стимулирует команду травить врагов до решающего удара. Синергия с темой Plague (Гасадокуро/Тамэтомо), «Бочкой зловония» и «Кислотным взрывом».</div>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="card-cell">
+        <div class="stub-card">
+          <div class="stub-banner">Charges · Групповая</div>
+          <div class="stub-name">Песня победы</div>
+          <div class="stub-formula">+N HP союзникам,<br>где N = мёртвые союзники</div>
+          <div class="stub-flavor">«Павшие питают живых своим примером»</div>
+          <div class="stub-tags">
+            <span class="badge badge-dead">мёртвые</span>
+            <span class="badge badge-allies">союзники</span>
+            <span class="badge badge-aoe">Групповая</span>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="effect-block">
+          <strong>Эффект.</strong> Все живые союзники восстанавливают <strong>1 HP за каждого мёртвого союзника</strong>.
+        </div>
+        <div class="flavor">Образ — поминальная песня (рэйка) на поле боя после битвы. Воины поют о павших, и их сила переходит к выжившим. Чем больше потерь, тем громче песня и тем сильнее живые встают.</div>
+        <div class="meta">«Обратное лечение конца партии» — становится мощнее, когда команда потеряла людей. Пара к «Гневу Бога Войны» (мёртвые союзники → урон): там мстят, здесь поминают.</div>
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+
+<h2>Возмездие: атаки «от обратного»</h2>
+
+<p>
+  Карты, где удар <strong>усиливается от страданий союзников</strong> — отравлений, ран,
+  смертей, проклятий. Архетип возмездия: чем хуже команде, тем тяжелее клинок мстителя.
+  Поощряет команду «переживать боль вместе», превращая каждую плохую новость партии в
+  заряд для контрудара. Карта-родоначальница этого ряда — Гнев Бога Войны (выше, в первой
+  таблице) — отрабатывает на мёртвых союзниках; здесь добавлены ещё четыре источника.
+</p>
+
+<table>
+  <colgroup>
+    <col class="col-card">
+    <col class="col-effect">
+  </colgroup>
+  <thead>
+    <tr>
+      <th>Карта</th>
+      <th>Эффект и образ</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr>
+      <td class="card-cell">
+        <div class="stub-card">
+          <div class="stub-banner">Charges · Модификатор</div>
+          <div class="stub-name">Кровавая клятва</div>
+          <div class="stub-formula">+1 рана × отравленные союзники</div>
+          <div class="stub-flavor">«Каждая капля яда в товарище — это твоя кровь на клинке»</div>
+          <div class="stub-tags">
+            <span class="badge badge-poison">отравленные</span>
+            <span class="badge badge-allies">союзники</span>
+            <span class="badge badge-attack">Атака</span>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="effect-block">
+          <strong>Эффект.</strong> Атака наносит <strong>+1 рану за каждого отравленного союзника</strong>.
+        </div>
+        <div class="flavor">Образ — обет крови (кэцубан), который самураи давали друг другу, надрезая палец. Когда товарищи отравлены, клятва вступает в силу: каждый клинок мстит за их боль.</div>
+        <div class="meta">Зеркальная пара к Кислотному взрыву (отравленные враги → +1 рана). Создаёт интересный конфликт фракций: ниндзя травит самурайскую команду — самурай-мститель бьёт сильнее за каждого отравленного.</div>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="card-cell">
+        <div class="stub-card">
+          <div class="stub-banner">Charges · Модификатор</div>
+          <div class="stub-name">Сломанный строй</div>
+          <div class="stub-formula">+1 рана × обескровленные союзники</div>
+          <div class="stub-flavor">«Когда товарищи валятся — оставшийся бьётся за двоих»</div>
+          <div class="stub-tags">
+            <span class="badge badge-bleed">обескровленные</span>
+            <span class="badge badge-allies">союзники</span>
+            <span class="badge badge-attack">Атака</span>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="effect-block">
+          <strong>Эффект.</strong> Атака наносит <strong>+1 рану за каждого обескровленного союзника</strong>.
+        </div>
+        <div class="flavor">Образ — последний строй при Сидзугатакэ. Когда воины слева и справа падают на колени, оставшийся встаёт на их место — его клинок бьёт за всех сразу.</div>
+        <div class="meta">Не путать со Знаменем поражения (там считаются обескровленные на столе в целом, включая врагов; здесь — только союзники).</div>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="card-cell">
+        <div class="stub-card">
+          <div class="stub-banner">Charges · Модификатор</div>
+          <div class="stub-name">Печать кармы</div>
+          <div class="stub-formula">+1 рана × эффекты на союзниках</div>
+          <div class="stub-flavor">«Проклятия товарищей превращаются в силу клинка возмездия»</div>
+          <div class="stub-tags">
+            <span class="badge badge-effect">эффекты</span>
+            <span class="badge badge-allies">союзники</span>
+            <span class="badge badge-attack">Атака</span>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="effect-block">
+          <strong>Эффект.</strong> Атака наносит <strong>+1 рану за каждый эффект на союзниках</strong> (Метка убийцы, Слабость, Кагинава, любой наложенный врагами эффект).
+        </div>
+        <div class="flavor">Образ — буддийская идея кармы (業): зло, причинённое одному, возвращается тому, кто его причинил. Каждое проклятие на команде превращается в долг — клинок этот долг взыскивает.</div>
+        <div class="meta">Пара к Каре богов (эффекты на цели) и Натиску стаи (эффекты на атакующем): три карты — три точки зрения на эффекты как Charges-источник.</div>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="card-cell">
+        <div class="stub-card">
+          <div class="stub-banner">Charges · Групповая</div>
+          <div class="stub-name">Месть клана</div>
+          <div class="stub-formula">N ран выбранному врагу,<br>где N = мёртвые союзники</div>
+          <div class="stub-flavor">«Каждый погибший товарищ направляет клинок остальных к одной цели»</div>
+          <div class="stub-tags">
+            <span class="badge badge-dead">мёртвые</span>
+            <span class="badge badge-allies">союзники</span>
+            <span class="badge badge-aoe">Групповая</span>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="effect-block">
+          <strong>Эффект.</strong> Выбранный враг получает <strong>N ран</strong>, где N = <strong>количество мёртвых союзников</strong>. Если N=0 — карту можно сбросить, чтобы взять 2 карты из колоды (стандартная альтернатива).
+        </div>
+        <div class="flavor">Образ — Сорок семь ронинов (1701–1703): после смерти господина воины собрались, чтобы отомстить одному человеку. Сюжет, в котором каждый павший — это вектор, указывающий на врага.</div>
+        <div class="meta">Командная разновидность Гнева Бога Войны: тот добавляет урон к одиночной атаке, эта — самостоятельная атака без оружия. Закрытая альтернатива (сброс → 2 карты) защищает от мёртвой клетки в начале партии, когда мёртвых нет.</div>
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+
+<h2>Заметки</h2>
+<div class="notes">
+  <ul>
+    <li>
+      <strong>Покрытие источников (23 карты).</strong> Представлены 10 разных источников Charges: отравленные, мёртвые, стойки, ловушки (у врагов и свои), эффекты (все на столе, на цели, на атакующем, на союзниках), обескровленные, HP цели, активные союзники, оружие в руке, союзники на дистанции 1. Не покрыты пока: карты в сбросе, full HP игроки, эффекты конкретного типа.
+    </li>
+    <li>
+      <strong>Распределение по типам карт.</strong> 13 модификаторов атаки, 7 групповых, 2 действия, 1 вмешательство. Защит-Charges и Стоек-Charges пока нет — место для следующего захода.
+    </li>
+    <li>
+      <strong>Архетип «Возмездие».</strong> Пять карт (Гнев Бога Войны, Кровавая клятва, Сломанный строй, Печать кармы, Месть клана) образуют отдельный архетип «месть за товарищей»: чем хуже команде (мёртвые, отравленные, обескровленные, проклятые союзники), тем сильнее ответный удар. Превращает каждую плохую новость партии в заряд для контрудара и делает позицию проигрывающей команды менее безнадёжной.
+    </li>
+    <li>
+      <strong>Парные карты — две стороны одного аспекта.</strong> Несколько источников Charges дают пары «удар vs лечение/добор/возмездие»:
+      <ul>
+        <li><strong>Стойки союзников:</strong> Шторм клинков (атака) ↔ Сбор клана (лечение).</li>
+        <li><strong>Мёртвые союзники:</strong> Гнев Бога Войны (соло-удар) ↔ Месть клана (командный удар) ↔ Песня победы (лечение).</li>
+        <li><strong>Мёртвые на столе:</strong> Гнев Бога Войны (своих) ↔ Покинутый замок (врагов).</li>
+        <li><strong>Ловушки союзников:</strong> Расцветающая засада (взрыв в урон) ↔ Призыв духов (добор).</li>
+        <li><strong>Отравленные:</strong> Кислотный взрыв (по врагам, соло) ↔ Кровь дракона (по врагам, командно) ↔ Кровавая клятва (за союзников, возмездие).</li>
+        <li><strong>Эффекты:</strong> Кара богов (на цели) ↔ Натиск стаи (на себе) ↔ Печать кармы (на союзниках).</li>
+        <li><strong>Обескровленные:</strong> Знамя поражения (по всем) ↔ Сломанный строй (за союзников, возмездие).</li>
+      </ul>
+    </li>
+    <li>
+      <strong>Командное «удобрение поля».</strong> Шесть групповых карт превращают партию в коллективное накопление: команда копит стойки, ловушки, отравленных, мёртвых — затем кто-то разыгрывает Charges-карту с максимальным эффектом. Это создаёт стратегические сюжеты на 3–5 ходов вперёд, а не одиночные ходы.
+    </li>
+    <li>
+      <strong>Группировка.</strong> 8 карт на союзников, 6 на врагов, 3 на «все», 2 на «себя». Большая доля «союзных» Charges — намеренно: команда вокруг знамёнщика накапливает ресурсы, и любой союзник может зажечь.
+    </li>
+    <li>
+      <strong>Минимальный эффект и потолки.</strong> Карты с базовым эффектом (атаки, лечения) при счёте 0 = слабые, но играбельные. Карты без базы (Цунами, Эликсир жизни, Сбор клана, Песня победы, Кровь дракона) при счёте 0 становятся пустыми — нужна минимальная гарантия 1, либо стандартная альтернатива «сбросить → 2 карты». Калибровка через плейтест.
+    </li>
+    <li>
+      <strong>Синергия с темами и командными картами.</strong>
+      <ul>
+        <li>Кислотный взрыв + Кровь дракона + Бочка зловония (командная) — связка отравителей.</li>
+        <li>Сбор клана + Шторм клинков + Кокоро/Сайго (Stance) — связка строевиков.</li>
+        <li>Расцветающая засада + Призыв духов + Иё (Trap) — связка охотников.</li>
+        <li>Удар в спину + Строевая подготовка (командная) — связка фалангистов.</li>
+        <li>Гнев Бога Войны + Песня победы + Покинутый замок — «трио конца партии», все становятся мощными к финалу.</li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Командные карты — идеи</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      max-width: 1500px;
+      margin: 24px auto;
+      padding: 0 20px;
+      color: #1a1a1a;
+      line-height: 1.5;
+    }
+    h1 { font-size: 26px; margin-bottom: 8px; }
+    h2 { font-size: 22px; margin-top: 36px; padding-bottom: 6px; border-bottom: 2px solid #d8d3c8; }
+    p, li { font-size: 14px; }
+    .legend {
+      background: #f5f3ee;
+      border-left: 3px solid #9b8755;
+      padding: 12px 16px;
+      margin: 16px 0;
+      font-size: 13px;
+    }
+    .legend code { background: #ece8de; padding: 1px 5px; border-radius: 3px; }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 16px 0 32px;
+      table-layout: fixed;
+    }
+    col.col-card    { width: 320px; }
+    col.col-effect  { width: auto; }
+    th, td {
+      border: 1px solid #d8d3c8;
+      padding: 12px 14px;
+      vertical-align: top;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+    th {
+      background: #f5f3ee;
+      text-align: left;
+      font-weight: 600;
+    }
+    td.card-cell {
+      padding: 4px;
+      text-align: center;
+      background: #fafafa;
+    }
+    iframe.card-frame {
+      width: 300px;
+      height: 470px;
+      border: 0;
+      display: block;
+      margin: 0 auto;
+    }
+    .stub-card {
+      width: 300px;
+      height: 470px;
+      border: 2px dashed #c8b89a;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      color: #9b8755;
+      font-size: 14px;
+      padding: 20px;
+      box-sizing: border-box;
+      background: linear-gradient(135deg, #fbf8f1 0%, #f5f0e3 100%);
+      text-align: center;
+    }
+    .stub-card.todo {
+      border-color: #d4a017;
+      background: linear-gradient(135deg, #fbf6e8 0%, #f5edd0 100%);
+    }
+    .stub-card .stub-banner {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #c8b89a;
+      margin-bottom: 12px;
+    }
+    .stub-card.todo .stub-banner {
+      color: #d4a017;
+    }
+    .stub-card .stub-name {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+      color: #5a4a2e;
+    }
+    .stub-card .stub-flavor {
+      font-style: italic;
+      font-size: 13px;
+      color: #8a7e64;
+      margin-top: 16px;
+      padding: 0 10px;
+    }
+    .stub-card .stub-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 24px;
+    }
+    .card-name {
+      display: block;
+      margin-top: 4px;
+      font-size: 12px;
+      color: #555;
+    }
+    .effect-block {
+      margin-bottom: 8px;
+    }
+    .effect-block strong {
+      display: inline-block;
+      margin-right: 6px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 1px 8px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      vertical-align: 2px;
+    }
+    .badge-defense  { background: #2e5a8c; color: #fff; }
+    .badge-attack   { background: #8c2e2e; color: #fff; }
+    .badge-resource { background: #b58117; color: #fff; }
+    .badge-mobility { background: #2e7d4f; color: #fff; }
+    .badge-immune   { background: #6b4a8c; color: #fff; }
+    .badge-share    { background: #444; color: #fff; }
+    .badge-todo     { background: #d4a017; color: #fff; }
+    .flavor {
+      color: #6a5b3e;
+      font-style: italic;
+      font-size: 13px;
+      margin-top: 6px;
+    }
+    .meta {
+      color: #888;
+      font-size: 12px;
+      margin-top: 8px;
+    }
+    .penalty {
+      margin-top: 10px;
+      padding: 8px 10px;
+      background: #fdf3f0;
+      border-left: 3px solid #b85a3e;
+      font-size: 13px;
+      color: #6d3520;
+    }
+    .penalty strong { color: #8c2e2e; }
+    .penalty .universal {
+      display: block;
+      margin-top: 4px;
+      color: #555;
+      font-size: 12px;
+      font-style: italic;
+    }
+    .notes ul, .notes ol { padding-left: 20px; }
+    .notes li { margin-bottom: 8px; }
+  </style>
+</head>
+<body>
+
+<h1>Командные карты — идеи (Team Aura / Enemy Objective)</h1>
+
+<p>
+  Подборка идей нового типа карт — <strong>Командных</strong>. Концептуальное обоснование —
+  в <code>new-mechanics-ideas.md</code> №6. Это карты-знамёна: выкладываются перед одним
+  игроком (носителем) и дают мощный постоянный бонус всей команде. Лимит — одна
+  командная карта на команду одновременно. Носитель автоматически становится приоритетной
+  целью противника — отсюда альтернативное название «Enemy Objective».
+</p>
+
+<div class="legend">
+  <strong>Условные обозначения по типу бонуса:</strong>
+  <span class="badge badge-defense">Защита</span>
+  <span class="badge badge-attack">Атака</span>
+  <span class="badge badge-resource">Ресурс</span>
+  <span class="badge badge-mobility">Манёвр</span>
+  <span class="badge badge-immune">Иммунитет</span>
+  <span class="badge badge-share">Share</span> — обмен между союзниками.
+  <br><br>
+  Карты на странице — <strong>заглушки</strong> (имя и образ). Все формулировки — драфт;
+  калибруются плейтестом.
+</div>
+
+<div class="legend" style="border-left-color:#b85a3e; background:#fdf3f0;">
+  <strong>Цена ношения знамени.</strong> К каждой карте предлагается <em>тематический
+  штраф</em> для носителя (принцип «отдай — не получай»: знамёнщик не пользуется
+  бонусом, который раздаёт команде). Опционально — <em>универсальный штраф</em>
+  ко всем командным картам: <strong>атаки по носителю наносят +1 рану</strong>
+  (он громче и заметнее на поле боя). Концептуальное обоснование двух подходов —
+  в <code>new-mechanics-ideas.md</code> №6, подраздел «Цена ношения знамени».
+</div>
+
+<h2>Идеи</h2>
+
+<table>
+  <colgroup>
+    <col class="col-card">
+    <col class="col-effect">
+  </colgroup>
+  <thead>
+    <tr>
+      <th>Карта</th>
+      <th>Эффект и образ</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr>
+      <td class="card-cell">
+        <div class="stub-card">
+          <div class="stub-banner">Командная</div>
+          <div class="stub-name">Знамя лидера</div>
+          <div class="stub-flavor">«Под стягом полководца удары точнее»</div>
+          <div class="stub-tags">
+            <span class="badge badge-attack">Атака</span>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="effect-block">
+          <strong>Эффект.</strong> Все атаки союзников наносят <strong>+1 рану</strong>.
+        </div>
+        <div class="flavor">Стяг даймё над войском при Сэкигахаре. Под знаменем все воины бьются как один — каждый удар становится ударом клана.</div>
+        <div class="penalty">
+          <strong>Штраф носителю:</strong> атаки самого носителя <strong>не получают +1</strong> — знамёнщик командует, не дерётся.
+        </div>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="card-cell">
+        <div class="stub-card">
+          <div class="stub-banner">Командная</div>
+          <div class="stub-name">Закрытый тыл</div>
+          <div class="stub-flavor">«Воин знает: за спиной стоит товарищ»</div>
+          <div class="stub-tags">
+            <span class="badge badge-defense">Защита</span>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="effect-block">
+          <strong>Эффект.</strong> Все союзники получают <strong>−1 урон</strong> от каждой атаки (минимум 1).
+        </div>
+        <div class="flavor">Когда твою спину прикрывает свой — стоишь крепче. Образ восходит к строевой тактике сэнго: воины стояли тесными рядами, и удар по одному смягчался плечом другого.</div>
+        <div class="penalty">
+          <strong>Штраф носителю:</strong> носитель <strong>не получает −1 урон</strong> — он стоит в центре строя, его спину никто не прикрывает.
+        </div>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="card-cell">
+        <div class="stub-card">
+          <div class="stub-banner">Командная</div>
+          <div class="stub-name">Строевая подготовка</div>
+          <div class="stub-flavor">«Войско движется как одна тень — расстояний между бойцами нет»</div>
+          <div class="stub-tags">
+            <span class="badge badge-mobility">Манёвр</span>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="effect-block">
+          <strong>Эффект.</strong> Союзники <strong>не участвуют</strong> в подсчёте расстояния — между двумя любыми игроками одной команды считается нулевая дистанция (или их «нет на пути»).
+        </div>
+        <div class="flavor">Уэсуги Кэнсин водил своих воинов так, что вражеские разведчики не могли разглядеть строя. Дисциплина превращает войско в одно тело — союзники друг другу не помеха.</div>
+        <div class="penalty">
+          <strong>Штраф носителю:</strong> носитель сам <strong>учитывает дистанцию обычным образом</strong> — он стоит как маяк ритма, а не двигается с войском.
+        </div>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="card-cell">
+        <iframe class="card-frame" src="../app.html?embed=88" loading="lazy"></iframe>
+        <span class="card-name">Бочка зловония <small>(переосмысление существующей карты в командную)</small></span>
+      </td>
+      <td>
+        <div class="effect-block">
+          <strong>Эффект.</strong> Все атаки союзников оружием <strong>автоматически отравлены</strong>, как будто использовалось ядовитое оружие.
+        </div>
+        <div class="flavor">«Из общей бочки берётся весь яд». Существующая Бочка зловония наконец-то находит своё командное применение — не разовое отравление при разыгрывании, а постоянное снаряжение клинков всего отряда.</div>
+        <div class="penalty">
+          <strong>Штраф носителю:</strong> атаки <strong>самого носителя яд не накладывают</strong> — он несёт бочку, а не клинок в ней.
+          <span class="universal">Сильный универсальный штраф (вариант): атаки по носителю +1 рана — отравитель легко узнаваем.</span>
+        </div>
+        <div class="meta">Кандидат на «впервые классное использование» Бочки. Текущий эффект (групповое отравление) переезжает либо в эту карту-знамя, либо остаётся как отдельная групповая.</div>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="card-cell">
+        <div class="stub-card">
+          <div class="stub-banner">Командная</div>
+          <div class="stub-name">Спина к спине</div>
+          <div class="stub-flavor">«Осадная тактика — каждый защищает другого ценой собственной защиты»</div>
+          <div class="stub-tags">
+            <span class="badge badge-defense">Защита</span>
+            <span class="badge badge-share">Share</span>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="effect-block">
+          <strong>Эффект.</strong> Любой союзник может разыграть карту защиты с руки <strong>как вмешательство</strong> в защиту другого союзника. Бонусы карты защиты при этом не сохраняются — только базовое блокирование атаки.
+        </div>
+        <div class="flavor">Двое самураев, прижавшись друг к другу спинами, видят опасность вокруг — каждый закрывает другого собой. Тактика, известная по легендам про последние схватки в окружении.</div>
+        <div class="penalty">
+          <strong>Штраф носителю:</strong> в его защиту союзники <strong>не могут разыграть защиту-вмешательство</strong> — он держит фронт, и помочь ему некому.
+        </div>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="card-cell">
+        <div class="stub-card">
+          <div class="stub-banner">Командная</div>
+          <div class="stub-name">Тактическое командование</div>
+          <div class="stub-flavor">«Хороший полководец — +1 ко всему»</div>
+          <div class="stub-tags">
+            <span class="badge badge-resource">Ресурс</span>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="effect-block">
+          <strong>Эффект.</strong> В фазе набора каждый союзник берёт <strong>+1 карту</strong> из колоды.
+        </div>
+        <div class="flavor">Такэда Сингэн прославился тем, что готовил план каждой битвы за неделю. Под его рукой воины не нуждались ни в чём: к нужному часу у каждого было нужное оружие.</div>
+        <div class="penalty">
+          <strong>Штраф носителю:</strong> носитель <strong>берёт стандартные 3 карты</strong> в фазе набора — он раздаёт ресурс, а себе не оставляет.
+        </div>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="card-cell">
+        <div class="stub-card">
+          <div class="stub-banner">Командная</div>
+          <div class="stub-name">Дымовая завеса</div>
+          <div class="stub-flavor">«Под облаком дыма союзники невидимы для общих эффектов»</div>
+          <div class="stub-tags">
+            <span class="badge badge-immune">Иммунитет</span>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="effect-block">
+          <strong>Эффект.</strong> Союзники <strong>не участвуют</strong> в групповых картах противника (Миротворцы, Бочка зловония как групповая, Шквал огня и т. п.) — групповая карта просто не считает союзников активными для своего эффекта.
+        </div>
+        <div class="flavor">Классический трюк синоби. Под облаком дыма групповые манёвры противника не достают тех, кто его правильно использует — атаки и эффекты пролетают мимо.</div>
+        <div class="penalty">
+          <strong>Штраф носителю:</strong> носитель <strong>сам подвержен групповым картам как обычно</strong> — он стоит в центре дыма и принимает удар на себя.
+          <span class="universal">Сильный универсальный штраф (вариант): эффект групповых карт по носителю удваивается — он буквально маяк для атак.</span>
+        </div>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="card-cell">
+        <div class="stub-card">
+          <div class="stub-banner">Командная</div>
+          <div class="stub-name">Боевой долг</div>
+          <div class="stub-flavor">«Гири — долг чести, который выше боли»</div>
+          <div class="stub-tags">
+            <span class="badge badge-defense">Защита</span>
+            <span class="badge badge-share">Share</span>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="effect-block">
+          <strong>Эффект.</strong> Любой живой союзник может по согласию принять прямую атаку оружия по другому союзнику на себя (как Подвиг), но <strong>получает на 2 раны больше</strong>, чем нанёс бы оригинальный удар.
+        </div>
+        <div class="flavor">Гири (義理) — японская концепция долга чести, которая обязывает самурая принять на себя удар, направленный в товарища. Цена долга высока — за чужую жизнь платят своей кровью с лихвой.</div>
+        <div class="penalty">
+          <strong>Штраф носителю:</strong> носитель <strong>не может перенаправлять атаки на других союзников</strong> — он олицетворяет долг, а не делегирует его. Атаки по нему союзники могут перенаправить на себя; он сам — нет.
+        </div>
+        <div class="meta">Тип: <span class="badge badge-defense">Защита</span> через перенаправление, аналог Подвига для всей команды, но с штрафом по урону.</div>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="card-cell">
+        <div class="stub-card">
+          <div class="stub-banner">Командная</div>
+          <div class="stub-name">Полевая медицина</div>
+          <div class="stub-flavor">«Манасэ учил: легче избежать яда, чем лечить»</div>
+          <div class="stub-tags">
+            <span class="badge badge-immune">Иммунитет</span>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="effect-block">
+          <strong>Эффект.</strong> Все союзники <strong>иммунны к отравлению ядом</strong>. Существующее отравление снимается в момент выкладывания карты.
+        </div>
+        <div class="flavor">Манасэ Досан, врач Сэнгоку, известен системой полевых отрядов лекарей при войске. Под опекой такого отряда воины не валятся с ног от ядов и инфекций.</div>
+        <div class="penalty">
+          <strong>Штраф носителю:</strong> носитель <strong>сам уязвим к яду как обычно</strong> — он раздаёт травы команде, для себя ничего не оставляя.
+        </div>
+        <div class="meta">Естественно сочетается с темой Restoration в персонажах.</div>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="card-cell">
+        <div class="stub-card">
+          <div class="stub-banner">Командная</div>
+          <div class="stub-name">Дозор</div>
+          <div class="stub-flavor">«Стрелки на стене не спят — каждый штурм встречает залп»</div>
+          <div class="stub-tags">
+            <span class="badge badge-defense">Защита</span>
+            <span class="badge badge-attack">Атака</span>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="effect-block">
+          <strong>Эффект.</strong> Каждый раз, когда враг проводит прямую атаку оружием по любому живому союзнику, атакующий <strong>гарантированно получает 1 рану</strong> от носителя командной карты. Это происходит до результата атаки (защиты, ловушки) и не зависит от него — атакующий обязательно платит «налог нападения».
+        </div>
+        <div class="flavor">Аналог «Подавления» (Overwatch) из XCOM. Образ — лучник на стене замка, караулящий штурм. Любой враг, бросающийся на ворота, получает стрелу в ответ просто за попытку. Тематически — японская осадная тактика: ябусамэ-лучники сёгуна заранее занимают позиции и работают всю осаду.</div>
+        <div class="penalty">
+          <strong>Штраф носителю:</strong> атаки <strong>по самому носителю</strong> не вызывают ответную рану — дозорный стреляет, прикрывая других, но не себя. Это превращает носителя в естественную приоритетную мишень: единственный способ враждующей команды атаковать без штрафа.
+        </div>
+        <div class="meta">Семейство «защита команды» теперь содержит три механики: <strong>Подвиг (id=125)</strong> — индивидуальное перенаправление атаки на себя; <strong>Хатамото</strong> (командная) — то же для всей команды; <strong>Дозор</strong> (новая) — не перенаправляет, а наказывает атакующего раной. Все три не дублируются.</div>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="card-cell">
+        <div class="stub-card">
+          <div class="stub-banner">Командная</div>
+          <div class="stub-name">Боевой барабан</div>
+          <div class="stub-flavor">«Каждый удар клинка отдаётся в барабане — войско воспрянуло»</div>
+          <div class="stub-tags">
+            <span class="badge badge-resource">Ресурс</span>
+            <span class="badge badge-attack">Атака</span>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="effect-block">
+          <strong>Эффект.</strong> Каждый раз, когда союзник наносит <strong>успешную прямую атаку оружием</strong> по врагу, атакующий выбирает одного союзника — тот <strong>берёт +1 карту из колоды</strong>.
+        </div>
+        <div class="flavor">Тайко-барабан в самурайском войске задаёт ритм битвы. Каждый удар клинка отдаётся в барабане, и войско воспрянуло духом. Боевой барабан — командный On-Hit (см. <code>new-mechanics-ideas.md</code> №16): команда награждается за каждый удар по врагам, симметрично «Часовому» (id=1209), который наказывает за удары по союзникам.</div>
+        <div class="penalty">
+          <strong>Штраф носителю:</strong> носитель <strong>сам не может выбирать себя</strong> для +1 карты — он «бьёт в барабан», а не получает карту. Это превращает носителя в естественную поддержку команды: он раздаёт, но не получает.
+        </div>
+        <div class="meta">Симметричная пара к Часовому. Часовой работает в защите (наказывает за атаки по союзникам), Боевой барабан — в нападении (награждает за атаки по врагам). Вместе образуют «барабан + стена» — командная карта поддерживает оба фронта.</div>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="card-cell">
+        <div class="stub-card">
+          <div class="stub-banner">Командная</div>
+          <div class="stub-name">Тайная летопись</div>
+          <div class="stub-flavor">«Перо клана знает первым — что взято и кем»</div>
+          <div class="stub-tags">
+            <span class="badge badge-resource">Ресурс</span>
+            <span class="badge badge-share">Share</span>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="effect-block">
+          <strong>Эффект.</strong> Каждый раз, когда любой союзник берёт карту в фазе набора, он может <strong>передать одну добранную карту другому союзнику</strong> в закрытую (по согласию получающего). Также раз в раунд носитель может <strong>перехватить карту</strong>, которую только что взял враг — карта отдаётся носителю, враг повторяет добор.
+        </div>
+        <div class="flavor">Образ — летописец храма, ведущий «Тайную летопись» (秘記) клана. Он знает, кто что получил, и может тихонько перенаправить нужное в нужные руки. У ниндзя — шпион в окружении даймё; у самураев — кампаку, секретарь сёгуна, фильтрующий поступающую информацию.</div>
+        <div class="penalty">
+          <strong>Штраф носителю:</strong> носитель <strong>сам не может передавать свои добранные карты</strong> другим — он ведёт хронику, не участвует в обмене. Каждый перехват чужой карты — публичное действие, делающее носителя предсказуемой целью.
+        </div>
+        <div class="meta">Объединяет идеи #61 (share weapons — обмен с союзниками) и #70 (redirect draw — перехват у врага) из <code>aspect_matrix_draft.md</code>. Гибрид share + redirect через одну командную карту.</div>
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+
+<h2>TODO — направления для проработки</h2>
+
+<p>
+  Три направления, которые ты обозначил как «нужны, но идея пока не сформулирована». Заглушки
+  с жёлтой рамкой — место для будущих карт.
+</p>
+
+<table>
+  <colgroup>
+    <col class="col-card">
+    <col class="col-effect">
+  </colgroup>
+  <thead>
+    <tr>
+      <th>Заглушка</th>
+      <th>Что должна делать</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr>
+      <td class="card-cell">
+        <div class="stub-card todo">
+          <div class="stub-banner">Командная · TODO</div>
+          <div class="stub-name">— share cards —</div>
+          <div class="stub-flavor">обмен картами между союзниками</div>
+          <div class="stub-tags">
+            <span class="badge badge-share">Share</span>
+            <span class="badge badge-todo">TODO</span>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="effect-block">
+          <strong>Идея.</strong> Что-то про обмен картами между союзниками — например, передача карт с руки на руку без расхода действия, или общий «банк карт» вместо личных рук.
+        </div>
+        <div class="flavor">Возможные образы: «Общий мешок припасов», «Письма гонца», «Узелковое письмо клана» — что-то про передачу из рук в руки без потери темпа.</div>
+        <div class="meta">Внимательно с правилом №9 (закрытые руки) — карта не должна давать «всем видно у всех».</div>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="card-cell">
+        <div class="stub-card todo">
+          <div class="stub-banner">Командная · TODO</div>
+          <div class="stub-name">— share weapons —</div>
+          <div class="stub-flavor">общий арсенал оружия и модификаторов</div>
+          <div class="stub-tags">
+            <span class="badge badge-attack">Атака</span>
+            <span class="badge badge-share">Share</span>
+            <span class="badge badge-todo">TODO</span>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="effect-block">
+          <strong>Идея.</strong> Что-то про share weapons и модификаторы — например, союзник может атаковать оружием другого союзника (с его согласия), или модификаторы атаки можно «передавать» в момент атаки.
+        </div>
+        <div class="flavor">Возможные образы: «Кагэ-но нити» (нити теней — общий арсенал клана), «Колчан клана», «Завещание мастера» — про оружие, которое передаётся между руками союзников.</div>
+        <div class="meta">Симметричен «Спине к спине» (share defense), но для атаки. Хорошо ложится в фракцию ниндзя.</div>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="card-cell">
+        <div class="stub-card todo">
+          <div class="stub-banner">Командная · TODO</div>
+          <div class="stub-name">— share stances —</div>
+          <div class="stub-flavor">занять стойку союзника, если своей нет</div>
+          <div class="stub-tags">
+            <span class="badge badge-mobility">Манёвр</span>
+            <span class="badge badge-share">Share</span>
+            <span class="badge badge-todo">TODO</span>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="effect-block">
+          <strong>Идея.</strong> Если у союзника нет своей активной стойки, он может в момент атаки или защиты воспользоваться стойкой другого союзника (с его согласия).
+        </div>
+        <div class="flavor">Возможные образы: «Школа меча», «Урок в бою», «Один наставник — много рук» — про передачу боевого приёма наставника ученику в нужный момент.</div>
+        <div class="meta">Внимательно с правилом №12 — стойка не должна работать «фоном» на всех; должна заимствоваться <strong>в момент конкретного действия</strong>.</div>
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+
+</body>
+</html>

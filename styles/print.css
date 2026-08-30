@@ -53,15 +53,25 @@
     padding: 0 !important;
   }
 
-  /* ── Каждая страница — сетка 3×3, ровно 9 карточек ── */
+  /* ── Каждая страница — сетка 3×3, ровно 9 карточек ──
+     Контейнер занимает всё печатное поле A4 (200×287 mm после
+     5-мм полей @page). Пробелы РАЗДАЁТ space-evenly: по горизонтали
+     4 равные полосы по ~11.23 mm (левый край + 2 между колонками +
+     правый край), по вертикали — 4 полосы по ~9.70 mm. Ни у
+     фронтов, ни у рубашек не остаётся асимметричного отступа —
+     центр сетки строго на центре страницы, а duplex-flip не
+     сдвигает рубашки относительно лицевых сторон. */
   .print-page {
     display: grid !important;
     grid-template-columns: repeat(3, 51.7mm) !important;
     grid-template-rows: repeat(3, auto) !important;
-    gap: 10mm !important;
-    width: 163.1mm !important; /* 3×51.7 + 2×4 = 163.1mm */
-    margin: 10mm auto !important;
+    gap: 0 !important;
+    width: 200mm !important;
+    height: 287mm !important;
+    margin: 0 !important;
     padding: 0 !important;
+    justify-content: space-evenly !important;
+    align-content: space-evenly !important;
     page-break-after: always !important;
     break-after: page !important;
   }

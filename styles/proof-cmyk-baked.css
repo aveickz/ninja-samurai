@@ -1,0 +1,183 @@
+/*
+  proof-cmyk-baked.css — soft-proof через РЕАЛЬНУЮ конвертацию
+  ICC Coated_Fogra39L_VIGC_300 (Fogra39) туда-обратно:
+     sRGB → CMYK (perceptual) → sRGB
+  Результат — как цвета выглядят ПОСЛЕ офсетной печати,
+  показанные на твоём sRGB-мониторе.
+  
+  Этот файл работает в ЛЮБОМ браузере, потому что это просто
+  обычные #hex значения — никакого @color-profile / color()
+  не используется. CSS-переменные перебивают исходную палитру.
+  
+  Cгенерирован /tmp/bake-cmyk-css.py — править руками не нужно,
+  пересобирайте скриптом при обновлении палитры.
+*/
+
+body.proof-cmyk-baked {
+  /* Цветовые соответствия sRGB → proof:
+       #1a1208 → #151014  (body / near-black background)
+       #2a1c0a → #281c16  (header gradient stop / panel bg)
+       #231a0e → #201917  (filter button bg)
+       #231F20 → #201e24  (card title bar — default)
+       #3a2a10 → #382a1a  (thin divider line)
+       #5a3e1b → #593f23  (paper text accent)
+       #6a5030 → #695034  (muted text / border)
+       #7a5a2a → #795a2e  (subtitle / labels)
+       #a08050 → #a08052  (tag color / muted)
+       #c8860a → #c8861a  (gold action / active)
+       #c8a870 → #c9a971  (stats table text)
+       #dca300 → #dba314  (defense / yellow plate)
+       #e8d5a3 → #e8d6a4  (body text on dark)
+       #f0c060 → #eebf60  (highlight gold)
+       #ED1C24 → #e52b2d  (weapon / modifier red)
+       #43525A → #43525b  (trap dark blue-grey)
+       #5f8598 → #5f8598  (trap tag accent)
+       #6C8CC7 → #6f8cc1  (character blue)
+       #A78B6B → #a78b6c  (stance tan)
+       #3B8476 → #3a8477  (intervention teal)
+       #5d3c75 → #5d3c75  (role purple)
+       #9c6ec0 → #9670ad  (role tag accent)
+       #891511 → #891f1e  (samurai title bg)
+       #0D233C → #0c243d  (ninja title bg)
+       #7fff7f → #65b158  (poison text)
+       #0d2e0d → #0b2e1b  (poison bg)
+       #3a8a3a → #398a3e  (poison border)
+       #a8d4f0 → #add2ea  (print text)
+       #0d1e2e → #091f30  (print bg)
+       #2a5a7a → #275a7a  (print border)
+       #f0d080 → #efd081  (draft text)
+       #2a2000 → #272013  (draft bg)
+       #7a6000 → #79611c  (draft border)
+       #c0c0c0 → #c0c0c0  (trash text)
+       #1e1e1e → #1a1c22  (trash bg)
+       #555555 → #545557  (trash border)
+       #e8453a → #e5463e  (unread red dot)
+       #d63a3a → #d63a3c  (error red)
+       #4caf50 → #4dab4f  (success green)
+       #3a2410 → #39251a  (desc prefix italic)
+  */
+}
+/* ── Базовый фон/текст страницы ── */
+body.proof-cmyk-baked {
+  background: #151014 !important;
+  background-image: radial-gradient(
+    ellipse at top,
+    #281c16 0%,
+    #151014 60%
+  ) !important;
+  color: #e8d6a4 !important;
+}
+
+/* ── Шапка ── */
+body.proof-cmyk-baked .site-header h1 {
+  color: #eebf60 !important;
+}
+body.proof-cmyk-baked .site-header .subtitle,
+body.proof-cmyk-baked .stat-label,
+body.proof-cmyk-baked .sidebar-title,
+body.proof-cmyk-baked .section-label {
+  color: #795a2e !important;
+}
+body.proof-cmyk-baked .stat-value,
+body.proof-cmyk-baked .site-header-link {
+  color: #eebf60 !important;
+}
+
+/* ── Фильтр-кнопки ── */
+body.proof-cmyk-baked .filter-btn {
+  background: #201917 !important;
+  color: #a08052 !important;
+  border-color: #382a1a !important;
+}
+body.proof-cmyk-baked .filter-btn:hover { color: #e8d6a4 !important; }
+
+/* ── Плашки заголовков по группам (перекрываем inline background) ── */
+body.proof-cmyk-baked .card-item[data-group="weapon"]      .card-title-wrap,
+body.proof-cmyk-baked .card-item[data-group="aoe"]         .card-title-wrap,
+body.proof-cmyk-baked .card-item[data-group="effect"]      .card-title-wrap,
+body.proof-cmyk-baked .card-item[data-group="action"]      .card-title-wrap {
+  background: #201e24 !important;
+}
+body.proof-cmyk-baked .card-item[data-group="trap"]        .card-title-wrap {
+  background: #43525b !important;
+}
+body.proof-cmyk-baked .card-item[data-group="defense"]     .card-title-wrap {
+  background: #dba314 !important;
+}
+body.proof-cmyk-baked .card-item[data-group="stance"]      .card-title-wrap {
+  background: #a78b6c !important;
+}
+body.proof-cmyk-baked .card-item[data-group="modifier"]    .card-title-wrap {
+  background: #e52b2d !important;
+}
+body.proof-cmyk-baked .card-item[data-group="intervention"].card-title-wrap {
+  background: #3a8477 !important;
+}
+body.proof-cmyk-baked .card-item[data-group="character"]   .card-title-wrap {
+  background: #6f8cc1 !important;
+}
+body.proof-cmyk-baked .card-item[data-group="role"]        .card-title-wrap {
+  background: #5d3c75 !important;
+}
+/* Per-card override (роли с titleBgColor) */
+body.proof-cmyk-baked .card-item[data-card-id="200"] .card-title-wrap {
+  background: #0c243d !important;
+}
+body.proof-cmyk-baked .card-item[data-card-id="201"] .card-title-wrap,
+body.proof-cmyk-baked .card-item[data-card-id="202"] .card-title-wrap {
+  background: #891f1e !important;
+}
+
+/* ── Тэги типов ── */
+body.proof-cmyk-baked .type-tag--poison {
+  color: #65b158 !important;
+  background: #0b2e1b !important;
+  border-color: #398a3e !important;
+}
+body.proof-cmyk-baked .type-tag--print {
+  color: #add2ea !important;
+  background: #091f30 !important;
+  border-color: #275a7a !important;
+}
+body.proof-cmyk-baked .type-tag--draft {
+  color: #efd081 !important;
+  background: #272013 !important;
+  border-color: #79611c !important;
+}
+body.proof-cmyk-baked .type-tag--trash {
+  color: #c0c0c0 !important;
+  background: #1a1c22 !important;
+  border-color: #545557 !important;
+}
+
+/* ── Бейджи комментариев / share ── */
+body.proof-cmyk-baked .card-comments-btn--has,
+body.proof-cmyk-baked .card-share-btn {
+  border-color: #c8861a !important;
+  color: #eebf60 !important;
+}
+body.proof-cmyk-baked .card-comments-btn--has::after {
+  background: #e5463e !important;
+  box-shadow: none !important;  /* пульсация в proof-режиме не нужна */
+  animation: none !important;
+}
+
+/* ── Текст на бумажной плашке описания ── */
+body.proof-cmyk-baked .card-desc,
+body.proof-cmyk-baked .card-desc-part {
+  color: #151014 !important;
+}
+body.proof-cmyk-baked .card-desc-prefix {
+  color: #39251a !important;
+}
+body.proof-cmyk-baked .card-desc-or-line {
+  background: linear-gradient(
+    to var(--or-line-dir, right),
+    transparent,
+    #593f23 40%,
+    #593f23
+  ) !important;
+}
+body.proof-cmyk-baked .card-desc-or-label {
+  color: #593f23 !important;
+}

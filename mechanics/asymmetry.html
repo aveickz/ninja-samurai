@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Асимметрия карт — финальные пары</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      max-width: 1500px;
+      margin: 24px auto;
+      padding: 0 20px;
+      color: #1a1a1a;
+      line-height: 1.5;
+    }
+    h1 { font-size: 26px; margin-bottom: 8px; }
+    h2 { font-size: 20px; margin-top: 36px; }
+    p, li { font-size: 14px; }
+    .legend {
+      background: #f5f3ee;
+      border-left: 3px solid #9b8755;
+      padding: 12px 16px;
+      margin: 16px 0;
+      font-size: 13px;
+    }
+    .legend code { background: #ece8de; padding: 1px 5px; border-radius: 3px; }
+    table.pair-table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 16px 0 28px;
+      table-layout: fixed;
+    }
+    col.col-card    { width: 320px; }
+    col.col-effect  { width: auto; }
+    th, td {
+      border: 1px solid #d8d3c8;
+      padding: 10px 14px;
+      vertical-align: top;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    th {
+      background: #f5f3ee;
+      text-align: left;
+      font-weight: 600;
+    }
+    th.samurai-th { background: #fdf0ee; color: #891511; }
+    th.ninja-th   { background: #e6ecf3; color: #0D233C; }
+    td.card-cell {
+      padding: 4px;
+      text-align: center;
+      background: #fafafa;
+    }
+    iframe.card-frame {
+      width: 300px;
+      height: 470px;
+      border: 0;
+      display: block;
+      margin: 0 auto;
+    }
+    td .card-name {
+      display: block;
+      margin-top: 4px;
+      font-size: 12px;
+      color: #555;
+    }
+    td .card-name small { color: #999; font-size: 11px; }
+    td.samurai-cell { background: #fdf6f4; }
+    td.ninja-cell   { background: #f1f4f8; }
+    td.stub-cell {
+      background: #fafaf6;
+      color: #888;
+      font-style: italic;
+      text-align: center;
+      vertical-align: middle;
+    }
+    td.stub-cell .stub-card {
+      width: 300px;
+      height: 470px;
+      border: 2px dashed #ccc;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      color: #aaa;
+      font-size: 13px;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    .badge {
+      display: inline-block;
+      padding: 1px 8px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-right: 8px;
+      vertical-align: 2px;
+    }
+    .badge-samurai { background: #891511; color: #fff; }
+    .badge-ninja   { background: #0D233C; color: #fff; }
+    .badge-todo    { background: #d4a017; color: #fff; }
+    .notes ul, .notes ol { padding-left: 20px; }
+    .notes li { margin-bottom: 8px; }
+  </style>
+</head>
+<body>
+
+<h1>Асимметрия карт — финальные пары</h1>
+
+<p>
+  Визуальная версия <code>asymmetry.md</code> с iframe-превью обеих карт пары сразу.
+  Карты идут связанными парами «самурайская ↔ ниндзя». Если для одной стороны пары пока
+  нет, стоит заглушка — это явный сигнал, что нужно придумать антагонистичный аналог.
+  Черновики и кандидаты — в <code>asymmetry-drafts.html</code>.
+</p>
+
+<div class="legend">
+  <strong>Условные обозначения:</strong><br>
+  <span class="badge badge-samurai">Самурай</span> — фракционный бонус самурайской стороны.<br>
+  <span class="badge badge-ninja">Ниндзя</span> — фракционный бонус ниндзя-стороны.<br>
+  <span class="badge badge-todo">TODO</span> — формулировка ещё не утверждена.<br>
+  <em>Заглушка</em> — ниндзя-/самурайская пара ещё не придумана; нужен антагонистичный аналог.<br>
+  <strong>База</strong> карты (поведение для любого игрока) видна на превью — это текущий
+  эффект из <code>app/js/cards.js</code>. Бонус срабатывает поверх базы только в руках
+  своей фракции.
+</div>
+
+<h2>Стойки</h2>
+
+<table class="pair-table">
+  <colgroup>
+    <col class="col-card">
+    <col class="col-effect">
+    <col class="col-card">
+    <col class="col-effect">
+  </colgroup>
+  <thead>
+    <tr>
+      <th class="samurai-th">Самурайская сторона</th>
+      <th class="samurai-th">Бонус для самурая</th>
+      <th class="ninja-th">Ниндзя-сторона</th>
+      <th class="ninja-th">Бонус для ниндзя</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="card-cell">
+        <iframe class="card-frame" src="../app.html?embed=62" loading="lazy"></iframe>
+        <span class="card-name">Капеллан</span>
+      </td>
+      <td class="samurai-cell">
+        <span class="badge badge-samurai">Самурай</span>
+        Раз в ход одно из штатных действий (лечение HP / снятие яда или эффекта) доступно
+        <strong>без сброса карты</strong>.
+      </td>
+      <td class="card-cell">
+        <iframe class="card-frame" src="../app.html?embed=63" loading="lazy"></iframe>
+        <span class="card-name">Ассасин</span>
+      </td>
+      <td class="ninja-cell">
+        <span class="badge badge-ninja">Ниндзя</span>
+        Опция «сделать врага беззащитным от атаки» стоит <strong>1 карту вместо 2</strong>.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Модификаторы</h2>
+
+<table class="pair-table">
+  <colgroup>
+    <col class="col-card">
+    <col class="col-effect">
+    <col class="col-card">
+    <col class="col-effect">
+  </colgroup>
+  <thead>
+    <tr>
+      <th class="samurai-th">Самурайская сторона</th>
+      <th class="samurai-th">Бонус для самурая</th>
+      <th class="ninja-th">Ниндзя-сторона</th>
+      <th class="ninja-th">Бонус для ниндзя</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="card-cell">
+        <iframe class="card-frame" src="../app.html?embed=77" loading="lazy"></iframe>
+        <span class="card-name">Длань сёгуна</span>
+      </td>
+      <td class="samurai-cell">
+        <span class="badge badge-samurai">Самурай</span>
+        <strong>+1 к силе атаки</strong> сверх штатного «не тратит попытку атаки».
+      </td>
+      <td class="card-cell">
+        <iframe class="card-frame" src="../app.html?embed=67" loading="lazy"></iframe>
+        <span class="card-name">Удар тени</span>
+      </td>
+      <td class="ninja-cell">
+        <span class="badge badge-ninja">Ниндзя</span>
+        <strong>+1 к силе атаки</strong> сверх штатного «атака игнорирует ловушки».
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Действия</h2>
+
+<table class="pair-table">
+  <colgroup>
+    <col class="col-card">
+    <col class="col-effect">
+    <col class="col-card">
+    <col class="col-effect">
+  </colgroup>
+  <thead>
+    <tr>
+      <th class="samurai-th">Самурайская сторона</th>
+      <th class="samurai-th">Бонус для самурая</th>
+      <th class="ninja-th">Ниндзя-сторона</th>
+      <th class="ninja-th">Бонус для ниндзя</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="card-cell">
+        <iframe class="card-frame" src="../app.html?embed=108" loading="lazy"></iframe>
+        <span class="card-name">Сэппуку</span>
+      </td>
+      <td class="samurai-cell">
+        <span class="badge badge-samurai">Только самурай</span>
+        Перед смертью союзники-самураи на ваш выбор разбирают вашу руку; ПО можно
+        отправить в сброс вместо вручения врагу — ритуальная смерть с честью.
+      </td>
+      <td class="stub-cell">
+        <div class="stub-card">Заглушка — ниндзя-карта пары пока не определена</div>
+        <span class="card-name">—</span>
+      </td>
+      <td class="stub-cell">
+        Антагонистичный аналог не придуман.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Вмешательства</h2>
+
+<table class="pair-table">
+  <colgroup>
+    <col class="col-card">
+    <col class="col-effect">
+    <col class="col-card">
+    <col class="col-effect">
+  </colgroup>
+  <thead>
+    <tr>
+      <th class="samurai-th">Самурайская сторона</th>
+      <th class="samurai-th">Бонус для самурая</th>
+      <th class="ninja-th">Ниндзя-сторона</th>
+      <th class="ninja-th">Бонус для ниндзя</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="card-cell">
+        <iframe class="card-frame" src="../app.html?embed=125" loading="lazy"></iframe>
+        <span class="card-name">Подвиг</span>
+      </td>
+      <td class="samurai-cell">
+        <span class="badge badge-samurai">Самурай</span>
+        При перенаправлении прямой атаки оружия на себя получаете
+        <strong>−1 раны</strong> (минимум 0).
+      </td>
+      <td class="stub-cell">
+        <div class="stub-card">Заглушка — ниндзя-карта пары пока не определена</div>
+        <span class="card-name">—</span>
+      </td>
+      <td class="stub-cell">
+        Антагонистичный аналог не придуман.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Вмешательства + Эффекты</h2>
+
+<table class="pair-table">
+  <colgroup>
+    <col class="col-card">
+    <col class="col-effect">
+    <col class="col-card">
+    <col class="col-effect">
+  </colgroup>
+  <thead>
+    <tr>
+      <th class="samurai-th">Самурайская сторона</th>
+      <th class="samurai-th">Бонус для самурая</th>
+      <th class="ninja-th">Ниндзя-сторона</th>
+      <th class="ninja-th">Бонус для ниндзя</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="card-cell">
+        <iframe class="card-frame" src="../app.html?embed=128" loading="lazy"></iframe>
+        <span class="card-name">Симулянт</span>
+      </td>
+      <td class="samurai-cell">
+        <span class="badge badge-todo">TODO</span>
+        Штраф — самурай теряет 3 карты при разыгрывании (предварительная идея).
+      </td>
+      <td class="card-cell">
+        <iframe class="card-frame" src="../app.html?embed=128" loading="lazy"></iframe>
+        <span class="card-name">Симулянт</span>
+      </td>
+      <td class="ninja-cell">
+        <span class="badge badge-todo">TODO</span>
+        Бонус для ниндзя ещё не сформулирован.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Сводка</h2>
+
+<div class="notes">
+  <ul>
+    <li><strong>Финализированы (2 пары):</strong> Капеллан / Ассасин (стойки), Длань сёгуна / Удар тени (модификаторы).</li>
+    <li><strong>Половинчатые (2 пары):</strong> Сэппуку и Подвиг с самурайской стороны — обе ждут ниндзя-аналог.</li>
+    <li><strong>В работе (1 пара):</strong> Симулянт — карта одна, но фракционные режимы для самурая и ниндзя ещё не утверждены.</li>
+    <li><strong>Оружие</strong> в этой подборке намеренно не рассматривается — асимметрия по оружию будет проработана отдельно.</li>
+  </ul>
+</div>
+
+</body>
+</html>

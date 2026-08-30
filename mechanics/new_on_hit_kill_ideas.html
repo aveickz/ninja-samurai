@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>On-Hit / On-Kill — 20 идей (стойки · эффекты · командные ауры)</title>
+<style>
+  :root{
+    --ink:#2a2622; --cream:#f4efe2; --paper:#fbf8f0; --line:#d8cdb4;
+    --hit:#1d3a5f; --kill:#b3372a;
+    --sam:#1d3a5f; --nin:#2b2b2b; --neu:#a9842c; --ber:#7a2018;
+    --sStance:#3f6b4f; --sEffect:#7a5da0; --sAura:#a9842c;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; padding:32px 20px 64px; background:var(--cream); color:var(--ink);
+    font-family:"Segoe UI","Helvetica Neue",Arial,"Yu Gothic","Hiragino Sans",sans-serif; line-height:1.5;}
+  .wrap{max-width:1080px; margin:0 auto;}
+  header.top{border-bottom:3px solid var(--ink); padding-bottom:16px; margin-bottom:10px;}
+  header.top h1{margin:0 0 6px; font-size:26px;}
+  header.top p{margin:6px 0 0; max-width:870px; color:#4a443c; font-size:14px;}
+  code{background:#efe7d2; padding:1px 5px; border-radius:4px; font-size:.92em;}
+  .legend{display:flex; flex-wrap:wrap; gap:8px; margin:14px 0 4px; align-items:center;}
+  .legend .lab{font-size:12px; color:#6b6356;}
+  .badge{font-size:11px; font-weight:700; padding:2px 9px; border-radius:999px; color:#fff; white-space:nowrap;}
+  .b-hit{background:var(--hit);} .b-kill{background:var(--kill);}
+  .b-sam{background:var(--sam);} .b-nin{background:var(--nin);} .b-neu{background:var(--neu);} .b-ber{background:var(--ber);}
+  h2{font-size:19px; margin:30px 0 14px; padding:8px 12px; border-radius:8px; color:#fff;}
+  h2.s-stance{background:var(--sStance);} h2.s-effect{background:var(--sEffect);} h2.s-aura{background:var(--sAura);}
+  h2 .count{float:right; font-size:13px; background:rgba(255,255,255,.25); border-radius:999px; padding:1px 10px;}
+  .panel{background:var(--paper); border:1px solid var(--line); border-radius:12px;
+    padding:14px 16px; margin-bottom:13px; box-shadow:0 3px 10px rgba(60,50,30,.05);}
+  .s-stance .panel{border-left:5px solid var(--sStance);}
+  .s-effect .panel{border-left:5px solid var(--sEffect);}
+  .s-aura .panel{border-left:5px solid var(--sAura);}
+  .phead{display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin-bottom:8px;}
+  .phead h3{margin:0; font-size:18px;}
+  .phead .jp{color:var(--kill); font-weight:700; font-size:15px;}
+  .eff{font-size:14.5px; margin:0 0 6px;}
+  .eff b{color:var(--ink);}
+  .flav{font-size:13px; color:#6b6356; font-style:italic; margin:0 0 6px;}
+  .meta{font-size:12px; color:#3f7d3f; background:rgba(63,125,63,.1); border-radius:6px; padding:4px 9px; display:inline-block;}
+  footer.bot{margin-top:34px; padding-top:16px; border-top:1px solid var(--line); font-size:13px; color:#6b6356;}
+  footer.bot b{color:var(--ink);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>On-Hit / On-Kill — 20 идей</h1>
+    <p>Идеи для двух триггерных классов из <code>new-mechanics-ideas.md</code>: <b>On-Kill</b> (№15, «срабатывает, когда
+      я убиваю») и <b>On-Hit</b> (№16, «срабатывает, когда бьют по носителю»). Носители — <b>стойки</b>, <b>эффекты</b>
+      и <b>командные ауры</b>, как и просили. Жёсткое ограничение соблюдено везде: в автотриггерах <b>нет прямого урона</b>
+      (антипаттерн каскада, <code>meta_mechanics.md §7</code>) — только статусы (яд), лечение, добор, трофеи и честь (VP).</p>
+    <div class="legend">
+      <span class="lab">Триггер:</span>
+      <span class="badge b-hit">ON-HIT</span><span class="badge b-kill">ON-KILL</span>
+      <span class="lab" style="margin-left:10px;">Фракция:</span>
+      <span class="badge b-sam">самурай</span><span class="badge b-nin">ниндзя</span><span class="badge b-neu">нейтрал</span><span class="badge b-ber">берсерк</span>
+    </div>
+  </header>
+
+  <!-- ░░░░░░░░░░░░ СТОЙКИ ░░░░░░░░░░░░ -->
+  <section class="s-stance">
+    <h2 class="s-stance">🜢 Стойки <span class="count">7</span></h2>
+
+    <div class="panel">
+      <div class="phead"><h3>Цубамэ-гаэси</h3><span class="jp">燕返し</span><span class="badge b-hit">ON-HIT</span><span class="badge b-nin">ниндзя</span></div>
+      <p class="eff"><b>Пока вы в стойке:</b> каждый раз, когда по вам наносят раны оружием, атакующий получает отравление.</p>
+      <p class="flav">«Контрудар ласточки» — клинок отвечает, оставляя яд на нападавшем.</p>
+      <span class="meta">Каскад-безопасно: статус, не урон.</span>
+    </div>
+
+    <div class="panel">
+      <div class="phead"><h3>Несокрушимая воля</h3><span class="badge b-hit">ON-HIT</span><span class="badge b-sam">самурай</span></div>
+      <p class="eff"><b>Пока вы в стойке:</b> каждый раз, получая раны, возьмите 1 карту из колоды.</p>
+      <p class="flav">Раненый самурай черпает решимость из боли — превращает удары по себе в ресурс.</p>
+      <span class="meta">Защитный On-Hit (Усивака-style), добор.</span>
+    </div>
+
+    <div class="panel">
+      <div class="phead"><h3>Кровавый пир</h3><span class="jp">血宴</span><span class="badge b-kill">ON-KILL</span><span class="badge b-ber">берсерк</span></div>
+      <p class="eff"><b>При убийстве кого-либо в свой ход:</b> восстановите 2 HP и возьмите 1 карту.</p>
+      <p class="flav">Берсерк пирует на поверженном — бой питает его.</p>
+      <span class="meta">Лечение + добор, без каскада.</span>
+    </div>
+
+    <div class="panel">
+      <div class="phead"><h3>Сбор голов</h3><span class="jp">首狩り</span><span class="badge b-kill">ON-KILL</span><span class="badge b-nin">ниндзя</span></div>
+      <p class="eff"><b>При убийстве кого-либо:</b> заберите себе активную стойку <i>или</i> ловушку убитого.</p>
+      <p class="flav">Охотник за головами снимает трофей с поверженного. Родственник Кубитори, но на стойке.</p>
+      <span class="meta">Трофей (перенос ресурса), без урона.</span>
+    </div>
+
+    <div class="panel">
+      <div class="phead"><h3>Зеркальная стойка</h3><span class="badge b-hit">ON-HIT</span><span class="badge b-neu">нейтрал</span></div>
+      <p class="eff"><b>Пока вы в стойке:</b> каждый раз, получая раны, атакующий теряет свою активную стойку (если есть).</p>
+      <p class="flav">Удар разбивается о зеркало, сбивая нападающего с равновесия.</p>
+      <span class="meta">Снятие статуса, не урон.</span>
+    </div>
+
+    <div class="panel">
+      <div class="phead"><h3>Ловчая стойка</h3><span class="badge b-hit">ON-HIT</span><span class="badge b-nin">ниндзя</span></div>
+      <p class="eff"><b>Пока вы в стойке:</b> когда по вам наносят раны, можете поставить ловушку из руки перед собой, не тратя действие.</p>
+      <p class="flav">Раненый зверь огрызается капканом. Синергия с темой ловушек (Иё).</p>
+      <span class="meta">Размещение ресурса, без урона.</span>
+    </div>
+
+    <div class="panel">
+      <div class="phead"><h3>Жатва</h3><span class="jp">刈り取り</span><span class="badge b-kill">ON-KILL</span><span class="badge b-sam">самурай</span></div>
+      <p class="eff"><b>При убийстве кого-либо:</b> получаете дополнительный жетон чести (помимо стандартного).</p>
+      <p class="flav">Каждая голова — это слава. Осторожно с количеством: ускоряет VP-гонку.</p>
+      <span class="meta">VP-награда. Quantity держать низким.</span>
+    </div>
+  </section>
+
+  <!-- ░░░░░░░░░░░░ ЭФФЕКТЫ ░░░░░░░░░░░░ -->
+  <section class="s-effect">
+    <h2 class="s-effect">✦ Эффекты <span class="count">7</span></h2>
+
+    <div class="panel">
+      <div class="phead"><h3>Контракт</h3><span class="badge b-hit">ON-HIT</span><span class="badge b-nin">ниндзя</span></div>
+      <p class="eff"><b>Эффект на игроке:</b> каждый удар по нему даёт атакующему +1 карту из колоды.</p>
+      <p class="flav">Контракт на голову — кто бьёт помеченного, тот в прибыли. Делает цель «привлекательной мишенью» (Focused Fire).</p>
+      <span class="meta">«Привлекательный налог», добор атакующему.</span>
+    </div>
+
+    <div class="panel">
+      <div class="phead"><h3>Кровавая метка</h3><span class="badge b-kill">ON-KILL</span><span class="badge b-nin">ниндзя</span></div>
+      <p class="eff"><b>Эффект на враге:</b> тот, кто его убьёт (кто угодно), получает +1 жетон чести.</p>
+      <p class="flav">Назначенная цена за голову — команда сходится добивать помеченного.</p>
+      <span class="meta">VP при убийстве. Гибрид on-kill контракта.</span>
+    </div>
+
+    <div class="panel">
+      <div class="phead"><h3>Ядовитая броня</h3><span class="badge b-hit">ON-HIT</span><span class="badge b-nin">ниндзя</span></div>
+      <p class="eff"><b>Эффект на себе/союзнике:</b> каждый удар по носителю отравляет атакующего.</p>
+      <p class="flav">Кровь отравителя ядовита — бить его себе дороже. Защитный «отпугиватель».</p>
+      <span class="meta">Статус атакующему, без урона.</span>
+    </div>
+
+    <div class="panel">
+      <div class="phead"><h3>Охотничий азарт</h3><span class="badge b-kill">ON-KILL</span><span class="badge b-neu">нейтрал</span></div>
+      <p class="eff"><b>Эффект на себе:</b> при убийстве кого-либо возьмите 2 карты из колоды.</p>
+      <p class="flav">Вкус победы разгоняет — клинок «насыщается». Снимается стандартными очищениями.</p>
+      <span class="meta">Добор. Самобафф on-kill.</span>
+    </div>
+
+    <div class="panel">
+      <div class="phead"><h3>Жажда крови</h3><span class="badge b-kill">ON-KILL</span><span class="badge b-ber">берсерк</span></div>
+      <p class="eff"><b>Эффект на себе:</b> при убийстве кого-либо восстановите 1 HP.</p>
+      <p class="flav">Каждая смерть врага продлевает ярость носителя.</p>
+      <span class="meta">Лечение, без каскада. Снимается очищениями.</span>
+    </div>
+
+    <div class="panel">
+      <div class="phead"><h3>Краденая слава</h3><span class="badge b-kill">ON-KILL</span><span class="badge b-nin">ниндзя</span></div>
+      <p class="eff"><b>Эффект на враге:</b> если помеченный убивает кого-либо, его жетон чести за это убийство достаётся <i>вам</i>, а не ему.</p>
+      <p class="flav">Чужими руками — синоби забирает славу чужой победы.</p>
+      <span class="meta">Перенос VP, не урон. Интересный анти-on-kill.</span>
+    </div>
+
+    <div class="panel">
+      <div class="phead"><h3>Несгибаемость духа</h3><span class="badge b-hit">ON-HIT</span><span class="badge b-sam">самурай</span></div>
+      <p class="eff"><b>Эффект на себе/союзнике:</b> каждый удар по носителю — носитель берёт 1 карту.</p>
+      <p class="flav">Чем больше его бьют, тем упорнее он держится. Защитная стойкость самурая.</p>
+      <span class="meta">Защитный On-Hit, добор носителю.</span>
+    </div>
+  </section>
+
+  <!-- ░░░░░░░░░░░░ КОМАНДНЫЕ АУРЫ ░░░░░░░░░░░░ -->
+  <section class="s-aura">
+    <h2 class="s-aura">⚑ Командные ауры <span class="count">6</span></h2>
+    <p style="font-size:13px; color:#6b6356; margin:-6px 0 14px;">Лимит — одна аура на команду; носитель — приоритетная цель и обычно не пользуется бонусом сам (цена знамени, см. №6).</p>
+
+    <div class="panel">
+      <div class="phead"><h3>Боевой барабан</h3><span class="jp">陣太鼓</span><span class="badge b-hit">ON-HIT</span><span class="badge b-sam">самурай</span></div>
+      <p class="eff"><b>Командный On-Hit:</b> при каждой успешной атаке союзника по врагу один союзник по выбору атакующего берёт +1 карту.</p>
+      <p class="flav">Каждый удар клинка отдаётся в барабане — войско воспряло духом.</p>
+      <span class="meta">Добор команде. Носитель бонус не получает.</span>
+    </div>
+
+    <div class="panel">
+      <div class="phead"><h3>Кровавое знамя</h3><span class="badge b-hit">ON-HIT</span><span class="badge b-nin">ниндзя</span></div>
+      <p class="eff"><b>Командный On-Hit:</b> при каждой успешной атаке союзника по врагу цель получает дополнительное отравление.</p>
+      <p class="flav">Войско отравителей — каждый порез разносит яд.</p>
+      <span class="meta">Статус врагу, без урона (каскад-безопасно).</span>
+    </div>
+
+    <div class="panel">
+      <div class="phead"><h3>Хоругвь жатвы</h3><span class="badge b-kill">ON-KILL</span><span class="badge b-sam">самурай</span></div>
+      <p class="eff"><b>Командный On-Kill:</b> когда союзник убивает врага, все союзники восстанавливают 1 HP.</p>
+      <p class="flav">Победа воодушевляет строй — рана за рану закрывается на радостях.</p>
+      <span class="meta">Лечение команде, без каскада.</span>
+    </div>
+
+    <div class="panel">
+      <div class="phead"><h3>Знамя черепов</h3><span class="badge b-kill">ON-KILL</span><span class="badge b-nin">ниндзя</span></div>
+      <p class="eff"><b>Командный On-Kill:</b> когда союзник убивает врага, убийца берёт 2 карты из колоды.</p>
+      <p class="flav">Каждый череп на древке — добыча для клана.</p>
+      <span class="meta">Добор убийце. Ускоряет истощение колоды (§7).</span>
+    </div>
+
+    <div class="panel">
+      <div class="phead"><h3>Барабан возмездия</h3><span class="badge b-hit">ON-HIT</span><span class="badge b-sam">самурай</span></div>
+      <p class="eff"><b>Командный защитный On-Hit:</b> когда союзника ранят прямой атакой, союзник по его выбору берёт 1 карту.</p>
+      <p class="flav">Боль клана оборачивается решимостью. Зеркало «Боевого барабана» — оборонительная версия.</p>
+      <span class="meta">Добор команде при ударах по своим.</span>
+    </div>
+
+    <div class="panel">
+      <div class="phead"><h3>Клич крови</h3><span class="badge b-kill">ON-KILL</span><span class="badge b-sam">самурай</span></div>
+      <p class="eff"><b>Командный On-Kill:</b> когда союзник убивает врага, все союзники получают +1 к своей следующей атаке.</p>
+      <p class="flav">Падение врага — сигнал к натиску. Победа разгоняет строй.</p>
+      <span class="meta">Одношаговый бафф (№10), без урона.</span>
+    </div>
+  </section>
+
+  <footer class="bot">
+    <p><b>Статус:</b> черновик до плейтеста. Все 20 идей соблюдают антипаттерн каскада (§7): «урон» доставляется только
+      через <b>яд</b> (отложенный) или вовсе заменён на лечение / добор / трофей / честь. Прямого урона в автотриггерах нет.</p>
+    <p><b>Открытые вопросы:</b> (1) стек On-Kill ↔ Deathrattle — что раньше (по №15 — сначала трофей убийце); (2) VP-карты
+      (Жатва, Кровавая метка, Краденая слава) держать редкими, чтобы не превратить партию в гонку убийств; (3) On-Hit
+      срабатывает на <b>нанесённый</b> урон, а не на попытку (§16); (4) общий потолок триггерных карт в колоде — 3–5 на класс,
+      чтобы класс «обыгрывался», но стол не перегружался.</p>
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,23 @@
+# core.autocrlf=input — git по умолчанию считает текстом всё, где не нашёл
+# нулевых байт, и переписывает в них CRLF→LF. Для .ai и .dxf это порча файла,
+# поэтому бинарные форматы проекта помечены явно.
+
+# Полиграфия и вектор
+*.ai      -text -diff
+*.cdr     -text -diff
+*.cpt     -text -diff
+*.eps     -text -diff
+*.dxf     -text -diff
+*.pdf     -text -diff
+*.icc     -text -diff
+
+# 3D
+*.max     -text -diff
+*.glb     -text -diff
+*.3mf     -text -diff
+
+# Растр и шрифты
+*.png     -text -diff
+*.jpg     -text -diff
+*.woff    -text -diff
+*.ttf     -text -diff

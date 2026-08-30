@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Идеи карт через контекст low / full HP</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      max-width: 1400px;
+      margin: 24px auto;
+      padding: 0 20px;
+      color: #1a1a1a;
+      line-height: 1.5;
+    }
+    h1 { font-size: 26px; margin-bottom: 8px; }
+    h2 { font-size: 20px; margin-top: 32px; }
+    p, li { font-size: 14px; }
+    .legend {
+      background: #f5f3ee;
+      border-left: 3px solid #9b8755;
+      padding: 12px 16px;
+      margin: 16px 0;
+      font-size: 13px;
+    }
+    .legend code { background: #ece8de; padding: 1px 5px; border-radius: 3px; }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 24px 0;
+      table-layout: fixed;
+    }
+    col.col-card { width: 320px; }
+    col.col-idea { width: auto; }
+    th, td {
+      border: 1px solid #d8d3c8;
+      padding: 10px 14px;
+      vertical-align: top;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    th {
+      background: #f5f3ee;
+      text-align: left;
+      font-weight: 600;
+    }
+    td.card-cell {
+      padding: 4px;
+      text-align: center;
+      background: #fafafa;
+    }
+    iframe.card-frame {
+      width: 300px;
+      height: 470px;
+      border: 0;
+      display: block;
+      margin: 0 auto;
+    }
+    td .card-name {
+      display: block;
+      margin-top: 4px;
+      font-size: 12px;
+      color: #555;
+    }
+    td.low-cell  { background: #fdf6f4; }
+    td.full-cell { background: #f5fbf3; }
+    .badge {
+      display: inline-block;
+      padding: 1px 8px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-right: 8px;
+      vertical-align: 2px;
+    }
+    .badge-low  { background: #d44a2a; color: #fff; }
+    .badge-full { background: #4a9b3a; color: #fff; }
+    .dash { color: #aaa; }
+    .notes ul, .notes ol { padding-left: 20px; }
+    .notes li { margin-bottom: 8px; }
+  </style>
+</head>
+<body>
+
+<h1>Идеи карт через контекст low / full HP</h1>
+
+<p>
+  Подборка существующих карт колоды, у которых эффект интересно переосмысливается через
+  механику №5 из <code>new-mechanics-ideas.md</code> (контекстные эффекты на состоянии HP).
+  Список не исчерпывающий — взяты только карты, где идея реально оживляет карту, а не натянута.
+</p>
+
+<div class="legend">
+  <strong>Условные обозначения:</strong><br>
+  <strong>full HP</strong> — текущее HP равно стартовому значению на карте персонажа.<br>
+  <strong>low HP</strong> — 1 жетон жизни (≈ обескровленный статус).<br>
+  Прочерк означает, что в этом контексте идея неинтересна или не нужна.<br>
+  Все условия проверяются <em>в момент разыгрывания</em> карты по текущим жетонам — никакой памяти и висящих условий (правило №8).
+</div>
+
+<table>
+  <colgroup>
+    <col class="col-card">
+    <col class="col-idea">
+  </colgroup>
+  <thead>
+    <tr>
+      <th>Карта</th>
+      <th>Идея переработки</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr>
+      <td class="card-cell" rowspan="2">
+        <iframe class="card-frame" src="../app.html?embed=51" loading="lazy"></iframe>
+        <span class="card-name">Идеальный момент</span>
+      </td>
+      <td class="low-cell"><span class="badge badge-low">low HP</span><span class="dash">—</span></td>
+    </tr>
+    <tr>
+      <td class="full-cell"><span class="badge badge-full">full HP</span>Защита + 2 карты из колоды и +1 жетон жизни — «момент действительно идеален: запас здоровья позволяет сосредоточиться на ходе»</td>
+    </tr>
+
+    <tr>
+      <td class="card-cell" rowspan="2">
+        <iframe class="card-frame" src="../app.html?embed=52" loading="lazy"></iframe>
+        <span class="card-name">Чудо Бенкэя</span>
+      </td>
+      <td class="low-cell"><span class="badge badge-low">low HP</span>За каждую принятую рану берёте 2 карты — «отчаянное чудо умирающего монаха-воина»</td>
+    </tr>
+    <tr>
+      <td class="full-cell"><span class="badge badge-full">full HP</span>Блокирует все раны и берёте 1 карту — «Бенкэй несгибаем, пока стоит на ногах» (отсылка к легенде о Бенкэе, умершем стоя)</td>
+    </tr>
+
+    <tr>
+      <td class="card-cell" rowspan="2">
+        <iframe class="card-frame" src="../app.html?embed=107" loading="lazy"></iframe>
+        <span class="card-name">Швы</span>
+      </td>
+      <td class="low-cell"><span class="badge badge-low">low HP</span>Восстанавливает 3 HP — «отчаянная медицина на пороге смерти»</td>
+    </tr>
+    <tr>
+      <td class="full-cell"><span class="badge badge-full">full HP</span>Альтернатива «возьмите 2 карты из колоды» — «здоровому пациенту швы не нужны, лекарь занят чем-то другим»</td>
+    </tr>
+
+    <tr>
+      <td class="card-cell" rowspan="2">
+        <iframe class="card-frame" src="../app.html?embed=49" loading="lazy"></iframe>
+        <span class="card-name">Скрытый кинжал</span>
+      </td>
+      <td class="low-cell"><span class="badge badge-low">low HP</span>Атакующий получает 3 раны (или умирает) — «последний удар умирающего идёт прямо в сердце»</td>
+    </tr>
+    <tr>
+      <td class="full-cell"><span class="badge badge-full">full HP</span><span class="dash">—</span></td>
+    </tr>
+
+    <tr>
+      <td class="card-cell" rowspan="2">
+        <iframe class="card-frame" src="../app.html?embed=125" loading="lazy"></iframe>
+        <span class="card-name">Подвиг</span>
+      </td>
+      <td class="low-cell">
+        <span class="badge badge-low">low HP</span>
+        <strong>TODO</strong>, выбрать одну из формулировок:
+        <ul style="margin: 6px 0 0 18px; padding: 0;">
+          <li><strong>(а)</strong> Принимаете удар на себя <strong>без получения ран</strong> — «подвиг настолько легендарен, что не оставляет на герое ни царапины»</li>
+          <li><strong>(б)</strong> Каждый союзник берёт по 1 карте — «подвиг вдохновляет весь клан»</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td class="full-cell"><span class="badge badge-full">full HP</span>Перенаправляете атаку и берёте 1 карту — «самурай в полной форме принимает удар не дрогнув»</td>
+    </tr>
+
+    <tr>
+      <td class="card-cell" rowspan="2">
+        <iframe class="card-frame" src="../app.html?embed=114" loading="lazy"></iframe>
+        <span class="card-name">Передышка</span>
+      </td>
+      <td class="low-cell"><span class="badge badge-low">low HP</span>Полностью восстанавливаете жетоны жизни <strong>и больше ничего</strong> (стойкость не восстанавливается, союзник не получает карту) — «обескровленный воин засыпает мертвецким сном и пробуждается полным сил»</td>
+    </tr>
+    <tr>
+      <td class="full-cell"><span class="badge badge-full">full HP</span>Восстанавливаете стойкость, другой игрок берёт <strong>2 карты</strong> вместо одной — «здоровому отдых не нужен ради сна, он делится мудростью с товарищем»</td>
+    </tr>
+
+  </tbody>
+</table>
+
+<h2>Заметки</h2>
+<div class="notes">
+  <ul>
+    <li><strong>Чудо Бенкэя</strong> — самая выразительная карта в подборке: имя уже отсылает к легенде о Бенкэе, умершем стоя на мосту, утыканный стрелами. Full-режим буквально превращает эту легенду в механику — пока Бенкэй цел, его не сбить с ног. Low-режим даёт обратное прочтение того же образа: умирающий монах-воин черпает силу из ран и творит чудо.</li>
+    <li><strong>Идеальный момент</strong> — единственный full-эксклюзив в подборке. Прочерк на low оправдан: образ «идеального момента» не вяжется с раненым игроком на пороге смерти. Усиление только в одну сторону работает на флавор, а не против него.</li>
+    <li><strong>Швы</strong> — образцовая иллюстрация шаблона «база + альтернатива при полном HP» из <code>new-mechanics-ideas.md</code> №5: лечить здорового игрока некого, поэтому full-режим даёт другой полезный эффект — это спасает карту от мёртвой клетки по правилу №6.</li>
+    <li><strong>Скрытый кинжал</strong> — single-side low-эксклюзив. Образ «отчаянного укола в сердце» работает только в крайнем состоянии; здоровый защитник пользуется картой в базовом режиме 1 рана. Усиление в 3 раза создаёт сильный финальный момент — раненый защитник становится опасной целью, и враги перед атакой задумаются.</li>
+    <li><strong>Подвиг</strong> — обе стороны заполнены, каждая раскрывает разный архетип самурая. Full-режим — стоический воин, принимающий удар «не дрогнув» (награда за хладнокровие — +1 карта). Low-режим с TODO: между «личным» вариантом (а) — раны не наносятся, подвиг не оставляет царапин — и «командным» (б) — все союзники берут по карте, подвиг вдохновляет весь клан. Командный вариант сильнее по флавору и хорошо ложится на правило №4 (вовлечение союзников), но мощнее по эффекту; личный ближе к легендам про несокрушимость героя. Решается на плейтесте.</li>
+    <li><strong>Передышка</strong> — редкий пример two-mode карты, где режимы <em>меняют тип ресурса</em>: на low HP карта переключается с восстановления стойкости на лечение жизни (стойкость и добор союзника не работают), на full HP усиливает добор союзнику (вместо лечения, в котором нет смысла). По флавору это два разных способа отдохнуть — раненый отсыпается мертвецким сном, здоровый делится знаниями.</li>
+  </ul>
+</div>
+
+<h2>Открытые вопросы</h2>
+<div class="notes">
+  <ul>
+    <li>Стоит ли вынести «full HP» и «low HP» как явные термины в <code>app/rules/rules.html</code>, прежде чем массово вписывать их в карты. Для трёх карт это пока не критично, но если пул расширится — общий термин в правилах нужен.</li>
+    <li>Не получится ли, что при добавлении контекста на 5+ карт стол начнёт перегружаться проверкой жетонов в момент розыгрыша. Целесообразен плейтест с этими тремя картами и оценка, не возникает ли тренчастоты сверки HP.</li>
+  </ul>
+</div>
+
+</body>
+</html>

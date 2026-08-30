@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Асимметрия карт — черновики</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      max-width: 1400px;
+      margin: 24px auto;
+      padding: 0 20px;
+      color: #1a1a1a;
+      line-height: 1.5;
+    }
+    h1 { font-size: 26px; margin-bottom: 8px; }
+    h2 { font-size: 20px; margin-top: 36px; }
+    h3 { font-size: 16px; margin-top: 24px; color: #555; }
+    p, li { font-size: 14px; }
+    .legend {
+      background: #f5f3ee;
+      border-left: 3px solid #9b8755;
+      padding: 12px 16px;
+      margin: 16px 0;
+      font-size: 13px;
+    }
+    .legend code { background: #ece8de; padding: 1px 5px; border-radius: 3px; }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 16px 0 32px;
+      table-layout: fixed;
+    }
+    col.col-card { width: 320px; }
+    col.col-idea { width: auto; }
+    th, td {
+      border: 1px solid #d8d3c8;
+      padding: 10px 14px;
+      vertical-align: top;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    th {
+      background: #f5f3ee;
+      text-align: left;
+      font-weight: 600;
+    }
+    td.card-cell {
+      padding: 4px;
+      text-align: center;
+      background: #fafafa;
+    }
+    iframe.card-frame {
+      width: 300px;
+      height: 470px;
+      border: 0;
+      display: block;
+      margin: 0 auto;
+    }
+    td .card-name {
+      display: block;
+      margin-top: 4px;
+      font-size: 12px;
+      color: #555;
+    }
+    td .card-name small { color: #999; font-size: 11px; }
+    td.base-cell      { background: #fafafa; }
+    td.ninja-cell     { background: #f1f4f8; }
+    td.samurai-cell   { background: #fdf6f4; }
+    .badge {
+      display: inline-block;
+      padding: 1px 8px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-right: 8px;
+      vertical-align: 2px;
+    }
+    .badge-base    { background: #888;     color: #fff; }
+    .badge-ninja   { background: #0D233C;  color: #fff; }
+    .badge-samurai { background: #891511;  color: #fff; }
+    .dash { color: #aaa; }
+    .notes ul, .notes ol { padding-left: 20px; }
+    .notes li { margin-bottom: 8px; }
+    .pair-list { columns: 2; column-gap: 32px; padding-left: 20px; }
+    .pair-list li { margin-bottom: 6px; break-inside: avoid; }
+  </style>
+</head>
+<body>
+
+<h1>Асимметрия карт — черновики</h1>
+
+<p>
+  Визуальная версия <code>asymmetry-drafts.md</code>. Карты, которые тяготеют к одной из
+  фракций, проектируются по схеме <strong>«база + бонус для своих»</strong>: база полноценна
+  и играбельна для любой фракции (правило №6), а бонус срабатывает только в руках «своей»
+  стороны. Здесь живут идеи в работе; финализированные формулировки переезжают в
+  <code>asymmetry.md</code>.
+</p>
+
+<div class="legend">
+  <strong>Условные обозначения:</strong><br>
+  <span class="badge badge-base">База</span> — что карта делает в руках любого игрока.<br>
+  <span class="badge badge-ninja">Бонус ниндзя</span> — срабатывает, только если разыгрывает ниндзя.<br>
+  <span class="badge badge-samurai">Бонус самурая</span> — срабатывает, только если разыгрывает самурай.<br>
+  Превью карты в первой колонке — текущий вид из <code>app/js/cards.js</code>; на превью видно,
+  как карта работает <em>сейчас</em>, до введения асимметрии.
+</div>
+
+<h2>Эксклюзивы фракций</h2>
+
+<p>
+  Ровно по одной карте на сторону, физически недоступной другой фракции — стилевой акцент,
+  не превращающий асимметрию в систему запретов. Подробное обоснование — в
+  <code>asymmetry-drafts.md</code>, раздел «Допустимые расширения принципа».
+</p>
+
+<table>
+  <colgroup>
+    <col class="col-card">
+    <col class="col-idea">
+  </colgroup>
+  <thead>
+    <tr>
+      <th>Карта</th>
+      <th>Эксклюзивный режим</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="card-cell">
+        <iframe class="card-frame" src="../app.html?embed=108" loading="lazy"></iframe>
+        <span class="card-name">Сэппуку</span>
+      </td>
+      <td class="samurai-cell">
+        <span class="badge badge-samurai">Только самурай</span>
+        Перед смертью союзники-самураи на ваш выбор разбирают вашу руку; ПО можно отправить
+        в сброс вместо вручения врагу. Ритуальная смерть с честью противоречит флавору ниндзя.
+      </td>
+    </tr>
+    <tr>
+      <td class="card-cell">
+        <iframe class="card-frame" src="../app.html?embed=111" loading="lazy"></iframe>
+        <span class="card-name">Предательство</span>
+      </td>
+      <td class="ninja-cell">
+        <span class="badge badge-ninja">Только ниндзя</span>
+        Сбрасываете жетон чести в сброс, получаете 7 карт. Не считается смертью.
+        Отказ от победного очка ради выгоды противоречит кодексу Бусидо.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Карты, тяготеющие к ниндзя</h2>
+
+<table>
+  <colgroup>
+    <col class="col-card">
+    <col class="col-idea">
+  </colgroup>
+  <thead>
+    <tr>
+      <th>Карта</th>
+      <th>Идея переработки</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr>
+      <td class="card-cell" rowspan="2">
+        <iframe class="card-frame" src="../app.html?embed=45" loading="lazy"></iframe>
+        <span class="card-name">Поганка <small>(ловушка)</small></span>
+      </td>
+      <td class="base-cell"><span class="badge badge-base">База</span>Атакующий отравляется ядом</td>
+    </tr>
+    <tr>
+      <td class="ninja-cell"><span class="badge badge-ninja">Бонус ниндзя</span>Атакующий отравляется ядом и сбрасывает случайную карту</td>
+    </tr>
+
+    <tr>
+      <td class="card-cell" rowspan="2">
+        <iframe class="card-frame" src="../app.html?embed=110" loading="lazy"></iframe>
+        <span class="card-name">Боевой банан <small>(действие)</small></span>
+      </td>
+      <td class="base-cell"><span class="badge badge-base">База</span>Атакующий теряет стойку</td>
+    </tr>
+    <tr>
+      <td class="ninja-cell"><span class="badge badge-ninja">Бонус ниндзя</span>Атакующий теряет стойку и сбрасывает 2 карты с руки на ваш выбор</td>
+    </tr>
+
+    <tr>
+      <td class="card-cell" rowspan="2">
+        <iframe class="card-frame" src="../app.html?embed=49" loading="lazy"></iframe>
+        <span class="card-name">Скрытый кинжал <small>(защита)</small></span>
+      </td>
+      <td class="base-cell"><span class="badge badge-base">База</span>Атакующий получает 1 рану от вас</td>
+    </tr>
+    <tr>
+      <td class="ninja-cell"><span class="badge badge-ninja">Бонус ниндзя</span>Атакующий также получает отравление ядом</td>
+    </tr>
+
+    <tr>
+      <td class="card-cell" rowspan="2">
+        <iframe class="card-frame" src="../app.html?embed=50" loading="lazy"></iframe>
+        <span class="card-name">Ядовитые наручи <small>(защита)</small></span>
+      </td>
+      <td class="base-cell"><span class="badge badge-base">База</span>Атакующий получает отравление ядом</td>
+    </tr>
+    <tr>
+      <td class="ninja-cell"><span class="badge badge-ninja">Бонус ниндзя</span>Атакующий также сбрасывает случайную карту</td>
+    </tr>
+
+    <tr>
+      <td class="card-cell" rowspan="2">
+        <iframe class="card-frame" src="../app.html?embed=53" loading="lazy"></iframe>
+        <span class="card-name">Карманник <small>(защита)</small></span>
+      </td>
+      <td class="base-cell"><span class="badge badge-base">База</span>Выбираете, сколько ран принять; за каждую — карта из колоды <em>(см. примечание ниже про несовпадение названия)</em></td>
+    </tr>
+    <tr>
+      <td class="ninja-cell"><span class="badge badge-ninja">Бонус ниндзя</span>Одна из взятых карт может быть украдена случайно с руки атакующего вместо колоды</td>
+    </tr>
+
+    <tr>
+      <td class="card-cell" rowspan="2">
+        <iframe class="card-frame" src="../app.html?embed=57" loading="lazy"></iframe>
+        <span class="card-name">Тень <small>(стойка)</small></span>
+      </td>
+      <td class="base-cell"><span class="badge badge-base">База</span>Вы обескровлены весь раунд, в начале своего хода стойка сбрасывается</td>
+    </tr>
+    <tr>
+      <td class="ninja-cell"><span class="badge badge-ninja">Бонус ниндзя</span>В начале своего хода можете сохранить стойку, сбросив карту с руки. Иначе — стойка сбрасывается как обычно</td>
+    </tr>
+
+    <tr>
+      <td class="card-cell" rowspan="2">
+        <iframe class="card-frame" src="../app.html?embed=69" loading="lazy"></iframe>
+        <span class="card-name">Поступь ветра <small>(модификатор)</small></span>
+      </td>
+      <td class="base-cell"><span class="badge badge-base">База</span>От атаки невозможно защититься, ловушки продолжают действовать</td>
+    </tr>
+    <tr>
+      <td class="ninja-cell"><span class="badge badge-ninja">Бонус ниндзя</span>Дополнительно атака становится отравленной</td>
+    </tr>
+
+    <tr>
+      <td class="card-cell" rowspan="2">
+        <iframe class="card-frame" src="../app.html?embed=76" loading="lazy"></iframe>
+        <span class="card-name">Кипящий яд <small>(модификатор)</small></span>
+      </td>
+      <td class="base-cell"><span class="badge badge-base">База</span>Отравленный получает +2 раны. По неотравленному — атака становится отравленной (накладывает яд)</td>
+    </tr>
+    <tr>
+      <td class="ninja-cell"><span class="badge badge-ninja">Бонус ниндзя</span>Отравленный получает +3 раны. По неотравленному — атака становится отравленной</td>
+    </tr>
+
+    <tr>
+      <td class="card-cell" rowspan="2">
+        <iframe class="card-frame" src="../app.html?embed=96" loading="lazy"></iframe>
+        <span class="card-name">Завеса дыма <small>(эффект)</small></span>
+      </td>
+      <td class="base-cell"><span class="badge badge-base">База</span>Накладывается только на себя</td>
+    </tr>
+    <tr>
+      <td class="ninja-cell"><span class="badge badge-ninja">Бонус ниндзя</span>Можно наложить на любого союзника</td>
+    </tr>
+
+    <tr>
+      <td class="card-cell" rowspan="2">
+        <iframe class="card-frame" src="../app.html?embed=91" loading="lazy"></iframe>
+        <span class="card-name">Метка убийцы <small>(эффект)</small></span>
+      </td>
+      <td class="base-cell"><span class="badge badge-base">База</span>+1 рана к атакам по цели</td>
+    </tr>
+    <tr>
+      <td class="ninja-cell"><span class="badge badge-ninja">Бонус ниндзя</span>+1 рана к атакам по цели, и любая отравленная атака по цели наносит дополнительную +1 рану</td>
+    </tr>
+
+    <tr>
+      <td class="card-cell" rowspan="2">
+        <iframe class="card-frame" src="../app.html?embed=88" loading="lazy"></iframe>
+        <span class="card-name">Бочка зловония <small>(групповая)</small></span>
+      </td>
+      <td class="base-cell"><span class="badge badge-base">База</span>Все активные игроки, включая ваших союзников, получают отравление</td>
+    </tr>
+    <tr>
+      <td class="ninja-cell"><span class="badge badge-ninja">Бонус ниндзя</span>Ваши союзники не получают отравление — «свои своих не травят»</td>
+    </tr>
+
+    <tr>
+      <td class="card-cell" rowspan="2">
+        <iframe class="card-frame" src="../app.html?embed=87" loading="lazy"></iframe>
+        <span class="card-name">Шквал огня <small>(групповая)</small></span>
+      </td>
+      <td class="base-cell"><span class="badge badge-base">База</span>Эффект на всех активных, включая союзников</td>
+    </tr>
+    <tr>
+      <td class="ninja-cell"><span class="badge badge-ninja">Бонус ниндзя</span>Союзники-ниндзя не получают урона и не сбрасывают защиту</td>
+    </tr>
+
+    <tr>
+      <td class="card-cell" rowspan="2">
+        <iframe class="card-frame" src="../app.html?embed=129" loading="lazy"></iframe>
+        <span class="card-name">Воровство <small>(действие)</small></span>
+      </td>
+      <td class="base-cell"><span class="badge badge-base">База</span>1 случайная карта вслепую</td>
+    </tr>
+    <tr>
+      <td class="ninja-cell"><span class="badge badge-ninja">Бонус ниндзя</span>Цель показывает вам всю руку, и вы выбираете одну карту сами</td>
+    </tr>
+
+    <tr>
+      <td class="card-cell" rowspan="2">
+        <iframe class="card-frame" src="../app.html?embed=130" loading="lazy"></iframe>
+        <span class="card-name">Кукла вуду <small>(действие)</small></span>
+      </td>
+      <td class="base-cell"><span class="badge badge-base">База</span>Перекладываете эффект</td>
+    </tr>
+    <tr>
+      <td class="ninja-cell"><span class="badge badge-ninja">Бонус ниндзя</span>Перекладываете эффект ИЛИ переносите ловушку с одного игрока на другого (если у целевого нет активной ловушки)</td>
+    </tr>
+
+    <tr>
+      <td class="card-cell" rowspan="2">
+        <iframe class="card-frame" src="../app.html?embed=133" loading="lazy"></iframe>
+        <span class="card-name">Обман <small>(действие; в cards.js — Перехват, id=133)</small></span>
+      </td>
+      <td class="base-cell"><span class="badge badge-base">База</span>Забираете ловушку себе в руку</td>
+    </tr>
+    <tr>
+      <td class="ninja-cell"><span class="badge badge-ninja">Бонус ниндзя</span>Забираете ловушку себе в руку, владелец ловушки получает 1 рану от внезапности</td>
+    </tr>
+
+    <tr>
+      <td class="card-cell" rowspan="2">
+        <iframe class="card-frame" src="../app.html?embed=128" loading="lazy"></iframe>
+        <span class="card-name">Симулянт <small>(вмешательство+эффект)</small></span>
+      </td>
+      <td class="base-cell"><span class="badge badge-base">База</span>Можно сыграть только на себя при прямой атаке оружием по вам</td>
+    </tr>
+    <tr>
+      <td class="ninja-cell"><span class="badge badge-ninja">Бонус ниндзя</span>Можно сыграть на любого союзника, являющегося целью прямой атаки</td>
+    </tr>
+
+  </tbody>
+</table>
+
+<h2>Карты, тяготеющие к самураям</h2>
+
+<table>
+  <colgroup>
+    <col class="col-card">
+    <col class="col-idea">
+  </colgroup>
+  <thead>
+    <tr>
+      <th>Карта</th>
+      <th>Идея переработки</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr>
+      <td class="card-cell" rowspan="2">
+        <iframe class="card-frame" src="../app.html?embed=51" loading="lazy"></iframe>
+        <span class="card-name">Выдержка самурая <small>(защита; в cards.js — Идеальный момент, id=51)</small></span>
+      </td>
+      <td class="base-cell"><span class="badge badge-base">База</span>Защита + 1 карта из колоды</td>
+    </tr>
+    <tr>
+      <td class="samurai-cell"><span class="badge badge-samurai">Бонус самурая</span>Защита + 1 карта из колоды + 1 жетон жизни</td>
+    </tr>
+
+    <tr>
+      <td class="card-cell" rowspan="2">
+        <iframe class="card-frame" src="../app.html?embed=58" loading="lazy"></iframe>
+        <span class="card-name">Всадник <small>(стойка)</small></span>
+      </td>
+      <td class="base-cell"><span class="badge badge-base">База</span>Вы дальше от всех на 1 при атаках по вам; ваши атаки достают на 1 дальше</td>
+    </tr>
+    <tr>
+      <td class="samurai-cell"><span class="badge badge-samurai">Бонус самурая</span>Дополнительно ваши атаки на дальности 1 наносят +1 рану — таран всадника</td>
+    </tr>
+
+    <tr>
+      <td class="card-cell" rowspan="2">
+        <iframe class="card-frame" src="../app.html?embed=60" loading="lazy"></iframe>
+        <span class="card-name">Щитоносец <small>(стойка)</small></span>
+      </td>
+      <td class="base-cell"><span class="badge badge-base">База</span>При прямой атаке по вам урон −1; можно сбрасывать карты, чтобы снижать урон дальше</td>
+    </tr>
+    <tr>
+      <td class="samurai-cell"><span class="badge badge-samurai">Бонус самурая</span>Если итоговый урон снижен до 0, атакующий получает 1 рану в ответ</td>
+    </tr>
+
+    <tr>
+      <td class="card-cell" rowspan="2">
+        <iframe class="card-frame" src="../app.html?embed=70" loading="lazy"></iframe>
+        <span class="card-name">Гнев сёгуна <small>(модификатор)</small></span>
+      </td>
+      <td class="base-cell"><span class="badge badge-base">База</span>Атаку можно провести по обескровленному игроку</td>
+    </tr>
+    <tr>
+      <td class="samurai-cell"><span class="badge badge-samurai">Бонус самурая</span>Атака по обескровленному наносит +1 рану</td>
+    </tr>
+
+    <tr>
+      <td class="card-cell" rowspan="2">
+        <iframe class="card-frame" src="../app.html?embed=102" loading="lazy"></iframe>
+        <span class="card-name">Дух лидера <small>(эффект)</small></span>
+      </td>
+      <td class="base-cell"><span class="badge badge-base">База</span>+1 рана к атакам цели</td>
+    </tr>
+    <tr>
+      <td class="samurai-cell"><span class="badge badge-samurai">Бонус самурая</span>+1 рана к атакам цели, и атаки по цели наносят −1 рану (минимум 0)</td>
+    </tr>
+
+    <tr>
+      <td class="card-cell" rowspan="2">
+        <iframe class="card-frame" src="../app.html?embed=81" loading="lazy"></iframe>
+        <span class="card-name">Целительные источники <small>(групповая)</small></span>
+      </td>
+      <td class="base-cell"><span class="badge badge-base">База</span>Вы +2 HP, остальные активные +1</td>
+    </tr>
+    <tr>
+      <td class="samurai-cell"><span class="badge badge-samurai">Бонус самурая</span>Вы +2 HP, союзники-самураи +2, ниндзя +1</td>
+    </tr>
+
+    <tr>
+      <td class="card-cell" rowspan="2">
+        <iframe class="card-frame" src="../app.html?embed=90" loading="lazy"></iframe>
+        <span class="card-name">Боевой крик <small>(групповая)</small></span>
+      </td>
+      <td class="base-cell"><span class="badge badge-base">База</span>Все ловушки на столе сбрасываются</td>
+    </tr>
+    <tr>
+      <td class="samurai-cell"><span class="badge badge-samurai">Бонус самурая</span>Дополнительно вы берёте 1 карту из колоды за каждую сброшенную ловушку</td>
+    </tr>
+
+    <tr>
+      <td class="card-cell" rowspan="2">
+        <iframe class="card-frame" src="../app.html?embed=84" loading="lazy"></iframe>
+        <span class="card-name">Чайная церемония <small>(групповая)</small></span>
+      </td>
+      <td class="base-cell"><span class="badge badge-base">База</span>3 карты себе, 1 каждому остальному активному игроку</td>
+    </tr>
+    <tr>
+      <td class="samurai-cell"><span class="badge badge-samurai">Бонус самурая</span>3 карты себе, 2 каждому союзнику-самураю, 1 каждому ниндзя</td>
+    </tr>
+
+    <tr>
+      <td class="card-cell" rowspan="2">
+        <iframe class="card-frame" src="../app.html?embed=123" loading="lazy"></iframe>
+        <span class="card-name">Имбирь <small>(вмешательство)</small></span>
+      </td>
+      <td class="base-cell"><span class="badge badge-base">База</span>1 HP любому игроку</td>
+    </tr>
+    <tr>
+      <td class="samurai-cell"><span class="badge badge-samurai">Бонус самурая</span>1 HP любому игроку ИЛИ 2 HP союзнику-самураю</td>
+    </tr>
+
+  </tbody>
+</table>
+
+<h2>Закреплённые пары</h2>
+
+<p>
+  Список парных карт, держащих общий баланс фракций. Если карта добавляется только на одну
+  сторону, это сигнал, что для другой нужен симметричный или антонимичный аналог.
+</p>
+
+<ul class="pair-list">
+  <li><strong>Капеллан — Ассасин</strong> <em>(стойка)</em> — поддержка союзников vs. устранение врага. Обе финализированы.</li>
+  <li><strong>Длань сёгуна — Удар тени</strong> <em>(модификатор)</em> — обход правила попытки атаки vs. обход ловушек. Обе финализированы.</li>
+  <li><strong>Целительные источники — Бочка зловония</strong> <em>(групповая)</em> — массовое лечение vs. массовое отравление.</li>
+  <li><strong>Подвиг — Симулянт</strong> <em>(вмешательство)</em> — принять удар по чести vs. ускользнуть обманом. Подвиг финализирован.</li>
+  <li><strong>Дух лидера — Метка убийцы</strong> <em>(эффект)</em> — благословение союзника vs. проклятие врага.</li>
+  <li><strong>Выдержка самурая — Скрытый кинжал</strong> <em>(защита)</em> — стойкость и ресурс себе vs. ответный укол атакующему.</li>
+</ul>
+
+<h3>Кандидаты без пары</h3>
+
+<p><strong>Самурайские, ждут ниндзя-пару:</strong> Всадник, Щитоносец, Гнев сёгуна, Боевой крик, Чайная церемония, Сэппуку (финализирована, ниндзя-пара не определена), Имбирь.</p>
+
+<p><strong>Ниндзя, ждут самурайскую пару:</strong> Поганка, Боевой банан, Ядовитые наручи, Карманник, Тень, Поступь ветра, Кипящий яд, Завеса дыма, Шквал огня, Воровство, Кукла вуду, Обман.</p>
+
+<h2>Открытые вопросы</h2>
+<div class="notes">
+  <ul>
+    <li>Стоит ли визуально метить карты значком фракции, или указывать «тяготение» только в тексте?</li>
+    <li>Часть «усилений для своих» по сути запускает реактивные эффекты в чужой ход (Скрытый кинжал, Щитоносец, Подвиг). Это допустимо в рамках правила №2: контекст защищающегося/вмешивающегося остаётся прямым, фракционная проверка просто добавляет ещё одно условие срабатывания.</li>
+    <li>Где провести границу между «усилением» и «качественно другим эффектом»? Сейчас в черновике перевешивают усиления; возможно, для 2–3 карт стоит сделать радикально разные эффекты (одна карта = две разные карты в зависимости от фракции).</li>
+    <li>Несколько карт в текущем виде ломают правило №6 (мёртвые в неподходящей ситуации) — например, Кипящий яд, Эгида, Завеса дыма. По ходу асимметрии стоит заодно дописывать им осмысленную базу либо использовать «исключение для яда».</li>
+    <li><strong>Несоответствия названий с cards.js.</strong> В черновике несколько карт носят имена, отличные от текущих в <code>app/js/cards.js</code>:
+      <ul>
+        <li>«Карманник» (#5) описан как «выбираете, сколько ран принять — за каждую карта», но в cards.js это эффект <em>Чуда Бенкэя</em> (id=52). Реальный Карманник (id=53) забирает у атакующего случайную карту. Превью оставлено по id=53 как в drafts; перед финализацией нужно сверить, какая карта имелась в виду.</li>
+        <li>«Обман» (#15) — в cards.js эта карта называется <em>Перехват</em> (id=133), описание совпадает.</li>
+        <li>«Выдержка самурая» (#17) — в cards.js эта карта называется <em>Идеальный момент</em> (id=51), описание совпадает.</li>
+      </ul>
+    </li>
+    <li><strong>Флавор-объяснения.</strong> Большинство усилений сейчас формулируются механически. По правилу №11 стоит проходом дописать каждому короткое образное «почему» — это и сейчас полезно для финализации, и при переносе в cards.js поможет балансировать.</li>
+  </ul>
+</div>
+
+</body>
+</html>

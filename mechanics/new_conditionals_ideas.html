@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conditionals от состояния персонажа — 20 добавлений</title>
+<style>
+  :root{ --ink:#2a2622; --cream:#f4efe2; --paper:#fbf8f0; --line:#d8cdb4; --gold:#a9842c; }
+  *{box-sizing:border-box;}
+  body{margin:0; padding:32px 20px 64px; background:var(--cream); color:var(--ink);
+    font-family:"Segoe UI","Helvetica Neue",Arial,"Yu Gothic","Hiragino Sans",sans-serif; line-height:1.5;}
+  .wrap{max-width:1080px; margin:0 auto;}
+  header.top{border-bottom:3px solid var(--ink); padding-bottom:16px; margin-bottom:10px;}
+  header.top h1{margin:0 0 6px; font-size:27px;}
+  header.top p{margin:6px 0 0; max-width:860px; color:#4a443c; font-size:14px;}
+  code{background:#efe7d2; padding:1px 5px; border-radius:4px; font-size:.92em;}
+  h2{font-size:19px; margin:30px 0 14px; padding:8px 12px; border-radius:8px; color:#fff; background:var(--sc);}
+  h2 .hi{margin-right:6px;}
+  h2 .tilt{font-size:12px; font-weight:600; opacity:.85; margin-left:8px;}
+  h2 .count{float:right; font-size:13px; background:rgba(255,255,255,.25); border-radius:999px; padding:1px 10px;}
+  .panel{display:flex; gap:16px; background:var(--paper); border:1px solid var(--line);
+    border-left:5px solid var(--sc); border-radius:12px; padding:14px; margin-bottom:14px;
+    box-shadow:0 3px 10px rgba(60,50,30,.05);}
+  @media(max-width:720px){ .panel{flex-direction:column;} }
+  .prev{flex:0 0 150px;}
+  .prev iframe{width:150px; height:225px; border:1px solid var(--line); border-radius:8px; background:#fff;}
+  .body{flex:1; min-width:0;}
+  .phead{display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin-bottom:8px;}
+  .phead h3{margin:0; font-size:18px; flex-basis:100%;}
+  .pid,.ptype{font-size:11px; font-weight:700; padding:2px 8px; border-radius:6px; color:#fff;}
+  .pid{background:#6b5d44;} .ptype{background:#9b8e72;}
+  .cur{font-size:13.5px; background:#f3ecd9; border-radius:8px; padding:9px 11px; margin-bottom:9px; color:#4a443c;}
+  .cur b{color:var(--ink);}
+  .add{font-size:14.5px; padding-left:12px; border-left:3px solid var(--sc);}
+  .add b{color:var(--sc);}
+  footer.bot{margin-top:34px; padding-top:16px; border-top:1px solid var(--line); font-size:13px; color:#6b6356;}
+  footer.bot b{color:var(--ink);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>Conditionals от состояния персонажа — 20 добавлений к текущим картам</h1>
+    <p>Идея: добавить к существующим картам бонус, который срабатывает <b>в зависимости от состояния разыгрывающего</b> —
+      выставлена ли у него стойка, лежит ли перед ним ловушка, отравлен ли он, висят ли на нём эффекты. Это паттерн
+      «state-gated» (см. <code>new-cards-ideas.md §21</code>): условие проверяется <b>в момент разыгрывания</b> по видимому
+      объекту на столе и в прямом контексте владельца, поэтому легально по правилам №8 и №12 (как каноничное «+1 рана,
+      если враг отравлен», только ключ — ваше собственное состояние). Каждое добавление идёт <b>поверх</b> штатного эффекта
+      карты, так что мёртвых клеток не создаёт (№6), а строить колоду вокруг своего персонажа становится осмысленнее —
+      больше интерактивности, меньше плоских карт.</p>
+  </header>
+  
+  <section style="--sc:#1d3a5f">
+    <h2><span class="hi">🜢</span> Если у вас выставлена СТОЙКА <span class="tilt">самурай / дисциплина</span> <span class="count">5</span></h2>
+    
+    <article class="panel">
+      <div class="prev"><iframe loading="lazy" src="../app.html?embed=65" title="Тамасэгири"></iframe></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid">id 65</span>
+          <span class="ptype">modifier</span>
+          <h3>Тамасэгири</h3>
+        </div>
+        <div class="cur"><b>Сейчас:</b> Ваша атака наносит на одну рану больше.</div>
+        <div class="add"><b>Добавление:</b> Выберите: +2 раны ИЛИ +1 рана и возьмите карту из колоды.</div>
+      </div>
+    </article>
+    <article class="panel">
+      <div class="prev"><iframe loading="lazy" src="../app.html?embed=80" title="Критический удар"></iframe></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid">id 80</span>
+          <span class="ptype">modifier</span>
+          <h3>Критический удар</h3>
+        </div>
+        <div class="cur"><b>Сейчас:</b> Сила атаки увеличивается на 2.</div>
+        <div class="add"><b>Добавление:</b> Эту атаку нельзя перенаправить (например, Подвигом) — выверенный удар из стойки.</div>
+      </div>
+    </article>
+    <article class="panel">
+      <div class="prev"><iframe loading="lazy" src="../app.html?embed=51" title="Идеальный момент"></iframe></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid">id 51</span>
+          <span class="ptype">defense</span>
+          <h3>Идеальный момент</h3>
+        </div>
+        <div class="cur"><b>Сейчас:</b> Вы также берёте карту из колоды.</div>
+        <div class="add"><b>Добавление:</b> Также восстановите 1 жетон жизни — стойка держит равновесие.</div>
+      </div>
+    </article>
+    <article class="panel">
+      <div class="prev"><iframe loading="lazy" src="../app.html?embed=124" title="Удар дракона"></iframe></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid">id 124</span>
+          <span class="ptype">intervention</span>
+          <h3>Удар дракона</h3>
+        </div>
+        <div class="cur"><b>Сейчас:</b> Сыграйте эту карту, чтобы нанести одну рану любому выбранному игроку.</div>
+        <div class="add"><b>Добавление:</b> Нанесите 2 раны вместо 1 — удар из устойчивой позиции.</div>
+      </div>
+    </article>
+    <article class="panel">
+      <div class="prev"><iframe loading="lazy" src="../app.html?embed=56" title="Блок"></iframe></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid">id 56</span>
+          <span class="ptype">defense + intervention</span>
+          <h3>Блок</h3>
+        </div>
+        <div class="cur"><b>Сейчас:</b> Можно сыграть в любой момент за любого игрока как карту вмешательства.</div>
+        <div class="add"><b>Добавление:</b> После блока возьмите 1 карту из колоды — хладнокровие.</div>
+      </div>
+    </article>
+  </section>
+  <section style="--sc:#2b2b2b">
+    <h2><span class="hi">🕸</span> Если перед вами лежит ЛОВУШКА <span class="tilt">ниндзя</span> <span class="count">5</span></h2>
+    
+    <article class="panel">
+      <div class="prev"><iframe loading="lazy" src="../app.html?embed=49" title="Скрытый кинжал"></iframe></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid">id 49</span>
+          <span class="ptype">defense</span>
+          <h3>Скрытый кинжал</h3>
+        </div>
+        <div class="cur"><b>Сейчас:</b> Атакующий получает 1 рану от вас. {На пороге смерти} враг получает 3 раны.</div>
+        <div class="add"><b>Добавление:</b> Атакующий получает 2 раны вместо 1 — вы бьёте смелее за своим капканом.</div>
+      </div>
+    </article>
+    <article class="panel">
+      <div class="prev"><iframe loading="lazy" src="../app.html?embed=129" title="Воровство"></iframe></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid">id 129</span>
+          <span class="ptype">action</span>
+          <h3>Воровство</h3>
+        </div>
+        <div class="cur"><b>Сейчас:</b> Заберите одну случайную карту с руки любого активного игрока. TODO: remake?</div>
+        <div class="add"><b>Добавление:</b> Цель показывает вам всю руку, и карту выбираете вы сами — ловушка даёт контроль.</div>
+      </div>
+    </article>
+    <article class="panel">
+      <div class="prev"><iframe loading="lazy" src="../app.html?embed=55" title="Захват"></iframe></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid">id 55</span>
+          <span class="ptype">defense</span>
+          <h3>Захват</h3>
+        </div>
+        <div class="cur"><b>Сейчас:</b> Вы забираете неметательное оружие врага себе в руку.</div>
+        <div class="add"><b>Добавление:</b> Атакующий также теряет свою стойку — капкан спутывает.</div>
+      </div>
+    </article>
+    <article class="panel">
+      <div class="prev"><iframe loading="lazy" src="../app.html?embed=116" title="Яд фугу"></iframe></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid">id 116</span>
+          <span class="ptype">action</span>
+          <h3>Яд фугу</h3>
+        </div>
+        <div class="cur"><b>Сейчас:</b> Отравляет выбранного активного игрока. TODO: way too simple of a card!</div>
+        <div class="add"><b>Добавление:</b> Отравите не только цель, но и одного соседнего ей игрока — сеть отравителя.</div>
+      </div>
+    </article>
+    <article class="panel">
+      <div class="prev"><iframe loading="lazy" src="../app.html?embed=67" title="Удар тени"></iframe></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid">id 67</span>
+          <span class="ptype">modifier</span>
+          <h3>Удар тени</h3>
+        </div>
+        <div class="cur"><b>Сейчас:</b> Ваша атака игнорирует ловушки и от неё невозможно защититься.<br>{Ниндзя} наносят на 1 рану больше.<br>{Самураи} штрафуются сбросом карты.</div>
+        <div class="add"><b>Добавление:</b> Атака дополнительно накладывает яд.</div>
+      </div>
+    </article>
+  </section>
+  <section style="--sc:#3f7d3f">
+    <h2><span class="hi">☠</span> Если вы ОТРАВЛЕНЫ <span class="tilt">отчаяние / чума</span> <span class="count">5</span></h2>
+    
+    <article class="panel">
+      <div class="prev"><iframe loading="lazy" src="../app.html?embed=120" title="Жертва крови"></iframe></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid">id 120</span>
+          <span class="ptype">action</span>
+          <h3>Жертва крови</h3>
+        </div>
+        <div class="cur"><b>Сейчас:</b> Сыграв эту карту, берите за каждый сброшенный жетон жизни (кроме последнего) новую карту из колоды.</div>
+        <div class="add"><b>Добавление:</b> За каждый сброшенный жетон жизни берёте 2 карты вместо 1 (в пределах руки) — отчаяние отравленного.</div>
+      </div>
+    </article>
+    <article class="panel">
+      <div class="prev"><iframe loading="lazy" src="../app.html?embed=132" title="Кэцу нуги"></iframe></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid">id 132</span>
+          <span class="ptype">action</span>
+          <h3>Кэцу нуги</h3>
+        </div>
+        <div class="cur"><b>Сейчас:</b> Забираете у игрока жетон жизни и добавляете его себе.</div>
+        <div class="add"><b>Добавление:</b> Вместе с жетоном жизни передаёте цели и своё отравление.</div>
+      </div>
+    </article>
+    <article class="panel">
+      <div class="prev"><iframe loading="lazy" src="../app.html?embed=64" title="Флакон яда"></iframe></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid">id 64</span>
+          <span class="ptype">modifier</span>
+          <h3>Флакон яда</h3>
+        </div>
+        <div class="cur"><b>Сейчас:</b> Ваша атака теперь накладывает отравление.</div>
+        <div class="add"><b>Добавление:</b> Атака накладывает яд и снимает 1 яд с вас — передаёте свою заразу.</div>
+      </div>
+    </article>
+    <article class="panel">
+      <div class="prev"><iframe loading="lazy" src="../app.html?embed=123" title="Имбирь"></iframe></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid">id 123</span>
+          <span class="ptype">intervention</span>
+          <h3>Имбирь</h3>
+        </div>
+        <div class="cur"><b>Сейчас:</b> Сыграйте эту карту, чтобы восстановить любому игроку один жетон жизни.</div>
+        <div class="add"><b>Добавление:</b> Можете вместо лечения снять отравление с себя.</div>
+      </div>
+    </article>
+    <article class="panel">
+      <div class="prev"><iframe loading="lazy" src="../app.html?embed=119" title="Переливание крови"></iframe></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid">id 119</span>
+          <span class="ptype">action</span>
+          <h3>Переливание крови</h3>
+        </div>
+        <div class="cur"><b>Сейчас:</b> Очищает любого игрока от отравления и передаёт его любому другому. UPD: перешло в куклу вуду</div>
+        <div class="add"><b>Добавление:</b> Игрок, которому вы передали яд, дополнительно получает 1 рану.</div>
+      </div>
+    </article>
+  </section>
+  <section style="--sc:#a9842c">
+    <h2><span class="hi">✦</span> Если у вас есть ЭФФЕКТ <span class="tilt">манипуляция / очищение</span> <span class="count">5</span></h2>
+    
+    <article class="panel">
+      <div class="prev"><iframe loading="lazy" src="../app.html?embed=105" title="Васаби"></iframe></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid">id 105</span>
+          <span class="ptype">action</span>
+          <h3>Васаби</h3>
+        </div>
+        <div class="cur"><b>Сейчас:</b> Выбранный игрок избавляется от яда, получает жетон жизни и берёт одну карту из колоды.</div>
+        <div class="add"><b>Добавление:</b> Если на вас висит негативный эффект — снимите один с себя дополнительно (помимо яда).</div>
+      </div>
+    </article>
+    <article class="panel">
+      <div class="prev"><iframe loading="lazy" src="../app.html?embed=99" title="Чаша благовоний"></iframe></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid">id 99</span>
+          <span class="ptype">action</span>
+          <h3>Чаша благовоний</h3>
+        </div>
+        <div class="cur"><b>Сейчас:</b> Выбранный игрок скидывает указанный вами эффект. За каждую дополнительно сброшенную карту можно скинуть ещё 1 эффект. За каждый такой скинутый эффект, вы восстанавливаете 1 жетон здоровья любому игроку.</div>
+        <div class="add"><b>Добавление:</b> За каждый снятый с СЕБЯ эффект тоже выбор: восстановить жизнь или добрать.</div>
+      </div>
+    </article>
+    <article class="panel">
+      <div class="prev"><iframe loading="lazy" src="../app.html?embed=130" title="Кукла вуду"></iframe></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid">id 130</span>
+          <span class="ptype">action</span>
+          <h3>Кукла вуду</h3>
+        </div>
+        <div class="cur"><b>Сейчас:</b> Можете выбрать отравление или любой эффект на столе и переложить его на любого игрока.</div>
+        <div class="add"><b>Добавление:</b> Если у вас есть негативный эффект — можете сначала снять/перенести его с себя.</div>
+      </div>
+    </article>
+    <article class="panel">
+      <div class="prev"><iframe loading="lazy" src="../app.html?embed=131" title="Дурман"></iframe></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid">id 131</span>
+          <span class="ptype">action</span>
+          <h3>Дурман</h3>
+        </div>
+        <div class="cur"><b>Сейчас:</b> Вы забираете выбранный эффект игрока на себя. UPD: ушло в куклу вуду</div>
+        <div class="add"><b>Добавление:</b> Если у вас уже есть эффект — при краже также возьмите 1 карту из колоды.</div>
+      </div>
+    </article>
+    <article class="panel">
+      <div class="prev"><iframe loading="lazy" src="../app.html?embed=92" title="Противоядие"></iframe></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid">id 92</span>
+          <span class="ptype">effect</span>
+          <h3>Противоядие</h3>
+        </div>
+        <div class="cur"><b>Сейчас:</b> Вас нельзя отравить ядом. Текущее отравление снимается.</div>
+        <div class="add"><b>Добавление:</b> При разыгрывании снимите с себя один негативный эффект (не только яд) — расширяет узкую карту.</div>
+      </div>
+    </article>
+  </section>
+  <footer class="bot">
+    <p><b>Статус:</b> черновик до плейтеста. Превью карт подтягиваются через <code>../app.html?embed=&lt;id&gt;</code>
+      при открытии файла двойным кликом. Цвет полосы = тип условия.</p>
+    <p><b>Принципы:</b> условие всегда читается в момент разыгрывания (№8); добавление — только в прямом контексте владельца,
+      без фоновых аур (№12); бонус идёт сверх базы, не делая карту мёртвой (№6); по возможности добавление даёт <b>выбор</b>
+      или новый эффект, а не просто +число (больше интерактивности). Несколько добавлений намеренно оживляют ранее
+      отмеченные «примитивные» и «узкие» карты (Тамасэгири, Критический удар, Удар дракона, Яд фугу, Имбирь, Противоядие).</p>
+  </footer>
+</div>
+</body>
+</html>

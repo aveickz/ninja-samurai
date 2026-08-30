@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Exact Stance Conditional Bonus — 20 связок «стойка × оружие»</title>
+<style>
+  :root{ --ink:#2a2622; --cream:#f4efe2; --paper:#fbf8f0; --line:#d8cdb4; --acc:#b3372a;
+    --sam:#1d3a5f; --nin:#2b2b2b; --neu:#a9842c; }
+  *{box-sizing:border-box;}
+  body{margin:0; padding:30px 18px 60px; background:var(--cream); color:var(--ink);
+    font-family:"Segoe UI","Helvetica Neue",Arial,"Yu Gothic","Hiragino Sans",sans-serif; line-height:1.45;}
+  .wrap{max-width:1120px; margin:0 auto;}
+  header.top{border-bottom:3px solid var(--ink); padding-bottom:14px; margin-bottom:10px;}
+  header.top h1{margin:0 0 6px; font-size:24px;}
+  header.top p{margin:5px 0 0; max-width:910px; color:#4a443c; font-size:13.5px;}
+  code{background:#efe7d2; padding:1px 5px; border-radius:4px; font-size:.9em;}
+  .legend{margin:12px 0 4px; font-size:12px; color:#6b6356;}
+  .badge{font-size:11px; font-weight:700; padding:1px 8px; border-radius:999px; color:#fff;}
+  .b-sam{background:var(--sam);} .b-nin{background:var(--nin);} .b-neu{background:var(--neu);}
+  table{border-collapse:collapse; width:100%; font-size:13px; margin-top:10px;}
+  th,td{border:1px solid var(--line); padding:7px 10px; vertical-align:top; text-align:left;}
+  th{background:#efe7d2; font-size:12px;}
+  td.st{font-weight:700; color:var(--sam); white-space:nowrap; width:160px;}
+  td.pair{width:230px; color:#5a4f3c;}
+  td.pair b{color:var(--ink);}
+  td.bonus b{color:var(--acc);}
+  td.fac{white-space:nowrap; width:92px;}
+  .flav{display:block; font-size:12px; color:#6b6356; font-style:italic; margin-top:3px;}
+  footer.bot{margin-top:28px; padding-top:14px; border-top:1px solid var(--line); font-size:12.5px; color:#6b6356;}
+  footer.bot b{color:var(--ink);}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <h1>Exact Stance Conditional Bonus — 20 связок «стойка × оружие»</h1>
+  <p>Под механику <b>№21</b> из <code>new-mechanics-ideas.md</code>: бонус срабатывает <b>только в конкретной названной
+    стойке</b> и только для определённого типа карт. Все связки — на существующих стойках и оружии колоды. Бонус живёт
+    <b>в собственной атаке/действии владельца стойки</b> (прямой контекст, §8/§12 — не фоновая аура, не на оружие союзников),
+    идёт <b>поверх</b> базы оружия (§6 — вне стойки оружие работает как обычно). Печать предлагается через
+    <b>иконки-пары</b> (значок стойки на оружии и наоборот).</p>
+  <div class="legend">Фракция-тилт: <span class="badge b-sam">самурай</span> прямой бой/стойкость ·
+    <span class="badge b-nin">ниндзя</span> яд/скрытность/манёвр · <span class="badge b-neu">нейтрал</span></div>
+</header>
+
+<table>
+<tr><th>Стойка</th><th>Связка (тип / карты)</th><th>Бонус — только в этой стойке</th><th>Фракция</th></tr>
+
+<tr><td class="st">Всадник (58)</td><td class="pair"><b>Древковое:</b> Яри, Нагината, Камаяри, Бо</td><td class="bonus"><b>+1 рана.</b><span class="flav">Кавалерийская сшибка — пика бьёт с разгона.</span></td><td class="fac"><span class="badge b-sam">самурай</span></td></tr>
+<tr><td class="st">Всадник (58)</td><td class="pair"><b>Нодати</b> (25, большой меч)</td><td class="bonus">Атака <b>игнорирует стойку цели.</b><span class="flav">Всадник сминает пешего сверху.</span></td><td class="fac"><span class="badge b-sam">самурай</span></td></tr>
+
+<tr><td class="st">Засада лучника (1166)</td><td class="pair"><b>Луки:</b> Дайкю, Тэппо Юми</td><td class="bonus"><b>+1 рана.</b><span class="flav">Прицельный выстрел с подготовленной позиции.</span></td><td class="fac"><span class="badge b-neu">нейтрал</span></td></tr>
+<tr><td class="st">Засада лучника (1166)</td><td class="pair"><b>Метательное:</b> Сюрикен, Кунай, Дротик с ядом</td><td class="bonus">От выстрела <b>нельзя защититься.</b><span class="flav">Внезапный бросок из засады.</span></td><td class="fac"><span class="badge b-nin">ниндзя</span></td></tr>
+
+<tr><td class="st">Ассасин (63)</td><td class="pair"><b>Ядовитое:</b> Дротик с ядом, Манжи Сай</td><td class="bonus">Атака накладывает <b>двойной яд.</b><span class="flav">Отравитель в своей стихии.</span></td><td class="fac"><span class="badge b-nin">ниндзя</span></td></tr>
+<tr><td class="st">Ассасин (63)</td><td class="pair"><b>Когти:</b> Сюко, Тэккокаги</td><td class="bonus">Успешная атака <b>крадёт карту</b> у цели.<span class="flav">Тихое устранение и обыск (ASSASSIN + CLAWS).</span></td><td class="fac"><span class="badge b-nin">ниндзя</span></td></tr>
+
+<tr><td class="st">Тень (57)</td><td class="pair"><b>Бросковое:</b> Сюрикен, Кунай</td><td class="bonus">Атака <b>неотразима</b> (от неё нельзя защититься).<span class="flav">Удар прилетает из ниоткуда.</span></td><td class="fac"><span class="badge b-nin">ниндзя</span></td></tr>
+<tr><td class="st">Тень (57)</td><td class="pair"><b>Верёвочное:</b> Кёкэцусёгэ, Манрики</td><td class="bonus">При ударе <b>притяните цель</b> (дистанция до неё станет 1).<span class="flav">Засада с привязью — клинок на верёвке.</span></td><td class="fac"><span class="badge b-nin">ниндзя</span></td></tr>
+
+<tr><td class="st">Щитоносец (60)</td><td class="pair"><b>Гибриды оружие-защита:</b> Сай, Шипастый щит</td><td class="bonus">При использовании как защиты — <b>+1 к блоку.</b><span class="flav">Щит и клинок работают заодно.</span></td><td class="fac"><span class="badge b-sam">самурай</span></td></tr>
+<tr><td class="st">Щитоносец (60)</td><td class="pair"><b>Одноручное melee:</b> Катана, Вакидзаси, Танто</td><td class="bonus">Атакуете, <b>не теряя −1 защиты</b> в этот ход.<span class="flav">Щит прикрывает выпад из-за края.</span></td><td class="fac"><span class="badge b-sam">самурай</span></td></tr>
+
+<tr><td class="st">Мастер боя (61)</td><td class="pair"><b>Любое melee</b></td><td class="bonus">Первая атака в ход — <b>+1 рана.</b><span class="flav">Фирменный выверенный удар мастера.</span></td><td class="fac"><span class="badge b-neu">нейтрал</span></td></tr>
+<tr><td class="st">Мастер боя (61)</td><td class="pair"><b>Дробящее:</b> Нунчаки, Тонфа, Дзюттэ</td><td class="bonus">Успешная атака — <b>цель теряет стойку.</b><span class="flav">Обезоруживающая техника ближнего боя.</span></td><td class="fac"><span class="badge b-neu">нейтрал</span></td></tr>
+
+<tr><td class="st">Лотос (59)</td><td class="pair"><b>Лечебные:</b> Швы, Васаби, Имбирь</td><td class="bonus">Лечат на <b>+1 HP.</b><span class="flav">Стойка покоя усиливает медицину.</span></td><td class="fac"><span class="badge b-sam">самурай</span></td></tr>
+<tr><td class="st">Лотос (59)</td><td class="pair"><b>Снятие эффектов:</b> Чаша благовоний</td><td class="bonus">Дополнительно <b>+1 HP цели</b> очищения.<span class="flav">Очищение и исцеление в одном жесте.</span></td><td class="fac"><span class="badge b-sam">самурай</span></td></tr>
+
+<tr><td class="st">Капеллан (62)</td><td class="pair"><b>Поддержка:</b> Рука помощи, Имбирь</td><td class="bonus">Раз в ход разыгрываются <b>без сброса карты.</b><span class="flav">Капеллан удешевляет помощь союзникам.</span></td><td class="fac"><span class="badge b-sam">самурай</span></td></tr>
+<tr><td class="st">Капеллан (62)</td><td class="pair"><b>Анти-яд:</b> Исцеление, Противоядие</td><td class="bonus">Снимает яд <b>со всех ваших союзников</b> сразу.<span class="flav">Благословение, отводящее мор от строя.</span></td><td class="fac"><span class="badge b-sam">самурай</span></td></tr>
+
+<tr><td class="st">Кэцубан (1164)</td><td class="pair"><b>Перенаправление:</b> Подвиг</td><td class="bonus">Принятый на себя урон <b>делится с согласным союзником.</b><span class="flav">Кровная клятва распределяет удар.</span></td><td class="fac"><span class="badge b-sam">самурай</span></td></tr>
+<tr><td class="st">Кэцубан (1164)</td><td class="pair"><b>Self-harm:</b> Жертва крови, Кэцу нуги</td><td class="bonus">Потерянные жетоны можно <b>разделить с союзником.</b><span class="flav">Разделить боль ритуала на двоих.</span></td><td class="fac"><span class="badge b-sam">самурай</span></td></tr>
+
+<tr><td class="st">Мусин (1165) — full</td><td class="pair"><b>Любое оружие</b></td><td class="bonus">Атака <b>игнорирует эффекты и бонусы цели.</b><span class="flav">Пустой разум не отвлекается на уловки.</span></td><td class="fac"><span class="badge b-neu">нейтрал</span></td></tr>
+<tr><td class="st">Мусин (1165) — low</td><td class="pair"><b>Контратаки:</b> Скрытый кинжал, Рикошет</td><td class="bonus">Контрудар наносит <b>+1 рану.</b><span class="flav">На грани смерти разум абсолютно ясен.</span></td><td class="fac"><span class="badge b-neu">нейтрал</span></td></tr>
+
+</table>
+
+<footer class="bot">
+  <p><b>Статус:</b> черновик до плейтеста. Все связки проверены по мета-правилам: бонус только в собственной атаке/действии
+    владельца стойки (§8/§12, не фоновая аура и не на оружие союзников); поверх базы оружия (§6); каскада нет —
+    усиления через урон/статус/лечение/кражу, без автотриггерного цепного урона (§7).</p>
+  <p><b>Открытые вопросы:</b> (1) печать на стойке (список типов) или на оружии (название стойки) — лучше единые иконки-пары;
+    (2) держать по 1–2 связки на стойку, чтобы не перегружать стол; (3) расширять ли за пределы оружия (Лотос/Капеллан уже
+    пробуют связки с лечебными и поддержкой); (4) свести с асимметрией Всадника (asymmetry-drafts §18, +1 на дистанции 1).</p>
+</footer>
+</div>
+</body>
+</html>

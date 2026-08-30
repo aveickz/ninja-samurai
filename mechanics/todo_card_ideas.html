@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TODO-карты колоды — обзор и предложения</title>
+<style>
+  :root{
+    --ink:#2a2622; --cream:#f4efe2; --paper:#fbf8f0; --line:#d8cdb4;
+    --vermilion:#b3372a; --samurai:#1d3a5f; --gold:#a9842c; --good:#3f7d3f;
+    --secA:#b3372a; --secB:#a9842c; --secC:#3f7d3f;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; padding:32px 20px 64px; background:var(--cream); color:var(--ink);
+    font-family:"Segoe UI","Helvetica Neue",Arial,"Yu Gothic","Hiragino Sans",sans-serif; line-height:1.5;}
+  .wrap{max-width:1080px; margin:0 auto;}
+  header.top{border-bottom:3px solid var(--ink); padding-bottom:16px; margin-bottom:18px;}
+  header.top h1{margin:0 0 6px; font-size:28px;}
+  header.top p{margin:6px 0 0; max-width:840px; color:#4a443c; font-size:14px;}
+  code{background:#efe7d2; padding:1px 5px; border-radius:4px; font-size:.92em;}
+  .warn{background:#fbeee6; border:1px solid #e6c3ac; border-left:4px solid var(--vermilion);
+    border-radius:8px; padding:12px 14px; margin:16px 0 8px; font-size:13.5px;}
+  .warn b{color:var(--vermilion);}
+  h2{font-size:21px; margin:34px 0 4px; padding-bottom:8px; border-bottom:2px solid var(--line);}
+  h2 .hicon{margin-right:6px;}
+  h2 .count{font-size:13px; font-weight:700; color:#fff; background:var(--ink); border-radius:999px; padding:2px 10px; vertical-align:middle; margin-left:6px;}
+  .sdesc{font-size:13px; color:#6b6356; margin:8px 0 18px;}
+  .panel{display:flex; gap:18px; background:var(--paper); border:1px solid var(--line);
+    border-radius:12px; padding:16px; margin-bottom:16px; box-shadow:0 4px 12px rgba(60,50,30,.05);}
+  .panel{border-left:5px solid var(--line);}
+  .sec-A{border-left-color:var(--secA);} .sec-B{border-left-color:var(--secB);} .sec-C{border-left-color:var(--secC);}
+  @media(max-width:720px){ .panel{flex-direction:column;} }
+  .prev{flex:0 0 150px;}
+  .prev iframe{width:150px; height:225px; border:1px solid var(--line); border-radius:8px; background:#fff;}
+  .noart{width:150px; height:225px; border:1px dashed var(--line); border-radius:8px; background:#f1ead7;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; font-size:26px; color:#b9ab8c;}
+  .noart span{font-size:12px; font-weight:700; letter-spacing:1px; text-transform:uppercase;}
+  .body{flex:1; min-width:0;}
+  .phead{display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin-bottom:10px;}
+  .phead h3{margin:0; font-size:18px; flex-basis:100%;}
+  .pid,.ptype,.pqty{font-size:11px; font-weight:700; padding:2px 8px; border-radius:6px;}
+  .pid{background:var(--samurai); color:#fff;}
+  .pid.dupid{background:var(--vermilion);}
+  .ptype{background:#6b5d44; color:#fff;}
+  .pqty{background:#e7dcc2; color:#6b5d44;}
+  .cur{font-size:13.5px; background:#f3ecd9; border-radius:8px; padding:10px 12px; margin-bottom:10px; color:#4a443c;}
+  .cur b{color:var(--ink);}
+  .sug{font-size:14px; padding-left:12px; border-left:3px solid var(--gold);}
+  .sug b{color:var(--gold);}
+  footer.bot{margin-top:40px; padding-top:18px; border-top:1px solid var(--line); font-size:13px; color:#6b6356;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>TODO-карты колоды — обзор и предложения</h1>
+    <p>Выборка по псевдо-фильтру <code>hasTodo()</code> из <code>app/js/app.js</code>: карта попадает сюда, если
+      в её <code>desc</code> встречается «todo» <b>или</b> <code>img</code> равен <code>card_todo.png</code>.
+      Всего под фильтр попало <b>29</b> карт из 179. Важно: фильтр смешивает два разных случая —
+      «есть нерешённый дизайн-вопрос» и «дизайн готов, но нет арта». Ниже карты разнесены по этому признаку, и к каждой
+      добавлено предложение, что с ней сделать.</p>
+    <div class="warn"><b>⚠ Гигиена данных:</b> в выборке есть повторяющиеся id: <code>104</code>, <code>145</code>, <code>1093</code>.
+      Дубли ломают <code>?embed=</code> (превью покажет первую карту) и адресацию вообще — этим картам нужно выдать новые id
+      <b>в первую очередь</b>.</div>
+  </header>
+  
+  <section>
+    <h2><span class="hicon">🔧</span> Нужно дизайн-решение <span class="count">13</span></h2>
+    <p class="sdesc">В тексте есть явный TODO или открытый дизайн-вопрос — карту нельзя финализировать без решения.</p>
+    
+    <article class="panel sec-A">
+      <div class="prev"><iframe loading="lazy" src="../app.html?embed=62" title="Капеллан"></iframe></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid">id 62</span>
+          <span class="ptype">stance</span>
+          <span class="pqty">qty 1</span>
+          <h3>Капеллан</h3>
+        </div>
+        <div class="cur"><b>Текущее / TODO:</b> Раз в свой ход вы можете: восстановить жетон жизни любому игроку -ИЛИ- снять яд или один эффект любому игроку, сбросив карту. TODO: samu 0 cards</div>
+        <div class="sug"><b>Предложение:</b> Это эталон Faction cost (§2). Закрыть TODO: самураю обе опции (лечение / снятие эффекта) — бесплатно, без сброса; ниндзя — со сбросом карты. Зафиксировать самурайскую сторону = 0 карт.</div>
+      </div>
+    </article>
+    <article class="panel sec-A">
+      <div class="prev"><iframe loading="lazy" src="../app.html?embed=63" title="Ассасин"></iframe></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid">id 63</span>
+          <span class="ptype">stance</span>
+          <span class="pqty">qty 1</span>
+          <h3>Ассасин</h3>
+        </div>
+        <div class="cur"><b>Текущее / TODO:</b> При атаке по врагу вы можете: сделать вашу атаку отравленной ядом -ИЛИ- сбросив две карты, сделать врага беззащитным от атаки. TODO: ninjka 1 crd/samu 2 crads</div>
+        <div class="sug"><b>Предложение:</b> Faction cost вариант «1 vs 2» (§2): «беззащитность» стоит ниндзя 1 карту, самураю — 2. Отравление атаки оставить бесплатным обоим. Беззащитность — ускоряющий denial (ок). Зафиксировать стоимости.</div>
+      </div>
+    </article>
+    <article class="panel sec-A">
+      <div class="prev"><iframe loading="lazy" src="../app.html?embed=96" title="Завеса дыма"></iframe></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid">id 96</span>
+          <span class="ptype">effect</span>
+          <span class="pqty">qty 1</span>
+          <h3>Завеса дыма</h3>
+        </div>
+        <div class="cur"><b>Текущее / TODO:</b> TODO: Следующий игровой ход выбранный игрок будто обескровлен. ЧТО-ТО сделать с этой картой! Может в стойку из вмешательства?</div>
+        <div class="sug"><b>Предложение:</b> Прямо просится в аура-механику №1 — там Завеса названа главным кандидатом. Переделать в аур-карту: кладётся на стол, держится сбросом союзников, снимается когда никто не платит. Это лечит её «слабый один ход» и даёт командную ставку.</div>
+      </div>
+    </article>
+    <article class="panel sec-A">
+      <div class="prev"><div class="noart">🎨<span>нет арта</span></div></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid dupid">id 104 ⚠ дубль</span>
+          <span class="ptype">effect</span>
+          <span class="pqty">qty 1</span>
+          <h3>?CURSE?</h3>
+        </div>
+        <div class="cur"><b>Текущее / TODO:</b> TODO: Curse - type effect, that goes to killer</div>
+        <div class="sug"><b>Предложение:</b> Определить класс Curses (§11) + On-Kill: проклятие-«горячая картошка», переходящее к тому, кто убьёт носителя. Связать с Горячей картошкой. ВАЖНО: дубль id=104 с Эгидой — выдать новый id.</div>
+      </div>
+    </article>
+    <article class="panel sec-A">
+      <div class="prev"><iframe loading="lazy" src="../app.html?embed=112" title="Сапёр"></iframe></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid">id 112</span>
+          <span class="ptype">action</span>
+          <span class="pqty">qty 1</span>
+          <h3>Сапёр</h3>
+        </div>
+        <div class="cur"><b>Текущее / TODO:</b> {Самурай} может обезвредить ловушку и взять 1 карту из колоды или восстановить 1 жизнь. TODO: или ценой 1 раны?. <br>{Ниндзя} может украсть ловушку.<br> Вне зависимости от роли, можете скинуть эту карту, чтобы взять две новых из колоды.</div>
+        <div class="sug"><b>Предложение:</b> По №6 у карты уже три осмысленные опции. Идею «ценой 1 раны» — отклонить: self-harm тут без флавора, только трение. Оставить чистый размен «обезвредить + добор/лечение».</div>
+      </div>
+    </article>
+    <article class="panel sec-A">
+      <div class="prev"><iframe loading="lazy" src="../app.html?embed=113" title="Эквилибриум"></iframe></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid">id 113</span>
+          <span class="ptype">action</span>
+          <span class="pqty">qty 1</span>
+          <h3>Эквилибриум</h3>
+        </div>
+        <div class="cur"><b>Текущее / TODO:</b> Количество жетонов жизни выбранного игрока становится равно вашему. TODO: ninja 1 spare card</div>
+        <div class="sug"><b>Предложение:</b> Закрыть Spare/Faction (§13): ниндзя играет с 1 spare card (дешевле). Уточнить: цель обычно понижают до своего HP; повышение врагу — редкий невыгодный случай, оставить как есть.</div>
+      </div>
+    </article>
+    <article class="panel sec-A">
+      <div class="prev"><iframe loading="lazy" src="../app.html?embed=114" title="Передышка"></iframe></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid">id 114</span>
+          <span class="ptype">action</span>
+          <span class="pqty">qty 1</span>
+          <h3>Передышка</h3>
+        </div>
+        <div class="cur"><b>Текущее / TODO:</b> Восстановите все недостающие жетоны стойкости. Другой игрок на ваш выбор берёт одну карту из колоды. TODO: FULL HP</div>
+        <div class="sug"><b>Предложение:</b> Уже разобрана в low_full_card_ideas.md: low — полное восстановление HP и больше ничего; full — восстановить стойкость + союзник берёт 2 карты. Перенести этот двухрежимный вариант в desc (§5).</div>
+      </div>
+    </article>
+    <article class="panel sec-A">
+      <div class="prev"><iframe loading="lazy" src="../app.html?embed=133" title="Перехват"></iframe></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid">id 133</span>
+          <span class="ptype">action</span>
+          <span class="pqty">qty 1</span>
+          <h3>Перехват</h3>
+        </div>
+        <div class="cur"><b>Текущее / TODO:</b> TODO: нужна ли карта с переделой Сапёра? Вы забираете ловушку другого игрока себе в руку.</div>
+        <div class="sug"><b>Предложение:</b> Решить пересечение с Сапёром и Иё. Дифференцировать: Перехват возвращает ловушку в РУКУ (переиспользуемо, ниндзя-темп) — это отличает его от обезвреживания. Если дубль не нужен — вырезать; рекомендую оставить с явным отличием «в руку».</div>
+      </div>
+    </article>
+    <article class="panel sec-A">
+      <div class="prev"><iframe loading="lazy" src="../app.html?embed=137" title="Сайго"></iframe></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid">id 137</span>
+          <span class="ptype">character</span>
+          <span class="pqty">qty 1</span>
+          <h3>Сайго</h3>
+        </div>
+        <div class="cur"><b>Текущее / TODO:</b> TODO:Вашу стойку не могут украсть или сбросить. TODO: Draw? TODO: also somehow link with players with active stance<br>{При смерти} вы не теряете стойку, а все союзники с выставленной стойкой TODO: full heal/draw (+2?)</div>
+        <div class="sug"><b>Предложение:</b> Stance-персонаж (идея #5). Trait: своя стойка не крадётся/сбрасывается (пассив в своём контексте — ок) + Draw-модификатор. Deathrattle: при смерти не теряет стойку, союзники СО стойкой лечатся/добирают (разово). Выкинуть «линк с игроками с активной стойкой» — фоновая аура, нарушает §12.</div>
+      </div>
+    </article>
+    <article class="panel sec-A">
+      <div class="prev"><iframe loading="lazy" src="../app.html?embed=139" title="Иё"></iframe></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid">id 139</span>
+          <span class="ptype">character</span>
+          <span class="pqty">qty 1</span>
+          <h3>Иё</h3>
+        </div>
+        <div class="cur"><b>Текущее / TODO:</b> Ваши ловушки не могут обезвредить, украсть или просветить. Раз в ход вы можете сбросить карту, чтобы просветить любую ловушку на столе. TODO: DRAW? TODO: some how link with players that have ACtive trap?<br>{При смерти} ловушки врагов просвещаются.</div>
+        <div class="sug"><b>Предложение:</b> Зеркало Сайго по ловушкам. Trait: свои ловушки защищены + раз в ход сброс→просветить любую ловушку (своё действие — ок); добавить Draw. Deathrattle оставить. Убрать «линк с игроками с активной ловушкой» — фон §12.</div>
+      </div>
+    </article>
+    <article class="panel sec-A">
+      <div class="prev"><iframe loading="lazy" src="../app.html?embed=140" title="Така"></iframe></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid">id 140</span>
+          <span class="ptype">character</span>
+          <span class="pqty">qty 1</span>
+          <h3>Така</h3>
+        </div>
+        <div class="cur"><b>Текущее / TODO:</b> Раз в ход вы можете забрать на усмотрение случайную карту игрока, отдав свою взамен в закрытую. Раз в ход вы можете сбросить три карты, чтобы взять две новых из колоды.<br>{При смерти} TODO</div>
+        <div class="sug"><b>Предложение:</b> Заполнить пустой Deathrattle. По теме вора: {При смерти} забрать по случайной карте у каждого врага (или союзники добирают). Разово, без каскада. Зафиксировать одну формулировку.</div>
+      </div>
+    </article>
+    <article class="panel sec-A">
+      <div class="prev"><div class="noart">🎨<span>нет арта</span></div></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid dupid">id 145 ⚠ дубль</span>
+          <span class="ptype">character</span>
+          <span class="pqty">qty 1</span>
+          <h3>Минамото</h3>
+        </div>
+        <div class="cur"><b>Текущее / TODO:</b> TODO: +1 карта в фазе набора за каждого отравленного игрока на столе. TODO: Sepcial.<br>{При смерти}Все враги отравляются ядом, а союзники исцеляются от яда.</div>
+        <div class="sug"><b>Предложение:</b> Draw = Poison-count (Charges §8): +1 карта за отравленного — попадает под исключение «почти всегда» §6. Deathrattle (AoE-яд + исцеление союзников) — статусы, без каскада, ок. «Special» — конкретизировать или убрать. Уточнить фракцию (массовый яд — ниндзя-тилт §5).</div>
+      </div>
+    </article>
+    <article class="panel sec-A">
+      <div class="prev"><iframe loading="lazy" src="../app.html?embed=2206" title="Облако пыли"></iframe></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid">id 2206</span>
+          <span class="ptype">teamaura</span>
+          <span class="pqty">qty 1</span>
+          <h3>Облако пыли</h3>
+        </div>
+        <div class="cur"><b>Текущее / TODO:</b> TODO: враги не могут атаковать дальше дистанции 1. (и убрать пыль в глаза).</div>
+        <div class="sug"><b>Предложение:</b> «Враги не атакуют дальше дист.1» — позиционный denial, ближе к замедляющему (§7). Лучше переформулировать в штраф (атака дальше 1 — со сбросом карты), а не запрет. Заодно решить судьбу Пыль в глаза (id=97), которую эта аура должна заменить.</div>
+      </div>
+    </article>
+  </section>
+  <section>
+    <h2><span class="hicon">❓</span> Под вопросом «?…?» <span class="count">6</span></h2>
+    <p class="sdesc">Сырые черновики с «?» в названии: сначала решение «быть или не быть», потом дизайн.</p>
+    
+    <article class="panel sec-B">
+      <div class="prev"><div class="noart">🎨<span>нет арта</span></div></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid">id 88</span>
+          <span class="ptype">aoe</span>
+          <span class="pqty">qty 1</span>
+          <h3>?Кислотный взрыв?</h3>
+        </div>
+        <div class="cur"><b>Текущее / TODO:</b> Снимаете  отравление ядом со всех активных игроков. За каждое снятое отравление выбранный вами игрок теряет жетон здоровья.</div>
+        <div class="sug"><b>Предложение:</b> Снимает яд со ВСЕХ (помогает и врагам) и сваливает урон на одного — мутно. Проверить каскад (массовое снятие → крупный урон одному способен убить). Переосмыслить как одноцелевую детонацию яда (ниндзя) либо отклонить. Снять «?».</div>
+      </div>
+    </article>
+    <article class="panel sec-B">
+      <div class="prev"><div class="noart">🎨<span>нет арта</span></div></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid">id 1092</span>
+          <span class="ptype">aoe</span>
+          <span class="pqty">qty 1</span>
+          <h3>?Cбор клана 1?</h3>
+        </div>
+        <div class="cur"><b>Текущее / TODO:</b> За каждого активного союзника, ваши союзника берут по карте из колоды.</div>
+        <div class="sug"><b>Предложение:</b> Командный добор, масштаб от числа союзников. Ускоряет истощение колоды (хорошо §7), но пересекается с Тактическим командованием (1205) и Team Support. Решить: оставить как разовое действие-добор или убрать дубль функции.</div>
+      </div>
+    </article>
+    <article class="panel sec-B">
+      <div class="prev"><div class="noart">🎨<span>нет арта</span></div></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid dupid">id 1093 ⚠ дубль</span>
+          <span class="ptype">aoe</span>
+          <span class="pqty">qty 1</span>
+          <h3>?Cбор клана 2?</h3>
+        </div>
+        <div class="cur"><b>Текущее / TODO:</b> За каждого активного союзника, ваши союзника восстанавливают 1 жетон здоровья.</div>
+        <div class="sug"><b>Предложение:</b> Командное лечение от числа союзников — пересекается с новой картой «Уход за раненым» (Team Support). Консолидировать в одну. ВАЖНО: дубль id=1093 с «Криком возмездия» — выдать новый id.</div>
+      </div>
+    </article>
+    <article class="panel sec-B">
+      <div class="prev"><div class="noart">🎨<span>нет арта</span></div></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid dupid">id 1093 ⚠ дубль</span>
+          <span class="ptype">aoe</span>
+          <span class="pqty">qty 1</span>
+          <h3>?Крик возмездия?</h3>
+        </div>
+        <div class="cur"><b>Текущее / TODO:</b> Каждый враг получает атаку равную по силе количеству ваших обескровленных союзников. От этого нельзя защититься.</div>
+        <div class="sug"><b>Предложение:</b> AoE-урон всем врагам = числу обескровленных союзников, неблокируемо. Высокий риск каскада (групповой урон → много смертей разом — «что избегать» §7). Переформулировать в яд/статус или жёстко капить. Сначала исправить дубль id=1093.</div>
+      </div>
+    </article>
+    <article class="panel sec-B">
+      <div class="prev"><div class="noart">🎨<span>нет арта</span></div></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid">id 1094</span>
+          <span class="ptype">aoe</span>
+          <span class="pqty">qty 1</span>
+          <h3>?Эставфета мечей?</h3>
+        </div>
+        <div class="cur"><b>Текущее / TODO:</b> Каждый активный игрок выбирает 1 карту со своей руки и кладёт её закрытой перед собой. Когда все выложили — карты сдвигаются на одну позицию по часовой стрелке (каждый получает закрытую карту соседа справа).</div>
+        <div class="sug"><b>Предложение:</b> Это карта #20 из new-cards-ideas (Wave / Эстафета мечей). Дизайн валиден; передача по часовой завязана на посадку «через одного» (§9) — над трупами меняет врага на союзника. Уточнить направление, добавить +1 HP всем (как в идее), исправить опечатку в названии, снять «?».</div>
+      </div>
+    </article>
+    <article class="panel sec-B">
+      <div class="prev"><div class="noart">🎨<span>нет арта</span></div></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid">id 1124</span>
+          <span class="ptype">action</span>
+          <span class="pqty">qty 1</span>
+          <h3>?Лазутчик?</h3>
+        </div>
+        <div class="cur"><b>Текущее / TODO:</b> Вы забираете себе командную ауру выбранного активного игрока.</div>
+        <div class="sug"><b>Предложение:</b> Это Куноити (#17): кража командного знамени врага себе. Сильная поворотная карта, ниндзя-эксклюзив. Связать с лимитом §6 (одно знамя на команду — кража меняет владельца). Снять «?», зафиксировать фракцию.</div>
+      </div>
+    </article>
+  </section>
+  <section>
+    <h2><span class="hicon">🎨</span> Дизайн готов — нужен арт + плейтест <span class="count">10</span></h2>
+    <p class="sdesc">Механика проработана; в TODO попали только из-за заглушки card_todo.png. Нужен арт и проверка балансом.</p>
+    
+    <article class="panel sec-C">
+      <div class="prev"><div class="noart">🎨<span>нет арта</span></div></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid">id 1081</span>
+          <span class="ptype">modifier</span>
+          <span class="pqty">qty 1</span>
+          <h3>Финальный удар</h3>
+        </div>
+        <div class="cur"><b>Текущее / TODO:</b> Финальная сила атаки равна количеству недостающих жетонов жизни цели.</div>
+        <div class="sug"><b>Предложение:</b> Missing-HP scaling по ЦЕЛИ = добивание раненого (зеркальная сторона §6, death’s door). По №6 нужен пол: при полном HP цели урон = 0 → мёртвая карта. Дать базовый минимум (напр. +1) или «+1 к атаке, плюс недостающее HP». Затем арт.</div>
+      </div>
+    </article>
+    <article class="panel sec-C">
+      <div class="prev"><div class="noart">🎨<span>нет арта</span></div></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid">id 1082</span>
+          <span class="ptype">modifier</span>
+          <span class="pqty">qty 1</span>
+          <h3>Мстительный удар</h3>
+        </div>
+        <div class="cur"><b>Текущее / TODO:</b> +1 к силе атаке. Если вы убиваете в этой атаке, то все эффекты и стойка цели по вашему желанию переходят вам, а не в сброс.</div>
+        <div class="sug"><b>Предложение:</b> По сути Кубитори (#12, On-Kill): при убийстве эффекты и стойка цели → тебе. Дизайн готов (база +1, №6 ок). Сверить имя с Кубитори, чтобы не плодить дубли. Нужен арт.</div>
+      </div>
+    </article>
+    <article class="panel sec-C">
+      <div class="prev"><div class="noart">🎨<span>нет арта</span></div></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid">id 1123</span>
+          <span class="ptype">action</span>
+          <span class="pqty">qty 1</span>
+          <h3>Голос предков</h3>
+        </div>
+        <div class="cur"><b>Текущее / TODO:</b> Сыграйте эту карту, чтобы вызвать действия {при смерти} персонажа любого игрока.</div>
+        <div class="sug"><b>Предложение:</b> Идея #11: досрочный запуск Deathrattle. Дизайн ок. Уточнить: чьи Deathrattle можно вызывать и нужно ли согласие; проверить каскад, если Deathrattle цели наносит урон. Нужен арт.</div>
+      </div>
+    </article>
+    <article class="panel sec-C">
+      <div class="prev"><div class="noart">🎨<span>нет арта</span></div></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid">id 1200</span>
+          <span class="ptype">teamaura</span>
+          <span class="pqty">qty 1</span>
+          <h3>Знамя лидера</h3>
+        </div>
+        <div class="cur"><b>Текущее / TODO:</b> Все атаки союзников наносят +1 рану.<br>{Носитель:} атаки самого носителя не получают +1 — знамёнщик командует, не дерётся.</div>
+        <div class="sug"><b>Предложение:</b> Дизайн полный (+1 атакам союзников, штраф носителю). Нужен только арт + плейтест баланса +1.</div>
+      </div>
+    </article>
+    <article class="panel sec-C">
+      <div class="prev"><div class="noart">🎨<span>нет арта</span></div></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid">id 1201</span>
+          <span class="ptype">teamaura</span>
+          <span class="pqty">qty 1</span>
+          <h3>Закрытый тыл</h3>
+        </div>
+        <div class="cur"><b>Текущее / TODO:</b> Все союзники получают −1 урон от каждой атаки (минимум 1).<br>{Носитель:} сам не получает −1 урон — стоит в центре строя, спину никто не прикрывает.</div>
+        <div class="sug"><b>Предложение:</b> Готов. Это та самая «общая защита −1», которая делает прямой урон ценным (см. обсуждение). Арт + плейтест.</div>
+      </div>
+    </article>
+    <article class="panel sec-C">
+      <div class="prev"><div class="noart">🎨<span>нет арта</span></div></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid">id 1202</span>
+          <span class="ptype">teamaura</span>
+          <span class="pqty">qty 1</span>
+          <h3>Строевая подготовка</h3>
+        </div>
+        <div class="cur"><b>Текущее / TODO:</b> Союзники не учитывают дистанцию между собой — между двумя любыми игроками одной команды считается нулевая дистанция.<br>{Носитель:} сам учитывает дистанцию обычным образом — он стоит как маяк ритма, а не двигается с войском.</div>
+        <div class="sug"><b>Предложение:</b> Готов. На плейтесте проверить взаимодействие с позиционными картами и посадкой «через одного» (§9). Арт.</div>
+      </div>
+    </article>
+    <article class="panel sec-C">
+      <div class="prev"><div class="noart">🎨<span>нет арта</span></div></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid">id 1204</span>
+          <span class="ptype">teamaura</span>
+          <span class="pqty">qty 1</span>
+          <h3>Спина к спине</h3>
+        </div>
+        <div class="cur"><b>Текущее / TODO:</b> Любой союзник может разыграть карту защиты с руки как вмешательство в защиту другого союзника. Бонусы карты защиты при этом не сохраняются — только базовое блокирование.<br>{Носитель:} в его защиту союзники не могут разыграть защиту-вмешательство — он держит фронт, помочь ему некому.</div>
+        <div class="sug"><b>Предложение:</b> Готов (share defense). Родственник новой «Стены щитов» из Team Support. Арт + плейтест.</div>
+      </div>
+    </article>
+    <article class="panel sec-C">
+      <div class="prev"><div class="noart">🎨<span>нет арта</span></div></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid">id 1205</span>
+          <span class="ptype">teamaura</span>
+          <span class="pqty">qty 1</span>
+          <h3>Тактическое командование</h3>
+        </div>
+        <div class="cur"><b>Текущее / TODO:</b> В фазе набора каждый союзник берёт +1 карту из колоды.<br>{Носитель:} берёт стандартные 3 карты в фазе набора — раздаёт ресурс, себе не оставляет.</div>
+        <div class="sug"><b>Предложение:</b> Готов (+1 добор всем). Ускоряет истощение колоды (хорошо §7). Пересекается с ?Сбор клана 1? — выбрать одну. Арт.</div>
+      </div>
+    </article>
+    <article class="panel sec-C">
+      <div class="prev"><div class="noart">🎨<span>нет арта</span></div></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid">id 1207</span>
+          <span class="ptype">teamaura</span>
+          <span class="pqty">qty 1</span>
+          <h3>Боевой долг</h3>
+        </div>
+        <div class="cur"><b>Текущее / TODO:</b> Любой живой союзник может по согласию принять прямую атаку оружия по другому союзнику на себя (как Подвиг), но получает на 2 раны больше.<br>{Носитель:} не может перенаправлять атаки на других союзников — он олицетворяет долг, а не делегирует его. Атаки по нему союзники могут перенаправить на себя; он сам — нет.</div>
+        <div class="sug"><b>Предложение:</b> Готов (перенаправление как Подвиг, +2 раны — self-harm trade-off §9). Арт + плейтест.</div>
+      </div>
+    </article>
+    <article class="panel sec-C">
+      <div class="prev"><div class="noart">🎨<span>нет арта</span></div></div>
+      <div class="body">
+        <div class="phead">
+          <span class="pid">id 1208</span>
+          <span class="ptype">teamaura</span>
+          <span class="pqty">qty 1</span>
+          <h3>Полевая медицина</h3>
+        </div>
+        <div class="cur"><b>Текущее / TODO:</b> Все союзники иммунны к отравлению ядом. Существующее отравление снимается в момент выкладывания карты.<br>{Носитель:} сам уязвим к яду как обычно — он раздаёт травы команде, для себя ничего не оставляет.</div>
+        <div class="sug"><b>Предложение:</b> Готов (командный иммунитет к яду) — контр-мета к ядам. Арт + плейтест.</div>
+      </div>
+    </article>
+  </section>
+  <footer class="bot">
+    <p>Файл сгенерирован из <code>app/js/cards.js</code> по фильтру <code>hasTodo()</code>. Превью существующих карт
+      (где есть арт) подтягиваются через <code>../app.html?embed=&lt;id&gt;</code> при открытии файла двойным кликом.
+      Карты без арта показаны заглушкой. Цвет левой полосы панели = секция (🔧 решение / ❓ под вопросом / 🎨 арт).</p>
+  </footer>
+</div>
+</body>
+</html>

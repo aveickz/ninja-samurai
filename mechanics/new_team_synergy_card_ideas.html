@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Team Support Synergy — карты-идеи</title>
+<style>
+  :root{
+    --ink:#2a2622; --cream:#f4efe2; --paper:#fbf8f0; --line:#d8cdb4;
+    --vermilion:#b3372a; --samurai:#1d3a5f; --ninja:#2b2b2b; --gold:#a9842c;
+    --good:#3f7d3f;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; padding:32px 20px 64px;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:"Segoe UI","Helvetica Neue",Arial,"Yu Gothic","Hiragino Sans",sans-serif;
+    line-height:1.5;
+  }
+  .wrap{max-width:1120px; margin:0 auto;}
+  header.top{border-bottom:3px solid var(--ink); padding-bottom:18px; margin-bottom:8px;}
+  header.top h1{margin:0 0 6px; font-size:30px; letter-spacing:.5px;}
+  header.top .jp{color:var(--vermilion); font-weight:700;}
+  header.top p{margin:6px 0 0; max-width:820px; color:#4a443c;}
+  .legend{display:flex; flex-wrap:wrap; gap:8px; margin:16px 0 28px;}
+  .badge{font-size:12px; font-weight:700; padding:3px 10px; border-radius:999px; color:#fff; white-space:nowrap;}
+  .b-sam{background:var(--samurai);}
+  .b-nin{background:var(--ninja);}
+  .b-neu{background:var(--gold);}
+  .b-type{background:#6b5d44;}
+  .legend .lab{font-size:12px; color:#6b6356; align-self:center; margin-right:4px;}
+
+  .row{
+    display:flex; gap:24px; align-items:stretch;
+    background:var(--paper); border:1px solid var(--line);
+    border-radius:14px; padding:20px; margin-bottom:24px;
+    box-shadow:0 1px 0 #fff inset, 0 6px 18px rgba(60,50,30,.06);
+  }
+  @media(max-width:860px){ .row{flex-direction:column;} }
+
+  /* faux game card */
+  .card{
+    flex:0 0 300px; width:300px; min-height:452px;
+    border-radius:16px; padding:18px 16px;
+    background:linear-gradient(170deg,#fffdf7,#f1e7cf);
+    border:2px solid var(--ink); position:relative;
+    display:flex; flex-direction:column;
+    box-shadow:0 4px 14px rgba(40,30,15,.18);
+  }
+  .card .corner{position:absolute; top:10px; right:14px; font-size:30px; font-weight:800; color:var(--vermilion); opacity:.85;}
+  .card .num{position:absolute; top:14px; left:14px; font-size:13px; font-weight:800; color:#9b8e72;}
+  .card .kanji{font-size:46px; font-weight:800; color:var(--ink); margin:18px 0 2px; letter-spacing:4px;}
+  .card .romaji{font-size:13px; letter-spacing:3px; text-transform:uppercase; color:#8a7d62;}
+  .card .name{font-size:21px; font-weight:800; margin:10px 0 12px;}
+  .card .cbadges{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px;}
+  .card .rule{height:2px; background:var(--ink); opacity:.18; margin:6px 0 12px;}
+  .card .eff{font-size:14px; flex:1;}
+  .card .eff b{color:var(--vermilion);}
+  .card .eff .base{margin:0 0 8px;}
+  .card .eff .scale{margin:0; padding:8px 10px; background:rgba(179,55,42,.07); border-left:3px solid var(--vermilion); border-radius:0 6px 6px 0;}
+  .card .foot{margin-top:14px; display:flex; align-items:center; gap:8px; font-size:11px; font-weight:700; color:#7a6f57; text-transform:uppercase; letter-spacing:1px;}
+  .card .foot .dot{width:9px; height:9px; border-radius:50%; background:var(--gold);}
+
+  /* detail column */
+  .detail{flex:1; min-width:0;}
+  .detail h3{margin:2px 0 12px; font-size:20px;}
+  .detail h3 small{font-weight:600; font-size:13px; color:#8a7d62; margin-left:8px;}
+  .kv{display:grid; grid-template-columns:128px 1fr; gap:6px 14px; font-size:14px; margin-bottom:14px;}
+  .kv dt{font-weight:700; color:#6b5d44;}
+  .kv dd{margin:0;}
+  .checks{display:flex; flex-wrap:wrap; gap:6px; margin:0 0 14px;}
+  .chk{font-size:12px; font-weight:700; padding:3px 9px; border-radius:6px; background:rgba(63,125,63,.12); color:var(--good); border:1px solid rgba(63,125,63,.3);}
+  .chk.warn{background:rgba(169,132,44,.14); color:#8a6c1e; border-color:rgba(169,132,44,.4);}
+  .rel{display:flex; gap:14px; align-items:flex-start; margin-top:8px; padding-top:14px; border-top:1px dashed var(--line);}
+  .rel .frame{flex:0 0 200px;}
+  .rel iframe{width:200px; height:300px; border:1px solid var(--line); border-radius:8px; background:#fff;}
+  .rel .rtext{font-size:13px; color:#544c40;}
+  .rel .rtext b{color:var(--ink);}
+  .nofr{font-size:13px; color:#544c40;}
+  footer.bot{margin-top:36px; padding-top:18px; border-top:1px solid var(--line); font-size:13px; color:#6b6356;}
+  footer.bot b{color:var(--ink);}
+  code{background:#efe7d2; padding:1px 5px; border-radius:4px; font-size:.92em;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <h1><span class="jp">団結</span> &nbsp;Team Support Synergy — карты-идеи</h1>
+    <p>Черновик под мета-механику <b>№18</b> из <code>new-mechanics-ideas.md</code>. Действие, чья сила
+      масштабируется от <b>добровольной поддержки союзников в моменте</b>: каждый союзник по желанию
+      сбрасывает карту (для боевых синергий — <b>оружие</b>, для лечения — <b>любую</b>), и эффект растёт за каждый вложенный вклад. <b>Один союзник вкладывает не более одной карты за разыгрывание</b> — масштаб задаёт число поддержавших, а не глубина вклада одного. Обе карты несут осмысленную
+      базу при нуле поддержки (правило №6) и питаются добровольным сбросом, ускоряющим истощение колоды
+      (правило №7).</p>
+  </header>
+
+  <div class="legend">
+    <span class="lab">Легенда:</span>
+    <span class="badge b-sam">самурай</span>
+    <span class="badge b-nin">ниндзя</span>
+    <span class="badge b-neu">нейтрал</span>
+    <span class="badge b-type">тип карты</span>
+  </div>
+
+  <!-- 1 ── Модификатор ─────────────────────────────────── -->
+  <article class="row">
+    <div class="card">
+      <span class="num">№1</span><span class="corner">助</span>
+      <div class="kanji">助太刀</div>
+      <div class="romaji">Sukedachi</div>
+      <div class="name">Подмога клинком</div>
+      <div class="cbadges"><span class="badge b-type">модификатор</span><span class="badge b-sam">самурай</span></div>
+      <div class="rule"></div>
+      <div class="eff">
+        <p class="base">Модификатор вашей прямой атаки. <b>База:</b> +1 урон.</p>
+        <p class="scale"><b>Поддержка:</b> каждый союзник может сбросить <b>карту оружия</b> → ещё +1 урон за каждое, <b>без потолка</b>. Цель защищается как от обычной атаки.</p>
+      </div>
+      <div class="foot"><span class="dot"></span>Team Support · сброс оружия</div>
+    </div>
+    <div class="detail">
+      <h3>Подмога клинком <small>助太刀 · «сукэдати», секундант, вступающий в бой</small></h3>
+      <dl class="kv">
+        <dt>Вклад</dt><dd>Карта оружия (по желанию, у каждого союзника)</dd>
+        <dt>База / масштаб</dt><dd>+1 урон, затем +1 за каждое сброшенное оружие — без потолка</dd>
+        <dt>Тип</dt><dd>Модификатор: крепится к вашей атаке в момент удара</dd>
+        <dt>Защита</dt><dd>Разрешена — это усиленная атака, не неблокируемый урон</dd>
+        <dt>Флавор</dt><dd>Сукэдати — товарищ, по чести вступающий в чужой поединок. Союзники добавляют вес своих клинков к твоему удару; чем больше рук, тем сокрушительнее.</dd>
+      </dl>
+      <div class="checks">
+        <span class="chk">№4 вовлечение ✓</span>
+        <span class="chk">№6 база +1, всегда работает ✓</span>
+        <span class="chk">№7 добровольный сброс ✓</span>
+        <span class="chk">№9 не нужна чужая рука ✓</span>
+        <span class="chk warn">без потолка → следить за свингом в 5–7</span>
+      </div>
+      <div class="rel">
+        <div class="frame"><iframe loading="lazy" src="../app.html?embed=65" title="Тамасэгири"></iframe></div>
+        <div class="rtext"><b>Родственник: Тамасэгири (id=65)</b> — «Ваша атака наносит на одну рану больше», фиксированный +1.
+          «Подмога клинком» берёт тот же буст урона, но делает его <b>командным и масштабируемым</b>: базовый +1 как у Тамасэгири,
+          плюс по +1 за каждый вложенный союзником клинок. Без потолка удар может стать решающим — но цель всё ещё защищается.</div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 2 ── Защита ─────────────────────────────────────── -->
+  <article class="row">
+    <div class="card">
+      <span class="num">№2</span><span class="corner">返</span>
+      <div class="kanji">返し</div>
+      <div class="romaji">Kaeshi</div>
+      <div class="name">Ответный клинок</div>
+      <div class="cbadges"><span class="badge b-type">защита</span><span class="badge b-sam">самурай</span></div>
+      <div class="rule"></div>
+      <div class="eff">
+        <p class="base">Защита от прямой атаки оружием. <b>База:</b> блокирует атаку.</p>
+        <p class="scale"><b>Поддержка:</b> каждый союзник может сбросить <b>карту оружия</b> → атакующий получает +1 рану за каждое.</p>
+      </div>
+      <div class="foot"><span class="dot"></span>Team Support · сброс оружия</div>
+    </div>
+    <div class="detail">
+      <h3>Ответный клинок <small>返し · «каэси-ваза», ответная техника</small></h3>
+      <dl class="kv">
+        <dt>Вклад</dt><dd>Карта оружия (по желанию)</dd>
+        <dt>База / масштаб</dt><dd>Блокирует атаку; атакующему 1 рана за каждое вложенное оружие</dd>
+        <dt>Тип</dt><dd>Защита-контратака, разыгрывается в момент атаки по вам</dd>
+        <dt>Направление</dt><dd>Ускоряющий: наказывает нападающего, темп ↑</dd>
+        <dt>Флавор</dt><dd>Клинок отвечает на удар. Союзники из строя добавляют свои ответные клинки по тому, кто посмел напасть на товарища.</dd>
+      </dl>
+      <div class="checks">
+        <span class="chk">№4 союзники в защите ✓</span>
+        <span class="chk">№6 всегда блокирует — не мёртвая ✓</span>
+        <span class="chk">№7 добровольный сброс ✓</span>
+        <span class="chk">№9 не нужна чужая рука ✓</span>
+        <span class="chk">активная защита, не автотриггер ✓</span>
+      </div>
+      <div class="rel">
+        <div class="frame"><iframe loading="lazy" src="../app.html?embed=49" title="Скрытый кинжал"></iframe></div>
+        <div class="rtext"><b>Родственник: Скрытый кинжал (id=49)</b> — «Атакующий получает 1 рану от вас», фиксированная контратака.
+          «Ответный клинок» масштабирует ровно эту идею <b>вкладом команды</b>: сам по себе он просто блокирует (значит, никогда не мёртв),
+          но за каждый вложенный союзниками клинок добавляет ответную рану нападающему.</div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 3 ── Действие: лечение ──────────────────────────── -->
+  <article class="row">
+    <div class="card">
+      <span class="num">№3</span><span class="corner">介</span>
+      <div class="kanji">介抱</div>
+      <div class="romaji">Kaihō</div>
+      <div class="name">Уход за раненым</div>
+      <div class="cbadges"><span class="badge b-type">действие</span><span class="badge b-sam">самурай</span></div>
+      <div class="rule"></div>
+      <div class="eff">
+        <p class="base">Выберите игрока (себя или союзника). <b>База:</b> +1 жетон жизни.</p>
+        <p class="scale"><b>Поддержка:</b> каждый союзник может сбросить в сброс <b>любую карту</b> → ещё +1 жизни за каждую.</p>
+      </div>
+      <div class="foot"><span class="dot"></span>Team Support · сброс любой</div>
+    </div>
+    <div class="detail">
+      <h3>Уход за раненым <small>介抱 · «кайхо», выхаживать павшего товарища</small></h3>
+      <dl class="kv">
+        <dt>Вклад</dt><dd>Любая карта (по желанию, не более одной от союзника)</dd>
+        <dt>База / масштаб</dt><dd>+1 HP, затем +1 за каждую вложенную карту</dd>
+        <dt>Тип</dt><dd>Действие; цель лечения — любой игрок на выбор разыгрывающего</dd>
+        <dt>Безопасность</dt><dd>Лечение не наносит урона — каскад невозможен</dd>
+        <dt>Флавор</dt><dd>Команда выхаживает раненого: кто рвёт ткань на повязки, кто отдаёт травы. Чем больше рук склонилось над павшим, тем больше сил к нему возвращается.</dd>
+      </dl>
+      <div class="checks">
+        <span class="chk">№4 командная поддержка ✓</span>
+        <span class="chk">№6 лечение почти всегда полезно ✓</span>
+        <span class="chk">№7 добровольный сброс ✓</span>
+        <span class="chk">№9 любая карта — рука не нужна ✓</span>
+        <span class="chk">лимит 1 на союзника ✓</span>
+        <span class="chk">лечение — без каскада ✓</span>
+      </div>
+      <div class="rel">
+        <div class="frame"><iframe loading="lazy" src="../app.html?embed=107" title="Швы"></iframe></div>
+        <div class="rtext"><b>Родственник: Швы (id=107)</b> — «восстанавливает 2 HP любому игроку», фиксированное лечение.
+          «Уход за раненым» берёт ту же восстановительную тему, но делает объём лечения <b>командным</b>: базовый +1,
+          и по +1 за каждую карту, которую союзники готовы отдать ради товарища. Самая «мирная» форма Team Support —
+          сброс конвертируется не в урон, а в жизнь.</div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 4 ── Действие: мощная атака ─────────────────────── -->
+  <article class="row">
+    <div class="card">
+      <span class="num">№4</span><span class="corner">総</span>
+      <div class="kanji">総懸かり</div>
+      <div class="romaji">Sōgakari</div>
+      <div class="name">Общий натиск</div>
+      <div class="cbadges"><span class="badge b-type">действие</span><span class="badge b-sam">самурай</span></div>
+      <div class="rule"></div>
+      <div class="eff">
+        <p class="base">Прямая атака по одному врагу. <b>База:</b> 2 раны.</p>
+        <p class="scale"><b>Поддержка:</b> каждый союзник может сбросить <b>оружие</b> → ещё +2 раны за каждое, <b>без потолка</b>. Цель защищается как обычно — но общий вал клинков перебивает любой одиночный блок.</p>
+      </div>
+      <div class="foot"><span class="dot"></span>Team Support · сброс оружия</div>
+    </div>
+    <div class="detail">
+      <h3>Общий натиск <small>総懸かり · «согакари», штурм всем войском разом</small></h3>
+      <dl class="kv">
+        <dt>Вклад</dt><dd>Карта оружия (по желанию, не более одной от союзника)</dd>
+        <dt>База / масштаб</dt><dd>2 раны, затем +2 за каждое сброшенное оружие — без потолка</dd>
+        <dt>Тип</dt><dd>Действие — самостоятельная атака (не модификатор к чужому удару)</dd>
+        <dt>Сила</dt><dd>Очень мощная: главный командный финишер набора</dd>
+        <dt>Защита</dt><dd>Разрешена, но объём урона быстро перерастает одиночный блок</dd>
+        <dt>Флавор</dt><dd>Согакари — миг, когда всё войско по сигналу разом обрушивается на одного врага. Каждый вложенный клинок добавляет два удара к общей лавине.</dd>
+      </dl>
+      <div class="checks">
+        <span class="chk">№4 весь стол в один ход ✓</span>
+        <span class="chk">№6 база 2 раны ✓</span>
+        <span class="chk">№7 добровольный сброс ✓</span>
+        <span class="chk">№9 рука не нужна ✓</span>
+        <span class="chk">лимит 1 на союзника ✓</span>
+        <span class="chk">одна цель → без каскада ✓</span>
+        <span class="chk warn">очень мощная: следить за капом/qty</span>
+      </div>
+      <div class="rel">
+        <div class="frame"><iframe loading="lazy" src="../app.html?embed=75" title="Сокрушительный удар"></iframe></div>
+        <div class="rtext"><b>Родственник: Сокрушительный удар (id=75)</b> — тяжёлый удар, чья сила масштабируется от HP.
+          «Общий натиск» — та же ниша «один сокрушительный удар», но источник мощи другой: не собственное здоровье, а
+          <b>сброшенные оружия всей команды</b>. По модели близок к «Подмоге клинком» (№1), но это самостоятельное
+          действие-атака, с большей базой и удвоенным шагом масштаба — намеренно «очень мощная» карта.</div>
+      </div>
+    </div>
+  </article>
+
+  <footer class="bot">
+    <p><b>Статус:</b> черновик до плейтеста. Перила механики — в <code>new-mechanics-ideas.md §18</code>:
+      везде осмысленная база (№6), только добровольный сброс (№7), независимость от чужой руки (№9), потолок масштаба
+      для составов 5–7, и тест на каскад там, где усиление = прямой урон.</p>
+    <p><b>Открытые вопросы по набору:</b> (1) «Подмога клинком» — оставить ли реально <b>без потолка</b> или ввести мягкий кап
+      для составов 5–7, чтобы один залп не решал партию; (2) «Ответный клинок» — достаточно ли блока при нуле поддержки,
+      или дать базовую 1 рану атакующему (как у Скрытого кинжала); (3) можно ли атакующему защититься от ответного урона
+      (по умолчанию — нет, это ускоряющий denial); (4) сбор вклада одновременный или по кругу; (5) «Уход за раненым» —
+      нужен ли потолок лечения и считать ли карту слабой, если на столе никого раненого нет (исключение «почти всегда»
+      по №6); (6) «Общий натиск» — оставить защитимым и без потолка (вал перебивает блок) или сделать неблокируемым при
+      qty=1; как держать «очень мощную» карту в балансе для составов 5–7.</p>
+  </footer>
+
+</div>
+</body>
+</html>

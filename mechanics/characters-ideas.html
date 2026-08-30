@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Персонажи — слоты Theme / Draw / Trait / Deathrattle</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      max-width: 1500px;
+      margin: 24px auto;
+      padding: 0 20px;
+      color: #1a1a1a;
+      line-height: 1.5;
+    }
+    h1 { font-size: 26px; margin-bottom: 8px; }
+    h2 { font-size: 22px; margin-top: 40px; padding-bottom: 6px; border-bottom: 2px solid #d8d3c8; }
+    p, li { font-size: 14px; }
+    .legend {
+      background: #f5f3ee;
+      border-left: 3px solid #9b8755;
+      padding: 12px 16px;
+      margin: 16px 0;
+      font-size: 13px;
+    }
+    .legend code { background: #ece8de; padding: 1px 5px; border-radius: 3px; }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 16px 0 28px;
+      table-layout: fixed;
+    }
+    col.col-card        { width: 320px; }
+    col.col-theme       { width: 130px; }
+    col.col-draw        { width: 22%; }
+    col.col-trait       { width: 28%; }
+    col.col-deathrattle { width: 22%; }
+    th, td {
+      border: 1px solid #d8d3c8;
+      padding: 10px 14px;
+      vertical-align: top;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    th {
+      background: #f5f3ee;
+      text-align: left;
+      font-weight: 600;
+    }
+    td.card-cell {
+      padding: 4px;
+      text-align: center;
+      background: #fafafa;
+    }
+    iframe.card-frame {
+      width: 300px;
+      height: 470px;
+      border: 0;
+      display: block;
+      margin: 0 auto;
+    }
+    .stub-card {
+      width: 300px;
+      height: 470px;
+      border: 2px dashed #c8b89a;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      color: #9b8755;
+      font-size: 14px;
+      padding: 20px;
+      box-sizing: border-box;
+      background: linear-gradient(135deg, #fbf8f1 0%, #f5f0e3 100%);
+    }
+    .stub-card .stub-theme {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .stub-card .stub-flavor {
+      font-style: italic;
+      font-size: 13px;
+      color: #aaa094;
+    }
+    td .card-name {
+      display: block;
+      margin-top: 4px;
+      font-size: 12px;
+      color: #555;
+    }
+    td .card-name small {
+      display: block;
+      color: #999;
+      font-size: 11px;
+      font-style: italic;
+    }
+    td.theme-cell {
+      background: #f4f1ea;
+      font-weight: 600;
+      color: #5a4a2e;
+      font-size: 14px;
+    }
+    td.draw-cell        { background: #f0f5fa; }
+    td.trait-cell       { background: #fafafa; }
+    td.deathrattle-cell { background: #f7eef0; }
+    td.deathrattle-cell.empty { color: #aaa; font-style: italic; background: #faf4f4; }
+    .todo-badge {
+      display: inline-block;
+      padding: 0 6px;
+      border-radius: 8px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      background: #d4a017;
+      color: #fff;
+      vertical-align: 2px;
+      margin-right: 4px;
+    }
+    .dash { color: #aaa; }
+    .notes ul, .notes ol { padding-left: 20px; }
+    .notes li { margin-bottom: 8px; }
+  </style>
+</head>
+<body>
+
+<h1>Персонажи — слоты Theme / Draw / Trait / Deathrattle</h1>
+
+<p>
+  Файл разбит на две части. Сверху — финализированные персонажи из <code>app/js/cards.js</code>
+  (текущая колода), у всех уже заполнены Deathrattle (часть с пометкой TODO). Снизу —
+  прототипы новых персонажей на базе тем из <code>character-themes.md</code>; они показаны
+  заглушками, потому что иллюстраций к этим темам пока нет.
+</p>
+
+<div class="legend">
+  <strong>Условные обозначения:</strong><br>
+  <strong>Theme</strong> — характер персонажа (стиль игры, не инструмент).<br>
+  <strong>Draw</strong> — модификатор фазы набора карт.<br>
+  <strong>Trait</strong> — активное или пассивное свойство персонажа.<br>
+  <strong>Deathrattle</strong> — посмертный эффект (см. <code>new-mechanics-ideas.md</code> №4).<br>
+  Прочерк означает, что слот не заполнен. <span class="todo-badge">TODO</span> — формулировка
+  ещё не утверждена в <code>cards.js</code>. Слот <strong>Aura</strong> у части тем заполнен,
+  но в этой таблице не показан — см. полную сетку в <code>character-themes.md</code>.
+</div>
+
+<h2>Текущие персонажи</h2>
+
+<p>
+  Восемь финализированных персонажей. У всех заполнен слот Deathrattle, но у трёх — с
+  пометкой TODO в <code>cards.js</code> (Кокоро, Иё, Така — формулировка не утверждена).
+</p>
+
+<table>
+  <colgroup>
+    <col class="col-card">
+    <col class="col-theme">
+    <col class="col-draw">
+    <col class="col-trait">
+    <col class="col-deathrattle">
+  </colgroup>
+  <thead>
+    <tr>
+      <th>Персонаж</th>
+      <th>Theme</th>
+      <th>Draw</th>
+      <th>Special / Trait</th>
+      <th>Deathrattle</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr>
+      <td class="card-cell">
+        <iframe class="card-frame" src="../app.html?embed=135" loading="lazy"></iframe>
+        <span class="card-name">Усивака <small>Безрассудный налётчик · HP 5</small></span>
+      </td>
+      <td class="theme-cell">Sacrifice</td>
+      <td class="draw-cell">Каждый раз при получении ран берёт 1 карту из колоды</td>
+      <td class="trait-cell">Вместо вынужденного сброса карты можно тратить жетон жизни <em>(абсорбировано из темы Blood)</em></td>
+      <td class="deathrattle-cell">Враги получают 1 рану</td>
+    </tr>
+
+    <tr>
+      <td class="card-cell">
+        <iframe class="card-frame" src="../app.html?embed=136" loading="lazy"></iframe>
+        <span class="card-name">Таранага <small>Искусный стратег · HP 5</small></span>
+      </td>
+      <td class="theme-cell">Strategy</td>
+      <td class="draw-cell">+1 карта в фазе набора; можно брать из сброса</td>
+      <td class="trait-cell">Сам выбирает отдаваемую карту при воровстве, ошеломлении и реакции на групповые действия</td>
+      <td class="deathrattle-cell">Союзники берут по 1 карте из колоды</td>
+    </tr>
+
+    <tr>
+      <td class="card-cell">
+        <iframe class="card-frame" src="../app.html?embed=137" loading="lazy"></iframe>
+        <span class="card-name">Кокоро <small>Непоколебимый великан · HP 5</small></span>
+      </td>
+      <td class="theme-cell">Stance</td>
+      <td class="draw-cell"><span class="dash">—</span></td>
+      <td class="trait-cell">
+        <span class="todo-badge">TODO</span>
+        Стойку нельзя украсть или сбросить. Не теряет стойку при смерти. На него не
+        действуют карты, заставляющие сбросить случайную карту.
+      </td>
+      <td class="deathrattle-cell empty"><span class="todo-badge">TODO</span><span class="dash">формулировка не утверждена</span></td>
+    </tr>
+
+    <tr>
+      <td class="card-cell">
+        <iframe class="card-frame" src="../app.html?embed=138" loading="lazy"></iframe>
+        <span class="card-name">Хандзо <small>Неуловимый синоби · HP 4</small></span>
+      </td>
+      <td class="theme-cell">Arms</td>
+      <td class="draw-cell">Может сбрасывать карты защиты, чтобы взять 2 новых из колоды</td>
+      <td class="trait-cell">Может использовать оружие для защиты от прямых атак, получая 1 рану</td>
+      <td class="deathrattle-cell">Может отдать каждому союзнику по 1 карте защиты в открытую</td>
+    </tr>
+
+    <tr>
+      <td class="card-cell">
+        <iframe class="card-frame" src="../app.html?embed=139" loading="lazy"></iframe>
+        <span class="card-name">Иё <small>Знаток ловушек · HP 5</small></span>
+      </td>
+      <td class="theme-cell">Trap</td>
+      <td class="draw-cell"><span class="dash">—</span></td>
+      <td class="trait-cell">
+        <span class="todo-badge">TODO</span>
+        Ловушки нельзя обезвредить, украсть или просветить. Может использовать активную
+        ловушку как защиту, теряя бонусы от ловушки.
+      </td>
+      <td class="deathrattle-cell">Ловушки врагов просвещаются</td>
+    </tr>
+
+    <tr>
+      <td class="card-cell">
+        <iframe class="card-frame" src="../app.html?embed=140" loading="lazy"></iframe>
+        <span class="card-name">Така <small>Ловкая воровка · HP 5</small></span>
+      </td>
+      <td class="theme-cell">Steal</td>
+      <td class="draw-cell">Раз в ход: сбросить 3 карты → взять 2 новых из колоды</td>
+      <td class="trait-cell">Раз в ход: забрать случайную карту игрока, отдав свою в закрытую</td>
+      <td class="deathrattle-cell empty"><span class="todo-badge">TODO</span><span class="dash">формулировка не утверждена</span></td>
+    </tr>
+
+    <tr>
+      <td class="card-cell">
+        <iframe class="card-frame" src="../app.html?embed=142" loading="lazy"></iframe>
+        <span class="card-name">Норио <small>Мирный монах · HP 5</small></span>
+      </td>
+      <td class="theme-cell">Peace</td>
+      <td class="draw-cell"><span class="dash">—</span></td>
+      <td class="trait-cell">Раз в ход: сбросить карту оружия → восстановить жизнь любому игроку ИЛИ взять 2 карты из колоды</td>
+      <td class="deathrattle-cell">Может отдать каждому союзнику по 1 карте оружия в открытую</td>
+    </tr>
+
+    <tr>
+      <td class="card-cell">
+        <iframe class="card-frame" src="../app.html?embed=145" loading="lazy"></iframe>
+        <span class="card-name">Манасэ <small>Врач Сэнгоку · HP 5</small></span>
+      </td>
+      <td class="theme-cell">Restoration</td>
+      <td class="draw-cell">За каждый восстановленный ею жетон жизни (себе или другим) берёт карту из колоды</td>
+      <td class="trait-cell">Может перенаправить лечебный эффект с себя на союзника</td>
+      <td class="deathrattle-cell">Каждый союзник восстанавливает 1 жетон жизни — «лекарь отдаёт последнее исцеление команде»</td>
+    </tr>
+
+  </tbody>
+</table>
+
+<h2>Идеи персонажей</h2>
+
+<p>
+  Прототипы на базе тем из <code>character-themes.md</code>. Карты пока не нарисованы — на
+  их месте заглушки с именем темы. Тема <strong>Blood</strong> абсорбировалась в Усиваку,
+  тема <strong>Restoration</strong> воплощена в Манасэ (выше). В идеях остаётся только
+  Plague.
+</p>
+
+<table>
+  <colgroup>
+    <col class="col-card">
+    <col class="col-theme">
+    <col class="col-draw">
+    <col class="col-trait">
+    <col class="col-deathrattle">
+  </colgroup>
+  <thead>
+    <tr>
+      <th>Персонаж</th>
+      <th>Theme</th>
+      <th>Draw</th>
+      <th>Special / Trait</th>
+      <th>Deathrattle</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr>
+      <td class="card-cell">
+        <div class="stub-card">
+          <div class="stub-theme">Plague</div>
+          <div class="stub-flavor">Носитель эпидемии</div>
+        </div>
+        <span class="card-name">— <small>заглушка темы</small></span>
+      </td>
+      <td class="theme-cell">Plague</td>
+      <td class="draw-cell">+1 карта в фазе набора за каждого отравленного игрока на столе</td>
+      <td class="trait-cell"><span class="dash">—</span></td>
+      <td class="deathrattle-cell">Все отравленные игроки исцеляются от яда; все неотравленные игроки получают отравление — «эпидемия меняет хозяев в момент смерти переносчика»</td>
+    </tr>
+
+  </tbody>
+</table>
+
+<h2>Заметки</h2>
+<div class="notes">
+  <ul>
+    <li>
+      <strong>Blood ушла в Усиваку.</strong> Ключевая черта темы Blood — «тратит жетон
+      жизни вместо сброса карты» — теперь живёт в Trait Усиваки. Theme=Sacrifice
+      сохранена, потому что базовая механика «получает рану → берёт карту» — это
+      всё-таки Sacrifice, а Blood добавилась как родственная грань.
+    </li>
+    <li>
+      <strong>Restoration воплощена в Манасэ.</strong> Имя выбрано по реальной
+      исторической фигуре — Манасэ Досан (1507–1594), один из самых известных врачей
+      эпохи Сэнгоку, реформатор японской медицины. Подзаголовок «Врач Сэнгоку» в
+      <code>cards.js</code> прямо отсылает к этой эпохе.
+      <br>
+      <em>Расхождение с темой:</em> в <code>character-themes.md</code> Trait сформулирован
+      как «перенаправить чужой лечебный эффект <strong>с союзника на себя</strong>»,
+      а в <code>cards.js</code> — наоборот, <strong>«с себя на союзника»</strong>. По
+      правилам корня (CLAUDE.md) источник правды — <code>cards.js</code>; формулировка
+      в этой таблице берётся оттуда. Возможно стоит синхронизировать
+      <code>character-themes.md</code> или подтвердить, что направление действительно
+      обратное.
+    </li>
+    <li>
+      <strong>Три TODO в текущей колоде.</strong> У Кокоро Trait и Deathrattle, у Иё
+      Trait, у Така Deathrattle — формулировки в <code>cards.js</code> помечены как TODO.
+      Это естественные точки для следующего захода: придумать посмертные эффекты по
+      флавору тем (Stance, Trap, Steal соответственно).
+    </li>
+    <li>
+      <strong>Хандзо, Норио, Манасэ</strong> — образцовые примеры темы с целостной
+      триадой Draw/Trait/Deathrattle, где все три слота связаны единым ресурсом
+      (защита у Хандзо, оружие у Норио, лечение у Манасэ). Их Deathrattle естественно
+      следует из Trait, что иллюстрирует флавор-вершину темы из правила №11.
+    </li>
+    <li>
+      <strong>Aura, не показанная в таблице.</strong> У темы Plague (а также у
+      Restoration в исходном character-themes.md) заполнен слот Aura. У Манасэ в
+      <code>cards.js</code> Aura не упомянута — возможно, тоже потеряна при переносе.
+      Полная сетка — в <code>character-themes.md</code>.
+    </li>
+  </ul>
+</div>
+
+</body>
+</html>

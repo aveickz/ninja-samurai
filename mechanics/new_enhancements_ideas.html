@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Усиления карт — по одной механике на каждую карту</title>
+<style>
+  :root{ --ink:#2a2622; --cream:#f4efe2; --paper:#fbf8f0; --line:#d8cdb4; --gold:#a9842c; --acc:#b3372a; }
+  *{box-sizing:border-box;}
+  body{margin:0; padding:30px 18px 60px; background:var(--cream); color:var(--ink);
+    font-family:"Segoe UI","Helvetica Neue",Arial,"Yu Gothic","Hiragino Sans",sans-serif; line-height:1.45;}
+  .wrap{max-width:1180px; margin:0 auto;}
+  header.top{border-bottom:3px solid var(--ink); padding-bottom:14px; margin-bottom:10px;}
+  header.top h1{margin:0 0 6px; font-size:25px;}
+  header.top p{margin:5px 0 0; max-width:920px; color:#4a443c; font-size:13.5px;}
+  code{background:#efe7d2; padding:1px 5px; border-radius:4px; font-size:.9em;}
+  h2{font-size:18px; margin:26px 0 8px; padding:7px 12px; border-radius:7px; background:var(--ink); color:#fff;}
+  h2 .c{float:right; font-size:12px; background:rgba(255,255,255,.2); border-radius:999px; padding:1px 9px;}
+  table{border-collapse:collapse; width:100%; font-size:13px;}
+  th,td{border:1px solid var(--line); padding:6px 9px; vertical-align:top; text-align:left;}
+  th{background:#efe7d2; font-size:12px;}
+  td.id{font-weight:700; color:#6b5d44; white-space:nowrap; width:148px;}
+  td.cur{color:#6b6356; width:240px;}
+  td.mech{white-space:nowrap; width:130px;}
+  .tag{font-size:11px; font-weight:700; padding:1px 7px; border-radius:5px; background:#e7dcc2; color:#6b5d44;}
+  td.enh{color:var(--ink);}
+  td.enh b{color:var(--acc);}
+  footer.bot{margin-top:30px; padding-top:14px; border-top:1px solid var(--line); font-size:12.5px; color:#6b6356;}
+  footer.bot b{color:var(--ink);}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <h1>Усиления карт — по одной механике на каждую карту</h1>
+  <p>Для каждой карты колоды — <b>ровно одно</b> усиление, опирающееся на её тему и на каталог механик из
+    <code>new-mechanics-ideas.md</code> / <code>new-cards-ideas.md</code>. Колонка «Механика» указывает источник.
+    Все усиления проверены по мета-правилам: <b>в автотриггерах (On-Kill / Deathrattle) нет прямого урона</b> (только
+    статусы, трофеи, добор, лечение — антипаттерн каскада §7); <b>никаких фоновых аур на чужие ходы</b> (§12); условия
+    читаются <b>в момент разыгрывания</b> по видимым объектам (§8); denial по возможности заменён штрафом (§7); у карт
+    остаётся осмысленная база (§6). Сокращения механик: OnHit = On Performing a Hit, OnGetHit = On Getting Hit,
+    OnKill = On Performing a Kill, DR = Deathrattle, SelfState §19, Charges §8, Dist §«Длинная рука», HPscale §4,
+    LowFull §5, SelfHarm §9, Faction §2, Spare §13, TeamSup §18, Sel→Ally §17, Curse §11, Aura §1, StanceDR §10, Bluff §14.</p>
+</header>
+
+<!-- ░░░░░░░░░░ ОРУЖИЕ ░░░░░░░░░░ -->
+<h2>Оружие <span class="c">41</span></h2>
+<table>
+<tr><th>Карта</th><th>Сейчас</th><th>Механика</th><th>Усиление (одно)</th></tr>
+<tr><td class="id">1 · Катана</td><td class="cur">статлайн</td><td class="mech"><span class="tag">SelfState</span></td><td class="enh">Пока у вас выставлена стойка — <b>+1 рана</b> (выверенный удар из позиции).</td></tr>
+<tr><td class="id">2 · Сюко</td><td class="cur">статлайн</td><td class="mech"><span class="tag">OnHit</span></td><td class="enh">Успешная атака — <b>цель сбрасывает стойку</b> (когти срывают защиту).</td></tr>
+<tr><td class="id">3 · Канабо</td><td class="cur">удар→сброс карты</td><td class="mech"><span class="tag">Charges</span></td><td class="enh"><b>+1 рана за каждый эффект на цели</b> — дубина добивает ослабленных.</td></tr>
+<tr><td class="id">4 · Боккэн</td><td class="cur">удар→добор</td><td class="mech"><span class="tag">Sel→Ally</span></td><td class="enh">Добор при ударе можно <b>отдать союзнику</b> (учебный меч обучает).</td></tr>
+<tr><td class="id">5 · Кинжал предателя</td><td class="cur">ниндзя undefendable</td><td class="mech"><span class="tag">OnKill</span></td><td class="enh">Если эта атака убивает — <b>возьмите карту</b> (предатель уходит с добычей).</td></tr>
+<tr><td class="id">6 · Боевой веер</td><td class="cur">статлайн</td><td class="mech"><span class="tag">OnHit</span></td><td class="enh">Успешная атака — <b>цель показывает 1 карту руки</b> (веер раскрывает).</td></tr>
+<tr><td class="id">7 · Кусаригама</td><td class="cur">статлайн</td><td class="mech"><span class="tag">OnHit</span></td><td class="enh">Успешная атака — <b>цель «притянута»</b>: дистанция до неё считается 1 до конца хода.</td></tr>
+<tr><td class="id">8 · Вакидзаси</td><td class="cur">статлайн</td><td class="mech"><span class="tag">SelfState</span></td><td class="enh">Если вы в стойке — <b>добор при успешной атаке</b> (короткий клинок чести).</td></tr>
+<tr><td class="id">9 · Шипастый щит</td><td class="cur">оружие+защита</td><td class="mech"><span class="tag">Charges</span></td><td class="enh">Шип наносит <b>+1 рану за каждую вашу ловушку</b> на столе.</td></tr>
+<tr><td class="id">10 · Тонфа</td><td class="cur">удар→сброс карты</td><td class="mech"><span class="tag">OnHit</span></td><td class="enh">Оглушение — <b>цель не может перенаправить</b> свою следующую атаку.</td></tr>
+<tr><td class="id">11 · Кама</td><td class="cur">статлайн</td><td class="mech"><span class="tag">Curse</span></td><td class="enh">Успешная атака накладывает <b>«кровоточащую рану»</b> (−1 HP в начале хода цели).</td></tr>
+<tr><td class="id">12 · Меч сёгуна</td><td class="cur">только Сёгун / передача</td><td class="mech"><span class="tag">Faction</span></td><td class="enh">Передача Сёгуну: <b>самураю бесплатно, ниндзя со сбросом</b> карты.</td></tr>
+<tr><td class="id">13 · Тэккокаги</td><td class="cur">статлайн</td><td class="mech"><span class="tag">OnHit</span></td><td class="enh">Успешная атака — <b>украдите случайную карту</b> у цели (когти-кастет).</td></tr>
+<tr><td class="id">14 · Нунчаки</td><td class="cur">статлайн</td><td class="mech"><span class="tag">Spare</span></td><td class="enh">Сбросьте карту — <b>проведите второй удар</b> по той же цели (серия).</td></tr>
+<tr><td class="id">15 · Танто</td><td class="cur">статлайн</td><td class="mech"><span class="tag">OnKill</span></td><td class="enh">При убийстве этим клинком — <b>заберите один эффект убитого</b> себе.</td></tr>
+<tr><td class="id">16 · Тэкко</td><td class="cur">статлайн</td><td class="mech"><span class="tag">SelfHarm</span></td><td class="enh"><b>+1 рана, теряете 1 стойкость</b> (кастет на отчаянный удар).</td></tr>
+<tr><td class="id">17 · Оно</td><td class="cur">статлайн</td><td class="mech"><span class="tag">Charges</span></td><td class="enh"><b>+1 рана за каждого обескровленного</b> на столе (топор добивает).</td></tr>
+<tr><td class="id">317 · Ната</td><td class="cur">статлайн</td><td class="mech"><span class="tag">OnHit</span></td><td class="enh">Успешная атака — <b>уничтожает 1 эффект на цели</b> (тесак рубит наговор).</td></tr>
+<tr><td class="id">18 · Сай</td><td class="cur">оружие+защита</td><td class="mech"><span class="tag">OnGetHit</span></td><td class="enh">Как защита — <b>атакующий теряет неметательное оружие</b> (сай ловит клинок).</td></tr>
+<tr><td class="id">1018 · Манжи Сай</td><td class="cur">статлайн</td><td class="mech"><span class="tag">OnGetHit</span></td><td class="enh">Как защита — <b>атакующий получает яд</b> (зазубрины отравлены).</td></tr>
+<tr><td class="id">19 · Явара</td><td class="cur">удар→сброс карты</td><td class="mech"><span class="tag">SelfState</span></td><td class="enh">Если вы отравлены — <b>+1 рана</b> (яд на палочке-явара).</td></tr>
+<tr><td class="id">20 · Боевой веер</td><td class="cur">статлайн</td><td class="mech"><span class="tag">Bluff</span></td><td class="enh">Можно выложить <b>закрытой как ловушку-блеф</b> (веер скрывает намерение).</td></tr>
+<tr><td class="id">21 · Сай</td><td class="cur">статлайн</td><td class="mech"><span class="tag">OnGetHit</span></td><td class="enh">Как защита — <b>отражает 1 рану атакующему</b> (парирующий сай).</td></tr>
+<tr><td class="id">22 · Дзюттэ</td><td class="cur">статлайн</td><td class="mech"><span class="tag">OnHit</span></td><td class="enh">Успешная атака — <b>цель теряет стойку</b> (дзюттэ ломает технику).</td></tr>
+<tr><td class="id">23 · Нунти Бо</td><td class="cur">статлайн</td><td class="mech"><span class="tag">Dist</span></td><td class="enh">Дальность <b>растёт с расстоянием</b>, melee→ranged (древковое, «Длинная рука»).</td></tr>
+<tr><td class="id">24 · Бо</td><td class="cur">удар→сброс стойки</td><td class="mech"><span class="tag">Dist</span></td><td class="enh">Бьёт <b>на дистанцию 2</b> (длинный шест держит врага на расстоянии).</td></tr>
+<tr><td class="id">25 · Нодати</td><td class="cur">удар→сброс стойки</td><td class="mech"><span class="tag">SelfState</span></td><td class="enh">Если вы в стойке — <b>+2 раны</b> (большой меч из устойчивой позиции).</td></tr>
+<tr><td class="id">26 · Кёкэцусёгэ</td><td class="cur">удар→кража карты</td><td class="mech"><span class="tag">OnHit</span></td><td class="enh">Украденная карта <b>может быть оружием в открытую</b> (клинок на верёвке).</td></tr>
+<tr><td class="id">27 · Манрики</td><td class="cur">удар→кража карты</td><td class="mech"><span class="tag">OnHit</span></td><td class="enh">Успешная атака — <b>цель также теряет стойку</b> (цепь спутывает).</td></tr>
+<tr><td class="id">28 · Нагината</td><td class="cur">бьёт дальше 2</td><td class="mech"><span class="tag">Dist</span></td><td class="enh"><b>Сила растёт с дистанцией</b> до цели, потолок +3 (древко-«Длинная рука»).</td></tr>
+<tr><td class="id">29 · Яри</td><td class="cur">статлайн</td><td class="mech"><span class="tag">OnHit</span></td><td class="enh">Пронзает — атака <b>игнорирует стойку цели</b> (укол сквозь защиту).</td></tr>
+<tr><td class="id">30 · Камаяри</td><td class="cur">статлайн</td><td class="mech"><span class="tag">OnHit</span></td><td class="enh">Успешная атака — <b>цель сбрасывает стойку</b> (крюк-копьё сдёргивает).</td></tr>
+<tr><td class="id">31 · Яри</td><td class="cur">статлайн</td><td class="mech"><span class="tag">Charges</span></td><td class="enh"><b>+1 рана за каждого союзника со стойкой</b> (строй копейщиков).</td></tr>
+<tr><td class="id">32 · Сюрикен</td><td class="cur">статлайн (метание)</td><td class="mech"><span class="tag">OnHit</span></td><td class="enh">Успешная атака <b>отравляет цель</b> (отравленная звёздочка, ниндзя).</td></tr>
+<tr><td class="id">33 · Дайкю</td><td class="cur">статлайн (лук)</td><td class="mech"><span class="tag">OnHit</span></td><td class="enh">Выстрел с дистанции 3+ — <b>возьмите карту</b> (награда за дальний бой).</td></tr>
+<tr><td class="id">1033 · Тэппо Юми</td><td class="cur">статлайн (лук)</td><td class="mech"><span class="tag">OnHit</span></td><td class="enh">Пробивает — <b>от выстрела с дистанции нельзя защититься</b>.</td></tr>
+<tr><td class="id">34 · Сюрикен</td><td class="cur">статлайн (метание)</td><td class="mech"><span class="tag">Spare</span></td><td class="enh">За каждую доп. сброшенную карту — <b>ещё один сюрикен</b> (залп звёзд).</td></tr>
+<tr><td class="id">35 · Кунай</td><td class="cur">статлайн</td><td class="mech"><span class="tag">SelfState</span></td><td class="enh">Если перед вами лежит ловушка — <b>+1 рана</b> (ниндзя бьёт смелее).</td></tr>
+<tr><td class="id">36 · Бумеранг</td><td class="cur">удар→возврат в руку</td><td class="mech"><span class="tag">OnHit</span></td><td class="enh">При попадании — <b>возьмите карту</b> вдобавок к возврату оружия.</td></tr>
+<tr><td class="id">37 · Дайкю</td><td class="cur">статлайн (лук)</td><td class="mech"><span class="tag">OnHit</span></td><td class="enh">С дистанции 3+ — <b>цель не может защититься</b> (точный дальний выстрел).</td></tr>
+<tr><td class="id">38 · Макибиси</td><td class="cur">оружие+ловушка</td><td class="mech"><span class="tag">Charges</span></td><td class="enh">Как ловушка — <b>рана атакующему = числу ваших ловушек</b> на столе.</td></tr>
+<tr><td class="id">39 · Дротик с ядом</td><td class="cur">игнор ловушек/защ, добор</td><td class="mech"><span class="tag">Charges</span></td><td class="enh"><b>+1 рана за каждый яд на цели</b> (отрава по отравленному).</td></tr>
+<tr><td class="id">40 · Кунай</td><td class="cur">статлайн</td><td class="mech"><span class="tag">OnKill</span></td><td class="enh">При убийстве метанием — <b>возьмите карту</b> (бросок в спину).</td></tr>
+</table>
+
+<!-- ░░░░░░░░░░ ЛОВУШКИ ░░░░░░░░░░ -->
+<h2>Ловушки <span class="c">7</span></h2>
+<table>
+<tr><th>Карта</th><th>Сейчас</th><th>Механика</th><th>Усиление</th></tr>
+<tr><td class="id">41 · Силок</td><td class="cur">забрать 2 карты у атакующего</td><td class="mech"><span class="tag">SelfState</span></td><td class="enh">Если перед вами уже есть ловушка — <b>заберите 3 карты</b> (двойной силок).</td></tr>
+<tr><td class="id">42 · Чучело</td><td class="cur">атака мимо, защитник +2 карты</td><td class="mech"><span class="tag">Bluff</span></td><td class="enh">Можно <b>раскрыть как блеф</b>: объявить «чучело», не имея его, ценой сброса.</td></tr>
+<tr><td class="id">43 · Капкан</td><td class="cur">атакующий 2 раны</td><td class="mech"><span class="tag">Curse</span></td><td class="enh">Атакующий вместо ран получает <b>«перебитую ногу»</b>: −1 к дистанции его атак (штраф вместо урона).</td></tr>
+<tr><td class="id">45 · Поганка</td><td class="cur">яд / если отравлен — 3 раны</td><td class="mech"><span class="tag">OnGetHit</span></td><td class="enh">Пока лежит — <b>любой ваш яд на атакующих усиливается</b> (споры в воздухе) — статус, не урон.</td></tr>
+<tr><td class="id">47 · Оскорбление</td><td class="cur">шутка</td><td class="mech"><span class="tag">Curse</span></td><td class="enh">Атакующий получает <b>«Ярость»</b>: обязан в след. ход атаковать вас (штраф-провокация, одношагово).</td></tr>
+<tr><td class="id">1048 · Дыхание Феникса</td><td class="cur">выжил→полное лечение</td><td class="mech"><span class="tag">DR</span></td><td class="enh">Если атака всё же убивает — <b>союзники берут по карте</b> (последняя вспышка). Без урона.</td></tr>
+<tr><td class="id">1049 · Колотые раны</td><td class="cur">эффект→атакующий без оружия</td><td class="mech"><span class="tag">OnGetHit</span></td><td class="enh">Пока эффект висит — <b>каждый удар по носителю отравляет атакующего</b>.</td></tr>
+</table>
+
+<!-- ░░░░░░░░░░ ЗАЩИТЫ ░░░░░░░░░░ -->
+<h2>Защиты <span class="c">10</span></h2>
+<table>
+<tr><th>Карта</th><th>Сейчас</th><th>Механика</th><th>Усиление</th></tr>
+<tr><td class="id">48 · Защита</td><td class="cur">базовый блок</td><td class="mech"><span class="tag">SelfState</span></td><td class="enh">Если вы в стойке — <b>после блока возьмите карту</b> (база-клей, лёгкий бонус).</td></tr>
+<tr><td class="id">49 · Скрытый кинжал</td><td class="cur">атакующий 1 рана; low 3</td><td class="mech"><span class="tag">SelfState</span></td><td class="enh">Если перед вами ловушка — <b>атакующий получает 2 раны</b> вместо 1.</td></tr>
+<tr><td class="id">50 · Ядовитые наручи</td><td class="cur">атакующий отравлен</td><td class="mech"><span class="tag">OnGetHit</span></td><td class="enh">Пока в руке как защита-реакция — <b>яд усиливается, если атакующий уже отравлен</b>.</td></tr>
+<tr><td class="id">51 · Идеальный момент</td><td class="cur">блок + карта</td><td class="mech"><span class="tag">LowFull</span></td><td class="enh">При full HP — <b>ещё +1 жетон жизни</b> (момент действительно идеален).</td></tr>
+<tr><td class="id">52 · Чудо Бенкэя</td><td class="cur">выбор ран→карта за каждую</td><td class="mech"><span class="tag">LowFull</span></td><td class="enh">При low HP — <b>2 карты за каждую принятую рану</b> (отчаянное чудо).</td></tr>
+<tr><td class="id">53 · Карманник</td><td class="cur">кража карты у атакующего</td><td class="mech"><span class="tag">Faction</span></td><td class="enh">Ниндзя — <b>смотрит руку и выбирает карту</b>; самурай — случайную.</td></tr>
+<tr><td class="id">54 · Ошеломление</td><td class="cur">атакующий сброс случайной</td><td class="mech"><span class="tag">OnGetHit</span></td><td class="enh">Замена сброса на <b>«Слабость» атакующему</b> (его след. атака ≤1 рана) — не теряем карту в сброс (§7).</td></tr>
+<tr><td class="id">55 · Захват</td><td class="cur">забрать оружие атакующего</td><td class="mech"><span class="tag">SelfState</span></td><td class="enh">Если перед вами ловушка — <b>атакующий также теряет стойку</b> (капкан спутывает).</td></tr>
+<tr><td class="id">44 · Рикошет</td><td class="cur">отражает атаку</td><td class="mech"><span class="tag">Charges</span></td><td class="enh">Сила рикошета <b>+1 за каждую вашу активную стойку/эффект</b> защиты.</td></tr>
+<tr><td class="id">56 · Блок</td><td class="cur">защита-вмешательство</td><td class="mech"><span class="tag">TeamSup</span></td><td class="enh">Союзники могут <b>сбросить защиту, добавив к блоку</b> (общая стена).</td></tr>
+</table>
+
+<!-- ░░░░░░░░░░ СТОЙКИ ░░░░░░░░░░ -->
+<h2>Стойки <span class="c">10</span></h2>
+<table>
+<tr><th>Карта</th><th>Сейчас</th><th>Механика</th><th>Усиление</th></tr>
+<tr><td class="id">57 · Тень</td><td class="cur">обескровлен весь раунд</td><td class="mech"><span class="tag">Faction</span></td><td class="enh">Ниндзя — <b>может сохранить стойку</b>, сбросив карту в начале хода (а не сбрасывать её).</td></tr>
+<tr><td class="id">58 · Всадник</td><td class="cur">дистанция +1</td><td class="mech"><span class="tag">SelfState</span></td><td class="enh">Самурай — <b>атаки на дистанции 1 наносят +1 рану</b> (таран всадника).</td></tr>
+<tr><td class="id">59 · Лотос</td><td class="cur">лечение/снятие каждую фазу</td><td class="mech"><span class="tag">Sel→Ally</span></td><td class="enh">Опция лечения <b>может бить по союзнику на +1</b> (раскрытый лотос делится).</td></tr>
+<tr><td class="id">60 · Щитоносец</td><td class="cur">−1 урон, сброс для большего</td><td class="mech"><span class="tag">OnGetHit</span></td><td class="enh">Если урон снижен до 0 — <b>атакующий получает 1 рану в ответ</b> (самурай).</td></tr>
+<tr><td class="id">61 · Мастер боя</td><td class="cur">после удара +1 рана/добор</td><td class="mech"><span class="tag">OnKill</span></td><td class="enh">При убийстве в свой ход — <b>возьмите 2 карты</b> (мастер собирает жатву).</td></tr>
+<tr><td class="id">62 · Капеллан</td><td class="cur">лечение/снятие раз/ход</td><td class="mech"><span class="tag">Faction</span></td><td class="enh">Закрыть TODO: <b>самураю опция бесплатна</b>, ниндзя со сбросом (эталон Faction cost).</td></tr>
+<tr><td class="id">63 · Ассасин</td><td class="cur">отравить/беззащитность</td><td class="mech"><span class="tag">Faction</span></td><td class="enh">«Беззащитность» стоит <b>ниндзя 1 карту, самураю 2</b> (закрыть TODO).</td></tr>
+<tr><td class="id">1164 · Кэцубан</td><td class="cur">делить раны с союзником</td><td class="mech"><span class="tag">StanceDR</span></td><td class="enh">При смерти в стойке — <b>союзник-побратим берёт 2 карты</b> (кровная клятва).</td></tr>
+<tr><td class="id">1165 · Мусин</td><td class="cur">low/max/mid TODO</td><td class="mech"><span class="tag">LowFull</span></td><td class="enh">Закрыть TODO: <b>full — атакующий режим, low — оборонительный</b>, mid — ничего.</td></tr>
+<tr><td class="id">1166 · Засада лучника</td><td class="cur">все атаки ranged</td><td class="mech"><span class="tag">SelfState</span></td><td class="enh">Если перед вами ловушка — <b>+1 рана выстрелам</b> (лучник на подготовленной позиции).</td></tr>
+</table>
+
+<!-- ░░░░░░░░░░ МОДИФИКАТОРЫ ░░░░░░░░░░ -->
+<h2>Модификаторы <span class="c">20</span></h2>
+<table>
+<tr><th>Карта</th><th>Сейчас</th><th>Механика</th><th>Усиление</th></tr>
+<tr><td class="id">64 · Флакон яда</td><td class="cur">атака накладывает яд</td><td class="mech"><span class="tag">SelfState</span></td><td class="enh">Если вы отравлены — атака <b>переносит 1 яд с вас на цель</b>.</td></tr>
+<tr><td class="id">65 · Тамасэгири</td><td class="cur">+1 рана</td><td class="mech"><span class="tag">SelfState</span></td><td class="enh">Если в стойке — выбор: <b>+2 раны ИЛИ +1 и карта</b>.</td></tr>
+<tr><td class="id">66 · Инь и Ян</td><td class="cur">меняет дальность/силу</td><td class="mech"><span class="tag">LowFull</span></td><td class="enh">full — усиливает силу, <b>low — дальность</b> (баланс по состоянию).</td></tr>
+<tr><td class="id">67 · Удар тени</td><td class="cur">игнор ловушек, undefendable</td><td class="mech"><span class="tag">OnKill</span></td><td class="enh">При убийстве этой атакой — <b>возьмите карту</b> (тень растворяется с добычей).</td></tr>
+<tr><td class="id">68 · Выпад</td><td class="cur">+1 рана, +2 дальность</td><td class="mech"><span class="tag">SelfState</span></td><td class="enh">Из стойки — выпад наносит <b>+2 раны</b>.</td></tr>
+<tr><td class="id">69 · Поступь ветра</td><td class="cur">undefendable</td><td class="mech"><span class="tag">OnHit</span></td><td class="enh">При ударе — <b>цель теряет стойку</b> (ветер сбивает с ног).</td></tr>
+<tr><td class="id">70 · Гнев сёгуна</td><td class="cur">бить обескровленного</td><td class="mech"><span class="tag">SelfState</span></td><td class="enh"><b>+1 рана по обескровленному</b> (death's-door добивание).</td></tr>
+<tr><td class="id">71 · Кинжал похищения</td><td class="cur">лечит = нанесённым ранам</td><td class="mech"><span class="tag">Sel→Ally</span></td><td class="enh">Похищенную жизнь можно <b>отдать союзнику</b>.</td></tr>
+<tr><td class="id">72 · Порыв ярости</td><td class="cur">2 цели (слишком сложно)</td><td class="mech"><span class="tag">Spare</span></td><td class="enh">Упростить: <b>за сброшенную карту — ещё одна цель</b> атаки (по 1 удару).</td></tr>
+<tr><td class="id">73 · Повязка камикадзе</td><td class="cur">любая дальность +1, −1 HP</td><td class="mech"><span class="tag">LowFull</span></td><td class="enh">При full HP — <b>без потери жетона</b> (полный сил выдержит).</td></tr>
+<tr><td class="id">74 · Бросок</td><td class="cur">оружие→метание 1</td><td class="mech"><span class="tag">Dist</span></td><td class="enh">Метает на любую дистанцию, <b>сила растёт с расстоянием</b>.</td></tr>
+<tr><td class="id">75 · Сокрушительный удар</td><td class="cur">сила = HP</td><td class="mech"><span class="tag">SelfState</span></td><td class="enh">Из стойки — сила = <b>HP + 1</b>.</td></tr>
+<tr><td class="id">76 · Кипящий яд</td><td class="cur">+2 отравленному</td><td class="mech"><span class="tag">Charges</span></td><td class="enh"><b>+1 рана за каждый яд на цели</b> (детонация отравы).</td></tr>
+<tr><td class="id">77 · Длань сёгуна</td><td class="cur">без траты атаки; faction</td><td class="mech"><span class="tag">SelfState</span></td><td class="enh">Если в стойке — <b>также +1 рана</b>.</td></tr>
+<tr><td class="id">78 · Дух сёгуна</td><td class="cur">undefendable (ушло в Удар тени)</td><td class="mech"><span class="tag">Bluff</span></td><td class="enh">Переосмыслить в <b>«ложный замах»</b>: блеф-объявление атаки без раскрытия силы.</td></tr>
+<tr><td class="id">79 · Пронзительный удар</td><td class="cur">игнор бонусов цели</td><td class="mech"><span class="tag">Charges</span></td><td class="enh"><b>+1 рана за каждый игнорируемый</b> у цели бонус (стойка/эффект).</td></tr>
+<tr><td class="id">80 · Критический удар</td><td class="cur">+2 к силе</td><td class="mech"><span class="tag">SelfState</span></td><td class="enh">Из стойки — <b>атаку нельзя перенаправить</b> (выверенный удар).</td></tr>
+<tr><td class="id">1081 · Финальный удар</td><td class="cur">сила = недостающему HP цели</td><td class="mech"><span class="tag">LowFull</span></td><td class="enh">Пол по №6: <b>минимум 1 рана</b> по цели с полным HP (иначе мёртвая).</td></tr>
+<tr><td class="id">1083 · Кубитори</td><td class="cur">+1; on-kill трофей</td><td class="mech"><span class="tag">OnKill</span></td><td class="enh">Дополнительно при убийстве — <b>+1 жетон чести</b>.</td></tr>
+<tr><td class="id">1084 · Победный удар</td><td class="cur">+VP к силе атаки</td><td class="mech"><span class="tag">OnKill</span></td><td class="enh">При убийстве этой атакой — <b>+1 VP</b> (слава растёт).</td></tr>
+</table>
+
+<!-- ░░░░░░░░░░ ГРУППОВЫЕ / AoE ░░░░░░░░░░ -->
+<h2>Групповые / AoE <span class="c">17</span></h2>
+<table>
+<tr><th>Карта</th><th>Сейчас</th><th>Механика</th><th>Усиление</th></tr>
+<tr><td class="id">81 · Целительные источники</td><td class="cur">лечит всех</td><td class="mech"><span class="tag">Faction</span></td><td class="enh">Самураю — союзники-самураи <b>+2 HP</b>, ниндзя +1 (доблесть лечит своих).</td></tr>
+<tr><td class="id">82 · Миротворцы</td><td class="cur">другие сбрасывают/отдают</td><td class="mech"><span class="tag">TeamSup</span></td><td class="enh">Сильнее <b>за каждого союзника</b>, добровольно поддержавшего сбросом.</td></tr>
+<tr><td class="id">83 · Потасовка</td><td class="cur">все теряют стойку/ловушку</td><td class="mech"><span class="tag">Faction</span></td><td class="enh">Ниндзя — <b>его ловушки сохраняются</b> в общей свалке.</td></tr>
+<tr><td class="id">84 · Чайная церемония</td><td class="cur">добор всем</td><td class="mech"><span class="tag">Faction</span></td><td class="enh">Самураю — союзники-самураи <b>+2 карты</b>, ниндзя +1.</td></tr>
+<tr><td class="id">86 · Вихрь ярости</td><td class="cur">парный AoE</td><td class="mech"><span class="tag">Spare</span></td><td class="enh">За доп. сброшенную карту — <b>+1 дальность вихря</b>.</td></tr>
+<tr><td class="id">87 · Шквал огня</td><td class="cur">метание за карту</td><td class="mech"><span class="tag">TeamSup</span></td><td class="enh">Союзники могут <b>добавить своё метательное</b> в общий залп.</td></tr>
+<tr><td class="id">88 · Кислотный взрыв</td><td class="cur">per poison лишает HP</td><td class="mech"><span class="tag">AntiCascade</span></td><td class="enh">Каскад-риск → заменить урон на <b>«снятый яд переходит на выбранного»</b> (статус).</td></tr>
+<tr><td class="id">89 · Град стрел</td><td class="cur">чистит все ловушки</td><td class="mech"><span class="tag">Sel→Ally</span></td><td class="enh">За каждую сброшенную ловушку — <b>союзник берёт карту</b>.</td></tr>
+<tr><td class="id">90 · Боевой крик</td><td class="cur">сброс защиты или 2 HP</td><td class="mech"><span class="tag">TeamSup</span></td><td class="enh">За каждого поддержавшего союзника — <b>выбор для врага жёстче</b>.</td></tr>
+<tr><td class="id">3091 · Обыск</td><td class="cur">показать карту, взять одну</td><td class="mech"><span class="tag">Faction</span></td><td class="enh">Ниндзя <b>берёт 2 карты</b>, самурай 1.</td></tr>
+<tr><td class="id">3092 · Сбор клана 1</td><td class="cur">добор per ally</td><td class="mech"><span class="tag">TeamSup</span></td><td class="enh">Консолидировать с Team Support; потолок масштаба по составу.</td></tr>
+<tr><td class="id">3093 · Сбор клана 2</td><td class="cur">лечение per ally</td><td class="mech"><span class="tag">TeamSup</span></td><td class="enh">Объединить с «Уходом за раненым» (Team Support лечение).</td></tr>
+<tr><td class="id">3094 · Крик возмездия</td><td class="cur">AoE undefendable урон</td><td class="mech"><span class="tag">AntiCascade</span></td><td class="enh">Каскад-риск → заменить урон на <b>массовый яд/«Слабость»</b> (§7).</td></tr>
+<tr><td class="id">1094 · Эстафета мечей</td><td class="cur">Wave-передача</td><td class="mech"><span class="tag">TeamSup</span></td><td class="enh"><b>+1 HP всем</b> при передаче (как в идее №20).</td></tr>
+<tr><td class="id">1137 · Военный совет</td><td class="cur">раздать карты союзников</td><td class="mech"><span class="tag">TeamSup</span></td><td class="enh">Эталон Team Support: правило «нельзя получить свою».</td></tr>
+<tr><td class="id">1138 · Кровное родство</td><td class="cur">перераспределить HP</td><td class="mech"><span class="tag">Sel→Ally</span></td><td class="enh">Можно <b>влить и свои HP</b> в общий котёл команды.</td></tr>
+<tr><td class="id">1139 · Плечом к плечу</td><td class="cur">1 рана + per team weapon</td><td class="mech"><span class="tag">TeamSup</span></td><td class="enh">Эталон Team Support Synergy (сброс оружия союзников → +урон).</td></tr>
+</table>
+
+<!-- ░░░░░░░░░░ ЭФФЕКТЫ ░░░░░░░░░░ -->
+<h2>Эффекты <span class="c">13</span></h2>
+<table>
+<tr><th>Карта</th><th>Сейчас</th><th>Механика</th><th>Усиление</th></tr>
+<tr><td class="id">91 · Метка убийцы</td><td class="cur">+1 рана по цели</td><td class="mech"><span class="tag">OnHit</span></td><td class="enh">Удар по цели также <b>даёт атакующему карту</b> («контракт на голову»).</td></tr>
+<tr><td class="id">92 · Противоядие</td><td class="cur">нельзя отравить</td><td class="mech"><span class="tag">SelfState</span></td><td class="enh">При разыгрывании <b>снять любой негативный эффект с себя</b>, если он есть.</td></tr>
+<tr><td class="id">93 · Укус змеи</td><td class="cur">лечение −1, яд ×2</td><td class="mech"><span class="tag">Curse</span></td><td class="enh">Также <b>−1 HP в начале хода носителя</b> (полноценное проклятие).</td></tr>
+<tr><td class="id">94 · Кагинава</td><td class="cur">атаки по вам любой дистанции</td><td class="mech"><span class="tag">OnGetHit</span></td><td class="enh">Атакующий с дистанции 3+ <b>даёт вам карту</b> (приманка-крюк).</td></tr>
+<tr><td class="id">95 · Разоружение</td><td class="cur">нельзя атаковать оружием</td><td class="mech"><span class="tag">Penalty</span></td><td class="enh">Denial → штраф: атака оружием <b>стоит сброса карты</b> (темп сохраняется).</td></tr>
+<tr><td class="id">96 · Завеса дыма</td><td class="cur">TODO обескровлен</td><td class="mech"><span class="tag">Aura</span></td><td class="enh">Переделать в <b>ауру</b> (§1): держится сбросом союзников, снимается, когда не платят.</td></tr>
+<tr><td class="id">97 · Пыль в глаза</td><td class="cur">атаки ≤ дистанция 1</td><td class="mech"><span class="tag">Penalty</span></td><td class="enh">Denial → штраф: атака дальше 1 <b>наносит −1 рану</b>, а не запрещена.</td></tr>
+<tr><td class="id">100 · Слабость</td><td class="cur">след. атака ≤ 1 рана</td><td class="mech"><span class="tag">OnHit</span></td><td class="enh">Оставить как <b>одношаговый дебафф</b> (ускоряющий, ок) — образцовый штраф.</td></tr>
+<tr><td class="id">101 · Беззащитность</td><td class="cur">нельзя защищаться</td><td class="mech"><span class="tag">Penalty</span></td><td class="enh">Ускоряющий denial — <b>оставить</b>, держать в колоде редким (§7).</td></tr>
+<tr><td class="id">102 · Дух лидера</td><td class="cur">+1 добор цели (remove?)</td><td class="mech"><span class="tag">Sel→Ally</span></td><td class="enh">Превратить в командный: <b>носитель и его союзники со стойкой +1 добор</b>.</td></tr>
+<tr><td class="id">103 · Бессилие</td><td class="cur">−1 атака за ход</td><td class="mech"><span class="tag">Penalty</span></td><td class="enh">Замедляющий denial → штраф: <b>атака стоит сброса карты</b>, а не отнимается.</td></tr>
+<tr><td class="id">104 · Эгида</td><td class="cur">авто-защита</td><td class="mech"><span class="tag">Spare</span></td><td class="enh">Держится: <b>сбросьте карту, чтобы продлить</b> на следующую атаку.</td></tr>
+<tr><td class="id">104 · ?CURSE?</td><td class="cur">TODO проклятие к убийце</td><td class="mech"><span class="tag">Curse</span></td><td class="enh">Оформить как <b>«горячая картошка»-проклятие</b>, переходит к убийце (выдать новый id).</td></tr>
+</table>
+
+<!-- ░░░░░░░░░░ ДЕЙСТВИЯ ░░░░░░░░░░ -->
+<h2>Действия <span class="c">32</span></h2>
+<table>
+<tr><th>Карта</th><th>Сейчас</th><th>Механика</th><th>Усиление</th></tr>
+<tr><td class="id">99 · Чаша благовоний</td><td class="cur">снятие эффектов + spare</td><td class="mech"><span class="tag">SelfState</span></td><td class="enh">Если у вас негативные эффекты — <b>снять их и с себя за добор</b>.</td></tr>
+<tr><td class="id">105 · Васаби</td><td class="cur">снять яд + HP + карта</td><td class="mech"><span class="tag">Sel→Ally</span></td><td class="enh">Самураю — <b>можно нацелить на союзника бесплатно</b>.</td></tr>
+<tr><td class="id">106 · Зов предков</td><td class="cur">обмен со сбросом</td><td class="mech"><span class="tag">Faction</span></td><td class="enh">Ниндзя — берёт <b>без ограничения «глубины» сброса</b>.</td></tr>
+<tr><td class="id">107 · Швы</td><td class="cur">лечит 2; low 3</td><td class="mech"><span class="tag">LowFull</span></td><td class="enh">При low HP <b>цели</b> — лечит 3 (отчаянная медицина).</td></tr>
+<tr><td class="id">108 · Сэппуку</td><td class="cur">ритуальная смерть; ниндзя нет</td><td class="mech"><span class="tag">DR</span></td><td class="enh">Усилить аккорд: союзники-самураи <b>также +1 HP</b> при разборе.</td></tr>
+<tr><td class="id">109 · Саке</td><td class="cur">сброс с другими → добор</td><td class="mech"><span class="tag">TeamSup</span></td><td class="enh">Эталон добровольного <b>коллективного сброса</b> в добор.</td></tr>
+<tr><td class="id">110 · Боевой банан</td><td class="cur">сбить стойку → добор</td><td class="mech"><span class="tag">Faction</span></td><td class="enh">Ниндзя — <b>также сбрасывает ловушку</b> цели.</td></tr>
+<tr><td class="id">111 · Предательство</td><td class="cur">сброс VP → 7 карт; самураи нет</td><td class="mech"><span class="tag">Faction</span></td><td class="enh">Ниндзя-эксклюзив; добавить: ниндзя <b>берёт на 1 карту больше</b>.</td></tr>
+<tr><td class="id">112 · Сапёр</td><td class="cur">обезвредить/украсть; faction</td><td class="mech"><span class="tag">Faction</span></td><td class="enh">Закрыть TODO: убрать «ценой раны», <b>оставить чистый размен</b>.</td></tr>
+<tr><td class="id">113 · Эквилибриум</td><td class="cur">HP = вашему; ниндзя сброс</td><td class="mech"><span class="tag">Spare</span></td><td class="enh">Ниндзя — <b>1 spare card</b> (закрыть TODO).</td></tr>
+<tr><td class="id">114 · Передышка</td><td class="cur">стойкость + добор; full mode</td><td class="mech"><span class="tag">LowFull</span></td><td class="enh">Добавить low-режим: <b>полное восстановление HP</b> и больше ничего.</td></tr>
+<tr><td class="id">115 · Ясновидение</td><td class="cur">показать руку; ниндзя берёт</td><td class="mech"><span class="tag">Bluff</span></td><td class="enh">Можно <b>блефовать «вижу»</b> без карты, ценой сброса.</td></tr>
+<tr><td class="id">116 · Яд фугу</td><td class="cur">отравить игрока</td><td class="mech"><span class="tag">SelfState</span></td><td class="enh">Если перед вами ловушка — <b>отравить цель и соседа</b> (сеть отравителя).</td></tr>
+<tr><td class="id">117 · Обмен душ</td><td class="cur">поменяться HP; самурай сброс</td><td class="mech"><span class="tag">LowFull</span></td><td class="enh">При low HP — <b>обмен бесплатен</b> (отчаянная мольба).</td></tr>
+<tr><td class="id">118 · Магатама</td><td class="cur">4 карты или VP</td><td class="mech"><span class="tag">Bluff</span></td><td class="enh">Держать закрытой как <b>«угрозу VP»</b> — давление блефом.</td></tr>
+<tr><td class="id">119 · Переливание крови</td><td class="cur">снять + передать яд</td><td class="mech"><span class="tag">SelfState</span></td><td class="enh">Если вы отравлены — тот, кому передали яд, <b>получает 1 рану</b>.</td></tr>
+<tr><td class="id">120 · Жертва крови</td><td class="cur">сброс HP → карты</td><td class="mech"><span class="tag">SelfState</span></td><td class="enh">Если вы отравлены — <b>2 карты за жетон</b> вместо 1 (отчаяние).</td></tr>
+<tr><td class="id">1121 · Кампо</td><td class="cur">сброс карт → HP</td><td class="mech"><span class="tag">Sel→Ally</span></td><td class="enh">Можно <b>лечить союзника</b> тем же курсом «карта→HP».</td></tr>
+<tr><td class="id">1122 · Смертные муки</td><td class="cur">добор за недостающее HP</td><td class="mech"><span class="tag">SelfState</span></td><td class="enh">Если вы отравлены — <b>+1 карта</b> (яд изматывает сильнее).</td></tr>
+<tr><td class="id">1121 · Горячая картошка</td><td class="cur">передача в колоду</td><td class="mech"><span class="tag">Curse</span></td><td class="enh">Оформить как <b>проклятие-«картошка»</b>: держатель обязан сбросить, если не передал.</td></tr>
+<tr><td class="id">1122 · Мародёр</td><td class="cur">обыск мёртвого; TODO</td><td class="mech"><span class="tag">Faction</span></td><td class="enh">Закрыть TODO: самурай — только союзников, <b>ниндзя — всех со штрафом</b>.</td></tr>
+<tr><td class="id">1123 · Голос предков</td><td class="cur">вызвать Deathrattle</td><td class="mech"><span class="tag">OnKill</span></td><td class="enh">Если вызванный Deathrattle убивает — <b>вы получаете трофей</b> убитого.</td></tr>
+<tr><td class="id">1124 · ?Лазутчик?</td><td class="cur">кража командной ауры</td><td class="mech"><span class="tag">Faction</span></td><td class="enh">Ниндзя-эксклюзив (Куноити); <b>снять «?»</b>, зафиксировать фракцию.</td></tr>
+<tr><td class="id">129 · Воровство</td><td class="cur">случайная карта</td><td class="mech"><span class="tag">Faction</span></td><td class="enh">Ниндзя — <b>видит руку и выбирает</b> карту сам.</td></tr>
+<tr><td class="id">130 · Кукла вуду</td><td class="cur">перенести эффект</td><td class="mech"><span class="tag">Faction</span></td><td class="enh">Ниндзя — может перенести <b>и ловушку</b>, не только эффект.</td></tr>
+<tr><td class="id">131 · Дурман</td><td class="cur">забрать эффект на себя</td><td class="mech"><span class="tag">SelfState</span></td><td class="enh">Если у вас уже есть эффект — <b>при краже +1 карта</b>.</td></tr>
+<tr><td class="id">132 · Кэцу нуги</td><td class="cur">украсть HP</td><td class="mech"><span class="tag">SelfState</span></td><td class="enh">Если вы отравлены — <b>передаёте цели и яд</b> вместе с жетоном.</td></tr>
+<tr><td class="id">133 · Перехват</td><td class="cur">забрать ловушку в руку</td><td class="mech"><span class="tag">Faction</span></td><td class="enh">Отличить от Сапёра: <b>ниндзя-эксклюзив, «в руку»</b> (переиспользуемо).</td></tr>
+<tr><td class="id">1133 · Камикадзе</td><td class="cur">сброс руки → убить</td><td class="mech"><span class="tag">DR</span></td><td class="enh">При вашей гибели от размена — <b>союзники берут по карте</b>.</td></tr>
+<tr><td class="id">1134 · Ва банк</td><td class="cur">обмен рук</td><td class="mech"><span class="tag">Bluff</span></td><td class="enh">Можно <b>объявить обмен как угрозу</b>-блеф до согласия цели.</td></tr>
+<tr><td class="id">1135 · Ёкай</td><td class="cur">взять тип из сброса</td><td class="mech"><span class="tag">Faction</span></td><td class="enh">Ниндзя — берёт <b>2 карты</b> заданного типа.</td></tr>
+<tr><td class="id">1136 · Укол вслепую</td><td class="cur">обмен тек/недост HP</td><td class="mech"><span class="tag">LowFull</span></td><td class="enh">При low HP — переворот <b>гарантированно выгоден</b> (в полное здоровье).</td></tr>
+</table>
+
+<!-- ░░░░░░░░░░ ВМЕШАТЕЛЬСТВА ░░░░░░░░░░ -->
+<h2>Вмешательства <span class="c">11</span></h2>
+<table>
+<tr><th>Карта</th><th>Сейчас</th><th>Механика</th><th>Усиление</th></tr>
+<tr><td class="id">85 · Просветление</td><td class="cur">раскрыть ловушки, добор</td><td class="mech"><span class="tag">Charges</span></td><td class="enh"><b>+1 добор за каждую вашу ловушку</b> дополнительно.</td></tr>
+<tr><td class="id">121 · Исцеление</td><td class="cur">снять яд + стойкость</td><td class="mech"><span class="tag">Sel→Ally</span></td><td class="enh">Можно сыграть <b>на союзника бесплатно</b> (самурай).</td></tr>
+<tr><td class="id">122 · Смерть от фугу</td><td class="cur">2 раны отравленному</td><td class="mech"><span class="tag">SelfState</span></td><td class="enh">Если вы сами отравлены — <b>3 раны</b> (общая зараза кипит).</td></tr>
+<tr><td class="id">123 · Имбирь</td><td class="cur">+1 HP любому</td><td class="mech"><span class="tag">SelfState</span></td><td class="enh">Если вы отравлены — <b>можно вместо лечения снять яд с себя</b>.</td></tr>
+<tr><td class="id">124 · Удар дракона</td><td class="cur">1 рана любому</td><td class="mech"><span class="tag">SelfState</span></td><td class="enh">Если вы в стойке — <b>2 раны</b> (удар из позиции).</td></tr>
+<tr><td class="id">125 · Подвиг</td><td class="cur">перенаправить на себя; самурай</td><td class="mech"><span class="tag">LowFull</span></td><td class="enh">При full HP — <b>принимаете удар без ран</b> (подвиг легендарен).</td></tr>
+<tr><td class="id">126 · Рука помощи</td><td class="cur">передача карты</td><td class="mech"><span class="tag">TeamSup</span></td><td class="enh">Несколько союзников могут <b>вложиться в одну передачу</b> (усиленная).</td></tr>
+<tr><td class="id">127 · Весточка</td><td class="cur">передача (ушло в Руку помощи)</td><td class="mech"><span class="tag">Bluff</span></td><td class="enh">Переосмыслить в <b>«ложную весть»</b>: передать закрытой как блеф.</td></tr>
+<tr><td class="id">128 · Симулянт</td><td class="cur">симуляция смерти; ниндзя</td><td class="mech"><span class="tag">Faction</span></td><td class="enh">Ниндзя — <b>на любого союзника</b>; самурай только на себя.</td></tr>
+<tr><td class="id">1029 · Осколки</td><td class="cur">уничтожить оружие, отмена атаки</td><td class="mech"><span class="tag">Spare</span></td><td class="enh">За доп. сброшенную карту — <b>уничтожает второе оружие</b> на столе.</td></tr>
+<tr><td class="id">1030 · Сон Ёкая</td><td class="cur">след. действие = конец хода</td><td class="mech"><span class="tag">Curse</span></td><td class="enh">Оформить как <b>накладываемое проклятие сна</b> (снимается очищением).</td></tr>
+</table>
+
+<!-- ░░░░░░░░░░ ПЕРСОНАЖИ ░░░░░░░░░░ -->
+<h2>Персонажи <span class="c">9</span></h2>
+<table>
+<tr><th>Карта</th><th>Тема</th><th>Механика</th><th>Усиление (один новый слот)</th></tr>
+<tr><td class="id">135 · Усивака</td><td class="cur">налётчик, добор на ранах</td><td class="mech"><span class="tag">OnKill</span></td><td class="enh">При убийстве в свой ход — <b>+1 HP и карта</b> (налётчик пирует).</td></tr>
+<tr><td class="id">136 · Таранага</td><td class="cur">стратег, добор/из сброса</td><td class="mech"><span class="tag">Bluff</span></td><td class="enh">Раз в ход — <b>объявить блеф о своей руке</b> (стратег вводит в заблуждение).</td></tr>
+<tr><td class="id">137 · Сайго</td><td class="cur">стойки, передача стойки</td><td class="mech"><span class="tag">StanceDR</span></td><td class="enh">При смерти в стойке — <b>стойка переходит союзнику</b> (наследие школы).</td></tr>
+<tr><td class="id">138 · Хандзо</td><td class="cur">синоби, оружие как защита</td><td class="mech"><span class="tag">OnGetHit</span></td><td class="enh">Защищаясь оружием — <b>атакующий теряет стойку</b>.</td></tr>
+<tr><td class="id">139 · Иё</td><td class="cur">ловушки, передача ловушки</td><td class="mech"><span class="tag">OnGetHit</span></td><td class="enh">Удар по Иё, пока у неё ловушка — <b>атакующий отравлен</b>.</td></tr>
+<tr><td class="id">140 · Така</td><td class="cur">воровка, кража/обмен</td><td class="mech"><span class="tag">OnHit</span></td><td class="enh">Когда крадёт карту трейтом — <b>берёт ещё 1 из колоды</b>.</td></tr>
+<tr><td class="id">142 · Норио</td><td class="cur">монах, сброс оружия→лечение</td><td class="mech"><span class="tag">Sel→Ally</span></td><td class="enh">Лечение можно «раздвоить»: <b>1 себе + 1 союзнику</b>.</td></tr>
+<tr><td class="id">145 · Манасэ</td><td class="cur">врач, добор за лечение</td><td class="mech"><span class="tag">Sel→Ally</span></td><td class="enh">Перехват: <b>перенаправлять чужое лечение и на себя</b>.</td></tr>
+<tr><td class="id">146 · Минамото</td><td class="cur">чума, яд-добор</td><td class="mech"><span class="tag">OnHit</span></td><td class="enh">Его отравленные атаки также дают цели <b>«Слабость»</b>.</td></tr>
+</table>
+
+<!-- ░░░░░░░░░░ КОМАНДНЫЕ АУРЫ ░░░░░░░░░░ -->
+<h2>Командные ауры <span class="c">13</span></h2>
+<table>
+<tr><th>Карта</th><th>Сейчас</th><th>Механика</th><th>Усиление</th></tr>
+<tr><td class="id">1200 · Знамя лидера</td><td class="cur">+1 атакам союзников</td><td class="mech"><span class="tag">TeamSup</span></td><td class="enh">Союзник может <b>сбросить оружие → +2</b> на одну атаку (усиленный залп).</td></tr>
+<tr><td class="id">1201 · Закрытый тыл</td><td class="cur">−1 урон союзникам</td><td class="mech"><span class="tag">OnGetHit</span></td><td class="enh">Когда союзника всё же ранят — <b>он берёт карту</b> (стойкость строя).</td></tr>
+<tr><td class="id">1202 · Ровный строй</td><td class="cur">нулевая дистанция между своими</td><td class="mech"><span class="tag">Dist</span></td><td class="enh">Союзники могут <b>бить «через» строй на +1 дальность</b>.</td></tr>
+<tr><td class="id">1203 · Бочка зловония</td><td class="cur">атаки союзников ядовиты</td><td class="mech"><span class="tag">Charges</span></td><td class="enh">Яд атак союзников <b>+1 по уже отравленным</b> врагам.</td></tr>
+<tr><td class="id">1204 · Спина к спине</td><td class="cur">share defense</td><td class="mech"><span class="tag">TeamSup</span></td><td class="enh">Стена щитов: <b>вклад нескольких защит масштабирует блок</b>.</td></tr>
+<tr><td class="id">1205 · Стратег</td><td class="cur">+1 добор всем</td><td class="mech"><span class="tag">Aura</span></td><td class="enh">Держится сбросом: усиленный добор живёт, <b>пока команда платит</b>.</td></tr>
+<tr><td class="id">1206 · Дымовая завеса</td><td class="cur">вне групповых карт врага</td><td class="mech"><span class="tag">Bluff</span></td><td class="enh">Под завесой союзник может <b>блефовать ловушкой</b>.</td></tr>
+<tr><td class="id">2206 · Облако пыли</td><td class="cur">враги ≤ дистанция 1</td><td class="mech"><span class="tag">Penalty</span></td><td class="enh">Denial → штраф: атака врага дальше 1 <b>стоит сброса</b>, а не запрещена.</td></tr>
+<tr><td class="id">1207 · Присяга</td><td class="cur">перенаправление как Подвиг</td><td class="mech"><span class="tag">OnGetHit</span></td><td class="enh">Принявший удар союзник <b>берёт карту</b> (долг вознаграждён).</td></tr>
+<tr><td class="id">1208 · Полевая медицина</td><td class="cur">иммунитет к яду</td><td class="mech"><span class="tag">DR</span></td><td class="enh">При смерти носителя — <b>союзники снимают все негативные эффекты</b>.</td></tr>
+<tr><td class="id">1209 · Часовой</td><td class="cur">рана атакующим по союзникам</td><td class="mech"><span class="tag">OnHit</span></td><td class="enh">При риске каскада — <b>заменить рану на яд + «Слабость»</b> (статус).</td></tr>
+<tr><td class="id">1210 · Арсенал</td><td class="cur">передача оружия союзникам</td><td class="mech"><span class="tag">TeamSup</span></td><td class="enh">Эталон Team Support: <b>общий арсенал кормит совместные удары</b>.</td></tr>
+<tr><td class="id">1211 · Подпольная сеть</td><td class="cur">обмен картами в закрытую</td><td class="mech"><span class="tag">Bluff</span></td><td class="enh">Под прикрытием сети возможен <b>обмен-блеф</b> (показать не то).</td></tr>
+</table>
+
+</div>
+</body>
+</html>
