@@ -764,13 +764,13 @@ const CARDS = [
   },
   {
     id: 51,
-    title: "Идеальный момент",
-    enTitle: "Perfect Timing",
+    title: "Вовремя",
+    enTitle: "Just in Time",
     types: ["defense"],
     qty: 3,
     group: "defense",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Вы также берёте карту из колоды.",
     enDesc: "You also draw a card.",
     img: "cards/card_52_idealnyy_moment.png"
@@ -1078,12 +1078,12 @@ const CARDS = [
   {
     id: 71,
     title: "Кинжал похищения",
-    enTitle: "Siphoning Dagger",
+    enTitle: "Thirsting Blade",
     types: ["modifier"],
     qty: 1,
     group: "modifier",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "В случае успешной атаки вы восстанавливаете себе столько жетонов жизни, сколько нанесли ран.",
     enDesc: "On a successful attack, restore as much life as the wounds you dealt.",
     img: "cards/card_71_celebnyy_klinok.png"
@@ -1103,13 +1103,13 @@ const CARDS = [
   },
   {
     id: 73,
-    title: "Повязка камикадзе",
-    enTitle: "Kamikaze Headband",
+    title: "Хатимаки",
+    enTitle: "Hachimaki",
     types: ["modifier"],
     qty: 1,
     group: "modifier",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Ваша атака может бить на любом расстоянии и вы наносите на одну рану больше, но вы теряете один жетон жизни. Нельзя применить на пороге смерти.",
     enDesc: "Your attack reaches any range and deals 1 extra wound, but you lose 1 life. Cannot be used at death's door.",
     img: "cards/card_73_povyazka_kamikadze.png"
@@ -1129,13 +1129,13 @@ const CARDS = [
   },
   {
     id: 75,
-    title: "Сокрушительный удар",
+    title: "Всей силой",
     enTitle: "Crushing Blow",
     types: ["modifier"],
     qty: 1,
     group: "modifier",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Итоговая сила атаки становится равна вашему количеству жетонов жизни.",
     enDesc: "The attack's final power equals your current life.",
     img: "cards/card_74_sokrushitelnyy_udar.png"
@@ -1181,13 +1181,13 @@ const CARDS = [
   },
   {
     id: 79,
-    title: "Пронзительный удар",
+    title: "Насквозь",
     enTitle: "Piercing Strike",
     types: ["modifier"],
     qty: 1,
     group: "modifier",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Ваша атака оружием полностью игнорирует все бонусы от стойки, персонажа и эффектов цели.",
     enDesc: "Your weapon attack completely ignores every bonus from the target's Stance, Character and Effects.",
     img: "cards/card_80_pronzitelnyy_udar.png"
@@ -1247,13 +1247,13 @@ const CARDS = [
   // ── ГРУППОВЫЕ ДЕЙСТВИЯ (стр. 12) ─────────────────────────────────
   {
     id: 81,
-    title: "Целительные источники",
-    enTitle: "Healing Springs",
+    title: "Онсэн",
+    enTitle: "Onsen",
     types: ["aoe"],
     qty: 1,
     group: "aoe",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Полностью восстановите себе здоровье и снимите с себя любые эффекты и яд, остальные активные игроки +1 ХП. -ИЛИ- Все активные игроки +2 ХП и снимают яд.",
     enDesc: "Fully restore your life and clear every Effect and Poison from yourself; each other living player gains 1 life. -OR- Every living player gains 2 life and clears Poison.",
     img: "cards/card_81_celitelnyye_istochniki.png"
@@ -1261,12 +1261,12 @@ const CARDS = [
   {
     id: 82,
     title: "Миротворцы",
-    enTitle: "Peacekeepers",
+    enTitle: "Peacemakers",
     types: ["aoe"],
     qty: 2,
     group: "aoe",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Остальные активные игроки скидывают карту защиты или оружия, либо отдают вам карту из руки на свой выбор.",
     enDesc: "Each other living player discards a Defense or a Weapon, or hands you a card of their choice from their hand.",
     img: "cards/card_82_mirotvortsy.png"
@@ -1378,12 +1378,12 @@ const CARDS = [
   {
     id: 3091,
     title: "Обыск",
-    enTitle: "Search",
+    enTitle: "Inspection",
     types: ["aoe"],
     qty: 1,
     group: "aoe",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Остальные активные игроки выкладывают перед собой на своё усмотрение любую карту в открытую. Изучив карты, вы можете взять любую из них себе в руку.",
     enDesc: "Each other living player lays out one card of their choice face up. After looking them over, you may take any one of those cards into your hand.",
     img: "cards/card_obisk.png"
@@ -1469,7 +1469,7 @@ const CARDS = [
   {
     id: 1139,
     title: "Плечом к плечу",
-    enTitle: "Shoulder to Shoulder",
+    enTitle: "Side by Side",
     types: ["aoe"],
     qty: 1,
     group: "aoe",
@@ -1693,12 +1693,12 @@ const CARDS = [
   {
     id: 106,
     title: "Зов предков",
-    enTitle: "Call of the Ancestors",
+    enTitle: "Ancestral Call",
     types: ["action"],
     qty: 1,
     group: "action",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Поменяйте эту карту на любую из сброса не глубже последних 10, но не ранее последних 3. TODO: добор из сброса запрещён (мета-правило №7) — переделать на обмен с рукой другого игрока.",
     enDesc: "Swap this card for any card among the last 10 in the discard pile, but not among the last 3. TODO: drawing from the discard pile is banned (meta-rule 7) — rework into a swap with another player.",
     img: "cards/card_105_zov_predkov.png"
@@ -1836,12 +1836,12 @@ const CARDS = [
   {
     id: 117,
     title: "Обмен душ",
-    enTitle: "Exchange of Souls",
+    enTitle: "Soul Swap",
     types: ["action"],
     qty: 1,
     group: "action",
     icons: ["rolectx"],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Вы меняетесь с выбранным игроком количеством жетонов жизни.[NL]{Самурай} должен сбросить одну карту для совершения действия.",
     enDesc: "You and the chosen player swap life totals.[NL]A {Samurai} must discard a card to take this action.",
     img: "cards/card_115_obmen_dush.png"
@@ -1914,12 +1914,12 @@ const CARDS = [
   {
     id: 31121,
     title: "Горячая картошка",
-    enTitle: "Hot Potato",
+    enTitle: "Burning Coal",
     types: ["action"],
     qty: 1,
     group: "action",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "В открытую передайте эту карту любому активному игроку, взамен он обязан вам дать одну карту по своему желанию в закрытую. Эту карту нельзя положить в сброс, только обратно в колоду сверху.",
     enDesc: "Pass this card face up to any living player; in exchange they must give you one card of their choice, face down. This card cannot go to the discard pile — only back on top of the deck.",
     img: "cards/card_hot_potato.png"
@@ -1940,12 +1940,12 @@ const CARDS = [
   {
     id: 1123,
     title: "Зеркало души",
-    enTitle: "Mirror of the Soul",
+    enTitle: "Soul Mirror",
     types: ["action"],
     qty: 1,
     group: "action",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Сыграйте эту карту, чтобы вызвать действия, совершаемые персонажем любого игрока {после смерти}, как будто он ваш союзник.",
     enDesc: "Play this card to trigger the abilities any player's Character performs {after death}, as if they were your ally.",
     img: "cards/card_soul_mirror.png"
@@ -1980,12 +1980,12 @@ const CARDS = [
   {
     id: 121,
     title: "Исцеление",
-    enTitle: "Healing",
+    enTitle: "Mending",
     types: ["intervention"],
     qty: 1,
     group: "intervention",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Восстановите все жетоны жизни отравленному ядом игроку и снимите само отравление.",
     enDesc: "Restore all life to a Poisoned player and clear the Poison itself.",
     img: "cards/card_120_istselenie.png"
@@ -2084,12 +2084,12 @@ const CARDS = [
   {
     id: 1029,
     title: "Осколки",
-    enTitle: "Shards",
+    enTitle: "Shattered Steel",
     types: ["intervention"],
     qty: 1,
     group: "intervention",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Уничтожает сыгранное оружие на столе, карта идёт в сброс, а атака отменяется, не тратя попытку.",
     enDesc: "Destroys a weapon played on the table: the card goes to the discard pile and the attack is cancelled without using up the attempt.",
     img: "cards/card_shards.png"
@@ -2112,12 +2112,12 @@ const CARDS = [
   {
     id: 129,
     title: "Воровство",
-    enTitle: "Theft",
+    enTitle: "Sleight of Hand",
     types: ["action"],
     qty: 2,
     group: "action",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Заберите одну случайную карту с руки любого активного игрока.",
     enDesc: "Take one random card from the hand of any living player.",
     img: "cards/card_128_vorovstvo.png"
@@ -2164,12 +2164,12 @@ const CARDS = [
   {
     id: 133,
     title: "Перехват",
-    enTitle: "Interception",
+    enTitle: "Intercept",
     types: ["action"],
     qty: 1,
     group: "action",
     icons: [],
-    tags: ["trash"],
+    tags: ["trash", "toPrint"],
     desc: "TODO: нужна ли карта с переделой Сапёра? Вы забираете ловушку другого игрока себе в руку. UPD: Into sapper",
     enDesc: "TODO: is this card needed once Sapper is reworked? You take another player's Trap into your hand. UPD: Into sapper",
     img: "cards/card_132_obman.png"
@@ -2526,7 +2526,7 @@ const CARDS = [
   {
     id: 1211,
     title: "Подпольная сеть",
-    enTitle: "Underground Network",
+    enTitle: "Shadow Network",
     types: ["aura"],
     qty: 1,
     group: "aura",
