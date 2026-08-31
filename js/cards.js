@@ -2051,8 +2051,8 @@ const CARDS = [
     group: "intervention",
     icons: [],
     tags: ["toPrint"],
-    desc: "Сыграйте эту карту, чтобы любой игрок вашей команды передал в закрытую любую карту из своей руки другому игроку команды — карту и получателя он выбирает сам. -ИЛИ- Сыграйте эту карту, чтобы заставить другого игрока передать вам в закрытую любую карту на его выбор.",
-    enDesc: "Play this card to let any player on your team pass a card from their hand, face down, to another player on the team — they choose both the card and the recipient. -OR- Play this card to force another player to pass you a card of their choice, face down.",
+    desc: "Сыграйте эту карту, чтобы любой игрок вашей команды передал в закрытую любую карту из своей руки другому игроку команды — карту и получателя он выбирает сам.",
+    enDesc: "Play this card to let any player on your team pass a card from their hand, face down, to another player on the team — they choose both the card and the recipient.",
     img: "cards/card_125_ruka_pomoshchi.png"
   },
   {
