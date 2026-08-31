@@ -1475,8 +1475,8 @@ const CARDS = [
     group: "aoe",
     icons: ["charges"],
     tags: ["toPrint"],
-    desc: "Вы наносите 1 рану, за каждое скинутое от команды (максимум по 1 с игрока) оружие наносите дополнительно 1 рану.",
-    enDesc: "You deal 1 wound, plus 1 more wound for every weapon your team discards (at most 1 per player).",
+    desc: "Вы наносите 1 рану.[NL]Каждый союзник может сыграть карту оружия как вмешательство, добавив ещё 1 рану — не более одной карты с игрока.",
+    enDesc: "You deal 1 wound.[NL]Each ally may play a weapon card as an Intervention to add 1 more wound - at most one card per player.",
     img: "cards/card_shoulder_to_shoulder.png"
   },
   // ── ЭФФЕКТЫ постоянные/разовые (стр. 13–14) ──────────────────────

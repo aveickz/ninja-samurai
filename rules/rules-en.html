@@ -171,10 +171,15 @@
     <!-- ============ ГЛАВА 7: АТАКИ, ОРУЖИЕ И ЗАЩИТА ============ -->
     <section class="chapter" id="weapons">
       <h2 class="chapter-title" data-mark="武">Attack and Defense</h2>
-      <p>On your turn you may make at most two weapon attacks against other players. To attack you need a Weapon card. Every Weapon card states its range and its attack power. You may only attack players within that range. Players who have bled out are not counted when measuring attack range and cannot be targeted, barring special cases.</p>
+      <p>On your turn you may make at most two weapon attacks against other players. To attack you need a Weapon card. Every Weapon card states the highest <b>complexity</b> it can handle and its attack power. You may only attack players whose attack complexity does not exceed that number. Players who have bled out are not counted when working out complexity and cannot be targeted, barring special cases.</p>
+      <h4 class="section-title">Attack complexity</h4>
+      <p>Every attack has a <b>complexity</b> — the number that attack must beat. Base complexity is how many seats away the target sits: a neighbour is 1, the player beyond them is 2, and so on.</p>
+      <p>The number on a Weapon card is the highest complexity that weapon handles. A weapon of complexity 2 reaches both a neighbour and the player one seat further. Thrown weapons handle any complexity.</p>
+      <p>Cards, Effects, Stances and Auras may shift complexity either way. «Attacks against you are 1 harder» means an attack on that player needs a weapon that handles one more point of complexity. If the final complexity is higher than the weapon handles, the attack is impossible.</p>
+      <aside class="note">Complexity is worked out the moment the attack is declared, with every Effect, Stance and Aura in play at that moment.</aside>
       <p>The attacking player lays down the Weapon card and declares their target. The defender may either take the blow with dignity and suffer wounds equal to the attack power, or play a Defense card to block the attack. If a Trap lies in front of the defending player, it is their own choice whether to trigger it or to play a Defense card. If the attack is blocked successfully, none of the attacker's additional effects happen.</p>
       <aside class="note">Attacks with thrown weapons do not trigger Traps. Weapons can also be strengthened with poison.</aside>
-      <aside class="note">With no weapon in hand you may still attack bare-handed at range 1 with attack power 1, but this counts as both of your weapon attacks.</aside>
+      <aside class="note">With no weapon in hand you may still attack bare-handed at complexity 1 with attack power 1, but this counts as both of your weapon attacks.</aside>
       <p>One of the defender's teammates may play their own Defense card to help absorb part of the damage — this counts as an Intervention. Such a card reduces the final number of wounds by one; its own special effects (return damage, poison and so on) do not fire. At most one such card from allies is allowed per attack.</p>
       <p>Any weapon attack may be strengthened with a single special Modifier card with a red banner. The order in which positive and negative bonuses stack is described in detail in the «Order of Resolution» chapter.</p>
     </section>
