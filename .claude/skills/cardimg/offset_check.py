@@ -17,6 +17,15 @@
 
 Крупнейшее пятно печатается справочно - как индикатор дробности, не как зачёт.
 
+ОСТОРОЖНО С МЕЛКИМ ИСХОДНИКОМ. Ширина нормируется до 900 px, но информацию это
+не возвращает: арт, отрисованный мелким, физически не содержит того штриха,
+который меряет контраст теней. Замер 01.09.2026: одна и та же картинка даёт
+6.6 L* при ширине 1048 и 5.2 при 518 - то есть панель из раскладки `proto`
+занижает контраст примерно на 1.4 L*. Обратный апскейл не помогает (проверено:
+4.5 до и после). Поэтому на панелях прототипа смотри светлое поле и дробность,
+а контраст теней засчитывай по финальному апскейлу. Скрипт сам предупреждает,
+если исходник уже 800 px.
+
 Использование:
     py -3 .claude/skills/cardimg/offset_check.py <файл.png> [ещё файлы...]
 
@@ -56,6 +65,7 @@ def _flatten(im):
 
 def measure(path):
     im = _flatten(Image.open(path))
+    src_width = im.width
     # нормируем ширину: «мелочь» и контраст должны быть сравнимы между артами
     width = 900
     im = im.resize((width, int(im.height * width / im.width)), Image.LANCZOS)
@@ -81,7 +91,7 @@ def measure(path):
     dominant = biggest / L.size * 100
 
     muddy = ((L < 25) & (ink > 260)).mean() * 100
-    return dict(light=light, shadow=shadow, dominant=dominant,
+    return dict(light=light, shadow=shadow, dominant=dominant, src_width=src_width,
                 muddy=muddy, ink95=float(np.percentile(ink, 95)), L=float(L.mean()))
 
 
@@ -113,6 +123,9 @@ def main():
         print(f"       справочно: мазня {m['muddy']:.1f}%, краска p95 {m['ink95']:.0f}%, "
               f"L* {m['L']:.1f}, крупнейшее пятно {m['dominant']:.0f}%")
         print("       доминанту (субъект >= трети кадра) проверь глазом - автоматом не меряется")
+        if m["src_width"] < 800:
+            print(f"       ВНИМАНИЕ: исходник {m['src_width']} px шириной - контраст теней "
+                  f"занижен примерно на 1.4 L*; засчитывай его по финальному апскейлу")
         failed = failed or bool(bad)
     return 1 if failed else 0
 

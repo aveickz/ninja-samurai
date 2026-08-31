@@ -1448,7 +1448,7 @@ const CARDS = [
     qty: 1,
     group: "aoe",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Все живые союзники выкладывают одну карту в открытую перед собой, вы выбираете какой из союзников получит какую. Нельзя остаться при своей карте.",
     enDesc: "Every living ally lays out one card face up in front of them, and you decide which ally gets which. No one may keep their own card.",
     img: "cards/card_forum.png"
