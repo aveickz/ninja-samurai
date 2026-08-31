@@ -783,9 +783,9 @@ const CARDS = [
     qty: 1,
     group: "defense",
     icons: [],
-    tags: [],
-    desc: "Вы можете выбрать сколько ран вы хотите получить при атаке, и за каждую рану берёте карту из колоды.",
-    enDesc: "Choose how many wounds you take from this attack, and draw a card for each wound taken.",
+    tags: ["toPrint"],
+    desc: "Вы можете выбрать сколько ран вы хотите получить при атаке, и за каждую рану (не более трёх) берёте карту из колоды.",
+    enDesc: "Choose how many wounds you take from this attack, and draw a card for each wound taken (no more than three).",
     img: "cards/card_53_vyderzka_samuray.png"
   },
   {
@@ -966,7 +966,7 @@ const CARDS = [
     qty: 1,
     group: "stance",
     icons: ["hpctx"],
-    tags: [],
+    tags: ["toPrint"],
     desc: "{При полном здоровье} совершая прямые атаки вы берёте 2 карты из колоды.[NL]{На пороге смерти} ваши атаки наносят дополнительно 2 раны.",
     enDesc: "{At full health} draw 2 cards when you make a direct attack.[NL]{At death's door} your attacks deal 2 extra wounds.",
     img: "cards/card_musin.png",
@@ -978,9 +978,9 @@ const CARDS = [
     types: ["stance"],
     qty: 1,
     group: "stance",
-    tags: [],
-    desc: "Все ваши атаки становятся метательными.[NL]Совершив успешную атаку по игроку с ловушкой, вы берёте 1 карту из колоды.",
-    enDesc: "All your attacks become ranged.[NL]On a successful attack against a player who has a Trap, draw a card.",
+    tags: ["toPrint"],
+    desc: "Ваши метательные атаки наносят +1 рану.[NL]Совершив успешную атаку по игроку с ловушкой, вы берёте 1 карту из колоды.",
+    enDesc: "Your thrown attacks deal +1 wound.[NL]On a successful attack against a player who has a Trap, draw a card.",
     img: "cards/card_archer.png",
   },
   // ── МОДИФИКАТОРЫ (стр. 10–11) ─────────────────────────────────────
@@ -1226,9 +1226,9 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     icons: [],
-    tags: [],
-    desc: "+1 к силе атаки. При убийстве врага этой атакой вы можете забрать себе его стойку и любые эффекты.",
-    enDesc: "+1 attack power. If this attack kills the enemy, you may take their Stance and any Effects for yourself.",
+    tags: ["toPrint"],
+    desc: "+1 к силе атаки. При убийстве врага этой атакой вы можете забрать себе его стойку, ауру и любые эффекты.",
+    enDesc: "+1 attack power. If this attack kills the enemy, you may take their Stance, Aura and any Effects for yourself.",
     img: "cards/card_kubitori.png"
   },
   {
@@ -1305,9 +1305,9 @@ const CARDS = [
     qty: 1,
     group: "intervention",
     icons: ["aoe"],
-    tags: [],
-    desc: "Все ловушки, кроме вашей, на столе открываются, но продолжают действовать. За каждую просветлённую ловушку вы берёте карту из колоды.",
-    enDesc: "Every Trap on the table except yours is revealed, but stays in play. Draw a card for each Trap revealed.",
+    tags: ["toPrint"],
+    desc: "Все ловушки, кроме вашей, на столе открываются, но продолжают действовать. За каждую просветлённую ловушку (не более трёх) вы берёте карту из колоды.",
+    enDesc: "Every Trap on the table except yours is revealed, but stays in play. Draw a card for each Trap revealed (no more than three).",
     img: "cards/card_85_prosvietlenie.png"
   },
   {
@@ -1474,7 +1474,7 @@ const CARDS = [
     qty: 1,
     group: "aoe",
     icons: ["charges"],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Вы наносите 1 рану, за каждое скинутое от команды (максимум по 1 с игрока) оружие наносите дополнительно 1 рану.",
     enDesc: "You deal 1 wound, plus 1 more wound for every weapon your team discards (at most 1 per player).",
     img: "cards/card_shoulder_to_shoulder.png"
@@ -1488,7 +1488,7 @@ const CARDS = [
     qty: 4,
     group: "effect",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Все атаки по вам наносят на одну рану больше, и атакующий берёт 1 карту из колоды.[NL]{Убивший вас игрок} берёт две карты из колоды.",
     enDesc: "Every attack against you deals 1 extra wound, and the attacker draws a card.[NL]{The player who kills you} draws two cards.",
     img: "cards/card_90_metka_ubiytsy.png"
@@ -1880,9 +1880,9 @@ const CARDS = [
     qty: 1,
     group: "action",
     icons: [],
-    tags: [],
-    desc: "Сыграв эту карту, берите за каждый сброшенный жетон жизни (кроме последнего) новую карту из колоды.",
-    enDesc: "Play this card and draw a new card for every life you spend (never your last).",
+    tags: ["toPrint"],
+    desc: "Сыграв эту карту, берите за каждый сброшенный жетон жизни (кроме последнего, не более трёх) новую карту из колоды.",
+    enDesc: "Play this card and draw a new card for every life you spend (never your last, no more than three).",
     img: "cards/card_119_zhertva_krovi.png"
   },
   {
@@ -1906,8 +1906,8 @@ const CARDS = [
     qty: 1,
     group: "action",
     icons: [],
-    tags: [],
-    desc: "Сыграв эту карту, возьмите по 1 карте из колоды за каждый недостающий жетон жизни.[NL]{Если вы отравлены}, возьмите дополнительно 1 карту ко всему добору.",
+    tags: ["toPrint"],
+    desc: "Сыграв эту карту, возьмите по 1 карте из колоды за каждый недостающий жетон жизни (не более трёх).[NL]{Если вы отравлены}, возьмите дополнительно 1 карту ко всему добору.",
     enDesc: "Play this card and draw 1 card for every point of life you are missing.[NL]{If you are Poisoned}, draw 1 more card on top of that.",
     img: "cards/card_smertnie_muki.png"
   },
@@ -2270,10 +2270,10 @@ const CARDS = [
     qty: 1,
     group: "character",
     icons: [],
-    tags: [],
-    desc: "Раз в ход вы можете передвинуть свою активную стойку, или стойку с руки, к другому игроку, у которого её нет перед собой. В фазе набора за каждую стойку на столе берите дополнительно 1 карту." +
+    tags: ["toPrint"],
+    desc: "Раз в ход вы можете передвинуть свою активную стойку, или стойку с руки, к другому игроку, у которого её нет перед собой. В фазе набора за каждую стойку на столе (не более трёх) берите дополнительно 1 карту." +
           "[NL]{После вашей смерти} вы не теряете стойку, а все союзники с выставленной стойкой получают по 1 карте из колоды и восполняют 1 жетон жизни.",
-    enDesc: "Once per turn you may move your active Stance, or a Stance from your hand, to another player who has none in front of them. In the draw phase, take 1 extra card for every Stance on the table.[NL]{After your death} you keep your Stance, and every ally with a Stance in play draws a card from the deck and restores 1 life.",
+    enDesc: "Once per turn you may move your active Stance, or a Stance from your hand, to another player who has none in front of them. In the draw phase, take 1 extra card for every Stance on the table (no more than three).[NL]{After your death} you keep your Stance, and every ally with a Stance in play draws a card from the deck and restores 1 life.",
     img: "cards/card_138_kokoro.png"
   },
   {
@@ -2319,10 +2319,10 @@ const CARDS = [
     qty: 1,
     group: "character",
     icons: [],
-    tags: [],
-    desc: "Раз в ход можете передвинуть свою активную ловушку к союзному игроку, у которого её нет перед собой. В фазе набора за каждую ловушку на столе берите дополнительно 1 карту." +
+    tags: ["toPrint"],
+    desc: "Раз в ход можете передвинуть свою активную ловушку к союзному игроку, у которого её нет перед собой. В фазе набора за каждую ловушку на столе (не более трёх) берите дополнительно 1 карту." +
           "[NL]{После вашей смерти} ловушки врагов просвещаются.",
-    enDesc: "Once per turn you may move your active Trap to an allied player who has none in front of them. In the draw phase, take 1 extra card for every Trap on the table.[NL]{After your death} enemy Traps are revealed.",
+    enDesc: "Once per turn you may move your active Trap to an allied player who has none in front of them. In the draw phase, take 1 extra card for every Trap on the table (no more than three).[NL]{After your death} enemy Traps are revealed.",
     img: "cards/card_140_iyo.png"
   },
   {
@@ -2352,9 +2352,9 @@ const CARDS = [
     group: "character",
     icons: [],
     tags: ["toPrint"],
-    desc: "За каждый восстановленный жетон здоровья в команде вы берёте карту из колоды. Можете перенаправить лечебный эффект с себя на союзника. " +
+    desc: "За каждый восстановленный жетон здоровья в команде (не более трёх) вы берёте карту из колоды. Можете перенаправить лечебный эффект с себя на союзника. " +
           "[NL]{После вашей смерти} каждый союзник восстанавливает 1 жетон жизни, не давая вам карты из колоды.",
-    enDesc: "You draw a card from the deck for every point of life restored across your team. You may redirect a healing effect from yourself to an ally.[NL]{After your death} each ally restores 1 life without giving you cards from the deck.",
+    enDesc: "You draw a card from the deck for every point of life restored across your team (no more than three). You may redirect a healing effect from yourself to an ally.[NL]{After your death} each ally restores 1 life without giving you cards from the deck.",
     img: "cards/card_145_manase.png"
   },
   {
@@ -2368,9 +2368,9 @@ const CARDS = [
     group: "character",
     icons: [],
     tags: ["toPrint"],
-    desc: "Если вы отравлены, то все ваши атаки автоматически отравлены, и вы не испытываете отрицательных эффектов от яда. В фазе набора за каждого отравленного игрока на столе берите дополнительно одну карту." +
+    desc: "Если вы отравлены, то все ваши атаки автоматически отравлены, и вы не испытываете отрицательных эффектов от яда. В фазе набора за каждого отравленного игрока на столе (не более трёх) берите дополнительно одну карту." +
           "[NL]{После вашей смерти} все враги отравляются ядом, а союзники исцеляются от яда.",
-    enDesc: "While you are Poisoned, all your attacks are automatically Poisoned and you suffer none of Poison's penalties. In the draw phase, take an extra card for every Poisoned player on the table.[NL]{After your death} every enemy is Poisoned and every ally is cured of Poison.",
+    enDesc: "While you are Poisoned, all your attacks are automatically Poisoned and you suffer none of Poison's penalties. In the draw phase, take an extra card for every Poisoned player on the table (no more than three).[NL]{After your death} every enemy is Poisoned and every ally is cured of Poison.",
     img: "cards/card_minamoto.png"
   },
 
