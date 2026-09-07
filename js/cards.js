@@ -451,8 +451,8 @@ const CARDS = [
     group: "weapon",
     icons: ["melee_gt1", "dmg2"],
     tags: [],
-    desc: "Может ударить на любом расстоянии более двух.",
-    enDesc: "May strike at any range greater than 2.",
+    desc: "Может ударить на любом расстоянии более двух. TODO: перевести на сложность атаки (мета-правило №9, «Дистанции больше нет») — иконка melee_gt1 (выше 1) спорит с текстом (выше 2). Выбрать: «берёт любую сложность, кроме 1» или «берёт любую сложность выше 2».",
+    enDesc: "May strike at any range greater than 2. TODO: convert to attack complexity (meta-rule 9, «There is no range») — the melee_gt1 icon (above 1) contradicts the text (above 2). Pick either «handles any complexity except 1» or «handles any complexity above 2».",
     img: "cards/card_28_naginata.png"
   },
   {
@@ -665,8 +665,8 @@ const CARDS = [
     group: "trap",
     icons: ["effect8"],
     tags: [],
-    desc: "Атакующий получает две раны от владельца ловушки. Также эта карта переходит на атакующего эффектом, не дающим ему атаковать дальше дистанции в 1.",
-    enDesc: "The attacker takes 2 wounds from the Trap's owner. This card then passes to the attacker as an Effect that stops them attacking beyond range 1.",
+    desc: "Атакующий получает две раны от владельца ловушки. Также эта карта переходит на атакующего эффектом, не дающим ему атаковать дальше дистанции в 1. TODO: вторая половина — запрещённый замедляющий denial (мета-правило №7), словарём не переводится. Вариант: эффект на атакующего «сложность всех его атак увеличивается на 1» — нога в капкане, позицию не выбрать.",
+    enDesc: "The attacker takes 2 wounds from the Trap's owner. This card then passes to the attacker as an Effect that stops them attacking beyond range 1. TODO: the second half is banned slowing denial (meta-rule 7) and cannot be translated word for word. Option: the Effect makes «all their attacks 1 harder» — a leg in the trap cannot choose its position.",
     img: "cards/card_43_kapkan.png"
   },
   {
@@ -876,9 +876,9 @@ const CARDS = [
     qty: 2,
     group: "stance",
     icons: [],
-    tags: [],
-    desc: "Вы находитесь дальше от всех на 1 при атаках по вам. Ваши атаки могут достать дальше на 1. При совершении атак на дистанции 1 вы наносите на 1 рану больше.",
-    enDesc: "You count as 1 further away from everyone against attacks on you. Your own attacks reach 1 further. Attacking at range 1, you deal 1 extra wound.",
+    tags: ["toPrint"],
+    desc: "Сложность атак по вам увеличивается на 1. Ваше оружие берёт сложность на 1 больше. Атакуя сложность 1, вы наносите на 1 рану больше.",
+    enDesc: "Attacks against you are 1 harder. Your weapon handles 1 more complexity. Attacking complexity 1, you deal 1 extra wound.",
     img: "cards/card_58_vsadnik.png"
   },
   {
@@ -1044,9 +1044,9 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     icons: [],
-    tags: [],
-    desc: "+1 к силе атаки. Дальность вашей атаки увеличивается на 2.[NL]{При наличии стойки} наносите ещё на 1 рану больше.",
-    enDesc: "+1 attack power. Your attack's range increases by 2.[NL]{With a Stance in play} deal 1 more wound.",
+    tags: ["toPrint"],
+    desc: "+1 к силе атаки. Ваше оружие берёт сложность на 2 больше.[NL]{При наличии стойки} наносите ещё на 1 рану больше.",
+    enDesc: "+1 attack power. Your weapon handles 2 more complexity.[NL]{With a Stance in play} deal 1 more wound.",
     img: "cards/card_68_vypad.png"
   },
   {
@@ -1110,8 +1110,8 @@ const CARDS = [
     group: "modifier",
     icons: [],
     tags: ["toPrint"],
-    desc: "Ваша атака может бить на любом расстоянии и вы наносите на одну рану больше, но вы теряете один жетон жизни. Нельзя применить на пороге смерти.",
-    enDesc: "Your attack reaches any range and deals 1 extra wound, but you lose 1 life. Cannot be used at death's door.",
+    desc: "Ваша атака берёт любую сложность и наносит на одну рану больше, но вы теряете один жетон жизни. Нельзя применить на пороге смерти.",
+    enDesc: "Your attack handles any complexity and deals 1 extra wound, but you lose 1 life. Cannot be used at death's door.",
     img: "cards/card_73_povyazka_kamikadze.png"
   },
   {
@@ -1318,9 +1318,9 @@ const CARDS = [
     qty: 2,
     group: "aoe",
     icons: [],
-    tags: ["draft"],
-    desc: "Играется в паре с картой не метательного оружия с дальностью более одного. Минуя ловушки, активные игроки получают урон от оружия (без бонусов) или скидывают защиту. Тратит атаку.",
-    enDesc: "Played together with a non-thrown weapon of range 2 or more. Ignoring Traps, every living player takes the weapon's damage (no bonuses) or discards a Defense. Uses up your attack.",
+    tags: ["draft", "toPrint"],
+    desc: "Играется в паре с картой неметательного оружия, берущего сложность 2 или выше. Минуя ловушки, активные игроки получают урон от оружия (без бонусов) или скидывают защиту. Тратит атаку.",
+    enDesc: "Played together with a non-thrown weapon that handles complexity 2 or higher. Ignoring Traps, every living player takes the weapon's damage (no bonuses) or discards a Defense. Uses up your attack.",
     img: "cards/card_86_vikhr_yarosti.png"
   },
   {
@@ -1528,8 +1528,8 @@ const CARDS = [
     group: "effect",
     icons: [],
     tags: [],
-    desc: "Атаки по вам могут быть произведены без ограничения дальности.",
-    enDesc: "Attacks against you may be made at any range.",
+    desc: "Атаки по вам могут быть произведены без ограничения дальности. TODO: перевести на сложность атаки. Реворка не требует — карта ничего не запрещает, а делает носителя легче для атаки (ускоряющая механика, класс «露見 / открытая позиция»). Варианты: «сложность атак по вам уменьшается на 1 (не менее 1)» или «сложность атак по вам — 1» — крюк подтягивает вас на расстояние вытянутой руки и разом отменяет Доспех #5104 и Ровный строй #1202.",
+    enDesc: "Attacks against you may be made at any range. TODO: convert to attack complexity. No rework needed — the card forbids nothing, it only makes its bearer easier to hit (an accelerating mechanic, the «露見 / exposed position» class). Options: «attacks against you are 1 easier (minimum 1)» or «attacks against you are always complexity 1» — the hook drags you within arm's reach and cancels Armor #5104 and Closed Ranks #1202 outright.",
     img: "cards/card_93_kaginava.png"
   },
   {
@@ -1567,8 +1567,8 @@ const CARDS = [
     group: "effect",
     icons: [],
     tags: [],
-    desc: "Атаки игрока не могут бить дальше расстояния в единицу.",
-    enDesc: "This player's attacks cannot reach beyond range 1.",
+    desc: "Атаки игрока не могут бить дальше расстояния в единицу. TODO: на новом словаре это буквально «нельзя атаковать» — запрещённый замедляющий denial (мета-правило №7). Нужен другой эффект, не перевод. Вариант: «сложность всех ваших атак увеличивается на 2, эффект спадает в начале вашего следующего хода» — ослепление как вспышка, в отличие от постоянного +1 у Капкана #43.",
+    enDesc: "This player's attacks cannot reach beyond range 1. TODO: in the new vocabulary this literally reads «you cannot attack» — banned slowing denial (meta-rule 7). Needs a different effect, not a translation. Option: «all your attacks are 2 harder; the Effect wears off at the start of your next turn» — blinding as a flash, unlike the permanent +1 on the Trap #43.",
     img: "cards/card_97_pyl_v_glaza.png"
   },
   {
@@ -2352,9 +2352,9 @@ const CARDS = [
     group: "character",
     icons: [],
     tags: ["toPrint"],
-    desc: "За каждый восстановленный жетон здоровья в команде (не более трёх) вы берёте карту из колоды. Можете перенаправить лечебный эффект с себя на союзника. " +
+    desc: "Ваш предел жизни — 7: лечение сверх стартовых 5 не пропадает. За каждый восстановленный жетон здоровья в команде (не более трёх) вы берёте карту из колоды. Можете перенаправить лечебный эффект с себя на союзника." +
           "[NL]{После вашей смерти} каждый союзник восстанавливает 1 жетон жизни, не давая вам карты из колоды.",
-    enDesc: "You draw a card from the deck for every point of life restored across your team (no more than three). You may redirect a healing effect from yourself to an ally.[NL]{After your death} each ally restores 1 life without giving you cards from the deck.",
+    enDesc: "Your life cap is 7: healing beyond your starting 5 is not wasted. You draw a card from the deck for every point of life restored across your team (no more than three). You may redirect a healing effect from yourself to an ally.[NL]{After your death} each ally restores 1 life without giving you cards from the deck.",
     img: "cards/card_145_manase.png"
   },
   {
