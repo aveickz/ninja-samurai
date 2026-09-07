@@ -738,6 +738,11 @@ $(function () {
     grouped[g].push(card);
   });
 
+  // В embed-режиме (?embed=<ID>) строим ровно одну карту вместо всей колоды.
+  // Иначе каждый iframe тянет арт всех 190 карт, и страница идей с
+  // несколькими десятками превью упирается в ERR_INSUFFICIENT_RESOURCES.
+  var EMBED_ID = (new URLSearchParams(window.location.search)).get('embed');
+
   // Рендерим группу за группой.
   // Trash-карты попадают сюда тоже, но помечаются data-trash-real="1"
   // и по умолчанию скрыты — показываются только при активном __trash__ фильтре.
@@ -748,6 +753,8 @@ $(function () {
     $grid.append(buildGroupDivider(groupKey));
 
     $.each(cards, function (_, card) {
+      if (EMBED_ID && String(card.id) !== String(EMBED_ID)) return;
+
       var $item = buildCard(card);
       var isTrash = (card.tags || []).indexOf('trash') !== -1;
       if (isTrash) {
@@ -756,7 +763,7 @@ $(function () {
       $grid.append($item);
 
       // Клоны для режима «Печать количеством»: qty-1 копий, всегда скрыты на экране.
-      if (!isTrash) {
+      if (!isTrash && !EMBED_ID) {
         var qty = card.qty || 1;
         for (var q = 1; q < qty; q++) {
           $grid.append(
@@ -774,7 +781,7 @@ $(function () {
   var trashCards = CARDS.filter(function (card) {
     return (card.tags || []).indexOf('trash') !== -1;
   });
-  if (trashCards.length > 0) {
+  if (trashCards.length > 0 && !EMBED_ID) {
     $grid.append(buildGroupDivider('trash'));
     $.each(trashCards, function (_, card) {
       $grid.append(buildCard(card).attr('data-trash-pseudo', '1'));
