@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Мета-группа E — 流派 «рюха», школа</title>
+  <style>
+    body {
+      font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      max-width: 1560px; margin: 24px auto; padding: 0 20px 60px;
+      color: #1a1a1a; line-height: 1.5; background: #fffdf9;
+    }
+    h1 { font-size: 27px; margin-bottom: 4px; }
+    h1 .jp { font-weight: 400; color: #8a7a55; margin-left: 10px; font-size: 20px; }
+    h2 { font-size: 20px; margin-top: 34px; border-bottom: 2px solid #d8d3c8; padding-bottom: 6px; }
+    h3 { font-size: 16px; margin-top: 24px; }
+    p, li { font-size: 14px; }
+    .sub { color: #666; font-size: 14px; margin-top: 0; }
+    .nav { margin: 14px 0 22px; font-size: 13px; }
+    .nav a { display: inline-block; margin-right: 6px; padding: 4px 11px; border-radius: 13px;
+             background: #f0ece2; color: #4a4330; text-decoration: none; border: 1px solid #ddd6c6; }
+    .nav a:hover { background: #e5dfd0; }
+    .nav a.here { background: #43525a; color: #fff; border-color: #43525a; }
+    .legend { background: #f5f3ee; border-left: 3px solid #9b8755; padding: 12px 16px; margin: 16px 0; font-size: 13px; }
+    .legend code { background: #ece8de; padding: 1px 5px; border-radius: 3px; }
+    .legend p:first-child { margin-top: 0; } .legend p:last-child { margin-bottom: 0; }
+    .warn { border-left-color: #b5442e; background: #fbf1ee; }
+    table { border-collapse: collapse; width: 100%; margin: 20px 0 8px; table-layout: fixed; }
+    col.col-num { width: 46px; } col.col-card { width: 600px; }
+    col.col-idea { width: auto; } col.col-flavor { width: 290px; }
+    th, td { border: 1px solid #d8d3c8; padding: 10px 14px; vertical-align: top; font-size: 14px; line-height: 1.5; }
+    th { background: #f5f3ee; text-align: left; font-weight: 600; }
+    td.num { text-align: center; color: #8a7a55; font-weight: 600; font-size: 13px; padding: 10px 4px; }
+    td.card-cell { padding: 6px; background: #fafafa; }
+    .pair { display: flex; align-items: center; justify-content: center; gap: 4px; }
+    .cardbox { text-align: center; }
+    iframe.card-frame { width: 272px; height: 434px; border: 0; display: block; }
+    .card-name { display: block; margin-top: 2px; font-size: 11px; color: #555; }
+    .card-name em { color: #8a7a55; font-style: normal; }
+    .plus { font-size: 22px; color: #9b8755; font-weight: 600; flex: 0 0 auto; }
+    .cardbox.inhand iframe { opacity: .82; }
+    .cardbox.inhand { background: #f2eee2; border-radius: 6px; padding: 3px; }
+    .cardbox.inhand .card-name::before { content: "в руке · "; color: #8a7a55; }
+    td.idea { background: #fcfbf7; }
+    td.flavor { color: #5a5344; font-style: italic; background: #f9f8f4; }
+    .cond { font-style: normal; background: #ece8de; border-radius: 3px; padding: 0 4px; }
+    .trigger { display: block; width: fit-content; background: #43525a; color: #fff; border-radius: 10px;
+               padding: 1px 9px; font-size: 11px; margin-bottom: 6px; font-style: normal; }
+    .trigger.p-show { background: #6C8CC7; } .trigger.p-pledge { background: #A78B6B; }
+    .trigger.p-spend { background: #b5442e; }
+  </style>
+</head>
+<body>
+
+  <h1>👤 Связки E<span class="jp">流派 — «рюха», школа</span></h1>
+  <p class="sub">Персонаж × карта. Черновик от 07.09.2026. Текстовая версия — <code>synergy_e_card_ideas.md</code>.</p>
+  <div class="nav"><a class="" href="synergy_a_card_ideas.html">A · 型と技 <span style="opacity:.7">статика × разовая</span></a><a class="" href="synergy_b_card_ideas.html">B · 布陣 <span style="opacity:.7">статика × статика</span></a><a class="" href="synergy_c_card_ideas.html">C · 連携 <span style="opacity:.7">разовая × разовая</span></a><a class="" href="synergy_d_card_ideas.html">D · 手の内 <span style="opacity:.7">разыгранная × карта в руке</span></a><a class="here" href="synergy_e_card_ideas.html">E · 流派 <span style="opacity:.7">персонаж × карта</span></a></div>
+  <div class="legend">
+    <p><b>Все связки собраны из уже существующих карт.</b> Новых карт здесь нет: идея каждой строки —
+    это дописанная строчка на одну из двух карт пары.</p>
+    <p><b>Статика</b> — карта, которая остаётся на столе: стойка, аура, эффект, ловушка, персонаж.
+    <b>Разовая</b> — карта, которая отрабатывает и уходит: оружие, модификатор, действие, групповая,
+    вмешательство, защита. <b>Вмешательства — самый ценный вид разовых в связках:</b> они срабатывают
+    в чужой ход и втягивают в момент третьего игрока.</p>
+  </div>
+
+  <p><b>Стиль персонажа собирается не на карте персонажа, а на обычных картах колоды.</b> У Норио есть Бо — и в тексте самого Бо дописана строка о том, что в его руках посох работает иначе. Карта персонажа при этом не растёт: она остаётся такой, какая есть.</p>
+  <p>Это переворачивает привычный порядок. Обычно персонажа делают уникальным, навешивая свойства на него — и упираются в мета-правило №12, потому что свойства начинают работать в фоне весь матч. Здесь всё наоборот: <b>свойство живёт на карте и существует ровно в тот момент, когда эту карту играют.</b> Никакой фоновой нагрузки, ничего не нужно держать в голове — текст лежит на столе и его читают вслух.</p>
+  <p><b>Где живёт текст.</b> На карте, не на персонаже. Формат строки — как у фракционных бейджей: <code>{Норио}</code> рядом с <code>{Самураи}</code> и <code>{Ниндзя}</code>.</p>
+  <p><b>Что группа даёт.</b> Единственный способ сделать девять персонажей по-настоящему разными, не раздувая их карты. Стиль набирается постепенно: одно сигнатурное оружие плюс две-три карты — и персонаж уже узнаётся по тому, что он держит в руках.</p>
+
+  <h3>Сигнатурное оружие: кому что досталось</h3>
+  <p>Каждому персонажу — одно оружие, которое в его руках работает иначе. Пять назначены, четыре ждут.</p>
+  <table class="plain">
+    <thead><tr><th>Персонаж</th><th>Тема</th><th>Сигнатурное оружие</th><th>Обоснование</th></tr></thead>
+    <tbody><tr><td>Норио #142</td><td>мир, разоружение</td><td><b>Бо #24</b></td><td>посох, а не клинок: единственное оружие, которым можно не убивать</td></tr>
+    <tr><td>Хандзо #138</td><td>оружие как защита</td><td><b>Кусаригама #7</b></td><td>серп на цепи создан для перехвата и обезоруживания, а не для размена ударами</td></tr>
+    <tr><td>Манасэ #145</td><td>врачевание</td><td><b>Боевой веер #6</b></td><td>鉄扇 тэссэн — оружие тех, кому запрещён меч: врачей и монахов</td></tr>
+    <tr><td>Минамото #146</td><td>яд</td><td><b>Дротик с ядом #39</b></td><td>аптекарь, который проверяет дозу на себе</td></tr>
+    <tr><td>Сайго #137</td><td>стойки</td><td><b>Канабо #3</b></td><td>金棒 шипастая палица; 鬼に金棒 — «палица в руки демону»</td></tr>
+    <tr><td>Усивака #135</td><td>жертва</td><td>*placeholder*</td><td>что-то, что режет и самого носителя</td></tr>
+    <tr><td>Таранага #136</td><td>стратегия</td><td>*placeholder*</td><td>не оружие, а сигнальный предмет: веер полководца, барабан</td></tr>
+    <tr><td>Иё #139</td><td>ловушки</td><td>*placeholder*</td><td>оружие, которое можно оставить лежать — например, Макибиши #38</td></tr>
+    <tr><td>Така #140</td><td>воровство</td><td>*placeholder*</td><td>то, что цепляет и тащит: Манрики #27 или Кёкэцусёгэ #26</td></tr></tbody>
+  </table>
+  <p><b>Оговорка по Боевому вееру.</b> В колоде их два: #6 (ближний, сила 2) и #20 (метательный, ядовитый). Манасэ достаётся <b>#6</b> — ядовитый веер противоречит врачу и вдобавок дублирует Минамото.</p>
+  <h3>Правила группы</h3>
+  <ol>
+    <li><b>Карта остаётся общей.</b> Бо в чужих руках — обычный Бо. Строка про Норио срабатывает только у него, но карта не становится хуже для остальных (мета-правило №6).</li>
+    <li><b>Персонаж уникален, оружие — нет.</b> qty=1 против qty=2 значит, что встреча персонажа со своим оружием возможна дважды за партию: не гарантия, но и не раз в жизни. Это правильная частота для «фирменного приёма».</li>
+    <li><b>Проверяется взглядом на стол.</b> Карта персонажа лежит перед игроком в открытую — условие <code>{Норио}</code> не требует памяти (мета-правила №1 и №8).</li>
+    <li><b>Потолок объёма — 3–4 карты на персонажа.</b> Одно сигнатурное оружие плюс две-три карты. Больше — и тексты карт начнут разбухать именами, а колода станет нечитаемой для новичка.</li>
+    <li><b>Не дублировать свойство персонажа.</b> Строка на карте должна <b>менять</b> его свойство, а не повторять (мета-правило №4, антипаттерн «свойство персонажа повторяет существующую карту» читается и в обратную сторону).</li>
+  </ol>
+  <h3>Почему это лучше, чем ауры персонажей</h3>
+  <p>Соблазн сделать персонажей ярче через постоянные ауры понятен, но мета-правило №12 запрещает их прямо: «постоянно действующие ауры персонажей... перегружают игроков информацией, которую нужно держать в голове вне своего хода».</p>
+  <p>Сигнатурная карта решает ту же задачу и не платит эту цену. Стиль виден — Норио лечит посохом, Манасэ обмахивает веером вместо удара, Минамото травит сама себя ради лишней атаки, — но каждый раз это <b>происходит</b>, а не <b>действует</b>. Между разыгрываниями помнить нечего.</p>
+
+  <h2>20 идей группы E</h2>
+  <table>
+    <colgroup><col class="col-num"><col class="col-card"><col class="col-idea"><col class="col-flavor"></colgroup>
+    <thead><tr><th>№</th><th>Персонаж + карта</th><th>Повод и эффект</th><th>Флавор</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="num">E1</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=142" title="Норио"></iframe><span class="card-name">#142 Норио <em>персонаж</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=24" title="Бо"></iframe><span class="card-name">#24 Бо <em>оружие</em></span></div></div></td>
+        <td class="idea"><span class="trigger">сигнатурное оружие</span>В руках Норио Бо не наносит ран: цель теряет стойку, а любой игрок на ваш выбор восстанавливает 1 жетон жизни</td>
+        <td class="flavor">Посох миротворца сбивает стойку, а не рубит</td>
+      </tr>
+      <tr>
+        <td class="num">E2</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=138" title="Хандзо"></iframe><span class="card-name">#138 Хандзо <em>персонаж</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=7" title="Кусаригама"></iframe><span class="card-name">#7 Кусаригама <em>оружие</em></span></div></div></td>
+        <td class="idea"><span class="trigger">сигнатурное оружие</span>В руках Хандзо Кусаригама играется как защита, не давая ему обычной раны за защиту оружием</td>
+        <td class="flavor">Серп ловит клинок, цепь его держит</td>
+      </tr>
+      <tr>
+        <td class="num">E3</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=145" title="Манасэ"></iframe><span class="card-name">#145 Манасэ <em>персонаж</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=6" title="Боевой веер"></iframe><span class="card-name">#6 Боевой веер <em>оружие</em></span></div></div></td>
+        <td class="idea"><span class="trigger">сигнатурное оружие</span>В руках Манасэ Боевой веер не атакует: сыграйте его, чтобы снять с любого игрока яд или один эффект, ничего не сбрасывая</td>
+        <td class="flavor">鉄扇 носят те, кому запрещён меч, — врачи и монахи</td>
+      </tr>
+      <tr>
+        <td class="num">E4</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=146" title="Минамото"></iframe><span class="card-name">#146 Минамото <em>персонаж</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=39" title="Дротик с ядом"></iframe><span class="card-name">#39 Дротик с ядом <em>оружие</em></span></div></div></td>
+        <td class="idea"><span class="trigger">сигнатурное оружие</span>В руках Минамото Дротик с ядом не тратит атаку, но отравляет и её саму</td>
+        <td class="flavor">Она пробует каждую дозу на себе</td>
+      </tr>
+      <tr>
+        <td class="num">E5</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=137" title="Сайго"></iframe><span class="card-name">#137 Сайго <em>персонаж</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=3" title="Канабо"></iframe><span class="card-name">#3 Канабо <em>оружие</em></span></div></div></td>
+        <td class="idea"><span class="trigger">сигнатурное оружие</span>В руках Сайго Канабо сносит цели стойку вместо сброса карты, и Сайго может тут же поставить ей свою</td>
+        <td class="flavor">鬼に金棒 — палица в руки демону</td>
+      </tr>
+      <tr>
+        <td class="num">E6</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=137" title="Сайго"></iframe><span class="card-name">#137 Сайго <em>персонаж</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=83" title="Потасовка"></iframe><span class="card-name">#83 Потасовка <em>групповая</em></span></div></div></td>
+        <td class="idea"><span class="trigger">разыгрывает Потасовку</span>Сайго вместо сброса чужих стоек забирает одну из них себе</td>
+        <td class="flavor">В свалке мастер стоек подбирает чужую форму</td>
+      </tr>
+      <tr>
+        <td class="num">E7</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=139" title="Иё"></iframe><span class="card-name">#139 Иё <em>персонаж</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=85" title="Просветление"></iframe><span class="card-name">#85 Просветление <em>вмешательство</em></span></div></div></td>
+        <td class="idea"><span class="trigger">разыгрывает Просветление</span>Иё может одну просветлённую ловушку забрать себе в руку</td>
+        <td class="flavor">Она читает чужие капканы как свои</td>
+      </tr>
+      <tr>
+        <td class="num">E8</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=138" title="Хандзо"></iframe><span class="card-name">#138 Хандзо <em>персонаж</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=1029" title="Осколки"></iframe><span class="card-name">#1029 Осколки <em>вмешательство</em></span></div></div></td>
+        <td class="idea"><span class="trigger">разыгрывает Осколки</span>Хандзо не уничтожает оружие, а забирает его в руку</td>
+        <td class="flavor">Мастер перехвата: чужой клинок остаётся у него</td>
+      </tr>
+      <tr>
+        <td class="num">E9</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=142" title="Норио"></iframe><span class="card-name">#142 Норио <em>персонаж</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=1139" title="Плечом к плечу"></iframe><span class="card-name">#1139 Плечом к плечу <em>групповая</em></span></div></div></td>
+        <td class="idea"><span class="trigger">разыгрывает Плечом к плечу</span>Оружие, вложенное союзниками, не уходит в сброс, а возвращается владельцам</td>
+        <td class="flavor">Норио возвращает каждому его сталь</td>
+      </tr>
+      <tr>
+        <td class="num">E10</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=145" title="Манасэ"></iframe><span class="card-name">#145 Манасэ <em>персонаж</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=107" title="Швы"></iframe><span class="card-name">#107 Швы <em>действие</em></span></div></div></td>
+        <td class="idea"><span class="trigger">разыгрывает Швы</span>Швы лечат двух игроков по 1 жетону вместо одного на 2</td>
+        <td class="flavor">Она штопает обоих сразу — врач не выбирает</td>
+      </tr>
+      <tr>
+        <td class="num">E11</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=138" title="Хандзо"></iframe><span class="card-name">#138 Хандзо <em>персонаж</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=1204" title="Спина к спине"></iframe><span class="card-name">#1204 Спина к спине <em>аура</em></span></div></div></td>
+        <td class="idea"><span class="trigger">защита союзника</span>Хандзо может вмешаться в защиту союзника картой оружия, получая при этом рану</td>
+        <td class="flavor">Он закрывает товарища клинком, раз щита не осталось</td>
+      </tr>
+      <tr>
+        <td class="num">E12</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=142" title="Норио"></iframe><span class="card-name">#142 Норио <em>персонаж</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=1210" title="Арсенал"></iframe><span class="card-name">#1210 Арсенал <em>аура</em></span></div></div></td>
+        <td class="idea"><span class="trigger">сброс оружия Норио</span>Оружие, которое Норио сбрасывает ради своего свойства, ложится в Арсенал — союзник может забрать его в свой ход</td>
+        <td class="flavor">Оружейник не выбрасывает сталь, он ставит её в стойку</td>
+      </tr>
+      <tr>
+        <td class="num">E13</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=146" title="Минамото"></iframe><span class="card-name">#146 Минамото <em>персонаж</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=1203" title="Бочка зловония"></iframe><span class="card-name">#1203 Бочка зловония <em>аура</em></span></div></div></td>
+        <td class="idea"><span class="trigger">фаза набора</span>Пока Бочку носит Минамото, союзники, чьи атаки она отравляет, берут по +1 карте в набор (не более трёх)</td>
+        <td class="flavor">Аптекарь раздаёт склянки своим</td>
+      </tr>
+      <tr>
+        <td class="num">E14</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=136" title="Таранага"></iframe><span class="card-name">#136 Таранага <em>персонаж</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=1205" title="Стратег"></iframe><span class="card-name">#1205 Стратег <em>аура</em></span></div></div></td>
+        <td class="idea"><span class="trigger">фаза набора</span>Таранага берёт две дополнительные карты и одну отдаёт союзнику в закрытую</td>
+        <td class="flavor">Полководец не копит — он снабжает</td>
+      </tr>
+      <tr>
+        <td class="num">E15</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=139" title="Иё"></iframe><span class="card-name">#139 Иё <em>персонаж</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=43" title="Капкан"></iframe><span class="card-name">#43 Капкан <em>ловушка</em></span></div></div></td>
+        <td class="idea"><span class="trigger">срабатывание ловушки</span>Капкан перед Иё срабатывает, не уходя со стола: эффект уходит на атакующего, ловушка остаётся</td>
+        <td class="flavor">Она перезаряжает капканы на ходу</td>
+      </tr>
+      <tr>
+        <td class="num">E16</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=137" title="Сайго"></iframe><span class="card-name">#137 Сайго <em>персонаж</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=1164" title="Кэцубан"></iframe><span class="card-name">#1164 Кэцубан <em>стойка</em></span></div></div></td>
+        <td class="idea"><span class="trigger">получение ран союзником</span>Передвинув Кэцубан союзнику, Сайго остаётся вторым концом печати и может брать его раны на себя без стойки</td>
+        <td class="flavor">Он повязал их своей кровью</td>
+      </tr>
+      <tr>
+        <td class="num">E17</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=145" title="Манасэ"></iframe><span class="card-name">#145 Манасэ <em>персонаж</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=1208" title="Полевая медицина"></iframe><span class="card-name">#1208 Полевая медицина <em>аура</em></span></div></div></td>
+        <td class="idea"><span class="trigger">начало хода</span>Аура лечит союзников на 1 жетон больше, но добор Манасэ от ауры не работает</td>
+        <td class="flavor">Врач ставит лазарет, но сам от него не кормится</td>
+      </tr>
+      <tr>
+        <td class="num">E18</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=135" title="Усивака"></iframe><span class="card-name">#135 Усивака <em>персонаж</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=120" title="Жертва крови"></iframe><span class="card-name">#120 Жертва крови <em>действие</em></span></div></div></td>
+        <td class="idea"><span class="trigger">разыгрывает Жертву крови</span>У Усиваки Жертва крови не ограничена тремя картами: он берёт по карте за каждый сброшенный жетон</td>
+        <td class="flavor">Он и так живёт от раны к ране</td>
+      </tr>
+      <tr>
+        <td class="num">E19</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=136" title="Таранага"></iframe><span class="card-name">#136 Таранага <em>персонаж</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=1137" title="Военный совет"></iframe><span class="card-name">#1137 Военный совет <em>групповая</em></span></div></div></td>
+        <td class="idea"><span class="trigger">разыгрывает Военный совет</span>Таранага садится за совет сам: он тоже кладёт карту и тоже может получить чужую</td>
+        <td class="flavor">Полководец не стоит над картой — он садится к ней</td>
+      </tr>
+      <tr>
+        <td class="num">E20</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=140" title="Така"></iframe><span class="card-name">#140 Така <em>персонаж</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=1134" title="Ва банк"></iframe><span class="card-name">#1134 Ва банк <em>действие</em></span></div></div></td>
+        <td class="idea"><span class="trigger">разыгрывает Ва банк</span>Така меняется не вслепую: он смотрит руку цели и может отказаться, сбросив Ва банк</td>
+        <td class="flavor">Вор не меняется не глядя</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="legend">
+  <p><b>E1–E5 — ядро группы.</b> Это те пять строк, ради которых она заведена: по одному оружию на персонажа, и каждое меняет не число, а сам смысл карты. Бо перестаёт наносить раны, веер перестаёт быть оружием, дротик перестаёт тратить атаку. Если хотя бы три из пяти переживут плейтест, у колоды появятся узнаваемые школы.</p>
+  <p><b>E6–E17 переехали сюда из A и B.</b> Раньше они стояли в «статика × разовая» и «статика × статика» — по форме верно, но персонаж перетягивал связку на себя, и обе группы читались как список любимчиков. Теперь A и B держатся на обычных картах, а персонажи собраны в одном месте.</p>
+  <p><b>Четыре placeholder'а — не пробел, а очередь.</b> Усивака, Таранага, Иё и Така ждут своего оружия. Заполнять их наугад не стоит: сигнатурная карта — это заявление о характере, и лучше оставить строку пустой, чем поставить туда «катану, потому что самурай».</p>
+  </div>
+
+</body>
+</html>

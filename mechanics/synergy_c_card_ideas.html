@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Мета-группа C — 連携 «рэнкэй», сцепка</title>
+  <style>
+    body {
+      font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      max-width: 1560px; margin: 24px auto; padding: 0 20px 60px;
+      color: #1a1a1a; line-height: 1.5; background: #fffdf9;
+    }
+    h1 { font-size: 27px; margin-bottom: 4px; }
+    h1 .jp { font-weight: 400; color: #8a7a55; margin-left: 10px; font-size: 20px; }
+    h2 { font-size: 20px; margin-top: 34px; border-bottom: 2px solid #d8d3c8; padding-bottom: 6px; }
+    h3 { font-size: 16px; margin-top: 24px; }
+    p, li { font-size: 14px; }
+    .sub { color: #666; font-size: 14px; margin-top: 0; }
+    .nav { margin: 14px 0 22px; font-size: 13px; }
+    .nav a { display: inline-block; margin-right: 6px; padding: 4px 11px; border-radius: 13px;
+             background: #f0ece2; color: #4a4330; text-decoration: none; border: 1px solid #ddd6c6; }
+    .nav a:hover { background: #e5dfd0; }
+    .nav a.here { background: #43525a; color: #fff; border-color: #43525a; }
+    .legend { background: #f5f3ee; border-left: 3px solid #9b8755; padding: 12px 16px; margin: 16px 0; font-size: 13px; }
+    .legend code { background: #ece8de; padding: 1px 5px; border-radius: 3px; }
+    .legend p:first-child { margin-top: 0; } .legend p:last-child { margin-bottom: 0; }
+    .warn { border-left-color: #b5442e; background: #fbf1ee; }
+    table { border-collapse: collapse; width: 100%; margin: 20px 0 8px; table-layout: fixed; }
+    col.col-num { width: 46px; } col.col-card { width: 600px; }
+    col.col-idea { width: auto; } col.col-flavor { width: 290px; }
+    th, td { border: 1px solid #d8d3c8; padding: 10px 14px; vertical-align: top; font-size: 14px; line-height: 1.5; }
+    th { background: #f5f3ee; text-align: left; font-weight: 600; }
+    td.num { text-align: center; color: #8a7a55; font-weight: 600; font-size: 13px; padding: 10px 4px; }
+    td.card-cell { padding: 6px; background: #fafafa; }
+    .pair { display: flex; align-items: center; justify-content: center; gap: 4px; }
+    .cardbox { text-align: center; }
+    iframe.card-frame { width: 272px; height: 434px; border: 0; display: block; }
+    .card-name { display: block; margin-top: 2px; font-size: 11px; color: #555; }
+    .card-name em { color: #8a7a55; font-style: normal; }
+    .plus { font-size: 22px; color: #9b8755; font-weight: 600; flex: 0 0 auto; }
+    .cardbox.inhand iframe { opacity: .82; }
+    .cardbox.inhand { background: #f2eee2; border-radius: 6px; padding: 3px; }
+    .cardbox.inhand .card-name::before { content: "в руке · "; color: #8a7a55; }
+    td.idea { background: #fcfbf7; }
+    td.flavor { color: #5a5344; font-style: italic; background: #f9f8f4; }
+    .cond { font-style: normal; background: #ece8de; border-radius: 3px; padding: 0 4px; }
+    .trigger { display: block; width: fit-content; background: #43525a; color: #fff; border-radius: 10px;
+               padding: 1px 9px; font-size: 11px; margin-bottom: 6px; font-style: normal; }
+    .trigger.p-show { background: #6C8CC7; } .trigger.p-pledge { background: #A78B6B; }
+    .trigger.p-spend { background: #b5442e; }
+  </style>
+</head>
+<body>
+
+  <h1>⚔️ Связки C<span class="jp">連携 — «рэнкэй», сцепка</span></h1>
+  <p class="sub">Разовая × разовая. Черновик от 07.09.2026. Текстовая версия — <code>synergy_c_card_ideas.md</code>.</p>
+  <div class="nav"><a class="" href="synergy_a_card_ideas.html">A · 型と技 <span style="opacity:.7">статика × разовая</span></a><a class="" href="synergy_b_card_ideas.html">B · 布陣 <span style="opacity:.7">статика × статика</span></a><a class="here" href="synergy_c_card_ideas.html">C · 連携 <span style="opacity:.7">разовая × разовая</span></a><a class="" href="synergy_d_card_ideas.html">D · 手の内 <span style="opacity:.7">разыгранная × карта в руке</span></a><a class="" href="synergy_e_card_ideas.html">E · 流派 <span style="opacity:.7">персонаж × карта</span></a></div>
+  <div class="legend">
+    <p><b>Все связки собраны из уже существующих карт.</b> Новых карт здесь нет: идея каждой строки —
+    это дописанная строчка на одну из двух карт пары.</p>
+    <p><b>Статика</b> — карта, которая остаётся на столе: стойка, аура, эффект, ловушка, персонаж.
+    <b>Разовая</b> — карта, которая отрабатывает и уходит: оружие, модификатор, действие, групповая,
+    вмешательство, защита. <b>Вмешательства — самый ценный вид разовых в связках:</b> они срабатывают
+    в чужой ход и втягивают в момент третьего игрока.</p>
+  </div>
+
+  <p><b>Две карты выкладываются в один момент и разрешаются вместе.</b> Обе разыгрываются и обе уходят — этим группа отличается от D, где вторая карта остаётся в руке.</p>
+  <p><b>Где живёт текст.</b> На более редкой из двух карт (обычно qty=1).</p>
+  <p><b>Что группа даёт.</b> Момент, ради которого игроки держат карту в руке лишний круг. И самый зрелищный тип хода: на стол ложится не одна карта, а связка.</p>
+
+  <h3>Главное правило группы: пакет объявляется целиком</h3>
+  <p>Связка разовых карт <b>объявляется одним пакетом до разрешения</b> — обе карты кладутся на стол одновременно, и только потом считается результат.</p>
+  <p>Это не формальность, а способ не нарушить мета-правило №1. «Сыграйте X, а потом в этот же ход Y» — это память раунда: стол должен помнить, что было сыграно раньше. «Выложите X и Y вместе» — одно действие, запоминать нечего. Все идеи ниже сформулированы именно так.</p>
+  <h3>Часть строк — не усиление, а страховка</h3>
+  <p>C2 и C17 ограничивают связку, а не усиливают её. Кинжал похищения с Финальным ударом лечит атакующего ровно настолько, насколько цель уже мертва — без потолка это вырожденная пара; Горячую картошку иначе можно было бы сбросить обменом рук. Такие строки в группе C так же ценны, как усиливающие: пакет из двух разовых карт — самое удобное место, где ломается арифметика.</p>
+
+  <h2>20 идей группы C</h2>
+  <table>
+    <colgroup><col class="col-num"><col class="col-card"><col class="col-idea"><col class="col-flavor"></colgroup>
+    <thead><tr><th>№</th><th>Связка</th><th>Эффект связки</th><th>Флавор</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="num">C1</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=5" title="Кинжал предателя"></iframe><span class="card-name">#5 Кинжал предателя <em>оружие</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=71" title="Кинжал похищения"></iframe><span class="card-name">#71 Кинжал похищения <em>модификатор</em></span></div></div></td>
+        <td class="idea">Вы восстанавливаете на 1 жетон больше, чем нанесли ран</td>
+        <td class="flavor">Предательский клинок берёт больше, чем отнимает</td>
+      </tr>
+      <tr>
+        <td class="num">C2</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=71" title="Кинжал похищения"></iframe><span class="card-name">#71 Кинжал похищения <em>модификатор</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=1081" title="Финальный удар"></iframe><span class="card-name">#1081 Финальный удар <em>модификатор</em></span></div></div></td>
+        <td class="idea">Пакет разрешён, но восстановление ограничено половиной нанесённых ран</td>
+        <td class="flavor">Из пустого сосуда не напиться: чем ближе цель к смерти, тем меньше в ней осталось</td>
+      </tr>
+      <tr>
+        <td class="num">C3</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=36" title="Бумеранг"></iframe><span class="card-name">#36 Бумеранг <em>оружие</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=74" title="Бросок"></iframe><span class="card-name">#74 Бросок <em>модификатор</em></span></div></div></td>
+        <td class="idea">Бросок возвращается в руку вместе с Бумерангом, а не уходит в сброс</td>
+        <td class="flavor">Возвращается всё, что брошено</td>
+      </tr>
+      <tr>
+        <td class="num">C4</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=39" title="Дротик с ядом"></iframe><span class="card-name">#39 Дротик с ядом <em>оружие</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=76" title="Кипящий яд"></iframe><span class="card-name">#76 Кипящий яд <em>модификатор</em></span></div></div></td>
+        <td class="idea">Отравление накладывается до расчёта: цель получает +2 раны, даже если не была отравлена</td>
+        <td class="flavor">Яд закипает прямо в ране</td>
+      </tr>
+      <tr>
+        <td class="num">C5</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=38" title="Макибиши"></iframe><span class="card-name">#38 Макибиши <em>оружие</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=87" title="Шквал огня"></iframe><span class="card-name">#87 Шквал огня <em>групповая</em></span></div></div></td>
+        <td class="idea">Макибиши, потраченные в Шквал, не уходят в сброс, а ложатся ловушками перед целями</td>
+        <td class="flavor">Рассыпанные шипы остаются на земле</td>
+      </tr>
+      <tr>
+        <td class="num">C6</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=317" title="Ната"></iframe><span class="card-name">#317 Ната <em>оружие</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=112" title="Сапёр"></iframe><span class="card-name">#112 Сапёр <em>действие</em></span></div></div></td>
+        <td class="idea">Самурай обезвреживает ловушку без потери жетона жизни</td>
+        <td class="flavor">鉈 перерубает верёвку силка одним движением</td>
+      </tr>
+      <tr>
+        <td class="num">C7</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=7" title="Кусаригама"></iframe><span class="card-name">#7 Кусаригама <em>оружие</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=74" title="Бросок"></iframe><span class="card-name">#74 Бросок <em>модификатор</em></span></div></div></td>
+        <td class="idea">Кусаригама сохраняет базовую силу вместо 1 и возвращается в руку</td>
+        <td class="flavor">Ей не нужно становиться дротиком — она и так летает</td>
+      </tr>
+      <tr>
+        <td class="num">C8</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=129" title="Воровство"></iframe><span class="card-name">#129 Воровство <em>действие</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=115" title="Ясновидение"></iframe><span class="card-name">#115 Ясновидение <em>действие</em></span></div></div></td>
+        <td class="idea">Воровство у игрока под Ясновидением не случайное: вы выбираете карту</td>
+        <td class="flavor">Сначала свет, потом рука</td>
+      </tr>
+      <tr>
+        <td class="num">C9</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=84" title="Чайная церемония"></iframe><span class="card-name">#84 Чайная церемония <em>групповая</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=109" title="Саке"></iframe><span class="card-name">#109 Саке <em>действие</em></span></div></div></td>
+        <td class="idea">Сначала церемония, потом Саке: союзники, помогавшие сбросом, берут по 1 карте сверх церемонии</td>
+        <td class="flavor">После чая наливают саке — и говорить становится легче</td>
+      </tr>
+      <tr>
+        <td class="num">C10</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=1136" title="Укол вслепую"></iframe><span class="card-name">#1136 Укол вслепую <em>действие</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=1081" title="Финальный удар"></iframe><span class="card-name">#1081 Финальный удар <em>модификатор</em></span></div></div></td>
+        <td class="idea">Объявляются вместе: сначала переворот жетонов, потом удар по новому раскладу</td>
+        <td class="flavor">Слепой укол переворачивает чашу, клинок бьёт в опустевшую</td>
+      </tr>
+      <tr>
+        <td class="num">C11</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=107" title="Швы"></iframe><span class="card-name">#107 Швы <em>действие</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=123" title="Имбирь"></iframe><span class="card-name">#123 Имбирь <em>вмешательство</em></span></div></div></td>
+        <td class="idea">Имбирь, вложенный вмешательством в момент Швов, лечит 2 жетона вместо 1</td>
+        <td class="flavor">生姜 греет, нить держит</td>
+      </tr>
+      <tr>
+        <td class="num">C12</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=105" title="Васаби"></iframe><span class="card-name">#105 Васаби <em>действие</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=116" title="Яд фугу"></iframe><span class="card-name">#116 Яд фугу <em>действие</em></span></div></div></td>
+        <td class="idea">Васаби можно сыграть вмешательством в момент Яда фугу: отравление не проходит, оба берут по карте</td>
+        <td class="flavor">К фугу подают васаби — так было всегда</td>
+      </tr>
+      <tr>
+        <td class="num">C13</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=81" title="Онсэн"></iframe><span class="card-name">#81 Онсэн <em>групповая</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=1138" title="Кровное родство"></iframe><span class="card-name">#1138 Кровное родство <em>групповая</em></span></div></div></td>
+        <td class="idea">Объявляются вместе: сначала общее лечение, потом перераспределение жетонов</td>
+        <td class="flavor">В горячем источнике все равны</td>
+      </tr>
+      <tr>
+        <td class="num">C14</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=82" title="Миротворцы"></iframe><span class="card-name">#82 Миротворцы <em>групповая</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=3091" title="Обыск"></iframe><span class="card-name">#3091 Обыск <em>групповая</em></span></div></div></td>
+        <td class="idea">Игрок, отдавший карту по Миротворцам, освобождается от Обыска</td>
+        <td class="flavor">Сначала разоружить, потом обыскивать</td>
+      </tr>
+      <tr>
+        <td class="num">C15</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=49" title="Скрытый кинжал"></iframe><span class="card-name">#49 Скрытый кинжал <em>защита</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=50" title="Ядовитые наручи"></iframe><span class="card-name">#50 Ядовитые наручи <em>защита</em></span></div></div></td>
+        <td class="idea">Скрытый кинжал против уже отравленного вами атакующего наносит на 1 рану больше</td>
+        <td class="flavor">Яд размягчил — клинок вошёл глубже</td>
+      </tr>
+      <tr>
+        <td class="num">C16</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=56" title="Блок"></iframe><span class="card-name">#56 Блок <em>защита</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=125" title="Подвиг"></iframe><span class="card-name">#125 Подвиг <em>вмешательство</em></span></div></div></td>
+        <td class="idea">Принявшего удар по Подвигу может прикрыть чужой Блок — тогда атака не проходит вовсе</td>
+        <td class="flavor">Один шагнул вперёд, другой поднял щит</td>
+      </tr>
+      <tr>
+        <td class="num">C17</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=31121" title="Горячая картошка"></iframe><span class="card-name">#31121 Горячая картошка <em>действие</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=1134" title="Ва банк"></iframe><span class="card-name">#1134 Ва банк <em>действие</em></span></div></div></td>
+        <td class="idea">Картошка не участвует в обмене руками — она остаётся у владельца</td>
+        <td class="flavor">Горячее не отдают оптом</td>
+      </tr>
+      <tr>
+        <td class="num">C18</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=1133" title="Камикадзе"></iframe><span class="card-name">#1133 Камикадзе <em>действие</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=128" title="Симулянт"></iframe><span class="card-name">#128 Симулянт <em>вмешательство</em></span></div></div></td>
+        <td class="idea">Камикадзе по симулянту не убивает: вы сбрасываете половину руки, Симулянт спадает</td>
+        <td class="flavor">Смертник подорвал соломенное чучело</td>
+      </tr>
+      <tr>
+        <td class="num">C19</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=130" title="Кукла вуду"></iframe><span class="card-name">#130 Кукла вуду <em>действие</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=4104" title="Проклятье"></iframe><span class="card-name">#4104 Проклятье <em>эффект</em></span></div></div></td>
+        <td class="idea">Кукла, снявшая Проклятье, ломается вместе с ним: обе в сброс, вы берёте 2 карты</td>
+        <td class="flavor">Кукла принимает проклятие на себя</td>
+      </tr>
+      <tr>
+        <td class="num">C20</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=1094" title="Эстафета мечей"></iframe><span class="card-name">#1094 Эстафета мечей <em>групповая</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=126" title="Рука помощи"></iframe><span class="card-name">#126 Рука помощи <em>вмешательство</em></span></div></div></td>
+        <td class="idea">Рука помощи вмешательством в момент Эстафеты разворачивает цепь против часовой</td>
+        <td class="flavor">Кто-то в строю передал не туда — и меч ушёл обратно</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="legend">
+  <p><b>C16 — эталон North Star.</b> В одной атаке участвуют четверо: атакующий, цель, шагнувший под удар и прикрывший его. Ни один не ждёт своей очереди.</p>
+  <p><b>C6, C11, C12 — эталон мета-правила №11.</b> Связка выведена из реального предмета, а не из математики: ната для верёвки, имбирь к шву, васаби к фугу. Такие правила не надо запоминать — их достаточно один раз услышать.</p>
+  </div>
+
+</body>
+</html>

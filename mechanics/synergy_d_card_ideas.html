@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Мета-группа D — 手の内 «тэ-но ути», то, что в руке</title>
+  <style>
+    body {
+      font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      max-width: 1560px; margin: 24px auto; padding: 0 20px 60px;
+      color: #1a1a1a; line-height: 1.5; background: #fffdf9;
+    }
+    h1 { font-size: 27px; margin-bottom: 4px; }
+    h1 .jp { font-weight: 400; color: #8a7a55; margin-left: 10px; font-size: 20px; }
+    h2 { font-size: 20px; margin-top: 34px; border-bottom: 2px solid #d8d3c8; padding-bottom: 6px; }
+    h3 { font-size: 16px; margin-top: 24px; }
+    p, li { font-size: 14px; }
+    .sub { color: #666; font-size: 14px; margin-top: 0; }
+    .nav { margin: 14px 0 22px; font-size: 13px; }
+    .nav a { display: inline-block; margin-right: 6px; padding: 4px 11px; border-radius: 13px;
+             background: #f0ece2; color: #4a4330; text-decoration: none; border: 1px solid #ddd6c6; }
+    .nav a:hover { background: #e5dfd0; }
+    .nav a.here { background: #43525a; color: #fff; border-color: #43525a; }
+    .legend { background: #f5f3ee; border-left: 3px solid #9b8755; padding: 12px 16px; margin: 16px 0; font-size: 13px; }
+    .legend code { background: #ece8de; padding: 1px 5px; border-radius: 3px; }
+    .legend p:first-child { margin-top: 0; } .legend p:last-child { margin-bottom: 0; }
+    .warn { border-left-color: #b5442e; background: #fbf1ee; }
+    table { border-collapse: collapse; width: 100%; margin: 20px 0 8px; table-layout: fixed; }
+    col.col-num { width: 46px; } col.col-card { width: 600px; }
+    col.col-idea { width: auto; } col.col-flavor { width: 290px; }
+    th, td { border: 1px solid #d8d3c8; padding: 10px 14px; vertical-align: top; font-size: 14px; line-height: 1.5; }
+    th { background: #f5f3ee; text-align: left; font-weight: 600; }
+    td.num { text-align: center; color: #8a7a55; font-weight: 600; font-size: 13px; padding: 10px 4px; }
+    td.card-cell { padding: 6px; background: #fafafa; }
+    .pair { display: flex; align-items: center; justify-content: center; gap: 4px; }
+    .cardbox { text-align: center; }
+    iframe.card-frame { width: 272px; height: 434px; border: 0; display: block; }
+    .card-name { display: block; margin-top: 2px; font-size: 11px; color: #555; }
+    .card-name em { color: #8a7a55; font-style: normal; }
+    .plus { font-size: 22px; color: #9b8755; font-weight: 600; flex: 0 0 auto; }
+    .cardbox.inhand iframe { opacity: .82; }
+    .cardbox.inhand { background: #f2eee2; border-radius: 6px; padding: 3px; }
+    .cardbox.inhand .card-name::before { content: "в руке · "; color: #8a7a55; }
+    td.idea { background: #fcfbf7; }
+    td.flavor { color: #5a5344; font-style: italic; background: #f9f8f4; }
+    .cond { font-style: normal; background: #ece8de; border-radius: 3px; padding: 0 4px; }
+    .trigger { display: block; width: fit-content; background: #43525a; color: #fff; border-radius: 10px;
+               padding: 1px 9px; font-size: 11px; margin-bottom: 6px; font-style: normal; }
+    .trigger.p-show { background: #6C8CC7; } .trigger.p-pledge { background: #A78B6B; }
+    .trigger.p-spend { background: #b5442e; }
+  </style>
+</head>
+<body>
+
+  <h1>🀄 Связки D<span class="jp">手の内 — «тэ-но ути», то, что в руке</span></h1>
+  <p class="sub">Разыгранная карта × карта в руке. Черновик от 07.09.2026. Текстовая версия — <code>synergy_d_card_ideas.md</code>.</p>
+  <div class="nav"><a class="" href="synergy_a_card_ideas.html">A · 型と技 <span style="opacity:.7">статика × разовая</span></a><a class="" href="synergy_b_card_ideas.html">B · 布陣 <span style="opacity:.7">статика × статика</span></a><a class="" href="synergy_c_card_ideas.html">C · 連携 <span style="opacity:.7">разовая × разовая</span></a><a class="here" href="synergy_d_card_ideas.html">D · 手の内 <span style="opacity:.7">разыгранная × карта в руке</span></a><a class="" href="synergy_e_card_ideas.html">E · 流派 <span style="opacity:.7">персонаж × карта</span></a></div>
+  <div class="legend">
+    <p><b>Все связки собраны из уже существующих карт.</b> Новых карт здесь нет: идея каждой строки —
+    это дописанная строчка на одну из двух карт пары.</p>
+    <p><b>Статика</b> — карта, которая остаётся на столе: стойка, аура, эффект, ловушка, персонаж.
+    <b>Разовая</b> — карта, которая отрабатывает и уходит: оружие, модификатор, действие, групповая,
+    вмешательство, защита. <b>Вмешательства — самый ценный вид разовых в связках:</b> они срабатывают
+    в чужой ход и втягивают в момент третьего игрока.</p>
+  </div>
+
+  <p><b>Разыгрывается одна карта. Вторая остаётся в руке и служит условием или ценой.</b> Сэппуку сама по себе ни при чём — но если у вас на руке Танто и вы готовы его отдать, ритуал совершается по канону. Магатама, которую вы не сыграли, горит в кулаке как победное очко.</p>
+  <p>Именно этим D отличается от C: там обе карты ложатся на стол и обе уходят, здесь вторая карта <b>не разыгрывается</b>. Она либо показывается, либо кладётся под статику залогом, либо тратится.</p>
+  <p><b>Где живёт текст.</b> На разыгрываемой карте — она называет, что должно быть в руке.</p>
+  <p><b>Что группа даёт.</b> Ценность лежащей мёртвым грузом карты. Рука перестаёт быть складом «того, что пока не сыграть»: любая карта может оказаться ключом к другой. И это единственная группа, где решение принимается <b>не о столе, а о собственной руке</b>.</p>
+  <p><b>Родня в копилке механик.</b> Spare cost (<code>new-mechanics-ideas.md</code> №13) — «сбросьте N карт, эффект вырастет в N раз». D отличается <b>специфичностью</b>: просят не «карту», а <b>именно ту</b> — танто, ловушку, Противоядие. Общий сброс уже есть у Саке #109, Кампо #1121, Жертвы крови #120; D не про количество, а про то, что именно вы готовы отдать.</p>
+
+  <h3>Три вида цены</h3>
+  <p>Группа делится на три ясно различимых способа расплатиться картой из руки. Порядок — от самого дешёвого к самому дорогому.</p>
+  <p><b>Показ (見せ札, мисэ-фуда) — карта остаётся в руке.</b> Вы открываете её и кладёте обратно. Цена не в ресурсе, а в информации: в игре с закрытыми руками (мета-правило №9) стол теперь знает, что у вас есть. Самый мягкий вид, годится для мощных эффектов.</p>
+  <p><b>Залог (質札, сити-фуда) — карта кладётся в открытую под статику и заперта.</b> Пока аура или стойка жива, карта лежит под ней и не может быть сыграна; снимется статика — карта возвращается или уходит. Это <b>публичный объект на столе</b>, поэтому мета-правило №8 соблюдено, а карта не исчезает в сброс (мета-правило №7 о темпе). Опирается на идею слотовых карт (<code>new-mechanics-ideas.md</code> №3).</p>
+  <p><b>Трата (捨て札, сутэ-фуда) — карта уходит в сброс.</b> Настоящая цена. Именно поэтому траты в списке должны оставаться редкими: сброс односторонний, и колода, где половина карт — топливо для другой половины, теряет темп.</p>
+  <h3>Правила группы</h3>
+  <ol>
+    <li><b>Условие — всегда о своей руке.</b> Мета-правило №9 и антипаттерн «механики на типе карт в чужой руке»: чужая рука закрыта, и связки вида «если у врага есть оружие» невозможны в принципе.</li>
+    <li><b>Требуемая карта должна быть хороша сама по себе.</b> Иначе она превращается в топливо и нарушает мета-правило №6 («нет мёртвых карт»). Весь интерес — в выборе «сыграть её или отдать за это».</li>
+    <li><b>Проверяется в момент разыгрывания.</b> Состояние руки видно самому игроку, запоминать нечего (мета-правила №1 и №8).</li>
+    <li><b>Показ обязателен и публичен.</b> Нельзя «сказать, что у вас есть» — карта кладётся на стол лицом вверх и возвращается в руку. Иначе это скрытое состояние.</li>
+    <li><b>Залог — только под статику.</b> Разовой карте нечем удерживать залог: она уходит в тот же момент.</li>
+  </ol>
+  <h3>Единственная спорная строка</h3>
+  <p><b>D13 (Подпольная сеть + карта рубашкой вверх)</b> — единственный залог, который кладётся закрытым. Прецедент есть — ловушки лежат на столе закрытыми, — но формально это скрытое состояние, и такую механику стоит либо оставить единственной в колоде, либо отказаться от неё.</p>
+
+  <h2>20 идей группы D</h2>
+  <table>
+    <colgroup><col class="col-num"><col class="col-card"><col class="col-idea"><col class="col-flavor"></colgroup>
+    <thead><tr><th>№</th><th>Разыграно ← в руке</th><th>Цена и эффект</th><th>Флавор</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="num">D1</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=108" title="Сэппуку"></iframe><span class="card-name">#108 Сэппуку <em>действие</em></span></div><span class="plus">←</span><div class="cardbox inhand"><iframe class="card-frame" loading="lazy" src="../app.html?embed=15" title="Танто"></iframe><span class="card-name">#15 Танто <em>оружие</em></span></div></div></td>
+        <td class="idea"><span class="trigger p-show">показ</span>Показав Танто, вы совершаете Сэппуку по канону: союзники берут по карте сверх раздачи, Танто уходит с вами</td>
+        <td class="flavor">切腹 совершают танто — без него это просто смерть</td>
+      </tr>
+      <tr>
+        <td class="num">D2</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=1084" title="Победный удар"></iframe><span class="card-name">#1084 Победный удар <em>модификатор</em></span></div><span class="plus">←</span><div class="cardbox inhand"><iframe class="card-frame" loading="lazy" src="../app.html?embed=118" title="Магатама"></iframe><span class="card-name">#118 Магатама <em>действие</em></span></div></div></td>
+        <td class="idea"><span class="trigger p-show">показ</span>Магатама, показанная из руки, считается победным очком для силы Победного удара</td>
+        <td class="flavor">Камень душ горит в кулаке, пока его не разжали</td>
+      </tr>
+      <tr>
+        <td class="num">D3</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=125" title="Подвиг"></iframe><span class="card-name">#125 Подвиг <em>вмешательство</em></span></div><span class="plus">←</span><div class="cardbox inhand"><iframe class="card-frame" loading="lazy" src="../app.html?embed=48" title="Защита"></iframe><span class="card-name">#48 Защита <em>защита</em></span></div></div></td>
+        <td class="idea"><span class="trigger p-show">показ</span>Показав карту защиты, вы принимаете атаку по Подвигу на 1 рану меньше</td>
+        <td class="flavor">Шагнул под удар — но не с пустыми руками</td>
+      </tr>
+      <tr>
+        <td class="num">D4</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=56" title="Блок"></iframe><span class="card-name">#56 Блок <em>защита</em></span></div><span class="plus">←</span><div class="cardbox inhand"><iframe class="card-frame" loading="lazy" src="../app.html?embed=9" title="Шипастый щит"></iframe><span class="card-name">#9 Шипастый щит <em>оружие</em></span></div></div></td>
+        <td class="idea"><span class="trigger p-show">показ</span>Показав Шипастый щит, ваш Блок наносит атакующему 1 рану</td>
+        <td class="flavor">За блоком всегда шипы</td>
+      </tr>
+      <tr>
+        <td class="num">D5</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=63" title="Ассасин"></iframe><span class="card-name">#63 Ассасин <em>стойка</em></span></div><span class="plus">←</span><div class="cardbox inhand"><iframe class="card-frame" loading="lazy" src="../app.html?embed=50" title="Ядовитые наручи"></iframe><span class="card-name">#50 Ядовитые наручи <em>защита</em></span></div></div></td>
+        <td class="idea"><span class="trigger p-show">показ</span>Показав Ядовитые наручи, вы делаете атаку в стойке <em class="cond">{ассасина}</em> отравленной, не сбрасывая карт</td>
+        <td class="flavor">Яд у него не в склянке, а на запястьях</td>
+      </tr>
+      <tr>
+        <td class="num">D6</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=70" title="Гнев сёгуна"></iframe><span class="card-name">#70 Гнев сёгуна <em>модификатор</em></span></div><span class="plus">←</span><div class="cardbox inhand"><iframe class="card-frame" loading="lazy" src="../app.html?embed=77" title="Длань сёгуна"></iframe><span class="card-name">#77 Длань сёгуна <em>модификатор</em></span></div></div></td>
+        <td class="idea"><span class="trigger p-show">показ</span>Показав Длань сёгуна, Гнев сёгуна не тратит вашу атаку</td>
+        <td class="flavor">Приказ и печать: одно без другого не действует</td>
+      </tr>
+      <tr>
+        <td class="num">D7</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=85" title="Просветление"></iframe><span class="card-name">#85 Просветление <em>вмешательство</em></span></div><span class="plus">←</span><div class="cardbox inhand"><iframe class="card-frame" loading="lazy" src="../app.html?embed=41" title="Силок"></iframe><span class="card-name">#41 Силок <em>ловушка</em></span></div></div></td>
+        <td class="idea"><span class="trigger p-show">показ</span>Показав свою ловушку из руки, вы берёте по Просветлению на 1 карту больше сверх лимита трёх</td>
+        <td class="flavor">Капканы понимает тот, кто их ставит</td>
+      </tr>
+      <tr>
+        <td class="num">D8</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=1209" title="Часовой"></iframe><span class="card-name">#1209 Часовой <em>аура</em></span></div><span class="plus">←</span><div class="cardbox inhand"><iframe class="card-frame" loading="lazy" src="../app.html?embed=32" title="Сюрикен"></iframe><span class="card-name">#32 Сюрикен <em>оружие</em></span></div></div></td>
+        <td class="idea"><span class="trigger p-pledge">залог</span>Часовой выставляется только с метательным оружием под ним; ответная рана бьёт силой этого оружия</td>
+        <td class="flavor">Лук стоит у бойницы, пока стоит часовой</td>
+      </tr>
+      <tr>
+        <td class="num">D9</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=1200" title="Знамя лидера"></iframe><span class="card-name">#1200 Знамя лидера <em>аура</em></span></div><span class="plus">←</span><div class="cardbox inhand"><iframe class="card-frame" loading="lazy" src="../app.html?embed=25" title="Нодати"></iframe><span class="card-name">#25 Нодати <em>оружие</em></span></div></div></td>
+        <td class="idea"><span class="trigger p-pledge">залог</span>Пока оружие лежит под Знаменем, атаки союзников +1 рана. Любой союзник может забрать его — но аура тогда снимается</td>
+        <td class="flavor">Знамя воткнуто в землю копьём</td>
+      </tr>
+      <tr>
+        <td class="num">D10</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=59" title="Лотос"></iframe><span class="card-name">#59 Лотос <em>стойка</em></span></div><span class="plus">←</span><div class="cardbox inhand"><iframe class="card-frame" loading="lazy" src="../app.html?embed=123" title="Имбирь"></iframe><span class="card-name">#123 Имбирь <em>вмешательство</em></span></div></div></td>
+        <td class="idea"><span class="trigger p-pledge">залог</span>Под Лотос кладётся карта, восстанавливающая жизнь: лечение по стойке идёт на 1 больше</td>
+        <td class="flavor">Монах держит снадобье на виду, но не пьёт</td>
+      </tr>
+      <tr>
+        <td class="num">D11</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=1210" title="Арсенал"></iframe><span class="card-name">#1210 Арсенал <em>аура</em></span></div><span class="plus">←</span><div class="cardbox inhand"><iframe class="card-frame" loading="lazy" src="../app.html?embed=1018" title="Манжи Сай"></iframe><span class="card-name">#1018 Манжи Сай <em>оружие</em></span></div></div></td>
+        <td class="idea"><span class="trigger p-pledge">залог</span>В Арсенал кладётся до трёх карт оружия; союзники берут их оттуда по правилам ауры</td>
+        <td class="flavor">Стойка с оружием — это и есть арсенал</td>
+      </tr>
+      <tr>
+        <td class="num">D12</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=5104" title="Доспех"></iframe><span class="card-name">#5104 Доспех <em>эффект</em></span></div><span class="plus">←</span><div class="cardbox inhand"><iframe class="card-frame" loading="lazy" src="../app.html?embed=55" title="Захват"></iframe><span class="card-name">#55 Захват <em>защита</em></span></div></div></td>
+        <td class="idea"><span class="trigger p-pledge">залог</span>Под Доспех кладётся карта защиты: сложность атак по вам +2 вместо +1. Забрали карту — Доспех спадает</td>
+        <td class="flavor">Под латами поддоспешник</td>
+      </tr>
+      <tr>
+        <td class="num">D13</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=1211" title="Подпольная сеть"></iframe><span class="card-name">#1211 Подпольная сеть <em>аура</em></span></div><span class="plus">←</span><div class="cardbox inhand"><iframe class="card-frame" loading="lazy" src="../app.html?embed=35" title="Кунай"></iframe><span class="card-name">#35 Кунай <em>оружие</em></span></div></div></td>
+        <td class="idea"><span class="trigger p-pledge">залог</span>Под Подпольную сеть кладётся карта рубашкой вверх: кто берёт из сети, кладёт туда свою</td>
+        <td class="flavor">Тайник у сети всегда полон</td>
+      </tr>
+      <tr>
+        <td class="num">D14</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=73" title="Хатимаки"></iframe><span class="card-name">#73 Хатимаки <em>модификатор</em></span></div><span class="plus">←</span><div class="cardbox inhand"><iframe class="card-frame" loading="lazy" src="../app.html?embed=17" title="Оно"></iframe><span class="card-name">#17 Оно <em>оружие</em></span></div></div></td>
+        <td class="idea"><span class="trigger p-spend">трата</span>Сбросив карту оружия, Хатимаки можно применить даже на пороге смерти</td>
+        <td class="flavor">Последний рывок — оружие в костёр</td>
+      </tr>
+      <tr>
+        <td class="num">D15</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=44" title="Рикошет"></iframe><span class="card-name">#44 Рикошет <em>защита</em></span></div><span class="plus">←</span><div class="cardbox inhand"><iframe class="card-frame" loading="lazy" src="../app.html?embed=1" title="Катана"></iframe><span class="card-name">#1 Катана <em>оружие</em></span></div></div></td>
+        <td class="idea"><span class="trigger p-spend">трата</span>Сбросив оружие, Рикошет отражает атаку силой этого оружия, а не базовой силой атакующего</td>
+        <td class="flavor">Подставил свой клинок — отдача пошла по его</td>
+      </tr>
+      <tr>
+        <td class="num">D16</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=122" title="Смерть от фугу"></iframe><span class="card-name">#122 Смерть от фугу <em>вмешательство</em></span></div><span class="plus">←</span><div class="cardbox inhand"><iframe class="card-frame" loading="lazy" src="../app.html?embed=116" title="Яд фугу"></iframe><span class="card-name">#116 Яд фугу <em>действие</em></span></div></div></td>
+        <td class="idea"><span class="trigger p-spend">трата</span>Сбросив Яд фугу, вмешательство наносит 4 раны вместо 2</td>
+        <td class="flavor">Второй кусок той же рыбы</td>
+      </tr>
+      <tr>
+        <td class="num">D17</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=121" title="Исцеление"></iframe><span class="card-name">#121 Исцеление <em>вмешательство</em></span></div><span class="plus">←</span><div class="cardbox inhand"><iframe class="card-frame" loading="lazy" src="../app.html?embed=92" title="Противоядие"></iframe><span class="card-name">#92 Противоядие <em>эффект</em></span></div></div></td>
+        <td class="idea"><span class="trigger p-spend">трата</span>Сбросив Противоядие, Исцеление действует на всех отравленных союзников</td>
+        <td class="flavor">Одну склянку разливают на всех</td>
+      </tr>
+      <tr>
+        <td class="num">D18</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=112" title="Сапёр"></iframe><span class="card-name">#112 Сапёр <em>действие</em></span></div><span class="plus">←</span><div class="cardbox inhand"><iframe class="card-frame" loading="lazy" src="../app.html?embed=45" title="Поганка"></iframe><span class="card-name">#45 Поганка <em>ловушка</em></span></div></div></td>
+        <td class="idea"><span class="trigger p-spend">трата</span>Сбросив свою ловушку, Сапёр обезвреживает все ловушки перед одним игроком, а не одну</td>
+        <td class="flavor">Он знает устройство, потому что носит такую же</td>
+      </tr>
+      <tr>
+        <td class="num">D19</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=129" title="Воровство"></iframe><span class="card-name">#129 Воровство <em>действие</em></span></div><span class="plus">←</span><div class="cardbox inhand"><iframe class="card-frame" loading="lazy" src="../app.html?embed=22" title="Дзюттэ"></iframe><span class="card-name">#22 Дзюттэ <em>оружие</em></span></div></div></td>
+        <td class="idea"><span class="trigger p-spend">трата</span>Сбросив карту в открытую, вы забираете у цели карту того же типа, а не случайную</td>
+        <td class="flavor">Меняешь подобное на подобное</td>
+      </tr>
+      <tr>
+        <td class="num">D20</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=114" title="Передышка"></iframe><span class="card-name">#114 Передышка <em>действие</em></span></div><span class="plus">←</span><div class="cardbox inhand"><iframe class="card-frame" loading="lazy" src="../app.html?embed=24" title="Бо"></iframe><span class="card-name">#24 Бо <em>оружие</em></span></div></div></td>
+        <td class="idea"><span class="trigger p-spend">трата</span>Сбросив оружие, Передышка восстанавливает до полного и вас, и одного союзника</td>
+        <td class="flavor">Воин опускает клинок, чтобы перевязать товарища</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="legend">
+  <p><b>D1 и D2 переехали сюда из группы C.</b> В первом черновике они стояли как сцепки разовых карт, но это неверно: ни Танто, ни Магатама не разыгрываются. Танто показывается и уходит вместе с игроком, Магатама остаётся в руке до конца партии. Обе — классический on-hand.</p>
+  <p><b>D8–D12 стоит читать вместе с группой B.</b> Залог превращает ауру из строки текста в физический объект с содержимым: под Знаменем лежит копьё, под Арсеналом — три клинка, под Доспехом — поддоспешник. Это самый сильный ответ на вопрос «как сделать ауры непохожими друг на друга»: они начинают отличаться не числом в тексте, а тем, что под ними лежит.</p>
+  </div>
+
+</body>
+</html>

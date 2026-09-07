@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Мета-группа A — 型と技 «ката и вадза», форма и приём</title>
+  <style>
+    body {
+      font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      max-width: 1560px; margin: 24px auto; padding: 0 20px 60px;
+      color: #1a1a1a; line-height: 1.5; background: #fffdf9;
+    }
+    h1 { font-size: 27px; margin-bottom: 4px; }
+    h1 .jp { font-weight: 400; color: #8a7a55; margin-left: 10px; font-size: 20px; }
+    h2 { font-size: 20px; margin-top: 34px; border-bottom: 2px solid #d8d3c8; padding-bottom: 6px; }
+    h3 { font-size: 16px; margin-top: 24px; }
+    p, li { font-size: 14px; }
+    .sub { color: #666; font-size: 14px; margin-top: 0; }
+    .nav { margin: 14px 0 22px; font-size: 13px; }
+    .nav a { display: inline-block; margin-right: 6px; padding: 4px 11px; border-radius: 13px;
+             background: #f0ece2; color: #4a4330; text-decoration: none; border: 1px solid #ddd6c6; }
+    .nav a:hover { background: #e5dfd0; }
+    .nav a.here { background: #43525a; color: #fff; border-color: #43525a; }
+    .legend { background: #f5f3ee; border-left: 3px solid #9b8755; padding: 12px 16px; margin: 16px 0; font-size: 13px; }
+    .legend code { background: #ece8de; padding: 1px 5px; border-radius: 3px; }
+    .legend p:first-child { margin-top: 0; } .legend p:last-child { margin-bottom: 0; }
+    .warn { border-left-color: #b5442e; background: #fbf1ee; }
+    table { border-collapse: collapse; width: 100%; margin: 20px 0 8px; table-layout: fixed; }
+    col.col-num { width: 46px; } col.col-card { width: 600px; }
+    col.col-idea { width: auto; } col.col-flavor { width: 290px; }
+    th, td { border: 1px solid #d8d3c8; padding: 10px 14px; vertical-align: top; font-size: 14px; line-height: 1.5; }
+    th { background: #f5f3ee; text-align: left; font-weight: 600; }
+    td.num { text-align: center; color: #8a7a55; font-weight: 600; font-size: 13px; padding: 10px 4px; }
+    td.card-cell { padding: 6px; background: #fafafa; }
+    .pair { display: flex; align-items: center; justify-content: center; gap: 4px; }
+    .cardbox { text-align: center; }
+    iframe.card-frame { width: 272px; height: 434px; border: 0; display: block; }
+    .card-name { display: block; margin-top: 2px; font-size: 11px; color: #555; }
+    .card-name em { color: #8a7a55; font-style: normal; }
+    .plus { font-size: 22px; color: #9b8755; font-weight: 600; flex: 0 0 auto; }
+    .cardbox.inhand iframe { opacity: .82; }
+    .cardbox.inhand { background: #f2eee2; border-radius: 6px; padding: 3px; }
+    .cardbox.inhand .card-name::before { content: "в руке · "; color: #8a7a55; }
+    td.idea { background: #fcfbf7; }
+    td.flavor { color: #5a5344; font-style: italic; background: #f9f8f4; }
+    .cond { font-style: normal; background: #ece8de; border-radius: 3px; padding: 0 4px; }
+    .trigger { display: block; width: fit-content; background: #43525a; color: #fff; border-radius: 10px;
+               padding: 1px 9px; font-size: 11px; margin-bottom: 6px; font-style: normal; }
+    .trigger.p-show { background: #6C8CC7; } .trigger.p-pledge { background: #A78B6B; }
+    .trigger.p-spend { background: #b5442e; }
+  </style>
+</head>
+<body>
+
+  <h1>🥋 Связки A<span class="jp">型と技 — «ката и вадза», форма и приём</span></h1>
+  <p class="sub">Статика × разовая. Черновик от 07.09.2026. Текстовая версия — <code>synergy_a_card_ideas.md</code>.</p>
+  <div class="nav"><a class="here" href="synergy_a_card_ideas.html">A · 型と技 <span style="opacity:.7">статика × разовая</span></a><a class="" href="synergy_b_card_ideas.html">B · 布陣 <span style="opacity:.7">статика × статика</span></a><a class="" href="synergy_c_card_ideas.html">C · 連携 <span style="opacity:.7">разовая × разовая</span></a><a class="" href="synergy_d_card_ideas.html">D · 手の内 <span style="opacity:.7">разыгранная × карта в руке</span></a><a class="" href="synergy_e_card_ideas.html">E · 流派 <span style="opacity:.7">персонаж × карта</span></a></div>
+  <div class="legend">
+    <p><b>Все связки собраны из уже существующих карт.</b> Новых карт здесь нет: идея каждой строки —
+    это дописанная строчка на одну из двух карт пары.</p>
+    <p><b>Статика</b> — карта, которая остаётся на столе: стойка, аура, эффект, ловушка, персонаж.
+    <b>Разовая</b> — карта, которая отрабатывает и уходит: оружие, модификатор, действие, групповая,
+    вмешательство, защита. <b>Вмешательства — самый ценный вид разовых в связках:</b> они срабатывают
+    в чужой ход и втягивают в момент третьего игрока.</p>
+  </div>
+
+  <p><b>Выставленная карта меняет то, как отрабатывает разыгранная.</b> Это самая освоенная группа: колода уже говорит на этом языке — <code>В стойке {всадника} наносит на одну рану больше</code> (Яри #29), <code>{При наличии стойки}</code> (Выпад #68), <code>{При наличии ловушки}</code> (Скрытый кинжал #49).</p>
+  <p><b>Где живёт текст.</b> На разовой карте. Условие читается в момент разыгрывания, статика только проверяется — так связка не создаёт фоновой нагрузки (мета-правило №12).</p>
+  <p><b>Что группа даёт.</b> Награду за планирование: стойку выставляют заранее, не зная, придёт ли нужное оружие. Единственная группа, где риск лежит на самом игроке, а не на столе.</p>
+  <p><b>Чего избегать.</b> Плоского «+1 рана» без образа (мета-правило №11) и условий, которые выполняются почти всегда — иначе бонус становится базовой силой карты.</p>
+
+  <h3>Новый словарь: <code>{Под аурой X}</code></h3>
+  <p>Ауры в колоде появились недавно (12 карт, все qty=1), и условного бейджа под них ещё нет. Предлагается <code>{Под аурой Стратега}</code> по образцу существующих <code>{В стойке капеллана}</code> — аура действует на носителя и всех союзников, так что условие проверяется тем же взглядом на стол.</p>
+  <h3>Ауры должны звучать по-разному</h3>
+  <p>Сейчас половина аур — числовые: +1 рана, −1 рана, +1 сложность, +1 карта. Это работает, но не даёт им лица. Связки — самый дешёвый способ добавить характер, ничего не переписывая: Бочка зловония, которую можно <b>взорвать</b> (A12), Знамя, которое <b>освобождает своих от собственного клича</b> (A9), Стратег, который <b>делит стол на своих и чужих</b> (A10). После такой строки аура запоминается не числом, а поступком.</p>
+  <h3>Персонажей здесь нет</h3>
+  <p>Всё, где одна из двух карт — персонаж, вынесено в группу E (<code>synergy_e_card_ideas.md</code>). Пять строк, стоявших раньше в A16–A20 — Сайго, Иё, Хандзо, Норио, Манасэ, — переехали туда и стали E6–E10.</p>
+
+  <h2>20 идей группы A</h2>
+  <table>
+    <colgroup><col class="col-num"><col class="col-card"><col class="col-idea"><col class="col-flavor"></colgroup>
+    <thead><tr><th>№</th><th>Связка</th><th>Эффект связки</th><th>Флавор</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="num">A1</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=1166" title="Лучник"></iframe><span class="card-name">#1166 Лучник <em>стойка</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=87" title="Шквал огня"></iframe><span class="card-name">#87 Шквал огня <em>групповая</em></span></div></div></td>
+        <td class="idea">В стойке <em class="cond">{лучника}</em> Шквал огня снимает ограничение «максимум 1 удар в одну цель»: можно вложить две карты в одного игрока</td>
+        <td class="flavor">Лучник не сеет стрелы веером — он выбирает одного и добивает</td>
+      </tr>
+      <tr>
+        <td class="num">A2</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=58" title="Всадник"></iframe><span class="card-name">#58 Всадник <em>стойка</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=28" title="Нагината"></iframe><span class="card-name">#28 Нагината <em>оружие</em></span></div></div></td>
+        <td class="idea">В стойке <em class="cond">{всадника}</em> Нагината берёт и сложность 1 — её «нижний порог» снимается</td>
+        <td class="flavor">С седла древко достаёт и того, кто под копытами</td>
+      </tr>
+      <tr>
+        <td class="num">A3</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=60" title="Щитоносец"></iframe><span class="card-name">#60 Щитоносец <em>стойка</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=44" title="Рикошет"></iframe><span class="card-name">#44 Рикошет <em>защита</em></span></div></div></td>
+        <td class="idea">В стойке <em class="cond">{щитоносца}</em> Рикошет наносит на 1 рану больше, и от него нельзя защититься</td>
+        <td class="flavor">Удар в окованный щит уходит обратно всей массой</td>
+      </tr>
+      <tr>
+        <td class="num">A4</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=62" title="Капеллан"></iframe><span class="card-name">#62 Капеллан <em>стойка</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=1121" title="Кампо"></iframe><span class="card-name">#1121 Кампо <em>действие</em></span></div></div></td>
+        <td class="idea">В стойке <em class="cond">{капеллана}</em> восстановленные жизни Кампо можно разделить между любыми игроками, а не отдать одному</td>
+        <td class="flavor">Полевой лазарет: травы кипятят сразу на всех</td>
+      </tr>
+      <tr>
+        <td class="num">A5</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=63" title="Ассасин"></iframe><span class="card-name">#63 Ассасин <em>стойка</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=64" title="Флакон яда"></iframe><span class="card-name">#64 Флакон яда <em>модификатор</em></span></div></div></td>
+        <td class="idea">В стойке <em class="cond">{ассасина}</em> Флакон яда возвращается вам в руку, если атака убила цель</td>
+        <td class="flavor">У ассасина склянка пустеет только на живых</td>
+      </tr>
+      <tr>
+        <td class="num">A6</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=1165" title="Мусин"></iframe><span class="card-name">#1165 Мусин <em>стойка</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=114" title="Передышка"></iframe><span class="card-name">#114 Передышка <em>действие</em></span></div></div></td>
+        <td class="idea">В стойке <em class="cond">{мусин}</em> Передышка не тратит действие</td>
+        <td class="flavor">Пустой ум восстанавливается сам, между двумя вдохами</td>
+      </tr>
+      <tr>
+        <td class="num">A7</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=1164" title="Кэцубан"></iframe><span class="card-name">#1164 Кэцубан <em>стойка</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=52" title="Чудо Бенкэя"></iframe><span class="card-name">#52 Чудо Бенкэя <em>защита</em></span></div></div></td>
+        <td class="idea">В стойке <em class="cond">{кэцубан}</em> союзник, принявший часть ран по Чуду Бенкэя, тоже берёт карту за каждую</td>
+        <td class="flavor">Кровная печать делит и боль, и добычу</td>
+      </tr>
+      <tr>
+        <td class="num">A8</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=1209" title="Часовой"></iframe><span class="card-name">#1209 Часовой <em>аура</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=124" title="Удар дракона"></iframe><span class="card-name">#124 Удар дракона <em>вмешательство</em></span></div></div></td>
+        <td class="idea"><em class="cond">{Под аурой Часового}</em> Удар дракона по врагу, только что ранившему союзника, наносит 2 раны</td>
+        <td class="flavor">Часовой поднимает тревогу — стрела летит следом</td>
+      </tr>
+      <tr>
+        <td class="num">A9</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=1200" title="Знамя лидера"></iframe><span class="card-name">#1200 Знамя лидера <em>аура</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=90" title="Боевой крик"></iframe><span class="card-name">#90 Боевой крик <em>групповая</em></span></div></div></td>
+        <td class="idea"><em class="cond">{Под аурой Знамени лидера}</em> Боевой крик не задевает союзников: они кричат вместе с вами</td>
+        <td class="flavor">Клич под знаменем свой узнаёт</td>
+      </tr>
+      <tr>
+        <td class="num">A10</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=1205" title="Стратег"></iframe><span class="card-name">#1205 Стратег <em>аура</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=84" title="Чайная церемония"></iframe><span class="card-name">#84 Чайная церемония <em>групповая</em></span></div></div></td>
+        <td class="idea"><em class="cond">{Под аурой Стратега}</em> вторая ветка Чайной церемонии даёт союзникам по 3 карты, врагам — по 1</td>
+        <td class="flavor">За чаем стратег говорит только со своими</td>
+      </tr>
+      <tr>
+        <td class="num">A11</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=1206" title="Дымовая завеса"></iframe><span class="card-name">#1206 Дымовая завеса <em>аура</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=32" title="Сюрикен"></iframe><span class="card-name">#32 Сюрикен <em>оружие</em></span></div></div></td>
+        <td class="idea"><em class="cond">{Под аурой Дымовой завесы}</em> ваши метательные атаки нельзя заблокировать защитой</td>
+        <td class="flavor">Свои знают, где стоять; чужие ловят вслепую</td>
+      </tr>
+      <tr>
+        <td class="num">A12</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=1203" title="Бочка зловония"></iframe><span class="card-name">#1203 Бочка зловония <em>аура</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=88" title="Кислотный взрыв"></iframe><span class="card-name">#88 Кислотный взрыв <em>групповая</em></span></div></div></td>
+        <td class="idea"><em class="cond">{Под аурой Бочки зловония}</em> Кислотный взрыв срабатывает и сносит саму ауру — бочка взрывается</td>
+        <td class="flavor">Бочку поджигают, и она уходит вместе с врагом</td>
+      </tr>
+      <tr>
+        <td class="num">A13</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=1208" title="Полевая медицина"></iframe><span class="card-name">#1208 Полевая медицина <em>аура</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=81" title="Онсэн"></iframe><span class="card-name">#81 Онсэн <em>групповая</em></span></div></div></td>
+        <td class="idea"><em class="cond">{Под аурой Полевой медицины}</em> Онсэн снимает с ваших союзников любые эффекты, а не только яд</td>
+        <td class="flavor">Горячий источник и полевой лекарь смывают всё</td>
+      </tr>
+      <tr>
+        <td class="num">A14</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=91" title="Метка убийцы"></iframe><span class="card-name">#91 Метка убийцы <em>эффект</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=1081" title="Финальный удар"></iframe><span class="card-name">#1081 Финальный удар <em>модификатор</em></span></div></div></td>
+        <td class="idea">Финальный удар по игроку с Меткой убийцы нельзя заблокировать защитой</td>
+        <td class="flavor">Помеченного добивают, и никто не встаёт между</td>
+      </tr>
+      <tr>
+        <td class="num">A15</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=4104" title="Проклятье"></iframe><span class="card-name">#4104 Проклятье <em>эффект</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=1133" title="Камикадзе"></iframe><span class="card-name">#1133 Камикадзе <em>действие</em></span></div></div></td>
+        <td class="idea">Камикадзе по проклятому игроку требует сбросить только половину руки</td>
+        <td class="flavor">Проклятого уже ведёт смерть — довольно толкнуть</td>
+      </tr>
+      <tr>
+        <td class="num">A16</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=57" title="Тень"></iframe><span class="card-name">#57 Тень <em>стойка</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=129" title="Воровство"></iframe><span class="card-name">#129 Воровство <em>действие</em></span></div></div></td>
+        <td class="idea">В стойке <em class="cond">{тени}</em> Воровство забирает две карты вместо одной</td>
+        <td class="flavor">У трупа не следят за руками</td>
+      </tr>
+      <tr>
+        <td class="num">A17</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=60" title="Щитоносец"></iframe><span class="card-name">#60 Щитоносец <em>стойка</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=82" title="Миротворцы"></iframe><span class="card-name">#82 Миротворцы <em>групповая</em></span></div></div></td>
+        <td class="idea">В стойке <em class="cond">{щитоносца}</em> карты защиты, сброшенные врагами по Миротворцам, достаются вам, а не в сброс</td>
+        <td class="flavor">Щитоносец подбирает всё, что бросили</td>
+      </tr>
+      <tr>
+        <td class="num">A18</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=61" title="Мастер боя"></iframe><span class="card-name">#61 Мастер боя <em>стойка</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=80" title="Критический удар"></iframe><span class="card-name">#80 Критический удар <em>модификатор</em></span></div></div></td>
+        <td class="idea">В стойке <em class="cond">{мастера боя}</em> Критический удар не тратит атаку, если цель защитилась</td>
+        <td class="flavor">Мастер не роняет темп на чужом блоке</td>
+      </tr>
+      <tr>
+        <td class="num">A19</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=5104" title="Доспех"></iframe><span class="card-name">#5104 Доспех <em>эффект</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=79" title="Насквозь"></iframe><span class="card-name">#79 Насквозь <em>модификатор</em></span></div></div></td>
+        <td class="idea">Насквозь снимает с цели Доспех насовсем — карта уходит в сброс, а не просто игнорируется</td>
+        <td class="flavor">Пробитый доспех больше не доспех</td>
+      </tr>
+      <tr>
+        <td class="num">A20</td>
+        <td class="card-cell"><div class="pair"><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=4104" title="Проклятье"></iframe><span class="card-name">#4104 Проклятье <em>эффект</em></span></div><span class="plus">+</span><div class="cardbox "><iframe class="card-frame" loading="lazy" src="../app.html?embed=1083" title="Кубитори"></iframe><span class="card-name">#1083 Кубитори <em>модификатор</em></span></div></div></td>
+        <td class="idea">Убив Кубитори проклятого врага, вы забираете всё, кроме Проклятья</td>
+        <td class="flavor">首取り берёт голову, но не судьбу</td>
+      </tr>
+    </tbody>
+  </table>
+
+</body>
+</html>
