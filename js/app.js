@@ -620,12 +620,24 @@ $(function () {
       // Слой 5: иконка группы — поверх маски, по центру низа плашки заголовка
       // Если для группы нет media/<group>.png (например, новая группа без
       // иконки), .on('error') скрывает <img> вместо показа ломаной картинки.
-      $('<img>', {
-        class: 'card-group-icon',
-        src: 'media/' + (card.group === 'effect' ? 'effect8' : card.group) + '.png',
-        alt: '',
-        draggable: false
-      }).on('error', function () { $(this).hide(); }),
+      $('<span>', { class: 'card-group-icon' }).append(
+        $('<img>', {
+          class: 'card-group-disc',
+          src: 'media/type_disc.png',
+          alt: '',
+          draggable: false
+        }),
+        $('<img>', {
+          class: 'card-group-glyph',
+          src: 'media/types/' + card.group + '.svg',
+          alt: '',
+          draggable: false
+        }).on('error', function () {
+          // Прячем кружок целиком, а не только силуэт: пустая белая
+          // нашлёпка выглядела бы поломкой, а не «нет иконки».
+          $(this).closest('.card-group-icon').hide();
+        })
+      ),
 
       // Слой 4: жёлтая плашка с описанием внизу (только если есть текст)
       buildDescWrap(card)
