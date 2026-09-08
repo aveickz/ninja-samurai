@@ -639,7 +639,7 @@ $(function () {
         })(),
         $('<img>', {
           class: 'card-group-disc',
-          src: 'media/type_tab.png',
+          src: 'media/type_disc.png',
           alt: '',
           draggable: false
         }),
