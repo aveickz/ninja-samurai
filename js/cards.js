@@ -280,7 +280,7 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["melee1", "dmg1"],
-    tags: [],
+    tags: ["trash"],
     desc: "",
     enDesc: "",
     img: "cards/card_17_ono.png"
@@ -293,7 +293,7 @@ const CARDS = [
     qty: 1,
     group: "weapon",
     icons: ["melee1", "dmg1"],
-    tags: [],
+    tags: ["trash"],
     desc: "",
     enDesc: "",
     img: "cards/card_nata.png"
@@ -332,7 +332,7 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["melee1", "dmg1"],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Атакуемый игрок скидывает случайную карту в случае успешной атаки.",
     enDesc: "On a successful attack, the target discards a random card.",
     img: "cards/card_23_yavara.png"
@@ -627,6 +627,58 @@ const CARDS = [
     desc: "",
     enDesc: "",
     img: "cards/card_36_kunay.png"
+  },
+  {
+    id: 318,
+    title: "Утинэ",
+    enTitle: "Uchine",
+    types: ["weapon"],
+    qty: 1,
+    group: "weapon",
+    icons: ["ranged", "dmg1"],
+    tags: ["toPrint"],
+    desc: "TODO: механика возврата. Задумано — после успешной атаки оружие возвращается вам в руку по шнуру, но любой игрок может вмешаться и перерезать шнур. Развести с Бумерангом #36, у которого возврат безусловный и без контригры.",
+    enDesc: "TODO: the return mechanic. The intent — after a successful attack the weapon comes back to your hand along its cord, but any player may intervene and cut the cord. Needs separating from the Boomerang #36, whose return is unconditional and has no counterplay.",
+    img: "cards/card_318_utine.png"
+  },
+  {
+    id: 319,
+    title: "Содэгарами",
+    enTitle: "Sodegarami",
+    types: ["weapon"],
+    qty: 1,
+    group: "weapon",
+    icons: ["melee2", "dmg1"],
+    tags: ["toPrint"],
+    desc: "TODO: захват вместо урона. Задумано — вместо ран забирает карту из руки цели: рукавоплётом валили, не убивая. Развести с Манрики #27 и Кёкэцусёгэ #26, которые уже забирают карту при успешной атаке.",
+    enDesc: "TODO: capture instead of damage. The intent — it takes a card from the target's hand instead of dealing wounds: the sleeve entangler brought a man down without killing him. Needs separating from the Manriki #27 and the Kyoketsu-shoge #26, which already take a card on a successful attack.",
+    img: "cards/card_319_sodegarami.png"
+  },
+  {
+    id: 320,
+    title: "Фукия",
+    enTitle: "Fukiya",
+    types: ["weapon"],
+    qty: 1,
+    group: "weapon",
+    icons: ["ranged", "dmg1"],
+    tags: ["toPrint"],
+    desc: "TODO: тишина. Задумано — выстрел не будит ловушку и не тратит попытку атаки. Решить, что из двух оставить: обе сразу почти наверняка слишком сильно.",
+    enDesc: "TODO: silence. The intent — the shot neither triggers a Trap nor uses up an attack. Decide which of the two to keep: both at once is almost certainly too strong.",
+    img: "cards/card_320_fukiya.png"
+  },
+  {
+    id: 321,
+    title: "Сайхай",
+    enTitle: "Saihai",
+    types: ["weapon"],
+    qty: 1,
+    group: "weapon",
+    icons: ["melee1", "dmg0"],
+    tags: ["toPrint"],
+    desc: "TODO: это не оружие. Сила атаки 0 — ударить им нельзя вообще. Задумано, что жезл распоряжается: задаёт, кто берёт карты или ходит следующим. Решить, остаётся ли карта в группе оружия или уезжает в действия.",
+    enDesc: "TODO: this is not a weapon. Attack power 0 — it cannot strike at all. The intent is that the baton commands: it decides who draws cards or who acts next. Decide whether the card stays in the weapon group or moves to actions.",
+    img: "cards/card_321_saihai.png"
   },
 
   // ── ЛОВУШКИ (стр. 7) ─────────────────────────────────────────────
