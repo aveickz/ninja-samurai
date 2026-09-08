@@ -481,6 +481,10 @@ $(function () {
   var MASK_VARIANTS  = 4;
   var DELIM_VARIANTS = 3;
 
+  // Группы без значка типа: у ролей и персонажей тип карты ничего не
+  // говорит игроку — это не игровые карты (ср. NON_PLAYABLE_GROUPS).
+  var NO_GROUP_ICON = ['character', 'role'];
+
   function maskSrc(card) {
     return 'media/mask_' + ((card.id || 0) % MASK_VARIANTS) + '.png';
   }
@@ -621,13 +625,13 @@ $(function () {
           )
         : null,
 
-      // Слой 5: иконка группы — поверх маски, по центру низа плашки заголовка
-      // Если для группы нет media/<group>.png (например, новая группа без
-      // иконки), .on('error') скрывает <img> вместо показа ломаной картинки.
+      // Слой 5: значок типа — арка поверх маски, по центру низа плашки.
+      // Персонажам и ролям не рисуется: это не игровые карты, тип у них
+      // ничего не сообщает (см. NON_PLAYABLE_GROUPS).
+      NO_GROUP_ICON.indexOf(card.group) !== -1 ? null :
       $('<span>', { class: 'card-group-icon' }).append(
         // Заливка кружка повторяет фон плашки заголовка один в один.
-        // Силуэт поверх неё белый — как и текст названия на той же
-        // плашке; исключение то же самое, персонажи (см. card.css).
+        // Силуэт поверх неё белый — как и текст названия на той же плашке.
         (function () {
           var $fill = $('<span>', { class: 'card-group-fill' });
           if (titleBg) $fill.css('background', titleBg);

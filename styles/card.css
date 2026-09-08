@@ -194,7 +194,9 @@
 
 /* Значок типа карты, три слоя снизу вверх:
    .card-group-fill  — ровный круг в цвет плашки заголовка (inline из app.js)
-   .card-group-disc  — media/type_disc.png, ТОЛЬКО рваный обод, серёдка пуста
+   .card-group-disc  — media/type_disc.png, только НИЖНЯЯ половина обода:
+                       верхняя приходится на плашку заголовка и там лишь
+                       рвала линию перекладины, теперь сверху прозрачно
    .card-group-glyph — media/types/<group>.svg, силуэт группы
    Тон #2E2A28 запечён в самих SVG (через <img> currentColor берётся из
    дефолта картинки, а не из CSS-color родителя), но поверх него ниже
@@ -229,13 +231,6 @@
   display: block;
 }
 
-/* У персонажей плашка заголовка не цветная, а бумажная — значит и
-   заливка кружка должна быть бумажной, иначе «как у заголовка» не
-   выполняется. Inline-цвет для них из app.js не ставится. */
-.card-character .card-group-fill {
-  background: url('../media/paper.png') center / cover no-repeat;
-}
-
 .card-group-disc,
 .card-group-glyph {
   position: absolute;
@@ -254,12 +249,6 @@
   padding: 26%;
   box-sizing: border-box;
   filter: brightness(0) invert(1);
-}
-
-/* Персонажи — то же исключение, что и у .card-character .card-title:
-   плашка бумажная, значит и силуэт на ней тёмный. */
-.card-character .card-group-glyph {
-  filter: none;
 }
 
 .card-title {
