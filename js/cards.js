@@ -1945,7 +1945,7 @@ const CARDS = [
     qty: 1,
     group: "action",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Сыграв эту карту, можете сбросить любое необходимое количество карт, восстановив за каждую 1 жизнь.",
     enDesc: "Play this card and discard as many cards as you need, restoring 1 life for each.",
     img: "cards/card_kampo.png"
