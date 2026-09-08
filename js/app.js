@@ -520,6 +520,11 @@ $(function () {
   function buildCard(card) {
     var typeClasses = $.map(card.types, function (t) { return 'type-' + t; }).join(' ');
 
+    // Тон группы. Плашка заголовка у персонажей его не берёт (там
+    // бумажный фон из CSS), а кружку типа он нужен всегда — иначе
+    // заливка осталась бы бесцветной.
+    var groupTint = card.titleBgColor || GROUP_TITLE_COLOR[card.group] || '#2E2A28';
+
     // Внутренний блок арта — маска + заголовок + описание
     var $card = $('<div>', { class: 'card' }).append(
 
@@ -621,6 +626,10 @@ $(function () {
       // Если для группы нет media/<group>.png (например, новая группа без
       // иконки), .on('error') скрывает <img> вместо показа ломаной картинки.
       $('<span>', { class: 'card-group-icon' }).append(
+        // Заливка кружка: белый круг из CSS (::before), поверх него
+        // тон группы. Цвет живёт в стилях, а не запечён в PNG, —
+        // иначе белая серёдка дралась бы с цветными плашками.
+        $('<span>', { class: 'card-group-fill' }).css('background', groupTint),
         $('<img>', {
           class: 'card-group-disc',
           src: 'media/type_disc.png',
