@@ -1828,7 +1828,7 @@ const CARDS = [
     qty: 3,
     group: "action",
     icons: ["rolectx"],
-    tags: [],
+    tags: ["toPrint"],
     desc: "{Самурай} может обезвредить ловушку, скинув 1 жетон жизни.[NL]{Ниндзя} может украсть ловушку.[NL]Вне зависимости от роли, можете скинуть эту карту, чтобы взять две новых из колоды.",
     enDesc: "A {Samurai} may disarm a Trap by spending 1 life.[NL]A {Ninja} may steal the Trap.[NL]Whatever your role, you may discard this card to draw two new ones.",
     img: "cards/card_111_sapyor.png"
