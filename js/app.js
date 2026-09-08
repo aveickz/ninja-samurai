@@ -27,16 +27,16 @@ $(function () {
   var GROUP_TITLE_COLOR = {
     defense:      '#dca300',
     trap:         '#43525A',
-    weapon:       '#231F20',
+    weapon:       '#2E2A28',
     stance:       '#A78B6B',
     modifier:     '#ED1C24',
-    aoe:          '#231F20',
+    aoe:          '#2E2A28',
     aura:     '#93a32e',
-    effect:       '#231F20',
+    effect:       '#2E2A28',
     intervention: '#3B8476',
     character:    '#ddd',
     role:         '#5d3c75',
-    action:       '#231F20',
+    action:       '#2E2A28',
     trash:        '#3a3a3a'
   };
 
@@ -470,6 +470,25 @@ $(function () {
   // Вынесена из buildCard отдельной функцией: при переключении языка
   // содержимое плашки пересобирается на месте, без перестройки всей
   // карточки (см. applyLanguage).
+  // ── Варианты рамки и разделителя ──────────────────────────────────
+  // Маска и разделитель нарисованы в нескольких экземплярах с ОДНИМИ И
+  // ТЕМИ ЖЕ параметрами, но разным зерном шума: характер штриха,
+  // толщина, геометрия и тон совпадают, а конкретные зубцы отличаются.
+  // Экземпляр выбирается по остатку от деления id карты — выбор
+  // детерминированный, у карты всегда одна и та же рамка, но на
+  // печатном листе 3×3 соседи перестают повторять друг друга пиксель
+  // в пиксель. Файлы: media/mask_0..3.png, media/delimiter_0..2.png.
+  var MASK_VARIANTS  = 4;
+  var DELIM_VARIANTS = 3;
+
+  function maskSrc(card) {
+    return 'media/mask_' + ((card.id || 0) % MASK_VARIANTS) + '.png';
+  }
+
+  function delimiterSrc(card) {
+    return 'media/delimiter_' + ((card.id || 0) % DELIM_VARIANTS) + '.png';
+  }
+
   function buildDescWrap(card) {
     var desc = cardDesc(card);
     if (!desc) return null;
@@ -492,7 +511,7 @@ $(function () {
     }
 
     return $('<div>', { class: 'card-desc-wrap' }).append(
-      $('<img>', { class: 'card-delimiter', src: 'media/delimiter.png', alt: '', draggable: false }),
+      $('<img>', { class: 'card-delimiter', src: delimiterSrc(card), alt: '', draggable: false }),
       $descContent
     );
   }
@@ -566,19 +585,19 @@ $(function () {
         : null,
 
       // Слой 3: маска/рамка поверх арта
-      $('<img>', { class: 'card-mask', src: 'media/mask.png', alt: '', draggable: false }),
+      $('<img>', { class: 'card-mask', src: maskSrc(card), alt: '', draggable: false }),
 
       // Слой 3: заголовок в верхней полосе маски
       // Приоритет фона:
       //   1. card.titleBgColor (per-card override) — самый высокий
       //   2. для group=character ничего inline не ставим — паперовый
       //      фон задаёт CSS-правило .card-character .card-title-wrap
-      //   3. иначе GROUP_TITLE_COLOR[group] || '#231F20'
+      //   3. иначе GROUP_TITLE_COLOR[group] || '#2E2A28'
       (function () {
         var titleBg = card.titleBgColor
                    || (card.group === 'character'
                          ? null
-                         : (GROUP_TITLE_COLOR[card.group] || '#231F20'));
+                         : (GROUP_TITLE_COLOR[card.group] || '#2E2A28'));
         var $tw = $('<div>', { class: 'card-title-wrap' });
         if (titleBg) $tw.css('background', titleBg);
         $tw.append(
