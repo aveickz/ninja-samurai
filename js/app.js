@@ -520,10 +520,13 @@ $(function () {
   function buildCard(card) {
     var typeClasses = $.map(card.types, function (t) { return 'type-' + t; }).join(' ');
 
-    // Тон группы. Плашка заголовка у персонажей его не берёт (там
-    // бумажный фон из CSS), а кружку типа он нужен всегда — иначе
-    // заливка осталась бы бесцветной.
-    var groupTint = card.titleBgColor || GROUP_TITLE_COLOR[card.group] || '#2E2A28';
+    // Фон плашки заголовка. Тот же цвет идёт в заливку кружка типа —
+    // один в один. У персонажей здесь null: плашке и кружку бумажный
+    // фон задаёт CSS (.card-character .card-title-wrap / -group-fill).
+    var titleBg = card.titleBgColor
+               || (card.group === 'character'
+                     ? null
+                     : (GROUP_TITLE_COLOR[card.group] || '#2E2A28'));
 
     // Внутренний блок арта — маска + заголовок + описание
     var $card = $('<div>', { class: 'card' }).append(
@@ -599,10 +602,6 @@ $(function () {
       //      фон задаёт CSS-правило .card-character .card-title-wrap
       //   3. иначе GROUP_TITLE_COLOR[group] || '#2E2A28'
       (function () {
-        var titleBg = card.titleBgColor
-                   || (card.group === 'character'
-                         ? null
-                         : (GROUP_TITLE_COLOR[card.group] || '#2E2A28'));
         var $tw = $('<div>', { class: 'card-title-wrap' });
         if (titleBg) $tw.css('background', titleBg);
         $tw.append(
@@ -626,10 +625,14 @@ $(function () {
       // Если для группы нет media/<group>.png (например, новая группа без
       // иконки), .on('error') скрывает <img> вместо показа ломаной картинки.
       $('<span>', { class: 'card-group-icon' }).append(
-        // Заливка кружка: белый круг из CSS (::before), поверх него
-        // тон группы. Цвет живёт в стилях, а не запечён в PNG, —
-        // иначе белая серёдка дралась бы с цветными плашками.
-        $('<span>', { class: 'card-group-fill' }).css('background', groupTint),
+        // Заливка кружка повторяет фон плашки заголовка один в один.
+        // Силуэт поверх неё белый — как и текст названия на той же
+        // плашке; исключение то же самое, персонажи (см. card.css).
+        (function () {
+          var $fill = $('<span>', { class: 'card-group-fill' });
+          if (titleBg) $fill.css('background', titleBg);
+          return $fill;
+        })(),
         $('<img>', {
           class: 'card-group-disc',
           src: 'media/type_disc.png',
