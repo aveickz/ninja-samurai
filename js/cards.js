@@ -1500,7 +1500,7 @@ const CARDS = [
     qty: 1,
     group: "aoe",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Все живые союзники выкладывают одну карту в открытую перед собой, вы выбираете какой из союзников получит какую. Нельзя остаться при своей карте.",
     enDesc: "Every living ally lays out one card face up in front of them, and you decide which ally gets which. No one may keep their own card.",
     img: "cards/card_forum.png"
@@ -1526,7 +1526,7 @@ const CARDS = [
     qty: 1,
     group: "aoe",
     icons: ["charges"],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Вы наносите 1 рану.[NL]Каждый союзник может сыграть карту оружия как вмешательство, добавив ещё 1 рану — не более одной карты с игрока.",
     enDesc: "You deal 1 wound.[NL]Each ally may play a weapon card as an Intervention to add 1 more wound - at most one card per player.",
     img: "cards/card_shoulder_to_shoulder.png"
@@ -1828,7 +1828,7 @@ const CARDS = [
     qty: 3,
     group: "action",
     icons: ["rolectx"],
-    tags: [],
+    tags: ["toPrint"],
     desc: "{Самурай} может обезвредить ловушку, скинув 1 жетон жизни.[NL]{Ниндзя} может украсть ловушку.[NL]Вне зависимости от роли, можете скинуть эту карту, чтобы взять две новых из колоды.",
     enDesc: "A {Samurai} may disarm a Trap by spending 1 life.[NL]A {Ninja} may steal the Trap.[NL]Whatever your role, you may discard this card to draw two new ones.",
     img: "cards/card_111_sapyor.png"
@@ -1945,7 +1945,7 @@ const CARDS = [
     qty: 1,
     group: "action",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Сыграв эту карту, можете сбросить любое необходимое количество карт, восстановив за каждую 1 жизнь.",
     enDesc: "Play this card and discard as many cards as you need, restoring 1 life for each.",
     img: "cards/card_kampo.png"
@@ -2037,7 +2037,7 @@ const CARDS = [
     qty: 1,
     group: "intervention",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Восстановите все жетоны жизни отравленному ядом игроку и снимите само отравление.",
     enDesc: "Restore all life to a Poisoned player and clear the Poison itself.",
     img: "cards/card_120_istselenie.png"
@@ -2583,7 +2583,7 @@ const CARDS = [
     qty: 1,
     group: "aura",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Раз в свой ход любой {союзник} может обменяться с соратником в закрытую по согласию картами.",
     enDesc: "Once per turn any {ally} may swap cards face down with a comrade, by mutual consent.",
     img: "cards/card_discreete_deal.png"
