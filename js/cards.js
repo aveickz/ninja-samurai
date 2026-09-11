@@ -1815,7 +1815,7 @@ const CARDS = [
     qty: 1,
     group: "action",
     icons: ["rolectx"],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Вы сбрасываете победное очко в сброс (если не последнее), и за это получаете семь карт из колоды. Не считается смертью.[NL]{Самураи} не могут предавать.",
     enDesc: "Discard a victory point (unless it is your last) and draw seven cards for it. This does not count as death.[NL]{Samurai} cannot betray.",
     img: "cards/card_110_predatelstvo.png"
@@ -1985,8 +1985,8 @@ const CARDS = [
     group: "action",
     icons: [],
     tags: [],
-    desc: "Заставьте мёртвого игрока выложить все карты на стол, и можете забрать любые 2 из них. После карты опять скрываются. У живых игроков можно просто своровать 2 случайных карты.",
-    enDesc: "Force a dead player to lay all their cards on the table and take any 2 of them. The cards are then hidden again. From living players you simply steal 2 random cards.",
+    desc: "Заставьте мёртвого игрока выложить все карты на стол, и можете забрать любые 2 из них. После карты опять скрываются. У живых игроков можно просто своровать 2 случайных карты. TODO: длинной смерти больше нет — обескровленный поднимается в свою же фазу восстановления, так что ветка про мёртвого почти не разыгрывается, а вскрытие руки дублирует Ясновидение #115. Мародёрить сброс нельзя (антипаттерн «добор из сброса»). Варианты: сделать картой вмешательства в момент обескровливания — забрать 2 карты до фазы восстановления; либо выкинуть мёртвую ветку целиком и оставить кражу 2 случайных у живого.",
+    enDesc: "Force a dead player to lay all their cards on the table and take any 2 of them. The cards are then hidden again. From living players you simply steal 2 random cards. TODO: long death is gone — a bled-out player gets back up in their own recovery phase, so the dead-player branch almost never comes up, and revealing the hand duplicates Clairvoyance #115. Looting the discard pile is out (the «draw from discard» anti-pattern). Options: turn it into an Intervention played the moment someone is bled out, taking 2 cards before their recovery phase; or drop the dead branch entirely and keep only stealing 2 random cards from a living player.",
     img: "cards/card_loot_corpse.png"
   },
   {
