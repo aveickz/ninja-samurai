@@ -122,7 +122,7 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["melee2", "dmg1", "rolectx"],
-    tags: ["toPrint"],
+    tags: [],
     desc: "В стойке {ассасина} наносит на одну рану больше.[NL]От удара {ниндзи} нельзя защититься, и он игнорирует ловушки.",
     enDesc: "In the {Assassin} stance, deals 1 extra wound.[NL]A {Ninja}'s strike cannot be defended and ignores Traps.",
     img: "cards/card_5_kinzhal_predatelya.png"
@@ -176,7 +176,7 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["melee1", "dmg1", "defense"],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Можно использовать как карту Защиты. В стойке {щитоносца} наносит на одну рану больше.",
     enDesc: "May be played as a Defense card. In the {Shield Bearer} stance, deals 1 extra wound.",
     img: "cards/card_9_shipastyy_shchit.png"
@@ -450,7 +450,7 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["melee_gt1", "dmg2"],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Может ударить на любом расстоянии более двух. TODO: перевести на сложность атаки (мета-правило №9, «Дистанции больше нет») — иконка melee_gt1 (выше 1) спорит с текстом (выше 2). Выбрать: «берёт любую сложность, кроме 1» или «берёт любую сложность выше 2».",
     enDesc: "May strike at any range greater than 2. TODO: convert to attack complexity (meta-rule 9, «There is no range») — the melee_gt1 icon (above 1) contradicts the text (above 2). Pick either «handles any complexity except 1» or «handles any complexity above 2».",
     img: "cards/card_28_naginata.png"
@@ -742,7 +742,7 @@ const CARDS = [
     qty: 2,
     group: "trap",
     icons: ["rolectx", "effect8"],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Вы оскорбляете атакующего. Для {самурая} это хуже смерти, и он получает эту карту как эффект бешенства, сбрасывая каждый раз карту при прямой атаке.",
     enDesc: "You insult the attacker. For a {Samurai} this is worse than death: they take this card as an Effect of rage and must discard a card with every direct attack.",
     img: "cards/card_47_oskorblenie.png"
@@ -796,7 +796,7 @@ const CARDS = [
     qty: 3,
     group: "defense",
     icons: ["hpctx"],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Атакующий получает 1 рану от вас. {На пороге вашей смерти} враг получает 3 раны.[NL]{При наличии ловушки} вы наносите ещё на одну рану больше.",
     enDesc: "The attacker takes 1 wound from you. {At death's door} the enemy takes 3 wounds instead.[NL]{With a Trap in play} deal 1 more wound.",
     img: "cards/card_49_skrytyy_kinzhal.png"
@@ -1018,7 +1018,7 @@ const CARDS = [
     qty: 1,
     group: "stance",
     icons: ["hpctx"],
-    tags: [],
+    tags: ["toPrint"],
     desc: "{При полном здоровье} совершая прямые атаки вы берёте 2 карты из колоды.[NL]{На пороге смерти} ваши атаки наносят дополнительно 2 раны.",
     enDesc: "{At full health} draw 2 cards when you make a direct attack.[NL]{At death's door} your attacks deal 2 extra wounds.",
     img: "cards/card_musin.png",
@@ -1044,7 +1044,7 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     icons: ["poison"],
-    tags: ["poison"],
+    tags: ["poison", "toPrint"],
     desc: "Ваша атака теперь накладывает отравление и наносит на 1 рану больше.",
     enDesc: "Your attack now inflicts Poison and deals 1 extra wound.",
     img: "cards/card_64_flakon_yada.png"
@@ -1357,7 +1357,7 @@ const CARDS = [
     qty: 1,
     group: "intervention",
     icons: ["aoe"],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Все ловушки, кроме вашей, на столе открываются, но продолжают действовать. За каждую просветлённую ловушку (не более трёх) вы берёте карту из колоды.",
     enDesc: "Every Trap on the table except yours is revealed, but stays in play. Draw a card for each Trap revealed (no more than three).",
     img: "cards/card_85_prosvietlenie.png"
@@ -1631,7 +1631,7 @@ const CARDS = [
     qty: 3,
     group: "action",
     icons: ["charges"],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Выбранный игрок скидывает указанный вами эффект. За каждую дополнительно сброшенную карту можно скинуть ещё 1 эффект. За каждый такой скинутый эффект, вы восстанавливаете 1 жетон жизни любому игроку.",
     enDesc: "The chosen player discards an Effect you name. For each extra card discarded, one more Effect may be removed. For every Effect removed this way, restore 1 life to any player.",
     img: "cards/card_98_chasha_blagovoniy.png"
@@ -2128,7 +2128,7 @@ const CARDS = [
     qty: 3,
     group: "intervention",
     icons: ["effect8"],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Выбранный игрок симулирует смерть (при его согласии), оставляя один жетон жизни. Следующий раунд он при смерти. В начале хода игрока эффект пропадает.",
     enDesc: "The chosen player feigns death (with their consent), keeping one life. For the next round they count as being at death's door. The effect ends at the start of that player's turn.",
     img: "cards/card_127_simulyant.png"
