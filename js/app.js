@@ -493,6 +493,94 @@ $(function () {
     return 'media/delimiter_' + ((card.id || 0) % DELIM_VARIANTS) + '.png';
   }
 
+  // ── Значок стопки ──────────────────────────────────────────────────
+  // Большинство пометок (дистанция, урон, роль...) рисуются старыми PNG
+  // как есть. Бейджем — белый рваный круг, цветная заливка, белый
+  // силуэт — рисуются два случая:
+  //   1) в icons[] стоит ИМЯ ГРУППЫ: «Шипастый щит» несёт "defense",
+  //      «Макибиши» — "trap", «Блок» — "intervention". Это второй тип
+  //      карты; цвет и силуэт берутся у группы.
+  //   2) пометка из STACK_BADGE: свой цвет и свой силуэт.
+  //   3) пометка из STACK_BADGE с png: прежний рисунок целиком — инь-ян,
+  //      сердце, жетоны — уменьшен и вложен в ту же врезку. Ни заливки,
+  //      ни перекраски: графика остаётся как была, меняется только рамка.
+  var STACK_BADGE = {
+    poison:  { color: '#4F7A21', glyph: 'media/icons/poison.svg' },
+    rolectx: { png: 'media/rolectx.png' },
+    hpctx:   { png: 'media/hpctx.png' },
+    hp:      { png: 'media/hp.png' },
+    charges: { png: 'media/charges.png' }
+  };
+
+  // Старые имена пометок, которые на деле означают группу карт.
+  // "effect8" стоит у четырёх карт — «Капкан», «Оскорбление», «Колотые
+  // раны», «Симулянт» — и всюду значит одно: карта уходит эффектом на
+  // другого игрока. Восьмёрка на старом циферблате была про
+  // «бесконечный» эффект и только путала; рисуем бейдж группы «Эффекты».
+  var STACK_ALIAS = {
+    effect8: 'effect'
+  };
+
+  function stackBadge(icon) {
+    icon = STACK_ALIAS[icon] || icon;
+    if (STACK_BADGE[icon]) return STACK_BADGE[icon];
+    if (GROUP_TITLE_COLOR[icon]) {
+      return { color: GROUP_TITLE_COLOR[icon],
+               glyph: 'media/types/' + icon + '.svg' };
+    }
+    return null;
+  }
+
+  function buildStackIcon(icon) {
+    var badge = stackBadge(icon);
+    if (!badge) {
+      return $('<img>', {
+        class: 'card-icon card-icon-' + icon,
+        src: 'media/' + icon + '.png',
+        alt: icon,
+        draggable: false
+      });
+    }
+    // Четыре слоя снизу вверх: белая подложка с рваной кромкой (PNG,
+    // одна на все бейджи), ровный круг цвета (CSS), тень врезки (PNG),
+    // силуэт (SVG).
+    var $badge = $('<span>', { class: 'card-icon card-icon-type card-icon-' + icon });
+    $badge.append($('<img>', {
+      class: 'card-icon-type-base',
+      src: 'media/icon_badge_inset.png',
+      alt: '',
+      draggable: false
+    }));
+    if (badge.png) {
+      // прежний рисунок как есть, только уменьшен внутрь белого ободка
+      $badge.append($('<img>', {
+        class: 'card-icon-type-pic',
+        src: badge.png,
+        alt: icon,
+        draggable: false
+      }));
+    } else {
+      $badge.append($('<span>', { class: 'card-icon-type-fill' }).css('background', badge.color));
+    }
+    // Тень врезки — поверх заливки или рисунка, иначе она легла бы
+    // только на белый ободок, а середина осталась плоской.
+    $badge.append($('<img>', {
+      class: 'card-icon-type-shade',
+      src: 'media/icon_badge_shade.png',
+      alt: '',
+      draggable: false
+    }));
+    if (badge.glyph) {
+      $badge.append($('<img>', {
+        class: 'card-icon-type-glyph',
+        src: badge.glyph,
+        alt: icon,
+        draggable: false
+      }).on('error', function () { $(this).closest('.card-icon').hide(); }));
+    }
+    return $badge;
+  }
+
   function buildDescWrap(card) {
     var desc = cardDesc(card);
     if (!desc) return null;
@@ -567,12 +655,7 @@ $(function () {
       card.icons && card.icons.length
         ? $('<div>', { class: 'card-icons' }).append(
             $.map(card.icons, function (icon) {
-              return $('<img>', {
-                class: 'card-icon card-icon-' + icon,
-                src: 'media/' + icon + '.png',
-                alt: icon,
-                draggable: false
-              });
+              return buildStackIcon(icon);
             })
           )
         : null,
@@ -586,12 +669,7 @@ $(function () {
       card.iconsOr && card.iconsOr.length
         ? $('<div>', { class: 'card-icons-or' }).append(
             $.map(card.iconsOr, function (icon) {
-              return $('<img>', {
-                class: 'card-icon card-icon-' + icon,
-                src: 'media/' + icon + '.png',
-                alt: icon,
-                draggable: false
-              });
+              return buildStackIcon(icon);
             })
           )
         : null,

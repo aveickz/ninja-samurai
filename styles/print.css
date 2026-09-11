@@ -89,7 +89,9 @@
   .card-title-wrap,
   .card-desc-wrap,
   .card-group-icon,
-  .card-group-fill {
+  .card-group-fill,
+  .card-group-icon::before,
+  .card-icon-type-fill {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
