@@ -506,10 +506,12 @@ $(function () {
   //      ни перекраски: графика остаётся как была, меняется только рамка.
   var STACK_BADGE = {
     poison:  { color: '#4F7A21', glyph: 'media/icons/poison.svg' },
-    rolectx: { png: 'media/rolectx.png' },
-    hpctx:   { png: 'media/hpctx.png' },
-    hp:      { png: 'media/hp.png' },
-    charges: { png: 'media/charges.png' }
+    // raw: цветного слоя нет, середина остаётся белой, а цвет несёт сам
+    // рисунок — сердце красное, тайцзи красно-синее, монеты чёрные.
+    rolectx: { glyph: 'media/icons/rolectx.svg', raw: true },
+    hpctx:   { glyph: 'media/icons/hpctx.svg',   raw: true },
+    charges: { glyph: 'media/icons/charges.svg', raw: true },
+    hp:      { png: 'media/hp.png' }
   };
 
   // Старые имена пометок, которые на деле означают группу карт.
@@ -532,6 +534,17 @@ $(function () {
   }
 
   function buildStackIcon(icon) {
+    // Раны — не бейдж, а голая метка на арте: красный порез с белой
+    // цифрой, цвет запечён в SVG. Кружок тут лишний — пометка стоит на
+    // каждой боевой карте и в кружке спорила бы с артом.
+    if (/^dmg\d$/.test(icon)) {
+      return $('<img>', {
+        class: 'card-icon card-icon-mark card-icon-' + icon,
+        src: 'media/icons/' + icon + '.svg',
+        alt: icon,
+        draggable: false
+      });
+    }
     var badge = stackBadge(icon);
     if (!badge) {
       return $('<img>', {
@@ -559,7 +572,7 @@ $(function () {
         alt: icon,
         draggable: false
       }));
-    } else {
+    } else if (badge.color) {
       $badge.append($('<span>', { class: 'card-icon-type-fill' }).css('background', badge.color));
     }
     // Тень врезки — поверх заливки или рисунка, иначе она легла бы
@@ -572,7 +585,7 @@ $(function () {
     }));
     if (badge.glyph) {
       $badge.append($('<img>', {
-        class: 'card-icon-type-glyph',
+        class: 'card-icon-type-glyph' + (badge.raw ? ' card-icon-type-glyph--raw' : ''),
         src: badge.glyph,
         alt: icon,
         draggable: false

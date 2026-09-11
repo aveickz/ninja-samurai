@@ -91,6 +91,7 @@
   .card-group-icon,
   .card-group-fill,
   .card-group-icon::before,
+  .card-desc-wrap::before,
   .card-icon-type-fill {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
