@@ -1374,8 +1374,8 @@ const CARDS = [
     group: "aoe",
     icons: [],
     tags: ["draft"],
-    desc: "Играется в паре с картой неметательного оружия, берущего сложность 2 или выше. Минуя ловушки, активные игроки получают урон от оружия (без бонусов) или скидывают защиту. Тратит атаку.",
-    enDesc: "Played together with a non-thrown weapon that handles complexity 2 or higher. Ignoring Traps, every living player takes the weapon's damage (no bonuses) or discards a Defense. Uses up your attack.",
+    desc: "Играется в паре с картой неметательного оружия, берущего сложность 2 или выше. Минуя ловушки, активные игроки получают урон от оружия (без бонусов) или скидывают защиту. Тратит атаку. TODO: реворк. Условие «неметательное оружие сложности 2+» после отмены рассадки описывает только пробивное оружие и ничего не говорит о замахе — вариант привязать к классу {Древковое}: вихрь и есть круговой удар древком. Заодно решить, бьёт ли он союзников (сейчас — всех активных).",
+    enDesc: "Played together with a non-thrown weapon that handles complexity 2 or higher. Ignoring Traps, every living player takes the weapon's damage (no bonuses) or discards a Defense. Uses up your attack. TODO: rework. Since seating no longer matters, «a non-thrown weapon of complexity 2+» only describes armour-piercing weapons and says nothing about the sweep — consider tying it to the {Polearm} class instead: the whirlwind is a circular polearm strike. Also decide whether it hits allies (currently every living player).",
     img: "cards/card_86_vikhr_yarosti.png"
   },
   {
@@ -1387,8 +1387,8 @@ const CARDS = [
     group: "aoe",
     icons: [],
     tags: [],
-    desc: "Сыграйте эту карту и за счёт каждой другой карты с руки метните в других метательным оружием силой 1. От этого можно защититься. Максимум 1 удар в одну цель. Тратит атаку.",
-    enDesc: "Play this card and spend any other cards from your hand to throw a ranged attack of power 1 at another player for each one. These may be defended. At most 1 hit per target. Uses up your attack.",
+    desc: "Сыграйте эту карту и за счёт каждой другой карты с руки метните в других метательным оружием силой 1. От этого можно защититься. Максимум 1 удар в одну цель. Тратит атаку. TODO: реворк. Из туду: переделать под shared spare — союзники доплачивают метательным оружием с руки, — либо убрать «тратит атаку».",
+    enDesc: "Play this card and spend any other cards from your hand to throw a ranged attack of power 1 at another player for each one. These may be defended. At most 1 hit per target. Uses up your attack. TODO: rework. From the to-do list: turn it into a shared spare — allies chip in thrown weapons from their hands — or drop «uses up your attack».",
     img: "cards/card_shkval_ognya.png"
   },
   {
@@ -1426,8 +1426,8 @@ const CARDS = [
     group: "aoe",
     icons: ["thrust"],
     tags: ["toPrint"],
-    desc: "Остальные активные игроки скидывают карту защиты или два жетона жизни.",
-    enDesc: "Each other living player discards a Defense card or loses 2 life.",
+    desc: "Остальные активные игроки скидывают карту защиты или два жетона жизни. TODO: реворк. Открытый вопрос из туду — куда идёт победное очко, если крик добивает; по правилу выпада оно уходит сыгравшему карту, проверить, что это и хотели.",
+    enDesc: "Each other living player discards a Defense card or loses 2 life. TODO: rework. Open question from the to-do list — who gets the victory point when the cry finishes a player; under the thrust rule it goes to whoever played the card, confirm that is the intent.",
     img: "cards/card_89_boevoy_krik.png"
   },
   {
