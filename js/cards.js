@@ -449,10 +449,10 @@ const CARDS = [
     types: ["weapon"],
     qty: 2,
     group: "weapon",
-    icons: ["melee_gt1", "dmg2"],
-    tags: [],
-    desc: "Может ударить на любом расстоянии более двух. TODO: перевести на сложность атаки (мета-правило №9, «Дистанции больше нет») — иконка melee_gt1 (выше 1) спорит с текстом (выше 2). Выбрать: «берёт любую сложность, кроме 1» или «берёт любую сложность выше 2».",
-    enDesc: "May strike at any range greater than 2. TODO: convert to attack complexity (meta-rule 9, «There is no range») — the melee_gt1 icon (above 1) contradicts the text (above 2). Pick either «handles any complexity except 1» or «handles any complexity above 2».",
+    icons: ["melee_any", "dmg2"],
+    tags: ["toPrint"],
+    desc: "Бьёт при любой сложности атаки.",
+    enDesc: "Strikes at any attack complexity.",
     img: "cards/card_28_naginata.png"
   },
   {
