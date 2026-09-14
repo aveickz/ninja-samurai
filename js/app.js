@@ -544,8 +544,8 @@ $(function () {
     // каждой боевой карте и в кружке спорила бы с артом.
     // Сложность атаки — тоже голая метка: крест наручей как подложка
     // (сколько рук нужно на блок) и цифра Han Zi в тёмном кружке поверх.
-    // melee_gt1 подписан «2+». Файлы — media/icons/melee*.svg.
-    if (/^dmg\d$/.test(icon) || /^melee/.test(icon)) {
+    // complexity_any подписан звездой. Файлы — media/icons/complexity*.svg.
+    if (/^dmg\d$/.test(icon) || /^complexity/.test(icon)) {
       return $('<img>', {
         class: 'card-icon card-icon-mark card-icon-' + icon,
         src: 'media/icons/' + icon + '.svg',

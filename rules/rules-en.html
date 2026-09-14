@@ -172,11 +172,11 @@
     <!-- ============ ГЛАВА 7: АТАКИ, ОРУЖИЕ И ЗАЩИТА ============ -->
     <section class="chapter" id="weapons">
       <h2 class="chapter-title" data-mark="武">Attack and Defense</h2>
-      <p>On your turn you may make at most two weapon attacks against other players. To attack you need a Weapon card. Every Weapon card states the highest <b>complexity</b> it can handle and its attack power. You may only attack players whose attack complexity does not exceed that number. Players who have bled out are not counted when working out complexity and cannot be targeted, barring special cases.</p>
+      <p>On your turn you may make at most two weapon attacks against other players. To attack you need a Weapon card. Every Weapon card states the highest <b>complexity</b> it can handle and its attack power. You may only attack players whose current complexity does not exceed that number. Players who have bled out cannot be targeted, barring special cases.</p>
       <h4 class="section-title">Attack complexity</h4>
-      <p>Every attack has a <b>complexity</b> — the number that attack must beat. Base complexity is how many seats away the target sits: a neighbour is 1, the player beyond them is 2, and so on.</p>
-      <p>The number on a Weapon card is the highest complexity that weapon handles. A weapon of complexity 2 reaches both a neighbour and the player one seat further. Thrown weapons handle any complexity.</p>
-      <p>Cards, Effects, Stances and Auras may shift complexity either way. «Attacks against you are 1 harder» means an attack on that player needs a weapon that handles one more point of complexity. If the final complexity is higher than the weapon handles, the attack is impossible.</p>
+      <p>Every player has a <b>complexity</b> — the number an attack on them must beat. By default every player's complexity is 1; seating does not affect it.</p>
+      <p>The number on a Weapon card is the highest complexity that weapon handles. The attack goes through if the weapon's complexity is greater than or equal to the target's current complexity. Thrown weapons handle any complexity.</p>
+      <p>Cards, Effects, Stances and Auras may shift complexity either way — both the defender's complexity and the one a weapon handles. «Attacks against you are 1 harder» means an attack on that player needs a weapon that handles one more point of complexity. If the target's final complexity is higher than the weapon handles, the attack is impossible.</p>
       <aside class="note">Complexity is worked out the moment the attack is declared, with every Effect, Stance and Aura in play at that moment.</aside>
       <p>The attacking player lays down the Weapon card and declares their target. The defender may either take the blow with dignity and suffer wounds equal to the attack power, or play a Defense card to block the attack. If a Trap lies in front of the defending player, it is their own choice whether to trigger it or to play a Defense card. If the attack is blocked successfully, none of the attacker's additional effects happen.</p>
       <aside class="note">Attacks with thrown weapons do not trigger Traps. Weapons can also be strengthened with poison.</aside>
@@ -268,7 +268,7 @@
       <p>A single player cannot have more than one Aura at a time. To play a new Aura, the current one must first be discarded.</p>
 
       <h4>Stacking within a team</h4>
-      <p>Several players on the same team may hold different Auras at once — the effects do not cancel one another, they stack. Before each of your turns, check the whole «field of Auras»: it affects ranges, attack power, the draw phase and much else, depending on the cards.</p>
+      <p>Several players on the same team may hold different Auras at once — the effects do not cancel one another, they stack. Before each of your turns, check the whole «field of Auras»: it affects complexity, attack power, the draw phase and much else, depending on the cards.</p>
 
       <h4>How long they last</h4>
       <p>An Aura stays in play as long as its owner is alive and has not replaced it. When the owner dies, the Aura card is discarded along with the rest of their face-up cards (Stance, Effects, Trap).</p>
@@ -293,7 +293,7 @@
 
       <p><strong>Poison conditions.</strong> The poison from the «Poison» chapter is not just a baseline affliction but a trigger for other cards. The marker <em class="card-term">If you are Poisoned</em> unlocks a compensating bonus on certain cards, precisely for the poisoned player. Attacks and effects against a poisoned opponent usually hit harder. A few cards count the total number of poisonings at the table and scale with it. Remember: poison blocks Stance bonuses — two conditions on one and the same card can stop working at once.</p>
 
-      <p><strong>Stance conditions.</strong> An active Stance in front of a player is a common condition for strengthening weapons, defense and actions. There is a general bonus, <em class="card-term">With a Stance in play</em> (which fires for any active Stance), and a specific one — <em class="card-term">in the Archer stance</em>, <em class="card-term">in the Horseman stance</em>, <em class="card-term">in the Assassin stance</em>, <em class="card-term">in the Shield Bearer stance</em>, <em class="card-term">in the Chaplain stance</em>. These pairings set up «archetypes»: long-range weapons usually lean on the Archer or the Horseman, defense on the Shield Bearer, healing on the Chaplain. If there is no active Stance (or you are poisoned), the conditional bonus does not apply, but the card's base effect still works.</p>
+      <p><strong>Stance conditions.</strong> An active Stance in front of a player is a common condition for strengthening weapons, defense and actions. There is a general bonus, <em class="card-term">With a Stance in play</em> (which fires for any active Stance), and a specific one — <em class="card-term">in the Archer stance</em>, <em class="card-term">in the Horseman stance</em>, <em class="card-term">in the Assassin stance</em>, <em class="card-term">in the Shield Bearer stance</em>, <em class="card-term">in the Chaplain stance</em>. These pairings set up «archetypes»: weapons that handle high complexity usually lean on the Archer or the Horseman, defense on the Shield Bearer, healing on the Chaplain. If there is no active Stance (or you are poisoned), the conditional bonus does not apply, but the card's base effect still works.</p>
     </section>
 
     <div class="brush-line"></div>
