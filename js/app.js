@@ -168,9 +168,8 @@ $(function () {
       subtitle:      'Card Catalogue',
       rulesLink:     '📖 Game Rules',
       rulesHref:     'rules/rules-en.html',
-      // памятка пока только по-русски — ссылка одна на оба языка
       cheatLink:     '📄 Cheat Sheet A5',
-      cheatHref:     'rules/cheatsheet.html',
+      cheatHref:     'rules/cheatsheet-en.html',
       statTypes:     'card types',
       statTotal:     'cards in deck',
       sidebarTitle:  'Statistics',
