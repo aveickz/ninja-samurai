@@ -1090,13 +1090,16 @@ const CARDS = [
   },
   {
     id: 68,
-    title: "Выпад",
+    // Было «Выпад» — переименована 14.09.2026, чтобы не путаться с
+    // пометкой «выпад» (thrust, раны мимо атаки). Фумикоми 踏み込み —
+    // шаг-впрыгивание из кэндо, которым достают дальнюю цель.
+    title: "Фумикоми",
     enTitle: "Lunge",
     types: ["modifier"],
     qty: 1,
     group: "modifier",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "+1 к силе атаки. Ваше оружие берёт сложность на 2 больше.[NL]{При наличии стойки} наносите ещё на 1 рану больше.",
     enDesc: "+1 attack power. Your weapon handles 2 more complexity.[NL]{With a Stance in play} deal 1 more wound.",
     img: "cards/card_68_vypad.png"
@@ -1395,7 +1398,7 @@ const CARDS = [
     types: ["aoe"],
     qty: 1,
     group: "aoe",
-    icons: ["poison", "charges"],
+    icons: ["thrust", "poison", "charges"],
     tags: ["poison", "toPrint"],
     desc: "За каждое отравление на столе выбранный вами игрок теряет жетон жизни.",
     enDesc: "A player of your choice loses 1 life for every Poison on the table.",
@@ -1421,8 +1424,8 @@ const CARDS = [
     types: ["aoe"],
     qty: 2,
     group: "aoe",
-    icons: [],
-    tags: [],
+    icons: ["thrust"],
+    tags: ["toPrint"],
     desc: "Остальные активные игроки скидывают карту защиты или два жетона жизни.",
     enDesc: "Each other living player discards a Defense card or loses 2 life.",
     img: "cards/card_89_boevoy_krik.png"
@@ -1525,7 +1528,7 @@ const CARDS = [
     types: ["aoe"],
     qty: 1,
     group: "aoe",
-    icons: ["charges"],
+    icons: ["thrust", "charges"],
     tags: ["toPrint"],
     desc: "Вы наносите 1 рану.[NL]Каждый союзник может сыграть карту оружия как вмешательство, добавив ещё 1 рану — не более одной карты с игрока.",
     enDesc: "You deal 1 wound.[NL]Each ally may play a weapon card as an Intervention to add 1 more wound - at most one card per player.",
@@ -2049,8 +2052,8 @@ const CARDS = [
     types: ["intervention"],
     qty: 1,
     group: "intervention",
-    icons: [],
-    tags: [],
+    icons: ["thrust"],
+    tags: ["toPrint"],
     desc: "Сыграйте эту карту, чтобы нанести две раны отравленному ядом игроку.",
     enDesc: "Play this card to deal two wounds to a Poisoned player.",
     img: "cards/card_121_smert_ot_fugu.png"
@@ -2075,8 +2078,8 @@ const CARDS = [
     types: ["intervention"],
     qty: 2,
     group: "intervention",
-    icons: [],
-    tags: [],
+    icons: ["thrust"],
+    tags: ["toPrint"],
     desc: "Сыграйте эту карту, чтобы нанести одну рану любому выбранному игроку.",
     enDesc: "Play this card to deal one wound to any player of your choice.",
     img: "cards/card_123_udar_drakona.png"

@@ -511,6 +511,10 @@ $(function () {
   //      ни перекраски: графика остаётся как была, меняется только рамка.
   var STACK_BADGE = {
     poison:  { color: '#4F7A21', glyph: 'media/icons/poison.svg' },
+    // Выпад — раны мимо механики атаки: не блокируется защитой, не будит
+    // ловушку, не тратит попытку атаки. Вспомогательная пометка, не тип;
+    // в плашке описания дублируется подписью (см. buildDescWrap).
+    thrust:  { color: '#8B1E2D', glyph: 'media/icons/thrust.svg' },
     // raw: цветного слоя нет, середина остаётся белой, а цвет несёт сам
     // рисунок — сердце красное, тайцзи красно-синее, монеты чёрные.
     rolectx: { glyph: 'media/icons/rolectx.svg', raw: true },
@@ -612,15 +616,27 @@ $(function () {
 
     var $descContent = buildDescContent(desc);
 
-    if (blockLabels.length) {
-      var $span = $('<span>', {
-        class: 'card-block-types',
-        text: blockLabels.join(' · ') + ' ·'
-      });
+    // Подпись «выпад» рядом с типами — выводится из пометки thrust в
+    // icons[], чтобы текст и бейдж не могли разойтись. Это свойство, а
+    // не тип, поэтому отдельный span своим цветом (цвет бейджа).
+    var isThrust = (card.icons || []).indexOf('thrust') !== -1;
+
+    if (blockLabels.length || isThrust) {
       var $target = $descContent.hasClass('card-desc--split')
         ? $descContent.find('.card-desc-part').first()
         : $descContent;
-      $target.prepend($span);
+      if (isThrust) {
+        $target.prepend($('<span>', {
+          class: 'card-block-thrust',
+          text: (LANG === 'en' ? 'Thrust' : 'Выпад') + ' ·'
+        }));
+      }
+      if (blockLabels.length) {
+        $target.prepend($('<span>', {
+          class: 'card-block-types',
+          text: blockLabels.join(' · ') + ' ·'
+        }));
+      }
     }
 
     return $('<div>', { class: 'card-desc-wrap' }).append(
