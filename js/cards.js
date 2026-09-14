@@ -385,9 +385,9 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["complexity2", "dmg2"],
-    tags: [],
-    desc: "",
-    enDesc: "",
+    tags: ["toPrint"],
+    desc: "{Древковое}",
+    enDesc: "{Polearm}",
     img: "cards/card_22_nunti.png"
   },
   {
@@ -398,9 +398,9 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["complexity2", "dmg1"],
-    tags: [],
-    desc: "Атакуемый игрок теряет стойку в случае успешной атаки.",
-    enDesc: "On a successful attack, the target loses their Stance.",
+    tags: ["toPrint"],
+    desc: "{Древковое} Атакуемый игрок теряет стойку в случае успешной атаки.",
+    enDesc: "{Polearm} On a successful attack, the target loses their Stance.",
     img: "cards/card_24_bo.png"
   },
   {
@@ -451,8 +451,8 @@ const CARDS = [
     group: "weapon",
     icons: ["complexity_any", "dmg2"],
     tags: ["toPrint"],
-    desc: "Бьёт при любой сложности атаки.",
-    enDesc: "Strikes at any attack complexity.",
+    desc: "{Древковое} Бьёт при любой сложности атаки.",
+    enDesc: "{Polearm} Strikes at any attack complexity.",
     img: "cards/card_28_naginata.png"
   },
   {
@@ -464,9 +464,9 @@ const CARDS = [
     group: "weapon",
     icons: ["complexity2", "dmg1"],
     iconsOr: ["ranged", "dmg1"],
-    tags: [],
-    desc: "В стойке {всадника} наносит на одну рану больше.",
-    enDesc: "In the {Horseman} stance, deals 1 extra wound.",
+    tags: ["toPrint"],
+    desc: "{Древковое} В стойке {всадника} наносит на одну рану больше.",
+    enDesc: "{Polearm} In the {Horseman} stance, deals 1 extra wound.",
     img: "cards/card_29_yari.png"
   },
   {
@@ -477,9 +477,9 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["complexity2", "dmg1"],
-    tags: [],
-    desc: "В стойке {всадника} наносит на одну рану больше.",
-    enDesc: "In the {Horseman} stance, deals 1 extra wound.",
+    tags: ["toPrint"],
+    desc: "{Древковое} В стойке {всадника} наносит на одну рану больше.",
+    enDesc: "{Polearm} In the {Horseman} stance, deals 1 extra wound.",
     img: "cards/card_31_kamayari.png"
   },
   {
@@ -491,9 +491,9 @@ const CARDS = [
     group: "weapon",
     icons: ["complexity2", "dmg1", "poison"],
     iconsOr: ["ranged", "dmg1", "poison"],
-    tags: ["poison"],
-    desc: "В стойке {всадника} наносит на одну рану больше.",
-    enDesc: "In the {Horseman} stance, deals 1 extra wound.",
+    tags: ["poison", "toPrint"],
+    desc: "{Древковое} В стойке {всадника} наносит на одну рану больше.",
+    enDesc: "{Polearm} In the {Horseman} stance, deals 1 extra wound.",
     img: "cards/card_29_yari.png"
   },
   {
@@ -649,9 +649,9 @@ const CARDS = [
     qty: 1,
     group: "weapon",
     icons: ["complexity2", "dmg1"],
-    tags: [],
-    desc: "TODO: захват вместо урона. Задумано — вместо ран забирает карту из руки цели: рукавоплётом валили, не убивая. Развести с Манрики #27 и Кёкэцусёгэ #26, которые уже забирают карту при успешной атаке.",
-    enDesc: "TODO: capture instead of damage. The intent — it takes a card from the target's hand instead of dealing wounds: the sleeve entangler brought a man down without killing him. Needs separating from the Manriki #27 and the Kyoketsu-shoge #26, which already take a card on a successful attack.",
+    tags: ["toPrint"],
+    desc: "{Древковое} TODO: захват вместо урона. Задумано — вместо ран забирает карту из руки цели: рукавоплётом валили, не убивая. Развести с Манрики #27 и Кёкэцусёгэ #26, которые уже забирают карту при успешной атаке.",
+    enDesc: "{Polearm} TODO: capture instead of damage. The intent — it takes a card from the target's hand instead of dealing wounds: the sleeve entangler brought a man down without killing him. Needs separating from the Manriki #27 and the Kyoketsu-shoge #26, which already take a card on a successful attack.",
     img: "cards/card_319_sodegarami.png"
   },
   {
@@ -1359,7 +1359,7 @@ const CARDS = [
     types: ["intervention"],
     qty: 1,
     group: "intervention",
-    icons: ["aoe"],
+    icons: ["aoe", "charges"],
     tags: ["toPrint"],
     desc: "Все ловушки, кроме вашей, на столе открываются, но продолжают действовать. За каждую просветлённую ловушку (не более трёх) вы берёте карту из колоды.",
     enDesc: "Every Trap on the table except yours is revealed, but stays in play. Draw a card for each Trap revealed (no more than three).",
@@ -2320,12 +2320,12 @@ const CARDS = [
     title: "Сайго",
     enTitle: "Saigo",
     subtitle: "Последний самурай",
-    hp: 5,
+    hp: 6,
     types: ["character"],
     qty: 1,
     group: "character",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Раз в ход вы можете передвинуть свою активную стойку, или стойку с руки, к другому игроку, у которого её нет перед собой. В фазе набора за каждую стойку на столе (не более трёх) берите дополнительно 1 карту." +
           "[NL]{После вашей смерти} вы не теряете стойку, а все союзники с выставленной стойкой получают по 1 карте из колоды и восполняют 1 жетон жизни.",
     enDesc: "Once per turn you may move your active Stance, or a Stance from your hand, to another player who has none in front of them. In the draw phase, take 1 extra card for every Stance on the table (no more than three).[NL]{After your death} you keep your Stance, and every ally with a Stance in play draws a card from the deck and restores 1 life.",
