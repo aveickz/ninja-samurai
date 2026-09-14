@@ -115,6 +115,8 @@ $(function () {
       subtitle:      'Картотека',
       rulesLink:     '📖 Правила игры',
       rulesHref:     'rules/rules.html',
+      cheatLink:     '📄 Памятка A5',
+      cheatHref:     'rules/cheatsheet.html',
       statTypes:     'типов карт',
       statTotal:     'карт в колоде',
       sidebarTitle:  'Статистика',
@@ -166,6 +168,9 @@ $(function () {
       subtitle:      'Card Catalogue',
       rulesLink:     '📖 Game Rules',
       rulesHref:     'rules/rules-en.html',
+      // памятка пока только по-русски — ссылка одна на оба языка
+      cheatLink:     '📄 Cheat Sheet A5',
+      cheatHref:     'rules/cheatsheet.html',
       statTypes:     'card types',
       statTotal:     'cards in deck',
       sidebarTitle:  'Statistics',
