@@ -145,22 +145,21 @@ html, body {
 .sheet.odd  .content { left: var(--outer);  right: var(--gutter); }
 .sheet.even .content { left: var(--gutter); right: var(--outer); }
 
-/* Колонцифра — в нижнем наружном углу */
+/* Колонцифра — по центру нижнего поля, тихая: узкий шрифт, точки по бокам */
 .folio {
   position: absolute;
-  bottom: 5mm;
-  font-family: 'Han Zi Web', serif;
-  font-size: 11pt;
-  line-height: 1;
-  letter-spacing: .1em;
-  color: var(--vermilion-dk);
-  padding-top: 1mm;
-  border-top: .4pt solid var(--paper-deep);
-  min-width: 10mm;
+  left: 0;
+  right: 0;
+  bottom: 5.5mm;
   text-align: center;
+  font-family: 'PT Sans Narrow', 'PT Sans', Arial, sans-serif;
+  font-size: 8.5pt;
+  line-height: 1;
+  letter-spacing: .18em;
+  color: var(--ink-faded);
 }
-.sheet.odd  .folio { left: var(--outer); }
-.sheet.even .folio { right: var(--outer); }
+.folio::before { content: "·  "; color: var(--gold); }
+.folio::after  { content: "  ·"; color: var(--gold); }
 
 /* ---------- Обложка (первая страница) ---------- */
 .cover {
