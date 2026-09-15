@@ -154,6 +154,7 @@ diff'у мучительно. Место дешевле времени.
 | Текст эффекта карты, баланс, новые карты | `mechanics/` → потом `js/cards.js` |
 | Правила игры (текст)                     | `rules/rules.html`, следом `rules/rules-en.html` |
 | Памятка A5 (текст)                       | `rules/cheatsheet.md` → `cheatsheet.html`, следом `cheatsheet-en.md` → `cheatsheet-en.html` |
+| Новая вёрстка правил (черновик)          | `tools/build-rules-new.py` → `rules/rules-new.html` + `rules-new-en.html`; текст глав берётся из `rules.html` / `rules-en.html` |
 | Картотека: рендер, фильтры, печать       | Корень репозитория (см. ниже) |
 | Арт карты (`cards/*.png`)                | **только по явной просьбе** — см. ниже |
 
@@ -314,6 +315,12 @@ cardboard/                    # корень репозитория = корен
 │   ├── rules-en.html     # Английский перевод правил (RU|EN в шапке свитка)
 │   ├── cheatsheet.md     # Памятка A5: текст (оригинал, русский) и его вёрстка cheatsheet.html
 │   ├── cheatsheet-en.md  # Английская памятка + cheatsheet-en.html — перевод, не оригинал
+│   ├── rules-new.html    # Черновик новой вёрстки правил (RU) — генерируется tools/build-rules-new.py
+│   ├── rules-new-en.html # …и его английская версия (перевод, не оригинал)
+│   ├── rules-new.css     # Стили новой вёрстки; rules-new-print.css — её печать (A4 landscape, 2×A5)
+│   ├── media/bg/         # Бледные тушевые фоны глав (webp с альфой, сгенерированы /img)
+│   ├── media/cards/      # Превью карт-примеров для rules-new (tools/render-card-previews.py)
+│   ├── media/table.webp  # Стол во время партии — картинка под SVG-подписи (tools/table_fig.py)
 │   ├── styles.css        # Стили только для rules.html
 │   ├── cards.md          # Текстовое описание колоды
 │   └── fonts/            # Шрифты для rules.html
