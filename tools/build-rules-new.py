@@ -52,7 +52,7 @@ def bg_path(cid):
 # layout — 'fan' (веером, для коротких глав) или 'stack' (лесенкой вниз); тоже
 #         может быть словарём по срезам
 CH = {
- 'about':         dict(icons=[[('ic','role')]],                         cards=[201, 200]),
+ 'about':         dict(icons=[],                                        cards=[201, 200]),
  'setup':         dict(layout='stack', icons=[[('mk','hp.png'), ('mk','winpoint.png')]], cards=[202, 137]),
  'flow':          dict(icons=[],                                        cards=[]),
  'ending':        dict(icons=[],                                        cards=[]),
