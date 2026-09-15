@@ -1,15 +1,17 @@
 /* ============================================================
-   rules-new-print.css — печатная версия новой вёрстки правил
-   (rules-new.html / rules-new-en.html). Условия те же, что у
-   основного print.css: A4 альбомная, поля 0, две страницы A5 на
-   лист с линией сгиба по центру, печать фоновой графики включена;
-   для брошюры — режим «Booklet» в драйвере принтера.
+   rules-new-print.css — печать предпечатной вёрстки правил
+   (rules-new.html / rules-new-en.html).
+
+   Вся геометрия уже задана в rules-new.css в миллиметрах: страница —
+   section.sheet ровно A5 портрет. Здесь только: формат листа A5 без
+   полей, каждая страница на свой лист, убрать экранную шапку, тени
+   и зазоры между разворотами. Печать фоновой графики включить.
    ============================================================ */
 
 @media print {
 
   @page {
-    size: A4 landscape;
+    size: A5 portrait;
     margin: 0;
   }
 
@@ -19,209 +21,34 @@
   }
 
   html, body {
-    margin: 0;
-    padding: 0;
-    background: #efe1bf !important;
-    color: #1c1410 !important;
-    font-size: 9.5pt;
-    line-height: 1.42;
+    background: #fff !important;
+    min-height: 0;
   }
 
-  /* Текстура бумаги на каждом листе: fixed-элемент печатается на всех
-     страницах. */
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background: url('media/paper.png') center / 100% 100% no-repeat;
-    z-index: -1;
-  }
+  .screen-only, .toolbar { display: none !important; }
 
-  a { color: inherit; text-decoration: none; }
-
-  /* ---------- Лист → две колонки A5 на A4 landscape ---------- */
-  .page {
-    max-width: none;
-    margin: 0;
-    border-radius: 0;
-    background: transparent !important;
-    box-shadow: none !important;
-
-    padding: 10mm 14mm;
-    -webkit-box-decoration-break: clone;
-    box-decoration-break: clone;
-
-    column-count: 2;
-    column-gap: 26mm;              /* корешок: 13 мм от сгиба с каждой стороны */
-    column-fill: auto;
-    column-rule: 0.5pt dashed rgba(120, 70, 20, 0.45);
-  }
-
-  /* ---------- Обложка — вся первая колонка ---------- */
-  .header {
-    margin: 0;
-    padding: 14mm 4mm 0;
-    /* Обложка занимает всю первую колонку: высота = высота листа минус
-       вертикальные поля .page (210 − 2×10 мм). break-after: column в
-       Chrome тут не срабатывает надёжно, высота — срабатывает всегда. */
-    height: 190mm;
-    box-sizing: border-box;
-    break-inside: avoid;
-    break-after: column;
-  }
-  .kanji-banner { font-size: 30pt; letter-spacing: 0.25em; margin: 0 0 4mm; }
-  .kanji-sub    { font-size: 7pt; }
-  .draft-note   { font-size: 7pt; margin-top: 6mm; }
-  .lang-switch  { display: none; }
-  .hanko {
-    width: 18mm;
-    height: 18mm;
-    font-size: 10pt;
-    right: 4mm;
-    box-shadow:
-      inset 0 0 0 1pt rgba(255, 240, 220, 0.95),
-      inset 0 0 0 2pt #b1281d;
-  }
-  .header + .brush-line { display: none; }
-
-  .brush-line {
-    margin: 5mm auto;
-    height: 3px;
-    width: 70%;
-    opacity: 0.55;
-  }
-
-  /* ---------- Главы: обычный поток вместо грида ---------- */
-  section.chapter {
+  .book {
     display: block;
-    margin: 0 0 4mm;
-    padding: 0 24mm 0 0;           /* правое поле под иероглиф, значки и веер карт */
-    position: relative;
-  }
-  section.chapter::before {
-    inset: 0 24mm 0 0;
-    opacity: 0.12;
-  }
-
-  /* Боковая колонка — на правом поле, узкой стопкой */
-  .chapter-side {
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    width: 22mm;
-    gap: 2mm;
     padding: 0;
-  }
-  .chapter-body { position: relative; }
-  .chapter-body .kanji { font-size: 26pt; bottom: 0; }
-  .side-icons { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 1mm; width: 22mm; }
-  .side-icons .row { display: contents; }
-  .side-icons .ic { --ic: 4.6mm; }
-  .side-icons .mk { width: 4.6mm; height: 4.6mm; }
-
-  h2.chapter-title::before, h2.chapter-title::after { height: 1.5pt; }
-  section.chapter + .brush-line { display: none; }
-  section.chapter { margin-top: 5mm; }
-  h2.chapter-title {
-    font-size: 16pt;
-    margin: 0 0 2.5mm;
-    gap: 3mm;
-    break-inside: avoid;
-    break-after: avoid;
-    page-break-after: avoid;
+    gap: 0;
   }
 
-  section.chapter p {
-    margin: 0 0 1.4mm;
-    orphans: 3;
-    widows: 3;
+  /* Развороты распадаются на отдельные листы */
+  .spread {
+    position: static;
+    width: auto;
+    height: auto;
   }
-  section.chapter h4 {
-    font-size: 10pt;
-    margin: 2.5mm 0 1mm;
-    break-after: avoid;
-    page-break-after: avoid;
-  }
-  p .ic, li .ic, h4 .ic, aside .ic { --ic: 3.6mm; vertical-align: -1mm; }
-  p .mk, li .mk, h4 .mk, aside .mk { width: 3.6mm; height: 3.6mm; vertical-align: -1mm; }
-
-  aside.note {
-    font-size: 8pt;
-    padding: 1mm 2mm 1mm 4mm;
-    margin: 1.5mm 0;
-    line-height: 1.35;
-    background-size: 1pt 100%;
-    break-inside: avoid;
-  }
-
-  .order-list { break-inside: avoid; }
-  .order-list ol { padding-left: 4mm; }
-  .order-list li { font-size: 8.2pt; line-height: 1.35; }
-  .chain { font-size: 6.5pt; margin: 1mm 0 2.5mm; gap: 0; break-inside: avoid; flex-wrap: nowrap; }
-  .chain .st { width: 9.4mm; gap: .6mm; }
-  .chain .st .ic { --ic: 5mm; }
-  .chain .arr { font-size: 8pt; margin: 0 -.6mm 3mm; }
-
-  .balance-table {
-    font-size: 7.4pt;
-    margin: 1.5mm 0 3mm;
-    break-inside: avoid;
-  }
-  .balance-table th, .balance-table td { padding: 2px 4px; line-height: 1.2; }
-  .balance-table thead th { font-size: 7pt; }
-  .balance-table tbody td:first-child { font-size: 9pt; }
-
-  /* ---------- Карты-примеры на полях: мельче, то же кадрирование ---------- */
-  .side-cards {
-    width: 15mm;
-    height: 24.5mm;
-    margin: 1mm 0 0;
-    align-self: flex-end;
-  }
-  .side-cards.fan.n2, .side-cards.fan.n3 { height: 27mm; }
-  .side-cards.stack { height: auto; }
-  .side-cards.stack .card-embed { margin-top: -5mm; transform: rotate(calc(var(--k) * -4deg)) translateX(calc(var(--k) * 1mm)); }
-  .side-cards.stack .card-embed:first-child { margin-top: 0; }
-  .side-cards .card-embed {
-    width: 15mm;
-    height: 24.5mm;                /* 15 × 372/228 */
-    border-radius: 1mm;
+  .sheet {
+    position: relative;
+    left: auto !important;
+    top: auto;
+    margin: 0;
     box-shadow: none;
-    transform: rotate(calc(var(--k) * 9deg)) translate(calc(var(--k) * 2.6mm), calc(var(--k) * var(--k) * .6mm));
-    transform-origin: 50% 135%;
+    break-after: page;
+    page-break-after: always;
+    overflow: hidden;              /* на бумаге выехавшее всё равно отрежет лист */
   }
-
-  /* ---------- Стол во время партии ---------- */
-  /* В колонке A5 подписи на рисунке нечитаемы, а спаннер посреди потока
-     оставляет полупустые страницы. Поэтому стол в главе «Подготовка»
-     на бумаге скрыт, а в конце брошюры идёт приложение разворотом на обе
-     колонки: рисунок и легенда в две колонки под ним. */
-  .table-inflow { display: none !important; }
-  section.chapter.print-only { display: block; }
-  section.appendix {
-    column-span: all;
-    break-before: page;
-    padding: 0 6mm;
-  }
-  section.appendix::before { display: none; }
-  section.appendix .table-figure {
-    width: 118mm;
-    margin: 1mm auto 2mm;
-    break-inside: avoid;
-  }
-  section.appendix .table-figure figcaption { font-size: 7.5pt; margin-top: 1mm; }
-  section.appendix ol.table-legend { font-size: 7.6pt; column-gap: 8mm; columns: 2; margin: 1mm 0; }
-  section.appendix p.table-note { font-size: 8pt; }
-  section.appendix p { text-indent: 0; }
-
-  /* Подвал: экранный скрыт, печатный стоит внутри приложения — иначе
-     после спаннера он уезжает на отдельный лист. */
-  .footer.screen-only { display: none; }
-  .footer {
-    margin-top: 4mm;
-    padding-top: 2mm;
-    font-size: 8pt;
-    break-inside: avoid;
-  }
+  .sheet:last-child { break-after: auto; page-break-after: auto; }
+  .sheet.odd::after, .sheet.even::after { display: none; }
 }

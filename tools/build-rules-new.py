@@ -1,10 +1,22 @@
 # -*- coding: utf-8 -*-
-"""Собирает rules/rules-new.html (RU, оригинал) и rules/rules-new-en.html (EN,
-перевод) — черновик новой вёрстки правил. Текст глав берётся как есть из
-rules/rules.html и rules/rules-en.html. Добавляет: боковую колонку с
-иероглифом и плоскими значками, ряд карт-примеров через ../app.html?embed=ID,
-бледные фоны глав из rules/media/bg/, раздел «Стол во время партии»
-(table_fig.py), переключатель RU|EN."""
+"""Запуск: py -3 tools/build-rules-new.py
+
+Собирает rules/rules-new.html (RU, оригинал) и rules/rules-new-en.html (EN,
+перевод) — предпечатную вёрстку правил. Текст глав берётся как есть из
+rules/rules.html и rules/rules-en.html.
+
+Модель — не веб-поток, а страницы: каждая страница — фиксированный
+контейнер A5 портрет (section.sheet), на экране они стоят разворотами по
+две (div.spread), на печати — по одной на лист. Главы раскладываются по
+страницам ВРУЧНУЮ в PAGES; автоматического переноса нет: что не влезло —
+выезжает за низ страницы и остаётся видно, переносить руками.
+
+Нечётные страницы — левые в развороте: широкое поле слева (под значки и
+карты), корешок справа. Чётные — правые: корешок слева, поле справа.
+
+Добавляет: значки типов и карты-примеры на поле, бледный фон главы,
+иероглиф-водяной знак, раздел «Стол во время партии» (table_fig.py),
+цепочки порядка расчёта."""
 import os, re, sys, glob
 sys.stdout.reconfigure(encoding='utf-8')
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -23,7 +35,7 @@ def bg_path(cid):
     key = BG_KEY.get(cid, cid)
     dst = f'rules/media/bg/{key}.webp'
     if not os.path.exists(dst):
-        cands = sorted(glob.glob(rf'C:\Users\aveic\.claude\imagegen\out\*_bg_{key}.png'))
+        cands = sorted(glob.glob(os.path.expanduser(rf'~\.claude\imagegen\out\*_bg_{key}.png')))
         if not cands:
             return None
         im = Image.open(cands[-1]).convert('RGBA')
@@ -33,6 +45,9 @@ def bg_path(cid):
     return dst.replace('rules/', '')
 
 # ---------- конфиг глав (общий для языков) ----------
+# icons — ряды значков на поле: ('ic', ключ группы/бейджа) или ('mk', файл в media/)
+# cards — ID карт-примеров (превью в rules/media/cards/, см. render-card-previews.py)
+# layout — 'fan' (веером, для коротких глав) или 'stack' (лесенкой вниз)
 CH = {
  'about':         dict(icons=[[('ic','role')]],                         cards=[201, 200]),
  'setup':         dict(layout='stack', icons=[[('mk','hp.png'), ('mk','winpoint.png')]], cards=[202, 137]),
@@ -46,11 +61,23 @@ CH = {
  'characters':    dict(icons=[[('ic','character'),('ic','hp')]],        cards=[135, 138]),
  'effects':       dict(icons=[[('ic','effect')]],                       cards=[91]),
  'poison':        dict(icons=[[('ic','poison')]],                       cards=[116, 64]),
- 'interventions': dict(layout='stack', icons=[[('ic','intervention')]],                 cards=[121, 124]),
- 'auras':         dict(layout='stack', icons=[[('ic','aura')]],                         cards=[1200, 1204]),
+ 'interventions': dict(layout='stack', icons=[[('ic','intervention')]], cards=[121, 124]),
+ 'auras':         dict(layout='stack', icons=[[('ic','aura')]],         cards=[1200, 1204]),
  'conditional':   dict(layout='stack', icons=[[('ic','rolectx'),('ic','hpctx')],[('ic','poison'),('ic','stance')],[('ic','charges')]], cards=[125, 1165]),
  'order':         dict(icons=[],                                        cards=[]),
 }
+
+# ---------- раскладка по страницам (руками) ----------
+# '__cover__' — обложка (шапка). Нумерация с 1; страницы 1–2 — первый
+# разворот и так далее. Что не влезает — выезжает вниз, видно на экране.
+PAGES = [
+    ['__cover__', 'about'],
+    ['setup'],
+    ['flow', 'ending', 'players'],
+    ['cards', 'weapons'],
+    ['traps', 'stances', 'characters', 'effects', 'poison'],
+    ['interventions', 'auras', 'conditional', 'order'],
+]
 
 def ic(kind, key):
     if kind == 'ic':
@@ -63,7 +90,7 @@ def side_icons(rows):
     return '<div class="side-icons">' + ''.join('<div class="row">' + ''.join(ic(*i) for i in r) + '</div>' for r in rows) + '</div>'
 
 def card_fan(ids, lang, layout='fan'):
-    """Карты-примеры на полях: WebP из rules/media/cards/ (tools/render-card-previews.py).
+    """Карты-примеры на поле: WebP из rules/media/cards/ (tools/render-card-previews.py).
     fan — веером с поворотом (короткие главы), stack — лесенкой вниз (длинные)."""
     if not ids:
         return ''
@@ -130,21 +157,17 @@ def chain(lang, who):
 
 L = {
  'ru': dict(src='rules/rules.html', out='rules/rules-new.html', html_lang='ru',
-            title='Самураи против Ниндзя — правила (новая вёрстка)',
+            title='Самураи против Ниндзя — правила, вёрстка A5',
             sub='— Самураи против Ниндзя —',
-            draft='Черновик новой вёрстки · <a href="rules.html">действующие правила</a>',
+            draft='Предпечатная вёрстка, черновик · <a href="rules.html">действующие правила</a> · Ctrl+P — A5 портрет, страница на лист',
             switch='<span class="lang-switch-current">RU</span><a href="rules-new-en.html">EN</a>',
-            footer='侍 対 忍者 · правила игры',
-            appendix='Стол во время партии',
-            comment='Черновик новой вёрстки правил. Текст глав — копия rules.html (русский\n     оригинал); при расхождении прав rules.html. Оформление: rules-new.css.\n     Английская версия — rules-new-en.html, перевод, не оригинал.'),
+            comment='Предпечатная вёрстка правил, черновик. Текст глав — копия rules.html\n     (русский оригинал); при расхождении прав rules.html. Файл генерируется\n     tools/build-rules-new.py — руками не править. Английская версия —\n     rules-new-en.html, перевод, не оригинал.'),
  'en': dict(src='rules/rules-en.html', out='rules/rules-new-en.html', html_lang='en',
-            title='Samurai vs Ninja — Rules (new layout)',
+            title='Samurai vs Ninja — Rules, A5 layout',
             sub='— Samurai vs Ninja —',
-            draft='New layout draft · <a href="rules-en.html">current rules</a>',
+            draft='Pre-press layout draft · <a href="rules-en.html">current rules</a> · Ctrl+P — A5 portrait, one page per sheet',
             switch='<a href="rules-new.html">RU</a><span class="lang-switch-current">EN</span>',
-            footer='侍 対 忍者 · game rules',
-            appendix='The table during play',
-            comment='New-layout draft of the rules, English version. A translation, not the\n     original: the Russian rules-new.html is the source of truth and this file\n     follows it. Chapter text is copied from rules-en.html. Styles: rules-new.css.'),
+            comment='Pre-press layout of the rules, English version. A translation, not the\n     original: the Russian rules-new.html is the source of truth and this file\n     follows it. Generated by tools/build-rules-new.py — do not edit by hand.'),
 }
 
 SCRIPT = '''<script>
@@ -180,42 +203,76 @@ SCRIPT = '''<script>
 
 sec_re = re.compile(r'<section class="chapter" id="(\w+)">\s*<h2 class="chapter-title" data-mark="([^"]+)">([^<]+)</h2>(.*?)</section>', re.S)
 
+
+def chapter_html(lang, cid, mark, title, body):
+    cfg = CH[cid]
+    body = body.strip('\n')
+    for c, a, b in INLINE[lang]:
+        if c == cid:
+            if a not in body:
+                print('  ! not found', lang, cid, a[:50]); continue
+            body = body.replace(a, b, 1)
+    if cid == 'setup':
+        body += table_fig.section(lang)
+    if cid == 'order':
+        # вместо двух нумерованных списков — две цепочки значков
+        body = re.sub(r'<div class="order-list">.*?</div>\s*<div class="order-list">.*?</div>',
+                      chain(lang, 'attacker') + chain(lang, 'defender'), body, count=1, flags=re.S)
+        assert 'order-list' not in body, lang
+    bg = bg_path(cid)
+    style = f' style="--bg:url({bg})"' if bg else ''
+    return f'''
+      <section class="chapter" id="{cid}"{style}>
+        <div class="chapter-body">
+          <h2 class="chapter-title">{title}</h2>
+{body}
+          <span class="kanji" aria-hidden="true">{mark}</span>
+        </div>
+        <aside class="chapter-side">
+          {side_icons(cfg['icons'])}
+          {card_fan(cfg['cards'], lang, cfg.get('layout', 'fan'))}
+        </aside>
+      </section>'''
+
+
+def cover_html(t):
+    return f'''
+      <header class="cover">
+        <div class="hanko">侍<br>忍</div>
+        <h1 class="kanji-banner">侍 対 忍者</h1>
+        <p class="kanji-sub">{t['sub']}</p>
+        <div class="brush-line"></div>
+      </header>'''
+
+
 def build(lang):
     t = L[lang]
     src = open(t['src'], encoding='utf-8').read()
-    chapters = sec_re.findall(src)
+    chapters = {cid: (mark, title, body) for cid, mark, title, body in sec_re.findall(src)}
     assert len(chapters) == 16, (lang, len(chapters))
-    out = []
-    for cid, mark, title, body in chapters:
-        cfg = CH[cid]
-        body = body.strip('\n')
-        for c, a, b in INLINE[lang]:
-            if c == cid:
-                if a not in body:
-                    print('  ! not found', lang, cid, a[:50]); continue
-                body = body.replace(a, b, 1)
-        if cid == 'setup':
-            body += '<div class="table-inflow">' + table_fig.section(lang) + '</div>'
-        if cid == 'order':
-            # вместо двух нумерованных списков — две цепочки значков
-            body = re.sub(r'<div class="order-list">.*?</div>\s*<div class="order-list">.*?</div>',
-                          chain(lang, 'attacker') + chain(lang, 'defender'), body, count=1, flags=re.S)
-            assert 'order-list' not in body, lang
-        bg = bg_path(cid)
-        style = f' style="--bg:url({bg})"' if bg else ''
-        out.append(f'''
-    <section class="chapter" id="{cid}"{style}>
-      <div class="chapter-body">
-        <h2 class="chapter-title">{title}</h2>
-{body}
-        <span class="kanji" aria-hidden="true">{mark}</span>
+    used = [c for pg in PAGES for c in pg if c != '__cover__']
+    missing = [c for c in chapters if c not in used]
+    assert not missing, ('главы без страницы', missing)
+
+    sheets = []
+    for n, page in enumerate(PAGES, start=1):
+        parity = 'odd' if n % 2 else 'even'
+        blocks = []
+        for cid in page:
+            if cid == '__cover__':
+                blocks.append(cover_html(t))
+            else:
+                blocks.append(chapter_html(lang, cid, *chapters[cid]))
+        sheets.append(f'''
+    <section class="sheet {parity}" id="p{n}" data-page="{n}">
+      <div class="content">{''.join(blocks)}
       </div>
-      <aside class="chapter-side">
-        {side_icons(cfg['icons'])}
-        {card_fan(cfg['cards'], lang, cfg.get('layout', 'fan'))}
-      </aside>
-    </section>
-    <div class="brush-line"></div>''')
+      <span class="folio">{n}</span>
+    </section>''')
+    # развороты: по две страницы; последняя нечётная — одна
+    spreads = []
+    for i in range(0, len(sheets), 2):
+        spreads.append('\n  <div class="spread">' + ''.join(sheets[i:i + 2]) + '\n  </div>')
 
     html = f'''<!DOCTYPE html>
 <html lang="{t['html_lang']}">
@@ -233,29 +290,13 @@ def build(lang):
 </head>
 <body>
 <!-- {t['comment']} -->
-<div class="page">
-  <header class="header">
-    <div class="hanko">侍<br>忍</div>
-    <h1 class="kanji-banner">侍 対 忍者</h1>
-    <p class="kanji-sub">{t['sub']}</p>
-    <p class="draft-note">{t['draft']}</p>
-    <p class="lang-switch">{t['switch']}</p>
-  </header>
+<div class="toolbar screen-only">
+  <span class="toolbar-title">{t['title']}</span>
+  <span class="draft-note">{t['draft']}</span>
+  <span class="lang-switch">{t['switch']}</span>
+</div>
 
-  <div class="brush-line"></div>
-{''.join(out)}
-
-  <!-- Печатное приложение: тот же стол, но в конце брошюры разворотом на
-       обе колонки, чтобы не рвать поток глав. На экране скрыт. -->
-  <section class="chapter print-only appendix" id="table-appendix">
-    <div class="chapter-body">
-      <h2 class="chapter-title">{t['appendix']}</h2>
-{re.sub(r'<h4>[^<]*</h4>', '', table_fig.section(lang), count=1)}
-      <footer class="footer">{t['footer']}</footer>
-    </div>
-  </section>
-
-  <footer class="footer screen-only">{t['footer']}</footer>
+<div class="book">{''.join(spreads)}
 </div>
 
 {SCRIPT}
@@ -263,7 +304,8 @@ def build(lang):
 </html>
 '''
     open(t['out'], 'w', encoding='utf-8', newline='\n').write(html)
-    print(lang, 'written', t['out'], len(html))
+    print(lang, 'written', t['out'], len(PAGES), 'pages')
+
 
 for lang in ('ru', 'en'):
     build(lang)

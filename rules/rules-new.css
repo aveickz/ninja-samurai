@@ -1,13 +1,23 @@
-/* rules-new.css — черновик новой вёрстки правил (rules-new.html).
-   Отдельный файл: текущие rules.html / styles.css не трогаем.
+/* rules-new.css — предпечатная вёрстка правил (rules-new.html /
+   rules-new-en.html). Отдельный файл: действующие rules.html / styles.css
+   не трогаем.
 
-   Идея вёрстки — по ручному макету: светлый лист, у правого поля крупный
-   бледный иероглиф главы, под ним плоские значки типов с карт (те же
-   круги и силуэты, что в памятке cheatsheet.html — без врезок и теней)
-   и карты-примеры, отрисованные картотекой через ../app.html?embed=ID.
-   За текстом каждой главы — бледная тушевая иллюстрация по теме
-   (rules/media/bg/<глава>.webp, генерится отдельно, opacity ≈ 12 %).
-   Между главами — тонкий кистевой штрих на всю ширину. */
+   Это не веб-страница, а имитация печатного разворота. Все размеры —
+   в мм и pt, экран и бумага совпадают один в один:
+
+   - .sheet — страница A5 портрет (148 × 210 мм), фиксированный контейнер,
+     абсолютно позиционирован внутри .spread. Содержимое НЕ обрезается:
+     что не влезло — выезжает за низ страницы, и это видно.
+   - .spread — разворот: две страницы рядом. Нечётная страница — левая:
+     широкое поле слева (под значки и карты), корешок справа. Чётная —
+     правая: корешок слева, поле справа.
+   - Главы раскладываются по страницам руками в tools/build-rules-new.py.
+
+   Оформление главы: заголовок по центру с кистевыми штрихами, бледная
+   тушевая иллюстрация за текстом (rules/media/bg), иероглиф главы водяным
+   знаком в правом нижнем углу текста, на поле — плоские значки типов карт
+   (как в памятке, без врезок и теней) и карты-примеры веером или лесенкой.
+   Печать — rules-new-print.css: A5 портрет, страница на лист. */
 
 @font-face {
   font-family: 'Han Zi Web';
@@ -26,8 +36,16 @@
   --vermilion:   #b1281d;
   --vermilion-dk:#7a1410;
   --gold:        #8b6a2a;
-  --side-w:      140px;        /* правая колонка: иероглиф, значки, карты */
-  --bg-opacity:  .13;          /* бледность фоновой иллюстрации главы */
+
+  /* Геометрия страницы A5 */
+  --sheet-w:  148mm;
+  --sheet-h:  210mm;
+  --m-top:    11mm;     /* верхнее поле */
+  --m-bottom: 13mm;     /* нижнее поле, под колонцифру */
+  --gutter:   12mm;     /* корешок — внутреннее поле */
+  --outer:    40mm;     /* наружное поле — под значки и карты */
+  --side:     30mm;     /* ширина колонки значков/карт на наружном поле */
+  --bg-opacity: .12;    /* бледность фоновой иллюстрации главы */
 }
 
 * { box-sizing: border-box; }
@@ -40,68 +58,138 @@ html, body {
     #0a0503;
   color: var(--ink);
   font-family: 'PT Sans Narrow', 'PT Sans', Arial, sans-serif;
-  font-size: 18px;
-  line-height: 1.55;
+  font-size: 9.5pt;
+  line-height: 1.42;
   min-height: 100vh;
 }
 
-/* ---------- Лист ---------- */
-.page {
-  max-width: 920px;
-  margin: 40px auto 80px;
-  padding: 56px 60px 60px;
-  position: relative;
-  background:
-    radial-gradient(ellipse 200px 140px at 85% 12%, rgba(120, 70, 20, .12), transparent 70%),
-    radial-gradient(ellipse 150px 100px at 20% 70%, rgba(120, 70, 20, .12), transparent 70%),
-    url('media/paper.png') center top / 100% auto repeat-y var(--paper-light);
-  box-shadow:
-    0 0 0 1px rgba(60, 30, 10, .4),
-    0 30px 80px rgba(0, 0, 0, .7),
-    inset 0 0 120px rgba(120, 70, 20, .18);
-  border-radius: 3px;
+/* ---------- Экранная шапка над разворотами ---------- */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 6px 22px;
+  padding: 14px 16px 6px;
+  color: #b39a6f;
+  font-size: 13px;
+  letter-spacing: .06em;
+}
+.toolbar-title { color: #e2cfa8; font-size: 15px; }
+.toolbar a { color: #e2cfa8; }
+.lang-switch { letter-spacing: .14em; line-height: 1; }
+.lang-switch a, .lang-switch .lang-switch-current {
+  display: inline-block;
+  padding: 3px 9px;
+  font-size: 12px;
+  font-weight: 700;
+  border: 1px solid #8a6a44;
+  text-decoration: none;
+}
+.lang-switch a { color: #b39a6f; }
+.lang-switch a:hover { color: #f2e6cf; background: #8a6a44; }
+.lang-switch .lang-switch-current { color: #f2e6cf; background: #6b4a28; border-color: #6b4a28; }
+.lang-switch a + .lang-switch-current, .lang-switch .lang-switch-current + a { border-left: 0; }
+
+/* ---------- Книга: развороты ---------- */
+.book {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Большой зазор между разворотами, чтобы выехавший текст было видно
+     и он не ложился на следующий разворот. */
+  gap: 36mm;
+  padding: 10mm 8mm 50mm;
 }
 
-/* ---------- Шапка ---------- */
-.header {
-  text-align: center;
+.spread {
   position: relative;
-  margin-bottom: 30px;
+  width: calc(var(--sheet-w) * 2);
+  height: var(--sheet-h);
+  flex: none;
+}
+
+.sheet {
+  position: absolute;
+  top: 0;
+  width: var(--sheet-w);
+  height: var(--sheet-h);
+  background:
+    radial-gradient(ellipse 60mm 40mm at 85% 12%, rgba(120, 70, 20, .10), transparent 70%),
+    radial-gradient(ellipse 50mm 30mm at 20% 70%, rgba(120, 70, 20, .10), transparent 70%),
+    url('media/paper.png') center / 100% 100% no-repeat var(--paper-light);
+  box-shadow:
+    0 0 0 1px rgba(60, 30, 10, .4),
+    0 20px 50px rgba(0, 0, 0, .65);
+}
+.sheet.odd  { left: 0; }
+.sheet.even { left: var(--sheet-w); }
+/* Тень корешка */
+.sheet.odd::after, .sheet.even::after {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 6mm;
+  pointer-events: none;
+}
+.sheet.odd::after  { right: 0; background: linear-gradient(to left,  rgba(60, 30, 10, .14), transparent); }
+.sheet.even::after { left: 0;  background: linear-gradient(to right, rgba(60, 30, 10, .14), transparent); }
+
+/* Текстовая колонка страницы. Высота не ограничивает содержимое:
+   overflow visible, лишнее выезжает за низ. */
+.sheet .content {
+  position: absolute;
+  top: var(--m-top);
+  height: calc(var(--sheet-h) - var(--m-top) - var(--m-bottom));
+}
+.sheet.odd  .content { left: var(--outer);  right: var(--gutter); }
+.sheet.even .content { left: var(--gutter); right: var(--outer); }
+
+/* Колонцифра — в нижнем наружном углу */
+.folio {
+  position: absolute;
+  bottom: 5mm;
+  font-size: 8pt;
+  letter-spacing: .1em;
+  color: var(--ink-faded);
+}
+.sheet.odd  .folio { left: var(--outer); }
+.sheet.even .folio { right: var(--outer); }
+
+/* ---------- Обложка (первая страница) ---------- */
+.cover {
+  position: relative;
+  text-align: center;
+  padding: 12mm 4mm 0;
+  margin-bottom: 6mm;
 }
 .kanji-banner {
   font-family: 'Han Zi Web', 'Shippori Mincho', serif;
-  font-size: 60px;
+  font-size: 30pt;
   color: var(--vermilion-dk);
-  letter-spacing: .4em;
-  margin: 0 0 10px;
+  letter-spacing: .25em;
+  margin: 0 0 3mm;
   line-height: 1;
   text-shadow: 0 0 30px rgba(177, 40, 29, .15);
 }
 .kanji-sub {
-  font-size: 14px;
+  font-size: 7pt;
   color: var(--ink-faded);
   letter-spacing: .3em;
   margin: 0;
   text-transform: uppercase;
+  text-indent: 0;
 }
-.draft-note {
-  margin: 14px 0 0;
-  font-size: 13px;
-  letter-spacing: .08em;
-  color: var(--ink-faded);
-}
-.draft-note a { color: var(--vermilion-dk); }
-
 .hanko {
   position: absolute;
   top: 0;
-  right: 0;
-  width: 70px;
-  height: 70px;
+  right: 2mm;
+  width: 18mm;
+  height: 18mm;
   background: var(--vermilion);
   color: var(--paper);
   font-family: 'Han Zi Web', serif;
-  font-size: 24px;
+  font-size: 10pt;
   line-height: 1.05;
   display: flex;
   align-items: center;
@@ -109,86 +197,62 @@ html, body {
   text-align: center;
   transform: rotate(-6deg);
   box-shadow:
-    inset 0 0 0 3px rgba(255, 240, 220, .85),
-    inset 0 0 0 5px var(--vermilion),
-    inset 0 0 12px rgba(0, 0, 0, .4);
+    inset 0 0 0 1pt rgba(255, 240, 220, .95),
+    inset 0 0 0 2pt var(--vermilion),
+    inset 0 0 3mm rgba(0, 0, 0, .35);
   opacity: .9;
 }
+.cover .brush-line { margin: 6mm auto 0; width: 70%; }
 
-/* ---------- Переключатель языка RU|EN ---------- */
-/* Те же две «печати», что в rules/styles.css. Русский — оригинал
-   (rules-new.html), английский — перевод (rules-new-en.html). */
-.lang-switch {
-  margin: 12px 0 0;
-  text-align: center;
-  letter-spacing: .14em;
-  line-height: 1;
-}
-.lang-switch a, .lang-switch .lang-switch-current {
-  display: inline-block;
-  padding: 3px 9px;
-  font-size: 13px;
-  font-weight: 700;
-  border: 1px solid #8a6a44;
-  text-decoration: none;
-}
-.lang-switch a { color: #8a6a44; transition: color .15s, background .15s; }
-.lang-switch a:hover { color: #f2e6cf; background: #8a6a44; }
-.lang-switch .lang-switch-current { color: #f2e6cf; background: #6b4a28; border-color: #6b4a28; cursor: default; }
-.lang-switch a + .lang-switch-current, .lang-switch .lang-switch-current + a { border-left: 0; }
-@media print { .lang-switch { display: none; } }
-
-/* ---------- Кистевой штрих между главами ---------- */
+/* ---------- Кистевой штрих ---------- */
 .brush-line {
-  height: 5px;
-  margin: 34px 0;
+  height: 3px;
+  margin: 5mm auto;
+  width: 70%;
   background: radial-gradient(ellipse 50% 90% at 50% 50%,
     var(--ink) 0%, var(--ink-soft) 35%, transparent 72%);
   opacity: .55;
   filter: blur(.4px);
 }
 
-section.chapter + .brush-line { display: none; }
-
 /* ---------- Глава ---------- */
 section.chapter {
   position: relative;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) var(--side-w);
-  column-gap: 26px;
-  margin: 0;
-  padding: 10px 0 14px;
+  margin: 0 0 5mm;
 }
-
-/* Бледная тушевая иллюстрация за всей главой. Картинка — в переменной
-   --bg на самом section; если её нет, слой просто пустой. */
+/* Бледная тушевая иллюстрация за текстом главы: --bg на самом section */
 section.chapter::before {
   content: "";
   position: absolute;
-  inset: 0 var(--side-w) 0 0;
+  inset: 0;
   background: var(--bg, none) center / contain no-repeat;
   opacity: var(--bg-opacity);
   mix-blend-mode: multiply;
   pointer-events: none;
 }
+.chapter-body { position: relative; z-index: 0; }
 
-.chapter-body { min-width: 0; }
-.chapter-side {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 14px;
-  padding-top: 4px;
+/* Иероглиф главы — водяной знак под текстом, правый нижний угол */
+.chapter-body .kanji {
+  position: absolute;
+  right: 0;
+  bottom: -1mm;
+  z-index: -1;
+  font-family: 'Shippori Mincho', 'Noto Serif JP', 'Yu Mincho', 'MS Mincho', serif;
+  font-size: 26pt;
+  line-height: 1;
+  letter-spacing: .06em;
+  color: rgba(70, 58, 50, .16);
+  user-select: none;
+  pointer-events: none;
 }
 
-/* Заголовок главы: по центру, по обе стороны кистевые штрихи —
-   как в rules.html. */
+/* Заголовок главы: по центру, по обе стороны кистевые штрихи */
 h2.chapter-title {
   font-family: 'Han Zi Web', 'Shippori Mincho', serif;
-  font-size: 34px;
+  font-size: 16pt;
   color: var(--ink);
-  margin: 0 0 14px;
+  margin: 0 0 2.5mm;
   letter-spacing: .04em;
   line-height: 1;
   font-weight: 400;
@@ -197,62 +261,43 @@ h2.chapter-title {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: 3mm;
 }
 h2.chapter-title::before,
 h2.chapter-title::after {
   content: "";
   flex: 1;
-  height: 3px;
+  height: 1.5pt;
   background: radial-gradient(ellipse 50% 90% at 50% 50%,
     var(--ink) 0%, var(--ink-soft) 30%, transparent 70%);
   opacity: .55;
-  filter: blur(.4px);
-}
-
-/* Иероглиф главы — водяной знак под текстом, в правом нижнем углу
-   текстовой колонки: крупный, серый, почти прозрачный. z-index: -1
-   внутри стекового контекста .chapter-body кладёт его под абзацы. */
-.chapter-body { position: relative; z-index: 0; }
-.chapter-body .kanji {
-  position: absolute;
-  right: 0;
-  bottom: -6px;
-  z-index: -1;
-  font-family: 'Shippori Mincho', 'Noto Serif JP', 'Yu Mincho', 'MS Mincho', serif;
-  font-size: 72px;
-  line-height: 1;
-  letter-spacing: .06em;
-  color: rgba(70, 58, 50, .16);
-  user-select: none;
-  pointer-events: none;
 }
 
 section.chapter p {
-  margin: 0 0 6px;
+  margin: 0 0 1.4mm;
   text-indent: 1.5em;
 }
-section.chapter { margin-top: 34px; }
-section.chapter ul, section.chapter ol { margin: 0 0 8px; padding-left: 22px; }
-section.chapter li { margin: 0 0 3px; }
+section.chapter ul, section.chapter ol { margin: 0 0 1.5mm; padding-left: 5mm; }
+section.chapter li { margin: 0 0 .5mm; }
 section.chapter li::marker { color: var(--vermilion-dk); }
 
 section.chapter h4 {
   font-family: inherit;
   color: var(--ink-soft);
-  font-size: 19px;
+  font-size: 10pt;
   font-weight: 700;
-  margin: 20px 0 6px;
+  margin: 2.5mm 0 1mm;
 }
-section.chapter h4:first-of-type { margin-top: 8px; }
+section.chapter h4:first-of-type { margin-top: 1mm; }
 
 aside.note {
   position: relative;
-  padding: 4px 12px 4px 18px;
-  margin: 12px 0;
-  font-size: 15.5px;
+  padding: 1mm 2mm 1mm 4mm;
+  margin: 1.5mm 0;
+  font-size: 8pt;
+  line-height: 1.35;
   background: radial-gradient(ellipse 50% 90% at 50% 50%,
-    var(--ink-soft) 0%, var(--ink-faded) 30%, transparent 70%) left center / 5px 100% no-repeat;
+    var(--ink-soft) 0%, var(--ink-faded) 30%, transparent 70%) left center / 1pt 100% no-repeat;
 }
 
 em.card-term {
@@ -261,17 +306,12 @@ em.card-term {
   color: var(--ink-faded);
 }
 
-/* Абзац со значком слева — как в макете: значок висит в отступе */
-p.with-icon { position: relative; padding-left: 46px; text-indent: 0; }
-p.with-icon > .ic, p.with-icon > .mk { position: absolute; left: 0; top: .1em; --ic: 36px; }
-p.with-icon > .mk { width: 36px; height: 36px; }
-
 /* ---------- Плоские значки с карт ---------- */
 /* Круг цвета группы и белый силуэт из media/types/<group>.svg; спец-бейджи
    (яд, выпад, контексты) — из media/icons/. Цвет и картинку подставляет
    скрипт внизу страницы по data-b, как в памятке. */
 .ic {
-  --ic: 44px;
+  --ic: 5.2mm;
   display: inline-block;
   position: relative;
   width: var(--ic);
@@ -289,7 +329,7 @@ p.with-icon > .mk { width: 36px; height: 36px; }
   display: block;
   filter: brightness(0) invert(1);
 }
-.ic.raw { background: #fff; box-shadow: 0 0 0 2px var(--paper-deep) inset; }
+.ic.raw { background: #fff; box-shadow: 0 0 0 .3mm var(--paper-deep) inset; }
 .ic.raw > img { padding: 14%; filter: none; }
 .ic.b-hp { background: none; box-shadow: none; }
 .ic.b-hp > img { padding: 0; filter: none; }
@@ -297,37 +337,50 @@ p.with-icon > .mk { width: 36px; height: 36px; }
 /* Голая метка: сложность, раны, метательное, очко, сердце */
 .mk {
   display: inline-block;
-  width: 44px;
-  height: 44px;
+  width: 5.2mm;
+  height: 5.2mm;
   object-fit: contain;
   vertical-align: middle;
 }
 
-.side-icons {
+/* Значки в строке текста */
+p .ic, li .ic, h4 .ic, aside .ic { --ic: 3.6mm; vertical-align: -1mm; margin: 0 .3mm; }
+p .mk, li .mk, h4 .mk, aside .mk { width: 3.6mm; height: 3.6mm; vertical-align: -1mm; margin: 0 .3mm; }
+
+/* ---------- Наружное поле: значки и карты главы ---------- */
+/* Колонка привязана к верху своей главы и стоит на наружном поле
+   страницы: слева у нечётных, справа у чётных. */
+.chapter-side {
+  position: absolute;
+  top: 0;
+  width: var(--side);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 2mm;
 }
-.side-icons .row { display: flex; gap: 8px; }
-.side-icons .ic { --ic: 46px; }
-.side-icons .mk { width: 46px; height: 46px; }
+.sheet.odd  .chapter-side { left:  calc(-1 * var(--outer) + 5mm); }
+.sheet.even .chapter-side { right: calc(-1 * var(--outer) + 5mm); }
 
-/* Значки в строке текста */
-p .ic, li .ic, h4 .ic, aside .ic { --ic: 24px; vertical-align: -6px; margin: 0 2px; }
-p .mk, li .mk, h4 .mk, aside .mk { width: 24px; height: 24px; vertical-align: -6px; margin: 0 2px; }
+.side-icons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.2mm;
+  width: var(--side);
+}
+.side-icons .row { display: contents; }
 
-/* ---------- Карты-примеры на полях ---------- */
-/* Статичные WebP из rules/media/cards/ — карта уже обрезана до арта и со
-   скруглёнными углами (tools/render-card-previews.py). Так и на экране,
-   и на бумаге одно и то же, без iframe-хаков. */
+/* Карты-примеры: статичные WebP из rules/media/cards/, уже обрезанные
+   до арта со скруглёнными углами (tools/render-card-previews.py). */
 .card-embed {
-  width: 120px;
-  height: 196px;
+  width: 20mm;
+  height: 32.6mm;                /* 20 × 372/228 */
   flex: none;
-  border-radius: 6px;
-  box-shadow: 0 3px 8px rgba(40, 20, 5, .35);
+  border-radius: 1.2mm;
+  box-shadow: 0 .8mm 2mm rgba(40, 20, 5, .35);
   overflow: hidden;
+  background: #fff;
 }
 .card-embed img {
   display: block;
@@ -336,96 +389,90 @@ p .mk, li .mk, h4 .mk, aside .mk { width: 24px; height: 24px; vertical-align: -6
   object-fit: cover;
 }
 
-/* Веер карт на полях: карты внахлёст с поворотом. --k — позиция карты
-   относительно центра веера (-1, 0, 1), задаётся в разметке. В колонке
-   140px карты 104px; крайние в веере выходят на межколонник — это
-   нормально, он под них и оставлен. */
+/* Веер — карты внахлёст с поворотом; --k = позиция от центра (-1, 0, 1) */
 .side-cards {
   position: relative;
-  width: 104px;
-  height: 170px;
-  margin-top: 8px;
-  align-self: flex-end;   /* веер прижат к правому полю, левая карта уходит
-                             только на межколонник, не на текст */
-  margin-right: -6px;
+  width: 20mm;
+  height: 32.6mm;
+  margin-top: 1mm;
 }
 .side-cards.fan .card-embed {
   position: absolute;
   left: 0;
   top: 0;
-}
-.side-cards .card-embed {
-  width: 104px;
-  height: 170px;
-  transform: rotate(calc(var(--k) * 11deg)) translate(calc(var(--k) * 30px), calc(var(--k) * var(--k) * 4px));
+  transform: rotate(calc(var(--k) * 11deg)) translate(calc(var(--k) * 6mm), calc(var(--k) * var(--k) * .8mm));
   transform-origin: 50% 135%;
 }
-.side-cards.fan.n2 { height: 184px; }
-.side-cards.fan.n3 { height: 190px; }
+.side-cards.fan.n2 { height: 35mm; }
+.side-cards.fan.n3 { height: 36mm; }
 
-/* Лесенка для длинных глав: карты одна под другой с нахлёстом и лёгким
-   попеременным наклоном, вниз по полю. --i — порядковый номер. */
+/* Лесенка — для длинных глав: карты одна под другой с нахлёстом */
 .side-cards.stack { height: auto; }
 .side-cards.stack .card-embed {
   position: relative;
-  transform: rotate(calc((var(--k)) * -4deg)) translateX(calc(var(--k) * 6px));
-  transform-origin: 50% 50%;
-  margin-top: -34px;
+  margin-top: -6.5mm;
+  transform: rotate(calc(var(--k) * -4deg)) translateX(calc(var(--k) * 1.2mm));
 }
 .side-cards.stack .card-embed:first-child { margin-top: 0; }
 
-/* ---------- Порядок расчёта: цепочка значков ---------- */
+/* ---------- Порядок расчёта: цепочки значков ---------- */
 .chain {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 2px;
-  margin: 4px 0 14px;
-  font-size: 13px;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  gap: 0;
+  margin: 1mm 0 2.5mm;
+  font-size: 6.5pt;
   color: var(--ink-soft);
+  line-height: 1.1;
 }
 .chain .st {
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  width: 72px;
+  width: 11.6mm;
   text-align: center;
-  line-height: 1.1;
-  gap: 4px;
+  gap: .6mm;
 }
-.chain .st .ic { --ic: 40px; margin: 0; vertical-align: baseline; }
-.chain .arr { color: var(--gold); font-size: 18px; margin: 0 -6px 18px; }
+.chain .st .ic { --ic: 5mm; margin: 0; }
+.chain .arr { color: var(--gold); font-size: 8pt; margin: 1.2mm -.8mm 0; }
 
 /* ---------- Таблицы балансировки ---------- */
 .balance-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 10px 0 20px;
-  font-size: 15px;
+  margin: 1.5mm 0 3mm;
+  font-size: 7.4pt;
   background: rgba(110, 70, 20, .06);
-  border: 1px solid rgba(110, 70, 20, .35);
+  border: .5pt solid rgba(110, 70, 20, .4);
 }
 .balance-table th, .balance-table td {
-  border: 1px solid rgba(110, 70, 20, .3);
-  padding: 6px 8px;
+  border: .4pt solid rgba(110, 70, 20, .35);
+  padding: 2px 4px;
   text-align: center;
+  line-height: 1.2;
 }
 .balance-table thead th {
   background: rgba(177, 40, 29, .12);
   color: var(--vermilion-dk);
   font-weight: 700;
-  font-size: 14px;
-  line-height: 1.3;
+  font-size: 7pt;
 }
 .balance-table tbody td:first-child {
   font-weight: 700;
   color: var(--vermilion-dk);
   font-family: 'Han Zi Web', serif;
-  font-size: 18px;
+  font-size: 9pt;
 }
 
 /* ---------- Стол во время партии ---------- */
-.table-figure { margin: 16px 0 8px; }
+/* Рисунок шире текстовой колонки: выходит на наружное поле, чтобы
+   подписи на нём остались читаемыми. */
+.table-figure {
+  width: calc(100% + var(--side) + 5mm);
+  margin: 2mm 0 1mm;
+}
+.sheet.odd .table-figure { margin-left: calc(-1 * var(--side) - 5mm); }
 .table-figure .table-pic { position: relative; width: 100%; }
 .table-figure img { display: block; width: 100%; height: auto; }
 .table-figure svg.table-overlay {
@@ -435,89 +482,37 @@ p .mk, li .mk, h4 .mk, aside .mk { width: 24px; height: 24px; vertical-align: -6
   height: 100%;
   font-family: 'PT Sans Narrow', 'PT Sans', Arial, sans-serif;
 }
-.table-overlay .tf-lines line {
-  stroke: var(--vermilion-dk);
-  stroke-width: 3.5;
-  marker-end: url(#tf-arrow);
-}
+.table-overlay .tf-lines line { stroke: var(--vermilion-dk); stroke-width: 3.5; marker-end: url(#tf-arrow); }
 .table-overlay #tf-arrow path { fill: var(--vermilion-dk); }
-.table-overlay .tf-labels rect {
-  fill: var(--paper-light);
-  stroke: var(--gold);
-  stroke-width: 2;
-}
+.table-overlay .tf-labels rect { fill: var(--paper-light); stroke: var(--gold); stroke-width: 2; }
 .table-overlay .tf-num { fill: var(--vermilion-dk); }
-.table-overlay .tf-numtxt {
-  fill: var(--paper-light);
-  font-size: 24px;
-  font-weight: 700;
-  text-anchor: middle;
-  dominant-baseline: central;
-}
-.table-overlay .tf-txt {
-  fill: var(--ink);
-  font-size: 27px;
-  font-weight: 700;
-  dominant-baseline: central;
-}
+.table-overlay .tf-numtxt { fill: var(--paper-light); font-size: 24px; font-weight: 700; text-anchor: middle; dominant-baseline: central; }
+.table-overlay .tf-txt { fill: var(--ink); font-size: 27px; font-weight: 700; dominant-baseline: central; }
 .table-overlay .tf-tags rect { fill: var(--vermilion-dk); }
-.table-overlay .tf-tags text {
-  fill: var(--paper-light);
-  font-size: 26px;
-  font-weight: 700;
-  letter-spacing: .04em;
-  text-anchor: middle;
-  dominant-baseline: central;
-}
+.table-overlay .tf-tags text { fill: var(--paper-light); font-size: 26px; font-weight: 700; letter-spacing: .04em; text-anchor: middle; dominant-baseline: central; }
 .table-figure figcaption {
   text-align: center;
-  font-size: 14px;
+  font-size: 7.5pt;
   color: var(--ink-faded);
-  margin-top: 6px;
+  margin-top: 1mm;
   letter-spacing: .04em;
 }
 ol.table-legend {
   columns: 2;
-  column-gap: 28px;
-  padding-left: 22px;
-  margin: 8px 0 6px;
-  font-size: 15.5px;
+  column-gap: 6mm;
+  padding-left: 4mm;
+  margin: 1.5mm 0 1mm;
+  font-size: 7.6pt;
+  line-height: 1.3;
 }
-ol.table-legend li { break-inside: avoid; margin-bottom: 4px; }
+ol.table-legend li { break-inside: avoid; margin-bottom: .8mm; }
 ol.table-legend li::marker { color: var(--vermilion-dk); font-weight: 700; }
-p.table-note { font-size: 15.5px; color: var(--ink-soft); }
+p.table-note { font-size: 8pt; color: var(--ink-soft); text-indent: 0; }
 
-/* Печатное приложение со столом — только на бумаге. Селектор с тегом и
-   двумя классами, чтобы перебить section.chapter { display: grid }. */
-section.chapter.print-only { display: none; }
-
-/* ---------- Подвал ---------- */
-.footer {
-  margin-top: 50px;
-  padding-top: 24px;
-  border-top: 1px solid var(--ink-faded);
-  text-align: center;
-  font-size: 14px;
-  color: var(--ink-faded);
-  letter-spacing: .3em;
+/* ---------- Мелкие экраны: развороты в масштабе (только экран!) ---------- */
+@media screen and (max-width: 1200px) {
+  .book { zoom: .85; }
 }
-
-/* ---------- Адаптив ---------- */
-@media (max-width: 760px) {
-  .page { margin: 12px auto; padding: 28px 18px; }
-  section.chapter { grid-template-columns: 1fr; }
-  section.chapter::before { inset: 0; }
-  .chapter-side {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    order: 2;
-  }
-  .side-icons { flex-direction: row; }
-  ol.table-legend { columns: 1; }
-}
-
-@media print {
-  html, body { background: #fff; }
-  .page { box-shadow: none; margin: 0; max-width: none; }
+@media screen and (max-width: 1000px) {
+  .book { zoom: .65; }
 }
