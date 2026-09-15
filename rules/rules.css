@@ -286,6 +286,40 @@ h2.chapter-title .h-icons::before {
   letter-spacing: 0;
 }
 
+section.chapter p {
+  margin: 0 0 1.6mm;
+  text-indent: 0;
+}
+section.chapter ul, section.chapter ol { margin: 0 0 1.5mm; padding-left: 5mm; }
+section.chapter li { margin: 0 0 .5mm; }
+section.chapter li::marker { color: var(--vermilion-dk); }
+
+section.chapter h4 {
+  font-family: inherit;
+  color: var(--ink-soft);
+  font-size: 10pt;
+  font-weight: 700;
+  margin: 2.5mm 0 1mm;
+}
+section.chapter h4:first-of-type { margin-top: 1mm; }
+section.chapter.continued .chapter-body > :first-child { margin-top: 0; }
+
+aside.note {
+  position: relative;
+  padding: 1mm 2mm 1mm 4mm;
+  margin: 1.5mm 0;
+  font-size: 8pt;
+  line-height: 1.35;
+  background: radial-gradient(ellipse 50% 90% at 50% 50%,
+    var(--ink-soft) 0%, var(--ink-faded) 30%, transparent 70%) left center / 1pt 100% no-repeat;
+}
+
+em.card-term {
+  font-style: italic;
+  font-weight: 700;
+  color: var(--ink-faded);
+}
+
 /* ---------- Плоские значки с карт ---------- */
 /* Круг цвета группы и белый силуэт из media/types/<group>.svg; спец-бейджи
    (яд, выпад, контексты) — из media/icons/. Цвет и картинку подставляет
