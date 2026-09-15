@@ -487,8 +487,9 @@ ol.table-legend li { break-inside: avoid; margin-bottom: 4px; }
 ol.table-legend li::marker { color: var(--vermilion-dk); font-weight: 700; }
 p.table-note { font-size: 15.5px; color: var(--ink-soft); }
 
-/* Печатное приложение со столом — только на бумаге */
-.print-only { display: none; }
+/* Печатное приложение со столом — только на бумаге. Селектор с тегом и
+   двумя классами, чтобы перебить section.chapter { display: grid }. */
+section.chapter.print-only { display: none; }
 
 /* ---------- Подвал ---------- */
 .footer {

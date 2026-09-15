@@ -198,7 +198,7 @@
      на бумаге скрыт, а в конце брошюры идёт приложение разворотом на обе
      колонки: рисунок и легенда в две колонки под ним. */
   .table-inflow { display: none !important; }
-  .print-only { display: block; }
+  section.chapter.print-only { display: block; }
   section.appendix {
     column-span: all;
     break-before: page;
