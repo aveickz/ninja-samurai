@@ -122,7 +122,7 @@ def part_cards(cfg, a):
 
 # высота колонки на поле — чтобы срез главы был не ниже своих карт
 def side_height_mm(icon_rows, n, layout):
-    h = icon_rows * 5.2 + max(icon_rows - 1, 0) * 1.2
+    h = icon_rows * 9 + max(icon_rows - 1, 0) * 1.5     # значки на поле 9 мм, зазор 1.5
     if n:
         cards = (32.6 + (n - 1) * 26.1) if layout == 'stack' else {1: 32.6, 2: 35, 3: 36}.get(n, 36)
         h += (2 if icon_rows else 0) + 1 + cards

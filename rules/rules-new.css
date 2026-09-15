@@ -372,10 +372,12 @@ p .mk, li .mk, h4 .mk, aside .mk { width: 3.6mm; height: 3.6mm; vertical-align: 
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1.2mm;
+  gap: 1.5mm;
   width: var(--side);
 }
 .side-icons .row { display: contents; }
+.side-icons .ic { --ic: 9mm; }
+.side-icons .mk { width: 9mm; height: 9mm; }
 
 /* Карты-примеры: статичные WebP из rules/media/cards/, уже обрезанные
    до арта со скруглёнными углами (tools/render-card-previews.py). */
