@@ -67,7 +67,7 @@ CH = {
  'poison':        dict(icons=[[('ic','poison')]],                       cards=[116, 64]),
  'interventions': dict(layout='stack', icons=[[('ic','intervention')]], cards=[121, 124]),
  'auras':         dict(layout='stack', icons=[[('ic','aura')]],         cards=[1200, 1204]),
- 'conditional':   dict(layout='stack', icons=[[('ic','rolectx'),('ic','hpctx')],[('ic','poison'),('ic','stance')],[('ic','charges')]], cards=[125, 1165]),
+ 'conditional':   dict(layout='stack', icons=[[('ic','rolectx'),('ic','hpctx'),('ic','charges')]], cards=[125, 3094]),
  'order':         dict(icons=[],                                        cards=[]),
 }
 
@@ -79,9 +79,9 @@ CH = {
 # Высоты блоков смотреть в браузере: getBoundingClientRect по .chapter-body > *.
 PAGES = [
     ['__cover__', 'about', ('setup', 0, 4)],   # обложка, об игре, подготовка: роли
-    [('setup', 4, 6), ('setup', 6, None), 'flow'],   # рассадка; персонажи и очки (с картой персонажа); партия
+    [('setup', 4, 6), ('setup', 6, None), ('flow', 0, 4)],   # рассадка; персонажи и очки; партия: ход
     ['table'],                          # стол во время партии — целая страница
-    ['cards'],
+    [('flow', 4, None), 'cards'],    # партия: смерть и окончание; карты
     [('weapons', 0, 9)],
     [('weapons', 9, None), 'traps'],
     ['stances', 'effects'],
@@ -172,8 +172,7 @@ INLINE = {
   ('setup', '<h4>Выставление очков</h4>', '<h4>Выставление очков<span class="h-icons">' + ic('mk','winpoint.png') + '</span></h4>'),
   ('conditional', '<strong>Бонусы по фракции.</strong>', ic('ic','rolectx') + ' <strong>Бонусы по фракции.</strong>'),
   ('conditional', '<strong>Контекст здоровья.</strong>', ic('ic','hpctx') + ' <strong>Контекст здоровья.</strong>'),
-  ('conditional', '<strong>Условия по яду.</strong>', ic('ic','poison') + ' <strong>Условия по яду.</strong>'),
-  ('conditional', '<strong>Условия по стойке.</strong>', ic('ic','stance') + ' <strong>Условия по стойке.</strong>'),
+  ('conditional', '<strong>Счёт по столу.</strong>', ic('ic','charges') + ' <strong>Счёт по столу.</strong>'),
  ],
  'en': [
   ('weapons', 'the highest <b>complexity</b> it can handle and its attack power.', 'the highest <b>complexity</b> it can handle ' + ic('mk','icons/complexity1.svg') + ' and its attack power ' + ic('mk','icons/dmg2.svg') + '.'),
@@ -190,8 +189,7 @@ INLINE = {
   ('setup', '<h4>Setting out points</h4>', '<h4>Setting out points<span class="h-icons">' + ic('mk','winpoint.png') + '</span></h4>'),
   ('conditional', '<strong>Faction bonuses.</strong>', ic('ic','rolectx') + ' <strong>Faction bonuses.</strong>'),
   ('conditional', '<strong>Health context.</strong>', ic('ic','hpctx') + ' <strong>Health context.</strong>'),
-  ('conditional', '<strong>Poison conditions.</strong>', ic('ic','poison') + ' <strong>Poison conditions.</strong>'),
-  ('conditional', '<strong>Stance conditions.</strong>', ic('ic','stance') + ' <strong>Stance conditions.</strong>'),
+  ('conditional', '<strong>Counting the table.</strong>', ic('ic','charges') + ' <strong>Counting the table.</strong>'),
  ],
 }
 
