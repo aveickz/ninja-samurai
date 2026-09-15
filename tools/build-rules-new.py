@@ -81,14 +81,14 @@ PAGES = [
     ['__cover__', 'about', ('setup', 0, 4)],   # обложка, об игре, подготовка: роли
     [('setup', 4, 6), ('setup', 6, None), 'flow'],   # рассадка; персонажи и очки (с картой персонажа); партия
     ['table'],                          # стол во время партии — целая страница
-    ['players', 'cards'],
+    ['cards'],
     [('weapons', 0, 9)],
     [('weapons', 9, None), 'traps'],
     ['stances', 'effects'],
     ['poison', 'interventions'],
     ['auras'],
     ['conditional'],
-    ['order'],
+    ['order', 'players'],           # неравные команды — редкость, в самый конец
 ]
 
 def top_level_blocks(html):
