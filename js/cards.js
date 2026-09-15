@@ -1400,8 +1400,8 @@ const CARDS = [
     group: "aoe",
     icons: ["thrust", "poison", "charges"],
     tags: ["poison", "toPrint"],
-    desc: "За каждое отравление на столе выбранный вами игрок теряет жетон жизни.",
-    enDesc: "A player of your choice loses 1 life for every Poison on the table.",
+    desc: "За каждое отравление на столе выбранный вами игрок теряет жетон жизни.[NL]{Под аурой Бочки зловония} можете взорвать её: аура уходит в сброс вместе с отравлением носителя, а цель теряет ещё один жетон.",
+    enDesc: "A player of your choice loses 1 life for every Poison on the table.[NL]{Under the Barrel of Stench} you may blow it up: the aura is discarded along with its bearer's Poison, and the target loses 1 more life.",
     img: "cards/card_acid_explosion.png"
   },
   {
@@ -2559,9 +2559,9 @@ const CARDS = [
     qty: 1,
     group: "aura",
     icons: [],
-    tags: [],
-    desc: "{Враги} после нанесения ран прямой атакой по вашим союзникам получают от носителя ауры 1 рану.[NL]{Носитель} не может пользоваться метательным оружием.",
-    enDesc: "{Enemies} who wound your allies with a direct attack take 1 wound from the Aura's bearer.[NL]The {Bearer} cannot use thrown weapons.",
+    tags: ["toPrint"],
+    desc: "{Враги} после нанесения ран прямой атакой по вашим союзникам получают от носителя ауры 1 рану, а если носитель в стойке {лучника} — 2.[NL]{Носитель} не может пользоваться метательным оружием.",
+    enDesc: "{Enemies} who wound your allies with a direct attack take 1 wound from the Aura's bearer, or 2 if the bearer is in the {Archer} stance.[NL]The {Bearer} cannot use thrown weapons.",
     img: "cards/card_warden.png"
   },
   {
