@@ -280,8 +280,8 @@ def chapter_html(lang, cid, mark, title, body, a=0, b=None):
     icons = cfg['icons'] if first else []
     style = f' style="--bg:url({bg})"' if bg else ''
     cls = 'chapter' + ('' if first else ' continued')
-    title_html = f'\n          <h2 class="chapter-title">{title}</h2>' if first else ''
-    kanji_html = f'\n          <span class="kanji" aria-hidden="true">{mark}</span>' if last else ''
+    title_html = f'\n          <h2 class="chapter-title">{title}<span class="kanji" aria-hidden="true">{mark}</span></h2>' if first else ''
+    kanji_html = ''   # иероглиф теперь в строке заголовка
     side_html = ''
     if icons or cards:
         side_html = f'''

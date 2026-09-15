@@ -243,22 +243,8 @@ section.chapter::before {
 }
 .chapter-body { position: relative; z-index: 0; }
 
-/* Иероглиф главы — водяной знак под текстом, правый нижний угол */
-.chapter-body .kanji {
-  position: absolute;
-  right: 0;
-  bottom: -1mm;
-  z-index: -1;
-  font-family: 'Shippori Mincho', 'Noto Serif JP', 'Yu Mincho', 'MS Mincho', serif;
-  font-size: 26pt;
-  line-height: 1;
-  letter-spacing: .06em;
-  color: rgba(70, 58, 50, .16);
-  user-select: none;
-  pointer-events: none;
-}
-
-/* Заголовок главы: по центру, по обе стороны кистевые штрихи */
+/* Заголовок главы: слева название, от него кистевой штрих вправо до
+   иероглифа главы, иероглиф — в конце строки. */
 h2.chapter-title {
   font-family: 'Han Zi Web', 'Shippori Mincho', serif;
   font-size: 16pt;
@@ -268,23 +254,31 @@ h2.chapter-title {
   line-height: 1;
   font-weight: 400;
   text-transform: uppercase;
-  text-align: center;
+  text-align: left;
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 3mm;
 }
-h2.chapter-title::before,
-h2.chapter-title::after {
+h2.chapter-title::before {
   content: "";
+  order: 1;
   flex: 1;
   height: 1.5pt;
   background: radial-gradient(ellipse 50% 90% at 50% 50%,
     var(--ink) 0%, var(--ink-soft) 30%, transparent 70%);
   opacity: .55;
 }
+h2.chapter-title .kanji {
+  order: 2;
+  font-family: 'Shippori Mincho', 'Noto Serif JP', 'Yu Mincho', 'MS Mincho', serif;
+  font-size: 17pt;
+  line-height: 1;
+  letter-spacing: .06em;
+  color: rgba(122, 20, 16, .45);
+  text-transform: none;
+  user-select: none;
+}
 
-/* Абзацы без красной строки — только отбивка между ними */
 section.chapter p {
   margin: 0 0 1.6mm;
   text-indent: 0;
