@@ -32,7 +32,7 @@ TXT = {
   'hand': 'Рука', 'discard': 'Сброс', 'effect': 'Эффекты', 'life': 'Жизни',
   'vp': 'Победные очки', 'attack': 'Атака: оружие + модификатор',
   'samurai': 'Самурай', 'ninja': 'Ниндзя',
-  'h4': 'Стол во время партии',
+  'h4': 'Стол',
   'intro': 'Так выглядит стол в середине партии на четверых: у каждого игрока перед собой своя зона, посреди стола — общие стопки. Игроки сидят через одного, поэтому напротив — союзник, а по бокам — противники.',
   'legend': [
    ('character', 'карта персонажа лежит перед игроком в открытую всю партию; цифра в сердце — стартовые жизни.'),
@@ -54,7 +54,7 @@ TXT = {
   'hand': 'Hand', 'discard': 'Discard', 'effect': 'Effects', 'life': 'Life',
   'vp': 'Victory points', 'attack': 'Attack: weapon + modifier',
   'samurai': 'Samurai', 'ninja': 'Ninja',
-  'h4': 'The table during play',
+  'h4': 'The Table',
   'intro': 'This is what a four-player table looks like mid-game: every player has their own area in front of them, and the shared piles sit in the middle. Seats alternate, so the player opposite is your ally and the players on either side are enemies.',
   'legend': [
    ('character', 'the character card lies face up in front of the player for the whole game; the number in the heart is the starting life.'),

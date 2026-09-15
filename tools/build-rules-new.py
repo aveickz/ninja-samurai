@@ -46,7 +46,7 @@ def bg_path(cid):
     return dst.replace('rules/', '')
 
 # ---------- конфиг глав (общий для языков) ----------
-# icons — ряды значков на поле: ('ic', ключ группы/бейджа) или ('mk', файл в media/)
+# icons — значки главы в строке заголовка: ('ic', ключ группы/бейджа) или ('mk', файл в media/)
 # cards — ID карт-примеров (превью в rules/media/cards/, см. render-card-previews.py);
 #         список — все на первом срезе, словарь {начало_среза: [id]} — по срезам
 # layout — 'fan' (веером, для коротких глав) или 'stack' (лесенкой вниз); тоже
@@ -134,10 +134,12 @@ def ic(kind, key):
         return f'<i class="ic" data-b="{key}"></i>'
     return f'<img class="mk" src="../media/{key}" alt="">'
 
-def side_icons(rows):
-    if not rows:
+def heading_icons(rows):
+    """Значки главы — одним рядом в строке заголовка, после штриха."""
+    flat = [i for r in rows for i in r]
+    if not flat:
         return ''
-    return '<div class="side-icons">' + ''.join('<div class="row">' + ''.join(ic(*i) for i in r) + '</div>' for r in rows) + '</div>'
+    return '<span class="h-icons">' + ''.join(ic(*i) for i in flat) + '</span>'
 
 def card_fan(ids, lang, layout='fan'):
     """Карты-примеры на поле: WebP из rules/media/cards/ (tools/render-card-previews.py).
@@ -275,18 +277,17 @@ def chapter_html(lang, cid, mark, title, body, a=0, b=None):
     assert part, (cid, a, b, len(blocks))
     first, last = a == 0, b is None
     body = '\n'.join(part)
-    bg = bg_path(cid)
+    bg = bg_path(cid) if a == 0 else None   # фон — только на первом срезе, чтобы не повторялся на странице
     cards, layout = part_cards(cfg, a)
     icons = cfg['icons'] if first else []
     style = f' style="--bg:url({bg})"' if bg else ''
     cls = 'chapter' + ('' if first else ' continued')
-    title_html = f'\n          <h2 class="chapter-title">{title}<span class="kanji" aria-hidden="true">{mark}</span></h2>' if first else ''
+    title_html = f'\n          <h2 class="chapter-title">{title}<span class="kanji" aria-hidden="true">{mark}</span>{heading_icons(icons)}</h2>' if first else ''
     kanji_html = ''   # иероглиф теперь в строке заголовка
     side_html = ''
-    if icons or cards:
+    if cards:
         side_html = f'''
         <aside class="chapter-side">
-          {side_icons(icons)}
           {card_fan(cards, lang, layout)}
         </aside>'''
     return f'''

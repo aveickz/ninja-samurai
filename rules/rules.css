@@ -243,8 +243,8 @@ section.chapter::before {
 }
 .chapter-body { position: relative; z-index: 0; }
 
-/* Заголовок главы: слева название, от него кистевой штрих вправо до
-   иероглифа главы, иероглиф — в конце строки. */
+/* Заголовок главы: слева название и иероглиф, от них кистевой штрих
+   вправо, в конце строки — значки главы. */
 h2.chapter-title {
   font-family: 'Han Zi Web', 'Shippori Mincho', serif;
   font-size: 16pt;
@@ -261,7 +261,7 @@ h2.chapter-title {
 }
 h2.chapter-title::before {
   content: "";
-  order: 1;
+  order: 2;
   flex: 1;
   height: 1.5pt;
   background: radial-gradient(ellipse 50% 90% at 50% 50%,
@@ -269,7 +269,7 @@ h2.chapter-title::before {
   opacity: .55;
 }
 h2.chapter-title .kanji {
-  order: 2;
+  order: 1;
   font-family: 'Shippori Mincho', 'Noto Serif JP', 'Yu Mincho', 'MS Mincho', serif;
   font-size: 17pt;
   line-height: 1;
@@ -312,6 +312,16 @@ em.card-term {
   font-weight: 700;
   color: var(--ink-faded);
 }
+
+/* Значки главы — в конце строки заголовка, одним рядом */
+h2.chapter-title .h-icons {
+  order: 3;
+  display: flex;
+  align-items: center;
+  gap: 1.5mm;
+}
+h2.chapter-title .h-icons .ic { --ic: 7mm; }
+h2.chapter-title .h-icons .mk { width: 7mm; height: 7mm; }
 
 /* ---------- Плоские значки с карт ---------- */
 /* Круг цвета группы и белый силуэт из media/types/<group>.svg; спец-бейджи
