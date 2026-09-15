@@ -63,7 +63,6 @@ CH = {
                        cards={0: [1, 32, 33, 31], 9: [70, 48]}),   # карты по срезам: ключ — начало среза
  'traps':         dict(icons=[[('ic','trap')]],                         cards=[43, 41]),
  'stances':       dict(icons=[[('ic','stance')]],                       cards=[1166, 60]),
- 'characters':    dict(icons=[[('ic','character'),('ic','hp')]],        cards=[135, 138]),
  'effects':       dict(icons=[[('ic','effect')]],                       cards=[91]),
  'poison':        dict(icons=[[('ic','poison')]],                       cards=[116, 64]),
  'interventions': dict(layout='stack', icons=[[('ic','intervention')]], cards=[121, 124]),
@@ -85,9 +84,8 @@ PAGES = [
     ['players', 'cards'],
     [('weapons', 0, 9)],
     [('weapons', 9, None), 'traps'],
-    ['stances', 'characters'],          # короткие главы: высоту задаёт веер карт
-    ['effects', 'poison'],
-    ['interventions'],
+    ['stances', 'effects'],
+    ['poison', 'interventions'],
     ['auras'],
     ['conditional'],
     ['order'],
@@ -151,7 +149,7 @@ def card_fan(ids, lang, layout='fan'):
     for i, cid in enumerate(ids):
         k = i - (n - 1) / 2           # -1, 0, 1 для трёх карт
         src = f'media/cards/{cid}{"-en" if lang == "en" else ""}.webp'
-        items.append(f'<div class="card-embed" style="--k:{k:g};--i:{i}"><img src="{src}" alt="" loading="lazy"></div>')
+        items.append(f'<div class="card-embed" style="--k:{k:g};--i:{i}"><img src="{src}" alt=""></div>')
     return f'<div class="side-cards {layout} n{n}">' + ''.join(items) + '</div>'
 
 # значки в тексте — точечные вставки по фразам (глава, было, стало)
@@ -167,7 +165,7 @@ INLINE = {
   ('traps', 'поставив на неё фигурку ловушки.', 'поставив на неё фигурку ловушки ' + ic('ic','trap') + '.'),
   ('interventions', 'Вмешательство — особый тип карт,', 'Вмешательство ' + ic('ic','intervention') + ' — особый тип карт,'),
   ('auras', 'Командные ауры — мощные карты,', 'Командные ауры ' + ic('ic','aura') + ' — мощные карты,'),
-  ('characters', 'Цифра внутри сердца означает', 'Цифра внутри сердца ' + ic('ic','hp') + ' означает'),
+  ('setup', 'Цифра внутри сердца — максимум', 'Цифра внутри сердца ' + ic('ic','hp') + ' — максимум'),
   ('conditional', '<strong>Бонусы по фракции.</strong>', ic('ic','rolectx') + ' <strong>Бонусы по фракции.</strong>'),
   ('conditional', '<strong>Контекст здоровья.</strong>', ic('ic','hpctx') + ' <strong>Контекст здоровья.</strong>'),
   ('conditional', '<strong>Условия по яду.</strong>', ic('ic','poison') + ' <strong>Условия по яду.</strong>'),
@@ -183,7 +181,7 @@ INLINE = {
   ('poison', '<h4>The three afflictions of the poisoned</h4>', '<h4>' + ic('ic','poison') + ' The three afflictions of the poisoned</h4>'),
   ('interventions', '<p>Intervention is a special card type', '<p>Intervention ' + ic('ic','intervention') + ' is a special card type'),
   ('auras', '<p>Team Auras are powerful cards', '<p>Team Auras ' + ic('ic','aura') + ' are powerful cards'),
-  ('characters', 'The number inside the heart is', 'The number inside the heart ' + ic('ic','hp') + ' is'),
+  ('setup', 'The number inside the heart is', 'The number inside the heart ' + ic('ic','hp') + ' is'),
   ('conditional', '<strong>Faction bonuses.</strong>', ic('ic','rolectx') + ' <strong>Faction bonuses.</strong>'),
   ('conditional', '<strong>Health context.</strong>', ic('ic','hpctx') + ' <strong>Health context.</strong>'),
   ('conditional', '<strong>Poison conditions.</strong>', ic('ic','poison') + ' <strong>Poison conditions.</strong>'),
@@ -311,7 +309,7 @@ def build(lang):
     t = L[lang]
     src = open(t['src'], encoding='utf-8').read()
     chapters = {cid: (mark, title, body) for cid, mark, title, body in sec_re.findall(src)}
-    assert len(chapters) == 15, (lang, len(chapters))
+    assert len(chapters) == 14, (lang, len(chapters))
     # глава «Стол во время партии» собирается из table_fig: h4 там становится заголовком главы
     tsec = table_fig.section(lang)
     ttitle = re.search(r'<h4>([^<]*)</h4>', tsec).group(1)
