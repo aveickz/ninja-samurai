@@ -277,9 +277,10 @@ h2.chapter-title::after {
   opacity: .55;
 }
 
+/* Абзацы без красной строки — только отбивка между ними */
 section.chapter p {
-  margin: 0 0 1.4mm;
-  text-indent: 1.5em;
+  margin: 0 0 1.6mm;
+  text-indent: 0;
 }
 section.chapter ul, section.chapter ol { margin: 0 0 1.5mm; padding-left: 5mm; }
 section.chapter li { margin: 0 0 .5mm; }
