@@ -93,6 +93,23 @@
 
   /* Колонка: бледный тушевой рисунок под текстом, как фон главы в правилах */
   .col { position: relative; min-width: 0; }
+  /* Разделитель колонок — та же кистевая черта, что была в заголовках
+     правил (.brush-line), только вертикально: густая в середине, сходит
+     на нет к концам. Стоит посередине зазора между колонками. */
+  .col + .col::after {
+    content: "";
+    position: absolute;
+    top: 5mm;
+    bottom: 3mm;
+    left: calc(-1 * var(--gap) / 2 - 1px);
+    width: 4px;
+    background: radial-gradient(ellipse 90% 50% at 50% 50%,
+      var(--ink) 0%, var(--ink-soft) 35%, transparent 72%);
+    opacity: .7;
+    filter: blur(.4px);
+    pointer-events: none;
+    z-index: 0;
+  }
   .col::before {
     content: "";
     position: absolute;
