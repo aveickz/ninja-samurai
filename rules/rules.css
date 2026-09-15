@@ -531,7 +531,7 @@ section.chapter::after { content: ""; display: block; clear: both; }
 .table-overlay .tf-labels rect { fill: var(--paper-light); stroke: var(--gold); stroke-width: 2; }
 .table-overlay .tf-num { fill: var(--vermilion-dk); }
 .table-overlay .tf-numtxt { fill: var(--paper-light); font-size: 24px; font-weight: 700; text-anchor: middle; dominant-baseline: central; }
-.table-overlay .tf-txt { fill: var(--ink); font-size: 27px; font-weight: 700; dominant-baseline: central; }
+.table-overlay .tf-txt { fill: var(--ink); font-size: 27px; font-weight: 700; text-anchor: middle; dominant-baseline: central; }
 .table-overlay .tf-tags rect { fill: var(--vermilion-dk); }
 .table-overlay .tf-tags text { fill: var(--paper-light); font-size: 26px; font-weight: 700; letter-spacing: .04em; text-anchor: middle; dominant-baseline: central; }
 .table-figure figcaption {

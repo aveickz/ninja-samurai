@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-"""Раздел «Стол во время партии» для rules-new*.html (импорт из build-rules-new.py):
-картинка стола + SVG-слой со стрелками и подписями + легенда.
-Координаты — в пикселях исходной картинки 1200×1173, общие для обоих языков."""
+"""Глава «Стол» для rules*.html (импорт из build-rules-new.py):
+картинка стола + SVG-слой с подписями внутри стола и короткими стрелками.
+Координаты — в пикселях исходной картинки 1192×1165, общие для обоих языков."""
 import os, re, math, shutil, sys
 sys.stdout.reconfigure(encoding='utf-8')
 os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -11,17 +11,24 @@ W, H = 1192, 1165
 # в прозрачность); координаты ниже — в её пикселях.
 
 # (ключ, центр подписи (x,y), цель стрелки (x,y))
+# Подписи стоят внутри стола, в свободных местах рядом со своим предметом —
+# стрелки короткие. Ориентиры (пиксели картинки): круг стола — центр (600,585),
+# радиус ~375; верхний игрок: стойка (540,300), роль (593,300), сердца (555,350),
+# очки (665,345), рука (720,290); левый: персонаж (355,555), роль (355,605);
+# правый: столбик эффектов (878,515…605); нижний: сердца (585,800),
+# очки (655,810), персонаж (587,855); центр: колода (578,565), сброс (650,565);
+# атака (705,715)+(740,740).
 LABELS = [
-    ('stance',    (170,  80), (540, 296)),
-    ('role',      (170, 160), (592, 300)),
-    ('deck',      (170, 240), (583, 540)),
-    ('character', (170, 330), (356, 560)),
-    ('hand',      (1030, 80), (742, 296)),
-    ('discard',   (1030,160), (658, 540)),
-    ('effect',    (1030,240), (884, 556)),
-    ('life',      (180, 900), (576, 806)),
-    ('vp',        (1010,900), (662, 812)),
-    ('attack',    (965, 990), (722, 722)),
+    ('stance',    (428, 300), (515, 300)),    # слева от стойки, у кромки
+    ('role',      (600, 425), (593, 335)),    # под картами верхнего игрока
+    ('hand',      (850, 380), (760, 315)),    # справа-снизу от веера
+    ('character', (425, 450), (365, 532)),    # верхняя левая четверть
+    ('deck',      (500, 500), (560, 565)),    # слева-сверху от колоды
+    ('discard',   (720, 490), (672, 530)),    # справа-сверху от сброса
+    ('effect',    (790, 440), (855, 500)),    # над столбиком эффектов
+    ('attack',    (540, 720), (688, 712)),    # слева от выложенной атаки
+    ('life',      (430, 790), (565, 800)),    # слева от сердец нижнего игрока
+    ('vp',        (800, 812), (683, 812)),    # справа от очков нижнего игрока
 ]
 # фракционные метки у фигур: (текст-ключ, центр)
 TAGS = [('samurai', (860, 150)), ('ninja', (1080, 395)), ('samurai', (760, 1060)), ('ninja', (140, 400))]
@@ -30,7 +37,7 @@ TXT = {
  'ru': {
   'stance': 'Стойка', 'role': 'Карта роли', 'deck': 'Колода', 'character': 'Персонаж',
   'hand': 'Рука', 'discard': 'Сброс', 'effect': 'Эффекты', 'life': 'Жизни',
-  'vp': 'Победные очки', 'attack': 'Атака: оружие + модификатор',
+  'vp': 'Победные очки', 'attack': 'Атака: оружие|+ модификатор',
   'samurai': 'Самурай', 'ninja': 'Ниндзя',
   'h4': 'Стол',
   'intro': 'Так выглядит стол в середине партии на четверых: у каждого игрока перед собой своя зона, посреди стола — общие стопки. Игроки сидят через одного, поэтому напротив — союзник, а по бокам — противники.',
@@ -52,7 +59,7 @@ TXT = {
  'en': {
   'stance': 'Stance', 'role': 'Role card', 'deck': 'Deck', 'character': 'Character',
   'hand': 'Hand', 'discard': 'Discard', 'effect': 'Effects', 'life': 'Life',
-  'vp': 'Victory points', 'attack': 'Attack: weapon + modifier',
+  'vp': 'Victory points', 'attack': 'Attack: weapon|+ modifier',
   'samurai': 'Samurai', 'ninja': 'Ninja',
   'h4': 'The Table',
   'intro': 'This is what a four-player table looks like mid-game: every player has their own area in front of them, and the shared piles sit in the middle. Seats alternate, so the player opposite is your ally and the players on either side are enemies.',
@@ -75,9 +82,14 @@ TXT = {
 NUM = {k: i + 1 for i, (k, _) in enumerate(TXT['ru']['legend'])}
 
 FS = 27          # кегль подписи в единицах картинки
-BH = 46          # высота плашки
+BH = 46          # высота плашки в одну строку
+LH = 30          # шаг строк в многострочной подписи (разделитель строк — «|»)
+def lines(text):
+    return text.split('|')
 def box_w(text):
-    return int(len(text) * FS * 0.50) + 30   # узкий шрифт + поля плашки
+    return int(max(len(l) for l in lines(text)) * FS * 0.46) + 30   # узкий жирный ≈ 0.46 кегля на знак + поля плашки
+def box_h(text):
+    return BH + (len(lines(text)) - 1) * LH
 
 def esc(s):
     return s.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
@@ -90,7 +102,7 @@ def svg(lang):
     # линии — под плашками
     out.append('<g class="tf-lines">')
     for key, (lx, ly), (tx, ty) in LABELS:
-        w = box_w(t[key]); hw, hh = w / 2, BH / 2
+        w = box_w(t[key]); hw, hh = w / 2, box_h(t[key]) / 2
         dx, dy = tx - lx, ty - ly
         # точка выхода линии — на границе плашки
         k = min(hw / abs(dx) if dx else 9e9, hh / abs(dy) if dy else 9e9)
@@ -99,14 +111,16 @@ def svg(lang):
     out.append('</g>')
     out.append('<g class="tf-labels">')
     for key, (lx, ly), _ in LABELS:
-        w = box_w(t[key]); x0, y0 = lx - w / 2, ly - BH / 2
-        out.append(f'<g transform="translate({x0:.0f},{y0:.0f})">'
-                   f'<rect width="{w}" height="{BH}" rx="8"/>'
-                   f'<text class="tf-txt" x="15" y="{BH/2 + 1}">{esc(t[key])}</text></g>')
+        w = box_w(t[key]); h = box_h(t[key]); ls = lines(t[key])
+        x0, y0 = lx - w / 2, ly - h / 2
+        out.append(f'<g transform="translate({x0:.0f},{y0:.0f})"><rect width="{w}" height="{h}" rx="8"/>')
+        for i, l in enumerate(ls):
+            out.append(f'<text class="tf-txt" x="{w/2}" y="{BH/2 + 1 + i*LH}">{esc(l)}</text>')
+        out.append('</g>')
     out.append('</g>')
     out.append('<g class="tf-tags">')
     for key, (cx, cy) in TAGS:
-        txt = t[key]; w = int(len(txt) * FS * 0.50) + 30
+        txt = t[key]; w = box_w(txt)
         out.append(f'<g transform="translate({cx - w/2:.0f},{cy - BH/2:.0f})">'
                    f'<rect width="{w}" height="{BH}" rx="23"/>'
                    f'<text x="{w/2}" y="{BH/2 + 1}">{esc(txt)}</text></g>')
