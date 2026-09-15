@@ -53,8 +53,8 @@ def bg_path(cid):
 #         может быть словарём по срезам
 CH = {
  'about':         dict(icons=[],                                        cards=[]),
- 'setup':         dict(layout={4: 'stack'}, icons=[[('mk','hp.png'), ('mk','winpoint.png')]],
-                       cards={4: [202, 200, 137]}),   # карты на втором срезе (стр. 2): на первом им не хватает места
+ 'setup':         dict(layout={0: 'fan', 6: 'fan'}, icons=[[('mk','hp.png'), ('mk','winpoint.png')]],
+                       cards={0: [202, 200], 6: [137]}),   # роли — у «Распределения ролей», персонаж — у «Выбора персонажей»
  'table':         dict(icons=[],                                        cards=[]),   # стол во время партии (глава собирается из table_fig)
  'flow':          dict(icons=[],                                        cards=[]),
  'players':       dict(icons=[],                                        cards=[]),
@@ -80,7 +80,7 @@ CH = {
 # Высоты блоков смотреть в браузере: getBoundingClientRect по .chapter-body > *.
 PAGES = [
     ['__cover__', 'about', ('setup', 0, 4)],   # обложка, об игре, подготовка: роли
-    [('setup', 4, None), 'flow'],       # подготовка: рассадка, персонажи, очки; партия
+    [('setup', 4, 6), ('setup', 6, None), 'flow'],   # рассадка; персонажи и очки (с картой персонажа); партия
     ['table'],                          # стол во время партии — целая страница
     ['players', 'cards'],
     [('weapons', 0, 9)],
