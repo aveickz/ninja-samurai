@@ -375,6 +375,10 @@ p .mk, li .mk, h4 .mk, aside .mk { width: 3.6mm; height: 3.6mm; vertical-align: 
 }
 .sheet.odd  .chapter-side { float: left;  margin-right: 4mm; }
 .sheet.even .chapter-side { float: right; margin-left: 4mm; }
+/* Веер повёрнутых карт шире одной карты: флоат расширяется под его размах,
+   чтобы текст огибал карты, а не заезжал под них (замерено в браузере). */
+.chapter-side:has(.side-cards.fan.n2) { width: 37mm; }
+.chapter-side:has(.side-cards.fan.n3) { width: 46mm; }
 section.chapter::after { content: ""; display: block; clear: both; }
 
 .side-icons {
@@ -382,7 +386,7 @@ section.chapter::after { content: ""; display: block; clear: both; }
   flex-wrap: wrap;
   justify-content: center;
   gap: 1.5mm;
-  width: var(--side);
+  width: 100%;
 }
 .side-icons .row { display: contents; }
 .side-icons .ic { --ic: 9mm; }
@@ -416,19 +420,20 @@ section.chapter::after { content: ""; display: block; clear: both; }
    Ширина блока — вся колонка, чтобы крайние карты не выходили на текст. */
 .side-cards {
   position: relative;
-  width: var(--side);
+  width: 100%;
   height: 32.6mm;
   margin-top: 1mm;
 }
 .side-cards.fan .card-embed {
   position: absolute;
-  left: calc((var(--side) - 20mm) / 2);
+  left: calc(50% - 10mm);
   top: 0;
   transform: rotate(calc(var(--k) * 16deg)) translate(calc(var(--k) * 4mm), calc(var(--k) * var(--k) * 1mm)) translateZ(0);
   transform-origin: 50% 135%;
 }
-.side-cards.fan.n2 { height: 35mm; }
-.side-cards.fan.n3 { height: 36mm; }
+.side-cards.fan.n2 { height: 35.5mm; }
+.side-cards.fan.n3 { height: 38.5mm; }
+.side-cards.fan.n3 .card-embed { transform: rotate(calc(var(--k) * 12deg)) translate(calc(var(--k) * 4mm), calc(var(--k) * var(--k) * 1mm)) translateZ(0); }
 
 /* Лесенка — для длинных глав: карты одна под другой с нахлёстом */
 .side-cards.stack { height: auto; display: flex; flex-direction: column; align-items: center; }
