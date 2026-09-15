@@ -52,10 +52,11 @@ def bg_path(cid):
 # layout — 'fan' (веером, для коротких глав) или 'stack' (лесенкой вниз); тоже
 #         может быть словарём по срезам
 CH = {
- 'about':         dict(icons=[],                                        cards=[201, 200]),
- 'setup':         dict(layout='stack', icons=[[('mk','hp.png'), ('mk','winpoint.png')]], cards=[202, 137]),
+ 'about':         dict(icons=[],                                        cards=[]),
+ 'setup':         dict(layout={4: 'stack'}, icons=[[('mk','hp.png'), ('mk','winpoint.png')]],
+                       cards={4: [202, 200, 137]}),   # карты на втором срезе (стр. 2): на первом им не хватает места
+ 'table':         dict(icons=[],                                        cards=[]),   # стол во время партии (глава собирается из table_fig)
  'flow':          dict(icons=[],                                        cards=[]),
- 'ending':        dict(icons=[],                                        cards=[]),
  'players':       dict(icons=[],                                        cards=[]),
  'cards':         dict(icons=[],                                        cards=[]),
  'weapons':       dict(layout={0: 'stack', 9: 'fan'}, icons=[[('ic','weapon'),('ic','modifier')],[('ic','defense')]],
@@ -78,11 +79,11 @@ CH = {
 # поле, последний — иероглиф. Что не влезает — выезжает вниз, видно.
 # Высоты блоков смотреть в браузере: getBoundingClientRect по .chapter-body > *.
 PAGES = [
-    ['__cover__', 'about', 'flow', 'ending'],
-    [('setup', 0, 10)],                 # подготовка: роли, рассадка, персонажи, очки
-    [('setup', 10, None)],              # стол во время партии — целая страница
-    ['players', ('cards', 0, 4)],
-    [('cards', 4, None), ('weapons', 0, 9)],
+    ['__cover__', 'about', ('setup', 0, 4)],   # обложка, об игре, подготовка: роли
+    [('setup', 4, None), 'flow'],       # подготовка: рассадка, персонажи, очки; партия
+    ['table'],                          # стол во время партии — целая страница
+    ['players', 'cards'],
+    [('weapons', 0, 9)],
     [('weapons', 9, None), 'traps'],
     ['stances', 'characters'],          # короткие главы: высоту задаёт веер карт
     ['effects', 'poison'],
@@ -266,8 +267,6 @@ def chapter_html(lang, cid, mark, title, body, a=0, b=None):
             if old not in body:
                 print('  ! not found', lang, cid, old[:50]); continue
             body = body.replace(old, new, 1)
-    if cid == 'setup':
-        body += table_fig.section(lang)
     if cid == 'order':
         # вместо двух нумерованных списков — две цепочки значков
         body = re.sub(r'<div class="order-list">.*?</div>\s*<div class="order-list">.*?</div>',
@@ -301,12 +300,10 @@ def chapter_html(lang, cid, mark, title, body, a=0, b=None):
 
 
 def cover_html(t):
+    # Обложка: тушевой рисунок дуэли (rules/media/cover.webp, /img) вместо текста
     return f'''
       <header class="cover">
-        <div class="hanko">侍<br>忍</div>
-        <h1 class="kanji-banner">侍 対 忍者</h1>
-        <p class="kanji-sub">{t['sub']}</p>
-        <div class="brush-line"></div>
+        <img class="cover-art" src="media/cover.webp" alt="{t['sub']}">
       </header>'''
 
 
@@ -314,7 +311,11 @@ def build(lang):
     t = L[lang]
     src = open(t['src'], encoding='utf-8').read()
     chapters = {cid: (mark, title, body) for cid, mark, title, body in sec_re.findall(src)}
-    assert len(chapters) == 16, (lang, len(chapters))
+    assert len(chapters) == 15, (lang, len(chapters))
+    # глава «Стол во время партии» собирается из table_fig: h4 там становится заголовком главы
+    tsec = table_fig.section(lang)
+    ttitle = re.search(r'<h4>([^<]*)</h4>', tsec).group(1)
+    chapters['table'] = ('卓', ttitle, re.sub(r'<h4>[^<]*</h4>', '', tsec, count=1))
     used = [(c[0] if isinstance(c, tuple) else c) for pg in PAGES for c in pg if c != '__cover__']
     missing = [c for c in chapters if c not in used]
     assert not missing, ('главы без страницы', missing)

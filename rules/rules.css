@@ -164,8 +164,16 @@ html, body {
 .cover {
   position: relative;
   text-align: center;
-  padding: 12mm 4mm 0;
+  padding: 2mm 0 0;
   margin-bottom: 6mm;
+}
+/* Рисунок обложки: чёрная тушь на прозрачном, в высоту прежней шапки */
+.cover-art {
+  display: block;
+  height: 40mm;
+  max-width: 100%;
+  margin: 0 auto;
+  object-fit: contain;
 }
 .kanji-banner {
   font-family: 'Han Zi Web', 'Shippori Mincho', serif;
@@ -206,7 +214,6 @@ html, body {
     inset 0 0 3mm rgba(0, 0, 0, .35);
   opacity: .9;
 }
-.cover .brush-line { margin: 6mm auto 0; width: 70%; }
 
 /* ---------- Кистевой штрих ---------- */
 .brush-line {
