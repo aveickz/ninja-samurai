@@ -281,7 +281,7 @@ h2.chapter-title .h-icons::before {
   content: "·";
   font-family: 'PT Sans Narrow', 'PT Sans', Arial, sans-serif;
   font-size: 12pt;
-  color: var(--gold);
+  color: rgba(70, 58, 50, .28);   /* серые, почти прозрачные */
   margin-right: 3.5mm;
   letter-spacing: 0;
 }
