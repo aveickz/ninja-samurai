@@ -53,7 +53,7 @@ def bg_path(cid):
 #         может быть словарём по срезам
 CH = {
  'about':         dict(icons=[],                                        cards=[]),
- 'setup':         dict(layout={0: 'fan', 6: 'fan'}, icons=[[('mk','hp.png'), ('mk','winpoint.png')]],
+ 'setup':         dict(layout={0: 'fan', 6: 'fan'}, icons=[],   # сердце и очко стоят у своих подзаголовков (INLINE)
                        cards={0: [202, 200], 6: [137, 135, 138]}),   # роли — у «Распределения ролей», персонажи — у «Выбора персонажей»
  'table':         dict(icons=[],                                        cards=[]),   # стол во время партии (глава собирается из table_fig)
  'flow':          dict(icons=[],                                        cards=[]),
@@ -168,6 +168,8 @@ INLINE = {
   ('interventions', 'Вмешательство — особый тип карт,', 'Вмешательство ' + ic('ic','intervention') + ' — особый тип карт,'),
   ('auras', 'Командные ауры — мощные карты,', 'Командные ауры ' + ic('ic','aura') + ' — мощные карты,'),
   ('setup', 'Цифра внутри сердца — максимум', 'Цифра внутри сердца ' + ic('ic','hp') + ' — максимум'),
+  ('setup', '<h4>Выбор персонажей</h4>', '<h4>' + ic('mk','hp.png') + ' Выбор персонажей</h4>'),
+  ('setup', '<h4>Выставление очков</h4>', '<h4>' + ic('mk','winpoint.png') + ' Выставление очков</h4>'),
   ('conditional', '<strong>Бонусы по фракции.</strong>', ic('ic','rolectx') + ' <strong>Бонусы по фракции.</strong>'),
   ('conditional', '<strong>Контекст здоровья.</strong>', ic('ic','hpctx') + ' <strong>Контекст здоровья.</strong>'),
   ('conditional', '<strong>Условия по яду.</strong>', ic('ic','poison') + ' <strong>Условия по яду.</strong>'),
@@ -184,6 +186,8 @@ INLINE = {
   ('interventions', '<p>Intervention is a special card type', '<p>Intervention ' + ic('ic','intervention') + ' is a special card type'),
   ('auras', '<p>Team Auras are powerful cards', '<p>Team Auras ' + ic('ic','aura') + ' are powerful cards'),
   ('setup', 'The number inside the heart is', 'The number inside the heart ' + ic('ic','hp') + ' is'),
+  ('setup', '<h4>Drawing characters</h4>', '<h4>' + ic('mk','hp.png') + ' Drawing characters</h4>'),
+  ('setup', '<h4>Setting out points</h4>', '<h4>' + ic('mk','winpoint.png') + ' Setting out points</h4>'),
   ('conditional', '<strong>Faction bonuses.</strong>', ic('ic','rolectx') + ' <strong>Faction bonuses.</strong>'),
   ('conditional', '<strong>Health context.</strong>', ic('ic','hpctx') + ' <strong>Health context.</strong>'),
   ('conditional', '<strong>Poison conditions.</strong>', ic('ic','poison') + ' <strong>Poison conditions.</strong>'),
