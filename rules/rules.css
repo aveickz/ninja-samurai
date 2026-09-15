@@ -302,6 +302,19 @@ section.chapter h4 {
   margin: 2.5mm 0 1mm;
 }
 section.chapter h4:first-of-type { margin-top: 1mm; }
+/* Подзаголовок со значком: текст · значок, как в заголовке главы */
+section.chapter h4 { display: flex; align-items: center; gap: 2.5mm; }
+section.chapter h4 .h-icons { display: flex; align-items: center; gap: 1.2mm; }
+section.chapter h4 .h-icons::before {
+  content: "·";
+  font-family: 'PT Sans Narrow', 'PT Sans', Arial, sans-serif;
+  font-size: 10pt;
+  font-weight: 400;
+  color: rgba(70, 58, 50, .28);
+  margin-right: 2.5mm;
+}
+section.chapter h4 .h-icons .ic { --ic: 4.6mm; margin: 0; vertical-align: middle; }
+section.chapter h4 .h-icons .mk { width: 4.6mm; height: 4.6mm; margin: 0; vertical-align: middle; }
 section.chapter.continued .chapter-body > :first-child { margin-top: 0; }
 
 aside.note {
