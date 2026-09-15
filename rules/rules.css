@@ -411,13 +411,13 @@ section.chapter::after { content: ""; display: block; clear: both; }
    векторные края браузер сглаживает при повороте гораздо чище, чем альфу
    растра. translateZ(0) — чтобы Chrome рендерил повёрнутую карту через
    композитор с билинейной фильтрацией. */
-/* 20 × 30.7 мм: внутри рамки 17.8 × 28.5 мм — ровно пропорция растра 5:8
+/* 20 × 31.1 мм: внутри каймы 18.5 × 29.6 мм — ровно пропорция растра 5:8
    (480 × 768), иначе object-fit срезает бока карты */
 .card-embed {
   width: 20mm;
-  height: 30.7mm;
+  height: 31.1mm;
   flex: none;
-  padding: 1.1mm;
+  padding: .75mm;
   background: #fff;
   border-radius: 1.6mm;
   box-shadow: 0 .8mm 2mm rgba(40, 20, 5, .35);
@@ -447,8 +447,8 @@ section.chapter::after { content: ""; display: block; clear: both; }
   transform: rotate(calc(var(--k) * 16deg)) translate(calc(var(--k) * 4mm), calc(var(--k) * var(--k) * 1mm)) translateZ(0);
   transform-origin: 50% 135%;
 }
-.side-cards.fan.n2 { height: 33.6mm; }
-.side-cards.fan.n3 { height: 36.6mm; }
+.side-cards.fan.n2 { height: 34mm; }
+.side-cards.fan.n3 { height: 37mm; }
 .side-cards.fan.n3 .card-embed { transform: rotate(calc(var(--k) * 12deg)) translate(calc(var(--k) * 4mm), calc(var(--k) * var(--k) * 1mm)) translateZ(0); }
 
 /* Лесенка — для длинных глав: карты одна под другой с нахлёстом */
