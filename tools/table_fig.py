@@ -77,7 +77,7 @@ NUM = {k: i + 1 for i, (k, _) in enumerate(TXT['ru']['legend'])}
 FS = 27          # кегль подписи в единицах картинки
 BH = 46          # высота плашки
 def box_w(text):
-    return int(len(text) * FS * 0.50) + 78   # узкий шрифт + кружок с номером
+    return int(len(text) * FS * 0.50) + 30   # узкий шрифт + поля плашки
 
 def esc(s):
     return s.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
@@ -102,9 +102,7 @@ def svg(lang):
         w = box_w(t[key]); x0, y0 = lx - w / 2, ly - BH / 2
         out.append(f'<g transform="translate({x0:.0f},{y0:.0f})">'
                    f'<rect width="{w}" height="{BH}" rx="8"/>'
-                   f'<circle class="tf-num" cx="{BH/2}" cy="{BH/2}" r="16"/>'
-                   f'<text class="tf-numtxt" x="{BH/2}" y="{BH/2 + 1}">{NUM[key]}</text>'
-                   f'<text class="tf-txt" x="{BH + 6}" y="{BH/2 + 1}">{esc(t[key])}</text></g>')
+                   f'<text class="tf-txt" x="15" y="{BH/2 + 1}">{esc(t[key])}</text></g>')
     out.append('</g>')
     out.append('<g class="tf-tags">')
     for key, (cx, cy) in TAGS:
@@ -118,14 +116,12 @@ def svg(lang):
 
 def section(lang):
     t = TXT[lang]
-    items = ''.join(f'<li><b>{esc(t[k])}</b> — {esc(d)}</li>' for k, d in t['legend'])
     return (f'\n      <h4>{esc(t["h4"])}</h4>\n'
             f'      <p>{esc(t["intro"])}</p>\n'
             f'      <figure class="table-figure">\n'
             f'        <div class="table-pic"><img src="media/table.webp" alt="" width="{W}" height="{H}">{svg(lang)}</div>\n'
             f'        <figcaption>{esc(t["caption"])}</figcaption>\n'
             f'      </figure>\n'
-            f'      <ol class="table-legend">{items}</ol>\n'
             f'      <p class="table-note">{esc(t["outro"])}</p>\n')
 
 if __name__ == '__main__':

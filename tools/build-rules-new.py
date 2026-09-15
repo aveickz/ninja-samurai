@@ -54,7 +54,7 @@ def bg_path(cid):
 CH = {
  'about':         dict(icons=[],                                        cards=[]),
  'setup':         dict(layout={0: 'fan', 6: 'fan'}, icons=[[('mk','hp.png'), ('mk','winpoint.png')]],
-                       cards={0: [202, 200], 6: [137]}),   # роли — у «Распределения ролей», персонаж — у «Выбора персонажей»
+                       cards={0: [202, 200], 6: [137, 135, 138]}),   # роли — у «Распределения ролей», персонажи — у «Выбора персонажей»
  'table':         dict(icons=[],                                        cards=[]),   # стол во время партии (глава собирается из table_fig)
  'flow':          dict(icons=[],                                        cards=[]),
  'players':       dict(icons=[],                                        cards=[]),

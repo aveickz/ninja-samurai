@@ -489,7 +489,7 @@ section.chapter::after { content: ""; display: block; clear: both; }
 /* Рисунок уже текстовой колонки: на всю ширину страница не сходится по
    высоте. Подписи мелкие (~6.5 pt), но читаемы. */
 .table-figure {
-  width: 108mm;
+  width: 100%;
   margin: 1mm auto;
 }
 .table-figure .table-pic { position: relative; width: 100%; }
