@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Рендерит превью карт для новой вёрстки правил (rules/rules-new*.html):
 для каждого ID открывает картотеку в embed-режиме headless-хромом,
-вырезает саму карту без белой каймы, скругляет углы и кладёт PNG в
+берёт карту с белой каймой вокруг (как при печати из картотеки), скругляет углы и кладёт PNG в
 rules/media/cards/<id>.webp (RU) и <id>-en.webp (EN).
 
 Зачем не iframe: при печати правил внутри iframe срабатывает print.css
@@ -25,8 +25,8 @@ DEFAULT_IDS = [201, 200, 202, 137, 1, 32, 33, 31, 70, 48, 43, 41, 1166, 60, 135,
                91, 116, 64, 121, 124, 1200, 1204, 125, 1165]
 
 SCALE = 2          # device scale factor: 240px карты → 480px PNG
-INSET = 6          # px (в масштабе 1) белой рамки карты, срезаемой внутрь
-RADIUS = 14        # скругление углов в пикселях PNG
+BLEED = 5          # px (в масштабе 1) белого поля вокруг карты, как на печати
+RADIUS = 16        # скругление углов в пикселях превью
 
 
 def shoot(cid, lang):
@@ -37,14 +37,17 @@ def shoot(cid, lang):
                     f'--screenshot={tmp}', '--window-size=600,600', url],
                    stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True)
     im = Image.open(tmp).convert('RGB')
-    # карта — единственное не-белое пятно на белом фоне embed-режима
+    # Карта в embed-режиме стоит по центру окна блоком 240×384 (при
+    # --window-size=600,600 и масштабе 2 — это (360,216)-(840,984)).
+    # Берём её целиком плюс белое поле BLEED вокруг — как на печати из
+    # картотеки: карта с белой каймой под обрез и скруглёнными углами.
     diff = ImageChops.difference(im, Image.new('RGB', im.size, (255, 255, 255))).convert('L').point(lambda v: 255 if v > 12 else 0)
     box = diff.getbbox()
     if not box:
         raise RuntimeError(f'card {cid}: empty render')
     x0, y0, x1, y1 = box
-    k = INSET * SCALE
-    card = im.crop((x0 + k, y0 + k, x1 - k, y1 - k))
+    k = BLEED * SCALE
+    card = im.crop((x0 - k, y0 - k, x1 + k, y1 + k))
     # скруглённые углы → прозрачность (webp с альфой)
     mask = Image.new('L', card.size, 0)
     ImageDraw.Draw(mask).rounded_rectangle((0, 0, card.width - 1, card.height - 1), RADIUS, fill=255)

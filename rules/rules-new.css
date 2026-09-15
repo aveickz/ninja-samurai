@@ -149,9 +149,15 @@ html, body {
 .folio {
   position: absolute;
   bottom: 5mm;
-  font-size: 8pt;
+  font-family: 'Han Zi Web', serif;
+  font-size: 11pt;
+  line-height: 1;
   letter-spacing: .1em;
-  color: var(--ink-faded);
+  color: var(--vermilion-dk);
+  padding-top: 1mm;
+  border-top: .4pt solid var(--paper-deep);
+  min-width: 10mm;
+  text-align: center;
 }
 .sheet.odd  .folio { left: var(--outer); }
 .sheet.even .folio { right: var(--outer); }
@@ -289,6 +295,7 @@ section.chapter h4 {
   margin: 2.5mm 0 1mm;
 }
 section.chapter h4:first-of-type { margin-top: 1mm; }
+section.chapter.continued .chapter-body > :first-child { margin-top: 0; }
 
 aside.note {
   position: relative;
@@ -468,11 +475,12 @@ p .mk, li .mk, h4 .mk, aside .mk { width: 3.6mm; height: 3.6mm; vertical-align: 
 /* ---------- Стол во время партии ---------- */
 /* Рисунок шире текстовой колонки: выходит на наружное поле, чтобы
    подписи на нём остались читаемыми. */
+/* Рисунок в ширину текстовой колонки: с подписями на наружное поле
+   страница не сходится по высоте. Подписи мелкие (~6 pt), но читаемы. */
 .table-figure {
-  width: calc(100% + var(--side) + 5mm);
-  margin: 2mm 0 1mm;
+  width: 100%;
+  margin: 1mm 0 1mm;
 }
-.sheet.odd .table-figure { margin-left: calc(-1 * var(--side) - 5mm); }
 .table-figure .table-pic { position: relative; width: 100%; }
 .table-figure img { display: block; width: 100%; height: auto; }
 .table-figure svg.table-overlay {
@@ -498,12 +506,12 @@ p .mk, li .mk, h4 .mk, aside .mk { width: 3.6mm; height: 3.6mm; vertical-align: 
   letter-spacing: .04em;
 }
 ol.table-legend {
-  columns: 2;
-  column-gap: 6mm;
-  padding-left: 4mm;
+  columns: 3;
+  column-gap: 4mm;
+  padding-left: 3.5mm;
   margin: 1.5mm 0 1mm;
-  font-size: 7.6pt;
-  line-height: 1.3;
+  font-size: 7.2pt;
+  line-height: 1.25;
 }
 ol.table-legend li { break-inside: avoid; margin-bottom: .8mm; }
 ol.table-legend li::marker { color: var(--vermilion-dk); font-weight: 700; }

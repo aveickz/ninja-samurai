@@ -46,8 +46,10 @@ def bg_path(cid):
 
 # ---------- конфиг глав (общий для языков) ----------
 # icons — ряды значков на поле: ('ic', ключ группы/бейджа) или ('mk', файл в media/)
-# cards — ID карт-примеров (превью в rules/media/cards/, см. render-card-previews.py)
-# layout — 'fan' (веером, для коротких глав) или 'stack' (лесенкой вниз)
+# cards — ID карт-примеров (превью в rules/media/cards/, см. render-card-previews.py);
+#         список — все на первом срезе, словарь {начало_среза: [id]} — по срезам
+# layout — 'fan' (веером, для коротких глав) или 'stack' (лесенкой вниз); тоже
+#         может быть словарём по срезам
 CH = {
  'about':         dict(icons=[[('ic','role')]],                         cards=[201, 200]),
  'setup':         dict(layout='stack', icons=[[('mk','hp.png'), ('mk','winpoint.png')]], cards=[202, 137]),
@@ -55,7 +57,8 @@ CH = {
  'ending':        dict(icons=[],                                        cards=[]),
  'players':       dict(icons=[],                                        cards=[]),
  'cards':         dict(icons=[],                                        cards=[]),
- 'weapons':       dict(layout='stack', icons=[[('ic','weapon'),('ic','modifier')],[('ic','defense')]], cards=[1, 32, 33, 31, 70, 48]),
+ 'weapons':       dict(layout={0: 'stack', 9: 'fan'}, icons=[[('ic','weapon'),('ic','modifier')],[('ic','defense')]],
+                       cards={0: [1, 32, 33, 31], 9: [70, 48]}),   # карты по срезам: ключ — начало среза
  'traps':         dict(icons=[[('ic','trap')]],                         cards=[43, 41]),
  'stances':       dict(icons=[[('ic','stance')]],                       cards=[1166, 60]),
  'characters':    dict(icons=[[('ic','character'),('ic','hp')]],        cards=[135, 138]),
@@ -68,16 +71,62 @@ CH = {
 }
 
 # ---------- раскладка по страницам (руками) ----------
-# '__cover__' — обложка (шапка). Нумерация с 1; страницы 1–2 — первый
-# разворот и так далее. Что не влезает — выезжает вниз, видно на экране.
+# Элемент страницы: '__cover__' — обложка; 'id' — глава целиком;
+# ('id', a, b) — срез главы: блоки тела с a по b (не включая), нумерация
+# блоков тела с нуля, без h2. Первый срез несёт заголовок и колонку на
+# поле, последний — иероглиф. Что не влезает — выезжает вниз, видно.
+# Высоты блоков смотреть в браузере: getBoundingClientRect по .chapter-body > *.
 PAGES = [
-    ['__cover__', 'about'],
-    ['setup'],
-    ['flow', 'ending', 'players'],
-    ['cards', 'weapons'],
-    ['traps', 'stances', 'characters', 'effects', 'poison'],
-    ['interventions', 'auras', 'conditional', 'order'],
+    ['__cover__', 'about', 'flow', 'ending'],
+    [('setup', 0, 10)],                 # подготовка: роли, рассадка, персонажи, очки
+    [('setup', 10, None)],              # стол во время партии — целая страница
+    ['players', ('cards', 0, 4)],
+    [('cards', 4, None), ('weapons', 0, 9)],
+    [('weapons', 9, None), 'traps'],
+    ['stances', 'characters', 'effects'],
+    ['poison', 'interventions'],
+    ['auras'],
+    ['conditional'],
+    ['order'],
 ]
+
+def top_level_blocks(html):
+    """Режет HTML тела главы на блоки верхнего уровня (p, h4, aside, table,
+    ul, div, figure, ol…). Считает глубину по открывающим/закрывающим тегам,
+    поэтому вложенные списки и таблицы остаются целыми."""
+    blocks, depth, start = [], 0, None
+    tag_re = re.compile(r'<(/?)([a-zA-Z][a-zA-Z0-9]*)[^>]*?(/?)>')
+    for m in tag_re.finditer(html):
+        closing, name, selfclose = m.group(1), m.group(2).lower(), m.group(3)
+        void = name in ('img', 'br', 'hr', 'input', 'meta', 'link') or selfclose
+        if not closing and depth == 0 and not void:
+            start = m.start()
+        if closing:
+            depth -= 1
+            if depth == 0 and start is not None:
+                blocks.append(html[start:m.end()]); start = None
+        elif not void:
+            depth += 1
+    return blocks
+
+def part_cards(cfg, a):
+    """Карты и раскладка для среза, начинающегося с блока a."""
+    cards, layout = cfg['cards'], cfg.get('layout', 'fan')
+    if isinstance(cards, dict):
+        cards = cards.get(a, [])
+    elif a != 0:
+        cards = []
+    if isinstance(layout, dict):
+        layout = layout.get(a, 'fan')
+    return cards, layout
+
+# высота колонки на поле — чтобы срез главы был не ниже своих карт
+def side_height_mm(icon_rows, n, layout):
+    h = icon_rows * 5.2 + max(icon_rows - 1, 0) * 1.2
+    if n:
+        cards = (32.6 + (n - 1) * 26.1) if layout == 'stack' else {1: 32.6, 2: 35, 3: 36}.get(n, 36)
+        h += (2 if icon_rows else 0) + 1 + cards
+    return round(h + 1, 1)
 
 def ic(kind, key):
     if kind == 'ic':
@@ -204,14 +253,17 @@ SCRIPT = '''<script>
 sec_re = re.compile(r'<section class="chapter" id="(\w+)">\s*<h2 class="chapter-title" data-mark="([^"]+)">([^<]+)</h2>(.*?)</section>', re.S)
 
 
-def chapter_html(lang, cid, mark, title, body):
+def chapter_html(lang, cid, mark, title, body, a=0, b=None):
+    """Глава или её срез body[a:b] (блоки верхнего уровня, без h2).
+    Первый срез (a == 0) несёт заголовок и колонку на поле, последний
+    (b is None) — иероглиф-водяной знак."""
     cfg = CH[cid]
     body = body.strip('\n')
-    for c, a, b in INLINE[lang]:
+    for c, old, new in INLINE[lang]:
         if c == cid:
-            if a not in body:
-                print('  ! not found', lang, cid, a[:50]); continue
-            body = body.replace(a, b, 1)
+            if old not in body:
+                print('  ! not found', lang, cid, old[:50]); continue
+            body = body.replace(old, new, 1)
     if cid == 'setup':
         body += table_fig.section(lang)
     if cid == 'order':
@@ -219,19 +271,35 @@ def chapter_html(lang, cid, mark, title, body):
         body = re.sub(r'<div class="order-list">.*?</div>\s*<div class="order-list">.*?</div>',
                       chain(lang, 'attacker') + chain(lang, 'defender'), body, count=1, flags=re.S)
         assert 'order-list' not in body, lang
+    blocks = top_level_blocks(body)
+    part = blocks[a:b]
+    assert part, (cid, a, b, len(blocks))
+    first, last = a == 0, b is None
+    body = '\n'.join(part)
     bg = bg_path(cid)
-    style = f' style="--bg:url({bg})"' if bg else ''
-    return f'''
-      <section class="chapter" id="{cid}"{style}>
-        <div class="chapter-body">
-          <h2 class="chapter-title">{title}</h2>
-{body}
-          <span class="kanji" aria-hidden="true">{mark}</span>
-        </div>
+    cards, layout = part_cards(cfg, a)
+    icons = cfg['icons'] if first else []
+    styles = []
+    if bg:
+        styles.append(f'--bg:url({bg})')
+    if icons or cards:
+        styles.append(f'min-height:{side_height_mm(len(icons), len(cards), layout)}mm')
+    style = f' style="{"; ".join(styles)}"' if styles else ''
+    cls = 'chapter' + ('' if first else ' continued')
+    title_html = f'\n          <h2 class="chapter-title">{title}</h2>' if first else ''
+    kanji_html = f'\n          <span class="kanji" aria-hidden="true">{mark}</span>' if last else ''
+    side_html = ''
+    if icons or cards:
+        side_html = f'''
         <aside class="chapter-side">
-          {side_icons(cfg['icons'])}
-          {card_fan(cfg['cards'], lang, cfg.get('layout', 'fan'))}
-        </aside>
+          {side_icons(icons)}
+          {card_fan(cards, lang, layout)}
+        </aside>'''
+    return f'''
+      <section class="{cls}" id="{cid}{"" if first else f"-{a}"}"{style}>
+        <div class="chapter-body">{title_html}
+{body}{kanji_html}
+        </div>{side_html}
       </section>'''
 
 
@@ -250,7 +318,7 @@ def build(lang):
     src = open(t['src'], encoding='utf-8').read()
     chapters = {cid: (mark, title, body) for cid, mark, title, body in sec_re.findall(src)}
     assert len(chapters) == 16, (lang, len(chapters))
-    used = [c for pg in PAGES for c in pg if c != '__cover__']
+    used = [(c[0] if isinstance(c, tuple) else c) for pg in PAGES for c in pg if c != '__cover__']
     missing = [c for c in chapters if c not in used]
     assert not missing, ('главы без страницы', missing)
 
@@ -258,11 +326,14 @@ def build(lang):
     for n, page in enumerate(PAGES, start=1):
         parity = 'odd' if n % 2 else 'even'
         blocks = []
-        for cid in page:
-            if cid == '__cover__':
+        for item in page:
+            if item == '__cover__':
                 blocks.append(cover_html(t))
+            elif isinstance(item, tuple):
+                cid, a, b = item
+                blocks.append(chapter_html(lang, cid, *chapters[cid], a=a, b=b))
             else:
-                blocks.append(chapter_html(lang, cid, *chapters[cid]))
+                blocks.append(chapter_html(lang, item, *chapters[item]))
         sheets.append(f'''
     <section class="sheet {parity}" id="p{n}" data-page="{n}">
       <div class="content">{''.join(blocks)}
