@@ -42,8 +42,8 @@
   --m-top:    11mm;     /* верхнее поле */
   --m-bottom: 13mm;     /* нижнее поле, под колонцифру */
   --gutter:   12mm;     /* корешок — внутреннее поле */
-  --outer:    40mm;     /* наружное поле — под значки и карты */
-  --side:     30mm;     /* ширина колонки значков/карт на наружном поле */
+  --outer:    15mm;     /* наружное поле */
+  --side:     28mm;     /* ширина флоата со значками и картами */
   --bg-opacity: .12;    /* бледность фоновой иллюстрации главы */
 }
 
@@ -352,20 +352,22 @@ em.card-term {
 p .ic, li .ic, h4 .ic, aside .ic { --ic: 3.6mm; vertical-align: -1mm; margin: 0 .3mm; }
 p .mk, li .mk, h4 .mk, aside .mk { width: 3.6mm; height: 3.6mm; vertical-align: -1mm; margin: 0 .3mm; }
 
-/* ---------- Наружное поле: значки и карты главы ---------- */
-/* Колонка привязана к верху своей главы и стоит на наружном поле
-   страницы: слева у нечётных, справа у чётных. */
+/* ---------- Значки и карты главы: флоат с обтеканием ---------- */
+/* Колонка стоит в потоке сразу после заголовка главы и обтекается
+   текстом: у нечётных страниц прижата к наружному левому краю, у чётных —
+   к правому. Текст ниже колонки уходит под неё на всю ширину; следующая
+   глава начинается после колонки (clear в конце главы). */
 .chapter-side {
-  position: absolute;
-  top: 0;
   width: var(--side);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 2mm;
+  margin-bottom: 2mm;
 }
-.sheet.odd  .chapter-side { left:  calc(-1 * var(--outer) + 5mm); }
-.sheet.even .chapter-side { right: calc(-1 * var(--outer) + 5mm); }
+.sheet.odd  .chapter-side { float: left;  margin-right: 4mm; }
+.sheet.even .chapter-side { float: right; margin-left: 4mm; }
+section.chapter::after { content: ""; display: block; clear: both; }
 
 .side-icons {
   display: flex;
@@ -396,25 +398,26 @@ p .mk, li .mk, h4 .mk, aside .mk { width: 3.6mm; height: 3.6mm; vertical-align: 
   object-fit: cover;
 }
 
-/* Веер — карты внахлёст с поворотом; --k = позиция от центра (-1, 0, 1) */
+/* Веер — карты внахлёст с поворотом; --k = позиция от центра (-1, 0, 1).
+   Ширина блока — вся колонка, чтобы крайние карты не выходили на текст. */
 .side-cards {
   position: relative;
-  width: 20mm;
+  width: var(--side);
   height: 32.6mm;
   margin-top: 1mm;
 }
 .side-cards.fan .card-embed {
   position: absolute;
-  left: 0;
+  left: calc((var(--side) - 20mm) / 2);
   top: 0;
-  transform: rotate(calc(var(--k) * 11deg)) translate(calc(var(--k) * 6mm), calc(var(--k) * var(--k) * .8mm));
+  transform: rotate(calc(var(--k) * 10deg)) translate(calc(var(--k) * 4.5mm), calc(var(--k) * var(--k) * .8mm));
   transform-origin: 50% 135%;
 }
 .side-cards.fan.n2 { height: 35mm; }
 .side-cards.fan.n3 { height: 36mm; }
 
 /* Лесенка — для длинных глав: карты одна под другой с нахлёстом */
-.side-cards.stack { height: auto; }
+.side-cards.stack { height: auto; display: flex; flex-direction: column; align-items: center; }
 .side-cards.stack .card-embed {
   position: relative;
   margin-top: -6.5mm;
@@ -475,11 +478,11 @@ p .mk, li .mk, h4 .mk, aside .mk { width: 3.6mm; height: 3.6mm; vertical-align: 
 /* ---------- Стол во время партии ---------- */
 /* Рисунок шире текстовой колонки: выходит на наружное поле, чтобы
    подписи на нём остались читаемыми. */
-/* Рисунок в ширину текстовой колонки: с подписями на наружное поле
-   страница не сходится по высоте. Подписи мелкие (~6 pt), но читаемы. */
+/* Рисунок уже текстовой колонки: на всю ширину страница не сходится по
+   высоте. Подписи мелкие (~6.5 pt), но читаемы. */
 .table-figure {
-  width: 100%;
-  margin: 1mm 0 1mm;
+  width: 108mm;
+  margin: 1mm auto;
 }
 .table-figure .table-pic { position: relative; width: 100%; }
 .table-figure img { display: block; width: 100%; height: auto; }

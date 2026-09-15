@@ -84,8 +84,9 @@ PAGES = [
     ['players', ('cards', 0, 4)],
     [('cards', 4, None), ('weapons', 0, 9)],
     [('weapons', 9, None), 'traps'],
-    ['stances', 'characters', 'effects'],
-    ['poison', 'interventions'],
+    ['stances', 'characters'],          # короткие главы: высоту задаёт веер карт
+    ['effects', 'poison'],
+    ['interventions'],
     ['auras'],
     ['conditional'],
     ['order'],
@@ -280,12 +281,7 @@ def chapter_html(lang, cid, mark, title, body, a=0, b=None):
     bg = bg_path(cid)
     cards, layout = part_cards(cfg, a)
     icons = cfg['icons'] if first else []
-    styles = []
-    if bg:
-        styles.append(f'--bg:url({bg})')
-    if icons or cards:
-        styles.append(f'min-height:{side_height_mm(len(icons), len(cards), layout)}mm')
-    style = f' style="{"; ".join(styles)}"' if styles else ''
+    style = f' style="--bg:url({bg})"' if bg else ''
     cls = 'chapter' + ('' if first else ' continued')
     title_html = f'\n          <h2 class="chapter-title">{title}</h2>' if first else ''
     kanji_html = f'\n          <span class="kanji" aria-hidden="true">{mark}</span>' if last else ''
@@ -298,9 +294,9 @@ def chapter_html(lang, cid, mark, title, body, a=0, b=None):
         </aside>'''
     return f'''
       <section class="{cls}" id="{cid}{"" if first else f"-{a}"}"{style}>
-        <div class="chapter-body">{title_html}
+        <div class="chapter-body">{title_html}{side_html}
 {body}{kanji_html}
-        </div>{side_html}
+        </div>
       </section>'''
 
 
