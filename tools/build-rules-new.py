@@ -61,8 +61,8 @@ CH = {
  'flow':          dict(icons=[],                                        cards=[]),
  'players':       dict(icons=[],                                        cards=[]),
  'cards':         dict(icons=[],                                        cards=['back']),   # рубашка основной колоды
- 'weapons':       dict(layout={0: 'stack', 9: 'fan'}, icons=[[('ic','weapon'),('ic','modifier')],[('ic','defense')]],
-                       cards={0: [1, 32, 33, 31], 9: [70, 48]}),   # карты по срезам: ключ — начало среза
+ 'weapons':       dict(layout='stack', icons=[[('ic','weapon'),('ic','modifier')]], cards=[1, 32, 33, 31, 70]),   # четыре оружия и модификатор
+ 'defense':       dict(icons=[[('ic','defense')]],                      cards=[48, 50]),   # простая защита и защита с эффектом
  'traps':         dict(icons=[[('ic','trap')]],                         cards=[43, 41]),
  'stances':       dict(icons=[[('ic','stance')]],                       cards=[1166, 60]),
  'effects':       dict(icons=[[('ic','effect')]],                       cards=[91]),
@@ -88,8 +88,8 @@ PAGES = [
     [('setup', 4, 6), ('setup', 6, None), ('flow', 0, 4)],   # рассадка; персонажи и жетоны; партия: ход
     [('flow', 4, None), 'table'],    # партия: смерть и окончание; стол — ужат, чтобы влезть под них
     ['cards'],                       # карты
-    [('weapons', 0, 9)],
-    [('weapons', 9, None), 'traps'],
+    ['weapons'],
+    ['defense', 'traps'],
     ['stances', 'effects'],
     ['poison', 'interventions'],
     ['auras'],
@@ -132,7 +132,8 @@ def part_cards(cfg, a):
 def side_height_mm(icon_rows, n, layout):
     h = icon_rows * 9 + max(icon_rows - 1, 0) * 1.5     # значки на поле 9 мм, зазор 1.5
     if n:
-        cards = (32.6 + (n - 1) * 26.1) if layout == 'stack' else {1: 32.6, 2: 35, 3: 36}.get(n, 36)
+        step = 21.6 if n >= 5 else 26.1                    # пять карт лесенкой — плотнее (.n5 в CSS)
+        cards = (32.6 + (n - 1) * step) if layout == 'stack' else {1: 32.6, 2: 35, 3: 36}.get(n, 36)
         h += (2 if icon_rows else 0) + 1 + cards
     return round(h + 1, 1)
 
@@ -172,9 +173,9 @@ INLINE = {
  'ru': [
   ('weapons', 'наибольшая <b>сложность</b>, которую оно берёт, и сила атаки.', 'наибольшая <b>сложность</b>, которую оно берёт ' + ic('mk','icons/complexity1.svg') + ', и сила атаки ' + ic('mk','icons/dmg2.svg') + '.'),
   ('weapons', 'Метательное оружие берёт любую сложность.', 'Метательное оружие ' + ic('mk','ranged.png') + ' берёт любую сложность.'),
-  ('weapons', 'либо использовать карту защиты для блокирования атаки.', 'либо использовать карту защиты ' + ic('ic','defense') + ' для блокирования атаки.'),
+  ('weapons', 'либо отбивает атаку картой защиты', 'либо отбивает атаку картой защиты ' + ic('ic','defense')),
   ('weapons', 'Оружие также может быть усилено ядом.', 'Оружие также может быть усилено ядом ' + ic('ic','poison') + '.'),
-  ('weapons', 'картой-модификатором с красной плашкой.', 'картой-модификатором ' + ic('ic','modifier') + ' с красной плашкой.'),
+  ('weapons', 'картой-модификатором с красной плашкой;', 'картой-модификатором ' + ic('ic','modifier') + ' с красной плашкой;'),
   ('weapons', '<h4 class="section-title">Выпад</h4>', '<h4 class="section-title">Выпад<span class="h-icons">' + ic('ic','thrust') + '</span></h4>'),
   ('auras', 'поставьте на неё фигурку знамени', 'поставьте на неё фигурку знамени ' + BANNER),
   ('setup', 'Цифра внутри сердца — максимум', 'Цифра внутри сердца ' + ic('ic','hp') + ' — максимум'),
@@ -187,9 +188,9 @@ INLINE = {
  'en': [
   ('weapons', 'the highest <b>complexity</b> it can handle and its attack power.', 'the highest <b>complexity</b> it can handle ' + ic('mk','icons/complexity1.svg') + ' and its attack power ' + ic('mk','icons/dmg2.svg') + '.'),
   ('weapons', 'Thrown weapons handle any complexity.', 'Thrown weapons ' + ic('mk','ranged.png') + ' handle any complexity.'),
-  ('weapons', 'or play a Defense card to block the attack.', 'or play a Defense card ' + ic('ic','defense') + ' to block the attack.'),
+  ('weapons', 'or blocks the attack with a Defense card', 'or blocks the attack with a Defense card ' + ic('ic','defense')),
   ('weapons', 'Weapons can also be strengthened with poison.', 'Weapons can also be strengthened with poison ' + ic('ic','poison') + '.'),
-  ('weapons', 'Modifier card with a red banner.', 'Modifier card ' + ic('ic','modifier') + ' with a red banner.'),
+  ('weapons', 'Modifier card with a red banner;', 'Modifier card ' + ic('ic','modifier') + ' with a red banner;'),
   ('weapons', '<h4 class="section-title">Thrust</h4>', '<h4 class="section-title">Thrust<span class="h-icons">' + ic('ic','thrust') + '</span></h4>'),
   ('auras', 'put the banner figurine on it', 'put the banner figurine ' + BANNER + ' on it'),
   ('setup', 'The number inside the heart is', 'The number inside the heart ' + ic('ic','hp') + ' is'),
@@ -343,7 +344,7 @@ def build(lang):
     t = L[lang]
     src = open(t['src'], encoding='utf-8').read()
     chapters = {cid: (mark, title, body) for cid, mark, title, body in sec_re.findall(src)}
-    assert len(chapters) == 14, (lang, len(chapters))
+    assert len(chapters) == 15, (lang, len(chapters))
     # глава «Стол во время партии» собирается из table_fig: h4 там становится заголовком главы
     tsec = table_fig.section(lang)
     ttitle = re.search(r'<h4>([^<]*)</h4>', tsec).group(1)

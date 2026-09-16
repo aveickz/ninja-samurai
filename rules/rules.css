@@ -536,6 +536,7 @@ section.chapter::after { content: ""; display: block; clear: both; }
   margin-top: -6.5mm;
   transform: rotate(calc(var(--k) * -6deg)) translateX(calc(var(--k) * 1.2mm)) translateZ(0);
 }
+.side-cards.stack.n5 .card-embed { margin-top: -11mm; }   /* пять карт — плотнее, иначе колонка выше страницы */
 .side-cards.stack .card-embed:first-child { margin-top: 0; }
 
 /* ---------- Порядок расчёта: цепочки значков ---------- */
@@ -598,7 +599,7 @@ section.chapter::after { content: ""; display: block; clear: both; }
   margin: 1mm auto;
 }
 /* Картинка у́же колонки, чтобы глава со столом влезала на страницу под концом «Партии» */
-.table-figure .table-pic { position: relative; width: 73%; margin: 0 auto; }
+.table-figure .table-pic { position: relative; width: 71%; margin: 0 auto; }
 .table-figure img { display: block; width: 100%; height: auto; }
 .table-figure svg.table-overlay {
   position: absolute;
