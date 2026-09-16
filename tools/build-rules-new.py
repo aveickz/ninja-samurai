@@ -12,8 +12,8 @@ rules*.html — результат сборки, руками не трогат�
 страницам ВРУЧНУЮ в PAGES; автоматического переноса нет: что не влезло —
 выезжает за низ страницы и остаётся видно, переносить руками.
 
-Страница 1 — титул, один по центру; дальше как в книге: чётные страницы —
-левые (широкое поле слева под значки и карты, корешок справа), нечётные —
+Титул — один по центру, без номера. Дальше нумерация с 1: нечётные страницы —
+левые (широкое поле слева под значки и карты, корешок справа), чётные —
 правые (корешок слева, поле справа). Последняя — «Конец», всегда чётная.
 
 Добавляет: значки типов и карты-примеры на поле, бледный фон главы,
@@ -75,15 +75,15 @@ CH = {
 
 # ---------- раскладка по страницам (руками) ----------
 # Элемент страницы: '__title__' — титульный лист (один на странице), '__end__' —
-# завершающий лист «Конец» (всегда на чётной странице: если страниц выходит
-# нечётное число, после титула вставляется его оборот с выходными данными);
+# завершающий лист «Конец» (всегда на чётной, правой странице: если страниц
+# выходит нечётное число, перед ним вставляется лист с выходными данными);
 # 'id' — глава целиком;
 # ('id', a, b) — срез главы: блоки тела с a по b (не включая), нумерация
 # блоков тела с нуля, без h2. Первый срез несёт заголовок и колонку на
 # поле, последний — иероглиф. Что не влезает — выезжает вниз, видно.
 # Высоты блоков смотреть в браузере: getBoundingClientRect по .chapter-body > *.
 PAGES = [
-    ['__title__'],                      # титул: рисунок, название, подзаголовок
+    ['__title__'],                      # титул: рисунок, название, подзаголовок — без номера, в счёт не идёт
     ['about', ('setup', 0, 6)],         # об игре, подготовка: роли, рассадка
     [('setup', 6, None), ('flow', 0, 6)],   # персонажи и жетоны; партия: ход, смерть
     ['table'],                          # стол во время партии — целая страница
@@ -166,6 +166,8 @@ def card_fan(ids, lang, layout='fan'):
     return f'<div class="side-cards {layout} n{n}">' + ''.join(items) + '</div>'
 
 # значки в тексте — точечные вставки по фразам (глава, было, стало)
+# Значки в строке текста — только чужие для главы (защита и яд в «Оружии», сердце в
+# «Подготовке»…): свой значок главы уже стоит в её заголовке, в тексте не дублируется.
 INLINE = {
  'ru': [
   ('weapons', 'наибольшая <b>сложность</b>, которую оно берёт, и сила атаки.', 'наибольшая <b>сложность</b>, которую оно берёт ' + ic('mk','icons/complexity1.svg') + ', и сила атаки ' + ic('mk','icons/dmg2.svg') + '.'),
@@ -174,10 +176,6 @@ INLINE = {
   ('weapons', 'Оружие также может быть усилено ядом.', 'Оружие также может быть усилено ядом ' + ic('ic','poison') + '.'),
   ('weapons', 'картой-модификатором с красной плашкой.', 'картой-модификатором ' + ic('ic','modifier') + ' с красной плашкой.'),
   ('weapons', '<h4 class="section-title">Выпад</h4>', '<h4 class="section-title">Выпад<span class="h-icons">' + ic('ic','thrust') + '</span></h4>'),
-  ('poison', '<h4>Три недуга отравленного</h4>', '<h4>Три недуга отравленного<span class="h-icons">' + ic('ic','poison') + '</span></h4>'),
-  ('traps', 'поставив на неё фигурку ловушки.', 'поставив на неё фигурку ловушки ' + ic('ic','trap') + '.'),
-  ('interventions', 'Вмешательство — особый тип карт,', 'Вмешательство ' + ic('ic','intervention') + ' — особый тип карт,'),
-  ('auras', 'Командные ауры — мощные карты,', 'Командные ауры ' + ic('ic','aura') + ' — мощные карты,'),
   ('auras', 'поставьте на неё фигурку знамени', 'поставьте на неё фигурку знамени ' + BANNER),
   ('setup', 'Цифра внутри сердца — максимум', 'Цифра внутри сердца ' + ic('ic','hp') + ' — максимум'),
   ('setup', '<h4>Выставление жетонов</h4>', '<h4>Выставление жетонов<span class="h-icons">' + ic('mk','hp.png') + ic('mk','winpoint.png') + '</span></h4>'),   # сначала жизни, потом очки
@@ -193,9 +191,6 @@ INLINE = {
   ('weapons', 'Weapons can also be strengthened with poison.', 'Weapons can also be strengthened with poison ' + ic('ic','poison') + '.'),
   ('weapons', 'Modifier card with a red banner.', 'Modifier card ' + ic('ic','modifier') + ' with a red banner.'),
   ('weapons', '<h4 class="section-title">Thrust</h4>', '<h4 class="section-title">Thrust<span class="h-icons">' + ic('ic','thrust') + '</span></h4>'),
-  ('poison', '<h4>The three afflictions of the poisoned</h4>', '<h4>The three afflictions of the poisoned<span class="h-icons">' + ic('ic','poison') + '</span></h4>'),
-  ('interventions', '<p>Intervention is a special card type', '<p>Intervention ' + ic('ic','intervention') + ' is a special card type'),
-  ('auras', '<p>Team Auras are powerful cards', '<p>Team Auras ' + ic('ic','aura') + ' are powerful cards'),
   ('auras', 'put the banner figurine on it', 'put the banner figurine ' + BANNER + ' on it'),
   ('setup', 'The number inside the heart is', 'The number inside the heart ' + ic('ic','hp') + ' is'),
   ('setup', '<h4>Setting out tokens</h4>', '<h4>Setting out tokens<span class="h-icons">' + ic('mk','hp.png') + ic('mk','winpoint.png') + '</span></h4>'),
@@ -350,15 +345,17 @@ def build(lang):
     missing = [c for c in chapters if c not in used]
     assert not missing, ('главы без страницы', missing)
 
-    # «Конец» — на чётной странице: при нечётном счёте после титула вставляется
-    # оборот титула (выходные данные) — так текст начинается с правой страницы, как в книге
+    # Титул не считается: нумерация с первой страницы текста, она левая.
+    # «Конец» — на чётной странице (правой): при нечётном счёте перед ним
+    # вставляется лист с выходными данными.
     pages = list(PAGES)
-    if len(pages) % 2:
-        pages.insert(1, ['__imprint__'])
+    assert pages[0] == ['__title__'] and pages[-1] == ['__end__']
+    if len(pages) % 2 == 0:
+        pages.insert(len(pages) - 1, ['__imprint__'])
     sheets = []
-    for n, page in enumerate(pages, start=1):
-        # титул — страница 1, правая (recto); дальше чётные — левые, нечётные — правые, как в книге
-        side = 'right' if n % 2 else 'left'
+    for n, page in enumerate(pages, start=0):
+        # n=0 — титул, один; дальше нечётные — левые, чётные — правые
+        side = 'left' if n % 2 else 'right'
         blocks, kind = [], 'page'
         for item in page:
             if item == '__title__':
@@ -378,7 +375,7 @@ def build(lang):
       <div class="content">{''.join(blocks)}
       </div>{folio}
     </section>''')
-    # развороты как в книге: титул один, затем пары (2–3, 4–5…), последний чётный — один
+    # развороты: титул один, затем пары (1–2, 3–4…); последняя пара кончается «Концом»
     groups = [[0]] + [[i, i + 1] if i + 1 < len(sheets) else [i] for i in range(1, len(sheets), 2)]
     spreads = []
     for g in groups:
