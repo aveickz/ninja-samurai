@@ -59,13 +59,17 @@ CH = {
                        cards={0: [202, 200, 'back-role'], 6: [137, 135, 'back-character']}),   # роли и их рубашка — у «Распределения ролей», персонажи и их рубашка — у «Выбора персонажей»; рубашка последней — сверху, видна целиком
  'table':         dict(icons=[],                                        cards=[]),   # стол во время партии (глава собирается из table_fig)
  'flow':          dict(icons=[],                                        cards=[]),
+ 'turn':          dict(icons=[],                                        cards=[]),
+ 'death':         dict(icons=[],                                        cards=[]),
  'players':       dict(icons=[],                                        cards=[]),
  'cards':         dict(icons=[],                                        cards=['back']),   # рубашка основной колоды
- 'weapons':       dict(layout='stack', icons=[[('ic','weapon'),('ic','modifier')]], cards=[1, 32, 33, 31, 70]),   # четыре оружия и модификатор
- 'defense':       dict(icons=[[('ic','defense')]],                      cards=[48, 50]),   # простая защита и защита с эффектом
+ 'weapons':       dict(layout={0: 'stack', 9: 'fan'}, icons=[[('ic','weapon'),('ic','modifier')]],
+                       cards={0: [1, 32, 31], 9: [70, 64]}),   # меч, сюрикен, отравленное яри; у подраздела «Модификатор» (срез с блока 9) — два модификатора
+ 'defense':       dict(icons=[[('ic','defense')]],                      cards=[50, 48]),   # защита с эффектом и простая «Защита» — сверху, она основная
+ 'thrust':        dict(icons=[[('ic','thrust')]],                       cards=[90, 124]),   # «Боевой крик» и «Удар дракона» — карты с выпадом
  'traps':         dict(icons=[[('ic','trap')]],                         cards=[43, 41]),
- 'stances':       dict(icons=[[('ic','stance')]],                       cards=[1166, 60]),
- 'effects':       dict(icons=[[('ic','effect')]],                       cards=[91]),
+ 'stances':       dict(icons=[[('ic','stance')]],                       cards=[60, 1166]),   # «Лучник» справа, сверху — виден целиком
+ 'effects':       dict(icons=[[('ic','effect')]],                       cards=[91, 92]),   # «Метка убийцы» и «Противоядие»
  'poison':        dict(icons=[[('ic','poison')]],                       cards=[116, 64]),
  'interventions': dict(layout='stack', icons=[[('ic','intervention')]], cards=[121, 124]),
  'auras':         dict(layout='stack', icons=[[('ic','aura')]],         cards=[1200, 1204]),
@@ -85,13 +89,14 @@ CH = {
 PAGES = [
     ['__title__'],                      # титул: рисунок, название, подзаголовок — без номера, в счёт не идёт
     ['__cover__', 'about', ('setup', 0, 4)],   # шапка с рисунком, об игре, подготовка: роли
-    [('setup', 4, 6), ('setup', 6, None), ('flow', 0, 4)],   # рассадка; персонажи и жетоны; партия: ход
-    [('flow', 4, None), 'table'],    # партия: смерть и окончание; стол — ужат, чтобы влезть под них
-    ['cards'],                       # карты
-    ['weapons'],
-    ['defense', 'traps'],
-    ['stances', 'effects'],
-    ['poison', 'interventions'],
+    [('setup', 4, 6), ('setup', 6, None), 'flow'],   # рассадка; персонажи и жетоны; партия и её окончание
+    ['table', 'turn'],               # стол; ход
+    ['death', 'cards'],              # смерть; набор карт
+    [('weapons', 0, 9), ('weapons', 9, None)],   # атака: оружие и сложность, ниже модификатор со своими картами
+    ['defense', 'thrust'],
+    ['traps', 'stances'],
+    ['effects', 'poison'],
+    ['interventions'],
     ['auras'],
     ['conditional'],
     ['order', 'players'],           # неравные команды — редкость, в самый конец
@@ -175,8 +180,7 @@ INLINE = {
   ('weapons', 'Метательное оружие берёт любую сложность.', 'Метательное оружие ' + ic('mk','ranged.png') + ' берёт любую сложность.'),
   ('weapons', 'либо отбивает атаку картой защиты', 'либо отбивает атаку картой защиты ' + ic('ic','defense')),
   ('weapons', 'Оружие также может быть усилено ядом.', 'Оружие также может быть усилено ядом ' + ic('ic','poison') + '.'),
-  ('weapons', 'картой-модификатором с красной плашкой;', 'картой-модификатором ' + ic('ic','modifier') + ' с красной плашкой;'),
-  ('weapons', '<h4 class="section-title">Выпад</h4>', '<h4 class="section-title">Выпад<span class="h-icons">' + ic('ic','thrust') + '</span></h4>'),
+  ('weapons', 'картой-модификатором с красной плашкой.', 'картой-модификатором ' + ic('ic','modifier') + ' с красной плашкой.'),
   ('auras', 'поставьте на неё фигурку знамени', 'поставьте на неё фигурку знамени ' + BANNER),
   ('setup', 'Цифра внутри сердца — максимум', 'Цифра внутри сердца ' + ic('ic','hp') + ' — максимум'),
   ('setup', '<h4>Выставление жетонов</h4>', '<h4>Выставление жетонов<span class="h-icons">' + ic('mk','hp.png') + ic('mk','winpoint.png') + '</span></h4>'),   # сначала жизни, потом очки
@@ -190,8 +194,7 @@ INLINE = {
   ('weapons', 'Thrown weapons handle any complexity.', 'Thrown weapons ' + ic('mk','ranged.png') + ' handle any complexity.'),
   ('weapons', 'or blocks the attack with a Defense card', 'or blocks the attack with a Defense card ' + ic('ic','defense')),
   ('weapons', 'Weapons can also be strengthened with poison.', 'Weapons can also be strengthened with poison ' + ic('ic','poison') + '.'),
-  ('weapons', 'Modifier card with a red banner;', 'Modifier card ' + ic('ic','modifier') + ' with a red banner;'),
-  ('weapons', '<h4 class="section-title">Thrust</h4>', '<h4 class="section-title">Thrust<span class="h-icons">' + ic('ic','thrust') + '</span></h4>'),
+  ('weapons', 'Modifier card with a red banner.', 'Modifier card ' + ic('ic','modifier') + ' with a red banner.'),
   ('auras', 'put the banner figurine on it', 'put the banner figurine ' + BANNER + ' on it'),
   ('setup', 'The number inside the heart is', 'The number inside the heart ' + ic('ic','hp') + ' is'),
   ('setup', '<h4>Setting out tokens</h4>', '<h4>Setting out tokens<span class="h-icons">' + ic('mk','hp.png') + ic('mk','winpoint.png') + '</span></h4>'),
@@ -344,7 +347,7 @@ def build(lang):
     t = L[lang]
     src = open(t['src'], encoding='utf-8').read()
     chapters = {cid: (mark, title, body) for cid, mark, title, body in sec_re.findall(src)}
-    assert len(chapters) == 15, (lang, len(chapters))
+    assert len(chapters) == 18, (lang, len(chapters))
     # глава «Стол во время партии» собирается из table_fig: h4 там становится заголовком главы
     tsec = table_fig.section(lang)
     ttitle = re.search(r'<h4>([^<]*)</h4>', tsec).group(1)

@@ -396,6 +396,7 @@ section.chapter.continued .chapter-body > :first-child { margin-top: 0; }
 
 aside.note {
   position: relative;
+  display: flow-root;   /* свой контекст: рядом с колонкой карт заметка сужается целиком, и штрих слева стоит у текста, а не у края страницы */
   padding: 1mm 2mm 1mm 4mm;
   margin: 1.5mm 0;
   font-size: 8pt;
@@ -598,8 +599,8 @@ section.chapter::after { content: ""; display: block; clear: both; }
   width: 100%;
   margin: 1mm auto;
 }
-/* Картинка у́же колонки, чтобы глава со столом влезала на страницу под концом «Партии» */
-.table-figure .table-pic { position: relative; width: 71%; margin: 0 auto; }
+/* Картинка у́же колонки, чтобы под столом на той же странице поместился «Ход» */
+.table-figure .table-pic { position: relative; width: 79%; margin: 0 auto; }
 .table-figure img { display: block; width: 100%; height: auto; }
 .table-figure svg.table-overlay {
   position: absolute;
