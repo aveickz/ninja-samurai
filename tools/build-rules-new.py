@@ -59,17 +59,19 @@ CH = {
                        cards={0: [202, 200, 'back-role'], 6: [137, 135, 'back-character']}),   # роли и их рубашка — у «Распределения ролей», персонажи и их рубашка — у «Выбора персонажей»; рубашка последней — сверху, видна целиком
  'table':         dict(icons=[],                                        cards=[]),   # стол во время партии (глава собирается из table_fig)
  'flow':          dict(icons=[],                                        cards=[]),
- 'turn':          dict(icons=[],                                        cards=['back']),   # ход и набор карт: рубашка основной колоды
+ 'turn':          dict(layout={0: 'fan', 4: 'fan'}, icons=[],
+                       cards={0: [109, 84], 4: ['back', 'back']}),   # у хода — действие «Саке» и групповое «Чайная церемония» сверху; у «Набора карт» — две рубашки
  'death':         dict(icons=[],                                        cards=[]),
  'players':       dict(icons=[],                                        cards=[]),
  'weapons':       dict(layout={0: 'stack', 9: 'fan'}, icons=[[('ic','weapon'),('ic','modifier')]],
-                       cards={0: [1, 32, 31], 9: [70, 64]}, fig=('weapon', 26, 2)),   # меч, сюрикен, отравленное яри; у подраздела «Модификатор» (срез с блока 9) — два модификатора
- 'defense':       dict(icons=[[('ic','defense')]],                      cards=[50, 48], fig=('defense', 24, 2)),   # защита с эффектом и простая «Защита» — сверху, она основная
+                       cards={0: [1, 32, 31], 9: [70, 64]}),   # меч, сюрикен, отравленное яри; у подраздела «Модификатор» (срез с блока 9) — два модификатора
+ 'defense':       dict(icons=[[('ic','defense')]],                      cards=[50, 48]),   # защита с эффектом и простая «Защита» — сверху, она основная
  'thrust':        dict(icons=[[('ic','thrust')]],                       cards=[90, 124]),   # «Боевой крик» и «Удар дракона» — карты с выпадом
- 'traps':         dict(icons=[[('ic','trap')]],                         cards=[43, 41], fig=('trap', 30, 2)),
+ 'traps':         dict(icons=[[('ic','trap')]],                         cards=[43, 41]),
  'stances':       dict(icons=[[('ic','stance')]],                       cards=[60, 1166]),   # «Лучник» справа, сверху — виден целиком
+ 'group':         dict(icons=[[('ic','aoe')]],                          cards=[83, 82]),   # «Потасовка» и «Миротворцы» сверху
  'effects':       dict(icons=[[('ic','effect')]],                       cards=[91, 92]),   # «Метка убийцы» и «Противоядие»
- 'poison':        dict(icons=[[('ic','poison')]],                       cards=[116, 64], fig=('poison', 20, 1)),
+ 'poison':        dict(icons=[[('ic','poison')]],                       cards=[116, 64]),
  'interventions': dict(layout='stack', icons=[[('ic','intervention')]], cards=[121, 124]),
  'auras':         dict(icons=[[('ic','aura')]],                        cards=[1209, 1206]),   # «Часовой» внутри, «Дымовая завеса» сверху
  'conditional':   dict(layout='stack', icons=[[('ic','rolectx'),('ic','hpctx'),('ic','charges'),('ic','charctx')]], cards=[125, 3094]),
@@ -89,11 +91,11 @@ PAGES = [
     ['__title__'],                      # титул: рисунок, название, подзаголовок — без номера, в счёт не идёт
     ['__cover__', 'about', ('setup', 0, 4)],   # шапка с рисунком, об игре, подготовка: роли
     [('setup', 4, 6), ('setup', 6, None), 'flow'],   # рассадка; персонажи и жетоны; партия и её окончание
-    ['turn', 'death'],               # ход (с набором карт и восстановлением); смерть
+    [('turn', 0, 4), ('turn', 4, None), 'death'],   # ход; набор карт и восстановление — со своими рубашками; смерть
     ['table'],                       # стол во время партии — один на странице
-    [('weapons', 0, 9), ('weapons', 9, None)],   # атака: оружие и сложность, ниже модификатор со своими картами
-    ['defense', 'thrust'],
-    ['traps', 'stances'],
+    [('weapons', 0, 9)],             # атака: оружие и сложность
+    [('weapons', 9, None), 'defense', 'thrust'],   # модификатор и любимое оружие со своими картами; защита; выпад
+    ['stances', 'traps', 'group'],   # стойки, ловушки, групповые действия
     ['effects', 'poison'],
     ['interventions', 'auras'],
     ['conditional'],
@@ -296,11 +298,13 @@ def chapter_html(lang, cid, mark, title, body, a=0, b=None):
     fig = cfg.get('fig')
     if fig and last:
         # тушевая иллюстрация главы — ровно в правом нижнем углу: последние k блоков
-        # и картинка встают в одну строку (.fig-row), низ картинки — по низу последнего блока
+        # получают отступ справа под картинку, сама она стоит абсолютно в углу этой
+        # обёртки (.fig-row). Обычный блок, не flex: строки по-прежнему обтекают
+        # колонку карт, и перед подзаголовком не появляется зазора
         name, w, k = fig
         part = list(part)
         i = max(len(part) - k, 0)
-        row = ('<div class="fig-row"><div class="fig-text">\n' + '\n'.join(part[i:]) + '\n</div>'
+        row = (f'<div class="fig-row"><div class="fig-text" style="padding-right:{w + 3}mm">\n' + '\n'.join(part[i:]) + '\n</div>'
                f'<img class="chapter-fig" src="media/fig/ink/{name}.webp" style="width:{w}mm" alt=""></div>')
         part = part[:i] + [row]
     body = '\n'.join(part)
@@ -355,7 +359,7 @@ def build(lang):
     t = L[lang]
     src = open(t['src'], encoding='utf-8').read()
     chapters = {cid: (mark, title, body) for cid, mark, title, body in sec_re.findall(src)}
-    assert len(chapters) == 17, (lang, len(chapters))
+    assert len(chapters) == 18, (lang, len(chapters))
     # глава «Стол во время партии» собирается из table_fig: h4 там становится заголовком главы
     tsec = table_fig.section(lang)
     ttitle = re.search(r'<h4>([^<]*)</h4>', tsec).group(1)

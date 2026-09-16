@@ -399,8 +399,8 @@ aside.note {
   display: flow-root;   /* свой контекст: рядом с колонкой карт заметка сужается целиком, и штрих слева стоит у текста, а не у края страницы */
   padding: 1mm 2mm 1mm 4mm;
   margin: 1.5mm 0;
-  font-size: 8pt;
-  line-height: 1.35;
+  font-size: 10pt;      /* врезка — не мелкий шрифт, а важный блок: тот же кегль и интерлиньяж, что у абзацев */
+  line-height: 1.42;
   background: radial-gradient(ellipse 50% 90% at 50% 50%,
     var(--ink-soft) 0%, var(--ink-faded) 30%, transparent 70%) left center / 1pt 100% no-repeat;
 }
@@ -475,13 +475,12 @@ p .fig-inline { width: 3.2mm; height: 5.2mm; vertical-align: -1.6mm; margin: 0 .
 section.chapter::after { content: ""; display: block; clear: both; }
 
 /* Тушевая иллюстрация главы (rules/media/fig/ink/*.webp, /img) — ровно в правом
-   нижнем углу главы: последние блоки текста и картинка стоят в одной flex-строке,
-   картинка прижата к правому краю и к низу последнего блока. Ширина — из CH['fig']. */
-/* clear: right — иначе строка, задев низ колонки карт на правой странице, сужается на всю высоту */
-.fig-row { display: flex; align-items: flex-end; gap: 3mm; clear: right; }
-.fig-row .fig-text { flex: 1 1 auto; min-width: 0; }
+   нижнем углу главы: последние блоки текста получают отступ справа под картинку
+   (inline padding-right из сборщика), картинка стоит абсолютно в углу обёртки.
+   Обёртка — обычный блок, не flex/BFC: строки обтекают колонку карт как прежде. */
+.fig-row { position: relative; }
 .fig-row .fig-text > :last-child { margin-bottom: 0; }
-.chapter-fig { flex: none; height: auto; }
+.chapter-fig { position: absolute; right: 0; bottom: 0; height: auto; }
 
 .side-icons {
   display: flex;
