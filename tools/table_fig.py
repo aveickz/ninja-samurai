@@ -69,6 +69,7 @@ TXT = {
   ],
   'outro': 'Ловушка кладётся перед собой рубашкой вверх, сверху — фигурка капкана; яд отмечают фигуркой-бутылкой на карте роли. Аура кладётся перед собой в открытую, сверху — фигурка знамени; на этой картинке её нет.',
   'caption': 'Стол на четверых: самурай — ниндзя — самурай — ниндзя.',
+  'note': 'За большим столом — на восьмерых — колоду и сброс удобно разделить на две стопки и поставить с разных сторон, чтобы каждому было легко дотянуться: колода перетасована, а порядок карт в сбросе не важен.',
  },
  'en': {
   'stance': 'Stance', 'role': 'Role card', 'deck': 'Deck', 'character': 'Character',
@@ -92,6 +93,7 @@ TXT = {
   ],
   'outro': 'A trap is placed face down in front of you with the trap figure on top; poison is marked by a bottle figure on the role card. An aura goes face up in front of you with the banner figure on top; it is not shown in this picture.',
   'caption': 'A table for four: samurai — ninja — samurai — ninja.',
+  'note': 'At a big table — eight players — it is convenient to split the deck and the discard pile in two and place them on opposite sides so that everyone can reach: the deck is shuffled, and the order of cards in the discard pile does not matter.',
  },
 }
 NUM = {k: i + 1 for i, (k, _) in enumerate(TXT['ru']['legend'])}
@@ -156,7 +158,8 @@ def section(lang):
             f'      <figure class="table-figure">\n'
             f'        <div class="table-pic"><img src="media/table.webp" alt="" width="{W}" height="{H}">{svg(lang)}</div>\n'
             f'        <figcaption>{esc(t["caption"])}</figcaption>\n'
-            f'      </figure>\n')   # outro (про фигурки) не печатается: это уже сказано в главах о ловушке, яде и ауре
+            f'      </figure>\n'
+            f'      <aside class="note">{esc(t["note"])}</aside>\n')   # outro (про фигурки) не печатается: это уже сказано в главах о ловушке, яде и ауре
 
 if __name__ == '__main__':
     print(section('ru'))
