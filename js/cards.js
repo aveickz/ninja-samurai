@@ -1005,10 +1005,10 @@ const CARDS = [
     types: ["stance"],
     qty: 1,
     group: "stance",
-    tags: [],
+    tags: ["toPrint"],
     desc: "В момент получения ран от оружия вы можете выбрать союзника, согласного с вами разделить в любой пропорции полученные раны.",
     enDesc: "When you take wounds from a weapon, you may choose a willing ally to share those wounds with you in any split.",
-    img: "cards/card_cozuben.png",
+    img: "cards/card_1164_ketsuban.png",
   },
   {
     id: 1165,
@@ -2533,10 +2533,10 @@ const CARDS = [
     qty: 1,
     group: "aura",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "{Враги} не могут проводить метательные атаки.",
     enDesc: "{Enemies} cannot make ranged attacks.",
-    img: "cards/card_95_zavesa_dyma.png"
+    img: "cards/card_1206_dymovaya_zavesa.png"
   },
   {
     id: 1207,
