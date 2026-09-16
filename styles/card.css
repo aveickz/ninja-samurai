@@ -450,6 +450,7 @@
   right: 4%;
   height: 10%;
   background: transparent;
+  filter: none;   /* тень плашки легла бы на сами буквы */
 }
 
 .card-role .card-title {
