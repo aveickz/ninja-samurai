@@ -49,7 +49,7 @@ card('char', 65, 99, 137)                          # Сайго
 fig('poison', 70.9, 109, 5.2, 8, 'media/fig/poison.webp')
 card('role', 84, 99, 201)                          # Самурай
 for i in range(4):
-    fig(f'vp{i}', 66 + i * 5.2, 138.5, 4.6, 4.6, '../media/winpoint.png', cls='tok')
+    fig(f'vp{i}', 66 + i * 5.2, 137, 4.6, 4.6, '../media/winpoint.png', cls='tok')
 lcard('trapcard', 69, 77, 'back')                  # ловушка — рубашкой вверх, над персонажем
 fig('trap', 77, 80, 11, 11, 'media/fig/trap.webp')
 card('stance', 106, 101, 1166)                     # Лучник
@@ -57,8 +57,8 @@ card('aura',   106, 62, 1204)                      # Спина к спине �
 card('effect0', 128.5, 94, 91)                     # Метка убийцы
 card('effect1', 142, 97.5, 97)                     # Пыль в глаза — внахлёст
 
-# кистевые разделители между группами зоны: (x, y0, y1)
-DIVIDERS = [(103.6, 97, 131), (126.5, 92, 128)]
+# кистевые разделители между группами зоны: (x, y0, y1) — убраны по решению автора
+DIVIDERS = []
 
 def bbox(keys, pad=1.0):
     xs, ys, xe, ye = 1e9, 1e9, -1e9, -1e9
@@ -97,7 +97,7 @@ CALL = [
   'Бутылка на персонаже. В конце хода <b>−2</b> жизни; отравленная атака по вам <b>+1</b> рана. Смерть от яда — без восстановления, очко в сброс.'),
  (['hp0','hp1','hp2','hp3'], (5, 116, 51), 'bottom', 'Жизни', 'hpctx',
   '<b>0</b> — мертвы до конца хода: очко убийце, открытые карты в сброс, вас никто не трогает. Со следующего хода живы; в свой ход — восстановление: сброс любых карт, добор до <b>7</b>.'),
- (['vp0','vp1','vp2','vp3'], (89, 137, 42), 'right', 'Победные очки', 'winpoint',
+ (['vp0','vp1','vp2','vp3'], (89, 135.5, 42), 'right', 'Победные очки', 'winpoint',
   'Старт — <b>4</b>. Убили — забрали очко у жертвы. Чьи-то <b>0</b> — конец партии.'),
 ]
 
@@ -228,14 +228,11 @@ CSS = r"""
   .desk-note { color:#b39a6f; font-size:14px; letter-spacing:.04em; opacity:.8; }
   .desk-note a { color:#d8c39a; }
 
+  /* Лист: сгенерированный фон — бумага васи с тушевыми украшениями по краям
+     (media/cheat-bg.webp, /img по макету ref/cheatsheet-mockup-2026-09-16.png) */
   .sheet { position:relative; width:210mm; height:148mm; overflow:hidden; font-size:var(--fs); line-height:1.25;
-    background: radial-gradient(ellipse 60mm 40mm at 85% 12%, rgba(120,70,20,.10), transparent 70%),
-                radial-gradient(ellipse 50mm 30mm at 20% 70%, rgba(120,70,20,.10), transparent 70%),
-                url('media/paper.png') center / 100% 100% no-repeat var(--paper-light);
+    background: url('media/cheat-bg.webp') center / 100% 100% no-repeat var(--paper-light);
     box-shadow: 0 0 0 1px rgba(60,30,10,.4), 0 20px 50px rgba(0,0,0,.65); }
-  /* бледная тушь — в свободном центре листа */
-  .sheet::before { content:""; position:absolute; left:62mm; top:52mm; width:44mm; height:38mm;
-    background:url('media/bg/flow.webp') center / contain no-repeat; opacity:.10; mix-blend-mode:multiply; pointer-events:none; }
 
   /* заголовок — верхний левый угол, как заголовок главы */
   .ttl { position:absolute; left:6mm; top:3.5mm; display:flex; align-items:center; gap:2mm;
@@ -255,9 +252,18 @@ CSS = r"""
   .ov .st path { fill:var(--ink-soft); opacity:.8; }
   .ov .pin { fill:var(--vermilion); opacity:.9; }
 
-  /* выноски */
-  .co { position:absolute; }
-  .co h4 { margin:0 0 .4mm; font-size:7.4pt; font-weight:700; color:var(--ink-soft); display:flex; align-items:center; gap:1.4mm; line-height:1.1; }
+  /* выноски: заголовок на кистевом мазке (media/fig/brush-plate.webp, чёрная тушь с альфой),
+     значок — чёрный круг с белым знаком, как на макете */
+  .co { position:absolute; isolation:isolate; }
+  /* текст на мягком бумажном свечении — орнаменты фона уходят под него */
+  .co p, .misc p, .chain, .ttl { background: rgba(244,234,210,.78); box-shadow: 0 0 2.5mm 2.5mm rgba(244,234,210,.78); border-radius: 1mm; }
+  .co h4 { position:relative; margin:0 0 .6mm -1.2mm; padding:.7mm 3mm .7mm 1.2mm; font-size:7.4pt; font-weight:700; color:#f4ead2;
+    display:inline-flex; align-items:center; gap:1.6mm; line-height:1.1; }
+  .co h4::before { content:""; position:absolute; inset:-.6mm -2mm -.6mm -.8mm; z-index:-1;
+    background:url('media/fig/brush-plate.webp') center / 100% 100% no-repeat; opacity:.92; }
+  .co h4 .ic { background:#1c1410 !important; box-shadow:0 0 0 .35mm #f4ead2; --ic:4mm; }
+  .co h4 .ic.raw > img { filter:none; }
+  .co h4 .mk { background:#1c1410; border-radius:50%; padding:.5mm; width:4mm; height:4mm; box-shadow:0 0 0 .35mm #f4ead2; }
   .co p { margin:0; color:var(--ink); }
   .co p b { color:var(--vermilion); }
   .co p i { font-style:italic; color:var(--ink-faded); font-weight:700; }
