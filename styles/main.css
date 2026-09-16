@@ -554,6 +554,26 @@ body {
   box-shadow: 0 0 12px #e0505066;
 }
 
+/* ── Кнопка фильтра «Именные» ── */
+.filter-btn--charctx {
+  --tag-color: #3a5a9a;
+  color: #9ab4e8;
+  border-color: #2a3f6a;
+  background: #0c1426;
+}
+
+.filter-btn--charctx:hover {
+  border-color: #6c8cc7;
+  color: #c4d4f4;
+}
+
+.filter-btn--charctx.active {
+  color: #0c1426;
+  background: #6c8cc7;
+  border-color: #b0c4ec;
+  box-shadow: 0 0 12px #6c8cc766;
+}
+
 /* ── Чекбокс «Печать количеством» ── */
 .filter-row--print-options {
   padding-top: 8px;

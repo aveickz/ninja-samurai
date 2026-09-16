@@ -69,7 +69,7 @@ CH = {
  'poison':        dict(icons=[[('ic','poison')]],                       cards=[116, 64]),
  'interventions': dict(layout='stack', icons=[[('ic','intervention')]], cards=[121, 124]),
  'auras':         dict(layout='stack', icons=[[('ic','aura')]],         cards=[1200, 1204]),
- 'conditional':   dict(layout='stack', icons=[[('ic','rolectx'),('ic','hpctx'),('ic','charges')]], cards=[125, 3094]),
+ 'conditional':   dict(layout='stack', icons=[[('ic','rolectx'),('ic','hpctx'),('ic','charges'),('ic','charctx')]], cards=[125, 3094]),
  'order':         dict(icons=[],                                        cards=[]),
 }
 
@@ -184,6 +184,7 @@ INLINE = {
   ('conditional', '<strong>Бонусы по фракции.</strong>', ic('ic','rolectx') + ' <strong>Бонусы по фракции.</strong>'),
   ('conditional', '<strong>Контекст здоровья.</strong>', ic('ic','hpctx') + ' <strong>Контекст здоровья.</strong>'),
   ('conditional', '<strong>Счёт по столу.</strong>', ic('ic','charges') + ' <strong>Счёт по столу.</strong>'),
+  ('conditional', '<strong>Условие по имени.</strong>', ic('ic','charctx') + ' <strong>Условие по имени.</strong>'),
  ],
  'en': [
   ('weapons', 'the highest <b>complexity</b> it can handle and its attack power.', 'the highest <b>complexity</b> it can handle ' + ic('mk','icons/complexity1.svg') + ' and its attack power ' + ic('mk','icons/dmg2.svg') + '.'),
@@ -201,6 +202,7 @@ INLINE = {
   ('conditional', '<strong>Faction bonuses.</strong>', ic('ic','rolectx') + ' <strong>Faction bonuses.</strong>'),
   ('conditional', '<strong>Health context.</strong>', ic('ic','hpctx') + ' <strong>Health context.</strong>'),
   ('conditional', '<strong>Counting the table.</strong>', ic('ic','charges') + ' <strong>Counting the table.</strong>'),
+  ('conditional', '<strong>Named condition.</strong>', ic('ic','charctx') + ' <strong>Named condition.</strong>'),
  ],
 }
 
@@ -253,6 +255,7 @@ SCRIPT = '''<script>
       thrust:  { color: '#8B1E2D', glyph: M + 'icons/thrust.svg' },
       rolectx: { glyph: M + 'icons/rolectx.svg', raw: true },
       hpctx:   { glyph: M + 'icons/hpctx.svg',   raw: true },
+      charctx: { glyph: M + 'icons/charctx.svg', raw: true },
       charges: { glyph: M + 'icons/charges.svg', raw: true },
       hp:      { png: M + 'hp.png' }
     };

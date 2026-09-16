@@ -140,6 +140,7 @@ $(function () {
       trash:         '🗑 Корзина',
       rolectx:       '⚔ Клановые',
       hpctx:         '❤ Low/Full HP',
+      charctx:       '👤 Именные',
       comments:      '💬 Комментарии',
       printQty:      ' Печать количеством (Quantity Based Print)',
       printBacks:    ' Печать рубашек',
@@ -193,6 +194,7 @@ $(function () {
       trash:         '🗑 Trash',
       rolectx:       '⚔ Clan',
       hpctx:         '❤ Low/Full HP',
+      charctx:       '👤 Named',
       comments:      '💬 Comments',
       printQty:      ' Quantity Based Print',
       printBacks:    ' Print card backs',
@@ -317,8 +319,16 @@ $(function () {
     { kind: 'deathrattle', roots: ['смерт', 'death'] },
   ];
 
+  // Пометка по имени персонажа: `{Така}`, `{Любимое оружие: Така}`,
+  // `{Taka}`. Имя ищется целым словом, а не корнем: «така» иначе нашёлся
+  // бы внутри «атака». Список — девять персонажей колоды на двух языках.
+  var CHARACTER_NAME_RE = new RegExp(
+    '(^|[^a-zа-яё])(усивака|таранага|сайго|хандзо|норио|иё|така|манасэ|минамото|' +
+    'ushiwaka|taranaga|saigo|hanzo|norio|iyo|taka|manase|minamoto)(?![a-zа-яё])', 'i');
+
   function detectDescLabelKind(text) {
     var lower = text.toLowerCase();
+    if (CHARACTER_NAME_RE.test(lower)) return 'character';
     for (var i = 0; i < DESC_LABEL_KINDS.length; i++) {
       var roots = DESC_LABEL_KINDS[i].roots;
       for (var j = 0; j < roots.length; j++) {
@@ -518,6 +528,9 @@ $(function () {
     // рисунок — сердце красное, тайцзи красно-синее, монеты чёрные.
     rolectx: { glyph: 'media/icons/rolectx.svg', raw: true },
     hpctx:   { glyph: 'media/icons/hpctx.svg',   raw: true },
+    // Безликий бюст с прежней рубашки персонажей — условие по имени:
+    // `{Така}`, `{Любимое оружие: Норио}`. Цвет — тушь, как у типов.
+    charctx: { glyph: 'media/icons/charctx.svg', raw: true },
     charges: { glyph: 'media/icons/charges.svg', raw: true },
     hp:      { png: 'media/hp.png' }
   };
@@ -995,6 +1008,8 @@ $(function () {
           visible = cardIcons.indexOf('rolectx') !== -1;
         } else if (activeMode === '__hpctx__') {
           visible = cardIcons.indexOf('hpctx') !== -1;
+        } else if (activeMode === '__charctx__') {
+          visible = cardIcons.indexOf('charctx') !== -1;
         } else if (activeMode) {
           visible = cardTypes.indexOf(activeMode) !== -1;
         } else {
@@ -1025,6 +1040,8 @@ $(function () {
           visible = cardIcons.indexOf('rolectx') !== -1;
         } else if (activeMode === '__hpctx__') {
           visible = cardIcons.indexOf('hpctx') !== -1;
+        } else if (activeMode === '__charctx__') {
+          visible = cardIcons.indexOf('charctx') !== -1;
         } else if (activeMode) {
           visible = cardTypes.indexOf(activeMode) !== -1;
         } else {
@@ -1087,7 +1104,7 @@ $(function () {
   }
 
   // ── Вспомогательная: установить фильтр и записать в hash ─────────
-  var VALID_MODES = ALL_TYPES.concat(['__poison__', '__print__', '__draft__', '__trash__', '__comments__', '__rolectx__', '__hpctx__']);
+  var VALID_MODES = ALL_TYPES.concat(['__poison__', '__print__', '__draft__', '__trash__', '__comments__', '__rolectx__', '__hpctx__', '__charctx__']);
 
   function setFilter(mode) {
     activeMode = mode;
@@ -1184,6 +1201,12 @@ $(function () {
     $('<button>', { class: 'filter-btn filter-btn--hpctx', text: t('hpctx'), 'data-type': '__hpctx__' })
       .on('click', function () {
         setFilter(activeMode === '__hpctx__' ? null : '__hpctx__');
+      })
+      .appendTo($row3);
+
+    $('<button>', { class: 'filter-btn filter-btn--charctx', text: t('charctx'), 'data-type': '__charctx__' })
+      .on('click', function () {
+        setFilter(activeMode === '__charctx__' ? null : '__charctx__');
       })
       .appendTo($row3);
 
@@ -1503,6 +1526,7 @@ $(function () {
   // ── Динамические свойства карт ────────────────────────────────────
   // hasRoleContext: true когда в icons есть 'rolectx'
   // hasHpCtx:      true когда в icons есть 'hpctx'
+  // hasCharCtx:    true когда в icons есть 'charctx'
   CARDS.forEach(function (card) {
     Object.defineProperty(card, 'hasRoleContext', {
       get: function () { return (this.icons || []).indexOf('rolectx') !== -1; },
@@ -1511,6 +1535,11 @@ $(function () {
     });
     Object.defineProperty(card, 'hasHpCtx', {
       get: function () { return (this.icons || []).indexOf('hpctx') !== -1; },
+      enumerable: false,
+      configurable: true
+    });
+    Object.defineProperty(card, 'hasCharCtx', {
+      get: function () { return (this.icons || []).indexOf('charctx') !== -1; },
       enumerable: false,
       configurable: true
     });
@@ -1541,6 +1570,7 @@ $(function () {
     '__trash__':    'trash',
     '__rolectx__':  'rolectx',
     '__hpctx__':    'hpctx',
+    '__charctx__':  'charctx',
     '__comments__': 'comments'
   };
 
