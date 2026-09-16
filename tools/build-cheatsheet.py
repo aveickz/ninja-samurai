@@ -16,8 +16,12 @@ rules/media/cards/ (для EN — *-en.webp), фигурки из rules/media/fi
 просто стоит рядом.
 
 Оформление — по макету ref/cheatsheet-mockup-2026-09-16.png (/img по нашей
-раскладке): фон rules/media/cheat-bg.webp (васи с тушевыми украшениями по
-краям), заголовки выносок на кистевом мазке rules/media/fig/brush-plate.webp,
+раскладке): фон rules/media/cheat-bg.webp — васи с тушевыми украшениями,
+разделённый широким кистевым штрихом на две зоны: тёплая верхняя (полоса
+действий: вмешательство, атака, защита) и холодная нижняя (стол игрока);
+штрих идёт от ~61 мм слева до ~52 мм справа, всё содержимое зоны стола
+лежит ниже него. Прежний фон без зон — media/obsolete/cheat-bg-v1.webp.
+Заголовки выносок на кистевом мазке rules/media/fig/brush-plate.webp,
 значки — чёрные круги с белым знаком, под текстом мягкое бумажное свечение.
 
 Все координаты — в миллиметрах листа (210 × 148). Геометрия общая для
@@ -50,43 +54,43 @@ def fig(key, x, y, w, h, src, rot=0, cls='fig'):
 
 # --- рука: левый нижний угол, веер с сильным наклоном, подпись под ним ---
 for i in range(5):
-    fig(f'hand{i}', 6 + i * 5.4, 92 + (i - 2) ** 2 * .8, 14, 22.4, 'media/cards/back.webp', rot=-38 + i * 8, cls='card hand')
+    fig(f'hand{i}', 6 + i * 5.4, 97 + (i - 2) ** 2 * .8, 14, 22.4, 'media/cards/back.webp', rot=-38 + i * 8, cls='card hand')
 
 # --- атака и защита: полоса под заголовком; подписи атаки и вмешательства — над картами ---
-card('interv',   66, 19, 124, rot=-8)              # Удар дракона — вмешательство, слева от оружия
-card('weapon',   92, 19, 1)                        # Катана
-card('modifier', 107, 26, 70)                      # Гнев сёгуна — внахлёст
-card('defense',  134, 23, 48)                      # Защита
+card('interv',   66, 17, 124, rot=-8)              # Удар дракона — вмешательство, слева от оружия
+card('weapon',   92, 17, 1)                        # Катана
+card('modifier', 107, 24, 70)                      # Гнев сёгуна — внахлёст
+card('defense',  134, 21, 48)                      # Защита
 
 # --- зона игрока: низ по центру ---
 for i in range(4):
-    fig(f'hp{i}', 57.5, 90.5 + i * 5.2, 4.6, 4.6, '../media/hp.png', cls='tok')
-card('char', 65, 90, 137)                          # Сайго
-card('role', 84, 90, 201)                          # Самурай
-fig('poison', 89.9, 100, 5.2, 8, 'media/fig/poison.webp')   # бутылка яда — на карте роли
+    fig(f'hp{i}', 57.5, 95.5 + i * 5.2, 4.6, 4.6, '../media/hp.png', cls='tok')
+card('char', 65, 95, 137)                          # Сайго
+card('role', 84, 95, 201)                          # Самурай
+fig('poison', 89.9, 105, 5.2, 8, 'media/fig/poison.webp')   # бутылка яда — на карте роли
 for i in range(4):
-    fig(f'vp{i}', 64.5 + i * 5.2, 119.5, 4.6, 4.6, '../media/winpoint.png', cls='tok')
-lcard('trapcard', 69, 66, 'back')                  # ловушка — рубашкой вверх, над персонажем
-fig('trap', 77, 69, 11, 11, 'media/fig/trap.webp')
-card('stance', 106, 92, 1166)                     # Лучник
-card('aura',   106, 55, 1204)                      # Спина к спине — над стойкой
-card('effect0', 128.5, 85, 91)                     # Метка убийцы
-card('effect1', 142, 88.5, 97)                     # Пыль в глаза — внахлёст
+    fig(f'vp{i}', 64.5 + i * 5.2, 124.5, 4.6, 4.6, '../media/winpoint.png', cls='tok')
+lcard('trapcard', 69, 75, 'back')                  # ловушка — рубашкой вверх, над персонажем
+fig('trap', 77, 78, 11, 11, 'media/fig/trap.webp')
+card('stance', 106, 97, 1166)                     # Лучник
+card('aura',   106, 62, 1204)                      # Спина к спине — над стойкой
+card('effect0', 128.5, 90, 91)                     # Метка убийцы
+card('effect1', 142, 93.5, 97)                     # Пыль в глаза — внахлёст
 
 # ---------- выноски: геометрия общая, тексты по языкам ----------
 # (цели, плашка (x, y, w), сторона (осталась для точки яда), значок, ключ текста)
 CALL = [
- (['weapon','modifier'], (92, 3, 34), 'top', 'weapon', 'attack'),           # над оружием, по его ширине
- (['interv'], (56, 3, 34), 'top', 'intervention', 'interv'),                 # над «Ударом дракона»
- (['defense'], (154, 20, 51), 'right', 'defense', 'defense'),
- (['trapcard','trap'], (58, 46, 44), 'top', 'trap', 'trap'),
- (['aura'], (125, 56, 40), 'right', 'aura', 'aura'),
- (['effect0','effect1'], (162, 86, 43), 'right', 'effect', 'effects'),       # справа от стопки эффектов
- (['hp0','hp1','hp2','hp3','char','role'], (5, 62, 51), 'left', 'hp', 'char'),
- (['hand0','hand1','hand2','hand3','hand4'], (5, 119, 48), 'bottom', 'card', 'hand'),
- (['vp0','vp1','vp2','vp3'], (56, 125, 27), 'bottom', 'winpoint', 'vp'),    # под очками, по ширине персонажа
- (['poison'], (84, 125, 21), 'bottom', 'poison', 'poison'),                  # под ролью, по её ширине
- (['stance'], (106, 122, 22), 'bottom', 'stance', 'stance'),                 # под стойкой
+ (['weapon','modifier'], (92, 2, 34), 'top', 'weapon', 'attack'),           # над оружием, по его ширине
+ (['interv'], (56, 2, 34), 'top', 'intervention', 'interv'),                 # над «Ударом дракона»
+ (['defense'], (154, 18, 51), 'right', 'defense', 'defense'),
+ (['trapcard','trap'], (58, 55, 44), 'top', 'trap', 'trap'),
+ (['aura'], (125, 63, 40), 'right', 'aura', 'aura'),
+ (['effect0','effect1'], (162, 91, 43), 'right', 'effect', 'effects'),       # справа от стопки эффектов
+ (['hp0','hp1','hp2','hp3','char','role'], (5, 70, 51), 'left', 'hp', 'char'),
+ (['hand0','hand1','hand2','hand3','hand4'], (5, 124, 48), 'bottom', 'card', 'hand'),
+ (['vp0','vp1','vp2','vp3'], (56, 130, 27), 'bottom', 'winpoint', 'vp'),    # под очками, по ширине персонажа
+ (['poison'], (84, 130, 21), 'bottom', 'poison', 'poison'),                  # под ролью, по её ширине
+ (['stance'], (106, 127, 22), 'bottom', 'stance', 'stance'),                 # под стойкой
 ]
 CHAIN_KEYS = ['character', 'stance', 'aura', 'poison', 'effect', 'weapon', 'modifier']
 STRIP_ICONS = []   # столбик мелочей убран по решению автора
@@ -97,6 +101,7 @@ TXT = {
   title='Самураи против Ниндзя — памятка A5', ttl='Самураи против Ниндзя',
   note='Памятка на стол · A5 горизонтально · <a href="rules.html">правила</a> · <a href="../app.html">картотека</a>',
   switch='<span class="lang-switch-current">RU</span><a href="cheatsheet-en.html">EN</a>',
+  zone_act='行動', zone_tbl='陣',   # действие · позиция
   chain_title='Порядок расчёта',
   chain=['персонаж', 'стойка', 'аура', 'яд', 'эффект', 'оружие', 'модификатор'],
   strip=[
@@ -137,6 +142,7 @@ TXT = {
   title='Samurai vs Ninja — A5 cheat sheet', ttl='Samurai vs Ninja',
   note='Table cheat sheet · A5 landscape · <a href="rules-en.html">rules</a> · <a href="../app.html?lang=en">card catalogue</a>',
   switch='<a href="cheatsheet.html">RU</a><span class="lang-switch-current">EN</span>',
+  zone_act='行動', zone_tbl='陣',
   chain_title='Order of resolution',
   chain=['character', 'stance', 'aura', 'poison', 'effect', 'weapon', 'modifier'],
   strip=[
@@ -217,6 +223,36 @@ def bbox(keys, pad=1.0):
             xs, ys, xe, ye = min(xs, px), min(ys, py), max(xe, px), max(ye, py)
     return xs - pad, ys - pad, xe + pad, ye + pad
 
+# ---------- две зоны: полоса действий (верх) и стол игрока (низ) ----------
+# Граница — кистевой штрих, в мм листа A5; чуть поднимается вправо, как на макете.
+ZONE_Y0, ZONE_Y1 = 60, 55      # высота границы у левого и правого края
+ZONE_WASH = False              # подкраска и штрих рисуются CSS только если фон без зон; cheat-bg.webp уже с ними
+
+def zones_html(t, K=1.0):
+    """SVG под предметами: мягкие подкраски двух зон и рваная кистевая граница между ними."""
+    y0, y1 = ZONE_Y0, ZONE_Y1
+    # рваная кромка штриха: ломаная с мелким «дрожанием»
+    import random
+    rnd = random.Random(7)
+    n = 40
+    top, bot = [], []
+    for i in range(n + 1):
+        x = W * i / n
+        y = y0 + (y1 - y0) * i / n
+        top.append((x, y - 1.1 + rnd.uniform(-.5, .5)))
+        bot.append((x, y + 1.1 + rnd.uniform(-.5, .5)))
+    brush = 'M' + ' L'.join(f'{x:.1f},{y:.1f}' for x, y in top) + ' L' + ' L'.join(f'{x:.1f},{y:.1f}' for x, y in reversed(bot)) + ' Z'
+    wash = ''
+    if ZONE_WASH:
+        wash = (f'<path class="z-act" d="M0,0 H{W} V{y1} L0,{y0} Z"/>'
+                f'<path class="z-tbl" d="M0,{y0} L{W},{y1} V{H} H0 Z"/>')
+    return (f'<svg class="zones" viewBox="0 0 {W} {H}" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">'
+            '<defs><filter id="zink" x="-2%" y="-20%" width="104%" height="140%">'
+            '<feTurbulence type="fractalNoise" baseFrequency=".9 .35" numOctaves="2" seed="3" result="n"/>'
+            '<feDisplacementMap in="SourceGraphic" in2="n" scale="1.2" xChannelSelector="R" yChannelSelector="G"/></filter></defs>'
+            + wash + (f'<path class="z-brush" d="{brush}" filter="url(#zink)"/>' if ZONE_WASH else '') + '</svg>'
+            f'<div class="z-lbl z-lbl-act">{t["zone_act"]}</div><div class="z-lbl z-lbl-tbl">{t["zone_tbl"]}</div>')
+
 def svg_html():
     """Слой поверх стола: только точка на бутылке яда (скобки и штрихи убраны)."""
     dots = []
@@ -277,6 +313,17 @@ CSS = r"""
   .ov { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
   .ov .pin { fill:var(--vermilion); opacity:.9; }
 
+  /* две зоны: подкраска и кистевая граница — под предметами */
+  .zones { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+  .zones .z-act { fill:rgba(177,40,29,.075); }
+  .zones .z-tbl { fill:rgba(60,110,70,.085); }
+  .zones .z-brush { fill:var(--ink-soft); opacity:.72; }
+  /* подписи зон — бледные иероглифы у правого края, как водяные знаки */
+  .z-lbl { position:absolute; right:calc(5mm * {{k}}); font-family:'Shippori Mincho','Noto Serif JP','Yu Mincho',serif; font-size:calc(13pt * {{k}} + 2pt);
+    letter-spacing:.12em; color:rgba(122,20,16,.32); user-select:none; pointer-events:none; line-height:1; }
+  .z-lbl-act { top:calc(40mm * {{k}}); }
+  .z-lbl-tbl { top:calc(64mm * {{k}}); color:rgba(40,80,50,.38); }
+
   /* выноски: заголовок на кистевом мазке, значок — чёрный круг с белым знаком */
   .co { position:absolute; isolation:isolate; }
   /* текст на мягком бумажном свечении — орнаменты фона уходят под него */
@@ -304,7 +351,7 @@ CSS = r"""
   h4 .mk { border-radius:.5mm; }
 
   /* цепочка порядка расчёта — верхний правый угол, одной строкой */
-  .chain { position:absolute; left:calc(133mm * {{k}}); top:calc(124mm * {{k}}); width:calc(72mm * {{k}}); display:flex; flex-wrap:wrap; align-items:flex-start; gap:.3mm; font-size:{{chain_fs}}; color:var(--ink-soft); line-height:1.1; }
+  .chain { position:absolute; left:calc(133mm * {{k}}); top:calc(125mm * {{k}}); width:calc(72mm * {{k}}); display:flex; flex-wrap:wrap; align-items:flex-start; gap:.3mm; font-size:{{chain_fs}}; color:var(--ink-soft); line-height:1.1; }
   .chain > b { width:100%; font-size:6.8pt; margin-bottom:.8mm; white-space:nowrap; }
   .chain .s { display:inline-flex; flex-direction:column; align-items:center; width:{{chain_w}}; text-align:center; }
   .chain .s .ic { --ic:{{chain_ic}}; margin-bottom:.3mm; }
@@ -375,6 +422,7 @@ def build(lang, fmt='a5'):
   <p class="lang-switch">{switch}</p>
   <div class="sheet">
     <div class="ttl">{t['ttl']} <span class="kanji">覚</span></div>
+{zones_html(t, F['k'])}
 {objects_html(lang, F['k'])}
 {svg_html()}
 {callouts_html(t, F['k'], F['co'], fmt)}

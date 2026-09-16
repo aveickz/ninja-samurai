@@ -49,6 +49,17 @@
   .ov { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
   .ov .pin { fill:var(--vermilion); opacity:.9; }
 
+  /* две зоны: подкраска и кистевая граница — под предметами */
+  .zones { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+  .zones .z-act { fill:rgba(177,40,29,.075); }
+  .zones .z-tbl { fill:rgba(60,110,70,.085); }
+  .zones .z-brush { fill:var(--ink-soft); opacity:.72; }
+  /* подписи зон — бледные иероглифы у правого края, как водяные знаки */
+  .z-lbl { position:absolute; right:calc(5mm * 1.0); font-family:'Shippori Mincho','Noto Serif JP','Yu Mincho',serif; font-size:calc(13pt * 1.0 + 2pt);
+    letter-spacing:.12em; color:rgba(122,20,16,.32); user-select:none; pointer-events:none; line-height:1; }
+  .z-lbl-act { top:calc(40mm * 1.0); }
+  .z-lbl-tbl { top:calc(64mm * 1.0); color:rgba(40,80,50,.38); }
+
   /* выноски: заголовок на кистевом мазке, значок — чёрный круг с белым знаком */
   .co { position:absolute; isolation:isolate; }
   /* текст на мягком бумажном свечении — орнаменты фона уходят под него */
@@ -76,7 +87,7 @@
   h4 .mk { border-radius:.5mm; }
 
   /* цепочка порядка расчёта — верхний правый угол, одной строкой */
-  .chain { position:absolute; left:calc(133mm * 1.0); top:calc(124mm * 1.0); width:calc(72mm * 1.0); display:flex; flex-wrap:wrap; align-items:flex-start; gap:.3mm; font-size:6pt; color:var(--ink-soft); line-height:1.1; }
+  .chain { position:absolute; left:calc(133mm * 1.0); top:calc(125mm * 1.0); width:calc(72mm * 1.0); display:flex; flex-wrap:wrap; align-items:flex-start; gap:.3mm; font-size:6pt; color:var(--ink-soft); line-height:1.1; }
   .chain > b { width:100%; font-size:6.8pt; margin-bottom:.8mm; white-space:nowrap; }
   .chain .s { display:inline-flex; flex-direction:column; align-items:center; width:7.9mm; text-align:center; }
   .chain .s .ic { --ic:3.6mm; margin-bottom:.3mm; }
@@ -103,44 +114,45 @@
   <p class="lang-switch"><span class="lang-switch-current">RU</span><a href="cheatsheet-en.html">EN</a></p>
   <div class="sheet">
     <div class="ttl">Самураи против Ниндзя <span class="kanji">覚</span></div>
-<img class="card hand" data-k="hand0" src="media/cards/back.webp" alt="" style="left:6.00mm;top:95.20mm;width:14.00mm;height:22.40mm;transform:rotate(-38deg);">
-<img class="card hand" data-k="hand1" src="media/cards/back.webp" alt="" style="left:11.40mm;top:92.80mm;width:14.00mm;height:22.40mm;transform:rotate(-30deg);">
-<img class="card hand" data-k="hand2" src="media/cards/back.webp" alt="" style="left:16.80mm;top:92.00mm;width:14.00mm;height:22.40mm;transform:rotate(-22deg);">
-<img class="card hand" data-k="hand3" src="media/cards/back.webp" alt="" style="left:22.20mm;top:92.80mm;width:14.00mm;height:22.40mm;transform:rotate(-14deg);">
-<img class="card hand" data-k="hand4" src="media/cards/back.webp" alt="" style="left:27.60mm;top:95.20mm;width:14.00mm;height:22.40mm;transform:rotate(-6deg);">
-<img class="card" data-k="interv" src="media/cards/124.webp" alt="" style="left:66.00mm;top:19.00mm;width:17.00mm;height:27.20mm;transform:rotate(-8deg);">
-<img class="card" data-k="weapon" src="media/cards/1.webp" alt="" style="left:92.00mm;top:19.00mm;width:17.00mm;height:27.20mm;">
-<img class="card" data-k="modifier" src="media/cards/70.webp" alt="" style="left:107.00mm;top:26.00mm;width:17.00mm;height:27.20mm;">
-<img class="card" data-k="defense" src="media/cards/48.webp" alt="" style="left:134.00mm;top:23.00mm;width:17.00mm;height:27.20mm;">
-<img class="tok" data-k="hp0" src="../media/hp.png" alt="" style="left:57.50mm;top:90.50mm;width:4.60mm;height:4.60mm;">
-<img class="tok" data-k="hp1" src="../media/hp.png" alt="" style="left:57.50mm;top:95.70mm;width:4.60mm;height:4.60mm;">
-<img class="tok" data-k="hp2" src="../media/hp.png" alt="" style="left:57.50mm;top:100.90mm;width:4.60mm;height:4.60mm;">
-<img class="tok" data-k="hp3" src="../media/hp.png" alt="" style="left:57.50mm;top:106.10mm;width:4.60mm;height:4.60mm;">
-<img class="card" data-k="char" src="media/cards/137.webp" alt="" style="left:65.00mm;top:90.00mm;width:17.00mm;height:27.20mm;">
-<img class="card" data-k="role" src="media/cards/201.webp" alt="" style="left:84.00mm;top:90.00mm;width:17.00mm;height:27.20mm;">
-<img class="fig" data-k="poison" src="media/fig/poison.webp" alt="" style="left:89.90mm;top:100.00mm;width:5.20mm;height:8.00mm;">
-<img class="tok" data-k="vp0" src="../media/winpoint.png" alt="" style="left:64.50mm;top:119.50mm;width:4.60mm;height:4.60mm;">
-<img class="tok" data-k="vp1" src="../media/winpoint.png" alt="" style="left:69.70mm;top:119.50mm;width:4.60mm;height:4.60mm;">
-<img class="tok" data-k="vp2" src="../media/winpoint.png" alt="" style="left:74.90mm;top:119.50mm;width:4.60mm;height:4.60mm;">
-<img class="tok" data-k="vp3" src="../media/winpoint.png" alt="" style="left:80.10mm;top:119.50mm;width:4.60mm;height:4.60mm;">
-<img class="card" data-k="trapcard" src="media/cards/back.webp" alt="" style="left:74.10mm;top:60.90mm;width:17.00mm;height:27.20mm;transform:rotate(90deg);">
-<img class="fig" data-k="trap" src="media/fig/trap.webp" alt="" style="left:77.00mm;top:69.00mm;width:11.00mm;height:11.00mm;">
-<img class="card" data-k="stance" src="media/cards/1166.webp" alt="" style="left:106.00mm;top:92.00mm;width:17.00mm;height:27.20mm;">
-<img class="card" data-k="aura" src="media/cards/1204.webp" alt="" style="left:106.00mm;top:55.00mm;width:17.00mm;height:27.20mm;">
-<img class="card" data-k="effect0" src="media/cards/91.webp" alt="" style="left:128.50mm;top:85.00mm;width:17.00mm;height:27.20mm;">
-<img class="card" data-k="effect1" src="media/cards/97.webp" alt="" style="left:142.00mm;top:88.50mm;width:17.00mm;height:27.20mm;">
+<svg class="zones" viewBox="0 0 210 148" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><defs><filter id="zink" x="-2%" y="-20%" width="104%" height="140%"><feTurbulence type="fractalNoise" baseFrequency=".9 .35" numOctaves="2" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="1.2" xChannelSelector="R" yChannelSelector="G"/></filter></defs></svg><div class="z-lbl z-lbl-act">行動</div><div class="z-lbl z-lbl-tbl">陣</div>
+<img class="card hand" data-k="hand0" src="media/cards/back.webp" alt="" style="left:6.00mm;top:100.20mm;width:14.00mm;height:22.40mm;transform:rotate(-38deg);">
+<img class="card hand" data-k="hand1" src="media/cards/back.webp" alt="" style="left:11.40mm;top:97.80mm;width:14.00mm;height:22.40mm;transform:rotate(-30deg);">
+<img class="card hand" data-k="hand2" src="media/cards/back.webp" alt="" style="left:16.80mm;top:97.00mm;width:14.00mm;height:22.40mm;transform:rotate(-22deg);">
+<img class="card hand" data-k="hand3" src="media/cards/back.webp" alt="" style="left:22.20mm;top:97.80mm;width:14.00mm;height:22.40mm;transform:rotate(-14deg);">
+<img class="card hand" data-k="hand4" src="media/cards/back.webp" alt="" style="left:27.60mm;top:100.20mm;width:14.00mm;height:22.40mm;transform:rotate(-6deg);">
+<img class="card" data-k="interv" src="media/cards/124.webp" alt="" style="left:66.00mm;top:17.00mm;width:17.00mm;height:27.20mm;transform:rotate(-8deg);">
+<img class="card" data-k="weapon" src="media/cards/1.webp" alt="" style="left:92.00mm;top:17.00mm;width:17.00mm;height:27.20mm;">
+<img class="card" data-k="modifier" src="media/cards/70.webp" alt="" style="left:107.00mm;top:24.00mm;width:17.00mm;height:27.20mm;">
+<img class="card" data-k="defense" src="media/cards/48.webp" alt="" style="left:134.00mm;top:21.00mm;width:17.00mm;height:27.20mm;">
+<img class="tok" data-k="hp0" src="../media/hp.png" alt="" style="left:57.50mm;top:95.50mm;width:4.60mm;height:4.60mm;">
+<img class="tok" data-k="hp1" src="../media/hp.png" alt="" style="left:57.50mm;top:100.70mm;width:4.60mm;height:4.60mm;">
+<img class="tok" data-k="hp2" src="../media/hp.png" alt="" style="left:57.50mm;top:105.90mm;width:4.60mm;height:4.60mm;">
+<img class="tok" data-k="hp3" src="../media/hp.png" alt="" style="left:57.50mm;top:111.10mm;width:4.60mm;height:4.60mm;">
+<img class="card" data-k="char" src="media/cards/137.webp" alt="" style="left:65.00mm;top:95.00mm;width:17.00mm;height:27.20mm;">
+<img class="card" data-k="role" src="media/cards/201.webp" alt="" style="left:84.00mm;top:95.00mm;width:17.00mm;height:27.20mm;">
+<img class="fig" data-k="poison" src="media/fig/poison.webp" alt="" style="left:89.90mm;top:105.00mm;width:5.20mm;height:8.00mm;">
+<img class="tok" data-k="vp0" src="../media/winpoint.png" alt="" style="left:64.50mm;top:124.50mm;width:4.60mm;height:4.60mm;">
+<img class="tok" data-k="vp1" src="../media/winpoint.png" alt="" style="left:69.70mm;top:124.50mm;width:4.60mm;height:4.60mm;">
+<img class="tok" data-k="vp2" src="../media/winpoint.png" alt="" style="left:74.90mm;top:124.50mm;width:4.60mm;height:4.60mm;">
+<img class="tok" data-k="vp3" src="../media/winpoint.png" alt="" style="left:80.10mm;top:124.50mm;width:4.60mm;height:4.60mm;">
+<img class="card" data-k="trapcard" src="media/cards/back.webp" alt="" style="left:74.10mm;top:69.90mm;width:17.00mm;height:27.20mm;transform:rotate(90deg);">
+<img class="fig" data-k="trap" src="media/fig/trap.webp" alt="" style="left:77.00mm;top:78.00mm;width:11.00mm;height:11.00mm;">
+<img class="card" data-k="stance" src="media/cards/1166.webp" alt="" style="left:106.00mm;top:97.00mm;width:17.00mm;height:27.20mm;">
+<img class="card" data-k="aura" src="media/cards/1204.webp" alt="" style="left:106.00mm;top:62.00mm;width:17.00mm;height:27.20mm;">
+<img class="card" data-k="effect0" src="media/cards/91.webp" alt="" style="left:128.50mm;top:90.00mm;width:17.00mm;height:27.20mm;">
+<img class="card" data-k="effect1" src="media/cards/97.webp" alt="" style="left:142.00mm;top:93.50mm;width:17.00mm;height:27.20mm;">
 <svg class="ov" viewBox="0 0 210 148" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><g></g></svg>
-<div class="co co-top" style="left:92.00mm;top:3.00mm;width:34.00mm"><h4><i class="ic" data-b="weapon"></i>Атака</h4><p>До <b>2</b> за ход. Оружие берёт цель, если его сложность ≥ сложности цели (обычно 1); метательное — любую. Один модификатор.</p></div>
-<div class="co co-top" style="left:56.00mm;top:3.00mm;width:34.00mm"><h4><i class="ic" data-b="intervention"></i>Вмешательство</h4><p>Не в свой ход: «Удар дракона» добивает на <b>1</b>. Всё сыгранное — одновременно, порядок выбирает тот, чья жизнь на кону.</p></div>
-<div class="co co-right" style="left:154.00mm;top:20.00mm;width:51.00mm"><h4><i class="ic" data-b="defense"></i>Защита</h4><p>Своя — атака отбита, бонусы атакующего не срабатывают. Союзная, как вмешательство: одна — раны до <b>1</b>, две от команды — до <b>0</b>. Беззащитного не спасти.</p></div>
-<div class="co co-top" style="left:58.00mm;top:46.00mm;width:44.00mm"><h4><i class="ic" data-b="trap"></i>Ловушка</h4><p>Одна, рубашкой вверх, фигурка сверху. Срабатывает, если атакуют и вы не защищаетесь; метательное её не будит. Подложили не ловушку — умираете.</p></div>
-<div class="co co-right" style="left:125.00mm;top:56.00mm;width:40.00mm"><h4><i class="ic" data-b="aura"></i>Аура</h4><p>Над стойкой, одна на игрока. Действует на всех за столом; у команды складываются. Новая — прежняя в руку.</p></div>
-<div class="co co-right" style="left:162.00mm;top:86.00mm;width:43.00mm"><h4><i class="ic" data-b="effect"></i>Эффекты</h4><p>Справа, в открытую, сколько угодно. Постоянные — до смерти, разовые — до срабатывания. Одноимённые не повторяются. Только на живых.</p></div>
-<div class="co co-left" style="left:5.00mm;top:62.00mm;width:51.00mm"><h4><i class="ic" data-b="hp"></i>Персонаж и роль</h4><p>Жизни — цифра в сердце, это же максимум для <i>полного здоровья</i>. Роль рядом: Самурай, Ниндзя или Сёгун — самурай, начинает раунд. <b>0</b> жизней — мертвы до конца хода: очко убийце, открытые карты в сброс, вас никто не трогает. Со следующего хода живы; в свой ход — восстановление: сброс любых карт, добор до <b>7</b>.</p></div>
-<div class="co co-bottom" style="left:5.00mm;top:119.00mm;width:48.00mm"><h4><img class="mk" src="media/cards/back.webp" alt="">Рука</h4><p>Старт — <b>7</b>. В начале хода не больше <b>9</b>, лишнее в сброс. В конце хода набор <b>3</b> <i>(меньшая команда +1)</i>, затем каждый противник берёт <b>1</b>. Между ходами не ограничена.</p></div>
-<div class="co co-bottom" style="left:56.00mm;top:125.00mm;width:27.00mm"><h4><img class="mk" src="../media/winpoint.png" alt="">Очки</h4><p>Старт — <b>4</b>. Убили — очко у жертвы. Чьи-то <b>0</b> — конец партии.</p></div>
-<div class="co co-bottom" style="left:84.00mm;top:125.00mm;width:21.00mm"><h4><i class="ic" data-b="poison"></i>Яд</h4><p>В конце хода <b>−2</b>; отравленная атака по вам <b>+1</b>. Смерть от яда — без восстановления.</p></div>
-<div class="co co-bottom" style="left:106.00mm;top:122.00mm;width:22.00mm"><h4><i class="ic" data-b="stance"></i>Стойка</h4><p>Раз за ход, одна, работает сразу. Новая — прежняя в руку.</p></div>
+<div class="co co-top" style="left:92.00mm;top:2.00mm;width:34.00mm"><h4><i class="ic" data-b="weapon"></i>Атака</h4><p>До <b>2</b> за ход. Оружие берёт цель, если его сложность ≥ сложности цели (обычно 1); метательное — любую. Один модификатор.</p></div>
+<div class="co co-top" style="left:56.00mm;top:2.00mm;width:34.00mm"><h4><i class="ic" data-b="intervention"></i>Вмешательство</h4><p>Не в свой ход: «Удар дракона» добивает на <b>1</b>. Всё сыгранное — одновременно, порядок выбирает тот, чья жизнь на кону.</p></div>
+<div class="co co-right" style="left:154.00mm;top:18.00mm;width:51.00mm"><h4><i class="ic" data-b="defense"></i>Защита</h4><p>Своя — атака отбита, бонусы атакующего не срабатывают. Союзная, как вмешательство: одна — раны до <b>1</b>, две от команды — до <b>0</b>. Беззащитного не спасти.</p></div>
+<div class="co co-top" style="left:58.00mm;top:55.00mm;width:44.00mm"><h4><i class="ic" data-b="trap"></i>Ловушка</h4><p>Одна, рубашкой вверх, фигурка сверху. Срабатывает, если атакуют и вы не защищаетесь; метательное её не будит. Подложили не ловушку — умираете.</p></div>
+<div class="co co-right" style="left:125.00mm;top:63.00mm;width:40.00mm"><h4><i class="ic" data-b="aura"></i>Аура</h4><p>Над стойкой, одна на игрока. Действует на всех за столом; у команды складываются. Новая — прежняя в руку.</p></div>
+<div class="co co-right" style="left:162.00mm;top:91.00mm;width:43.00mm"><h4><i class="ic" data-b="effect"></i>Эффекты</h4><p>Справа, в открытую, сколько угодно. Постоянные — до смерти, разовые — до срабатывания. Одноимённые не повторяются. Только на живых.</p></div>
+<div class="co co-left" style="left:5.00mm;top:70.00mm;width:51.00mm"><h4><i class="ic" data-b="hp"></i>Персонаж и роль</h4><p>Жизни — цифра в сердце, это же максимум для <i>полного здоровья</i>. Роль рядом: Самурай, Ниндзя или Сёгун — самурай, начинает раунд. <b>0</b> жизней — мертвы до конца хода: очко убийце, открытые карты в сброс, вас никто не трогает. Со следующего хода живы; в свой ход — восстановление: сброс любых карт, добор до <b>7</b>.</p></div>
+<div class="co co-bottom" style="left:5.00mm;top:124.00mm;width:48.00mm"><h4><img class="mk" src="media/cards/back.webp" alt="">Рука</h4><p>Старт — <b>7</b>. В начале хода не больше <b>9</b>, лишнее в сброс. В конце хода набор <b>3</b> <i>(меньшая команда +1)</i>, затем каждый противник берёт <b>1</b>. Между ходами не ограничена.</p></div>
+<div class="co co-bottom" style="left:56.00mm;top:130.00mm;width:27.00mm"><h4><img class="mk" src="../media/winpoint.png" alt="">Очки</h4><p>Старт — <b>4</b>. Убили — очко у жертвы. Чьи-то <b>0</b> — конец партии.</p></div>
+<div class="co co-bottom" style="left:84.00mm;top:130.00mm;width:21.00mm"><h4><i class="ic" data-b="poison"></i>Яд</h4><p>В конце хода <b>−2</b>; отравленная атака по вам <b>+1</b>. Смерть от яда — без восстановления.</p></div>
+<div class="co co-bottom" style="left:106.00mm;top:127.00mm;width:22.00mm"><h4><i class="ic" data-b="stance"></i>Стойка</h4><p>Раз за ход, одна, работает сразу. Новая — прежняя в руку.</p></div>
 <div class="chain"><b>Порядок расчёта</b><span class="s"><i class="ic" data-b="character"></i>персонаж</span><span class="arr">→</span><span class="s"><i class="ic" data-b="stance"></i>стойка</span><span class="arr">→</span><span class="s"><i class="ic" data-b="aura"></i>аура</span><span class="arr">→</span><span class="s"><i class="ic" data-b="poison"></i>яд</span><span class="arr">→</span><span class="s"><i class="ic" data-b="effect"></i>эффект</span><span class="arr">→</span><span class="s"><i class="ic" data-b="weapon"></i>оружие</span><span class="arr">→</span><span class="s"><i class="ic" data-b="modifier"></i>модификатор</span></div>
 
   </div>
