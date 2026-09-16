@@ -32,7 +32,7 @@ os.chdir(os.path.dirname(HERE))   # корень репозитория
 # Нет файла — берём последний PNG, сгенерированный /img (локальный путь
 # автора); в репозитории лежат готовые webp, так что обычно ветка не нужна.
 os.makedirs('rules/media/bg', exist_ok=True)
-BG_KEY = {'weapons': 'attack'}          # глава → имя файла, если отличается
+BG_KEY = {'weapons': 'attack', 'turn': 'cards'}          # глава → имя файла, если отличается
 def bg_path(cid):
     key = BG_KEY.get(cid, cid)
     dst = f'rules/media/bg/{key}.webp'
@@ -59,18 +59,17 @@ CH = {
                        cards={0: [202, 200, 'back-role'], 6: [137, 135, 'back-character']}),   # роли и их рубашка — у «Распределения ролей», персонажи и их рубашка — у «Выбора персонажей»; рубашка последней — сверху, видна целиком
  'table':         dict(icons=[],                                        cards=[]),   # стол во время партии (глава собирается из table_fig)
  'flow':          dict(icons=[],                                        cards=[]),
- 'turn':          dict(icons=[],                                        cards=[]),
+ 'turn':          dict(icons=[],                                        cards=['back']),   # ход и набор карт: рубашка основной колоды
  'death':         dict(icons=[],                                        cards=[]),
  'players':       dict(icons=[],                                        cards=[]),
- 'cards':         dict(icons=[],                                        cards=['back']),   # рубашка основной колоды
  'weapons':       dict(layout={0: 'stack', 9: 'fan'}, icons=[[('ic','weapon'),('ic','modifier')]],
-                       cards={0: [1, 32, 31], 9: [70, 64]}),   # меч, сюрикен, отравленное яри; у подраздела «Модификатор» (срез с блока 9) — два модификатора
- 'defense':       dict(icons=[[('ic','defense')]],                      cards=[50, 48]),   # защита с эффектом и простая «Защита» — сверху, она основная
+                       cards={0: [1, 32, 31], 9: [70, 64]}, fig=('weapon', 26, 2)),   # меч, сюрикен, отравленное яри; у подраздела «Модификатор» (срез с блока 9) — два модификатора
+ 'defense':       dict(icons=[[('ic','defense')]],                      cards=[50, 48], fig=('defense', 24, 2)),   # защита с эффектом и простая «Защита» — сверху, она основная
  'thrust':        dict(icons=[[('ic','thrust')]],                       cards=[90, 124]),   # «Боевой крик» и «Удар дракона» — карты с выпадом
- 'traps':         dict(icons=[[('ic','trap')]],                         cards=[43, 41]),
+ 'traps':         dict(icons=[[('ic','trap')]],                         cards=[43, 41], fig=('trap', 30, 2)),
  'stances':       dict(icons=[[('ic','stance')]],                       cards=[60, 1166]),   # «Лучник» справа, сверху — виден целиком
  'effects':       dict(icons=[[('ic','effect')]],                       cards=[91, 92]),   # «Метка убийцы» и «Противоядие»
- 'poison':        dict(icons=[[('ic','poison')]],                       cards=[116, 64]),
+ 'poison':        dict(icons=[[('ic','poison')]],                       cards=[116, 64], fig=('poison', 20, 1)),
  'interventions': dict(layout='stack', icons=[[('ic','intervention')]], cards=[121, 124]),
  'auras':         dict(icons=[[('ic','aura')]],                        cards=[1209, 1206]),   # «Часовой» внутри, «Дымовая завеса» сверху
  'conditional':   dict(layout='stack', icons=[[('ic','rolectx'),('ic','hpctx'),('ic','charges'),('ic','charctx')]], cards=[125, 3094]),
@@ -90,8 +89,8 @@ PAGES = [
     ['__title__'],                      # титул: рисунок, название, подзаголовок — без номера, в счёт не идёт
     ['__cover__', 'about', ('setup', 0, 4)],   # шапка с рисунком, об игре, подготовка: роли
     [('setup', 4, 6), ('setup', 6, None), 'flow'],   # рассадка; персонажи и жетоны; партия и её окончание
-    ['table', 'turn'],               # стол; ход
-    ['death', 'cards'],              # смерть; набор карт
+    ['turn', 'death'],               # ход (с набором карт и восстановлением); смерть
+    ['table'],                       # стол во время партии — один на странице
     [('weapons', 0, 9), ('weapons', 9, None)],   # атака: оружие и сложность, ниже модификатор со своими картами
     ['defense', 'thrust'],
     ['traps', 'stances'],
@@ -294,6 +293,16 @@ def chapter_html(lang, cid, mark, title, body, a=0, b=None):
     part = blocks[a:b]
     assert part, (cid, a, b, len(blocks))
     first, last = a == 0, b is None
+    fig = cfg.get('fig')
+    if fig and last:
+        # тушевая иллюстрация главы — ровно в правом нижнем углу: последние k блоков
+        # и картинка встают в одну строку (.fig-row), низ картинки — по низу последнего блока
+        name, w, k = fig
+        part = list(part)
+        i = max(len(part) - k, 0)
+        row = ('<div class="fig-row"><div class="fig-text">\n' + '\n'.join(part[i:]) + '\n</div>'
+               f'<img class="chapter-fig" src="media/fig/ink/{name}.webp" style="width:{w}mm" alt=""></div>')
+        part = part[:i] + [row]
     body = '\n'.join(part)
     bg = bg_path(cid) if a == 0 else None   # фон — только на первом срезе, чтобы не повторялся на странице
     cards, layout = part_cards(cfg, a)
@@ -346,7 +355,7 @@ def build(lang):
     t = L[lang]
     src = open(t['src'], encoding='utf-8').read()
     chapters = {cid: (mark, title, body) for cid, mark, title, body in sec_re.findall(src)}
-    assert len(chapters) == 18, (lang, len(chapters))
+    assert len(chapters) == 17, (lang, len(chapters))
     # глава «Стол во время партии» собирается из table_fig: h4 там становится заголовком главы
     tsec = table_fig.section(lang)
     ttitle = re.search(r'<h4>([^<]*)</h4>', tsec).group(1)

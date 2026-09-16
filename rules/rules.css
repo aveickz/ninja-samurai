@@ -474,6 +474,15 @@ p .fig-inline { width: 3.2mm; height: 5.2mm; vertical-align: -1.6mm; margin: 0 .
 .chapter-side:has(.side-cards.fan.n3) { width: 46mm; }
 section.chapter::after { content: ""; display: block; clear: both; }
 
+/* Тушевая иллюстрация главы (rules/media/fig/ink/*.webp, /img) — ровно в правом
+   нижнем углу главы: последние блоки текста и картинка стоят в одной flex-строке,
+   картинка прижата к правому краю и к низу последнего блока. Ширина — из CH['fig']. */
+/* clear: right — иначе строка, задев низ колонки карт на правой странице, сужается на всю высоту */
+.fig-row { display: flex; align-items: flex-end; gap: 3mm; clear: right; }
+.fig-row .fig-text { flex: 1 1 auto; min-width: 0; }
+.fig-row .fig-text > :last-child { margin-bottom: 0; }
+.chapter-fig { flex: none; height: auto; }
+
 .side-icons {
   display: flex;
   flex-wrap: wrap;
@@ -602,8 +611,7 @@ section.chapter::after { content: ""; display: block; clear: both; }
   width: 100%;
   margin: 1mm auto;
 }
-/* Картинка у́же колонки, чтобы под столом на той же странице поместился «Ход» */
-.table-figure .table-pic { position: relative; width: 79%; margin: 0 auto; }
+.table-figure .table-pic { position: relative; width: 100%; margin: 0 auto; }   /* стол один на странице — во всю ширину колонки */
 .table-figure img { display: block; width: 100%; height: auto; }
 .table-figure svg.table-overlay {
   position: absolute;
