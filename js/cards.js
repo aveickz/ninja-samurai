@@ -835,9 +835,9 @@ const CARDS = [
     qty: 1,
     group: "defense",
     icons: [],
-    tags: [],
-    desc: "Вы можете выбрать сколько ран вы хотите получить при атаке, и за каждую рану (не более трёх) берёте карту из колоды.",
-    enDesc: "Choose how many wounds you take from this attack, and draw a card for each wound taken (no more than three).",
+    tags: ["toPrint"],
+    desc: "Вы можете выбрать сколько ран вы хотите получить при атаке, и за каждую рану (не более трёх) берёте карту из колоды.[NL]{Усивака} также забирает оружие атакующего себе в руку.",
+    enDesc: "Choose how many wounds you take from this attack, and draw a card for each wound taken (no more than three).[NL]{Ushiwaka} also takes the attacker's weapon into hand.",
     img: "cards/card_53_vyderzka_samuray.png"
   },
   {
@@ -1138,9 +1138,9 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     icons: [],
-    tags: [],
-    desc: "В случае успешной атаки вы восстанавливаете себе столько жетонов жизни, сколько нанесли ран.",
-    enDesc: "On a successful attack, restore as much life as the wounds you dealt.",
+    tags: ["toPrint"],
+    desc: "В случае успешной атаки вы восстанавливаете себе столько жетонов жизни, сколько нанесли ран.[NL]{Така} вместо жетонов жизни может забрать у цели столько же карт из руки.",
+    enDesc: "On a successful attack, restore as much life as the wounds you dealt.[NL]{Taka} may instead take that many cards from the target's hand.",
     img: "cards/card_71_celebnyy_klinok.png"
   },
   {
@@ -1164,9 +1164,9 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     icons: [],
-    tags: [],
-    desc: "Ваша атака берёт любую сложность и наносит на одну рану больше, но вы теряете один жетон жизни. Нельзя применить на пороге смерти.",
-    enDesc: "Your attack handles any complexity and deals 1 extra wound, but you lose 1 life. Cannot be used at death's door.",
+    tags: ["toPrint"],
+    desc: "Ваша атака берёт любую сложность и наносит на одну рану больше, но вы теряете один жетон жизни. Нельзя применить на пороге смерти.[NL]Имбирь, вложенный союзником в этот момент, гасит цену: жетон не теряется, и Хатимаки можно применить на пороге смерти.",
+    enDesc: "Your attack handles any complexity and deals 1 extra wound, but you lose 1 life. Cannot be used at death's door.[NL]Ginger played by an ally at this moment covers the cost: no life is lost, and Hachimaki may be used at death's door.",
     img: "cards/card_73_povyazka_kamikadze.png"
   },
   {
