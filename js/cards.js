@@ -716,9 +716,9 @@ const CARDS = [
     qty: 2,
     group: "trap",
     icons: ["effect8"],
-    tags: [],
-    desc: "Атакующий получает две раны от владельца ловушки. Также эта карта переходит на атакующего эффектом, не дающим ему атаковать дальше дистанции в 1. TODO: вторая половина — запрещённый замедляющий denial (мета-правило №7), словарём не переводится. Вариант: эффект на атакующего «сложность всех его атак увеличивается на 1» — нога в капкане, позицию не выбрать.",
-    enDesc: "The attacker takes 2 wounds from the Trap's owner. This card then passes to the attacker as an Effect that stops them attacking beyond range 1. TODO: the second half is banned slowing denial (meta-rule 7) and cannot be translated word for word. Option: the Effect makes «all their attacks 1 harder» — a leg in the trap cannot choose its position.",
+    tags: ["toPrint"],
+    desc: "Атакующий получает две раны от владельца ловушки. Затем эта карта переходит на него эффектом: сложность атак по нему всегда равна 1 — Доспех и другие повышения сложности не спасают.",
+    enDesc: "The attacker takes two wounds from the Trap's owner. Then this card moves onto them as an Effect: attacks against them are always complexity 1 — Armor and other complexity increases do not help.",
     img: "cards/card_43_kapkan.png"
   },
   {
