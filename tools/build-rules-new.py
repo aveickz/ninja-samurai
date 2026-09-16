@@ -55,7 +55,7 @@ def bg_path(cid):
 CH = {
  'about':         dict(icons=[],                                        cards=[]),
  'setup':         dict(layout={0: 'fan', 6: 'fan'}, icons=[],   # сердце и очко стоят у своих подзаголовков (INLINE)
-                       cards={0: [202, 'back-role', 200], 6: [137, 'back-character', 135]}),   # роли и их рубашка — у «Распределения ролей», персонажи и их рубашка — у «Выбора персонажей»
+                       cards={0: [202, 200, 'back-role'], 6: [137, 135, 'back-character']}),   # роли и их рубашка — у «Распределения ролей», персонажи и их рубашка — у «Выбора персонажей»; рубашка последней — сверху, видна целиком
  'table':         dict(icons=[],                                        cards=[]),   # стол во время партии (глава собирается из table_fig)
  'flow':          dict(icons=[],                                        cards=[]),
  'players':       dict(icons=[],                                        cards=[]),
@@ -130,6 +130,8 @@ def side_height_mm(icon_rows, n, layout):
         h += (2 if icon_rows else 0) + 1 + cards
     return round(h + 1, 1)
 
+BANNER = '<img class="mk fig-inline" src="media/fig/banner.webp" alt="">'   # фигурка знамени в строке текста
+
 def ic(kind, key):
     if kind == 'ic':
         return f'<i class="ic" data-b="{key}"></i>'
@@ -170,9 +172,9 @@ INLINE = {
   ('traps', 'поставив на неё фигурку ловушки.', 'поставив на неё фигурку ловушки ' + ic('ic','trap') + '.'),
   ('interventions', 'Вмешательство — особый тип карт,', 'Вмешательство ' + ic('ic','intervention') + ' — особый тип карт,'),
   ('auras', 'Командные ауры — мощные карты,', 'Командные ауры ' + ic('ic','aura') + ' — мощные карты,'),
+  ('auras', 'поставьте на неё фигурку знамени', 'поставьте на неё фигурку знамени ' + BANNER),
   ('setup', 'Цифра внутри сердца — максимум', 'Цифра внутри сердца ' + ic('ic','hp') + ' — максимум'),
-  ('setup', '<h4>Выбор персонажей</h4>', '<h4>Выбор персонажей<span class="h-icons">' + ic('mk','hp.png') + '</span></h4>'),
-  ('setup', '<h4>Выставление очков</h4>', '<h4>Выставление очков<span class="h-icons">' + ic('mk','winpoint.png') + '</span></h4>'),
+  ('setup', '<h4>Выставление жетонов</h4>', '<h4>Выставление жетонов<span class="h-icons">' + ic('mk','hp.png') + ic('mk','winpoint.png') + '</span></h4>'),   # сначала жизни, потом очки
   ('conditional', '<strong>Бонусы по фракции.</strong>', ic('ic','rolectx') + ' <strong>Бонусы по фракции.</strong>'),
   ('conditional', '<strong>Контекст здоровья.</strong>', ic('ic','hpctx') + ' <strong>Контекст здоровья.</strong>'),
   ('conditional', '<strong>Счёт по столу.</strong>', ic('ic','charges') + ' <strong>Счёт по столу.</strong>'),
@@ -187,9 +189,9 @@ INLINE = {
   ('poison', '<h4>The three afflictions of the poisoned</h4>', '<h4>The three afflictions of the poisoned<span class="h-icons">' + ic('ic','poison') + '</span></h4>'),
   ('interventions', '<p>Intervention is a special card type', '<p>Intervention ' + ic('ic','intervention') + ' is a special card type'),
   ('auras', '<p>Team Auras are powerful cards', '<p>Team Auras ' + ic('ic','aura') + ' are powerful cards'),
+  ('auras', 'put the banner figurine on it', 'put the banner figurine ' + BANNER + ' on it'),
   ('setup', 'The number inside the heart is', 'The number inside the heart ' + ic('ic','hp') + ' is'),
-  ('setup', '<h4>Drawing characters</h4>', '<h4>Drawing characters<span class="h-icons">' + ic('mk','hp.png') + '</span></h4>'),
-  ('setup', '<h4>Setting out points</h4>', '<h4>Setting out points<span class="h-icons">' + ic('mk','winpoint.png') + '</span></h4>'),
+  ('setup', '<h4>Setting out tokens</h4>', '<h4>Setting out tokens<span class="h-icons">' + ic('mk','hp.png') + ic('mk','winpoint.png') + '</span></h4>'),
   ('conditional', '<strong>Faction bonuses.</strong>', ic('ic','rolectx') + ' <strong>Faction bonuses.</strong>'),
   ('conditional', '<strong>Health context.</strong>', ic('ic','hpctx') + ' <strong>Health context.</strong>'),
   ('conditional', '<strong>Counting the table.</strong>', ic('ic','charges') + ' <strong>Counting the table.</strong>'),

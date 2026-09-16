@@ -79,6 +79,7 @@ lcard('trapcard', 69, 75, 'back')                  # ловушка — руба
 fig('trap', 77, 78, 11, 11, 'media/fig/trap.webp')
 card('stance', 106, 97, 1166)                     # Лучник
 card('aura',   106, 62, 1204)                      # Спина к спине — над стойкой
+fig('banner', 116.5, 76.5, 6.6, 11.2, 'media/fig/banner.webp')   # знамя ауры — на карте ауры, как бутылка на роли
 card('effect0', 128.5, 90, 91)                     # Метка убийцы
 card('effect1', 142, 93.5, 97)                     # Пыль в глаза — внахлёст
 
@@ -89,7 +90,7 @@ CALL = [
  (['interv'], (5, 12, 30), 'left', 'intervention', 'interv'),                # слева от «Удара дракона», под веткой
  (['defense'], (154, 18, 51), 'right', 'defense', 'defense'),
  (['trapcard','trap'], (58, 55, 44), 'top', 'trap', 'trap'),
- (['aura'], (125, 63, 40), 'right', 'aura', 'aura'),
+ (['aura','banner'], (125, 63, 40), 'right', 'aura', 'aura'),
  (['effect0','effect1'], (162, 91, 43), 'right', 'effect', 'effects'),       # справа от стопки эффектов
  (['hp0','hp1','hp2','hp3','char','role'], (5, 70, 51), 'left', 'hp', 'char'),
  (['hand0','hand1','hand2','hand3','hand4'], (5, 124, 48), 'bottom', 'card', 'hand'),
@@ -121,7 +122,7 @@ TXT = {
    'interv':  ('Вмешательство', 'Не в свой ход: «Удар дракона» добивает на <b>1</b>. Всё сыгранное — одновременно, порядок выбирает тот, чья жизнь на кону.'),
    'defense': ('Защита', 'Своя — атака отбита, бонусы атакующего не срабатывают. Союзная, как вмешательство: одна — раны до <b>1</b>, две от команды — до <b>0</b>. Беззащитного не спасти.'),
    'trap':    ('Ловушка', 'Одна, рубашкой вверх, фигурка сверху. Срабатывает, если атакуют и вы не защищаетесь; метательное её не будит. Подложили не ловушку — умираете.'),
-   'aura':    ('Аура', 'Над стойкой, одна на игрока. Действует на всех за столом; у команды складываются. Новая — прежняя в руку.'),
+   'aura':    ('Аура', 'Над стойкой, одна на игрока, сверху — знамя. Действует на всех за столом; у команды складываются. Новая — прежняя в руку.'),
    'effects': ('Эффекты', 'Справа, в открытую, сколько угодно. Постоянные — до смерти, разовые — до срабатывания. Одноимённые не повторяются. Только на живых.'),
    'stance':  ('Стойка', 'Раз за ход, одна, работает сразу. Новая — прежняя в руку.'),
    'char':    ('Персонаж и роль', 'Жизни — цифра в сердце, это же максимум для <i>полного здоровья</i>. Роль рядом: Самурай, Ниндзя или Сёгун — самурай, начинает раунд. <b>0</b> жизней — мертвы до конца хода: очко убийце, открытые карты в сброс, вас никто не трогает. Со следующего хода живы; в свой ход — восстановление: сброс любых карт, добор до <b>7</b>.'),
@@ -135,7 +136,7 @@ TXT = {
    'interv':  ('Вмешательство', 'Не в свой ход. Всё сыгранное — одновременно; порядок — у того, чья жизнь на кону.'),
    'defense': ('Защита', 'Своя — атака отбита. Союзная: одна — раны до <b>1</b>, две — до <b>0</b>. Беззащитного не спасти.'),
    'trap':    ('Ловушка', 'Одна, рубашкой вверх, фигурка сверху. Срабатывает, если не защищаетесь; метательное не будит.'),
-   'aura':    ('Аура', 'Одна на игрока, действует на всех. Новая — прежняя в руку.'),
+   'aura':    ('Аура', 'Одна на игрока, сверху — знамя. Действует на всех. Новая — прежняя в руку.'),
    'effects': ('Эффекты', 'В открытую, сколько угодно; одноимённые не повторяются. Только на живых.'),
    'stance':  ('Стойка', 'Раз за ход, одна. Новая — прежняя в руку.'),
    'char':    ('Персонаж и роль', 'Жизни — цифра в сердце. <b>0</b> — мертвы до конца хода: очко убийце, открытые карты в сброс. В свой ход — восстановление до <b>7</b>.'),
@@ -162,7 +163,7 @@ TXT = {
    'interv':  ('Intervention', 'Outside your turn: «Dragon Strike» finishes a wounded player for <b>1</b>. Everything played is simultaneous; the order is picked by whoever\'s life is at stake.'),
    'defense': ('Defense', 'Your own — attack blocked, attacker\'s bonuses do not fire. An ally\'s, as an intervention: one card — wounds down to <b>1</b>, two from the team — to <b>0</b>. The defenceless cannot be saved.'),
    'trap':    ('Trap', 'One, face down, figure on top. Fires when you are attacked and do not defend; thrown weapons do not wake it. Planted something else — you die.'),
-   'aura':    ('Aura', 'Above the stance, one per player. Affects everyone at the table; a team\'s auras stack. New one — the old returns to hand.'),
+   'aura':    ('Aura', 'Above the stance, one per player, banner on top. Affects everyone at the table; a team\'s auras stack. New one — the old returns to hand.'),
    'effects': ('Effects', 'To the right, face up, any number. Permanent — until death, one-shot — until they fire. No two of the same name. Living players only.'),
    'stance':  ('Stance', 'Once per turn, one. Works right away. New one — the old returns to hand.'),
    'char':    ('Character and role', 'Life — the number in the heart, also the maximum for <i>full health</i>. Role next to it: Samurai, Ninja or Shogun — a samurai who opens the round. <b>0</b> life — dead until the end of the turn: point to the killer, face-up cards discarded, nobody touches you. Alive from the next turn; on your own turn — recovery: discard any cards, draw back up to <b>7</b>.'),
@@ -176,7 +177,7 @@ TXT = {
    'interv':  ('Intervention', 'Outside your turn. All played at once; order picked by whoever is at stake.'),
    'defense': ('Defense', 'Own — attack blocked. Ally: one — wounds to <b>1</b>, two — to <b>0</b>. Defenceless can\'t be saved.'),
    'trap':    ('Trap', 'One, face down, figure on top. Fires if you do not defend; thrown weapons do not wake it.'),
-   'aura':    ('Aura', 'One per player, affects everyone. New one — old returns to hand.'),
+   'aura':    ('Aura', 'One per player, banner on top. Affects everyone. New one — old returns to hand.'),
    'effects': ('Effects', 'Face up, any number; no duplicates by name. Living players only.'),
    'stance':  ('Stance', 'Once per turn, one. New one — old returns to hand.'),
    'char':    ('Character and role', 'Life — the number in the heart. <b>0</b> — dead until end of turn: point to killer, face-up cards discarded. On your turn — recovery to <b>7</b>.'),

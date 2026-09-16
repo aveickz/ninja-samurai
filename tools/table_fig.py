@@ -65,7 +65,7 @@ TXT = {
    ('discard',   'рядом с колодой, картинкой вверх. Из сброса карты не возвращаются.'),
    ('attack',    'оружие и модификатор выкладываются на стол в сторону цели, после расчёта уходят в сброс.'),
   ],
-  'outro': 'Ловушка кладётся перед собой рубашкой вверх, сверху — фигурка капкана; яд отмечают фигуркой-бутылкой на карте роли. Аура кладётся перед собой в открытую; на этой картинке её нет.',
+  'outro': 'Ловушка кладётся перед собой рубашкой вверх, сверху — фигурка капкана; яд отмечают фигуркой-бутылкой на карте роли. Аура кладётся перед собой в открытую, сверху — фигурка знамени; на этой картинке её нет.',
   'caption': 'Стол на четверых: самурай — ниндзя — самурай — ниндзя.',
  },
  'en': {
@@ -88,7 +88,7 @@ TXT = {
    ('discard',   'next to the deck, face up. Cards never come back from the discard.'),
    ('attack',    'weapon and modifier are laid on the table towards the target; once resolved they go to the discard.'),
   ],
-  'outro': 'A trap is placed face down in front of you with the trap figure on top; poison is marked by a bottle figure on the role card. An aura goes face up in front of you; it is not shown in this picture.',
+  'outro': 'A trap is placed face down in front of you with the trap figure on top; poison is marked by a bottle figure on the role card. An aura goes face up in front of you with the banner figure on top; it is not shown in this picture.',
   'caption': 'A table for four: samurai — ninja — samurai — ninja.',
  },
 }

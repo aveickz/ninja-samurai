@@ -373,6 +373,7 @@ em.card-term {
 /* Значки в строке текста */
 p .ic, li .ic, h4 .ic, aside .ic { --ic: 3.6mm; vertical-align: -1mm; margin: 0 .3mm; }
 p .mk, li .mk, h4 .mk, aside .mk { width: 3.6mm; height: 3.6mm; vertical-align: -1mm; margin: 0 .3mm; }
+p .fig-inline { width: 3.2mm; height: 5.2mm; vertical-align: -1.6mm; margin: 0 .2mm; }   /* фигурка знамени: выше значка, во всю высоту строки */
 
 /* ---------- Значки и карты главы: флоат с обтеканием ---------- */
 /* Колонка стоит в потоке сразу после заголовка главы и обтекается
