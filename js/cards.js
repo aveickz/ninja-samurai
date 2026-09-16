@@ -2341,10 +2341,10 @@ const CARDS = [
     qty: 1,
     group: "character",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Вы можете использовать оружие для защиты от прямых атак, но при этом получаете одну рану. Можете скидывать карты защиты, чтобы взять две новых из колоды." +
-          "[NL]{После вашей смерти} можете отдать каждому союзнику по одной карте защиты в открытую.",
-    enDesc: "You may use weapons to defend against direct attacks, but you take one wound doing so. You may discard Defense cards to draw two new ones.[NL]{After your death} you may give each ally one Defense card, face up.",
+          "[NL]{После вашей смерти} можете раздать союзникам любое число карт защиты в открытую — хоть все одному.",
+    enDesc: "You may use weapons to defend against direct attacks, but you take one wound doing so. You may discard Defense cards to draw two new ones.[NL]{After your death} you may hand out any number of Defense cards to allies, face up — even all to one.",
     img: "cards/card_139_handzo.png"
   },
 
@@ -2360,8 +2360,8 @@ const CARDS = [
     icons: [],
     tags: ["toPrint"],
     desc: "Вместо попытки атаки вы можете взять две карты из колоды или восстановить один жетон жизни любому игроку. Любое {Древковое} оружие можете сыграть как карту защиты — за себя или за любого игрока." +
-          "[NL]{После вашей смерти} можете отдать каждому союзнику по одной карте оружия в открытую.",
-    enDesc: "Instead of an attack attempt you may draw two cards from the deck or restore one life to any player. You may play any {Polearm} weapon as a Defense card, for yourself or for any player.[NL]{After your death} you may give each ally one Weapon card, face up.",
+          "[NL]{После вашей смерти} можете раздать союзникам любое число карт оружия в открытую — хоть все одному.",
+    enDesc: "Instead of an attack attempt you may draw two cards from the deck or restore one life to any player. You may play any {Polearm} weapon as a Defense card, for yourself or for any player.[NL]{After your death} you may hand out any number of Weapon cards to allies, face up — even all to one.",
     img: "cards/card_142_norio.png"
   },
   {
@@ -2390,10 +2390,10 @@ const CARDS = [
     qty: 1,
     group: "character",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Раз в ход вы можете забрать на усмотрение игрока карту или отдать ему свою. Раз в ход вы можете сбросить 2 карты, чтобы взять 3 новых из колоды." +
-          "[NL]{После вашей смерти} вы можете раздать по 2 карты каждому из ваших союзников в закрытую.",
-    enDesc: "Once per turn you may take a card from a player or give them one of yours, at their discretion. Once per turn you may discard 2 cards to draw 3 new ones.[NL]{After your death} you may deal 2 cards face down to each of your allies.",
+          "[NL]{После вашей смерти} можете отдать каждому союзнику по одной карте в закрытую.",
+    enDesc: "Once per turn you may take a card from a player or give them one of yours, at their discretion. Once per turn you may discard 2 cards to draw 3 new ones.[NL]{After your death} you may give each ally one card, face down.",
     img: "cards/card_141_taka.png"
   },
   {
