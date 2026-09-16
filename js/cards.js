@@ -2358,10 +2358,10 @@ const CARDS = [
     qty: 1,
     group: "character",
     icons: [],
-    tags: [],
-    desc: "Можете сбросить карту оружия раз за ход, чтобы восстановить жизнь любому игроку или взять две карты из колоды." +
+    tags: ["toPrint"],
+    desc: "В фазе набора берите дополнительно две карты за каждую попытку атаки, не потраченную в этот ход." +
           "[NL]{После вашей смерти} можете отдать каждому союзнику по одной карте оружия в открытую.",
-    enDesc: "Once per turn you may discard a Weapon to restore life to any player or draw two cards from the deck.[NL]{After your death} you may give each ally one Weapon card, face up.",
+    enDesc: "In your draw phase, draw two extra cards for each attack attempt you did not spend this turn.[NL]{After your death} you may give each ally one Weapon card, face up.",
     img: "cards/card_142_norio.png"
   },
   {
