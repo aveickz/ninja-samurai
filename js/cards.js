@@ -2170,10 +2170,10 @@ const CARDS = [
     qty: 1,
     group: "intervention",
     icons: [],
-    tags: ["draft", "toPrint"],
+    tags: ["toPrint"],
     desc: "Сыграйте в ответ на карту защиты: она уничтожается, атака проходит как без защиты.",
     enDesc: "Play in response to a Defense card: it is destroyed and the attack resolves as if undefended.",
-    img: "cards/card_todo.png"
+    img: "cards/card_1031_shchitolom.png"
   },
 
   // ── ПРОЧИЕ ДЕЙСТВИЯ (стр. 18) ─────────────────────────────────────
