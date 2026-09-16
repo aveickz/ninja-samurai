@@ -2,11 +2,14 @@
 """Запуск: py -3 tools/build-cheatsheet.py
 
 Собирает rules/cheatsheet-v2.html — памятку-схему на A5 landscape (RU).
-Внизу по центру — зона одного игрока, как она лежит на столе перед ним:
-карты-превью из rules/media/cards/, фигурки из rules/media/fig/, жетоны из
-media/. Слева вверху — рука, справа вверху — атака и защита, по центру
-вверху — порядок расчёта и мелочи. К предметам ведут выноски: кистевая
-скобка у кромки предмета, сужающийся штрих и короткая подпись со значком.
+Компоновка — по эскизу автора: внизу по центру зона одного игрока, как
+она лежит на столе (карты-превью из rules/media/cards/, фигурки из
+rules/media/fig/, жетоны из media/): сердца столбиком, персонаж и роль,
+над ними ловушка; за кистевым разделителем стойка с аурой над ней; за
+вторым — два эффекта внахлёст. Рука — слева посередине, атака и защита —
+вверху справа, порядок расчёта — цепочкой в верхнем правом углу, мелочи —
+столбиком в правом нижнем. К предметам ведут выноски: кистевая скобка у
+кромки предмета, сужающийся штрих и короткая подпись со значком.
 
 Все координаты — в миллиметрах листа (210 × 148), общие для HTML-слоя
 (карты, подписи) и SVG-слоя (скобки, штрихи). Правится здесь, HTML
@@ -16,7 +19,7 @@ sys.stdout.reconfigure(encoding='utf-8')
 os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 W, H = 210, 148
-CW, CH = 15, 24            # карта 5:8
+CW, CH = 17, 27.2          # карта 5:8
 
 # ---------- предметы: key -> dict(x, y, w, h, rot, src, cls) ----------
 OBJ = {}
@@ -29,30 +32,32 @@ def lcard(key, x, y, cid):
 def fig(key, x, y, w, h, src, rot=0, cls='fig'):
     OBJ[key] = dict(x=x, y=y, w=w, h=h, rot=rot, src=src, cls=cls)
 
-# --- рука: левый верхний угол ---
-for i, r in enumerate((-22, -11, 0, 11, 22)):
-    fig(f'hand{i}', 12 + i * 5.4, 10 + abs(i - 2) * 1.2, 12, 19.2, 'media/cards/back.webp', rot=r, cls='card hand')
+# --- рука: слева посередине, веер с наклоном ---
+for i in range(5):
+    fig(f'hand{i}', 20 + i * 5.2, 50 + (i - 2) ** 2 * .7, 14, 22.4, 'media/cards/back.webp', rot=-30 + i * 7, cls='card hand')
 
-# --- атака и защита: правый верхний угол ---
-card('weapon',   150, 8, 1, rot=-6)                # Катана
-card('modifier', 158, 11, 70, rot=6)               # Гнев сёгуна
-card('defense',  184, 9, 48, rot=-10)              # Защита
+# --- атака и защита: вверху справа ---
+card('weapon',   111, 14, 1)                       # Катана
+card('modifier', 126, 21, 70)                      # Гнев сёгуна — внахлёст
+card('defense',  165, 18, 48)                      # Защита
 
 # --- зона игрока: низ по центру ---
-lcard('trapcard', 62, 93, 'back')                  # ловушка — рубашкой вверх, боком
-fig('trap', 69.5, 96, 9, 9, 'media/fig/trap.webp')
-lcard('char', 62, 113, 137)                        # Сайго — боком
-fig('poison', 71.4, 116.5, 5.2, 8, 'media/fig/poison.webp')
-lcard('role', 88, 113, 201)                        # Самурай — боком, рядом
 for i in range(4):
-    fig(f'hp{i}', 63 + i * 5.2, 131, 4.6, 4.6, '../media/hp.png', cls='tok')
+    fig(f'hp{i}', 57.5, 99.5 + i * 5.2, 4.6, 4.6, '../media/hp.png', cls='tok')
+card('char', 65, 99, 137)                          # Сайго
+fig('poison', 70.9, 109, 5.2, 8, 'media/fig/poison.webp')
+card('role', 84, 99, 201)                          # Самурай
 for i in range(4):
-    fig(f'vp{i}', 63 + i * 5.2, 138.3, 4.6, 4.6, '../media/winpoint.png', cls='tok')
-card('effect0', 118, 110, 91)                      # эффекты — стопкой, на треть выше
-card('effect1', 121, 107, 91)
-card('effect2', 124, 104, 91)
-card('stance',  139, 118, 1166)                    # Лучник
-card('aura',    139, 92, 1204)                     # Спина к спине — над стойкой
+    fig(f'vp{i}', 66 + i * 5.2, 129.5, 4.6, 4.6, '../media/winpoint.png', cls='tok')
+lcard('trapcard', 69, 77, 'back')                  # ловушка — рубашкой вверх, над персонажем
+fig('trap', 77, 80, 11, 11, 'media/fig/trap.webp')
+card('stance', 106, 101, 1166)                     # Лучник
+card('aura',   106, 62, 1204)                      # Спина к спине — над стойкой
+card('effect0', 128.5, 94, 91)                     # Метка убийцы
+card('effect1', 142, 97.5, 97)                     # Пыль в глаза — внахлёст
+
+# кистевые разделители между группами зоны: (x, y0, y1)
+DIVIDERS = [(103.6, 97, 131), (126.5, 92, 128)]
 
 def bbox(keys, pad=1.0):
     xs, ys, xe, ye = 1e9, 1e9, -1e9, -1e9
@@ -67,43 +72,41 @@ def bbox(keys, pad=1.0):
     return xs - pad, ys - pad, xe + pad, ye + pad
 
 # ---------- выноски ----------
-# (цели, плашка (x, y, w), сторона скобки относительно предмета:
-#  'top' — скобка над предметом, текст выше; 'bottom' — под; 'left' — слева,
-#  текст левее; 'right' — справа; 'dot' — без скобки, штрих в точку; заголовок, значок, текст)
+# (цели, плашка (x, y, w), сторона скобки относительно предмета: 'top' — скобка
+#  над предметом, текст выше; 'bottom' — под; 'left' — слева; 'right' — справа;
+#  'dot' — без скобки, штрих в точку на предмете; заголовок, значок, текст)
 CALL = [
- (['hand0','hand1','hand2','hand3','hand4'], (6, 40, 54), 'bottom', 'Рука', 'card',
+ (['hand0','hand1','hand2','hand3','hand4'], (6, 8, 50), 'top', 'Рука', 'card',
   'Старт — <b>7</b>. В начале хода не больше <b>9</b>, лишнее в сброс. В конце хода набор <b>3</b> <i>(меньшая команда +1)</i>, затем каждый противник берёт <b>1</b>. Между ходами не ограничена.'),
- (['weapon','modifier'], (144, 40, 36), 'bottom', 'Атака', 'weapon',
+ (['weapon','modifier'], (62, 14, 46), 'left', 'Атака', 'weapon',
   'До <b>2</b> за ход. Оружие берёт цель, если его сложность ≥ сложности цели (обычно 1); метательное — любую. Один модификатор. Кулаки — 1/1 за обе атаки.'),
- (['defense'], (160, 66, 44), 'bottom', 'Защита', 'defense',
+ (['defense'], (158, 50, 47), 'bottom', 'Защита', 'defense',
   'Своя — атака отбита, бонусы атакующего не срабатывают. Союзная, как вмешательство: одна — раны до <b>1</b>, две от команды — до <b>0</b>. Беззащитного не спасти.'),
- (['trapcard','trap'], (46, 58, 40), 'top', 'Ловушка', 'trap',
+ (['trapcard','trap'], (58, 44, 46), 'top', 'Ловушка', 'trap',
   'Одна, рубашкой вверх, фигурка сверху. Срабатывает, если атакуют и вы не защищаетесь; метательное её не будит. Подложили не ловушку — умираете.'),
- (['role'], (88, 78, 26), 'top', 'Роль', 'rolectx',
-  'Самурай, Ниндзя или Сёгун. Сёгун — самурай, начинает раунд.'),
- (['effect0','effect1','effect2'], (114, 58, 34), 'top', 'Эффекты', 'effect',
-  'Справа, в открытую, сколько угодно. Постоянные — до смерти, разовые — до срабатывания. Одноимённые не повторяются. Только на живых.'),
- (['aura'], (160, 92, 44), 'right', 'Аура', 'aura',
+ (['aura'], (127, 64, 30), 'right', 'Аура', 'aura',
   'Над стойкой, одна на игрока. Действует на всех за столом; у команды складываются. Новая — прежняя в руку.'),
- (['stance'], (160, 118, 44), 'right', 'Стойка', 'stance',
+ (['effect0','effect1'], (162, 94, 43), 'right', 'Эффекты', 'effect',
+  'Справа, в открытую, сколько угодно. Постоянные — до смерти, разовые — до срабатывания. Одноимённые не повторяются. Только на живых.'),
+ (['stance'], (100, 131, 58), 'bottom', 'Стойка', 'stance',
   'Раз за ход, одна. Работает сразу. Новая — прежняя в руку.'),
- (['char'], (5, 96, 53), 'left', 'Персонаж', 'hp',
-  'Жизни — цифра в сердце; это же максимум для <i>полного здоровья</i>. Открыт всем всю партию.'),
- (['poison'], (5, 109, 53), 'dot', 'Яд', 'poison',
+ (['hp0','hp1','hp2','hp3','char','role'], (5, 84, 51), 'left', 'Персонаж и роль', 'hp',
+  'Жизни — цифра в сердце, это же максимум для <i>полного здоровья</i>. Роль рядом: Самурай, Ниндзя или Сёгун — самурай, начинает раунд.'),
+ (['poison'], (5, 99, 51), 'dot', 'Яд', 'poison',
   'Бутылка на персонаже. В конце хода <b>−2</b> жизни; отравленная атака по вам <b>+1</b> рана. Смерть от яда — без восстановления, очко в сброс.'),
- (['hp0','hp1','hp2','hp3'], (5, 124, 53), 'left', 'Жизни', 'hpctx',
-  '<b>0</b> — мертвы до конца хода: очко убийце, открытые карты в сброс, вас никто не трогает. Со следующего хода живы; в свой ход — восстановление.'),
- (['vp0','vp1','vp2','vp3'], (5, 137.5, 53), 'left', 'Победные очки', 'winpoint',
+ (['hp0','hp1','hp2','hp3'], (5, 116, 51), 'bottom', 'Жизни', 'hpctx',
+  '<b>0</b> — мертвы до конца хода: очко убийце, открытые карты в сброс, вас никто не трогает. Со следующего хода живы; в свой ход — восстановление: сброс любых карт, добор до <b>7</b>.'),
+ (['vp0','vp1','vp2','vp3'], (5, 134, 51), 'bottom', 'Победные очки', 'winpoint',
   'Старт — <b>4</b>. Убили — забрали очко у жертвы. Чьи-то <b>0</b> — конец партии.'),
 ]
 
-# ---------- центр вверху: порядок расчёта и мелочи ----------
+# ---------- цепочка порядка расчёта (верхний правый угол) и мелочи (правый нижний) ----------
 CHAIN = [('character','персонаж'),('stance','стойка'),('aura','аура'),('poison','яд'),('effect','эффект'),('weapon','оружие'),('modifier','модификатор')]
 STRIP = [
- ('intervention', 'Вмешательство', 'не в свой ход, посреди чужого действия или в тишине; всё сыгранное — одновременно, порядок выбирает тот, чья жизнь на кону.'),
+ ('intervention', 'Вмешательство', 'играется не в свой ход; всё сыгранное — одновременно, порядок выбирает тот, чья жизнь на кону.'),
  ('thrust', 'Выпад', 'раны напрямую: не атака, без защиты и ловушки, не тратит атаку.'),
- ('action', 'Восстановление', 'в начале хода после смерти: сброс любых карт, добор до <b>7</b>.'),
- ('aoe', 'Конец партии', 'кончилась колода · у кого-то 0 очков · по договорённости, доиграв раунд до игрока перед Сёгуном.'),
+ ('trap', 'Порядок', 'у защищающегося то же, последней — ловушка; «не менее 1» — с места, где встретился.'),
+ ('aoe', 'Конец партии', 'колода кончилась · чьи-то 0 очков · по договорённости, доиграв раунд до игрока перед Сёгуном.'),
 ]
 
 def ic(key):
@@ -151,7 +154,7 @@ def stroke(p0, p1, w0=1.0, w1=0.25, bend=0.12, n=14):
     (x0, y0), (x1, y1) = p0, p1
     dx, dy = x1 - x0, y1 - y0
     d = math.hypot(dx, dy) or 1
-    nx, ny = -dy / d, dx / d                   # нормаль
+    nx, ny = -dy / d, dx / d
     cx, cy = (x0 + x1) / 2 + nx * d * bend, (y0 + y1) / 2 + ny * d * bend
     left, right = [], []
     for i in range(n + 1):
@@ -174,9 +177,9 @@ def leader(keys, box, side, text):
     cx, cy = (x0 + x1) / 2, (y0 + y1) / 2
     h = est_h(text, w)
     if side == 'top':
-        p0 = (min(max(cx, x + 4), x + w - 4), y0 - .3); p1 = (p0[0], y + h + .8)
+        p0 = (cx, y0 - .3); p1 = (min(max(cx, x + 5), x + w - 5), y + h + .8)
     elif side == 'bottom':
-        p0 = (min(max(cx, x + 4), x + w - 4), y1 + .3); p1 = (p0[0], y - .8)
+        p0 = (cx, y1 + .3); p1 = (min(max(cx, x + 5), x + w - 5), y - .8)
     elif side == 'left':
         p0 = (x0 - .3, cy); p1 = (x + w + .6, y + 1.6)
     elif side == 'right':
@@ -193,21 +196,23 @@ def svg_html():
         br, st, dot = leader(keys, box, side, text)
         if br: brs.append(f'<path d="{br}"/>')
         sts.append(f'<path d="{st}"/>'); dots.append(dot)
+    divs = ''.join(f'<path d="{stroke((x, y0), (x, y1), .9, .35, 0)}"/>' for x, y0, y1 in DIVIDERS)
     return (f'<svg class="ov" viewBox="0 0 {W} {H}" xmlns="http://www.w3.org/2000/svg">'
             '<defs><filter id="ink" x="-5%" y="-5%" width="110%" height="110%">'
             '<feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="2" seed="7" result="n"/>'
             '<feDisplacementMap in="SourceGraphic" in2="n" scale=".45" xChannelSelector="R" yChannelSelector="G"/></filter></defs>'
             '<g class="br" filter="url(#ink)">' + ''.join(brs) + '</g>'
-            '<g class="st" filter="url(#ink)">' + ''.join(sts) + '</g>'
+            '<g class="st" filter="url(#ink)">' + ''.join(sts) + divs + '</g>'
             '<g>' + ''.join(dots) + '</g></svg>')
 
-def center_html():
+def chain_html():
     chain = ''.join(f'<span class="s"><i class="ic" data-b="{k}"></i>{t}</span><span class="arr">→</span>' for k, t in CHAIN)
     chain = chain[:-len('<span class="arr">→</span>')]
+    return f'<div class="chain"><b>Порядок расчёта</b>{chain}</div>'
+
+def misc_html():
     items = ''.join(f'<p><i class="ic" data-b="{k}"></i><b>{t}</b> — {d}</p>' for k, t, d in STRIP)
-    return (f'<div class="center"><div class="chain"><b>Порядок расчёта</b>{chain}'
-            '<span class="tail">у защищающегося то же, последней — <i class="ic" data-b="trap"></i> ловушка · «не менее 1» держится с места, где встретился</span></div>'
-            f'<div class="misc">{items}</div></div>')
+    return f'<div class="misc">{items}</div>'
 
 CSS = r"""
   @font-face { font-family: 'Han Zi Web'; src: url('fonts/Han-Zi_Regular.woff') format('woff'); font-display: swap; }
@@ -228,15 +233,15 @@ CSS = r"""
                 radial-gradient(ellipse 50mm 30mm at 20% 70%, rgba(120,70,20,.10), transparent 70%),
                 url('media/paper.png') center / 100% 100% no-repeat var(--paper-light);
     box-shadow: 0 0 0 1px rgba(60,30,10,.4), 0 20px 50px rgba(0,0,0,.65); }
-  /* бледная тушь — на свободном месте слева посередине */
-  .sheet::before { content:""; position:absolute; left:4mm; top:56mm; width:56mm; height:40mm;
-    background:url('media/bg/flow.webp') center / contain no-repeat; opacity:.11; mix-blend-mode:multiply; pointer-events:none; }
+  /* бледная тушь — в свободном центре листа */
+  .sheet::before { content:""; position:absolute; left:62mm; top:52mm; width:44mm; height:38mm;
+    background:url('media/bg/flow.webp') center / contain no-repeat; opacity:.10; mix-blend-mode:multiply; pointer-events:none; }
 
-  /* заголовок — как заголовок главы правил, по центру сверху */
-  .ttl { position:absolute; left:0; right:0; top:4mm; display:flex; justify-content:center; align-items:center; gap:2.5mm;
-    font-family:'Han Zi Web','Shippori Mincho',serif; font-size:10.5pt; text-transform:uppercase; letter-spacing:.04em; color:var(--ink); line-height:1; }
-  .ttl .kanji { font-family:'Shippori Mincho','Noto Serif JP','Yu Mincho',serif; font-size:11pt; color:rgba(122,20,16,.45); text-transform:none; letter-spacing:.06em; }
-  .ttl .kanji::before { content:"·"; font-family:'PT Sans Narrow',sans-serif; font-size:9pt; color:rgba(70,58,50,.28); margin-right:2.5mm; }
+  /* заголовок — верхний левый угол, как заголовок главы */
+  .ttl { position:absolute; left:6mm; top:3.5mm; display:flex; align-items:center; gap:2mm;
+    font-family:'Han Zi Web','Shippori Mincho',serif; font-size:8.5pt; text-transform:uppercase; letter-spacing:.04em; color:var(--ink); line-height:1; }
+  .ttl .kanji { font-family:'Shippori Mincho','Noto Serif JP','Yu Mincho',serif; font-size:9pt; color:rgba(122,20,16,.45); text-transform:none; letter-spacing:.06em; }
+  .ttl .kanji::before { content:"·"; font-family:'PT Sans Narrow',sans-serif; font-size:8pt; color:rgba(70,58,50,.28); margin-right:2mm; }
 
   /* предметы */
   .card { position:absolute; display:block; border-radius:.9mm; box-shadow:0 .5mm 1.2mm rgba(40,20,5,.35); outline:.32mm solid #fff; }
@@ -256,7 +261,6 @@ CSS = r"""
   .co p { margin:0; color:var(--ink); }
   .co p b { color:var(--vermilion); }
   .co p i { font-style:italic; color:var(--ink-faded); font-weight:700; }
-  .co-right h4, .co-right p { text-align:left; }
 
   /* значки */
   .ic { display:inline-block; position:relative; width:var(--ic); height:var(--ic); border-radius:50%; vertical-align:-.9mm; flex:none; }
@@ -269,18 +273,17 @@ CSS = r"""
   .mk { display:inline-block; width:var(--ic); height:var(--ic); object-fit:contain; vertical-align:-.9mm; flex:none; }
   h4 .mk { border-radius:.5mm; }
 
-  /* центр вверху */
-  .center { position:absolute; left:64mm; top:13mm; width:80mm; }
-  .chain { display:flex; flex-wrap:wrap; align-items:center; gap:.3mm; font-size:6.2pt; color:var(--ink-soft); line-height:1.1; }
-  .chain > b { width:100%; font-size:7.4pt; margin-bottom:.8mm; }
-  .chain .s { display:inline-flex; flex-direction:column; align-items:center; width:9.4mm; text-align:center; }
-  .chain .s .ic { --ic:3.8mm; margin-bottom:.3mm; }
-  .chain .arr { color:rgba(70,58,50,.35); font-size:6pt; margin:0 -.5mm 2.6mm; }
-  .chain .tail { width:100%; margin-top:.6mm; font-size:6.3pt; color:var(--ink-faded); }
-  .chain .tail .ic { --ic:2.8mm; vertical-align:-.7mm; }
-  .misc { margin-top:1.8mm; padding-top:1.4mm; border-top:.2mm solid rgba(122,20,16,.25); }
-  .misc p { margin:0 0 .6mm; color:var(--ink); }
-  .misc p .ic { --ic:3mm; margin-right:1mm; vertical-align:-.7mm; }
+  /* цепочка порядка расчёта — верхний правый угол, одной строкой */
+  .chain { position:absolute; left:108mm; top:3mm; width:98mm; display:flex; align-items:flex-start; gap:.3mm; font-size:6pt; color:var(--ink-soft); line-height:1.1; }
+  .chain > b { font-size:6.8pt; margin-right:1.5mm; padding-top:.9mm; white-space:nowrap; }
+  .chain .s { display:inline-flex; flex-direction:column; align-items:center; width:8.6mm; text-align:center; }
+  .chain .s .ic { --ic:3.6mm; margin-bottom:.3mm; }
+  .chain .arr { color:rgba(70,58,50,.35); font-size:6pt; margin:1mm -.4mm 0; }
+
+  /* мелочи — правый нижний угол */
+  .misc { position:absolute; left:162mm; top:111mm; width:43mm; font-size:6.3pt; line-height:1.2; }
+  .misc p { margin:0 0 .7mm; color:var(--ink); }
+  .misc p .ic { --ic:2.9mm; margin-right:.9mm; vertical-align:-.7mm; }
   .misc p b { color:var(--ink-soft); }
 
   @page { size: A5 landscape; margin:0; }
@@ -334,7 +337,8 @@ def build():
 {objects_html()}
 {svg_html()}
 {callouts_html()}
-{center_html()}
+{chain_html()}
+{misc_html()}
   </div>
 </div>
 <script>{SCRIPT}</script>
