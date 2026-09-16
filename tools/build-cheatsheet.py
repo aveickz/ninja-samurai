@@ -17,10 +17,13 @@ rules/media/cards/ (для EN — *-en.webp), фигурки из rules/media/fi
 
 Оформление — по макету ref/cheatsheet-mockup-2026-09-16.png (/img по нашей
 раскладке): фон rules/media/cheat-bg.webp — васи с тушевыми украшениями,
-разделённый широким кистевым штрихом на две зоны: тёплая верхняя (полоса
-действий: вмешательство, атака, защита) и холодная нижняя (стол игрока);
-штрих идёт от ~61 мм слева до ~52 мм справа, всё содержимое зоны стола
-лежит ниже него. Прежний фон без зон — media/obsolete/cheat-bg-v1.webp.
+разделённый широким кистевым штрихом на две зоны: верхняя — война
+(красное небо, катаны с кабуто, знамёна, конница, стрелы, горящий замок:
+полоса действий — вмешательство под веткой сливы слева, атака по центру,
+защита справа), нижняя — мир (серо-зелёные горы, бамбук, сосна с пагодой:
+стол игрока). Штрих идёт от ~61 мм слева до ~52 мм справа, всё содержимое
+стола лежит ниже него. Прежние фоны — media/obsolete/cheat-bg-v1.webp
+(без зон) и cheat-bg-v2-zones.webp (зоны, но мирный верх).
 Заголовки выносок на кистевом мазке rules/media/fig/brush-plate.webp,
 значки — чёрные круги с белым знаком, под текстом мягкое бумажное свечение.
 
@@ -57,7 +60,7 @@ for i in range(5):
     fig(f'hand{i}', 6 + i * 5.4, 97 + (i - 2) ** 2 * .8, 14, 22.4, 'media/cards/back.webp', rot=-38 + i * 8, cls='card hand')
 
 # --- атака и защита: полоса под заголовком; подписи атаки и вмешательства — над картами ---
-card('interv',   66, 17, 124, rot=-8)              # Удар дракона — вмешательство, слева от оружия
+card('interv',   36, 20, 124, rot=-8)              # Удар дракона — вмешательство, под веткой сливы слева
 card('weapon',   92, 17, 1)                        # Катана
 card('modifier', 107, 24, 70)                      # Гнев сёгуна — внахлёст
 card('defense',  134, 21, 48)                      # Защита
@@ -81,7 +84,7 @@ card('effect1', 142, 93.5, 97)                     # Пыль в глаза — 
 # (цели, плашка (x, y, w), сторона (осталась для точки яда), значок, ключ текста)
 CALL = [
  (['weapon','modifier'], (92, 2, 34), 'top', 'weapon', 'attack'),           # над оружием, по его ширине
- (['interv'], (56, 2, 34), 'top', 'intervention', 'interv'),                 # над «Ударом дракона»
+ (['interv'], (5, 12, 30), 'left', 'intervention', 'interv'),                # слева от «Удара дракона», под веткой
  (['defense'], (154, 18, 51), 'right', 'defense', 'defense'),
  (['trapcard','trap'], (58, 55, 44), 'top', 'trap', 'trap'),
  (['aura'], (125, 63, 40), 'right', 'aura', 'aura'),
@@ -299,7 +302,7 @@ CSS = r"""
     box-shadow: 0 0 0 1px rgba(60,30,10,.4), 0 20px 50px rgba(0,0,0,.65); }
 
   /* заголовок — верхний левый угол, как заголовок главы */
-  .ttl { position:absolute; left:calc(6mm * {{k}}); top:calc(3.5mm * {{k}}); max-width:calc(46mm * {{k}}); white-space:nowrap; display:flex; align-items:center; gap:2mm;
+  .ttl { position:absolute; left:calc(5mm * {{k}}); top:calc(3mm * {{k}}); max-width:calc(48mm * {{k}}); white-space:nowrap; display:flex; align-items:center; gap:2mm;
     font-family:'Han Zi Web','Shippori Mincho',serif; font-size:calc(7.6pt * {{k}} + 1.2pt); text-transform:uppercase; letter-spacing:.04em; color:var(--ink); line-height:1; }
   .ttl .kanji { font-family:'Shippori Mincho','Noto Serif JP','Yu Mincho',serif; font-size:9pt; color:rgba(122,20,16,.45); text-transform:none; letter-spacing:.06em; }
   .ttl .kanji::before { content:"·"; font-family:'PT Sans Narrow',sans-serif; font-size:8pt; color:rgba(70,58,50,.28); margin-right:2mm; }
