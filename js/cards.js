@@ -1268,10 +1268,10 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Финальная сила атаки равна количеству недостающих жетонов жизни цели.",
     enDesc: "The attack's final power equals the target's missing life.",
-    img: "cards/card_final_strike.png"
+    img: "cards/card_1081_finalnyi_udar.png"
   },
   {
     id: 1083,
@@ -1281,10 +1281,10 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "+1 к силе атаки. При убийстве врага этой атакой вы можете забрать себе его стойку, ауру и любые эффекты.",
     enDesc: "+1 attack power. If this attack kills the enemy, you may take their Stance, Aura and any Effects for yourself.",
-    img: "cards/card_kubitori.png"
+    img: "cards/card_1083_kubitori.png"
   },
   {
     id: 1084,
@@ -1294,10 +1294,10 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Ваше текущее количество жетонов победы добавляется к силе атаки.",
     enDesc: "Add your current victory points to the attack's power.",
-    img: "cards/card_victory_strike.png"
+    img: "cards/card_1084_pobednyi_udar.png"
   },
   // ── ГРУППОВЫЕ ДЕЙСТВИЯ (стр. 12) ─────────────────────────────────
   {
