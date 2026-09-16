@@ -67,11 +67,11 @@ CH = {
                        cards={0: [1, 32, 31], 9: [70, 64]}),   # меч, сюрикен, отравленное яри; у подраздела «Модификатор» (срез с блока 9) — два модификатора
  'defense':       dict(icons=[[('ic','defense')]],                      cards=[50, 48]),   # защита с эффектом и простая «Защита» — сверху, она основная
  'thrust':        dict(icons=[[('ic','thrust')]],                       cards=[90, 124]),   # «Боевой крик» и «Удар дракона» — карты с выпадом
- 'traps':         dict(icons=[[('ic','trap')]],                         cards=[43, 41], fig=('trap-fig', 17, 1)),   # фигурка макибиси тушью — в углу главы
+ 'traps':         dict(icons=[[('ic','trap')]],                         cards=[43, 41], fig=('trap-fig', 17, 1, 4)),   # фигурка макибиси тушью — в углу главы, чуть левее края
  'stances':       dict(icons=[[('ic','stance')]],                       cards=[60, 1166]),   # «Лучник» справа, сверху — виден целиком
  'group':         dict(icons=[[('ic','aoe')]],                          cards=[83, 82]),   # «Потасовка» и «Миротворцы» сверху
  'effects':       dict(icons=[[('ic','effect')]],                       cards=[91, 92]),   # «Метка убийцы» и «Противоядие»
- 'poison':        dict(icons=[[('ic','poison')]],                       cards=[116, 64], fig=('poison-fig', 22, 1, 7)),   # фигурка яда тушью — крупно, под центром колонки карт
+ 'poison':        dict(icons=[[('ic','poison')]],                       cards=[116, 64], fig=('poison-fig', 22, 1, 3, 6)),   # фигурка яда тушью — крупно, под картами, чуть ниже и правее списка
  'interventions': dict(layout='stack', icons=[[('ic','intervention')]], cards=[121, 124]),
  'auras':         dict(icons=[[('ic','aura')]],                        cards=[1209, 1206], fig=('banner-fig', 13, 2)),   # «Часовой» внутри, «Дымовая завеса» сверху; фигурка знамени тушью — в углу
  'conditional':   dict(layout='stack', icons=[[('ic','rolectx'),('ic','hpctx'),('ic','charges'),('ic','charctx')]], cards=[125, 3094]),
@@ -309,10 +309,11 @@ def chapter_html(lang, cid, mark, title, body, a=0, b=None):
         # колонку карт, и перед подзаголовком не появляется зазора
         name, w, k, *rest = fig
         right = rest[0] if rest else 0      # сдвиг влево от края колонки, мм — например, под центр колонки карт
+        down = rest[1] if len(rest) > 1 else 0   # свес ниже последнего блока, мм — если под главой есть место
         part = list(part)
         i = max(len(part) - k, 0)
         row = (f'<div class="fig-row"><div class="fig-text" style="padding-right:{w + 3 + right}mm">\n' + '\n'.join(part[i:]) + '\n</div>'
-               f'<img class="chapter-fig" src="media/fig/ink/{name}.webp" style="width:{w}mm;right:{right}mm" alt=""></div>')
+               f'<img class="chapter-fig" src="media/fig/ink/{name}.webp" style="width:{w}mm;right:{right}mm;bottom:{-down}mm" alt=""></div>')
         part = part[:i] + [row]
     body = '\n'.join(part)
     bg = bg_path(cid) if a == 0 else None   # фон — только на первом срезе, чтобы не повторялся на странице
