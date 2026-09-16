@@ -41,15 +41,17 @@ LABELS = [
 ]
 # фракционные метки у фигур: (текст-ключ, центр)
 TAGS = [('samurai', (860, 150)), ('ninja', (1080, 395)), ('samurai', (760, 1060)), ('ninja', (140, 400))]
-# стрелка хода атаки: от нижнего самурая через выложенные карты к правому ниндзя
-FLOW = 'M 630 795 C 700 640 780 610 868 640'   # дугой над выложенными картами
+# стрелка хода атаки: от нижнего самурая к правому ниндзя — снаружи стола, справа,
+# повторяя контур его тела; подпись «Атакует» у середины дуги
+FLOW = 'M 790 1125 C 930 1100 1020 950 1005 775'
+FLOW_LABEL = ('attacks', (1085, 960))
 
 TXT = {
  'ru': {
   'stance': 'Стойка', 'role': 'Карта роли', 'deck': 'Колода', 'character': 'Персонаж',
   'hand': 'Рука', 'discard': 'Сброс', 'effect': 'Эффекты', 'life': 'Жизни',
   'vp': 'Победные очки', 'attack': 'Атака: оружие|+ модификатор',
-  'poison': 'Яд', 'defense': 'Защита', 'trap': 'Ловушка',
+  'poison': 'Яд', 'defense': 'Защита', 'trap': 'Ловушка', 'attacks': 'Атакует',
   'samurai': 'Самурай', 'ninja': 'Ниндзя',
   'h4': 'Стол',
   'intro': 'Так выглядит стол в середине партии на четверых: у каждого игрока перед собой своя зона, посреди стола — общие стопки. Игроки сидят через одного, поэтому напротив — союзник, а по бокам — противники.',
@@ -72,7 +74,7 @@ TXT = {
   'stance': 'Stance', 'role': 'Role card', 'deck': 'Deck', 'character': 'Character',
   'hand': 'Hand', 'discard': 'Discard', 'effect': 'Effects', 'life': 'Life',
   'vp': 'Victory points', 'attack': 'Attack: weapon|+ modifier',
-  'poison': 'Poison', 'defense': 'Defense', 'trap': 'Trap',
+  'poison': 'Poison', 'defense': 'Defense', 'trap': 'Trap', 'attacks': 'Attacks',
   'samurai': 'Samurai', 'ninja': 'Ninja',
   'h4': 'The Table',
   'intro': 'This is what a four-player table looks like mid-game: every player has their own area in front of them, and the shared piles sit in the middle. Seats alternate, so the player opposite is your ally and the players on either side are enemies.',
@@ -132,6 +134,10 @@ def svg(lang):
         for i, l in enumerate(ls):
             out.append(f'<text class="tf-txt" x="{w/2}" y="{BH/2 + 1 + i*LH}">{esc(l)}</text>')
         out.append('</g>')
+    # подпись у стрелки атаки — та же плашка, без линии
+    key, (lx, ly) = FLOW_LABEL
+    w = box_w(t[key]); h = box_h(t[key])
+    out.append(f'<g transform="translate({lx - w/2:.0f},{ly - h/2:.0f})"><rect width="{w}" height="{h}" rx="8"/><text class="tf-txt" x="{w/2}" y="{BH/2 + 1}">{esc(t[key])}</text></g>')
     out.append('</g>')
     out.append('<g class="tf-tags">')
     for key, (cx, cy) in TAGS:
