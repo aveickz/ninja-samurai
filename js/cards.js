@@ -399,8 +399,8 @@ const CARDS = [
     group: "weapon",
     icons: ["complexity2", "dmg1", "charctx"],
     tags: ["toPrint"],
-    desc: "{Древковое} Атакуемый игрок теряет стойку в случае успешной атаки.[NL]Любимое оружие {Норио}.",
-    enDesc: "{Polearm} On a successful attack, the target loses their Stance.[NL]Favourite weapon of {Norio}.",
+    desc: "{Древковое} Атакуемый игрок теряет стойку в случае успешной атаки; у {Сайго} стойку отнять нельзя.[NL]Любимое оружие {Норио}.",
+    enDesc: "{Polearm} On a successful attack, the target loses their Stance; {Saigo} keeps his.[NL]Favourite weapon of {Norio}.",
     img: "cards/card_24_bo.png"
   },
   {
