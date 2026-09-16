@@ -160,6 +160,7 @@ diff'у мучительно. Место дешевле времени.
 | Правила игры (текст)                     | `rules/content-ru.html`, следом `rules/content-en.html`; затем `py -3 tools/build-rules-new.py` |
 | Правила игры (вёрстка, страницы)         | `tools/build-rules-new.py` (раскладка `PAGES`, конфиг глав `CH`), `rules/rules.css`, `rules/rules-print.css` |
 | Памятка A5 (текст)                       | `rules/cheatsheet.md` → `cheatsheet.html`, следом `cheatsheet-en.md` → `cheatsheet-en.html` |
+| Памятка-схема A5 (зона игрока с выносками) | `tools/build-cheatsheet.py` (предметы `OBJ`, выноски `CALL`, полоса `STRIP`; координаты в мм) → `rules/cheatsheet-v2.html`, руками не править |
 | Картотека: рендер, фильтры, печать       | Корень репозитория (см. ниже) |
 | Арт карты (`cards/*.png`)                | **только по явной просьбе** — см. ниже |
 
@@ -392,6 +393,8 @@ cardboard/                    # корень репозитория = корен
 │   ├── rules-en.html     # …английская версия, тоже сборка
 │   ├── rules.css         # Стили вёрстки правил; rules-print.css — печать (A5 портрет, страница на лист)
 │   ├── cheatsheet.md     # Памятка A5: текст (оригинал, русский); вёрстка cheatsheet.html — в стиле страниц правил
+│   ├── cheatsheet-v2.html # Памятка-схема: зона игрока из превью карт и фигурок с выносками — СОБИРАЕТСЯ tools/build-cheatsheet.py
+│   ├── media/fig/        # Фигурки яда и капкана (webp с альфой) для схем; media/cards/back.webp — рубашка 5:8
 │   ├── patchnotes/       # Патч-ноуты правил: что было → что стало → что трогает; 2026-09-16.md — внесён
 │   ├── cheatsheet-en.md  # Английская памятка + cheatsheet-en.html — перевод, не оригинал
 │   ├── media/bg/         # Бледные тушевые фоны глав (webp с альфой, сгенерированы /img)
