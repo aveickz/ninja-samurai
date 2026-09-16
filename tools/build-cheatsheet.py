@@ -72,7 +72,7 @@ for i in range(4):
     fig(f'hp{i}', 57.5, 95.5 + i * 5.2, 4.6, 4.6, '../media/hp.png', cls='tok')
 card('char', 65, 95, 137)                          # Сайго
 card('role', 84, 95, 201)                          # Самурай
-fig('poison', 89.9, 105, 5.2, 8, 'media/fig/poison.webp')   # бутылка яда — на карте роли
+fig('poison', 89.5, 105, 6.1, 8, 'media/fig/poison.webp')   # бутылка яда — на карте роли
 for i in range(4):
     fig(f'vp{i}', 64.5 + i * 5.2, 124.5, 4.6, 4.6, '../media/winpoint.png', cls='tok')
 lcard('trapcard', 69, 75, 'back')                  # ловушка — рубашкой вверх, над персонажем
