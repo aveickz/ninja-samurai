@@ -1164,9 +1164,9 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     icons: [],
-    tags: ["toPrint"],
-    desc: "Ваша атака берёт любую сложность и наносит на одну рану больше, но вы теряете один жетон жизни. Нельзя применить на пороге смерти.[NL]Имбирь, вложенный союзником в этот момент, гасит цену: жетон не теряется, и Хатимаки можно применить на пороге смерти.",
-    enDesc: "Your attack handles any complexity and deals 1 extra wound, but you lose 1 life. Cannot be used at death's door.[NL]Ginger played by an ally at this moment covers the cost: no life is lost, and Hachimaki may be used at death's door.",
+    tags: [],
+    desc: "Ваша атака берёт любую сложность и наносит на одну рану больше, но вы теряете один жетон жизни. Нельзя применить на пороге смерти.",
+    enDesc: "Your attack handles any complexity and deals 1 extra wound, but you lose 1 life. Cannot be used at death's door.",
     img: "cards/card_73_povyazka_kamikadze.png"
   },
   {
