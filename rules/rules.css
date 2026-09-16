@@ -7,9 +7,10 @@
    - .sheet — страница A5 портрет (148 × 210 мм), фиксированный контейнер,
      абсолютно позиционирован внутри .spread. Содержимое НЕ обрезается:
      что не влезло — выезжает за низ страницы, и это видно.
-   - .spread — разворот: две страницы рядом. Нечётная страница — левая:
-     широкое поле слева (под значки и карты), корешок справа. Чётная —
-     правая: корешок слева, поле справа.
+   - .spread — разворот: две страницы рядом; титул и «Конец» — одни по
+     центру (.single). Чётная страница — левая: широкое поле слева (под
+     значки и карты), корешок справа. Нечётная — правая: корешок слева,
+     поле справа.
    - Главы раскладываются по страницам руками в tools/build-rules-new.py.
 
    Оформление главы: заголовок по центру с кистевыми штрихами, бледная
@@ -121,18 +122,22 @@ html, body {
     0 0 0 1px rgba(60, 30, 10, .4),
     0 20px 50px rgba(0, 0, 0, .65);
 }
-.sheet.odd  { left: 0; }
-.sheet.even { left: var(--sheet-w); }
+.sheet.left  { left: 0; }
+.sheet.right { left: var(--sheet-w); }
+/* Одиночный разворот: титул и «Конец» — лист по центру */
+.spread.single { width: var(--sheet-w); }
+.spread.single .sheet { left: 0; }
 /* Тень корешка */
-.sheet.odd::after, .sheet.even::after {
+.sheet.left::after, .sheet.right::after {
   content: "";
   position: absolute;
   top: 0; bottom: 0;
   width: 6mm;
   pointer-events: none;
 }
-.sheet.odd::after  { right: 0; background: linear-gradient(to left,  rgba(60, 30, 10, .14), transparent); }
-.sheet.even::after { left: 0;  background: linear-gradient(to right, rgba(60, 30, 10, .14), transparent); }
+.sheet.left::after  { right: 0; background: linear-gradient(to left,  rgba(60, 30, 10, .14), transparent); }
+.sheet.right::after { left: 0;  background: linear-gradient(to right, rgba(60, 30, 10, .14), transparent); }
+.spread.single .sheet::after { display: none; }
 
 /* Текстовая колонка страницы. Высота не ограничивает содержимое:
    overflow visible, лишнее выезжает за низ. */
@@ -141,8 +146,8 @@ html, body {
   top: var(--m-top);
   height: calc(var(--sheet-h) - var(--m-top) - var(--m-bottom));
 }
-.sheet.odd  .content { left: var(--outer);  right: var(--gutter); }
-.sheet.even .content { left: var(--gutter); right: var(--outer); }
+.sheet.left  .content { left: var(--outer);  right: var(--gutter); }
+.sheet.right .content { left: var(--gutter); right: var(--outer); }
 
 /* Колонцифра — по центру нижнего поля, тихая: узкий шрифт, точки по бокам */
 .folio {
@@ -160,20 +165,63 @@ html, body {
 .folio::before { content: "·  "; color: var(--gold); }
 .folio::after  { content: "  ·"; color: var(--gold); }
 
-/* ---------- Обложка (первая страница) ---------- */
-.cover {
-  position: relative;
-  text-align: center;
-  padding: 2mm 0 0;
-  margin-bottom: 6mm;
-}
-/* Рисунок обложки: чёрная тушь на прозрачном, в высоту прежней шапки */
-.cover-art {
+/* ---------- Титульный лист и «Конец» ---------- */
+/* Титул: рисунок дуэли во всю колонку, название крупно, подзаголовок между штрихами */
+.sheet.title .content, .sheet.end .content { left: var(--outer); right: var(--outer); }
+.title-page { text-align: center; padding-top: 18mm; }
+.title-art {
   display: block;
-  height: 40mm;
-  max-width: 100%;
-  margin: 0 auto;
+  width: 100%;
+  height: 76mm;
+  margin: 0 auto 10mm;
   object-fit: contain;
+}
+.title-name {
+  font-family: 'Han Zi Web', 'Shippori Mincho', serif;
+  font-size: 26pt;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0 0 6mm;
+}
+/* Подзаголовок между двумя кистевыми штрихами */
+.title-sub {
+  display: flex;
+  align-items: center;
+  gap: 4mm;
+  margin: 0;
+  font-family: 'PT Sans Narrow', 'PT Sans', Arial, sans-serif;
+  font-size: 12pt;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  text-indent: 0;
+}
+.title-sub::before, .title-sub::after {
+  content: "";
+  flex: 1;
+  max-width: 30mm;
+  height: 3px;
+  background: radial-gradient(ellipse 50% 90% at 50% 50%, var(--ink) 0%, var(--ink-soft) 35%, transparent 72%);
+  opacity: .55;
+  filter: blur(.4px);
+}
+.title-sub::before { margin-left: auto; }
+.title-sub::after  { margin-right: auto; }
+/* Оборот титула: выходные данные мелко у нижнего поля */
+.sheet.imprint .content { left: var(--outer); right: var(--outer); }
+.imprint { position: absolute; left: 0; right: 0; bottom: 0; margin: 0; text-align: center; font-size: 7pt; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-faded); text-indent: 0; }
+/* «Конец»: иероглиф 終 и слово между штрихами, по центру листа */
+.end-page { text-align: center; padding-top: 72mm; }
+.end-kanji {
+  font-family: 'Shippori Mincho', 'Noto Serif JP', 'Yu Mincho', 'MS Mincho', serif;
+  font-size: 34pt;
+  line-height: 1;
+  color: rgba(122, 20, 16, .45);
+  margin: 0 0 6mm;
+  text-indent: 0;
 }
 .kanji-banner {
   font-family: 'Han Zi Web', 'Shippori Mincho', serif;
@@ -377,7 +425,7 @@ p .fig-inline { width: 3.2mm; height: 5.2mm; vertical-align: -1.6mm; margin: 0 .
 
 /* ---------- Значки и карты главы: флоат с обтеканием ---------- */
 /* Колонка стоит в потоке сразу после заголовка главы и обтекается
-   текстом: у нечётных страниц прижата к наружному левому краю, у чётных —
+   текстом: у левых страниц прижата к наружному левому краю, у правых —
    к правому. Текст ниже колонки уходит под неё на всю ширину; следующая
    глава начинается после колонки (clear в конце главы). */
 .chapter-side {
@@ -388,8 +436,8 @@ p .fig-inline { width: 3.2mm; height: 5.2mm; vertical-align: -1.6mm; margin: 0 .
   gap: 2mm;
   margin-bottom: 2mm;
 }
-.sheet.odd  .chapter-side { float: left;  margin-right: 4mm; }
-.sheet.even .chapter-side { float: right; margin-left: 4mm; }
+.sheet.left  .chapter-side { float: left;  margin-right: 4mm; }
+.sheet.right .chapter-side { float: right; margin-left: 4mm; }
 /* Веер повёрнутых карт шире одной карты: флоат расширяется под его размах,
    чтобы текст огибал карты, а не заезжал под них (замерено в браузере). */
 .chapter-side:has(.side-cards.fan.n2) { width: 37mm; }

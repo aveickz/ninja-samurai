@@ -49,5 +49,5 @@
     overflow: hidden;              /* на бумаге выехавшее всё равно отрежет лист */
   }
   .sheet:last-child { break-after: auto; page-break-after: auto; }
-  .sheet.odd::after, .sheet.even::after { display: none; }
+  .sheet.left::after, .sheet.right::after { display: none; }
 }
