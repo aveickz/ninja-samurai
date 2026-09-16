@@ -2310,9 +2310,9 @@ const CARDS = [
     icons: [],
     tags: ["toPrint"],
     desc: "В фазе набора берите на одну карту больше; до двух карт набора можете взять у союзников по согласию вместо колоды. " +
-          "Лишние карты перед началом хода не сбрасывайте, а раздайте союзникам по одной в закрытую. Ауру можете выложить перед любым союзником вместо себя." +
+          "Лишние карты перед началом хода не сбрасывайте, а раздайте союзникам по одной в закрытую. Раз в ход можете передвинуть свою активную ауру к союзнику или выложить ауру с руки перед любым союзником." +
           "[NL]{После вашей смерти} ваши союзники берут по одной карте из колоды.",
-    enDesc: "In the draw phase, draw one extra card; up to two of the cards you draw may come from allies' hands, by agreement, instead of the deck. Before your turn, instead of discarding down to the hand limit, hand the extra cards to allies, one each, face down. You may play an Aura in front of any ally instead of yourself.[NL]{After your death} your allies each draw a card from the deck.",
+    enDesc: "In the draw phase, draw one extra card; up to two of the cards you draw may come from allies' hands, by agreement, instead of the deck. Before your turn, instead of discarding down to the hand limit, hand the extra cards to allies, one each, face down. Once per turn you may move your active Aura to an ally, or play an Aura from your hand in front of any ally.[NL]{After your death} your allies each draw a card from the deck.",
     img: "cards/card_136_taranaga.png"
   },
   {
