@@ -896,13 +896,13 @@ const CARDS = [
     id: 56,
     title: "Блок",
     enTitle: "Block",
-    types: ["defense", "intervention"],
+    types: ["intervention", "defense"],
     qty: 3,
-    group: "defense",
-    icons: ["intervention"],
+    group: "intervention",
+    icons: ["defense"],
     tags: ["toPrint"],
-    desc: "Можно сыграть в любой момент за любого игрока как карту вмешательства.",
-    enDesc: "May be played at any time, for any player, as an Intervention.",
+    desc: "Можно сыграть в любой момент за любого игрока.",
+    enDesc: "May be played at any time, for any player.",
     img: "cards/card_56_blok.png"
   },
 
