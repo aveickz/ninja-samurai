@@ -28,27 +28,27 @@
                 radial-gradient(ellipse 50mm 30mm at 20% 70%, rgba(120,70,20,.10), transparent 70%),
                 url('media/paper.png') center / 100% 100% no-repeat var(--paper-light);
     box-shadow: 0 0 0 1px rgba(60,30,10,.4), 0 20px 50px rgba(0,0,0,.65); }
-  .sheet::before { content:""; position:absolute; inset:8mm 40mm 26mm; background:url('media/bg/flow.webp') center / contain no-repeat;
-    opacity:.09; mix-blend-mode:multiply; pointer-events:none; }
+  /* бледная тушь — на свободном месте слева посередине */
+  .sheet::before { content:""; position:absolute; left:4mm; top:56mm; width:56mm; height:40mm;
+    background:url('media/bg/flow.webp') center / contain no-repeat; opacity:.11; mix-blend-mode:multiply; pointer-events:none; }
 
-  /* заголовок листа — как заголовок главы правил */
-  .ttl { position:absolute; left:6mm; top:4mm; font-family:'Han Zi Web','Shippori Mincho',serif; font-size:10.5pt; text-transform:uppercase;
-    letter-spacing:.04em; color:var(--ink); display:flex; align-items:center; gap:2.5mm; line-height:1; }
+  /* заголовок — как заголовок главы правил, по центру сверху */
+  .ttl { position:absolute; left:0; right:0; top:4mm; display:flex; justify-content:center; align-items:center; gap:2.5mm;
+    font-family:'Han Zi Web','Shippori Mincho',serif; font-size:10.5pt; text-transform:uppercase; letter-spacing:.04em; color:var(--ink); line-height:1; }
   .ttl .kanji { font-family:'Shippori Mincho','Noto Serif JP','Yu Mincho',serif; font-size:11pt; color:rgba(122,20,16,.45); text-transform:none; letter-spacing:.06em; }
   .ttl .kanji::before { content:"·"; font-family:'PT Sans Narrow',sans-serif; font-size:9pt; color:rgba(70,58,50,.28); margin-right:2.5mm; }
-  .ttl2 { position:absolute; right:6mm; top:5mm; font-size:7pt; color:var(--ink-faded); letter-spacing:.08em; text-transform:uppercase; }
 
-  /* предметы на столе */
-  .card { position:absolute; display:block; border-radius:1mm; box-shadow:0 .5mm 1.2mm rgba(40,20,5,.35); outline:.35mm solid #fff; }
-  .card.hand { outline-width:.3mm; box-shadow:0 .4mm 1mm rgba(40,20,5,.35); }
+  /* предметы */
+  .card { position:absolute; display:block; border-radius:.9mm; box-shadow:0 .5mm 1.2mm rgba(40,20,5,.35); outline:.32mm solid #fff; }
+  .card.hand { outline-width:.28mm; box-shadow:0 .4mm 1mm rgba(40,20,5,.35); }
   .fig { position:absolute; display:block; filter: drop-shadow(0 .5mm .6mm rgba(0,0,0,.45)); }
   .tok { position:absolute; display:block; filter: drop-shadow(0 .3mm .4mm rgba(0,0,0,.35)); }
 
-  /* SVG-слой: контуры и линии */
+  /* SVG-слой: скобки и штрихи тушью */
   .ov { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
-  .ov .outl rect { fill:none; stroke:var(--vermilion); stroke-width:.3; opacity:.75; }
-  .ov .lines line { stroke:var(--vermilion); stroke-width:.3; opacity:.8; marker-end:url(#dot); }
-  .ov #dot circle { fill:var(--vermilion); }
+  .ov .br path { fill:none; stroke:var(--ink-soft); stroke-width:.42; stroke-linecap:round; stroke-linejoin:round; opacity:.85; }
+  .ov .st path { fill:var(--ink-soft); opacity:.8; }
+  .ov .pin { fill:var(--vermilion); opacity:.9; }
 
   /* выноски */
   .co { position:absolute; }
@@ -56,6 +56,7 @@
   .co p { margin:0; color:var(--ink); }
   .co p b { color:var(--vermilion); }
   .co p i { font-style:italic; color:var(--ink-faded); font-weight:700; }
+  .co-right h4, .co-right p { text-align:left; }
 
   /* значки */
   .ic { display:inline-block; position:relative; width:var(--ic); height:var(--ic); border-radius:50%; vertical-align:-.9mm; flex:none; }
@@ -68,22 +69,20 @@
   .mk { display:inline-block; width:var(--ic); height:var(--ic); object-fit:contain; vertical-align:-.9mm; flex:none; }
   h4 .mk { border-radius:.5mm; }
 
-  /* нижняя полоса */
-  .strip { position:absolute; left:6mm; right:6mm; bottom:3.5mm; height:18mm; padding-top:1.4mm;
-    border-top:.2mm solid rgba(122,20,16,.25); display:grid; grid-template-columns: 78mm 1fr; column-gap:5mm; }
+  /* центр вверху */
+  .center { position:absolute; left:64mm; top:13mm; width:80mm; }
   .chain { display:flex; flex-wrap:wrap; align-items:center; gap:.3mm; font-size:6.2pt; color:var(--ink-soft); line-height:1.1; }
-  .chain > b { width:100%; font-size:7.4pt; color:var(--ink-soft); margin-bottom:.8mm; }
-  .chain .st { display:inline-flex; flex-direction:column; align-items:center; width:9.6mm; text-align:center; }
-  .chain .st .ic { --ic:4mm; margin-bottom:.3mm; }
+  .chain > b { width:100%; font-size:7.4pt; margin-bottom:.8mm; }
+  .chain .s { display:inline-flex; flex-direction:column; align-items:center; width:9.4mm; text-align:center; }
+  .chain .s .ic { --ic:3.8mm; margin-bottom:.3mm; }
   .chain .arr { color:rgba(70,58,50,.35); font-size:6pt; margin:0 -.5mm 2.6mm; }
-  .chain .tail { width:100%; margin-top:.8mm; font-size:6.4pt; color:var(--ink-faded); }
+  .chain .tail { width:100%; margin-top:.6mm; font-size:6.3pt; color:var(--ink-faded); }
   .chain .tail .ic { --ic:2.8mm; vertical-align:-.7mm; }
-  .misc p { margin:0 0 .7mm; color:var(--ink); }
+  .misc { margin-top:1.8mm; padding-top:1.4mm; border-top:.2mm solid rgba(122,20,16,.25); }
+  .misc p { margin:0 0 .6mm; color:var(--ink); }
   .misc p .ic { --ic:3mm; margin-right:1mm; vertical-align:-.7mm; }
   .misc p b { color:var(--ink-soft); }
-  .misc p b + span, .misc p b { font-weight:700; }
 
-  /* печать */
   @page { size: A5 landscape; margin:0; }
   @media print {
     html, body { background:#fff; }
@@ -97,46 +96,47 @@
 <div class="desk">
   <div class="desk-note">Памятка-схема · A5 горизонтально · <a href="rules.html">правила</a> · <a href="cheatsheet.html">памятка в три колонки</a></div>
   <div class="sheet">
-    <div class="ttl">Зона игрока <span class="kanji">陣</span></div>
-    <div class="ttl2">Самураи против Ниндзя · памятка</div>
-<img class="card" data-k="char" src="media/cards/137.webp" alt="" style="left:64mm;top:21mm;width:17mm;height:27.2mm;">
-<img class="card" data-k="role" src="media/cards/201.webp" alt="" style="left:83mm;top:21mm;width:17mm;height:27.2mm;">
-<img class="card" data-k="stance" src="media/cards/1166.webp" alt="" style="left:102mm;top:21mm;width:17mm;height:27.2mm;">
-<img class="card" data-k="effect" src="media/cards/91.webp" alt="" style="left:121mm;top:21mm;width:17mm;height:27.2mm;">
-<img class="fig" data-k="poison" src="media/fig/poison.webp" alt="" style="left:73.4mm;top:31.5mm;width:6.2mm;height:9.6mm;">
-<img class="tok" data-k="hp0" src="../media/hp.png" alt="" style="left:64.0mm;top:52.5mm;width:4.8mm;height:4.8mm;">
-<img class="tok" data-k="hp1" src="../media/hp.png" alt="" style="left:69.4mm;top:52.5mm;width:4.8mm;height:4.8mm;">
-<img class="tok" data-k="hp2" src="../media/hp.png" alt="" style="left:74.8mm;top:52.5mm;width:4.8mm;height:4.8mm;">
-<img class="tok" data-k="hp3" src="../media/hp.png" alt="" style="left:80.2mm;top:52.5mm;width:4.8mm;height:4.8mm;">
-<img class="tok" data-k="vp0" src="../media/winpoint.png" alt="" style="left:64.0mm;top:60mm;width:4.8mm;height:4.8mm;">
-<img class="tok" data-k="vp1" src="../media/winpoint.png" alt="" style="left:69.4mm;top:60mm;width:4.8mm;height:4.8mm;">
-<img class="tok" data-k="vp2" src="../media/winpoint.png" alt="" style="left:74.8mm;top:60mm;width:4.8mm;height:4.8mm;">
-<img class="tok" data-k="vp3" src="../media/winpoint.png" alt="" style="left:80.2mm;top:60mm;width:4.8mm;height:4.8mm;">
-<img class="card" data-k="trapcard" src="media/cards/back.webp" alt="" style="left:94mm;top:50.5mm;width:17mm;height:27.2mm;transform:rotate(-6deg);">
-<img class="fig" data-k="trap" src="media/fig/trap.webp" alt="" style="left:97mm;top:59mm;width:11mm;height:11mm;">
-<img class="card" data-k="aura" src="media/cards/1204.webp" alt="" style="left:121mm;top:50.5mm;width:17mm;height:27.2mm;">
-<img class="card hand" data-k="hand0" src="media/cards/back.webp" alt="" style="left:61.0mm;top:83.3mm;width:13mm;height:20.8mm;transform:rotate(-22deg);">
-<img class="card hand" data-k="hand1" src="media/cards/back.webp" alt="" style="left:66.2mm;top:81.9mm;width:13mm;height:20.8mm;transform:rotate(-11deg);">
-<img class="card hand" data-k="hand2" src="media/cards/back.webp" alt="" style="left:71.4mm;top:80.5mm;width:13mm;height:20.8mm;">
-<img class="card hand" data-k="hand3" src="media/cards/back.webp" alt="" style="left:76.6mm;top:81.9mm;width:13mm;height:20.8mm;transform:rotate(11deg);">
-<img class="card hand" data-k="hand4" src="media/cards/back.webp" alt="" style="left:81.8mm;top:83.3mm;width:13mm;height:20.8mm;transform:rotate(22deg);">
-<img class="card" data-k="weapon" src="media/cards/1.webp" alt="" style="left:110mm;top:78mm;width:17mm;height:27.2mm;transform:rotate(-4deg);">
-<img class="card" data-k="modifier" src="media/cards/70.webp" alt="" style="left:117mm;top:81mm;width:17mm;height:27.2mm;transform:rotate(7deg);">
-<img class="card" data-k="defense" src="media/cards/48.webp" alt="" style="left:139mm;top:80mm;width:17mm;height:27.2mm;transform:rotate(-10deg);">
-<svg class="ov" viewBox="0 0 210 148" xmlns="http://www.w3.org/2000/svg"><defs><marker id="dot" viewBox="0 0 4 4" refX="2" refY="2" markerWidth="3" markerHeight="3"><circle cx="2" cy="2" r="1.6"/></marker></defs><g class="lines"><line x1="58.0" y1="10.6" x2="62.8" y2="19.8"/><line x1="58.0" y1="26.6" x2="72.2" y2="30.3"/><line x1="88.0" y1="15.4" x2="88.0" y2="19.8"/><line x1="120.0" y1="15.4" x2="120.0" y2="19.8"/><line x1="156.0" y1="11.6" x2="139.2" y2="19.8"/><line x1="58.0" y1="48.6" x2="62.8" y2="51.3"/><line x1="58.0" y1="66.6" x2="62.8" y2="66.0"/><line x1="156.0" y1="45.6" x2="139.2" y2="49.3"/><line x1="58.0" y1="81.6" x2="56.4" y2="81.6"/><line x1="106.7" y1="107.4" x2="106.7" y2="79.7"/><line x1="125.4" y1="109.4" x2="125.4" y2="110.3"/><line x1="156.0" y1="79.6" x2="159.4" y2="79.6"/></g><g class="outl"><rect x="62.8" y="19.8" width="19.4" height="29.6" rx="1.6"/><rect x="72.2" y="30.3" width="8.6" height="12.0" rx="1.6"/><rect x="81.8" y="19.8" width="19.4" height="29.6" rx="1.6"/><rect x="100.8" y="19.8" width="19.4" height="29.6" rx="1.6"/><rect x="119.8" y="19.8" width="19.4" height="29.6" rx="1.6"/><rect x="62.8" y="51.3" width="23.4" height="7.2" rx="1.6"/><rect x="62.8" y="58.8" width="23.4" height="7.2" rx="1.6"/><rect x="119.8" y="49.3" width="19.4" height="29.6" rx="1.6"/><rect x="56.4" y="79.3" width="43.0" height="27.7" rx="1.6"/><rect x="91.4" y="48.5" width="22.2" height="31.2" rx="1.6"/><rect x="107.9" y="76.2" width="28.9" height="34.1" rx="1.6"/><rect x="135.6" y="77.5" width="23.9" height="32.1" rx="1.6"/></g></svg>
-<div class="co" style="left:5mm;top:9mm;width:53mm"><h4><i class="ic" data-b="hp"></i>Персонаж</h4><p>Жизни — цифра в сердце; это же максимум для <i>полного здоровья</i>. Открыт всем всю партию.</p></div>
-<div class="co" style="left:5mm;top:25mm;width:53mm"><h4><i class="ic" data-b="poison"></i>Яд</h4><p>Бутылка на персонаже. В конце хода <b>−2</b> жизни; отравленная атака по вам <b>+1</b> рана. Смерть от яда — без восстановления, очко в сброс.</p></div>
-<div class="co" style="left:76mm;top:4mm;width:24mm"><h4><i class="ic" data-b="rolectx"></i>Роль</h4><p>Самурай, Ниндзя или Сёгун. Сёгун — самурай, начинает раунд.</p></div>
-<div class="co" style="left:103mm;top:4mm;width:34mm"><h4><i class="ic" data-b="stance"></i>Стойка</h4><p>Раз за ход, одна. Работает сразу. Новая — прежняя в руку.</p></div>
-<div class="co" style="left:156mm;top:10mm;width:49mm"><h4><i class="ic" data-b="effect"></i>Эффекты</h4><p>Справа от персонажа, в открытую. Постоянные — до смерти, разовые — до срабатывания. Одноимённые не повторяются. Только на живых.</p></div>
-<div class="co" style="left:5mm;top:47mm;width:53mm"><h4><i class="ic" data-b="hpctx"></i>Жизни</h4><p><b>0</b> — мертвы до конца хода: очко убийце, открытые карты в сброс, вас никто не трогает. Со следующего хода живы; в свой ход — восстановление.</p></div>
-<div class="co" style="left:5mm;top:65mm;width:53mm"><h4><img class="mk" src="../media/winpoint.png" alt="">Победные очки</h4><p>Старт — <b>4</b>. Убили — забрали очко у жертвы. Чьи-то <b>0</b> — конец партии.</p></div>
-<div class="co" style="left:156mm;top:44mm;width:49mm"><h4><i class="ic" data-b="aura"></i>Аура</h4><p>Перед персонажем, одна на игрока. Действует на всех за столом; у команды складываются. Новая — прежняя в руку.</p></div>
-<div class="co" style="left:5mm;top:80mm;width:53mm"><h4><img class="mk" src="media/cards/back.webp" alt="">Рука</h4><p>Старт — <b>7</b>. В начале хода не больше <b>9</b>, лишнее в сброс. В конце хода набор <b>3</b> <i>(меньшая команда +1)</i>, затем каждый противник берёт <b>1</b>. Между ходами не ограничена.</p></div>
-<div class="co" style="left:64mm;top:108mm;width:44mm"><h4><i class="ic" data-b="trap"></i>Ловушка</h4><p>Одна, рубашкой вверх, фигурка сверху. Срабатывает, если атакуют и вы не защищаетесь; метательное её не будит. Подложили не ловушку — умираете.</p></div>
-<div class="co" style="left:111mm;top:110mm;width:48mm"><h4><i class="ic" data-b="weapon"></i>Атака</h4><p>До <b>2</b> за ход. Оружие берёт цель, если его сложность ≥ сложности цели (обычно 1); метательное — любую. Один модификатор. Кулаки — 1/1 за обе атаки.</p></div>
-<div class="co" style="left:156mm;top:78mm;width:49mm"><h4><i class="ic" data-b="defense"></i>Защита</h4><p>Своя — атака отбита, бонусы атакующего не срабатывают. Союзная, как вмешательство: одна — раны до <b>1</b>, две от команды — до <b>0</b>. Беззащитного не спасти.</p></div>
-<div class="strip"><div class="chain"><b>Порядок расчёта</b><span class="st"><i class="ic" data-b="character"></i>персонаж</span><span class="arr">→</span><span class="st"><i class="ic" data-b="stance"></i>стойка</span><span class="arr">→</span><span class="st"><i class="ic" data-b="aura"></i>аура</span><span class="arr">→</span><span class="st"><i class="ic" data-b="poison"></i>яд</span><span class="arr">→</span><span class="st"><i class="ic" data-b="effect"></i>эффект</span><span class="arr">→</span><span class="st"><i class="ic" data-b="weapon"></i>оружие</span><span class="arr">→</span><span class="st"><i class="ic" data-b="modifier"></i>модификатор</span><span class="tail">у защищающегося то же, последней — <i class="ic" data-b="trap"></i> ловушка · «не менее 1» держится с места, где встретился</span></div><div class="misc"><p><i class="ic" data-b="intervention"></i><b>Вмешательство</b> — не в свой ход, посреди чужого действия или в тишине; всё сыгранное — одновременно, порядок выбирает тот, чья жизнь на кону.</p><p><i class="ic" data-b="thrust"></i><b>Выпад</b> — раны напрямую: не атака, без защиты и ловушки, не тратит атаку.</p><p><i class="ic" data-b="action"></i><b>Восстановление</b> — в начале хода после смерти: сброс любых карт, добор до <b>7</b>.</p><p><i class="ic" data-b="aoe"></i><b>Конец партии</b> — кончилась колода · у кого-то 0 очков · по договорённости, доиграв раунд до игрока перед Сёгуном.</p></div></div>
+    <div class="ttl">Самураи против Ниндзя <span class="kanji">覚</span></div>
+<img class="card hand" data-k="hand0" src="media/cards/back.webp" alt="" style="left:12.0mm;top:12.4mm;width:12mm;height:19.2mm;transform:rotate(-22deg);">
+<img class="card hand" data-k="hand1" src="media/cards/back.webp" alt="" style="left:17.4mm;top:11.2mm;width:12mm;height:19.2mm;transform:rotate(-11deg);">
+<img class="card hand" data-k="hand2" src="media/cards/back.webp" alt="" style="left:22.8mm;top:10.0mm;width:12mm;height:19.2mm;">
+<img class="card hand" data-k="hand3" src="media/cards/back.webp" alt="" style="left:28.200000000000003mm;top:11.2mm;width:12mm;height:19.2mm;transform:rotate(11deg);">
+<img class="card hand" data-k="hand4" src="media/cards/back.webp" alt="" style="left:33.6mm;top:12.4mm;width:12mm;height:19.2mm;transform:rotate(22deg);">
+<img class="card" data-k="weapon" src="media/cards/1.webp" alt="" style="left:150mm;top:8mm;width:15mm;height:24mm;transform:rotate(-6deg);">
+<img class="card" data-k="modifier" src="media/cards/70.webp" alt="" style="left:158mm;top:11mm;width:15mm;height:24mm;transform:rotate(6deg);">
+<img class="card" data-k="defense" src="media/cards/48.webp" alt="" style="left:184mm;top:9mm;width:15mm;height:24mm;transform:rotate(-10deg);">
+<img class="card" data-k="trapcard" src="media/cards/back.webp" alt="" style="left:66.5mm;top:88.5mm;width:15mm;height:24mm;transform:rotate(90deg);">
+<img class="fig" data-k="trap" src="media/fig/trap.webp" alt="" style="left:69.5mm;top:96mm;width:9mm;height:9mm;">
+<img class="card" data-k="char" src="media/cards/137.webp" alt="" style="left:66.5mm;top:108.5mm;width:15mm;height:24mm;transform:rotate(90deg);">
+<img class="fig" data-k="poison" src="media/fig/poison.webp" alt="" style="left:71.4mm;top:116.5mm;width:5.2mm;height:8mm;">
+<img class="card" data-k="role" src="media/cards/201.webp" alt="" style="left:92.5mm;top:108.5mm;width:15mm;height:24mm;transform:rotate(90deg);">
+<img class="tok" data-k="hp0" src="../media/hp.png" alt="" style="left:63.0mm;top:131mm;width:4.6mm;height:4.6mm;">
+<img class="tok" data-k="hp1" src="../media/hp.png" alt="" style="left:68.2mm;top:131mm;width:4.6mm;height:4.6mm;">
+<img class="tok" data-k="hp2" src="../media/hp.png" alt="" style="left:73.4mm;top:131mm;width:4.6mm;height:4.6mm;">
+<img class="tok" data-k="hp3" src="../media/hp.png" alt="" style="left:78.6mm;top:131mm;width:4.6mm;height:4.6mm;">
+<img class="tok" data-k="vp0" src="../media/winpoint.png" alt="" style="left:63.0mm;top:138.3mm;width:4.6mm;height:4.6mm;">
+<img class="tok" data-k="vp1" src="../media/winpoint.png" alt="" style="left:68.2mm;top:138.3mm;width:4.6mm;height:4.6mm;">
+<img class="tok" data-k="vp2" src="../media/winpoint.png" alt="" style="left:73.4mm;top:138.3mm;width:4.6mm;height:4.6mm;">
+<img class="tok" data-k="vp3" src="../media/winpoint.png" alt="" style="left:78.6mm;top:138.3mm;width:4.6mm;height:4.6mm;">
+<img class="card" data-k="effect0" src="media/cards/91.webp" alt="" style="left:118mm;top:110mm;width:15mm;height:24mm;">
+<img class="card" data-k="effect1" src="media/cards/91.webp" alt="" style="left:121mm;top:107mm;width:15mm;height:24mm;">
+<img class="card" data-k="effect2" src="media/cards/91.webp" alt="" style="left:124mm;top:104mm;width:15mm;height:24mm;">
+<img class="card" data-k="stance" src="media/cards/1166.webp" alt="" style="left:139mm;top:118mm;width:15mm;height:24mm;">
+<img class="card" data-k="aura" src="media/cards/1204.webp" alt="" style="left:139mm;top:92mm;width:15mm;height:24mm;">
+<svg class="ov" viewBox="0 0 210 148" xmlns="http://www.w3.org/2000/svg"><defs><filter id="ink" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="2" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale=".45" xChannelSelector="R" yChannelSelector="G"/></filter></defs><g class="br" filter="url(#ink)"><path d="M7.8,31.7 V34.1 H49.8 V31.7"/><path d="M147.8,34.3 V36.7 H175.2 V34.3"/><path d="M181.0,32.7 V35.1 H202.0 V32.7"/><path d="M61.0,94.4 V92.0 H87.0 V94.4"/><path d="M87.0,114.4 V112.0 H113.0 V114.4"/><path d="M117.0,105.4 V103.0 H140.0 V105.4"/><path d="M152.6,91.0 H155.0 V117.0 H152.6"/><path d="M152.6,117.0 H155.0 V143.0 H152.6"/><path d="M63.4,112.0 H61.0 V129.0 H63.4"/><path d="M64.4,130.0 H62.0 V136.6 H64.4"/><path d="M64.4,137.3 H62.0 V143.9 H64.4"/></g><g class="st" filter="url(#ink)"><path d="M28.31,34.33 L28.26,34.69 L28.22,35.05 L28.19,35.41 L28.18,35.77 L28.17,36.12 L28.18,36.47 L28.20,36.82 L28.24,37.17 L28.28,37.52 L28.34,37.87 L28.40,38.21 L28.48,38.55 L28.58,38.89 L28.68,39.23 L28.92,39.17 L28.87,38.83 L28.84,38.49 L28.81,38.15 L28.80,37.82 L28.80,37.49 L28.81,37.15 L28.83,36.82 L28.86,36.50 L28.90,36.17 L28.96,35.85 L29.02,35.52 L29.10,35.20 L29.19,34.88 L29.29,34.57 Z"/><path d="M161.01,36.90 L161.00,37.08 L161.00,37.25 L161.00,37.43 L161.00,37.60 L161.01,37.77 L161.03,37.94 L161.06,38.11 L161.09,38.27 L161.12,38.44 L161.16,38.60 L161.21,38.76 L161.26,38.92 L161.32,39.07 L161.38,39.23 L161.62,39.17 L161.61,39.01 L161.61,38.86 L161.62,38.70 L161.62,38.55 L161.64,38.40 L161.66,38.26 L161.68,38.11 L161.71,37.96 L161.74,37.82 L161.78,37.68 L161.83,37.54 L161.88,37.41 L161.93,37.27 L161.99,37.13 Z"/><path d="M191.01,35.30 L190.56,37.45 L190.18,39.60 L189.88,41.74 L189.65,43.89 L189.49,46.03 L189.41,48.17 L189.40,50.31 L189.46,52.45 L189.60,54.58 L189.81,56.72 L190.09,58.85 L190.45,60.98 L190.88,63.10 L191.38,65.23 L191.62,65.17 L191.17,63.04 L190.80,60.92 L190.50,58.79 L190.27,56.67 L190.12,54.55 L190.04,52.43 L190.03,50.31 L190.09,48.19 L190.22,46.08 L190.43,43.97 L190.71,41.86 L191.06,39.75 L191.49,37.64 L191.99,35.54 Z"/><path d="M74.49,91.82 L74.73,90.61 L74.93,89.41 L75.08,88.21 L75.20,87.01 L75.28,85.81 L75.31,84.62 L75.31,83.42 L75.26,82.23 L75.17,81.04 L75.04,79.85 L74.87,78.67 L74.66,77.48 L74.41,76.30 L74.12,75.12 L73.88,75.18 L74.11,76.36 L74.31,77.54 L74.47,78.72 L74.58,79.90 L74.65,81.08 L74.69,82.25 L74.68,83.42 L74.63,84.60 L74.55,85.76 L74.42,86.93 L74.25,88.10 L74.05,89.26 L73.80,90.42 L73.51,91.58 Z"/><path d="M100.49,111.82 L100.81,110.25 L101.08,108.68 L101.29,107.12 L101.45,105.55 L101.56,103.99 L101.61,102.43 L101.61,100.88 L101.56,99.32 L101.45,97.76 L101.29,96.21 L101.08,94.66 L100.81,93.11 L100.49,91.57 L100.12,90.02 L99.88,90.08 L100.20,91.63 L100.46,93.17 L100.67,94.72 L100.83,96.26 L100.93,97.80 L100.99,99.34 L100.99,100.88 L100.93,102.41 L100.83,103.94 L100.67,105.47 L100.46,107.00 L100.20,108.53 L99.88,110.06 L99.51,111.58 Z"/><path d="M128.99,102.82 L129.40,100.83 L129.75,98.84 L130.03,96.85 L130.24,94.87 L130.38,92.89 L130.46,90.90 L130.47,88.92 L130.40,86.95 L130.28,84.97 L130.08,83.00 L129.82,81.03 L129.49,79.06 L129.09,77.09 L128.62,75.12 L128.38,75.18 L128.79,77.15 L129.13,79.12 L129.41,81.08 L129.62,83.05 L129.76,85.01 L129.83,86.97 L129.84,88.92 L129.78,90.88 L129.65,92.84 L129.46,94.79 L129.20,96.74 L128.87,98.69 L128.48,100.64 L128.01,102.58 Z"/><path d="M155.71,104.29 L156.15,103.58 L156.57,102.87 L156.96,102.14 L157.33,101.41 L157.67,100.67 L157.98,99.92 L158.26,99.16 L158.52,98.39 L158.76,97.62 L158.96,96.83 L159.14,96.04 L159.29,95.24 L159.42,94.43 L159.52,93.62 L159.28,93.58 L159.12,94.38 L158.95,95.17 L158.74,95.95 L158.51,96.71 L158.26,97.46 L157.98,98.20 L157.68,98.93 L157.36,99.65 L157.01,100.35 L156.63,101.05 L156.23,101.73 L155.81,102.40 L155.36,103.06 L154.89,103.71 Z"/><path d="M155.71,130.29 L156.15,129.58 L156.57,128.87 L156.96,128.14 L157.33,127.41 L157.67,126.67 L157.98,125.92 L158.26,125.16 L158.52,124.39 L158.76,123.62 L158.96,122.83 L159.14,122.04 L159.29,121.24 L159.42,120.43 L159.52,119.62 L159.28,119.58 L159.12,120.38 L158.95,121.17 L158.74,121.95 L158.51,122.71 L158.26,123.46 L157.98,124.20 L157.68,124.93 L157.36,125.65 L157.01,126.35 L156.63,127.05 L156.23,127.73 L155.81,128.40 L155.36,129.06 L154.89,129.71 Z"/><path d="M61.19,120.57 L61.38,118.88 L61.52,117.20 L61.59,115.53 L61.61,113.86 L61.58,112.20 L61.48,110.54 L61.34,108.90 L61.13,107.26 L60.87,105.62 L60.55,104.00 L60.18,102.38 L59.75,100.76 L59.26,99.16 L58.72,97.56 L58.48,97.64 L58.97,99.25 L59.40,100.86 L59.78,102.47 L60.09,104.08 L60.36,105.70 L60.56,107.33 L60.71,108.95 L60.81,110.58 L60.85,112.21 L60.83,113.85 L60.76,115.49 L60.63,117.13 L60.44,118.78 L60.21,120.43 Z"/><path d="M74.36,120.15 L73.39,119.21 L72.39,118.30 L71.37,117.44 L70.33,116.61 L69.26,115.82 L68.18,115.07 L67.06,114.36 L65.93,113.69 L64.77,113.06 L63.59,112.47 L62.39,111.91 L61.16,111.40 L59.91,110.92 L58.64,110.48 L58.56,110.72 L59.80,111.20 L61.02,111.73 L62.21,112.29 L63.38,112.88 L64.52,113.51 L65.64,114.18 L66.73,114.89 L67.79,115.63 L68.83,116.41 L69.84,117.22 L70.83,118.08 L71.79,118.96 L72.73,119.89 L73.64,120.85 Z"/><path d="M62.19,133.23 L62.07,132.62 L61.92,132.01 L61.75,131.42 L61.57,130.84 L61.37,130.27 L61.14,129.70 L60.90,129.15 L60.64,128.60 L60.36,128.07 L60.07,127.54 L59.75,127.02 L59.42,126.52 L59.07,126.02 L58.70,125.53 L58.50,125.67 L58.82,126.18 L59.12,126.70 L59.40,127.23 L59.66,127.76 L59.90,128.29 L60.12,128.83 L60.32,129.38 L60.51,129.93 L60.67,130.49 L60.81,131.06 L60.94,131.63 L61.05,132.20 L61.14,132.79 L61.21,133.37 Z"/><path d="M62.02,140.21 L61.79,140.07 L61.56,139.93 L61.33,139.80 L61.09,139.69 L60.86,139.58 L60.62,139.47 L60.38,139.38 L60.13,139.30 L59.89,139.22 L59.64,139.16 L59.39,139.10 L59.14,139.05 L58.88,139.01 L58.63,138.98 L58.57,139.22 L58.81,139.30 L59.04,139.39 L59.26,139.49 L59.48,139.59 L59.69,139.71 L59.90,139.82 L60.10,139.95 L60.30,140.08 L60.49,140.21 L60.68,140.35 L60.86,140.50 L61.04,140.66 L61.21,140.82 L61.38,140.99 Z"/></g><g><circle class="pin" cx="74.0" cy="120.5" r="1.1"/></g></svg>
+<div class="co co-bottom" style="left:6mm;top:40mm;width:54mm"><h4><img class="mk" src="media/cards/back.webp" alt="">Рука</h4><p>Старт — <b>7</b>. В начале хода не больше <b>9</b>, лишнее в сброс. В конце хода набор <b>3</b> <i>(меньшая команда +1)</i>, затем каждый противник берёт <b>1</b>. Между ходами не ограничена.</p></div>
+<div class="co co-bottom" style="left:144mm;top:40mm;width:36mm"><h4><i class="ic" data-b="weapon"></i>Атака</h4><p>До <b>2</b> за ход. Оружие берёт цель, если его сложность ≥ сложности цели (обычно 1); метательное — любую. Один модификатор. Кулаки — 1/1 за обе атаки.</p></div>
+<div class="co co-bottom" style="left:160mm;top:66mm;width:44mm"><h4><i class="ic" data-b="defense"></i>Защита</h4><p>Своя — атака отбита, бонусы атакующего не срабатывают. Союзная, как вмешательство: одна — раны до <b>1</b>, две от команды — до <b>0</b>. Беззащитного не спасти.</p></div>
+<div class="co co-top" style="left:46mm;top:58mm;width:40mm"><h4><i class="ic" data-b="trap"></i>Ловушка</h4><p>Одна, рубашкой вверх, фигурка сверху. Срабатывает, если атакуют и вы не защищаетесь; метательное её не будит. Подложили не ловушку — умираете.</p></div>
+<div class="co co-top" style="left:88mm;top:78mm;width:26mm"><h4><i class="ic" data-b="rolectx"></i>Роль</h4><p>Самурай, Ниндзя или Сёгун. Сёгун — самурай, начинает раунд.</p></div>
+<div class="co co-top" style="left:114mm;top:58mm;width:34mm"><h4><i class="ic" data-b="effect"></i>Эффекты</h4><p>Справа, в открытую, сколько угодно. Постоянные — до смерти, разовые — до срабатывания. Одноимённые не повторяются. Только на живых.</p></div>
+<div class="co co-right" style="left:160mm;top:92mm;width:44mm"><h4><i class="ic" data-b="aura"></i>Аура</h4><p>Над стойкой, одна на игрока. Действует на всех за столом; у команды складываются. Новая — прежняя в руку.</p></div>
+<div class="co co-right" style="left:160mm;top:118mm;width:44mm"><h4><i class="ic" data-b="stance"></i>Стойка</h4><p>Раз за ход, одна. Работает сразу. Новая — прежняя в руку.</p></div>
+<div class="co co-left" style="left:5mm;top:96mm;width:53mm"><h4><i class="ic" data-b="hp"></i>Персонаж</h4><p>Жизни — цифра в сердце; это же максимум для <i>полного здоровья</i>. Открыт всем всю партию.</p></div>
+<div class="co co-dot" style="left:5mm;top:109mm;width:53mm"><h4><i class="ic" data-b="poison"></i>Яд</h4><p>Бутылка на персонаже. В конце хода <b>−2</b> жизни; отравленная атака по вам <b>+1</b> рана. Смерть от яда — без восстановления, очко в сброс.</p></div>
+<div class="co co-left" style="left:5mm;top:124mm;width:53mm"><h4><i class="ic" data-b="hpctx"></i>Жизни</h4><p><b>0</b> — мертвы до конца хода: очко убийце, открытые карты в сброс, вас никто не трогает. Со следующего хода живы; в свой ход — восстановление.</p></div>
+<div class="co co-left" style="left:5mm;top:137.5mm;width:53mm"><h4><img class="mk" src="../media/winpoint.png" alt="">Победные очки</h4><p>Старт — <b>4</b>. Убили — забрали очко у жертвы. Чьи-то <b>0</b> — конец партии.</p></div>
+<div class="center"><div class="chain"><b>Порядок расчёта</b><span class="s"><i class="ic" data-b="character"></i>персонаж</span><span class="arr">→</span><span class="s"><i class="ic" data-b="stance"></i>стойка</span><span class="arr">→</span><span class="s"><i class="ic" data-b="aura"></i>аура</span><span class="arr">→</span><span class="s"><i class="ic" data-b="poison"></i>яд</span><span class="arr">→</span><span class="s"><i class="ic" data-b="effect"></i>эффект</span><span class="arr">→</span><span class="s"><i class="ic" data-b="weapon"></i>оружие</span><span class="arr">→</span><span class="s"><i class="ic" data-b="modifier"></i>модификатор</span><span class="tail">у защищающегося то же, последней — <i class="ic" data-b="trap"></i> ловушка · «не менее 1» держится с места, где встретился</span></div><div class="misc"><p><i class="ic" data-b="intervention"></i><b>Вмешательство</b> — не в свой ход, посреди чужого действия или в тишине; всё сыгранное — одновременно, порядок выбирает тот, чья жизнь на кону.</p><p><i class="ic" data-b="thrust"></i><b>Выпад</b> — раны напрямую: не атака, без защиты и ловушки, не тратит атаку.</p><p><i class="ic" data-b="action"></i><b>Восстановление</b> — в начале хода после смерти: сброс любых карт, добор до <b>7</b>.</p><p><i class="ic" data-b="aoe"></i><b>Конец партии</b> — кончилась колода · у кого-то 0 очков · по договорённости, доиграв раунд до игрока перед Сёгуном.</p></div></div>
   </div>
 </div>
 <script>
