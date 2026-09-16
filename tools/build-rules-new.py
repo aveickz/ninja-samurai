@@ -72,7 +72,7 @@ CH = {
  'effects':       dict(icons=[[('ic','effect')]],                       cards=[91, 92]),   # «Метка убийцы» и «Противоядие»
  'poison':        dict(icons=[[('ic','poison')]],                       cards=[116, 64]),
  'interventions': dict(layout='stack', icons=[[('ic','intervention')]], cards=[121, 124]),
- 'auras':         dict(layout='stack', icons=[[('ic','aura')]],         cards=[1200, 1204]),
+ 'auras':         dict(icons=[[('ic','aura')]],                        cards=[1206, 1206]),   # две «Дымовые завесы» веером
  'conditional':   dict(layout='stack', icons=[[('ic','rolectx'),('ic','hpctx'),('ic','charges'),('ic','charctx')]], cards=[125, 3094]),
  'order':         dict(icons=[],                                        cards=[]),
 }
@@ -96,8 +96,7 @@ PAGES = [
     ['defense', 'thrust'],
     ['traps', 'stances'],
     ['effects', 'poison'],
-    ['interventions'],
-    ['auras'],
+    ['interventions', 'auras'],
     ['conditional'],
     ['order', 'players'],           # неравные команды — редкость, в самый конец
     ['__end__'],                    # «Конец» — задняя сторона последнего листа
@@ -181,7 +180,7 @@ INLINE = {
   ('weapons', 'либо отбивает атаку картой защиты', 'либо отбивает атаку картой защиты ' + ic('ic','defense')),
   ('weapons', 'Оружие также может быть усилено ядом.', 'Оружие также может быть усилено ядом ' + ic('ic','poison') + '.'),
   ('weapons', 'картой-модификатором с красной плашкой.', 'картой-модификатором ' + ic('ic','modifier') + ' с красной плашкой.'),
-  ('auras', 'поставьте на неё фигурку знамени', 'поставьте на неё фигурку знамени ' + BANNER),
+  ('auras', 'сверху ставится фигурка знамени', 'сверху ставится фигурка знамени ' + BANNER),
   ('setup', 'Цифра внутри сердца — максимум', 'Цифра внутри сердца ' + ic('ic','hp') + ' — максимум'),
   ('setup', '<h4>Выставление жетонов</h4>', '<h4>Выставление жетонов<span class="h-icons">' + ic('mk','hp.png') + ic('mk','winpoint.png') + '</span></h4>'),   # сначала жизни, потом очки
   ('conditional', '<strong>Бонусы по фракции.</strong>', ic('ic','rolectx') + ' <strong>Бонусы по фракции.</strong>'),
@@ -195,7 +194,7 @@ INLINE = {
   ('weapons', 'or blocks the attack with a Defense card', 'or blocks the attack with a Defense card ' + ic('ic','defense')),
   ('weapons', 'Weapons can also be strengthened with poison.', 'Weapons can also be strengthened with poison ' + ic('ic','poison') + '.'),
   ('weapons', 'Modifier card with a red banner.', 'Modifier card ' + ic('ic','modifier') + ' with a red banner.'),
-  ('auras', 'put the banner figurine on it', 'put the banner figurine ' + BANNER + ' on it'),
+  ('auras', 'with the banner figurine on top', 'with the banner figurine ' + BANNER + ' on top'),
   ('setup', 'The number inside the heart is', 'The number inside the heart ' + ic('ic','hp') + ' is'),
   ('setup', '<h4>Setting out tokens</h4>', '<h4>Setting out tokens<span class="h-icons">' + ic('mk','hp.png') + ic('mk','winpoint.png') + '</span></h4>'),
   ('conditional', '<strong>Faction bonuses.</strong>', ic('ic','rolectx') + ' <strong>Faction bonuses.</strong>'),

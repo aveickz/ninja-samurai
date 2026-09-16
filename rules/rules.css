@@ -563,29 +563,32 @@ section.chapter::after { content: ""; display: block; clear: both; }
 .chain .arr { color: var(--gold); font-size: 8pt; margin: 1.2mm -.8mm 0; }
 
 /* ---------- Таблицы балансировки ---------- */
+/* В духе остальной вёрстки: тушь без красного — тёмные линии, шапка чуть
+   темнее бумаги, буква команды тем же шрифтом, что заголовки. */
 .balance-table {
   width: 100%;
   border-collapse: collapse;
   margin: 1.5mm 0 3mm;
   font-size: 7.4pt;
-  background: rgba(110, 70, 20, .06);
-  border: .5pt solid rgba(110, 70, 20, .4);
+  color: var(--ink);
+  border: .7pt solid var(--ink);
 }
 .balance-table th, .balance-table td {
-  border: .4pt solid rgba(110, 70, 20, .35);
+  border: .45pt solid var(--ink-soft);
   padding: 2px 4px;
   text-align: center;
   line-height: 1.2;
 }
 .balance-table thead th {
-  background: rgba(177, 40, 29, .12);
-  color: var(--vermilion-dk);
+  background: rgba(60, 40, 20, .09);
+  border-bottom: .7pt solid var(--ink);
+  color: var(--ink);
   font-weight: 700;
   font-size: 7pt;
 }
 .balance-table tbody td:first-child {
-  font-weight: 700;
-  color: var(--vermilion-dk);
+  font-weight: 400;
+  color: var(--ink);
   font-family: 'Han Zi Web', serif;
   font-size: 9pt;
 }
