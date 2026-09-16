@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Самураи против Ниндзя — памятка A5</title>
+<link rel="icon" type="image/svg+xml" href="../media/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@400;700&family=Shippori+Mincho:wght@400&display=swap" rel="stylesheet">
+<style>
+  /* Памятка на стол: лист A5 в горизонтальной ориентации (210 × 148 мм).
+     Текст — cheatsheet.md. Оформление — как у страниц правил (rules.css):
+     та же бумага media/paper.png, заголовки Han Zi с иероглифом через
+     бледную точку, подзаголовки «текст · значок», примечания с кистевой
+     чертой слева, бледный тушевой фон колонок из media/bg/. На экране —
+     лист на тёмном столе, Ctrl+P — тот же лист один в один на A5 landscape.
+
+     Значки — плоские круги цвета группы с белым знаком, как в правилах:
+     <i class="ic" data-b="trap"></i>, цвет и картинку подставляет скрипт
+     внизу (та же таблица, что в tools/build-rules-new.py). */
+
+  @font-face {
+    font-family: 'Han Zi Web';
+    src: url('fonts/Han-Zi_Regular.woff') format('woff');
+    font-display: swap;
+  }
+
+  :root {
+    --paper:       #efe1bf;
+    --paper-light: #f4ead2;
+    --paper-dark:  #d9c391;
+    --paper-deep:  #c4a86a;
+    --ink:         #1c1410;
+    --ink-soft:    #3a2a1d;
+    --ink-faded:   #6a4a30;
+    --vermilion:   #b1281d;
+    --vermilion-dk:#7a1410;
+    --gold:        #8b6a2a;
+
+    --sheet-w: 210mm;
+    --sheet-h: 148mm;
+    --m-x:     8mm;
+    --m-top:   7mm;
+    --m-bot:   6mm;
+    --gap:     6mm;
+    --fs:      8pt;
+    --ic:      3.6mm;
+    --bg-opacity: .12;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: radial-gradient(ellipse at top, #2a1a10 0%, #150a05 70%), #0a0503;
+    color: var(--ink);
+    font-family: 'PT Sans Narrow', 'PT Sans', Arial, sans-serif;
+    min-height: 100vh;
+  }
+
+  .desk {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px 40px;
+    gap: 14px;
+  }
+  .desk-note { color: #b39a6f; font-size: 14px; letter-spacing: .04em; opacity: .8; }
+  .desk-note a { color: #d8c39a; }
+
+  /* ---------- Лист ---------- */
+  .sheet {
+    width: var(--sheet-w);
+    height: var(--sheet-h);
+    padding: var(--m-top) var(--m-x) var(--m-bot);
+    position: relative;
+    background:
+      radial-gradient(ellipse 60mm 40mm at 85% 12%, rgba(120, 70, 20, .10), transparent 70%),
+      radial-gradient(ellipse 50mm 30mm at 20% 70%, rgba(120, 70, 20, .10), transparent 70%),
+      url('media/paper.png') center / 100% 100% no-repeat var(--paper-light);
+    box-shadow: 0 0 0 1px rgba(60, 30, 10, .4), 0 20px 50px rgba(0, 0, 0, .65);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: var(--gap);
+    font-size: var(--fs);
+    line-height: 1.3;
+    overflow: hidden;
+  }
+
+  /* Колонка: бледный тушевой рисунок под текстом, как фон главы в правилах */
+  .col { position: relative; min-width: 0; }
+  /* Разделитель колонок — та же тонкая кистевая черта, что слева у
+     примечаний (.note): 1pt, густая в середине, сходит на нет к концам.
+     Стоит посередине зазора между колонками. */
+  .col + .col::after {
+    content: "";
+    position: absolute;
+    top: 4mm;
+    bottom: 2mm;
+    left: calc(-1 * var(--gap) / 2);
+    width: 1pt;
+    background: radial-gradient(ellipse 50% 90% at 50% 50%,
+      var(--ink-soft) 0%, var(--ink-faded) 30%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .col::before {
+    content: "";
+    position: absolute;
+    inset: 4mm 0 0;
+    background: var(--bg) center / contain no-repeat;
+    opacity: var(--bg-opacity);
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .col > * { position: relative; z-index: 1; }
+
+  /* Заголовок колонки — как заголовок главы: Han Zi, иероглиф через точку */
+  h2 {
+    font-family: 'Han Zi Web', 'Shippori Mincho', serif;
+    font-weight: 400;
+    font-size: 11.5pt;
+    line-height: 1;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin: 0 0 2mm;
+    display: flex;
+    align-items: center;
+    gap: 2.5mm;
+    white-space: nowrap;
+  }
+  h2 .kanji {
+    font-family: 'Shippori Mincho', 'Noto Serif JP', 'Yu Mincho', 'MS Mincho', serif;
+    font-size: 12pt;
+    letter-spacing: .06em;
+    color: rgba(122, 20, 16, .45);
+    text-transform: none;
+    user-select: none;
+  }
+  h2 .kanji::before {
+    content: "·";
+    font-family: 'PT Sans Narrow', 'PT Sans', Arial, sans-serif;
+    font-size: 10pt;
+    color: rgba(70, 58, 50, .28);
+    margin-right: 2.5mm;
+    letter-spacing: 0;
+  }
+
+  /* Подзаголовок — как h4 в правилах: жирный, текст · значок */
+  h3 {
+    font-size: var(--fs);
+    font-weight: 700;
+    color: var(--ink-soft);
+    margin: 1.9mm 0 .5mm;
+    display: flex;
+    align-items: center;
+    gap: 1.8mm;
+    line-height: 1.15;
+  }
+  h3:first-of-type { margin-top: 0; }
+  h3 .h-icons { display: flex; align-items: center; gap: 1mm; }
+  h3 .h-icons::before {
+    content: "·";
+    font-weight: 400;
+    color: rgba(70, 58, 50, .28);
+    margin-right: 1.8mm;
+  }
+  h3 .h-icons .ic { --ic: 4.2mm; margin: 0; vertical-align: middle; }
+
+  p { margin: 0 0 1.2mm; }
+  p:last-child { margin-bottom: 0; }
+  ul { margin: 0 0 1.2mm; padding-left: 3.2mm; }
+  li { margin: 0 0 .3mm; }
+  li::marker { color: var(--gold); }
+  b { color: var(--ink); }
+  em { color: var(--ink-faded); font-style: italic; }
+
+  /* Примечание — как aside.note: кистевая черта слева */
+  .note {
+    position: relative;
+    padding: .6mm 1.5mm .6mm 3mm;
+    margin: 1.2mm 0;
+    font-size: calc(var(--fs) - .6pt);
+    line-height: 1.3;
+    color: var(--ink-soft);
+    background: radial-gradient(ellipse 50% 90% at 50% 50%,
+      var(--ink-soft) 0%, var(--ink-faded) 30%, transparent 70%) left center / 1pt 100% no-repeat;
+  }
+
+  /* Ключевое число — красным, чтобы цеплялось взглядом */
+  .n { font-weight: 700; color: var(--vermilion); }
+
+  /* Пометка-условие — как термин с карты в правилах */
+  .badge { font-style: italic; font-weight: 700; color: var(--ink-faded); white-space: nowrap; }
+
+  /* ---------- Значки с карт ---------- */
+  .ic {
+    display: inline-block;
+    position: relative;
+    width: var(--ic);
+    height: var(--ic);
+    vertical-align: -1mm;
+    margin: 0 .25mm;
+    border-radius: 50%;
+    flex: none;
+  }
+  .ic > img {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    display: block; padding: 20%;
+    filter: brightness(0) invert(1);
+  }
+  .ic.raw { background: #fff; box-shadow: 0 0 0 .22mm var(--paper-deep) inset; }
+  .ic.raw > img { padding: 14%; filter: none; }
+  .ic.b-rolectx > img { padding: 10%; }
+  .ic.b-hp { background: none; box-shadow: none; }
+  .ic.b-hp > img { padding: 0; filter: none; }
+
+  .mk {
+    display: inline-block;
+    height: var(--ic);
+    width: var(--ic);
+    vertical-align: -1mm;
+    margin: 0 .25mm;
+    object-fit: contain;
+  }
+
+  /* Цепочка порядка расчёта — значки со стрелками, как в главе «Порядок» */
+  .chain {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: .2mm;
+    font-size: calc(var(--fs) - 1.3pt);
+    color: var(--ink-soft);
+    line-height: 1.15;
+    margin: .5mm 0 1mm;
+  }
+  .chain .st {
+    display: inline-flex; flex-direction: column; align-items: center;
+    width: 6.7mm; text-align: center;
+  }
+  .chain .st .ic { margin: 0 0 .3mm; vertical-align: baseline; --ic: 4.2mm; }
+  .chain .arr { color: rgba(70, 58, 50, .35); font-size: 6.5pt; margin: 1mm -.6mm 0; }
+
+  /* Подвал колонки: как колонцифра — бледный, с точками */
+  .foot {
+    margin-top: 1.8mm;
+    padding-top: 1.2mm;
+    border-top: .2mm solid rgba(122, 20, 16, .18);
+    font-size: calc(var(--fs) - .8pt);
+    color: var(--ink-faded);
+  }
+
+  /* ---------- Переключатель языка ---------- */
+  .lang-switch { margin: 0; letter-spacing: .14em; line-height: 1; }
+  .lang-switch a, .lang-switch .lang-switch-current {
+    display: inline-block; padding: 3px 9px; font-size: 13px; font-weight: 700;
+    border: 1px solid #8a6a44; text-decoration: none;
+  }
+  .lang-switch a { color: #b39a6f; }
+  .lang-switch a:hover { color: #f2e6cf; background: #8a6a44; }
+  .lang-switch .lang-switch-current { color: #f2e6cf; background: #6b4a28; border-color: #6b4a28; cursor: default; }
+  .lang-switch a + .lang-switch-current, .lang-switch .lang-switch-current + a { border-left: 0; }
+
+  /* ---------- Печать ---------- */
+  @page { size: A5 landscape; margin: 0; }
+  @media print {
+    html, body { background: #fff; }
+    .desk { min-height: auto; padding: 0; gap: 0; display: block; }
+    .desk-note, .lang-switch { display: none; }
+    .sheet { box-shadow: none; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+<div class="desk">
+  <div class="desk-note">Памятка на стол · A5 горизонтально · <a href="rules.html">правила</a> · <a href="cheatsheet-v2.html">памятка-схема</a> · <a href="../app.html">картотека</a></div>
+  <p class="lang-switch"><span class="lang-switch-current">RU</span><a href="cheatsheet-en.html">EN</a></p>
+
+  <div class="sheet">
+
+    <!-- ================= Колонка 1 ================= -->
+    <section class="col" style="--bg: url('media/bg/flow.webp')">
+      <h2>Мой ход <span class="kanji">手番</span></h2>
+
+      <p><b>Старт.</b> Жизни <i class="ic" data-b="hp"></i> — цифра в сердце персонажа. Победных очков <img class="mk" src="../media/winpoint.png" alt=""> — <span class="n">4</span>. На руке — <span class="n">7</span> карт у каждого. Раунд начинает Сёгун.</p>
+
+      <h3>1 · Начало хода</h3>
+      <p>На руке <b>не больше <span class="n">9</span></b> — лишнее в сброс.<br>
+      Побывали мёртвым — вместо этого <b>восстановление</b>: сбросьте сколько хотите, доберите до <span class="n">7</span>. Умерли от яда — восстановления нет.</p>
+
+      <h3>2 · Действия, в любом порядке</h3>
+      <ul>
+        <li><i class="ic" data-b="weapon"></i> до <span class="n">двух атак</span> оружием</li>
+        <li><i class="ic" data-b="action"></i> действия и <i class="ic" data-b="aoe"></i> групповые действия</li>
+        <li><i class="ic" data-b="trap"></i> ловушку перед собой — <b>одну</b>, рубашкой вверх, с фигуркой</li>
+        <li><i class="ic" data-b="stance"></i> стойку — <b>раз за ход</b>, работает сразу</li>
+        <li><i class="ic" data-b="effect"></i> эффекты на других, <i class="ic" data-b="aura"></i> ауру перед собой — <b>одна</b> на игрока</li>
+        <li>стойка, аура, ловушка: новая заменяет старую, <b>прежняя — в руку</b></li>
+        <li>обмен: 2 карты одного типа → 1 новая; 2 одинаковых → 2 новых</li>
+      </ul>
+
+      <h3>3 · Конец хода</h3>
+      <p>Отравлены <i class="ic" data-b="poison"></i> — <span class="n">−2</span> жизни. Затем <b>набор</b>: <span class="n">3</span> карты из колоды <em>(меньшая команда +1)</em>, после чего <b>каждый противник берёт по <span class="n">1</span></b>.</p>
+
+      <h3>Порядок расчёта</h3>
+      <div class="chain">
+        <span class="st"><i class="ic" data-b="character"></i>герой</span><span class="arr">→</span>
+        <span class="st"><i class="ic" data-b="stance"></i>стойка</span><span class="arr">→</span>
+        <span class="st"><i class="ic" data-b="aura"></i>аура</span><span class="arr">→</span>
+        <span class="st"><i class="ic" data-b="poison"></i>яд</span><span class="arr">→</span>
+        <span class="st"><i class="ic" data-b="effect"></i>эффекты</span><span class="arr">→</span>
+        <span class="st"><i class="ic" data-b="weapon"></i>оружие</span><span class="arr">→</span>
+        <span class="st"><i class="ic" data-b="modifier"></i>модиф.</span>
+      </div>
+      <p class="note">Постоянный эффект раньше разового. У защищающегося то же, последней — <i class="ic" data-b="trap"></i> ловушка. Лимит «не менее 1» держится с места, где встретился; базовая сила 0 даёт 0.</p>
+    </section>
+
+    <!-- ================= Колонка 2 ================= -->
+    <section class="col" style="--bg: url('media/bg/attack.webp')">
+      <h2>Атака и защита <span class="kanji">攻守</span></h2>
+
+      <h3>Сложность цели</h3>
+      <p>По умолчанию <img class="mk" src="../media/icons/complexity1.svg" alt="1"> у любого игрока, где бы он ни сидел. Оружие берёт цель, если его число ≥ сложности. <b>Метательное</b> <img class="mk" src="../media/ranged.png" alt=""> берёт любую и <b>не будит ловушку</b>. Стойки, эффекты и ауры двигают сложность в обе стороны — считается в момент объявления атаки.</p>
+      <p>Сила <img class="mk" src="../media/icons/dmg2.svg" alt=""> — сколько ран получит цель. Без оружия — кулаки: сложность 1, сила 1, стоит <b>обе</b> атаки. На одну атаку — <b>один</b> <i class="ic" data-b="modifier"></i> модификатор.</p>
+
+      <h3>Защищающийся выбирает одно</h3>
+      <ul>
+        <li>принять раны = силе атаки;</li>
+        <li><i class="ic" data-b="defense"></i> <b>защиту</b> с руки — атака отбита, бонусы атакующего не срабатывают;</li>
+        <li><i class="ic" data-b="trap"></i> <b>ловушку</b>, если лежит и вы не защищаетесь.</li>
+      </ul>
+      <p><b>Союзники</b> могут добавить защиту как <i class="ic" data-b="intervention"></i> вмешательство: <b>одна</b> карта — раны до <span class="n">1</span>, <b>две</b> от команды — до <span class="n">0</span>; особые эффекты этих карт не работают.</p>
+      <p class="note">Нельзя защититься самому — союзники тоже не защитят.</p>
+
+      <h3>Выпад <span class="h-icons"><i class="ic" data-b="thrust"></i></span></h3>
+      <p>Раны напрямую: не атака — нет защиты, не будит ловушку, не тратит атаку. Добили выпадом — очко ваше.</p>
+
+      <h3>Смерть</h3>
+      <p>Жизни 0 — вы мертвы <b>до конца этого хода</b>: <img class="mk" src="../media/winpoint.png" alt=""> очко убийце <em>(от яда — в сброс)</em>; стойка, ловушка, эффекты и аура — в сброс. Мёртвого никто не трогает — ни атаки, ни карты. Со следующего хода вы живы и вас можно бить; в начале своего хода — восстановление.</p>
+
+      <div class="foot"><b>Конец партии:</b> кончилась колода <em>(ход последней карты — последний)</em> · у кого-то 0 очков · по договорённости — доиграть раунд до игрока перед Сёгуном.</div>
+    </section>
+
+    <!-- ================= Колонка 3 ================= -->
+    <section class="col" style="--bg: url('media/bg/poison.webp')">
+      <h2>Всё остальное <span class="kanji">其他</span></h2>
+
+      <h3>Яд <span class="h-icons"><i class="ic" data-b="poison"></i></span></h3>
+      <p>Три недуга: в конце хода <span class="n">−2</span> жизни; отравленная атака по вам <span class="n">+1</span> рана; умерли от яда — <b>без восстановления</b>, рука как была. На силу атаки яд не влияет.</p>
+
+      <h3>Ловушка <span class="h-icons"><i class="ic" data-b="trap"></i></span></h3>
+      <p>Срабатывает при атаке по вам, если не защищаетесь; действует даже при летальной атаке. Подложили не ловушку — умираете, очко инициатору. Просвещённая — картинкой вверх, продолжает работать.</p>
+
+      <h3>Эффекты <span class="h-icons"><i class="ic" data-b="effect"></i></span></h3>
+      <p>Справа от персонажа, в открытую. Постоянные — до смерти, разовые — до срабатывания. Двух одноимённых не бывает. Только на живых.</p>
+
+      <h3>Вмешательство <span class="h-icons"><i class="ic" data-b="intervention"></i></span></h3>
+      <p>Играется <b>не в свой ход</b> — посреди чужого действия или в тишине. Открывает транзакцию: все кладут что хотят, всё считается одновременным. Тот, чья жизнь на кону, <b>сам выбирает порядок</b>; спорное — в его пользу. Торговаться можно.</p>
+
+      <h3>Аура <span class="h-icons"><i class="ic" data-b="aura"></i></span></h3>
+      <p>На всех за столом, и на врагов тоже. Одна на игрока, у команды складываются. Живёт, пока жив владелец.</p>
+
+      <h3>Условия на картах</h3>
+      <p><i class="ic" data-b="hpctx"></i> <span class="badge">На пороге смерти</span> — 1 жизнь; <span class="badge">При полном здоровье</span> — максимум по сердцу.
+      <i class="ic" data-b="rolectx"></i> <span class="badge">Самураи</span> / <span class="badge">Ниндзя</span> — Сёгун играет как самурай.
+      <i class="ic" data-b="charges"></i> <span class="badge">за каждого</span> — счёт по столу в момент розыгрыша. Остальные условия — как написано на карте.</p>
+    </section>
+
+  </div>
+</div>
+
+<script>
+  // Цвета и силуэты — как в buildStackIcon() из js/app.js, но плоско:
+  // круг цвета + одна картинка. Тип задан в data-b.
+  (function () {
+    var M = '../media/';
+    var GROUP = {
+      defense: '#dca300', trap: '#43525A', weapon: '#2E2A28',
+      stance: '#A78B6B', modifier: '#ED1C24', aoe: '#2E2A28',
+      aura: '#93a32e', effect: '#2E2A28', intervention: '#3B8476',
+      action: '#2E2A28', character: '#6C8CC7', role: '#5d3c75'
+    };
+    var SPECIAL = {
+      poison:  { color: '#4F7A21', glyph: M + 'icons/poison.svg' },
+      thrust:  { color: '#8B1E2D', glyph: M + 'icons/thrust.svg' },
+      rolectx: { glyph: M + 'icons/rolectx.svg', raw: true },
+      hpctx:   { glyph: M + 'icons/hpctx.svg',   raw: true },
+      charges: { glyph: M + 'icons/charges.svg', raw: true },
+      hp:      { png: M + 'hp.png' }
+    };
+    document.querySelectorAll('.ic[data-b]').forEach(function (el) {
+      var key = el.getAttribute('data-b');
+      var b = SPECIAL[key] || (GROUP[key] && { color: GROUP[key], glyph: M + 'types/' + key + '.svg' });
+      if (!b) return;
+      el.classList.add('b-' + key);
+      if (b.raw || b.png) el.classList.add('raw');
+      if (b.color) el.style.background = b.color;
+      var e = document.createElement('img');
+      e.src = b.glyph || b.png; e.alt = ''; e.draggable = false;
+      el.appendChild(e);
+    });
+  })();
+</script>
+</body>
+</html>

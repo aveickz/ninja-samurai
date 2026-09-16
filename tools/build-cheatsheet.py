@@ -1,20 +1,27 @@
 # -*- coding: utf-8 -*-
 """Запуск: py -3 tools/build-cheatsheet.py
 
-Собирает rules/cheatsheet-v2.html — памятку-схему на A5 landscape (RU).
-Компоновка — по эскизу автора: внизу по центру зона одного игрока, как
-она лежит на столе (карты-превью из rules/media/cards/, фигурки из
-rules/media/fig/, жетоны из media/): сердца столбиком, персонаж и роль,
-над ними ловушка; за кистевым разделителем стойка с аурой над ней; за
-вторым — два эффекта внахлёст. Рука — слева посередине, атака и защита —
-вверху справа, порядок расчёта — цепочкой в верхнем правом углу, мелочи —
-столбиком в правом нижнем. К предметам ведут выноски: у
-предмета не рисуется ничего — короткая подпись со значком просто стоит рядом;
-из графики остались только кистевые разделители зоны и точка на бутылке яда.
+Собирает памятку-схему на A5 landscape: rules/cheatsheet.html (RU, оригинал)
+и rules/cheatsheet-en.html (EN, перевод). Прежняя трёхколоночная памятка —
+в rules/obsolete/cheatsheet-columns*.html.
 
-Все координаты — в миллиметрах листа (210 × 148), общие для HTML-слоя
-(карты, подписи) и SVG-слоя (скобки, штрихи). Правится здесь, HTML
-руками не трогать."""
+Компоновка — по эскизу автора. Три полосы: вверху заголовок и цепочка
+порядка расчёта; посередине атака и защита (оружие с модификатором и карта
+защиты по центру, подписи по бокам); внизу — стол игрока, как он лежит
+перед ним: рука веером в левом нижнем углу, сердца столбиком, персонаж с
+бутылкой яда и роль, над ними ловушка; стойка с аурой над ней; два эффекта
+внахлёст; мелочи столбиком в правом нижнем углу. Карты — превью из
+rules/media/cards/ (для EN — *-en.webp), фигурки из rules/media/fig/,
+жетоны из media/. У предметов ничего не рисуется: подпись со значком
+просто стоит рядом.
+
+Оформление — по макету ref/cheatsheet-mockup-2026-09-16.png (/img по нашей
+раскладке): фон rules/media/cheat-bg.webp (васи с тушевыми украшениями по
+краям), заголовки выносок на кистевом мазке rules/media/fig/brush-plate.webp,
+значки — чёрные круги с белым знаком, под текстом мягкое бумажное свечение.
+
+Все координаты — в миллиметрах листа (210 × 148). Геометрия общая для
+языков, тексты — в TXT. Правится здесь, HTML руками не трогать."""
 import os, sys, math, re
 sys.stdout.reconfigure(encoding='utf-8')
 os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -22,10 +29,10 @@ os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 W, H = 210, 148
 CW, CH = 17, 27.2          # карта 5:8
 
-# ---------- предметы: key -> dict(x, y, w, h, rot, src, cls) ----------
+# ---------- предметы: key -> dict(x, y, w, h, rot, cid|src, cls) ----------
 OBJ = {}
 def card(key, x, y, cid, rot=0, w=CW, h=CH, cls='card'):
-    OBJ[key] = dict(x=x, y=y, w=w, h=h, rot=rot, src=f'media/cards/{cid}.webp', cls=cls)
+    OBJ[key] = dict(x=x, y=y, w=w, h=h, rot=rot, cid=cid, cls=cls)
 def lcard(key, x, y, cid):
     """Карта, лежащая боком: видимый прямоугольник (x, y, CH, CW)."""
     cx, cy = x + CH / 2, y + CW / 2
@@ -33,14 +40,15 @@ def lcard(key, x, y, cid):
 def fig(key, x, y, w, h, src, rot=0, cls='fig'):
     OBJ[key] = dict(x=x, y=y, w=w, h=h, rot=rot, src=src, cls=cls)
 
-# --- рука: слева посередине, веер с наклоном ---
+# --- рука: левый нижний угол, веер с сильным наклоном, подпись над ним ---
 for i in range(5):
-    fig(f'hand{i}', 20 + i * 5.2, 54 + (i - 2) ** 2 * .7, 14, 22.4, 'media/cards/back.webp', rot=-30 + i * 7, cls='card hand')
+    fig(f'hand{i}', 12 + i * 5.4, 124 + (i - 2) ** 2 * .8, 14, 22.4, 'media/cards/back.webp', rot=-38 + i * 8, cls='card hand')
 
-# --- атака и защита: вверху справа ---
-card('weapon',   100, 14, 1)                       # Катана
-card('modifier', 115, 21, 70)                      # Гнев сёгуна — внахлёст
-card('defense',  140, 18, 48)                      # Защита
+# --- атака и защита: своя полоса между верхом и столом, по центру ---
+card('interv',   66, 20, 124, rot=-8)              # Удар дракона — вмешательство, слева от оружия
+card('weapon',   90, 17, 1)                        # Катана
+card('modifier', 105, 24, 70)                      # Гнев сёгуна — внахлёст
+card('defense',  130, 21, 48)                      # Защита
 
 # --- зона игрока: низ по центру ---
 for i in range(4):
@@ -57,8 +65,110 @@ card('aura',   106, 62, 1204)                      # Спина к спине �
 card('effect0', 128.5, 94, 91)                     # Метка убийцы
 card('effect1', 142, 97.5, 97)                     # Пыль в глаза — внахлёст
 
-# кистевые разделители между группами зоны: (x, y0, y1) — убраны по решению автора
-DIVIDERS = []
+# ---------- выноски: геометрия общая, тексты по языкам ----------
+# (цели, плашка (x, y, w), сторона (осталась для точки яда), значок, ключ текста)
+CALL = [
+ (['hand0','hand1','hand2','hand3','hand4'], (5, 109, 48), 'top', 'card', 'hand'),
+ (['weapon','modifier'], (5, 19, 40), 'left', 'weapon', 'attack'),
+ (['interv'], (5, 38, 51), 'left', 'intervention', 'interv'),
+ (['defense'], (150, 19, 55), 'right', 'defense', 'defense'),
+ (['trapcard','trap'], (58, 58, 46), 'top', 'trap', 'trap'),
+ (['aura'], (127, 52, 34), 'right', 'aura', 'aura'),
+ (['effect0','effect1'], (128, 72, 38), 'top', 'effect', 'effects'),
+ (['stance'], (131, 131, 28), 'bottom', 'stance', 'stance'),
+ (['hp0','hp1','hp2','hp3','char','role'], (5, 60, 51), 'left', 'hp', 'char'),
+ (['poison'], (5, 76, 51), 'dot', 'poison', 'poison'),
+ (['hp0','hp1','hp2','hp3'], (5, 92, 51), 'bottom', 'hpctx', 'life'),
+ (['vp0','vp1','vp2','vp3'], (89, 135.5, 42), 'right', 'winpoint', 'vp'),
+]
+CHAIN_KEYS = ['character', 'stance', 'aura', 'poison', 'effect', 'weapon', 'modifier']
+STRIP_ICONS = []   # столбик мелочей убран по решению автора
+
+TXT = {
+ 'ru': dict(
+  out='rules/cheatsheet.html', lang='ru',
+  title='Самураи против Ниндзя — памятка A5', ttl='Самураи против Ниндзя',
+  note='Памятка на стол · A5 горизонтально · <a href="rules.html">правила</a> · <a href="../app.html">картотека</a>',
+  switch='<span class="lang-switch-current">RU</span><a href="cheatsheet-en.html">EN</a>',
+  chain_title='Порядок расчёта',
+  chain=['персонаж', 'стойка', 'аура', 'яд', 'эффект', 'оружие', 'модификатор'],
+  strip=[
+   ('Вмешательство', 'играется не в свой ход; всё сыгранное — одновременно, порядок выбирает тот, чья жизнь на кону.'),
+   ('Выпад', 'раны напрямую: не атака, без защиты и ловушки, не тратит атаку.'),
+   ('Порядок', 'у защищающегося то же, последней — ловушка; «не менее 1» — с места, где встретился.'),
+   ('Конец партии', 'колода кончилась · чьи-то 0 очков · по договорённости, доиграв раунд до игрока перед Сёгуном.'),
+  ],
+  co={
+   'hand':    ('Рука', 'Старт — <b>7</b>. В начале хода не больше <b>9</b>, лишнее в сброс. В конце хода набор <b>3</b> <i>(меньшая команда +1)</i>, затем каждый противник берёт <b>1</b>. Между ходами не ограничена.'),
+   'attack':  ('Атака', 'До <b>2</b> за ход. Оружие берёт цель, если его сложность ≥ сложности цели (обычно 1); метательное — любую. Один модификатор. Кулаки — 1/1 за обе атаки.'),
+   'interv':  ('Вмешательство', 'Не в свой ход: «Удар дракона» добивает раненого на <b>1</b>. Всё сыгранное — одновременно, порядок выбирает тот, чья жизнь на кону.'),
+   'defense': ('Защита', 'Своя — атака отбита, бонусы атакующего не срабатывают. Союзная, как вмешательство: одна — раны до <b>1</b>, две от команды — до <b>0</b>. Беззащитного не спасти.'),
+   'trap':    ('Ловушка', 'Одна, рубашкой вверх, фигурка сверху. Срабатывает, если атакуют и вы не защищаетесь; метательное её не будит. Подложили не ловушку — умираете.'),
+   'aura':    ('Аура', 'Над стойкой, одна на игрока. Действует на всех за столом; у команды складываются. Новая — прежняя в руку.'),
+   'effects': ('Эффекты', 'Справа, в открытую, сколько угодно. Постоянные — до смерти, разовые — до срабатывания. Одноимённые не повторяются. Только на живых.'),
+   'stance':  ('Стойка', 'Раз за ход, одна. Работает сразу. Новая — прежняя в руку.'),
+   'char':    ('Персонаж и роль', 'Жизни — цифра в сердце, это же максимум для <i>полного здоровья</i>. Роль рядом: Самурай, Ниндзя или Сёгун — самурай, начинает раунд.'),
+   'poison':  ('Яд', 'Бутылка на персонаже. В конце хода <b>−2</b> жизни; отравленная атака по вам <b>+1</b> рана. Смерть от яда — без восстановления, очко в сброс.'),
+   'life':    ('Жизни', '<b>0</b> — мертвы до конца хода: очко убийце, открытые карты в сброс, вас никто не трогает. Со следующего хода живы; в свой ход — восстановление: сброс любых карт, добор до <b>7</b>.'),
+   'vp':      ('Победные очки', 'Старт — <b>4</b>. Убили — забрали очко у жертвы. Чьи-то <b>0</b> — конец партии.'),
+  }),
+ 'en': dict(
+  out='rules/cheatsheet-en.html', lang='en',
+  title='Samurai vs Ninja — A5 cheat sheet', ttl='Samurai vs Ninja',
+  note='Table cheat sheet · A5 landscape · <a href="rules-en.html">rules</a> · <a href="../app.html?lang=en">card catalogue</a>',
+  switch='<a href="cheatsheet.html">RU</a><span class="lang-switch-current">EN</span>',
+  chain_title='Order of resolution',
+  chain=['character', 'stance', 'aura', 'poison', 'effect', 'weapon', 'modifier'],
+  strip=[
+   ('Intervention', 'played outside your turn; everything played counts as simultaneous, the order is picked by whoever\'s life is at stake.'),
+   ('Thrust', 'wounds directly: not an attack, no defense or trap, does not spend an attack.'),
+   ('Order', 'the defender\'s chain is the same, ending with the trap; a «no less than 1» floor holds from where it appears.'),
+   ('End of the game', 'the deck runs out · someone has 0 points · by agreement, after finishing the round up to the player before the Shogun.'),
+  ],
+  co={
+   'hand':    ('Hand', 'Start — <b>7</b>. At the start of your turn no more than <b>9</b>, discard the rest. At the end of your turn draw <b>3</b> <i>(smaller team +1)</i>, then every opponent draws <b>1</b>. Unlimited between turns.'),
+   'attack':  ('Attack', 'Up to <b>2</b> per turn. A weapon reaches the target if its complexity ≥ the target\'s (usually 1); thrown — anyone. One modifier. Fists — 1/1 for both attacks.'),
+   'interv':  ('Intervention', 'Outside your turn: «Dragon Strike» finishes a wounded player for <b>1</b>. Everything played is simultaneous; the order is picked by whoever\'s life is at stake.'),
+   'defense': ('Defense', 'Your own — attack blocked, attacker\'s bonuses do not fire. An ally\'s, as an intervention: one card — wounds down to <b>1</b>, two from the team — to <b>0</b>. The defenceless cannot be saved.'),
+   'trap':    ('Trap', 'One, face down, figure on top. Fires when you are attacked and do not defend; thrown weapons do not wake it. Planted something else — you die.'),
+   'aura':    ('Aura', 'Above the stance, one per player. Affects everyone at the table; a team\'s auras stack. New one — the old returns to hand.'),
+   'effects': ('Effects', 'To the right, face up, any number. Permanent — until death, one-shot — until they fire. No two of the same name. Living players only.'),
+   'stance':  ('Stance', 'Once per turn, one. Works right away. New one — the old returns to hand.'),
+   'char':    ('Character and role', 'Life — the number in the heart, also the maximum for <i>full health</i>. Role next to it: Samurai, Ninja or Shogun — a samurai who opens the round.'),
+   'poison':  ('Poison', 'The bottle on the character. At the end of your turn <b>−2</b> life; a poisoned attack on you <b>+1</b> wound. Death by poison — no recovery, the point goes to the discard.'),
+   'life':    ('Life', '<b>0</b> — dead until the end of the turn: point to the killer, face-up cards discarded, nobody touches you. Alive from the next turn; on your own turn — recovery: discard any cards, draw back up to <b>7</b>.'),
+   'vp':      ('Victory points', 'Start — <b>4</b>. Make a kill — take a point from the victim. Someone at <b>0</b> — the game ends.'),
+  }),
+}
+
+def ic(key):
+    if key in ('winpoint', 'card'):
+        src = '../media/winpoint.png' if key == 'winpoint' else 'media/cards/back.webp'
+        return f'<img class="mk" src="{src}" alt="">'
+    return f'<i class="ic" data-b="{key}"></i>'
+
+def obj_src(o, lang):
+    if 'src' in o:
+        return o['src']
+    cid = o['cid']
+    suffix = '-en' if (lang == 'en' and cid != 'back') else ''
+    return f'media/cards/{cid}{suffix}.webp'
+
+def objects_html(lang):
+    out = []
+    for k, o in OBJ.items():
+        st = f"left:{o['x']}mm;top:{o['y']}mm;width:{o['w']}mm;height:{o['h']}mm;"
+        if o['rot']:
+            st += f"transform:rotate({o['rot']}deg);"
+        out.append(f'<img class="{o["cls"]}" data-k="{k}" src="{obj_src(o, lang)}" alt="" style="{st}">')
+    return '\n'.join(out)
+
+def callouts_html(t):
+    out = []
+    for keys, (x, y, w), side, icon, tid in CALL:
+        title, text = t['co'][tid]
+        out.append(f'<div class="co co-{side}" style="left:{x}mm;top:{y}mm;width:{w}mm"><h4>{ic(icon)}{title}</h4><p>{text}</p></div>')
+    return '\n'.join(out)
 
 def bbox(keys, pad=1.0):
     xs, ys, xe, ye = 1e9, 1e9, -1e9, -1e9
@@ -72,146 +182,24 @@ def bbox(keys, pad=1.0):
             xs, ys, xe, ye = min(xs, px), min(ys, py), max(xe, px), max(ye, py)
     return xs - pad, ys - pad, xe + pad, ye + pad
 
-# ---------- выноски ----------
-# (цели, плашка (x, y, w), сторона скобки относительно предмета: 'top' — скобка
-#  над предметом, текст выше; 'bottom' — под; 'left' — слева; 'right' — справа;
-#  'dot' — без скобки, штрих в точку на предмете; заголовок, значок, текст)
-CALL = [
- (['hand0','hand1','hand2','hand3','hand4'], (6, 8, 50), 'top', 'Рука', 'card',
-  'Старт — <b>7</b>. В начале хода не больше <b>9</b>, лишнее в сброс. В конце хода набор <b>3</b> <i>(меньшая команда +1)</i>, затем каждый противник берёт <b>1</b>. Между ходами не ограничена.'),
- (['weapon','modifier'], (60, 12, 38), 'left', 'Атака', 'weapon',
-  'До <b>2</b> за ход. Оружие берёт цель, если его сложность ≥ сложности цели (обычно 1); метательное — любую. Один модификатор. Кулаки — 1/1 за обе атаки.'),
- (['defense'], (160, 14, 46), 'right', 'Защита', 'defense',
-  'Своя — атака отбита, бонусы атакующего не срабатывают. Союзная, как вмешательство: одна — раны до <b>1</b>, две от команды — до <b>0</b>. Беззащитного не спасти.'),
- (['trapcard','trap'], (58, 58, 46), 'top', 'Ловушка', 'trap',
-  'Одна, рубашкой вверх, фигурка сверху. Срабатывает, если атакуют и вы не защищаетесь; метательное её не будит. Подложили не ловушку — умираете.'),
- (['aura'], (127, 52, 34), 'right', 'Аура', 'aura',
-  'Над стойкой, одна на игрока. Действует на всех за столом; у команды складываются. Новая — прежняя в руку.'),
- (['effect0','effect1'], (128, 72, 38), 'top', 'Эффекты', 'effect',
-  'Справа, в открытую, сколько угодно. Постоянные — до смерти, разовые — до срабатывания. Одноимённые не повторяются. Только на живых.'),
- (['stance'], (131, 131, 28), 'bottom', 'Стойка', 'stance',
-  'Раз за ход, одна. Работает сразу. Новая — прежняя в руку.'),
- (['hp0','hp1','hp2','hp3','char','role'], (5, 84, 51), 'left', 'Персонаж и роль', 'hp',
-  'Жизни — цифра в сердце, это же максимум для <i>полного здоровья</i>. Роль рядом: Самурай, Ниндзя или Сёгун — самурай, начинает раунд.'),
- (['poison'], (5, 99, 51), 'dot', 'Яд', 'poison',
-  'Бутылка на персонаже. В конце хода <b>−2</b> жизни; отравленная атака по вам <b>+1</b> рана. Смерть от яда — без восстановления, очко в сброс.'),
- (['hp0','hp1','hp2','hp3'], (5, 116, 51), 'bottom', 'Жизни', 'hpctx',
-  '<b>0</b> — мертвы до конца хода: очко убийце, открытые карты в сброс, вас никто не трогает. Со следующего хода живы; в свой ход — восстановление: сброс любых карт, добор до <b>7</b>.'),
- (['vp0','vp1','vp2','vp3'], (89, 135.5, 42), 'right', 'Победные очки', 'winpoint',
-  'Старт — <b>4</b>. Убили — забрали очко у жертвы. Чьи-то <b>0</b> — конец партии.'),
-]
-
-# ---------- цепочка порядка расчёта (верхний правый угол) и мелочи (правый нижний) ----------
-CHAIN = [('character','персонаж'),('stance','стойка'),('aura','аура'),('poison','яд'),('effect','эффект'),('weapon','оружие'),('modifier','модификатор')]
-STRIP = [
- ('intervention', 'Вмешательство', 'играется не в свой ход; всё сыгранное — одновременно, порядок выбирает тот, чья жизнь на кону.'),
- ('thrust', 'Выпад', 'раны напрямую: не атака, без защиты и ловушки, не тратит атаку.'),
- ('trap', 'Порядок', 'у защищающегося то же, последней — ловушка; «не менее 1» — с места, где встретился.'),
- ('aoe', 'Конец партии', 'колода кончилась · чьи-то 0 очков · по договорённости, доиграв раунд до игрока перед Сёгуном.'),
-]
-
-def ic(key):
-    if key in ('winpoint', 'card'):
-        src = '../media/winpoint.png' if key == 'winpoint' else 'media/cards/back.webp'
-        return f'<img class="mk" src="{src}" alt="">'
-    return f'<i class="ic" data-b="{key}"></i>'
-
-def objects_html():
-    out = []
-    for k, o in OBJ.items():
-        st = f"left:{o['x']}mm;top:{o['y']}mm;width:{o['w']}mm;height:{o['h']}mm;"
-        if o['rot']:
-            st += f"transform:rotate({o['rot']}deg);"
-        out.append(f'<img class="{o["cls"]}" data-k="{k}" src="{o["src"]}" alt="" style="{st}">')
-    return '\n'.join(out)
-
-def callouts_html():
-    out = []
-    for keys, (x, y, w), side, title, icon, text in CALL:
-        out.append(f'<div class="co co-{side}" style="left:{x}mm;top:{y}mm;width:{w}mm"><h4>{ic(icon)}{title}</h4><p>{text}</p></div>')
-    return '\n'.join(out)
-
-def est_h(text, w):
-    """Оценка высоты плашки: ~0.85 знака на мм при 6.9pt узкого шрифта."""
-    plain = re.sub(r'<[^>]+>', '', text)
-    lines = -(-len(plain) // max(1, int(w * 0.85)))
-    return 3.6 + lines * 2.55
-
-# ---------- кистевая графика ----------
-L = 2.4   # длина «усов» скобки
-
-def bracket(side, b):
-    """Квадратная скобка у одной кромки рамки предмета: ⎴ ⎵ [ ]."""
-    x0, y0, x1, y1 = b
-    if side == 'top':    return f'M{x0:.1f},{y0+L:.1f} V{y0:.1f} H{x1:.1f} V{y0+L:.1f}'
-    if side == 'bottom': return f'M{x0:.1f},{y1-L:.1f} V{y1:.1f} H{x1:.1f} V{y1-L:.1f}'
-    if side == 'left':   return f'M{x0+L:.1f},{y0:.1f} H{x0:.1f} V{y1:.1f} H{x0+L:.1f}'
-    if side == 'right':  return f'M{x1-L:.1f},{y0:.1f} H{x1:.1f} V{y1:.1f} H{x1-L:.1f}'
-    return ''
-
-def stroke(p0, p1, w0=1.0, w1=0.25, bend=0.12, n=14):
-    """Сужающийся штрих от p0 (у предмета, толстый) к p1 (у текста, тонкий):
-    слегка изогнутая квадратичная кривая, обведённая полигоном."""
-    (x0, y0), (x1, y1) = p0, p1
-    dx, dy = x1 - x0, y1 - y0
-    d = math.hypot(dx, dy) or 1
-    nx, ny = -dy / d, dx / d
-    cx, cy = (x0 + x1) / 2 + nx * d * bend, (y0 + y1) / 2 + ny * d * bend
-    left, right = [], []
-    for i in range(n + 1):
-        t = i / n
-        px = (1-t)**2 * x0 + 2*(1-t)*t * cx + t**2 * x1
-        py = (1-t)**2 * y0 + 2*(1-t)*t * cy + t**2 * y1
-        tx = 2*(1-t)*(cx - x0) + 2*t*(x1 - cx)
-        ty = 2*(1-t)*(cy - y0) + 2*t*(y1 - cy)
-        tl = math.hypot(tx, ty) or 1
-        wx, wy = -ty / tl, tx / tl
-        hw = (w0 + (w1 - w0) * t) / 2
-        left.append((px + wx*hw, py + wy*hw)); right.append((px - wx*hw, py - wy*hw))
-    pts = left + right[::-1]
-    return 'M' + ' L'.join(f'{x:.2f},{y:.2f}' for x, y in pts) + ' Z'
-
-def leader(keys, box, side, text):
-    x, y, w = box
-    b = bbox(keys)
-    x0, y0, x1, y1 = b
-    cx, cy = (x0 + x1) / 2, (y0 + y1) / 2
-    h = est_h(text, w)
-    if side == 'top':
-        p0 = (cx, y0 - .3); p1 = (min(max(cx, x + 5), x + w - 5), y + h + .8)
-    elif side == 'bottom':
-        p0 = (cx, y1 + .3); p1 = (min(max(cx, x + 5), x + w - 5), y - .8)
-    elif side == 'left':
-        p0 = (x0 - .3, cy); p1 = (x + w + .6, y + 1.6)
-    elif side == 'right':
-        p0 = (x1 + .3, cy); p1 = (x - .6, y + 1.6)
-    else:   # dot — в точку на предмете, без скобки
-        p0 = (cx, cy); p1 = (x + w + .6, y + 1.6)
-    br = bracket(side, b) if side != 'dot' else ''
-    dot = f'<circle class="pin" cx="{cx:.1f}" cy="{cy:.1f}" r="1.1"/>' if side == 'dot' else ''
-    return br, stroke(p0, p1), dot
-
 def svg_html():
-    brs, sts, dots = [], [], []
-    for keys, box, side, _t, _i, text in CALL:
-        br, st, dot = leader(keys, box, side, text)
-        if br: brs.append(f'<path d="{br}"/>')
-        sts.append(f'<path d="{st}"/>'); dots.append(dot)
-    divs = ''.join(f'<path d="{stroke((x, y0), (x, y1), .9, .35, 0)}"/>' for x, y0, y1 in DIVIDERS)
-    return (f'<svg class="ov" viewBox="0 0 {W} {H}" xmlns="http://www.w3.org/2000/svg">'
-            '<defs><filter id="ink" x="-5%" y="-5%" width="110%" height="110%">'
-            '<feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="2" seed="7" result="n"/>'
-            '<feDisplacementMap in="SourceGraphic" in2="n" scale=".45" xChannelSelector="R" yChannelSelector="G"/></filter></defs>'
-            '<g class="st" filter="url(#ink)">' + divs + '</g>'      # ни скобок, ни штрихов: подписи стоят рядом с предметами
-            '<g>' + ''.join(dots) + '</g></svg>')
+    """Слой поверх стола: только точка на бутылке яда (скобки и штрихи убраны)."""
+    dots = []
+    for keys, box, side, _i, _t in CALL:
+        if side == 'dot':
+            x0, y0, x1, y1 = bbox(keys)
+            dots.append(f'<circle class="pin" cx="{(x0+x1)/2:.1f}" cy="{(y0+y1)/2:.1f}" r="1.1"/>')
+    return (f'<svg class="ov" viewBox="0 0 {W} {H}" xmlns="http://www.w3.org/2000/svg"><g>' + ''.join(dots) + '</g></svg>')
 
-def chain_html():
-    chain = ''.join(f'<span class="s"><i class="ic" data-b="{k}"></i>{t}</span><span class="arr">→</span>' for k, t in CHAIN)
+def chain_html(t):
+    chain = ''.join(f'<span class="s"><i class="ic" data-b="{k}"></i>{lbl}</span><span class="arr">→</span>' for k, lbl in zip(CHAIN_KEYS, t['chain']))
     chain = chain[:-len('<span class="arr">→</span>')]
-    return f'<div class="chain"><b>Порядок расчёта</b>{chain}</div>'
+    return f'<div class="chain"><b>{t["chain_title"]}</b>{chain}</div>'
 
-def misc_html():
-    items = ''.join(f'<p><i class="ic" data-b="{k}"></i><b>{t}</b> — {d}</p>' for k, t, d in STRIP)
+def misc_html(t):
+    if not STRIP_ICONS:
+        return ''
+    items = ''.join(f'<p><i class="ic" data-b="{k}"></i><b>{title}</b> — {d}</p>' for k, (title, d) in zip(STRIP_ICONS, t['strip']))
     return f'<div class="misc">{items}</div>'
 
 CSS = r"""
@@ -227,9 +215,14 @@ CSS = r"""
   .desk { min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:24px 16px 40px; gap:14px; }
   .desk-note { color:#b39a6f; font-size:14px; letter-spacing:.04em; opacity:.8; }
   .desk-note a { color:#d8c39a; }
+  .lang-switch { margin:0; letter-spacing:.14em; line-height:1; }
+  .lang-switch a, .lang-switch .lang-switch-current { display:inline-block; padding:3px 9px; font-size:13px; font-weight:700; border:1px solid #8a6a44; text-decoration:none; }
+  .lang-switch a { color:#b39a6f; }
+  .lang-switch a:hover { color:#f2e6cf; background:#8a6a44; }
+  .lang-switch .lang-switch-current { color:#f2e6cf; background:#6b4a28; border-color:#6b4a28; cursor:default; }
+  .lang-switch a + .lang-switch-current, .lang-switch .lang-switch-current + a { border-left:0; }
 
-  /* Лист: сгенерированный фон — бумага васи с тушевыми украшениями по краям
-     (media/cheat-bg.webp, /img по макету ref/cheatsheet-mockup-2026-09-16.png) */
+  /* Лист: сгенерированный фон — бумага васи с тушевыми украшениями по краям */
   .sheet { position:relative; width:210mm; height:148mm; overflow:hidden; font-size:var(--fs); line-height:1.25;
     background: url('media/cheat-bg.webp') center / 100% 100% no-repeat var(--paper-light);
     box-shadow: 0 0 0 1px rgba(60,30,10,.4), 0 20px 50px rgba(0,0,0,.65); }
@@ -246,14 +239,10 @@ CSS = r"""
   .fig { position:absolute; display:block; filter: drop-shadow(0 .5mm .6mm rgba(0,0,0,.45)); }
   .tok { position:absolute; display:block; filter: drop-shadow(0 .3mm .4mm rgba(0,0,0,.35)); }
 
-  /* SVG-слой: скобки и штрихи тушью */
   .ov { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
-  .ov .br path { fill:none; stroke:var(--ink-soft); stroke-width:.42; stroke-linecap:round; stroke-linejoin:round; opacity:.85; }
-  .ov .st path { fill:var(--ink-soft); opacity:.8; }
   .ov .pin { fill:var(--vermilion); opacity:.9; }
 
-  /* выноски: заголовок на кистевом мазке (media/fig/brush-plate.webp, чёрная тушь с альфой),
-     значок — чёрный круг с белым знаком, как на макете */
+  /* выноски: заголовок на кистевом мазке, значок — чёрный круг с белым знаком */
   .co { position:absolute; isolation:isolate; }
   /* текст на мягком бумажном свечении — орнаменты фона уходят под него */
   .co p, .misc p, .chain, .ttl { background: rgba(244,234,210,.78); box-shadow: 0 0 2.5mm 2.5mm rgba(244,234,210,.78); border-radius: 1mm; }
@@ -296,7 +285,7 @@ CSS = r"""
   @media print {
     html, body { background:#fff; }
     .desk { min-height:auto; padding:0; gap:0; display:block; }
-    .desk-note { display:none; }
+    .desk-note, .lang-switch { display:none; }
     .sheet { box-shadow:none; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
   }
 """
@@ -321,13 +310,14 @@ SCRIPT = r"""
   })();
 """
 
-def build():
+def build(lang):
+    t = TXT[lang]
     html = f'''<!DOCTYPE html>
-<html lang="ru">
+<html lang="{t['lang']}">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Самураи против Ниндзя — памятка-схема A5</title>
+<title>{t['title']}</title>
 <link rel="icon" type="image/svg+xml" href="../media/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -337,22 +327,23 @@ def build():
 </head>
 <body>
 <div class="desk">
-  <div class="desk-note">Памятка-схема · A5 горизонтально · <a href="rules.html">правила</a> · <a href="cheatsheet.html">памятка в три колонки</a></div>
+  <div class="desk-note">{t['note']}</div>
+  <p class="lang-switch">{t['switch']}</p>
   <div class="sheet">
-    <div class="ttl">Самураи против Ниндзя <span class="kanji">覚</span></div>
-{objects_html()}
+    <div class="ttl">{t['ttl']} <span class="kanji">覚</span></div>
+{objects_html(lang)}
 {svg_html()}
-{callouts_html()}
-{chain_html()}
-{misc_html()}
+{callouts_html(t)}
+{chain_html(t)}
+{misc_html(t)}
   </div>
 </div>
 <script>{SCRIPT}</script>
 </body>
 </html>
 '''
-    open('rules/cheatsheet-v2.html', 'w', encoding='utf-8', newline='\n').write(html)
-    print('written rules/cheatsheet-v2.html')
+    open(t['out'], 'w', encoding='utf-8', newline='\n').write(html)
+    print('written', t['out'])
 
 if __name__ == '__main__':
-    build()
+    build('ru'); build('en')

@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Samurai vs Ninja — A5 cheat sheet</title>
+<link rel="icon" type="image/svg+xml" href="../media/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@400;700&family=Shippori+Mincho:wght@400&display=swap" rel="stylesheet">
+<style>
+  /* Table cheat sheet, A5 landscape (210 × 148 mm). English version — a
+     translation of cheatsheet.html; text in cheatsheet-en.md. Text — cheatsheet.md. Оформление — как у страниц правил (rules.css):
+     та же бумага media/paper.png, заголовки Han Zi с иероглифом через
+     бледную точку, подзаголовки «текст · значок», примечания с кистевой
+     чертой слева, бледный тушевой фон колонок из media/bg/. На экране —
+     лист на тёмном столе, Ctrl+P — тот же лист один в один на A5 landscape.
+
+     Значки — плоские круги цвета группы с белым знаком, как в правилах:
+     <i class="ic" data-b="trap"></i>, цвет и картинку подставляет скрипт
+     внизу (та же таблица, что в tools/build-rules-new.py). */
+
+  @font-face {
+    font-family: 'Han Zi Web';
+    src: url('fonts/Han-Zi_Regular.woff') format('woff');
+    font-display: swap;
+  }
+
+  :root {
+    --paper:       #efe1bf;
+    --paper-light: #f4ead2;
+    --paper-dark:  #d9c391;
+    --paper-deep:  #c4a86a;
+    --ink:         #1c1410;
+    --ink-soft:    #3a2a1d;
+    --ink-faded:   #6a4a30;
+    --vermilion:   #b1281d;
+    --vermilion-dk:#7a1410;
+    --gold:        #8b6a2a;
+
+    --sheet-w: 210mm;
+    --sheet-h: 148mm;
+    --m-x:     8mm;
+    --m-top:   7mm;
+    --m-bot:   6mm;
+    --gap:     6mm;
+    --fs:      8pt;
+    --ic:      3.6mm;
+    --bg-opacity: .12;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: radial-gradient(ellipse at top, #2a1a10 0%, #150a05 70%), #0a0503;
+    color: var(--ink);
+    font-family: 'PT Sans Narrow', 'PT Sans', Arial, sans-serif;
+    min-height: 100vh;
+  }
+
+  .desk {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px 40px;
+    gap: 14px;
+  }
+  .desk-note { color: #b39a6f; font-size: 14px; letter-spacing: .04em; opacity: .8; }
+  .desk-note a { color: #d8c39a; }
+
+  /* ---------- Лист ---------- */
+  .sheet {
+    width: var(--sheet-w);
+    height: var(--sheet-h);
+    padding: var(--m-top) var(--m-x) var(--m-bot);
+    position: relative;
+    background:
+      radial-gradient(ellipse 60mm 40mm at 85% 12%, rgba(120, 70, 20, .10), transparent 70%),
+      radial-gradient(ellipse 50mm 30mm at 20% 70%, rgba(120, 70, 20, .10), transparent 70%),
+      url('media/paper.png') center / 100% 100% no-repeat var(--paper-light);
+    box-shadow: 0 0 0 1px rgba(60, 30, 10, .4), 0 20px 50px rgba(0, 0, 0, .65);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: var(--gap);
+    font-size: var(--fs);
+    line-height: 1.3;
+    overflow: hidden;
+  }
+
+  /* Колонка: бледный тушевой рисунок под текстом, как фон главы в правилах */
+  .col { position: relative; min-width: 0; }
+  /* Разделитель колонок — та же тонкая кистевая черта, что слева у
+     примечаний (.note): 1pt, густая в середине, сходит на нет к концам.
+     Стоит посередине зазора между колонками. */
+  .col + .col::after {
+    content: "";
+    position: absolute;
+    top: 4mm;
+    bottom: 2mm;
+    left: calc(-1 * var(--gap) / 2);
+    width: 1pt;
+    background: radial-gradient(ellipse 50% 90% at 50% 50%,
+      var(--ink-soft) 0%, var(--ink-faded) 30%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .col::before {
+    content: "";
+    position: absolute;
+    inset: 4mm 0 0;
+    background: var(--bg) center / contain no-repeat;
+    opacity: var(--bg-opacity);
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .col > * { position: relative; z-index: 1; }
+
+  /* Заголовок колонки — как заголовок главы: Han Zi, иероглиф через точку */
+  h2 {
+    font-family: 'Han Zi Web', 'Shippori Mincho', serif;
+    font-weight: 400;
+    font-size: 11.5pt;
+    line-height: 1;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin: 0 0 2mm;
+    display: flex;
+    align-items: center;
+    gap: 2.5mm;
+    white-space: nowrap;
+  }
+  h2 .kanji {
+    font-family: 'Shippori Mincho', 'Noto Serif JP', 'Yu Mincho', 'MS Mincho', serif;
+    font-size: 12pt;
+    letter-spacing: .06em;
+    color: rgba(122, 20, 16, .45);
+    text-transform: none;
+    user-select: none;
+  }
+  h2 .kanji::before {
+    content: "·";
+    font-family: 'PT Sans Narrow', 'PT Sans', Arial, sans-serif;
+    font-size: 10pt;
+    color: rgba(70, 58, 50, .28);
+    margin-right: 2.5mm;
+    letter-spacing: 0;
+  }
+
+  /* Подзаголовок — как h4 в правилах: жирный, текст · значок */
+  h3 {
+    font-size: var(--fs);
+    font-weight: 700;
+    color: var(--ink-soft);
+    margin: 1.9mm 0 .5mm;
+    display: flex;
+    align-items: center;
+    gap: 1.8mm;
+    line-height: 1.15;
+  }
+  h3:first-of-type { margin-top: 0; }
+  h3 .h-icons { display: flex; align-items: center; gap: 1mm; }
+  h3 .h-icons::before {
+    content: "·";
+    font-weight: 400;
+    color: rgba(70, 58, 50, .28);
+    margin-right: 1.8mm;
+  }
+  h3 .h-icons .ic { --ic: 4.2mm; margin: 0; vertical-align: middle; }
+
+  p { margin: 0 0 1.2mm; }
+  p:last-child { margin-bottom: 0; }
+  ul { margin: 0 0 1.2mm; padding-left: 3.2mm; }
+  li { margin: 0 0 .3mm; }
+  li::marker { color: var(--gold); }
+  b { color: var(--ink); }
+  em { color: var(--ink-faded); font-style: italic; }
+
+  /* Примечание — как aside.note: кистевая черта слева */
+  .note {
+    position: relative;
+    padding: .6mm 1.5mm .6mm 3mm;
+    margin: 1.2mm 0;
+    font-size: calc(var(--fs) - .6pt);
+    line-height: 1.3;
+    color: var(--ink-soft);
+    background: radial-gradient(ellipse 50% 90% at 50% 50%,
+      var(--ink-soft) 0%, var(--ink-faded) 30%, transparent 70%) left center / 1pt 100% no-repeat;
+  }
+
+  /* Ключевое число — красным, чтобы цеплялось взглядом */
+  .n { font-weight: 700; color: var(--vermilion); }
+
+  /* Пометка-условие — как термин с карты в правилах */
+  .badge { font-style: italic; font-weight: 700; color: var(--ink-faded); white-space: nowrap; }
+
+  /* ---------- Значки с карт ---------- */
+  .ic {
+    display: inline-block;
+    position: relative;
+    width: var(--ic);
+    height: var(--ic);
+    vertical-align: -1mm;
+    margin: 0 .25mm;
+    border-radius: 50%;
+    flex: none;
+  }
+  .ic > img {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    display: block; padding: 20%;
+    filter: brightness(0) invert(1);
+  }
+  .ic.raw { background: #fff; box-shadow: 0 0 0 .22mm var(--paper-deep) inset; }
+  .ic.raw > img { padding: 14%; filter: none; }
+  .ic.b-rolectx > img { padding: 10%; }
+  .ic.b-hp { background: none; box-shadow: none; }
+  .ic.b-hp > img { padding: 0; filter: none; }
+
+  .mk {
+    display: inline-block;
+    height: var(--ic);
+    width: var(--ic);
+    vertical-align: -1mm;
+    margin: 0 .25mm;
+    object-fit: contain;
+  }
+
+  /* Цепочка порядка расчёта — значки со стрелками, как в главе «Порядок» */
+  .chain {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: .2mm;
+    font-size: calc(var(--fs) - 1.3pt);
+    color: var(--ink-soft);
+    line-height: 1.15;
+    margin: .5mm 0 1mm;
+  }
+  .chain .st {
+    display: inline-flex; flex-direction: column; align-items: center;
+    width: 6.7mm; text-align: center;
+  }
+  .chain .st .ic { margin: 0 0 .3mm; vertical-align: baseline; --ic: 4.2mm; }
+  .chain .arr { color: rgba(70, 58, 50, .35); font-size: 6.5pt; margin: 1mm -.6mm 0; }
+
+  /* Подвал колонки: как колонцифра — бледный, с точками */
+  .foot {
+    margin-top: 1.8mm;
+    padding-top: 1.2mm;
+    border-top: .2mm solid rgba(122, 20, 16, .18);
+    font-size: calc(var(--fs) - .8pt);
+    color: var(--ink-faded);
+  }
+
+  /* ---------- Переключатель языка ---------- */
+  .lang-switch { margin: 0; letter-spacing: .14em; line-height: 1; }
+  .lang-switch a, .lang-switch .lang-switch-current {
+    display: inline-block; padding: 3px 9px; font-size: 13px; font-weight: 700;
+    border: 1px solid #8a6a44; text-decoration: none;
+  }
+  .lang-switch a { color: #b39a6f; }
+  .lang-switch a:hover { color: #f2e6cf; background: #8a6a44; }
+  .lang-switch .lang-switch-current { color: #f2e6cf; background: #6b4a28; border-color: #6b4a28; cursor: default; }
+  .lang-switch a + .lang-switch-current, .lang-switch .lang-switch-current + a { border-left: 0; }
+
+  /* ---------- Печать ---------- */
+  @page { size: A5 landscape; margin: 0; }
+  @media print {
+    html, body { background: #fff; }
+    .desk { min-height: auto; padding: 0; gap: 0; display: block; }
+    .desk-note, .lang-switch { display: none; }
+    .sheet { box-shadow: none; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+<div class="desk">
+  <div class="desk-note">Table cheat sheet · A5 landscape · <a href="rules-en.html">rules</a> · <a href="../app.html?lang=en">card catalogue</a></div>
+  <p class="lang-switch"><a href="cheatsheet.html">RU</a><span class="lang-switch-current">EN</span></p>
+
+  <div class="sheet">
+
+    <!-- ================= Column 1 ================= -->
+    <section class="col" style="--bg: url('media/bg/flow.webp')">
+      <h2>My turn <span class="kanji">手番</span></h2>
+
+      <p><b>Start.</b> Life <i class="ic" data-b="hp"></i> — the number in the character's heart. Victory points <img class="mk" src="../media/winpoint.png" alt=""> — <span class="n">4</span>. <span class="n">7</span> cards in hand for everyone. The Shogun opens each round.</p>
+
+      <h3>1 · Start of turn</h3>
+      <p>No more than <b><span class="n">9</span> cards</b> in hand — discard the rest.<br>
+      Been dead? Instead: <b>recovery</b> — discard as many as you like, draw back up to <span class="n">7</span>. Killed by poison — no recovery.</p>
+
+      <h3>2 · Actions, in any order</h3>
+      <ul>
+        <li><i class="ic" data-b="weapon"></i> up to <span class="n">two attacks</span> with a weapon</li>
+        <li><i class="ic" data-b="action"></i> actions and <i class="ic" data-b="aoe"></i> group actions</li>
+        <li><i class="ic" data-b="trap"></i> a trap in front of you — <b>one</b>, face down, figure on top</li>
+        <li><i class="ic" data-b="stance"></i> a stance — <b>once per turn</b>, works right away</li>
+        <li><i class="ic" data-b="effect"></i> effects on others, <i class="ic" data-b="aura"></i> an aura in front of you — <b>one</b> per player</li>
+        <li>stance, aura, trap: a new one replaces the old, <b>the old one returns to hand</b></li>
+        <li>trade: 2 cards of one type → 1 new; 2 identical → 2 new</li>
+      </ul>
+
+      <h3>3 · End of turn</h3>
+      <p>Poisoned <i class="ic" data-b="poison"></i> — <span class="n">−2</span> life. Then <b>draw</b>: <span class="n">3</span> cards from the deck <em>(smaller team +1)</em>, after which <b>every opponent draws <span class="n">1</span></b>.</p>
+
+      <h3>Order of resolution</h3>
+      <div class="chain">
+        <span class="st"><i class="ic" data-b="character"></i>hero</span><span class="arr">→</span>
+        <span class="st"><i class="ic" data-b="stance"></i>stance</span><span class="arr">→</span>
+        <span class="st"><i class="ic" data-b="aura"></i>aura</span><span class="arr">→</span>
+        <span class="st"><i class="ic" data-b="poison"></i>poison</span><span class="arr">→</span>
+        <span class="st"><i class="ic" data-b="effect"></i>effects</span><span class="arr">→</span>
+        <span class="st"><i class="ic" data-b="weapon"></i>weapon</span><span class="arr">→</span>
+        <span class="st"><i class="ic" data-b="modifier"></i>modif.</span>
+      </div>
+      <p class="note">Permanent effect before one-shot. The defender's chain is the same, ending with the <i class="ic" data-b="trap"></i> trap. A «no less than 1» floor holds from where it appears; base power 0 deals 0.</p>
+
+      <div class="foot"><b>End of the game:</b> the deck runs out <em>(the turn of the last card is the last one)</em> · someone has 0 points · by agreement — finish the round up to the player before the Shogun.</div>
+    </section>
+
+    <!-- ================= Column 2 ================= -->
+    <section class="col" style="--bg: url('media/bg/attack.webp')">
+      <h2>Attack and defense <span class="kanji">攻守</span></h2>
+
+      <h3>Target complexity</h3>
+      <p><img class="mk" src="../media/icons/complexity1.svg" alt="1"> by default for any player, wherever they sit. A weapon reaches the target if its number ≥ the complexity. <b>Thrown</b> <img class="mk" src="../media/ranged.png" alt=""> weapons reach anyone and <b>never wake a trap</b>. Stances, effects and auras shift complexity either way — counted when the attack is declared.</p>
+      <p>Power <img class="mk" src="../media/icons/dmg2.svg" alt=""> — how many wounds the target takes. No weapon — fists: complexity 1, power 1, costs <b>both</b> attacks. One attack — <b>one</b> <i class="ic" data-b="modifier"></i> modifier.</p>
+
+      <h3>The defender picks one</h3>
+      <ul>
+        <li>take wounds = attack power;</li>
+        <li><i class="ic" data-b="defense"></i> <b>defense</b> from hand — attack blocked, attacker's bonuses do not fire;</li>
+        <li><i class="ic" data-b="trap"></i> <b>the trap</b>, if one lies in front and you are not defending.</li>
+      </ul>
+      <p><b>Allies</b> may add defense as an <i class="ic" data-b="intervention"></i> intervention: <b>one</b> card — wounds down to <span class="n">1</span>, <b>two</b> from the team — down to <span class="n">0</span>; those cards' special effects do not fire.</p>
+      <p class="note">If you cannot defend yourself, allies cannot defend you either.</p>
+
+      <h3>Thrust <span class="h-icons"><i class="ic" data-b="thrust"></i></span></h3>
+      <p>Wounds directly: not an attack — no defense, does not wake a trap, does not spend an attack. Finish someone with a thrust — the point is yours.</p>
+
+      <h3>Death</h3>
+      <p>Life 0 — you are dead <b>until the end of this turn</b>: <img class="mk" src="../media/winpoint.png" alt=""> point to the killer <em>(from poison — to the discard)</em>; stance, trap, effects and aura — to the discard. Nobody touches the dead — no attacks, no cards. From the next turn you are alive and can be hit; at the start of your own turn — recovery.</p>
+    </section>
+
+    <!-- ================= Column 3 ================= -->
+    <section class="col" style="--bg: url('media/bg/poison.webp')">
+      <h2>Everything else <span class="kanji">其他</span></h2>
+
+      <h3>Poison <span class="h-icons"><i class="ic" data-b="poison"></i></span></h3>
+      <p>Three afflictions: at the end of your turn <span class="n">−2</span> life; a poisoned attack on you <span class="n">+1</span> wound; killed by poison — <b>no recovery</b>, the hand stays as it was. Poison does not affect attack power.</p>
+
+      <h3>Trap <span class="h-icons"><i class="ic" data-b="trap"></i></span></h3>
+      <p>Fires when you are attacked and do not defend; works even if the attack is lethal. Planted something that is not a trap — you die, point to the initiator. A revealed trap lies face up and keeps working.</p>
+
+      <h3>Effects <span class="h-icons"><i class="ic" data-b="effect"></i></span></h3>
+      <p>To the right of the character, face up. Permanent — until death, one-shot — until they fire. No two of the same name. Living players only.</p>
+
+      <h3>Intervention <span class="h-icons"><i class="ic" data-b="intervention"></i></span></h3>
+      <p>Played <b>outside your turn</b> — in the middle of someone's action or in a lull. Opens a transaction: everyone lays down what they want, all of it counts as simultaneous. Whoever's life is at stake <b>picks the order</b>; disputes go their way. Bargaining is allowed.</p>
+
+      <h3>Aura <span class="h-icons"><i class="ic" data-b="aura"></i></span></h3>
+      <p>Affects everyone at the table, enemies included. One per player, a team's auras stack. Lives as long as its owner does.</p>
+
+      <h3>Conditions on cards</h3>
+      <p><i class="ic" data-b="hpctx"></i> <span class="badge">At death's door</span> — 1 life; <span class="badge">At full health</span> — the heart's maximum.
+      <i class="ic" data-b="rolectx"></i> <span class="badge">Samurai</span> / <span class="badge">Ninja</span> — the Shogun plays as a samurai.
+      <i class="ic" data-b="charges"></i> <span class="badge">for each</span> — count the table when the card is played. All other conditions — as written on the card.</p>
+    </section>
+
+  </div>
+</div>
+
+<script>
+  // Цвета и силуэты — как в buildStackIcon() из js/app.js, но плоско:
+  // круг цвета + одна картинка. Тип задан в data-b.
+  (function () {
+    var M = '../media/';
+    var GROUP = {
+      defense: '#dca300', trap: '#43525A', weapon: '#2E2A28',
+      stance: '#A78B6B', modifier: '#ED1C24', aoe: '#2E2A28',
+      aura: '#93a32e', effect: '#2E2A28', intervention: '#3B8476',
+      action: '#2E2A28', character: '#6C8CC7', role: '#5d3c75'
+    };
+    var SPECIAL = {
+      poison:  { color: '#4F7A21', glyph: M + 'icons/poison.svg' },
+      thrust:  { color: '#8B1E2D', glyph: M + 'icons/thrust.svg' },
+      rolectx: { glyph: M + 'icons/rolectx.svg', raw: true },
+      hpctx:   { glyph: M + 'icons/hpctx.svg',   raw: true },
+      charges: { glyph: M + 'icons/charges.svg', raw: true },
+      hp:      { png: M + 'hp.png' }
+    };
+    document.querySelectorAll('.ic[data-b]').forEach(function (el) {
+      var key = el.getAttribute('data-b');
+      var b = SPECIAL[key] || (GROUP[key] && { color: GROUP[key], glyph: M + 'types/' + key + '.svg' });
+      if (!b) return;
+      el.classList.add('b-' + key);
+      if (b.raw || b.png) el.classList.add('raw');
+      if (b.color) el.style.background = b.color;
+      var e = document.createElement('img');
+      e.src = b.glyph || b.png; e.alt = ''; e.draggable = false;
+      el.appendChild(e);
+    });
+  })();
+</script>
+</body>
+</html>
