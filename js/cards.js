@@ -2308,11 +2308,11 @@ const CARDS = [
     qty: 1,
     group: "character",
     icons: [],
-    tags: [],
-    desc: "В фазе набора вы берёте дополнительную карту и можете брать из сброса. " +
-          "В случае воровства, ошеломления или реакции на групповые действия сами выбираете, какую карту отдавать." +
-          "[NL]{После вашей смерти} ваши союзники берут по одной карте из колоды. TODO: добор из сброса запрещён (мета-правило №7) — увести свойство в team draw/share.",
-    enDesc: "In the draw phase you take an extra card and may draw from the discard pile. When robbed, staggered or reacting to group actions, you choose which card to give up.[NL]{After your death} your allies each draw a card from the deck. TODO: drawing from the discard pile is banned (meta-rule 7) — move the ability toward team draw/share.",
+    tags: ["toPrint"],
+    desc: "В фазе набора берите на одну карту больше; до двух карт набора можете взять у союзников по согласию вместо колоды. " +
+          "Лишние карты перед началом хода не сбрасывайте, а раздайте союзникам по одной в закрытую." +
+          "[NL]{После вашей смерти} ваши союзники берут по одной карте из колоды.",
+    enDesc: "In the draw phase, draw one extra card; up to two of the cards you draw may come from allies' hands, by agreement, instead of the deck. Before your turn, instead of discarding down to the hand limit, hand the extra cards to allies, one each, face down.[NL]{After your death} your allies each draw a card from the deck.",
     img: "cards/card_136_taranaga.png"
   },
   {
