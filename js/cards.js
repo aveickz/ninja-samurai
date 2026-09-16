@@ -2326,9 +2326,9 @@ const CARDS = [
     group: "character",
     icons: [],
     tags: ["toPrint"],
-    desc: "Раз в ход вы можете передвинуть свою активную стойку, или стойку с руки, к другому игроку, у которого её нет перед собой. В фазе набора за каждую стойку на столе (не более трёх) берите дополнительно 1 карту." +
+    desc: "Когда любой игрок умирает, вы можете забрать его стойку и выставить себе, вернув свою в руку. В фазе набора за каждую стойку на столе (не более трёх) берите дополнительно 1 карту." +
           "[NL]{После вашей смерти} вы не теряете стойку, а все союзники с выставленной стойкой получают по 1 карте из колоды и восполняют 1 жетон жизни.",
-    enDesc: "Once per turn you may move your active Stance, or a Stance from your hand, to another player who has none in front of them. In the draw phase, take 1 extra card for every Stance on the table (no more than three).[NL]{After your death} you keep your Stance, and every ally with a Stance in play draws a card from the deck and restores 1 life.",
+    enDesc: "When any player dies, you may take their Stance and put it in front of you, returning your own to your hand. In the draw phase, take 1 extra card for every Stance on the table (no more than three).[NL]{After your death} you keep your Stance, and every ally with a Stance in play draws a card from the deck and restores 1 life.",
     img: "cards/card_138_kokoro.png"
   },
   {
@@ -2374,10 +2374,10 @@ const CARDS = [
     qty: 1,
     group: "character",
     icons: [],
-    tags: [],
-    desc: "Раз в ход можете передвинуть свою активную ловушку к союзному игроку, у которого её нет перед собой. В фазе набора за каждую ловушку на столе (не более трёх) берите дополнительно 1 карту." +
+    tags: ["toPrint"],
+    desc: "Раз в ход можете передвинуть свою активную ловушку к союзнику без ловушки или поменяться ловушками с врагом, не открывая их. В фазе набора за каждую ловушку на столе (не более трёх) берите дополнительно 1 карту." +
           "[NL]{После вашей смерти} ловушки врагов просвещаются.",
-    enDesc: "Once per turn you may move your active Trap to an allied player who has none in front of them. In the draw phase, take 1 extra card for every Trap on the table (no more than three).[NL]{After your death} enemy Traps are revealed.",
+    enDesc: "Once per turn you may move your active Trap to an ally who has none, or swap Traps with an enemy without revealing them. In the draw phase, take 1 extra card for every Trap on the table (no more than three).[NL]{After your death} enemy Traps are revealed.",
     img: "cards/card_140_iyo.png"
   },
   {
@@ -2406,10 +2406,10 @@ const CARDS = [
     qty: 1,
     group: "character",
     icons: [],
-    tags: [],
-    desc: "Ваш предел жизни — 7: лечение сверх стартовых 5 не пропадает. За каждый восстановленный жетон здоровья в команде (не более трёх) вы берёте карту из колоды. Можете перенаправить лечебный эффект с себя на союзника." +
+    tags: ["toPrint"],
+    desc: "Ваше лечение может поднять любого игрока на 1 жетон выше его сердца; для карт и пометок предел остаётся по сердцу. За каждый восстановленный жетон здоровья в команде (не более трёх) вы берёте карту из колоды. Можете перенаправить лечебный эффект с себя на союзника." +
           "[NL]{После вашей смерти} каждый союзник восстанавливает 1 жетон жизни, не давая вам карты из колоды.",
-    enDesc: "Your life cap is 7: healing beyond your starting 5 is not wasted. You draw a card from the deck for every point of life restored across your team (no more than three). You may redirect a healing effect from yourself to an ally.[NL]{After your death} each ally restores 1 life without giving you cards from the deck.",
+    enDesc: "Your healing may raise any player 1 life above their heart; for cards and badges the limit stays at the heart. You draw a card from the deck for every point of life restored across your team (no more than three). You may redirect a healing effect from yourself to an ally.[NL]{After your death} each ally restores 1 life without giving you cards from the deck.",
     img: "cards/card_145_manase.png"
   },
   {
