@@ -84,8 +84,8 @@ const CARDS = [
     group: "weapon",
     icons: ["complexity1", "dmg1", "charctx"],
     tags: ["toPrint"],
-    desc: "{Любимое оружие: Усивака}",
-    enDesc: "{Favourite weapon: Ushiwaka}",
+    desc: "Любимое оружие {Усивака}.",
+    enDesc: "Favourite weapon of {Ushiwaka}.",
     img: "cards/card_1_syuko.png"
   },
   {
@@ -97,8 +97,8 @@ const CARDS = [
     group: "weapon",
     icons: ["complexity1", "dmg3", "charctx"],
     tags: ["toPrint"],
-    desc: "Атакуемый игрок скидывает случайную карту в случае успешной атаки.[NL]{Любимое оружие: Сайго}",
-    enDesc: "On a successful attack, the target discards a random card.[NL]{Favourite weapon: Saigo}",
+    desc: "Атакуемый игрок скидывает случайную карту в случае успешной атаки.[NL]Любимое оружие {Сайго}.",
+    enDesc: "On a successful attack, the target discards a random card.[NL]Favourite weapon of {Saigo}.",
     img: "cards/card_3_kanabo.png"
   },
   {
@@ -137,8 +137,8 @@ const CARDS = [
     icons: ["complexity1", "dmg2", "charctx"],
     iconsOr: ["ranged", "dmg1"],
     tags: ["toPrint"],
-    desc: "{Любимое оружие: Манасэ}",
-    enDesc: "{Favourite weapon: Manase}",
+    desc: "Любимое оружие {Манасэ}.",
+    enDesc: "Favourite weapon of {Manase}.",
     img: "cards/card_6_boevoy_veer.png"
   },
   {
@@ -151,8 +151,8 @@ const CARDS = [
     icons: ["complexity1", "dmg2", "charctx"],
     iconsOr: ["complexity2", "dmg1"],
     tags: ["toPrint"],
-    desc: "{Любимое оружие: Хандзо}",
-    enDesc: "{Favourite weapon: Hanzo}",
+    desc: "Любимое оружие {Хандзо}.",
+    enDesc: "Favourite weapon of {Hanzo}.",
     img: "cards/card_7_kusarigama.png"
   },
   {
@@ -386,8 +386,8 @@ const CARDS = [
     group: "weapon",
     icons: ["complexity2", "dmg2", "charctx"],
     tags: ["toPrint"],
-    desc: "{Древковое}[NL]{Любимое оружие: Таранага}",
-    enDesc: "{Polearm}[NL]{Favourite weapon: Taranaga}",
+    desc: "{Древковое}[NL]Любимое оружие {Таранага}.",
+    enDesc: "{Polearm}[NL]Favourite weapon of {Taranaga}.",
     img: "cards/card_22_nunti.png"
   },
   {
@@ -399,8 +399,8 @@ const CARDS = [
     group: "weapon",
     icons: ["complexity2", "dmg1", "charctx"],
     tags: ["toPrint"],
-    desc: "{Древковое} Атакуемый игрок теряет стойку в случае успешной атаки.[NL]{Любимое оружие: Норио}",
-    enDesc: "{Polearm} On a successful attack, the target loses their Stance.[NL]{Favourite weapon: Norio}",
+    desc: "{Древковое} Атакуемый игрок теряет стойку в случае успешной атаки.[NL]Любимое оружие {Норио}.",
+    enDesc: "{Polearm} On a successful attack, the target loses their Stance.[NL]Favourite weapon of {Norio}.",
     img: "cards/card_24_bo.png"
   },
   {
@@ -425,8 +425,8 @@ const CARDS = [
     group: "weapon",
     icons: ["complexity2", "dmg2", "charctx"],
     tags: ["toPrint"],
-    desc: "В случае успешной атаки вы забираете карту из руки врага.[NL]{Любимое оружие: Така}",
-    enDesc: "On a successful attack, take a card from the enemy's hand.[NL]{Favourite weapon: Taka}",
+    desc: "В случае успешной атаки вы забираете карту из руки врага.[NL]Любимое оружие {Така}.",
+    enDesc: "On a successful attack, take a card from the enemy's hand.[NL]Favourite weapon of {Taka}.",
     img: "cards/card_26_kyoketsusyoge.png"
   },
   {
@@ -597,8 +597,8 @@ const CARDS = [
     group: "weapon",
     icons: ["ranged", "dmg1", "trap", "charctx"],
     tags: ["toPrint"],
-    desc: "Можно использовать как ловушку, которая наносит одну рану атакующему в ответ.[NL]{Любимое оружие: Иё}",
-    enDesc: "May be played as a Trap that deals 1 wound back to the attacker.[NL]{Favourite weapon: Iyo}",
+    desc: "Можно использовать как ловушку, которая наносит одну рану атакующему в ответ.[NL]Любимое оружие {Иё}.",
+    enDesc: "May be played as a Trap that deals 1 wound back to the attacker.[NL]Favourite weapon of {Iyo}.",
     img: "cards/card_38_makibishi.png"
   },
   {
@@ -610,8 +610,8 @@ const CARDS = [
     group: "weapon",
     icons: ["ranged", "dmg0", "poison", "charctx"],
     tags: ["toPrint", "poison"],
-    desc: "Атака игнорирует ловушки и защиту, и вы берёте карту из колоды.[NL]{Любимое оружие: Минамото}",
-    enDesc: "This attack ignores Traps and Defense, and you draw a card.[NL]{Favourite weapon: Minamoto}",
+    desc: "Атака игнорирует ловушки и защиту, и вы берёте карту из колоды.[NL]Любимое оружие {Минамото}.",
+    enDesc: "This attack ignores Traps and Defense, and you draw a card.[NL]Favourite weapon of {Minamoto}.",
     img: "cards/card_39_drotik_s_yadom.png"
   },
   {
