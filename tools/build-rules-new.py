@@ -72,7 +72,7 @@ CH = {
  'effects':       dict(icons=[[('ic','effect')]],                       cards=[91, 92]),   # «Метка убийцы» и «Противоядие»
  'poison':        dict(icons=[[('ic','poison')]],                       cards=[116, 64]),
  'interventions': dict(layout='stack', icons=[[('ic','intervention')]], cards=[121, 124]),
- 'auras':         dict(icons=[[('ic','aura')]],                        cards=[1206, 1206]),   # две «Дымовые завесы» веером
+ 'auras':         dict(icons=[[('ic','aura')]],                        cards=[1209, 1206]),   # «Часовой» внутри, «Дымовая завеса» сверху
  'conditional':   dict(layout='stack', icons=[[('ic','rolectx'),('ic','hpctx'),('ic','charges'),('ic','charctx')]], cards=[125, 3094]),
  'order':         dict(icons=[],                                        cards=[]),
 }
