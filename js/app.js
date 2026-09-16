@@ -656,6 +656,12 @@ $(function () {
                      ? null
                      : (GROUP_TITLE_COLOR[card.group] || '#2E2A28'));
 
+    // Роли рисуются иначе: тушевая фигура одним цветом на белом, без
+    // маски-рамки и без плашки — название стоит прямо на белом поле
+    // арта, тем же цветом, что фигура (titleBgColor карты). Арт у ролей
+    // сразу в пропорции карты (611:978) и занимает её целиком.
+    var isRole = card.group === 'role';
+
     // Внутренний блок арта — маска + заголовок + описание
     var $card = $('<div>', { class: 'card' }).append(
 
@@ -710,7 +716,8 @@ $(function () {
           )
         : null,
 
-      // Слой 3: маска/рамка поверх арта
+      // Слой 3: маска/рамка поверх арта (у ролей рамки нет)
+      isRole ? null :
       $('<img>', { class: 'card-mask', src: maskSrc(card), alt: '', draggable: false }),
 
       // Слой 3: заголовок в верхней полосе маски
@@ -721,7 +728,8 @@ $(function () {
       //   3. иначе GROUP_TITLE_COLOR[group] || '#2E2A28'
       (function () {
         var $tw = $('<div>', { class: 'card-title-wrap' });
-        if (titleBg) $tw.css('background', titleBg);
+        if (isRole) $tw.css('color', titleBg);          // роли: цвет букв, фона нет
+        else if (titleBg) $tw.css('background', titleBg);
         $tw.append(
           $('<span>', { class: 'card-title', text: cardTitle(card) }),
           card.subtitle
@@ -834,7 +842,8 @@ $(function () {
       // позволяет CSS-правилам подменять стили внутри (например, цвет
       // заголовка). Добавляется только когда group === 'character'.
       class: 'card-item ' + typeClasses +
-             (card.group === 'character' ? ' card-character' : ''),
+             (card.group === 'character' ? ' card-character' : '') +
+             (isRole ? ' card-role' : ''),
       'data-card-id': card.id,
       'data-types': card.types.join(' '),
       'data-group': card.group || 'action',

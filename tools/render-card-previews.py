@@ -42,11 +42,19 @@ def shoot(cid, lang):
     # --window-size=600,600 и масштабе 2 — это (360,216)-(840,984)).
     # Берём её целиком плюс белое поле BLEED вокруг — как на печати из
     # картотеки: карта с белой каймой под обрез и скруглёнными углами.
+    # Кадр карты — по геометрии embed-режима, а не по границе с белым:
+    # у ролей карта сама белая (тушевая фигура на белом поле, без
+    # рамки), и bbox по цвету обрезал бы её по туши. Bbox — только
+    # проверка, что рендер не пустой и лежит внутри кадра.
+    W, CW, CH = 600, 240, 384
+    x0, y0 = (W - CW) // 2 * SCALE, (W - CH) // 2 * SCALE
+    x1, y1 = x0 + CW * SCALE, y0 + CH * SCALE
     diff = ImageChops.difference(im, Image.new('RGB', im.size, (255, 255, 255))).convert('L').point(lambda v: 255 if v > 12 else 0)
     box = diff.getbbox()
     if not box:
         raise RuntimeError(f'card {cid}: empty render')
-    x0, y0, x1, y1 = box
+    if box[0] < x0 - 2 or box[1] < y0 - 2 or box[2] > x1 + 2 or box[3] > y1 + 2:
+        raise RuntimeError(f'card {cid}: render {box} outside the expected frame {(x0, y0, x1, y1)}')
     k = BLEED * SCALE
     card = im.crop((x0 - k, y0 - k, x1 + k, y1 + k))
     # скруглённые углы → прозрачность (webp с альфой)
