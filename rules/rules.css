@@ -168,7 +168,7 @@ html, body {
 /* ---------- Титульный лист и «Конец» ---------- */
 /* Титул: рисунок дуэли во всю колонку, название крупно, подзаголовок между штрихами */
 .sheet.title .content, .sheet.end .content { left: var(--outer); right: var(--outer); }
-.title-page { text-align: center; padding-top: 18mm; }
+.title-page { text-align: center; padding-top: 26mm; }
 .title-art {
   display: block;
   width: 100%;
@@ -184,9 +184,10 @@ html, body {
   letter-spacing: .06em;
   text-transform: uppercase;
   color: var(--ink);
-  margin: 0 0 12mm;
+  margin: 0 0 18mm;
 }
 .title-name span { display: block; }
+.title-name span + span { margin-top: 3mm; }   /* вторая строка названия чуть ниже */
 /* .title-vs — необязательная средняя строка («против») мельче, между кистевыми штрихами; сейчас не используется */
 .title-name .title-vs {
   display: flex;
