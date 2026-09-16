@@ -104,7 +104,7 @@ STRIP_ICONS = []   # столбик мелочей убран по решени�
 TXT = {
  'ru': dict(
   out='rules/cheatsheet.html', lang='ru',
-  title='Самураи против Ниндзя — памятка A5', ttl='Самураи против Ниндзя',
+  title='Последний самурай — памятка A5', ttl='Последний самурай',
   note='Памятка на стол · A5 горизонтально · <a href="rules.html">правила</a> · <a href="../app.html">картотека</a>',
   switch='<span class="lang-switch-current">RU</span><a href="cheatsheet-en.html">EN</a>',
   zone_act='行動', zone_tbl='陣',   # действие · позиция
@@ -145,7 +145,7 @@ TXT = {
   }),
  'en': dict(
   out='rules/cheatsheet-en.html', lang='en',
-  title='Samurai vs Ninja — A5 cheat sheet', ttl='Samurai vs Ninja',
+  title='The Last Samurai — A5 cheat sheet', ttl='The Last Samurai',
   note='Table cheat sheet · A5 landscape · <a href="rules-en.html">rules</a> · <a href="../app.html?lang=en">card catalogue</a>',
   switch='<a href="cheatsheet.html">RU</a><span class="lang-switch-current">EN</span>',
   zone_act='行動', zone_tbl='陣',

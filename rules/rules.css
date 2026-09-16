@@ -187,7 +187,7 @@ html, body {
   margin: 0 0 12mm;
 }
 .title-name span { display: block; }
-/* «против» — строкой между названиями, мельче, между кистевыми штрихами */
+/* .title-vs — необязательная средняя строка («против») мельче, между кистевыми штрихами; сейчас не используется */
 .title-name .title-vs {
   display: flex;
   align-items: center;
