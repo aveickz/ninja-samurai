@@ -184,9 +184,31 @@ html, body {
   letter-spacing: .06em;
   text-transform: uppercase;
   color: var(--ink);
-  margin: 0 0 6mm;
+  margin: 0 0 12mm;
 }
-/* Подзаголовок между двумя кистевыми штрихами */
+.title-name span { display: block; }
+/* «против» — строкой между названиями, мельче, между кистевыми штрихами */
+.title-name .title-vs {
+  display: flex;
+  align-items: center;
+  gap: 4mm;
+  font-size: 13pt;
+  letter-spacing: .2em;
+  color: var(--ink-soft);
+  margin: 2.5mm 0;
+}
+.title-name .title-vs::before, .title-name .title-vs::after {
+  content: "";
+  flex: 1;
+  max-width: 26mm;
+  height: 3px;
+  background: radial-gradient(ellipse 50% 90% at 50% 50%, var(--ink) 0%, var(--ink-soft) 35%, transparent 72%);
+  opacity: .55;
+  filter: blur(.4px);
+}
+.title-name .title-vs::before { margin-left: auto; }
+.title-name .title-vs::after  { margin-right: auto; }
+/* Подзаголовок — между золотыми точками, как колонцифра */
 .title-sub {
   display: flex;
   align-items: center;
@@ -198,18 +220,19 @@ html, body {
   text-transform: uppercase;
   color: var(--ink-soft);
   text-indent: 0;
+  justify-content: center;
 }
-.title-sub::before, .title-sub::after {
+.title-sub::before, .title-sub::after { content: "·"; color: var(--gold); font-size: 14pt; line-height: 1; letter-spacing: 0; }
+/* «Конец» — те же точки, но штрихи по бокам, как у «против» */
+.end-page .title-sub::before, .end-page .title-sub::after {
   content: "";
   flex: 1;
-  max-width: 30mm;
+  max-width: 26mm;
   height: 3px;
   background: radial-gradient(ellipse 50% 90% at 50% 50%, var(--ink) 0%, var(--ink-soft) 35%, transparent 72%);
   opacity: .55;
   filter: blur(.4px);
 }
-.title-sub::before { margin-left: auto; }
-.title-sub::after  { margin-right: auto; }
 /* Оборот титула: выходные данные мелко у нижнего поля */
 .sheet.imprint .content { left: var(--outer); right: var(--outer); }
 .imprint { position: absolute; left: 0; right: 0; bottom: 0; margin: 0; text-align: center; font-size: 7pt; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-faded); text-indent: 0; }

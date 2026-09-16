@@ -224,7 +224,7 @@ L = {
  'ru': dict(src='rules/content-ru.html', out='rules/rules.html', html_lang='ru',
             title='Самураи против Ниндзя — правила игры',
             sub='— Самураи против Ниндзя —',
-            cover_title='Самураи против Ниндзя', cover_sub='Правила игры', end='Конец',
+            cover_title=('Самураи', 'против', 'Ниндзя'), cover_sub='Правила игры', end='Конец',
             imprint='Самураи против Ниндзя · правила игры · 2026',
             draft='<a href="../app.html">Картотека</a> · <a href="cheatsheet.html">Памятка A5</a> · Ctrl+P — печать A5, страница на лист',
             switch='<span class="lang-switch-current">RU</span><a href="rules-en.html">EN</a>',
@@ -232,7 +232,7 @@ L = {
  'en': dict(src='rules/content-en.html', out='rules/rules-en.html', html_lang='en',
             title='Samurai vs Ninja — Game Rules',
             sub='— Samurai vs Ninja —',
-            cover_title='Samurai vs Ninja', cover_sub='Game Rules', end='The End',
+            cover_title=('Samurai', 'versus', 'Ninja'), cover_sub='Game Rules', end='The End',
             imprint='Samurai vs Ninja · game rules · 2026',
             draft='<a href="../app.html?lang=en">Card catalogue</a> · <a href="cheatsheet-en.html">Cheat sheet A5</a> · Ctrl+P — print A5, one page per sheet',
             switch='<a href="rules.html">RU</a><span class="lang-switch-current">EN</span>',
@@ -317,11 +317,11 @@ def chapter_html(lang, cid, mark, title, body, a=0, b=None):
 
 def title_html(t):
     # Титульный лист: тушевой рисунок дуэли (rules/media/cover.webp, /img) во всю ширину,
-    # название крупно, подзаголовок между кистевыми штрихами
+    # название в три строки — «против» мельче, между кистевыми штрихами; подзаголовок ниже, между точками
     return f'''
       <div class="title-page">
         <img class="title-art" src="media/cover.webp" alt="">
-        <h1 class="title-name">{t['cover_title']}</h1>
+        <h1 class="title-name"><span>{t['cover_title'][0]}</span><span class="title-vs">{t['cover_title'][1]}</span><span>{t['cover_title'][2]}</span></h1>
         <p class="title-sub"><span>{t['cover_sub']}</span></p>
       </div>'''
 
