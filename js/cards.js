@@ -1163,10 +1163,10 @@ const CARDS = [
     types: ["modifier"],
     qty: 1,
     group: "modifier",
-    icons: [],
-    tags: [],
-    desc: "Ваша атака берёт любую сложность и наносит на одну рану больше, но вы теряете один жетон жизни. Нельзя применить на пороге смерти.",
-    enDesc: "Your attack handles any complexity and deals 1 extra wound, but you lose 1 life. Cannot be used at death's door.",
+    icons: ["hpctx"],
+    tags: ["toPrint"],
+    desc: "Ваша атака берёт любую сложность и наносит на одну рану больше, но вы теряете один жетон жизни.[NL]{На пороге вашей смерти} применить нельзя.",
+    enDesc: "Your attack handles any complexity and deals 1 extra wound, but you lose 1 life.[NL]{At death's door} it cannot be played.",
     img: "cards/card_73_povyazka_kamikadze.png"
   },
   {
