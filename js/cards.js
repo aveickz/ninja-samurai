@@ -13,7 +13,7 @@ const CARDS = [
     qty: 4,
     group: "role",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "",
     enDesc: "",
     img: "cards/card_role_ninja.png"
@@ -27,7 +27,7 @@ const CARDS = [
     qty: 3,
     group: "role",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "",
     enDesc: "",
     img: "cards/card_role_samurai.png"
@@ -41,7 +41,7 @@ const CARDS = [
     qty: 1,
     group: "role",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "",
     enDesc: "",
     img: "cards/card_role_samurai.png"
@@ -1582,9 +1582,9 @@ const CARDS = [
     qty: 3,
     group: "effect",
     icons: [],
-    tags: [],
-    desc: "Атаки по вам могут быть произведены без ограничения дальности. TODO: перевести на сложность атаки. Реворка не требует — карта ничего не запрещает, а делает носителя легче для атаки (ускоряющая механика, класс «露見 / открытая позиция»). Варианты: «сложность атак по вам уменьшается на 1 (не менее 1)» или «сложность атак по вам — 1» — крюк подтягивает вас на расстояние вытянутой руки и разом отменяет Доспех #5104 и Ровный строй #1202.",
-    enDesc: "Attacks against you may be made at any range. TODO: convert to attack complexity. No rework needed — the card forbids nothing, it only makes its bearer easier to hit (an accelerating mechanic, the «露見 / exposed position» class). Options: «attacks against you are 1 easier (minimum 1)» or «attacks against you are always complexity 1» — the hook drags you within arm's reach and cancels Armor #5104 and Closed Ranks #1202 outright.",
+    tags: ["toPrint"],
+    desc: "Сложность атак по вам всегда равна 1 — Доспех и другие повышения сложности не спасают.",
+    enDesc: "Attacks against you are always complexity 1 — Armor and other complexity increases do not help.",
     img: "cards/card_93_kaginava.png"
   },
   {
