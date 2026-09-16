@@ -143,6 +143,7 @@ def side_height_mm(icon_rows, n, layout):
     return round(h + 1, 1)
 
 BANNER = '<img class="mk fig-inline" src="media/fig/banner.webp" alt="">'   # фигурка знамени в строке текста
+POISON = '<img class="mk fig-inline poison" src="media/fig/poison.webp" alt="">'   # зелёная фигурка яда в строке текста
 
 def ic(kind, key):
     if kind == 'ic':
@@ -182,6 +183,7 @@ INLINE = {
   ('weapons', 'Оружие также может быть усилено ядом.', 'Оружие также может быть усилено ядом ' + ic('ic','poison') + '.'),
   ('weapons', 'картой-модификатором с красной плашкой.', 'картой-модификатором ' + ic('ic','modifier') + ' с красной плашкой.'),
   ('auras', 'сверху ставится фигурка знамени', 'сверху ставится фигурка знамени ' + BANNER),
+  ('poison', 'помечается фигуркой яда поверх', 'помечается фигуркой яда ' + POISON + ' поверх'),
   ('setup', 'Цифра внутри сердца — максимум', 'Цифра внутри сердца ' + ic('ic','hp') + ' — максимум'),
   ('setup', '<h4>Выставление жетонов</h4>', '<h4>Выставление жетонов<span class="h-icons">' + ic('mk','hp.png') + ic('mk','winpoint.png') + '</span></h4>'),   # сначала жизни, потом очки
   ('conditional', '<strong>Бонусы по фракции.</strong>', ic('ic','rolectx') + ' <strong>Бонусы по фракции.</strong>'),
@@ -196,6 +198,7 @@ INLINE = {
   ('weapons', 'Weapons can also be strengthened with poison.', 'Weapons can also be strengthened with poison ' + ic('ic','poison') + '.'),
   ('weapons', 'Modifier card with a red banner.', 'Modifier card ' + ic('ic','modifier') + ' with a red banner.'),
   ('auras', 'with the banner figurine on top', 'with the banner figurine ' + BANNER + ' on top'),
+  ('poison', 'marked with the poison figurine placed', 'marked with the poison figurine ' + POISON + ' placed'),
   ('setup', 'The number inside the heart is', 'The number inside the heart ' + ic('ic','hp') + ' is'),
   ('setup', '<h4>Setting out tokens</h4>', '<h4>Setting out tokens<span class="h-icons">' + ic('mk','hp.png') + ic('mk','winpoint.png') + '</span></h4>'),
   ('conditional', '<strong>Faction bonuses.</strong>', ic('ic','rolectx') + ' <strong>Faction bonuses.</strong>'),

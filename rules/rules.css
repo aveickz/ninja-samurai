@@ -452,6 +452,7 @@ em.card-term {
 p .ic, li .ic, h4 .ic, aside .ic { --ic: 3.6mm; vertical-align: -1mm; margin: 0 .3mm; }
 p .mk, li .mk, h4 .mk, aside .mk { width: 3.6mm; height: 3.6mm; vertical-align: -1mm; margin: 0 .3mm; }
 p .fig-inline { width: 3.2mm; height: 5.2mm; vertical-align: -1.6mm; margin: 0 .2mm; }   /* фигурка знамени: выше значка, во всю высоту строки */
+p .fig-inline.poison { width: 3.6mm; height: 4.7mm; vertical-align: -1.3mm; }   /* флакон яда пошире и пониже знамени (276×360) */
 
 /* ---------- Значки и карты главы: флоат с обтеканием ---------- */
 /* Колонка стоит в потоке сразу после заголовка главы и обтекается
