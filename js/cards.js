@@ -2375,9 +2375,9 @@ const CARDS = [
     group: "character",
     icons: [],
     tags: ["toPrint"],
-    desc: "Раз в ход можете передвинуть свою активную ловушку к союзнику без ловушки или поменяться ловушками с врагом, не открывая их. В фазе набора за каждую ловушку на столе (не более трёх) берите дополнительно 1 карту." +
+    desc: "Раз в ход можете передвинуть свою активную ловушку к союзнику без ловушки или поменять местами две любые ловушки на столе, не открывая их. В фазе набора за каждую ловушку на столе (не более трёх) берите дополнительно 1 карту." +
           "[NL]{После вашей смерти} ловушки врагов просвещаются.",
-    enDesc: "Once per turn you may move your active Trap to an ally who has none, or swap Traps with an enemy without revealing them. In the draw phase, take 1 extra card for every Trap on the table (no more than three).[NL]{After your death} enemy Traps are revealed.",
+    enDesc: "Once per turn you may move your active Trap to an ally who has none, or swap any two Traps on the table without revealing them. In the draw phase, take 1 extra card for every Trap on the table (no more than three).[NL]{After your death} enemy Traps are revealed.",
     img: "cards/card_140_iyo.png"
   },
   {
