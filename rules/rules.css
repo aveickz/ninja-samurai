@@ -529,7 +529,9 @@ section.chapter::after { content: ""; display: block; clear: both; }
   font-family: 'PT Sans Narrow', 'PT Sans', Arial, sans-serif;
 }
 .table-overlay .tf-lines line { stroke: var(--vermilion-dk); stroke-width: 3.5; marker-end: url(#tf-arrow); }
-.table-overlay #tf-arrow path { fill: var(--vermilion-dk); }
+.table-overlay #tf-arrow path, .table-overlay #tf-arrow-big path { fill: var(--vermilion-dk); }
+/* Стрелка хода атаки: пунктир от атакующего к цели, поверх карт */
+.table-overlay .tf-flow { fill: none; stroke: var(--vermilion-dk); stroke-width: 10; stroke-dasharray: 18 11; stroke-linecap: round; opacity: .6; marker-end: url(#tf-arrow-big); }
 .table-overlay .tf-labels rect { fill: var(--paper-light); stroke: var(--gold); stroke-width: 2; }
 .table-overlay .tf-num { fill: var(--vermilion-dk); }
 .table-overlay .tf-numtxt { fill: var(--paper-light); font-size: 24px; font-weight: 700; text-anchor: middle; dominant-baseline: central; }
