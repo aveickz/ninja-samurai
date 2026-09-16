@@ -83,9 +83,9 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["complexity1", "dmg1"],
-    tags: [],
-    desc: "",
-    enDesc: "",
+    tags: ["toPrint"],
+    desc: "{Любимое оружие: Усивака}",
+    enDesc: "{Favourite weapon: Ushiwaka}",
     img: "cards/card_1_syuko.png"
   },
   {
@@ -96,9 +96,9 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["complexity1", "dmg3"],
-    tags: [],
-    desc: "Атакуемый игрок скидывает случайную карту в случае успешной атаки.",
-    enDesc: "On a successful attack, the target discards a random card.",
+    tags: ["toPrint"],
+    desc: "Атакуемый игрок скидывает случайную карту в случае успешной атаки.[NL]{Любимое оружие: Сайго}",
+    enDesc: "On a successful attack, the target discards a random card.[NL]{Favourite weapon: Saigo}",
     img: "cards/card_3_kanabo.png"
   },
   {
@@ -136,9 +136,9 @@ const CARDS = [
     group: "weapon",
     icons: ["complexity1", "dmg2"],
     iconsOr: ["ranged", "dmg1"],
-    tags: [],
-    desc: "",
-    enDesc: "",
+    tags: ["toPrint"],
+    desc: "{Любимое оружие: Манасэ}",
+    enDesc: "{Favourite weapon: Manase}",
     img: "cards/card_6_boevoy_veer.png"
   },
   {
@@ -150,9 +150,9 @@ const CARDS = [
     group: "weapon",
     icons: ["complexity1", "dmg2"],
     iconsOr: ["complexity2", "dmg1"],
-    tags: [],
-    desc: "",
-    enDesc: "",
+    tags: ["toPrint"],
+    desc: "{Любимое оружие: Хандзо}",
+    enDesc: "{Favourite weapon: Hanzo}",
     img: "cards/card_7_kusarigama.png"
   },
   {
@@ -386,8 +386,8 @@ const CARDS = [
     group: "weapon",
     icons: ["complexity2", "dmg2"],
     tags: ["toPrint"],
-    desc: "{Древковое}",
-    enDesc: "{Polearm}",
+    desc: "{Древковое}[NL]{Любимое оружие: Таранага}",
+    enDesc: "{Polearm}[NL]{Favourite weapon: Taranaga}",
     img: "cards/card_22_nunti.png"
   },
   {
@@ -399,8 +399,8 @@ const CARDS = [
     group: "weapon",
     icons: ["complexity2", "dmg1"],
     tags: ["toPrint"],
-    desc: "{Древковое} Атакуемый игрок теряет стойку в случае успешной атаки.",
-    enDesc: "{Polearm} On a successful attack, the target loses their Stance.",
+    desc: "{Древковое} Атакуемый игрок теряет стойку в случае успешной атаки.[NL]{Любимое оружие: Норио}",
+    enDesc: "{Polearm} On a successful attack, the target loses their Stance.[NL]{Favourite weapon: Norio}",
     img: "cards/card_24_bo.png"
   },
   {
@@ -424,9 +424,9 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["complexity2", "dmg2"],
-    tags: [],
-    desc: "В случае успешной атаки вы забираете карту из руки врага.",
-    enDesc: "On a successful attack, take a card from the enemy's hand.",
+    tags: ["toPrint"],
+    desc: "В случае успешной атаки вы забираете карту из руки врага.[NL]{Любимое оружие: Така}",
+    enDesc: "On a successful attack, take a card from the enemy's hand.[NL]{Favourite weapon: Taka}",
     img: "cards/card_26_kyoketsusyoge.png"
   },
   {
@@ -597,8 +597,8 @@ const CARDS = [
     group: "weapon",
     icons: ["ranged", "dmg1", "trap"],
     tags: ["toPrint"],
-    desc: "Можно использовать как ловушку, которая наносит одну рану атакующему в ответ.",
-    enDesc: "May be played as a Trap that deals 1 wound back to the attacker.",
+    desc: "Можно использовать как ловушку, которая наносит одну рану атакующему в ответ.[NL]{Любимое оружие: Иё}",
+    enDesc: "May be played as a Trap that deals 1 wound back to the attacker.[NL]{Favourite weapon: Iyo}",
     img: "cards/card_38_makibishi.png"
   },
   {
@@ -609,9 +609,9 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["ranged", "dmg0", "poison"],
-    tags: ["poison"],
-    desc: "Атака игнорирует ловушки и защиту, и вы берёте карту из колоды.",
-    enDesc: "This attack ignores Traps and Defense, and you draw a card.",
+    tags: ["toPrint", "poison"],
+    desc: "Атака игнорирует ловушки и защиту, и вы берёте карту из колоды.[NL]{Любимое оружие: Минамото}",
+    enDesc: "This attack ignores Traps and Defense, and you draw a card.[NL]{Favourite weapon: Minamoto}",
     img: "cards/card_39_drotik_s_yadom.png"
   },
   {
