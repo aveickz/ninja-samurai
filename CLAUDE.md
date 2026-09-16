@@ -159,7 +159,7 @@ diff'у мучительно. Место дешевле времени.
 | Текст эффекта карты, баланс, новые карты | `mechanics/` → потом `js/cards.js` |
 | Правила игры (текст)                     | `rules/content-ru.html`, следом `rules/content-en.html`; затем `py -3 tools/build-rules-new.py` |
 | Правила игры (вёрстка, страницы)         | `tools/build-rules-new.py` (раскладка `PAGES`, конфиг глав `CH`), `rules/rules.css`, `rules/rules-print.css` |
-| Памятка A5 (схема зоны игрока)           | `tools/build-cheatsheet.py`: тексты в `TXT` (RU оригинал, EN следом), предметы `OBJ`, выноски `CALL`, координаты в мм → `rules/cheatsheet.html` и `cheatsheet-en.html`, руками не править |
+| Памятка A5/A6 (схема зоны игрока)        | `tools/build-cheatsheet.py`: тексты в `TXT` (RU оригинал, EN следом; `co` — полные, `co6` — короткие под A6), предметы `OBJ`, выноски `CALL`, координаты в мм для A5, для A6 те же × `k` из `FORMATS` при том же кегле → `rules/cheatsheet[-en][-a6].html`, руками не править |
 | Картотека: рендер, фильтры, печать       | Корень репозитория (см. ниже) |
 | Арт карты (`cards/*.png`)                | **только по явной просьбе** — см. ниже |
 
@@ -397,6 +397,7 @@ cardboard/                    # корень репозитория = корен
 │   ├── media/cheat-bg.webp # Фон памятки-схемы: бумага васи с тушевыми украшениями по краям (/img по макету ref/cheatsheet-mockup-2026-09-16.png)
 │   ├── patchnotes/       # Патч-ноуты правил: что было → что стало → что трогает; 2026-09-16.md — внесён
 │   ├── cheatsheet-en.html # …английская памятка, тоже сборка; cheatsheet-en.md — прежний текст
+│   ├── cheatsheet-a6.html # …и A6-версии обоих языков (cheatsheet-en-a6.html): та же схема в масштабе, тексты короче
 │   ├── media/bg/         # Бледные тушевые фоны глав (webp с альфой, сгенерированы /img)
 │   ├── media/cards/      # Превью карт-примеров (tools/render-card-previews.py)
 │   ├── media/table.webp  # Стол во время партии — картинка под SVG-подписи (tools/table_fig.py)
