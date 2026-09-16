@@ -71,7 +71,7 @@ CH = {
  'stances':       dict(icons=[[('ic','stance')]],                       cards=[60, 1166]),   # «Лучник» справа, сверху — виден целиком
  'group':         dict(icons=[[('ic','aoe')]],                          cards=[83, 82]),   # «Потасовка» и «Миротворцы» сверху
  'effects':       dict(icons=[[('ic','effect')]],                       cards=[91, 92]),   # «Метка убийцы» и «Противоядие»
- 'poison':        dict(icons=[[('ic','poison')]],                       cards=[116, 64], fig=('poison-fig', 16, 1)),   # фигурка яда тушью — в углу главы
+ 'poison':        dict(icons=[[('ic','poison')]],                       cards=[116, 64], fig=('poison-fig', 22, 1, 7)),   # фигурка яда тушью — крупно, под центром колонки карт
  'interventions': dict(layout='stack', icons=[[('ic','intervention')]], cards=[121, 124]),
  'auras':         dict(icons=[[('ic','aura')]],                        cards=[1209, 1206], fig=('banner-fig', 13, 2)),   # «Часовой» внутри, «Дымовая завеса» сверху; фигурка знамени тушью — в углу
  'conditional':   dict(layout='stack', icons=[[('ic','rolectx'),('ic','hpctx'),('ic','charges'),('ic','charctx')]], cards=[125, 3094]),
@@ -95,8 +95,8 @@ PAGES = [
     ['table'],                       # стол во время партии — один на странице
     [('weapons', 0, 9)],             # атака: оружие и сложность
     [('weapons', 9, None), 'defense', 'thrust'],   # модификатор и любимое оружие со своими картами; защита; выпад
-    ['stances', 'traps', 'group'],   # стойки, ловушки, групповые действия
-    ['poison', 'effects'],
+    ['traps', 'stances', 'group'],   # ловушки, стойки, групповые действия
+    ['effects', 'poison'],
     ['interventions', 'auras'],
     ['conditional'],
     ['order', 'players'],           # неравные команды — редкость, в самый конец
@@ -144,6 +144,7 @@ def side_height_mm(icon_rows, n, layout):
 
 BANNER = '<img class="mk fig-inline" src="media/fig/banner.webp" alt="">'   # фигурка знамени в строке текста
 POISON = '<img class="mk fig-inline poison" src="media/fig/poison.webp" alt="">'   # зелёная фигурка яда в строке текста
+TRAP = '<img class="mk fig-inline trap" src="media/fig/trap.webp" alt="">'         # фигурка макибиси в строке текста
 
 def ic(kind, key):
     if kind == 'ic':
@@ -184,12 +185,13 @@ INLINE = {
   ('weapons', 'картой-модификатором с красной плашкой.', 'картой-модификатором ' + ic('ic','modifier') + ' с красной плашкой.'),
   ('auras', 'сверху ставится фигурка знамени', 'сверху ставится фигурка знамени ' + BANNER),
   ('poison', 'помечается фигуркой яда поверх', 'помечается фигуркой яда ' + POISON + ' поверх'),
+  ('traps', 'и поставив на неё фигурку ловушки.', 'и поставив на неё фигурку ловушки ' + TRAP + '.'),
   ('setup', 'Цифра внутри сердца — максимум', 'Цифра внутри сердца ' + ic('ic','hp') + ' — максимум'),
   ('setup', '<h4>Выставление жетонов</h4>', '<h4>Выставление жетонов<span class="h-icons">' + ic('mk','hp.png') + ic('mk','winpoint.png') + '</span></h4>'),   # сначала жизни, потом очки
-  ('conditional', '<strong>Бонусы по фракции.</strong>', ic('ic','rolectx') + ' <strong>Бонусы по фракции.</strong>'),
-  ('conditional', '<strong>Контекст здоровья.</strong>', ic('ic','hpctx') + ' <strong>Контекст здоровья.</strong>'),
-  ('conditional', '<strong>Счёт по столу.</strong>', ic('ic','charges') + ' <strong>Счёт по столу.</strong>'),
-  ('conditional', '<strong>Условие по имени.</strong>', ic('ic','charctx') + ' <strong>Условие по имени.</strong>'),
+  ('conditional', '<h4>Бонусы по фракции</h4>', '<h4>Бонусы по фракции<span class="h-icons">' + ic('ic','rolectx') + '</span></h4>'),
+  ('conditional', '<h4>Контекст здоровья</h4>', '<h4>Контекст здоровья<span class="h-icons">' + ic('ic','hpctx') + '</span></h4>'),
+  ('conditional', '<h4>Счёт по столу</h4>', '<h4>Счёт по столу<span class="h-icons">' + ic('ic','charges') + '</span></h4>'),
+  ('conditional', '<h4>Условие по имени</h4>', '<h4>Условие по имени<span class="h-icons">' + ic('ic','charctx') + '</span></h4>'),
  ],
  'en': [
   ('weapons', 'the highest <b>complexity</b> it can handle and its attack power.', 'the highest <b>complexity</b> it can handle ' + ic('mk','icons/complexity1.svg') + ' and its attack power ' + ic('mk','icons/dmg2.svg') + '.'),
@@ -199,12 +201,13 @@ INLINE = {
   ('weapons', 'Modifier card with a red banner.', 'Modifier card ' + ic('ic','modifier') + ' with a red banner.'),
   ('auras', 'with the banner figurine on top', 'with the banner figurine ' + BANNER + ' on top'),
   ('poison', 'marked with the poison figurine placed', 'marked with the poison figurine ' + POISON + ' placed'),
+  ('traps', 'the trap figurine on top of it.', 'the trap figurine ' + TRAP + ' on top of it.'),
   ('setup', 'The number inside the heart is', 'The number inside the heart ' + ic('ic','hp') + ' is'),
   ('setup', '<h4>Setting out tokens</h4>', '<h4>Setting out tokens<span class="h-icons">' + ic('mk','hp.png') + ic('mk','winpoint.png') + '</span></h4>'),
-  ('conditional', '<strong>Faction bonuses.</strong>', ic('ic','rolectx') + ' <strong>Faction bonuses.</strong>'),
-  ('conditional', '<strong>Health context.</strong>', ic('ic','hpctx') + ' <strong>Health context.</strong>'),
-  ('conditional', '<strong>Counting the table.</strong>', ic('ic','charges') + ' <strong>Counting the table.</strong>'),
-  ('conditional', '<strong>Named condition.</strong>', ic('ic','charctx') + ' <strong>Named condition.</strong>'),
+  ('conditional', '<h4>Faction bonuses</h4>', '<h4>Faction bonuses<span class="h-icons">' + ic('ic','rolectx') + '</span></h4>'),
+  ('conditional', '<h4>Health context</h4>', '<h4>Health context<span class="h-icons">' + ic('ic','hpctx') + '</span></h4>'),
+  ('conditional', '<h4>Counting the table</h4>', '<h4>Counting the table<span class="h-icons">' + ic('ic','charges') + '</span></h4>'),
+  ('conditional', '<h4>Named condition</h4>', '<h4>Named condition<span class="h-icons">' + ic('ic','charctx') + '</span></h4>'),
  ],
 }
 
@@ -304,11 +307,12 @@ def chapter_html(lang, cid, mark, title, body, a=0, b=None):
         # получают отступ справа под картинку, сама она стоит абсолютно в углу этой
         # обёртки (.fig-row). Обычный блок, не flex: строки по-прежнему обтекают
         # колонку карт, и перед подзаголовком не появляется зазора
-        name, w, k = fig
+        name, w, k, *rest = fig
+        right = rest[0] if rest else 0      # сдвиг влево от края колонки, мм — например, под центр колонки карт
         part = list(part)
         i = max(len(part) - k, 0)
-        row = (f'<div class="fig-row"><div class="fig-text" style="padding-right:{w + 3}mm">\n' + '\n'.join(part[i:]) + '\n</div>'
-               f'<img class="chapter-fig" src="media/fig/ink/{name}.webp" style="width:{w}mm" alt=""></div>')
+        row = (f'<div class="fig-row"><div class="fig-text" style="padding-right:{w + 3 + right}mm">\n' + '\n'.join(part[i:]) + '\n</div>'
+               f'<img class="chapter-fig" src="media/fig/ink/{name}.webp" style="width:{w}mm;right:{right}mm" alt=""></div>')
         part = part[:i] + [row]
     body = '\n'.join(part)
     bg = bg_path(cid) if a == 0 else None   # фон — только на первом срезе, чтобы не повторялся на странице
