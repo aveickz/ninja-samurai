@@ -2408,8 +2408,8 @@ const CARDS = [
     icons: [],
     tags: ["toPrint"],
     desc: "Ваше лечение может поднять любого игрока на 1 жетон выше его сердца; для карт и пометок предел остаётся по сердцу. Каждый раз, когда кто-то в вашей команде восстанавливает здоровье, вы берёте карту из колоды — сколько бы жетонов ни вернулось." +
-          "[NL]{После вашей смерти} каждый союзник восстанавливает 1 жетон жизни, не давая вам карты из колоды.",
-    enDesc: "Your healing may raise any player 1 life above their heart; for cards and badges the limit stays at the heart. Whenever anyone on your team restores life, you draw a card from the deck, however much was restored.[NL]{After your death} each ally restores 1 life without giving you cards from the deck.",
+          "[NL]{После вашей смерти} каждый союзник восстанавливает 2 жетона жизни.",
+    enDesc: "Your healing may raise any player 1 life above their heart; for cards and badges the limit stays at the heart. Whenever anyone on your team restores life, you draw a card from the deck, however much was restored.[NL]{After your death} each ally restores 2 life.",
     img: "cards/card_145_manase.png"
   },
   {
