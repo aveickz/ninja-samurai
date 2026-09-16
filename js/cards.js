@@ -2423,9 +2423,9 @@ const CARDS = [
     group: "character",
     icons: [],
     tags: ["toPrint"],
-    desc: "Яд не отнимает у вас жизни. Раз в ход можете отравить себя. {Если вы отравлены}, ваши атаки отравлены, у вас три попытки атаки за ход, а ранивший вас прямой атакой отравляется. В фазе набора за каждого отравленного игрока на столе (не более трёх) берите дополнительно одну карту." +
+    desc: "Яд не отнимает у вас жизни. {Если вы отравлены}, ваши атаки отравлены, у вас три попытки атаки за ход, а ранивший вас прямой атакой отравляется. В фазе набора за каждого отравленного игрока на столе (не более трёх) берите дополнительно одну карту." +
           "[NL]{После вашей смерти} все враги отравляются ядом, а союзники исцеляются от яда.",
-    enDesc: "Poison costs you no life. Once per turn you may poison yourself. {If you are poisoned}, your attacks are poisoned, you have three attack attempts per turn, and anyone who wounds you with a direct attack is poisoned. In the draw phase, take an extra card for every poisoned player at the table (no more than three).[NL]{After your death} every enemy is poisoned and every ally is cured of poison.",
+    enDesc: "Poison costs you no life. {If you are poisoned}, your attacks are poisoned, you have three attack attempts per turn, and anyone who wounds you with a direct attack is poisoned. In the draw phase, take an extra card for every poisoned player at the table (no more than three).[NL]{After your death} every enemy is poisoned and every ally is cured of poison.",
     img: "cards/card_minamoto.png"
   },
 
