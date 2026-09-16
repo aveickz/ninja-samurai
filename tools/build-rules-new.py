@@ -47,18 +47,19 @@ def bg_path(cid):
 
 # ---------- конфиг глав (общий для языков) ----------
 # icons — значки главы в строке заголовка: ('ic', ключ группы/бейджа) или ('mk', файл в media/)
-# cards — ID карт-примеров (превью в rules/media/cards/, см. render-card-previews.py);
+# cards — ID карт-примеров (превью в rules/media/cards/, см. render-card-previews.py)
+#         или рубашки 'back' / 'back-role' / 'back-character' (оттуда же, `render-card-previews.py backs`);
 #         список — все на первом срезе, словарь {начало_среза: [id]} — по срезам
 # layout — 'fan' (веером, для коротких глав) или 'stack' (лесенкой вниз); тоже
 #         может быть словарём по срезам
 CH = {
  'about':         dict(icons=[],                                        cards=[]),
  'setup':         dict(layout={0: 'fan', 6: 'fan'}, icons=[],   # сердце и очко стоят у своих подзаголовков (INLINE)
-                       cards={0: [202, 200], 6: [137, 135, 138]}),   # роли — у «Распределения ролей», персонажи — у «Выбора персонажей»
+                       cards={0: [202, 'back-role', 200], 6: [137, 'back-character', 135]}),   # роли и их рубашка — у «Распределения ролей», персонажи и их рубашка — у «Выбора персонажей»
  'table':         dict(icons=[],                                        cards=[]),   # стол во время партии (глава собирается из table_fig)
  'flow':          dict(icons=[],                                        cards=[]),
  'players':       dict(icons=[],                                        cards=[]),
- 'cards':         dict(icons=[],                                        cards=[]),
+ 'cards':         dict(icons=[],                                        cards=['back']),   # рубашка основной колоды
  'weapons':       dict(layout={0: 'stack', 9: 'fan'}, icons=[[('ic','weapon'),('ic','modifier')],[('ic','defense')]],
                        cards={0: [1, 32, 33, 31], 9: [70, 48]}),   # карты по срезам: ключ — начало среза
  'traps':         dict(icons=[[('ic','trap')]],                         cards=[43, 41]),
@@ -150,7 +151,9 @@ def card_fan(ids, lang, layout='fan'):
     items = []
     for i, cid in enumerate(ids):
         k = i - (n - 1) / 2           # -1, 0, 1 для трёх карт
-        src = f'media/cards/{cid}{"-en" if lang == "en" else ""}.webp'
+        # рубашки ('back', 'back-role', 'back-character') — одни на оба языка
+        suffix = '-en' if lang == 'en' and not str(cid).startswith('back') else ''
+        src = f'media/cards/{cid}{suffix}.webp'
         items.append(f'<div class="card-embed" style="--k:{k:g};--i:{i}"><img src="{src}" alt=""></div>')
     return f'<div class="side-cards {layout} n{n}">' + ''.join(items) + '</div>'
 

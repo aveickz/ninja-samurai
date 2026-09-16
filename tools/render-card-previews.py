@@ -10,6 +10,7 @@ rules/media/cards/<id>.webp (RU) и <id>-en.webp (EN).
     py -3 tools/render-card-previews.py            # только недостающие
     py -3 tools/render-card-previews.py --force    # все заново
     py -3 tools/render-card-previews.py 1 70 48    # конкретные ID
+    py -3 tools/render-card-previews.py backs      # рубашки из media/backs/ → back*.webp
 """
 import os, sys, subprocess, tempfile
 from PIL import Image, ImageChops, ImageDraw
@@ -57,9 +58,34 @@ def shoot(cid, lang):
     return dst, card.size
 
 
+# Рубашки — не из картотеки, а из media/backs/*.png: кадр 5:8 по центру
+# (у файлов рубашек пропорция печатного листа 1052 × 1494, по бокам белое
+# поле), тот же размер и скругление, что у превью карт. Одни на оба языка.
+BACKS = {'back': 'default', 'back-role': 'role', 'back-character': 'character'}
+
+def back(name, src_key):
+    im = Image.open(f'media/backs/{src_key}.png').convert('RGB')
+    w = round(im.height * 5 / 8)
+    x0 = (im.width - w) // 2
+    card = im.crop((x0, 0, x0 + w, im.height)).resize((480, 768), Image.LANCZOS)
+    mask = Image.new('L', card.size, 0)
+    ImageDraw.Draw(mask).rounded_rectangle((0, 0, card.width - 1, card.height - 1), RADIUS, fill=255)
+    card = card.convert('RGBA'); card.putalpha(mask)
+    dst = f'{OUT}/{name}.webp'
+    card.save(dst, 'WEBP', quality=86, method=6)
+    return dst, card.size
+
+
 if __name__ == '__main__':
     args = [a for a in sys.argv[1:] if a != '--force']
     force = '--force' in sys.argv
+    if args == ['backs'] or not args:
+        for name, key in BACKS.items():
+            dst = f'{OUT}/{name}.webp'
+            if not os.path.exists(dst) or force or args or os.path.getmtime(f'media/backs/{key}.png') > os.path.getmtime(dst):
+                print(back(name, key))
+        if args:
+            sys.exit(0)
     ids = [int(a) for a in args] or DEFAULT_IDS
     for cid in ids:
         for lang in ('ru', 'en'):
