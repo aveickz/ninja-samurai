@@ -71,9 +71,9 @@ CH = {
  'stances':       dict(icons=[[('ic','stance')]],                       cards=[60, 1166]),   # «Лучник» справа, сверху — виден целиком
  'group':         dict(icons=[[('ic','aoe')]],                          cards=[83, 82]),   # «Потасовка» и «Миротворцы» сверху
  'effects':       dict(icons=[[('ic','effect')]],                       cards=[91, 92]),   # «Метка убийцы» и «Противоядие»
- 'poison':        dict(icons=[[('ic','poison')]],                       cards=[116, 64]),
+ 'poison':        dict(icons=[[('ic','poison')]],                       cards=[116, 64], fig=('poison-fig', 16, 1)),   # фигурка яда тушью — в углу главы
  'interventions': dict(layout='stack', icons=[[('ic','intervention')]], cards=[121, 124]),
- 'auras':         dict(icons=[[('ic','aura')]],                        cards=[1209, 1206]),   # «Часовой» внутри, «Дымовая завеса» сверху
+ 'auras':         dict(icons=[[('ic','aura')]],                        cards=[1209, 1206], fig=('banner-fig', 13, 2)),   # «Часовой» внутри, «Дымовая завеса» сверху; фигурка знамени тушью — в углу
  'conditional':   dict(layout='stack', icons=[[('ic','rolectx'),('ic','hpctx'),('ic','charges'),('ic','charctx')]], cards=[125, 3094]),
  'order':         dict(icons=[],                                        cards=[]),
 }
