@@ -57,7 +57,7 @@ TXT = {
   'intro': 'Так выглядит стол в середине партии на четверых: у каждого игрока перед собой своя зона, посреди стола — общие стопки. Игроки сидят через одного, поэтому напротив — союзник, а по бокам — противники.',
   'legend': [
    ('character', 'карта персонажа лежит перед игроком в открытую всю партию; цифра в сердце — стартовые жизни.'),
-   ('role',      'Самурай, Ниндзя или Сёгун — рядом с персонажем, тоже в открытую.'),
+   ('role',      'Самурай или Ниндзя — рядом с персонажем, тоже в открытую.'),
    ('stance',    'перед собой в открытую, не больше одной; новая заменяет старую.'),
    ('effect',    'справа от персонажа, в открытую. Сюда же ложатся эффекты, наложенные на вас другими игроками.'),
    ('life',      'жетоны-сердца по цифре на карте персонажа. Опустились до нуля — вы обескровлены.'),
@@ -80,7 +80,7 @@ TXT = {
   'intro': 'This is what a four-player table looks like mid-game: every player has their own area in front of them, and the shared piles sit in the middle. Seats alternate, so the player opposite is your ally and the players on either side are enemies.',
   'legend': [
    ('character', 'the character card lies face up in front of the player for the whole game; the number in the heart is the starting life.'),
-   ('role',      'Samurai, Ninja or Shogun — next to the character, also face up.'),
+   ('role',      'Samurai or Ninja — next to the character, also face up.'),
    ('stance',    'face up in front of you, one at most; a new one replaces the old.'),
    ('effect',    'to the right of the character, face up. Effects other players put on you go here too.'),
    ('life',      'heart tokens matching the number on the character card. Down to zero — you have bled out.'),

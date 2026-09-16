@@ -41,7 +41,7 @@ const CARDS = [
     qty: 1,
     group: "role",
     icons: [],
-    tags: ["toPrint"],
+    tags: ["trash"],
     desc: "",
     enDesc: "",
     img: "cards/card_role_samurai.png"
