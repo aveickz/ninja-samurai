@@ -156,8 +156,7 @@ def section(lang):
             f'      <figure class="table-figure">\n'
             f'        <div class="table-pic"><img src="media/table.webp" alt="" width="{W}" height="{H}">{svg(lang)}</div>\n'
             f'        <figcaption>{esc(t["caption"])}</figcaption>\n'
-            f'      </figure>\n'
-            f'      <p class="table-note">{esc(t["outro"])}</p>\n')
+            f'      </figure>\n')   # outro (про фигурки) не печатается: это уже сказано в главах о ловушке, яде и ауре
 
 if __name__ == '__main__':
     print(section('ru'))
