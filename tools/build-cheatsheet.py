@@ -40,46 +40,45 @@ def lcard(key, x, y, cid):
 def fig(key, x, y, w, h, src, rot=0, cls='fig'):
     OBJ[key] = dict(x=x, y=y, w=w, h=h, rot=rot, src=src, cls=cls)
 
-# --- рука: левый нижний угол, веер с сильным наклоном, подпись над ним ---
+# --- рука: левый нижний угол, веер с сильным наклоном, подпись под ним ---
 for i in range(5):
-    fig(f'hand{i}', 12 + i * 5.4, 124 + (i - 2) ** 2 * .8, 14, 22.4, 'media/cards/back.webp', rot=-38 + i * 8, cls='card hand')
+    fig(f'hand{i}', 6 + i * 5.4, 92 + (i - 2) ** 2 * .8, 14, 22.4, 'media/cards/back.webp', rot=-38 + i * 8, cls='card hand')
 
-# --- атака и защита: своя полоса между верхом и столом, по центру ---
-card('interv',   66, 20, 124, rot=-8)              # Удар дракона — вмешательство, слева от оружия
-card('weapon',   90, 17, 1)                        # Катана
-card('modifier', 105, 24, 70)                      # Гнев сёгуна — внахлёст
-card('defense',  130, 21, 48)                      # Защита
+# --- атака и защита: полоса под заголовком; подписи атаки и вмешательства — над картами ---
+card('interv',   66, 19, 124, rot=-8)              # Удар дракона — вмешательство, слева от оружия
+card('weapon',   92, 19, 1)                        # Катана
+card('modifier', 107, 26, 70)                      # Гнев сёгуна — внахлёст
+card('defense',  134, 23, 48)                      # Защита
 
 # --- зона игрока: низ по центру ---
 for i in range(4):
-    fig(f'hp{i}', 57.5, 99.5 + i * 5.2, 4.6, 4.6, '../media/hp.png', cls='tok')
-card('char', 65, 99, 137)                          # Сайго
-fig('poison', 70.9, 109, 5.2, 8, 'media/fig/poison.webp')
-card('role', 84, 99, 201)                          # Самурай
+    fig(f'hp{i}', 57.5, 90.5 + i * 5.2, 4.6, 4.6, '../media/hp.png', cls='tok')
+card('char', 65, 90, 137)                          # Сайго
+card('role', 84, 90, 201)                          # Самурай
+fig('poison', 89.9, 100, 5.2, 8, 'media/fig/poison.webp')   # бутылка яда — на карте роли
 for i in range(4):
-    fig(f'vp{i}', 66 + i * 5.2, 137, 4.6, 4.6, '../media/winpoint.png', cls='tok')
-lcard('trapcard', 69, 77, 'back')                  # ловушка — рубашкой вверх, над персонажем
-fig('trap', 77, 80, 11, 11, 'media/fig/trap.webp')
-card('stance', 106, 101, 1166)                     # Лучник
-card('aura',   106, 62, 1204)                      # Спина к спине — над стойкой
-card('effect0', 128.5, 94, 91)                     # Метка убийцы
-card('effect1', 142, 97.5, 97)                     # Пыль в глаза — внахлёст
+    fig(f'vp{i}', 64.5 + i * 5.2, 119.5, 4.6, 4.6, '../media/winpoint.png', cls='tok')
+lcard('trapcard', 69, 66, 'back')                  # ловушка — рубашкой вверх, над персонажем
+fig('trap', 77, 69, 11, 11, 'media/fig/trap.webp')
+card('stance', 106, 92, 1166)                     # Лучник
+card('aura',   106, 55, 1204)                      # Спина к спине — над стойкой
+card('effect0', 128.5, 85, 91)                     # Метка убийцы
+card('effect1', 142, 88.5, 97)                     # Пыль в глаза — внахлёст
 
 # ---------- выноски: геометрия общая, тексты по языкам ----------
 # (цели, плашка (x, y, w), сторона (осталась для точки яда), значок, ключ текста)
 CALL = [
- (['hand0','hand1','hand2','hand3','hand4'], (5, 109, 48), 'top', 'card', 'hand'),
- (['weapon','modifier'], (5, 19, 40), 'left', 'weapon', 'attack'),
- (['interv'], (5, 38, 51), 'left', 'intervention', 'interv'),
- (['defense'], (150, 19, 55), 'right', 'defense', 'defense'),
- (['trapcard','trap'], (58, 58, 46), 'top', 'trap', 'trap'),
- (['aura'], (127, 52, 34), 'right', 'aura', 'aura'),
- (['effect0','effect1'], (128, 72, 38), 'top', 'effect', 'effects'),
- (['stance'], (131, 131, 28), 'bottom', 'stance', 'stance'),
- (['hp0','hp1','hp2','hp3','char','role'], (5, 60, 51), 'left', 'hp', 'char'),
- (['poison'], (5, 76, 51), 'dot', 'poison', 'poison'),
- (['hp0','hp1','hp2','hp3'], (5, 92, 51), 'bottom', 'hpctx', 'life'),
- (['vp0','vp1','vp2','vp3'], (89, 135.5, 42), 'right', 'winpoint', 'vp'),
+ (['weapon','modifier'], (92, 3, 34), 'top', 'weapon', 'attack'),           # над оружием, по его ширине
+ (['interv'], (56, 3, 34), 'top', 'intervention', 'interv'),                 # над «Ударом дракона»
+ (['defense'], (154, 20, 51), 'right', 'defense', 'defense'),
+ (['trapcard','trap'], (58, 46, 44), 'top', 'trap', 'trap'),
+ (['aura'], (125, 56, 40), 'right', 'aura', 'aura'),
+ (['effect0','effect1'], (162, 86, 43), 'right', 'effect', 'effects'),       # справа от стопки эффектов
+ (['hp0','hp1','hp2','hp3','char','role'], (5, 62, 51), 'left', 'hp', 'char'),
+ (['hand0','hand1','hand2','hand3','hand4'], (5, 119, 48), 'bottom', 'card', 'hand'),
+ (['vp0','vp1','vp2','vp3'], (56, 125, 27), 'bottom', 'winpoint', 'vp'),    # под очками, по ширине персонажа
+ (['poison'], (84, 125, 21), 'bottom', 'poison', 'poison'),                  # под ролью, по её ширине
+ (['stance'], (106, 122, 22), 'bottom', 'stance', 'stance'),                 # под стойкой
 ]
 CHAIN_KEYS = ['character', 'stance', 'aura', 'poison', 'effect', 'weapon', 'modifier']
 STRIP_ICONS = []   # столбик мелочей убран по решению автора
@@ -100,17 +99,17 @@ TXT = {
   ],
   co={
    'hand':    ('Рука', 'Старт — <b>7</b>. В начале хода не больше <b>9</b>, лишнее в сброс. В конце хода набор <b>3</b> <i>(меньшая команда +1)</i>, затем каждый противник берёт <b>1</b>. Между ходами не ограничена.'),
-   'attack':  ('Атака', 'До <b>2</b> за ход. Оружие берёт цель, если его сложность ≥ сложности цели (обычно 1); метательное — любую. Один модификатор. Кулаки — 1/1 за обе атаки.'),
-   'interv':  ('Вмешательство', 'Не в свой ход: «Удар дракона» добивает раненого на <b>1</b>. Всё сыгранное — одновременно, порядок выбирает тот, чья жизнь на кону.'),
+   'attack':  ('Атака', 'До <b>2</b> за ход. Оружие берёт цель, если его сложность ≥ сложности цели (обычно 1); метательное — любую. Один модификатор.'),
+   'interv':  ('Вмешательство', 'Не в свой ход: «Удар дракона» добивает на <b>1</b>. Всё сыгранное — одновременно, порядок выбирает тот, чья жизнь на кону.'),
    'defense': ('Защита', 'Своя — атака отбита, бонусы атакующего не срабатывают. Союзная, как вмешательство: одна — раны до <b>1</b>, две от команды — до <b>0</b>. Беззащитного не спасти.'),
    'trap':    ('Ловушка', 'Одна, рубашкой вверх, фигурка сверху. Срабатывает, если атакуют и вы не защищаетесь; метательное её не будит. Подложили не ловушку — умираете.'),
    'aura':    ('Аура', 'Над стойкой, одна на игрока. Действует на всех за столом; у команды складываются. Новая — прежняя в руку.'),
    'effects': ('Эффекты', 'Справа, в открытую, сколько угодно. Постоянные — до смерти, разовые — до срабатывания. Одноимённые не повторяются. Только на живых.'),
-   'stance':  ('Стойка', 'Раз за ход, одна. Работает сразу. Новая — прежняя в руку.'),
-   'char':    ('Персонаж и роль', 'Жизни — цифра в сердце, это же максимум для <i>полного здоровья</i>. Роль рядом: Самурай, Ниндзя или Сёгун — самурай, начинает раунд.'),
-   'poison':  ('Яд', 'Бутылка на персонаже. В конце хода <b>−2</b> жизни; отравленная атака по вам <b>+1</b> рана. Смерть от яда — без восстановления, очко в сброс.'),
+   'stance':  ('Стойка', 'Раз за ход, одна, работает сразу. Новая — прежняя в руку.'),
+   'char':    ('Персонаж и роль', 'Жизни — цифра в сердце, это же максимум для <i>полного здоровья</i>. Роль рядом: Самурай, Ниндзя или Сёгун — самурай, начинает раунд. <b>0</b> жизней — мертвы до конца хода: очко убийце, открытые карты в сброс, вас никто не трогает. Со следующего хода живы; в свой ход — восстановление: сброс любых карт, добор до <b>7</b>.'),
+   'poison':  ('Яд', 'В конце хода <b>−2</b>; отравленная атака по вам <b>+1</b>. Смерть от яда — без восстановления.'),
    'life':    ('Жизни', '<b>0</b> — мертвы до конца хода: очко убийце, открытые карты в сброс, вас никто не трогает. Со следующего хода живы; в свой ход — восстановление: сброс любых карт, добор до <b>7</b>.'),
-   'vp':      ('Победные очки', 'Старт — <b>4</b>. Убили — забрали очко у жертвы. Чьи-то <b>0</b> — конец партии.'),
+   'vp':      ('Очки', 'Старт — <b>4</b>. Убили — очко у жертвы. Чьи-то <b>0</b> — конец партии.'),
   }),
  'en': dict(
   out='rules/cheatsheet-en.html', lang='en',
@@ -134,10 +133,10 @@ TXT = {
    'aura':    ('Aura', 'Above the stance, one per player. Affects everyone at the table; a team\'s auras stack. New one — the old returns to hand.'),
    'effects': ('Effects', 'To the right, face up, any number. Permanent — until death, one-shot — until they fire. No two of the same name. Living players only.'),
    'stance':  ('Stance', 'Once per turn, one. Works right away. New one — the old returns to hand.'),
-   'char':    ('Character and role', 'Life — the number in the heart, also the maximum for <i>full health</i>. Role next to it: Samurai, Ninja or Shogun — a samurai who opens the round.'),
-   'poison':  ('Poison', 'The bottle on the character. At the end of your turn <b>−2</b> life; a poisoned attack on you <b>+1</b> wound. Death by poison — no recovery, the point goes to the discard.'),
+   'char':    ('Character and role', 'Life — the number in the heart, also the maximum for <i>full health</i>. Role next to it: Samurai, Ninja or Shogun — a samurai who opens the round. <b>0</b> life — dead until the end of the turn: point to the killer, face-up cards discarded, nobody touches you. Alive from the next turn; on your own turn — recovery: discard any cards, draw back up to <b>7</b>.'),
+   'poison':  ('Poison', 'End of turn <b>−2</b>; poisoned attack on you <b>+1</b>. Death by poison — no recovery.'),
    'life':    ('Life', '<b>0</b> — dead until the end of the turn: point to the killer, face-up cards discarded, nobody touches you. Alive from the next turn; on your own turn — recovery: discard any cards, draw back up to <b>7</b>.'),
-   'vp':      ('Victory points', 'Start — <b>4</b>. Make a kill — take a point from the victim. Someone at <b>0</b> — the game ends.'),
+   'vp':      ('Points', 'Start — <b>4</b>. A kill takes one from the victim. Anyone at <b>0</b> — game over.'),
   }),
 }
 
@@ -228,8 +227,8 @@ CSS = r"""
     box-shadow: 0 0 0 1px rgba(60,30,10,.4), 0 20px 50px rgba(0,0,0,.65); }
 
   /* заголовок — верхний левый угол, как заголовок главы */
-  .ttl { position:absolute; left:6mm; top:3.5mm; display:flex; align-items:center; gap:2mm;
-    font-family:'Han Zi Web','Shippori Mincho',serif; font-size:8.5pt; text-transform:uppercase; letter-spacing:.04em; color:var(--ink); line-height:1; }
+  .ttl { position:absolute; left:6mm; top:3.5mm; max-width:46mm; white-space:nowrap; display:flex; align-items:center; gap:2mm;
+    font-family:'Han Zi Web','Shippori Mincho',serif; font-size:7.6pt; text-transform:uppercase; letter-spacing:.04em; color:var(--ink); line-height:1; }
   .ttl .kanji { font-family:'Shippori Mincho','Noto Serif JP','Yu Mincho',serif; font-size:9pt; color:rgba(122,20,16,.45); text-transform:none; letter-spacing:.06em; }
   .ttl .kanji::before { content:"·"; font-family:'PT Sans Narrow',sans-serif; font-size:8pt; color:rgba(70,58,50,.28); margin-right:2mm; }
 
@@ -269,11 +268,11 @@ CSS = r"""
   h4 .mk { border-radius:.5mm; }
 
   /* цепочка порядка расчёта — верхний правый угол, одной строкой */
-  .chain { position:absolute; left:108mm; top:3mm; width:98mm; display:flex; align-items:flex-start; gap:.3mm; font-size:6pt; color:var(--ink-soft); line-height:1.1; }
-  .chain > b { font-size:6.8pt; margin-right:1.5mm; padding-top:.9mm; white-space:nowrap; }
-  .chain .s { display:inline-flex; flex-direction:column; align-items:center; width:8.6mm; text-align:center; }
+  .chain { position:absolute; left:134mm; top:127mm; width:72mm; display:flex; flex-wrap:wrap; align-items:flex-start; gap:.3mm; font-size:6pt; color:var(--ink-soft); line-height:1.1; }
+  .chain > b { width:100%; font-size:6.8pt; margin-bottom:.8mm; white-space:nowrap; }
+  .chain .s { display:inline-flex; flex-direction:column; align-items:center; width:7.9mm; text-align:center; }
   .chain .s .ic { --ic:3.6mm; margin-bottom:.3mm; }
-  .chain .arr { color:rgba(70,58,50,.35); font-size:6pt; margin:1mm -.4mm 0; }
+  .chain .arr { color:rgba(70,58,50,.35); font-size:5.5pt; margin:1mm -.6mm 0; }
 
   /* мелочи — правый нижний угол */
   .misc { position:absolute; left:162mm; top:100mm; width:43mm; font-size:6.3pt; line-height:1.2; }
