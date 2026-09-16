@@ -2359,9 +2359,9 @@ const CARDS = [
     group: "character",
     icons: [],
     tags: ["toPrint"],
-    desc: "Вместо попытки атаки вы можете взять две карты из колоды или восстановить один жетон жизни любому игроку." +
+    desc: "Вместо попытки атаки вы можете взять две карты из колоды или восстановить один жетон жизни любому игроку. Любое {Древковое} оружие можете сыграть как карту защиты — за себя или за любого игрока." +
           "[NL]{После вашей смерти} можете отдать каждому союзнику по одной карте оружия в открытую.",
-    enDesc: "Instead of an attack attempt you may draw two cards from the deck or restore one life to any player.[NL]{After your death} you may give each ally one Weapon card, face up.",
+    enDesc: "Instead of an attack attempt you may draw two cards from the deck or restore one life to any player. You may play any {Polearm} weapon as a Defense card, for yourself or for any player.[NL]{After your death} you may give each ally one Weapon card, face up.",
     img: "cards/card_142_norio.png"
   },
   {
