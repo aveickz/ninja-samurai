@@ -873,10 +873,10 @@ const CARDS = [
     types: ["defense"],
     qty: 3,
     group: "defense",
-    icons: [],
-    tags: [],
-    desc: "Вы забираете неметательное оружие врага себе в руку.[NL]{При наличии стойки} вы берёте дополнительно карту из колоды.",
-    enDesc: "Take the enemy's non-thrown weapon into your hand.[NL]{With a Stance in play} also draw a card.",
+    icons: ["charctx"],
+    tags: ["toPrint"],
+    desc: "Вы забираете неметательное оружие врага себе в руку; {Хандзо} забирает любое, в том числе метательное.[NL]{При наличии стойки} вы берёте дополнительно карту из колоды.",
+    enDesc: "Take the enemy's non-thrown weapon into your hand; {Hanzo} takes any weapon, thrown ones included.[NL]{With a Stance in play} also draw a card.",
     img: "cards/card_55_zakhvat.png"
   },
   {
@@ -1882,10 +1882,10 @@ const CARDS = [
     types: ["action"],
     qty: 1,
     group: "action",
-    icons: ["poison"],
-    tags: ["poison"],
-    desc: "Отравляет выбранного активного игрока.",
-    enDesc: "Poisons the chosen living player.",
+    icons: ["poison", "charctx"],
+    tags: ["poison", "toPrint"],
+    desc: "Отравляет выбранного активного игрока. {Минамото} может отравить себя и взять две карты из колоды.",
+    enDesc: "Poisons the chosen living player. {Minamoto} may poison herself and draw two cards.",
     img: "cards/card_116_yad_fugu.png"
   },
   {
