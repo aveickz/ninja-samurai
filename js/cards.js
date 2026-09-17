@@ -2334,8 +2334,8 @@ const CARDS = [
     group: "character",
     icons: [],
     tags: ["toPrint"],
-    desc: "В фазе набора берите на 1 карту больше. Лишние карты перед ходом не сбрасывайте, а раздайте союзникам по одной в закрытую. Ауру можете выложить перед любым игроком.[NL]{После вашей смерти} передайте свою ауру живому союзнику.",
-    enDesc: "Draw 1 extra card in the draw phase. Before your turn, hand cards over the limit to allies, one each, face down, instead of discarding. You may play an Aura in front of any player.[NL]{After your death} pass your Aura to a living ally.",
+    desc: "В фазе набора берите на 1 карту больше. Лишние карты перед ходом не сбрасывайте, а раздайте союзникам по одной в закрытую. При воровстве, ошеломлении и групповых действиях отдаёте любую карту на свой выбор. Ауру можете выложить перед любым игроком.[NL]{После вашей смерти} передайте свою ауру живому союзнику.",
+    enDesc: "Draw 1 extra card in the draw phase. Before your turn, hand cards over the limit to allies, one each, face down, instead of discarding. When robbed, stunned or hit by a group action, you give any card of your choice. You may play an Aura in front of any player.[NL]{After your death} pass your Aura to a living ally.",
     img: "cards/card_136_taranaga.png"
   },
   {
