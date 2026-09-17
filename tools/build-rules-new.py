@@ -340,10 +340,12 @@ def chapter_html(lang, cid, mark, title, body, a=0, b=None):
 
 
 def cover_html(t):
-    # Шапка первой страницы текста: тот же тушевой рисунок, что на титуле, в 40 мм
+    # Шапка первой страницы текста: тушевая виньетка — скрещённые катаны остриями вниз,
+    # мон-томоэ в перекрестье, веер лучей и сюрикены (rules/media/vignette.webp, /img,
+    # тонкая линия, чистая тушь на альфе) во всю ширину колонки
     return '''
       <header class="cover">
-        <img class="cover-art" src="media/cover.webp" alt="">
+        <img class="cover-art" src="media/vignette.webp" alt="">
       </header>'''
 
 def title_html(t):

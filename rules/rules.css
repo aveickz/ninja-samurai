@@ -166,9 +166,9 @@ html, body {
 .folio::after  { content: "  ·"; color: var(--gold); }
 
 /* ---------- Шапка первой страницы текста ---------- */
-.cover { position: relative; text-align: center; padding: 2mm 0 0; margin-bottom: 6mm; }
-/* Рисунок обложки: чёрная тушь на прозрачном, 40 мм в высоту */
-.cover-art { display: block; height: 40mm; max-width: 100%; margin: 0 auto; object-fit: contain; }
+.cover { position: relative; text-align: center; padding: 0; margin: -3mm 0 6mm; }   /* виньетка чуть выше верхнего поля */
+/* Виньетка: скрещённые катаны, чёрная тушь на прозрачном, во всю ширину колонки */
+.cover-art { display: block; width: 100%; height: auto; margin: 0 auto; }   /* виньетка ~121×31 мм */
 
 /* ---------- Титульный лист и «Конец» ---------- */
 /* Титул: рисунок дуэли во всю колонку, название крупно, подзаголовок между штрихами */
