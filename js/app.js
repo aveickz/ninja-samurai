@@ -991,30 +991,10 @@ $(function () {
       var visible;
 
       if (isPseudo) {
-        // Pseudo-копии в Корзине: скрыты в __trash__ режиме,
-        // иначе фильтруются так же как обычные карты
-        if (isTrashMode) {
-          visible = false;
-        } else if (activeMode === '__poison__') {
-          visible = cardTags.indexOf('poison') !== -1;
-        } else if (activeMode === '__print__') {
-          visible = cardTags.indexOf('toPrint') !== -1;
-        } else if (activeMode === '__draft__') {
-          visible = cardTags.indexOf('draft') !== -1 ||
-                    $el.attr('data-has-todo') === '1';
-        } else if (activeMode === '__comments__') {
-          visible = $el.attr('data-has-comments') === '1';
-        } else if (activeMode === '__rolectx__') {
-          visible = cardIcons.indexOf('rolectx') !== -1;
-        } else if (activeMode === '__hpctx__') {
-          visible = cardIcons.indexOf('hpctx') !== -1;
-        } else if (activeMode === '__charctx__') {
-          visible = cardIcons.indexOf('charctx') !== -1;
-        } else if (activeMode) {
-          visible = cardTypes.indexOf(activeMode) !== -1;
-        } else {
-          visible = true;
-        }
+        // Pseudo-копии в Корзине: видны только в режиме «Все» — под любым
+        // фильтром (черновики, печать, тип…) корзина не показывается вовсе,
+        // а в __trash__ режиме их заменяют real-копии в родных группах.
+        visible = !activeMode;
 
       } else if (isReal) {
         // Real-копии в родных группах: видны только когда активен __trash__ фильтр
