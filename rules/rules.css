@@ -240,8 +240,8 @@ html, body {
   filter: blur(.4px);
 }
 /* Оборот титула: выходные данные мелко у нижнего поля */
-.sheet.imprint .content { left: var(--outer); right: var(--outer); }
-.imprint { position: absolute; left: 0; right: 0; bottom: 0; margin: 0; text-align: center; font-size: 7pt; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-faded); text-indent: 0; }
+/* Пустая страница перед «Концом» при нечётном счёте: ни текста, ни фолио */
+.sheet.blank .content { left: var(--outer); right: var(--outer); }
 /* «Конец»: иероглиф 終 и слово между штрихами, по центру листа */
 .end-page { text-align: center; padding-top: 72mm; }
 .end-kanji {
