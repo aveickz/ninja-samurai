@@ -2364,8 +2364,8 @@ const CARDS = [
     group: "character",
     icons: [],
     tags: ["toPrint"],
-    desc: "Можете защищаться от прямой атаки оружием за 1 рану. Можете сбросить карту защиты и взять 2.",
-    enDesc: "You may block a direct attack with a weapon for 1 wound. You may discard a Defense to draw 2.",
+    desc: "Можете защищаться от прямых атак оружием ценой одной раны. Можете сбросить карту защиты и взять 2.",
+    enDesc: "You may block direct attacks with a weapon at the cost of one wound. You may discard a Defense to draw 2.",
     img: "cards/card_139_handzo.png"
   },
 
