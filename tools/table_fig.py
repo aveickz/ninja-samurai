@@ -34,10 +34,11 @@ LABELS = [
     ('character', (470, 445), (365, 532)),    # верхняя левая четверть
     ('deck',      (500, 500), (560, 565)),    # слева-сверху от колоды
     ('discard',   (720, 490), (672, 530)),    # справа-сверху от сброса
-    ('effect',    (790, 440), (855, 500)),    # над столбиком эффектов
+    ('effect',    (790, 430), (856, 462)),    # над столбиком эффектов — к верхней карте («Пыль в глаза»)
+    ('intervention', (748, 642), (637, 650)),  # справа от карты вмешательства союзника, под сбросом
     ('poison',    (800, 540), (862, 552)),    # бутылка яда на карте роли
     ('defense',   (815, 762), (812, 732)),    # под картой защиты
-    ('attack',    (540, 720), (688, 712)),    # слева от выложенной атаки
+    ('attack',    (540, 722), (688, 714)),    # слева от выложенной атаки
     ('life',      (430, 790), (565, 800)),    # слева от сердец нижнего игрока
     ('vp',        (800, 812), (683, 812)),    # справа от очков нижнего игрока
 ]
@@ -54,6 +55,7 @@ TXT = {
   'hand': 'Рука', 'discard': 'Сброс', 'effect': 'Эффекты', 'life': 'Жизни',
   'vp': 'Победные очки', 'attack': 'Атака: оружие|+ модификатор',
   'poison': 'Яд', 'defense': 'Защита', 'trap': 'Ловушка', 'attacks': 'Атакует',
+  'intervention': 'Вмешательство|союзника',
   'samurai': 'Самурай', 'ninja': 'Ниндзя',
   'h4': 'Стол',
   'intro': 'Так выглядит стол в середине партии на четверых: у каждого игрока перед собой своя зона, посреди стола — общие стопки. Игроки сидят через одного, поэтому напротив — союзник, а по бокам — противники.',
@@ -78,6 +80,7 @@ TXT = {
   'hand': 'Hand', 'discard': 'Discard', 'effect': 'Effects', 'life': 'Life',
   'vp': 'Victory points', 'attack': 'Attack: weapon|+ modifier',
   'poison': 'Poison', 'defense': 'Defense', 'trap': 'Trap', 'attacks': 'Attacks',
+  'intervention': "Ally's|intervention",
   'samurai': 'Samurai', 'ninja': 'Ninja',
   'h4': 'The Table',
   'intro': 'This is what a four-player table looks like mid-game: every player has their own area in front of them, and the shared piles sit in the middle. Seats alternate, so the player opposite is your ally and the players on either side are enemies.',
