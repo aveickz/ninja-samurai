@@ -1299,6 +1299,19 @@ const CARDS = [
     enDesc: "Add your current victory points to the attack's power.",
     img: "cards/card_1084_pobednyi_udar.png"
   },
+  {
+    id: 1032,
+    title: "Рэнкэй",
+    enTitle: "Renkei",
+    types: ["modifier"],
+    qty: 1,
+    group: "modifier",
+    icons: [],
+    tags: ["draft", "toPrint"],
+    desc: "Сама по себе ничего не делает. Сыграйте на свою атаку: любой союзник может тут же выложить в неё свой модификатор с руки — он действует, как будто сыгран вами.",
+    enDesc: "Does nothing by itself. Play it on your attack: any ally may immediately add a Modifier from their hand to it — it works as if you had played it.",
+    img: "cards/card_1032_renkei.png"
+  },
   // ── ГРУППОВЫЕ ДЕЙСТВИЯ (стр. 12) ─────────────────────────────────
   {
     id: 81,
