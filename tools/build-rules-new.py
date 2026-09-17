@@ -70,7 +70,7 @@ CH = {
  'traps':         dict(icons=[[('ic','trap')]],                         cards=[43, 41], fig=('trap-fig', 17, 1, 4)),   # фигурка макибиси тушью — в углу главы, чуть левее края
  'stances':       dict(icons=[[('ic','stance')]],                       cards=[60, 1166]),   # «Лучник» справа, сверху — виден целиком
  'group':         dict(icons=[[('ic','aoe')]],                          cards=[83, 82]),   # «Потасовка» и «Миротворцы» сверху
- 'effects':       dict(icons=[[('ic','effect')]],                       cards=[91, 92]),   # «Метка убийцы» и «Противоядие»
+ 'effects':       dict(icons=[[('ic','effect')]],                       cards=[92, 91]),   # «Противоядие» внутри, «Метка убийцы» сверху
  'poison':        dict(icons=[[('ic','poison')]],                       cards=[116, 64], fig=('poison-fig', 22, 1, 3, 6)),   # фигурка яда тушью — крупно, под картами, чуть ниже и правее списка
  'interventions': dict(layout='stack', icons=[[('ic','intervention')]], cards=[121, 124]),
  'auras':         dict(icons=[[('ic','aura')]],                        cards=[1209, 1206], fig=('banner-fig', 13, 2)),   # «Часовой» внутри, «Дымовая завеса» сверху; фигурка знамени тушью — в углу
