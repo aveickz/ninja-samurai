@@ -2319,8 +2319,8 @@ const CARDS = [
     group: "character",
     icons: [],
     tags: ["toPrint"],
-    desc: "За каждую полученную рану берите карту. «На пороге смерти» для вас — уже при 2 жетонах.[NL]{После вашей смерти} враги получают 1 рану.",
-    enDesc: "Draw a card for every wound you take. For you, “at death's door” starts at 2 life.[NL]{After your death} enemies take 1 wound.",
+    desc: "За каждую рану берите карту. Порог смерти для вас — 2 жетона.[NL]{После вашей смерти} враги получают 1 рану.",
+    enDesc: "Draw a card per wound. Death's door for you is 2 life.[NL]{After your death} enemies take 1 wound.",
     img: "cards/card_135_usivaka.png"
   },
   {
@@ -2334,8 +2334,8 @@ const CARDS = [
     group: "character",
     icons: [],
     tags: ["toPrint"],
-    desc: "В фазе набора берите на 1 карту больше. Лишние карты перед ходом не сбрасывайте, а раздайте союзникам по одной в закрытую. При воровстве, ошеломлении и групповых действиях отдаёте любую карту на свой выбор. Ауру можете выложить перед любым игроком.[NL]{После вашей смерти} передайте свою ауру живому союзнику.",
-    enDesc: "Draw 1 extra card in the draw phase. Before your turn, hand cards over the limit to allies, one each, face down, instead of discarding. When robbed, stunned or hit by a group action, you give any card of your choice. You may play an Aura in front of any player.[NL]{After your death} pass your Aura to a living ally.",
+    desc: "В фазе набора +1 карта. Лишние карты перед ходом не сбрасывайте, а раздайте союзникам по одной в закрытую. При воровстве, ошеломлении и групповых действиях отдаёте карту на свой выбор. Ауру можете выложить перед любым игроком.[NL]{После вашей смерти} передайте свою ауру живому союзнику.",
+    enDesc: "In the draw phase, +1 card. Before your turn, hand cards over the limit to allies, one each, face down, instead of discarding. When robbed, stunned or hit by a group action, you give a card of your choice. You may play an Aura in front of any player.[NL]{After your death} pass your Aura to a living ally.",
     img: "cards/card_136_taranaga.png"
   },
   {
@@ -2349,8 +2349,8 @@ const CARDS = [
     group: "character",
     icons: [],
     tags: ["toPrint"],
-    desc: "Стойку любого умершего можете забрать себе в руку. Рукопашная бьёт на 2. В фазе набора +1 карта за каждую стойку на столе (до 3).[NL]{После вашей смерти} ваша стойка остаётся, а враги возвращают свои в руку.",
-    enDesc: "You may take any dead player's Stance into your hand. Bare-handed attacks deal 2. In the draw phase, +1 card per Stance on the table (up to 3).[NL]{After your death} your Stance stays, and enemies return theirs to hand.",
+    desc: "Стойку умершего можете забрать в руку. Рукопашная бьёт на 2. В фазе набора +1 карта за стойку на столе (до 3).[NL]{После вашей смерти} ваша стойка остаётся, враги возвращают свои в руку.",
+    enDesc: "You may take a dead player's Stance into your hand. Bare hands deal 2. In the draw phase, +1 card per Stance on the table (up to 3).[NL]{After your death} your Stance stays; enemies return theirs to hand.",
     img: "cards/card_138_kokoro.png"
   },
   {
@@ -2364,8 +2364,8 @@ const CARDS = [
     group: "character",
     icons: [],
     tags: ["toPrint"],
-    desc: "Можете защищаться от прямых атак оружием, получая 1 рану. Можете сбросить карту защиты и взять 2 из колоды.",
-    enDesc: "You may block direct attacks with a weapon, taking 1 wound. You may discard a Defense to draw 2.",
+    desc: "Можете защищаться от прямой атаки оружием за 1 рану. Можете сбросить карту защиты и взять 2.",
+    enDesc: "You may block a direct attack with a weapon for 1 wound. You may discard a Defense to draw 2.",
     img: "cards/card_139_handzo.png"
   },
 
@@ -2380,8 +2380,8 @@ const CARDS = [
     group: "character",
     icons: [],
     tags: ["toPrint"],
-    desc: "Вместо попытки атаки берите 2 карты или верните 1 жетон жизни любому игроку. {Древковое} оружие можете сыграть как карту защиты или вмешательства — за себя или за любого игрока.[NL]{После вашей смерти} каждый союзник может снять с себя один эффект.",
-    enDesc: "Instead of an attack attempt, draw 2 cards or restore 1 life to any player. You may play any {Polearm} as a Defense or an Intervention — for yourself or anyone.[NL]{After your death} each ally may remove one Effect from themselves.",
+    desc: "Вместо попытки атаки берите 2 карты или верните 1 жетон любому. {Древковое} оружие играет как защита или вмешательство — за себя или за любого.[NL]{После вашей смерти} каждый союзник может снять с себя эффект.",
+    enDesc: "Instead of an attack attempt, draw 2 cards or restore 1 life to anyone. A {Polearm} plays as a Defense or an Intervention — for you or anyone.[NL]{After your death} each ally may remove an Effect from themselves.",
     img: "cards/card_142_norio.png"
   },
   {
@@ -2395,8 +2395,8 @@ const CARDS = [
     group: "character",
     icons: [],
     tags: ["toPrint"],
-    desc: "Раз в ход можете передвинуть свою ловушку к союзнику без ловушки или поменять местами две любые на столе, не открывая. Ваша ловушка срабатывает и от метательных атак. В фазе набора +1 карта за каждую ловушку на столе (до 3).[NL]{После вашей смерти} ловушки врагов просвещаются.",
-    enDesc: "Once per turn, move your Trap to an ally without one, or swap any two Traps on the table unseen. Your Trap is triggered by thrown attacks too. In the draw phase, +1 card per Trap on the table (up to 3).[NL]{After your death} enemy Traps are revealed.",
+    desc: "Раз в ход можете передвинуть свою ловушку к союзнику без ловушки или вслепую поменять местами две любые на столе. Ваша ловушка срабатывает и от метательных. В фазе набора +1 карта за ловушку на столе (до 3).[NL]{После вашей смерти} ловушки врагов просвещаются.",
+    enDesc: "Once per turn, move your Trap to an ally without one, or swap any two Traps on the table unseen. Your Trap triggers on thrown attacks too. In the draw phase, +1 card per Trap on the table (up to 3).[NL]{After your death} enemy Traps are revealed.",
     img: "cards/card_140_iyo.png"
   },
   {
@@ -2410,8 +2410,8 @@ const CARDS = [
     group: "character",
     icons: [],
     tags: ["toPrint"],
-    desc: "Раз в ход можете забрать у игрока карту на его выбор или отдать ему свою. Раз в ход можете сбросить 2 карты и взять 3.[NL]{После вашей смерти} можете отдать каждому союзнику по карте в закрытую.",
-    enDesc: "Once per turn, take a card of a player's choice from them, or give them one of yours. Once per turn, discard 2 cards to draw 3.[NL]{After your death} you may give each ally a card face down.",
+    desc: "Раз в ход: забрать у игрока карту на его выбор или отдать ему свою. Раз в ход: сбросить 2 карты и взять 3.[NL]{После вашей смерти} можете отдать союзникам по карте в закрытую.",
+    enDesc: "Once per turn: take a card of a player's choice from them, or give them one of yours. Once per turn: discard 2 cards to draw 3.[NL]{After your death} you may give allies a card each, face down.",
     img: "cards/card_141_taka.png"
   },
   {
@@ -2425,8 +2425,8 @@ const CARDS = [
     group: "character",
     icons: [],
     tags: ["toPrint"],
-    desc: "Ваше лечение поднимает любого на 1 жетон выше лимита жизней; для карт и пометок лимит прежний. Когда кто-то в вашей команде лечится, берите карту — сколько бы жетонов ни вернулось.[NL]{После вашей смерти} каждый союзник восстанавливает 1 жетон и исцеляется от яда.",
-    enDesc: "Your healing may raise anyone 1 life above their life limit; for cards and markers the limit is unchanged. Whenever a teammate heals, draw a card — however much was restored.[NL]{After your death} every ally restores 1 life and is cured of poison.",
+    desc: "Ваше лечение поднимает на 1 жетон выше лимита; для карт и пометок лимит прежний. Когда кто-то в команде лечится, берите карту, сколько бы жетонов ни вернулось.[NL]{После вашей смерти} союзники восстанавливают 1 жетон и исцеляются от яда.",
+    enDesc: "Your healing goes 1 life above the limit; for cards and markers the limit is unchanged. Whenever a teammate heals, draw a card, however much was restored.[NL]{After your death} allies restore 1 life and are cured of poison.",
     img: "cards/card_145_manase.png"
   },
   {
@@ -2440,8 +2440,8 @@ const CARDS = [
     group: "character",
     icons: [],
     tags: ["toPrint"],
-    desc: "Яд не отнимает у вас жизни, а очко умершего от яда достаётся вам, а не сбросу. {Если вы отравлены}: атаки отравлены, 3 попытки атаки за ход, ранивший вас прямой атакой отравляется. В фазе набора +1 карта за каждого отравленного (до 3).[NL]{После вашей смерти} все враги отравляются.",
-    enDesc: "Poison costs you no life, and the point of anyone who dies of poison goes to you, not the discard. {If you are poisoned}: your attacks are poisoned, you have 3 attack attempts, and whoever wounds you with a direct attack is poisoned. In the draw phase, +1 card per poisoned player (up to 3).[NL]{After your death} every enemy is poisoned.",
+    desc: "Яд не отнимает у вас жизни, а очко умершего от яда — ваше, не сброса. {Если вы отравлены}: атаки отравлены, 3 попытки за ход, ранивший вас прямой атакой отравляется. В фазе набора +1 карта за отравленного (до 3).[NL]{После вашей смерти} все враги отравляются.",
+    enDesc: "Poison costs you no life, and a poison death's point is yours, not the discard's. {If you are poisoned}: your attacks are poisoned, 3 attempts per turn, and whoever wounds you with a direct attack is poisoned. In the draw phase, +1 card per poisoned player (up to 3).[NL]{After your death} every enemy is poisoned.",
     img: "cards/card_minamoto.png"
   },
 
