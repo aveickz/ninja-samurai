@@ -1897,8 +1897,8 @@ const CARDS = [
     group: "action",
     icons: ["poison", "charctx"],
     tags: ["poison", "toPrint"],
-    desc: "Отравляет выбранного активного игрока. {Минамото} может отравить себя и взять две карты из колоды.",
-    enDesc: "Poisons the chosen living player. {Minamoto} may poison herself and draw two cards.",
+    desc: "Отравляет выбранного активного игрока; {Минамото} может отравить и себя. Отравленная этой картой Минамото берёт две карты из колоды.",
+    enDesc: "Poisons the chosen living player; {Minamoto} may poison herself. If Minamoto is poisoned by this card, she draws two cards.",
     img: "cards/card_116_yad_fugu.png"
   },
   {
