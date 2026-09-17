@@ -636,9 +636,9 @@ const CARDS = [
     qty: 1,
     group: "weapon",
     icons: ["ranged", "dmg1"],
-    tags: [],
-    desc: "TODO: механика возврата. Задумано — после успешной атаки оружие возвращается вам в руку по шнуру, но любой игрок может вмешаться и перерезать шнур. Развести с Бумерангом #36, у которого возврат безусловный и без контригры.",
-    enDesc: "TODO: the return mechanic. The intent — after a successful attack the weapon comes back to your hand along its cord, but any player may intervene and cut the cord. Needs separating from the Boomerang #36, whose return is unconditional and has no counterplay.",
+    tags: ["toPrint"],
+    desc: "Если вашу атаку отразили защитой, оружие возвращается вам в руку по шнуру.",
+    enDesc: "If your attack is stopped by a Defense, the weapon comes back to your hand along its cord.",
     img: "cards/card_318_utine.png"
   },
   {
@@ -662,9 +662,9 @@ const CARDS = [
     qty: 1,
     group: "weapon",
     icons: ["ranged", "dmg1"],
-    tags: [],
-    desc: "TODO: тишина. Задумано — выстрел не будит ловушку и не тратит попытку атаки. Решить, что из двух оставить: обе сразу почти наверняка слишком сильно.",
-    enDesc: "TODO: silence. The intent — the shot neither triggers a Trap nor uses up an attack. Decide which of the two to keep: both at once is almost certainly too strong.",
+    tags: ["toPrint"],
+    desc: "Выстрел не тратит попытку атаки.",
+    enDesc: "The shot does not use up an attack.",
     img: "cards/card_320_fukiya.png"
   },
   {
