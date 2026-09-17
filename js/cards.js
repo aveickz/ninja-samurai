@@ -2170,9 +2170,9 @@ const CARDS = [
     qty: 1,
     group: "intervention",
     icons: [],
-    tags: [],
-    desc: "Следующее действие выбранного игрока завершит его ход. Сюда не входит скидывание парных карт.",
-    enDesc: "The chosen player's next action ends their turn. Discarding paired cards does not count.",
+    tags: ["draft", "toPrint"],
+    desc: "Следующее действие выбранного игрока завершит его ход. Сюда не входит скидывание парных карт. TODO: непонятно, что делать с картой — в черновик 18.09.2026.",
+    enDesc: "The chosen player's next action ends their turn. Discarding paired cards does not count. TODO: unclear what to do with this card — moved to drafts 18.09.2026.",
     img: "cards/card_dream_of_ekai.png"
   },
   {
