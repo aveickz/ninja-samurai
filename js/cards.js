@@ -2263,9 +2263,9 @@ const CARDS = [
     qty: 1,
     group: "action",
     icons: [],
-    tags: [],
-    desc: "Вы сбрасываете все карты с руки, но убиваете выбранного игрока.",
-    enDesc: "You discard your whole hand, but you kill the chosen player.",
+    tags: ["toPrint"],
+    desc: "Вы сбрасываете все карты с руки, но убиваете выбранного игрока. -ИЛИ- Согласный {союзник} сбрасывает все свои карты — с руки и со стола, — а врага убиваете вы, от своего лица.",
+    enDesc: "You discard your whole hand, but you kill the chosen player. -OR- A willing {ally} discards all their cards — hand and table — and you make the kill in your own name.",
     img: "cards/card_kamikadze.png"
   },
   {
