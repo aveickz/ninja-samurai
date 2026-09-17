@@ -2145,8 +2145,8 @@ const CARDS = [
     group: "intervention",
     icons: ["effect8"],
     tags: ["toPrint"],
-    desc: "Выбранный игрок с его согласия притворяется мёртвым до конца текущего хода, оставляя себе 1 жетон жизни.",
-    enDesc: "The chosen player, with their consent, plays dead until the end of the current turn, keeping 1 life.",
+    desc: "Выбранный игрок с его согласия притворяется мёртвым до конца текущего хода: у него остаётся 1 жетон жизни, его аура не действует.",
+    enDesc: "The chosen player, with their consent, plays dead until the end of the current turn: they keep 1 life, and their Aura does not work.",
     img: "cards/card_127_simulyant.png"
   },
   {
