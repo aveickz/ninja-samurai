@@ -2289,9 +2289,9 @@ const CARDS = [
     qty: 1,
     group: "action",
     icons: [],
-    tags: [],
-    desc: "Объявляете один из четырёх типов карт: Оружие, Ловушка, Стойка или Защита. Берёте из сброса в обратном порядке первую попавшуюся карту заданного типа. TODO: добор из сброса запрещён (мета-правило №7) — искать карту заданного типа среди открытых карт на столе.",
-    enDesc: "Name one of four card types: Weapon, Trap, Stance or Defense. Search the discard pile from the top down and take the first card of that type. TODO: drawing from the discard pile is banned (meta-rule 7) — search the face-up cards on the table instead.",
+    tags: ["toPrint"],
+    desc: "Заберите любую карту со стола — открытую или закрытую, свою или чужую — себе в руку.",
+    enDesc: "Take any card from the table — face up or face down, yours or anyone's — into your hand.",
     img: "cards/card_ekai.png"
   },
   {
