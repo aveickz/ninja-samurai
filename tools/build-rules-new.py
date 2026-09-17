@@ -73,9 +73,9 @@ CH = {
  'traps':         dict(icons=[[('ic','trap')]],                         cards=[43, 41], fig=('trap-fig', 17.6, 1, 4, 6)),   # фигурка макибиси тушью — в углу главы, чуть левее края
  'stances':       dict(icons=[[('ic','stance')]],                       cards=[60, 1166]),   # «Лучник» справа, сверху — виден целиком
  'effects':       dict(icons=[[('ic','effect')]],                       cards=[92, 91]),   # «Противоядие» внутри, «Метка убийцы» сверху
- 'poison':        dict(icons=[[('ic','poison')]],                       cards=[116, 64], fig=('poison-fig', 16, 1, 3, 6)),   # фигурка яда тушью — крупно, под картами, чуть ниже и правее списка
+ 'poison':        dict(icons=[[('ic','poison')]],                       cards=[116, 64], fig=('poison-fig', 16, 1, 3, -2)),   # фигурка яда тушью — крупно, под картами, чуть ниже и правее списка
  'interventions': dict(layout='fan', icons=[[('ic','intervention')]], cards=[124, 121]),   # веером, «Удар дракона» слева
- 'auras':         dict(icons=[[('ic','aura')]],                        cards=[1209, 1206], fig=('banner-fig', 16, 2, 0, 18)),   # «Часовой» внутри, «Дымовая завеса» сверху; фигурка знамени тушью — в углу, опущена на 12 мм ниже карт
+ 'auras':         dict(icons=[[('ic','aura')]],                        cards=[1209, 1206], fig=('banner-fig', 16, 2, 0, 24)),   # «Часовой» внутри, «Дымовая завеса» сверху; фигурка знамени тушью — в углу, опущена на 12 мм ниже карт
  'conditional':   dict(layout='fan', icons=[[('ic','rolectx'),('ic','hpctx'),('ic','charges'),('ic','charctx')]], cards=[125, 3094, 112]),   # веером: фракция, здоровье, «Сапёр» — условие по имени (Иё)
  'order':         dict(icons=[],                                        cards=[]),
 }
