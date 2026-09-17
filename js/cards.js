@@ -2319,8 +2319,8 @@ const CARDS = [
     group: "character",
     icons: [],
     tags: ["toPrint"],
-    desc: "За каждую рану берите карту. Порог смерти для вас — 2 жетона.[NL]{После вашей смерти} враги получают 1 рану.",
-    enDesc: "Draw a card per wound. Death's door for you is 2 life.[NL]{After your death} enemies take 1 wound.",
+    desc: "За каждую полученную рану берите карту. Порог смерти для вас: 1 или 2 жетона.[NL]{После вашей смерти} враги получают 1 рану.",
+    enDesc: "Draw a card for every wound you take. Death's door for you: 1 or 2 life.[NL]{After your death} enemies take 1 wound.",
     img: "cards/card_135_usivaka.png"
   },
   {
