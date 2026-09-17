@@ -1830,10 +1830,10 @@ const CARDS = [
     types: ["action"],
     qty: 3,
     group: "action",
-    icons: ["rolectx"],
+    icons: ["charctx"],
     tags: ["toPrint"],
-    desc: "{Самурай} может обезвредить ловушку, скинув 1 жетон жизни.[NL]{Ниндзя} может украсть ловушку.[NL]Вне зависимости от роли, можете скинуть эту карту, чтобы взять две новых из колоды.",
-    enDesc: "A {Samurai} may disarm a Trap by spending 1 life.[NL]A {Ninja} may steal the Trap.[NL]Whatever your role, you may discard this card to draw two new ones.",
+    desc: "Обезвредьте любую ловушку на столе; {Иё} вместо этого может забрать её себе в руку.[NL]Либо скиньте эту карту, чтобы взять две новых из колоды.",
+    enDesc: "Disarm any Trap on the table; {Iyo} may take it into her hand instead.[NL]Or discard this card to draw two new ones.",
     img: "cards/card_111_sapyor.png"
   },
   {
@@ -2184,10 +2184,10 @@ const CARDS = [
     types: ["action"],
     qty: 2,
     group: "action",
-    icons: [],
-    tags: [],
-    desc: "Заберите одну случайную карту с руки любого активного игрока.",
-    enDesc: "Take one random card from the hand of any living player.",
+    icons: ["charctx"],
+    tags: ["toPrint"],
+    desc: "Заберите одну случайную карту с руки любого активного игрока. {Така} смотрит руку и выбирает карту сама.",
+    enDesc: "Take one random card from the hand of any living player. {Taka} looks at the hand and picks the card herself.",
     img: "cards/card_128_vorovstvo.png"
   },
   {
@@ -2340,8 +2340,8 @@ const CARDS = [
     icons: [],
     tags: ["toPrint"],
     desc: "Когда любой игрок умирает, вы можете забрать его стойку и выставить себе, вернув свою в руку. В фазе набора за каждую стойку на столе (не более трёх) берите дополнительно 1 карту." +
-          "[NL]{После вашей смерти} вы не теряете стойку, а все союзники с выставленной стойкой получают по 1 карте из колоды и восполняют 1 жетон жизни.",
-    enDesc: "When any player dies, you may take their Stance and put it in front of you, returning your own to your hand. In the draw phase, take 1 extra card for every Stance on the table (no more than three).[NL]{After your death} you keep your Stance, and every ally with a Stance in play draws a card from the deck and restores 1 life.",
+          "[NL]{После вашей смерти} ваша стойка остаётся на столе, а все враги возвращают свои стойки в руку.",
+    enDesc: "When any player dies, you may take their Stance and put it in front of you, returning your own to your hand. In the draw phase, take 1 extra card for every Stance on the table (no more than three).[NL]{After your death} your Stance stays on the table, and every enemy returns their Stance to hand.",
     img: "cards/card_138_kokoro.png"
   },
   {
