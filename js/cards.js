@@ -2144,9 +2144,9 @@ const CARDS = [
     qty: 3,
     group: "intervention",
     icons: ["effect8"],
-    tags: [],
-    desc: "Выбранный игрок симулирует смерть (при его согласии), оставляя один жетон жизни. Следующий раунд он при смерти. В начале хода игрока эффект пропадает.",
-    enDesc: "The chosen player feigns death (with their consent), keeping one life. For the next round they count as being at death's door. The effect ends at the start of that player's turn.",
+    tags: ["toPrint"],
+    desc: "Выбранный игрок с его согласия притворяется мёртвым до конца текущего хода, оставляя себе 1 жетон жизни.",
+    enDesc: "The chosen player, with their consent, plays dead until the end of the current turn, keeping 1 life.",
     img: "cards/card_127_simulyant.png"
   },
   {
