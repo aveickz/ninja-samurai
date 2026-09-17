@@ -74,7 +74,7 @@ CH = {
  'poison':        dict(icons=[[('ic','poison')]],                       cards=[116, 64], fig=('poison-fig', 22, 1, 3, 6)),   # фигурка яда тушью — крупно, под картами, чуть ниже и правее списка
  'interventions': dict(layout='stack', icons=[[('ic','intervention')]], cards=[121, 124]),
  'auras':         dict(icons=[[('ic','aura')]],                        cards=[1209, 1206], fig=('banner-fig', 13, 2)),   # «Часовой» внутри, «Дымовая завеса» сверху; фигурка знамени тушью — в углу
- 'conditional':   dict(layout='stack', icons=[[('ic','rolectx'),('ic','hpctx'),('ic','charges'),('ic','charctx')]], cards=[125, 3094]),
+ 'conditional':   dict(layout='stack', icons=[[('ic','rolectx'),('ic','hpctx'),('ic','charges'),('ic','charctx')]], cards=[125, 3094, 112]),   # внизу «Сапёр» — пример условия по имени персонажа (Иё)
  'order':         dict(icons=[],                                        cards=[]),
 }
 
@@ -182,7 +182,7 @@ INLINE = {
   ('weapons', 'Метательное оружие берёт любую сложность.', 'Метательное оружие ' + ic('mk','ranged.png') + ' берёт любую сложность.'),
   ('weapons', 'либо отбивает атаку картой защиты', 'либо отбивает атаку картой защиты ' + ic('ic','defense')),
   ('weapons', 'Оружие также может быть усилено ядом.', 'Оружие также может быть усилено ядом ' + ic('ic','poison') + '.'),
-  ('weapons', 'картой-модификатором с красной плашкой.', 'картой-модификатором ' + ic('ic','modifier') + ' с красной плашкой.'),
+  ('weapons', 'картой-модификатором с красной плашкой;', 'картой-модификатором ' + ic('ic','modifier') + ' с красной плашкой;'),
   ('auras', 'сверху ставится фигурка знамени', 'сверху ставится фигурка знамени ' + BANNER),
   ('poison', 'помечается фигуркой яда поверх', 'помечается фигуркой яда ' + POISON + ' поверх'),
   ('traps', 'и поставив на неё фигурку ловушки.', 'и поставив на неё фигурку ловушки ' + TRAP + '.'),
@@ -198,7 +198,7 @@ INLINE = {
   ('weapons', 'Thrown weapons handle any complexity.', 'Thrown weapons ' + ic('mk','ranged.png') + ' handle any complexity.'),
   ('weapons', 'or blocks the attack with a Defense card', 'or blocks the attack with a Defense card ' + ic('ic','defense')),
   ('weapons', 'Weapons can also be strengthened with poison.', 'Weapons can also be strengthened with poison ' + ic('ic','poison') + '.'),
-  ('weapons', 'Modifier card with a red banner.', 'Modifier card ' + ic('ic','modifier') + ' with a red banner.'),
+  ('weapons', 'Modifier card with a red banner;', 'Modifier card ' + ic('ic','modifier') + ' with a red banner;'),
   ('auras', 'with the banner figurine on top', 'with the banner figurine ' + BANNER + ' on top'),
   ('poison', 'marked with the poison figurine placed', 'marked with the poison figurine ' + POISON + ' placed'),
   ('traps', 'the trap figurine on top of it.', 'the trap figurine ' + TRAP + ' on top of it.'),
