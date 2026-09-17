@@ -50,15 +50,18 @@ def restore(cx, cy, rx, ry):
     im.alpha_composite(tex, box[:2])
 restore(452, 560, 44, 44)
 
-# новая: портретом ровно над столбиком «персонаж (355,555) — роль (355,605)»
-TX, TY = 355, 488
+# новая: портретом, «над» персонажем и ролью с точки зрения игрока — ближе к центру стола,
+# правее его карт и сердец, на месте прежнего капкана
+TX, TY = 452, 580
 trapback = down(card_face(BACK, 44*S, 70*S))
 paste_center(im, trapback, TX, TY)
-fig = Image.open('rules/media/fig/trap.webp').convert('RGBA')
-# чёрная фигурка на чёрной туши рубашки пропадает — на столе она светлее, стальная
-a = fig.getchannel('A')
-fig = ImageOps.colorize(fig.convert('L'), black=(60, 62, 70), mid=(150, 153, 162), white=(235, 236, 240)).convert('RGBA'); fig.putalpha(a)
+fig = Image.open('rules/media/fig/trap.webp').convert('RGBA')   # чёрная, как настоящая
 fig = ImageOps.contain(fig, (34*S, 34*S), Image.LANCZOS)
+# на чёрной туши рубашки чёрная фигурка пропадает — под неё светлый ореол (блик бумаги)
+halo = Image.new('RGBA', (fig.width + 6*S, fig.height + 6*S), (0, 0, 0, 0))
+halo.paste((255, 252, 240, 210), (3*S, 3*S, 3*S + fig.width, 3*S + fig.height), fig.getchannel('A'))
+halo = halo.filter(ImageFilter.GaussianBlur(2*S))
+paste_center(im, down(halo), TX, TY - 1, with_shadow=False)
 paste_center(im, down(fig), TX, TY - 1)
 
 im.save(out, 'WEBP', quality=90, method=6)
