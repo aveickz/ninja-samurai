@@ -2319,8 +2319,8 @@ const CARDS = [
     group: "character",
     icons: [],
     tags: ["toPrint"],
-    desc: "Получая раны, берите карту. «На пороге смерти» для вас — уже при 2 жетонах.[NL]{После вашей смерти} враги получают 1 рану.",
-    enDesc: "Whenever you take wounds, draw a card. For you, “at death's door” starts at 2 life.[NL]{After your death} enemies take 1 wound.",
+    desc: "За каждую полученную рану берите карту. «На пороге смерти» для вас — уже при 2 жетонах.[NL]{После вашей смерти} враги получают 1 рану.",
+    enDesc: "Draw a card for every wound you take. For you, “at death's door” starts at 2 life.[NL]{After your death} enemies take 1 wound.",
     img: "cards/card_135_usivaka.png"
   },
   {
