@@ -34,17 +34,17 @@ const CARDS = [
   },
   {
     id: 202,
-    title: "Сёгун",
-    enTitle: "Shogun",
+    title: "Самурай",
+    enTitle: "Samurai",
     titleBgColor: "#891511",
     types: ["role"],
     qty: 1,
     group: "role",
     icons: [],
-    tags: ["trash"],
+    tags: ["toPrint"],
     desc: "",
     enDesc: "",
-    img: "cards/card_role_samurai.png"
+    img: "cards/card_role_samurai_first.png"   // знамя I: с этого самурая начинается партия и каждый раунд
   },
   {
     id: 203,
@@ -2335,10 +2335,10 @@ const CARDS = [
     group: "character",
     icons: [],
     tags: ["toPrint"],
-    desc: "В фазе набора берите на одну карту больше; до двух карт набора можете взять у союзников по согласию вместо колоды. После вашего хода враги карту не берут. " +
-          "Лишние карты перед началом хода не сбрасывайте, а раздайте союзникам по одной в закрытую. Раз в ход можете передвинуть свою активную ауру к союзнику или выложить ауру с руки перед любым союзником." +
-          "[NL]{После вашей смерти} ваши союзники берут по одной карте из колоды.",
-    enDesc: "In the draw phase, draw one extra card; up to two of the cards you draw may come from allies' hands, by agreement, instead of the deck. After your turn, enemies draw no card. Before your turn, instead of discarding down to the hand limit, hand the extra cards to allies, one each, face down. Once per turn you may move your active Aura to an ally, or play an Aura from your hand in front of any ally.[NL]{After your death} your allies each draw a card from the deck.",
+    desc: "В фазе набора берите на одну карту больше, а враги после вашего хода карту не берут. " +
+          "Лишние карты перед началом хода не сбрасывайте, а раздайте союзникам по одной в закрытую. Ауру с руки можете выложить перед любым игроком." +
+          "[NL]{После вашей смерти} ваша аура не сбрасывается — передайте её любому живому союзнику.",
+    enDesc: "In the draw phase, draw one extra card, and after your turn enemies draw no card. Before your turn, instead of discarding down to the hand limit, hand the extra cards to allies, one each, face down. You may play an Aura from your hand in front of any player.[NL]{After your death} your Aura is not discarded — pass it to any living ally.",
     img: "cards/card_136_taranaga.png"
   },
   {
