@@ -1583,8 +1583,8 @@ const CARDS = [
     group: "effect",
     icons: [],
     tags: ["toPrint"],
-    desc: "Каждое лечение по игроку снижается на единицу. Также все негативные эффекты от отравления удваиваются. Пока вы отравлены, вы не можете пользоваться бонусами стойки.",
-    enDesc: "Every point of healing on this player is reduced by 1, and every penalty from Poison is doubled. While you are Poisoned, you cannot use Stance bonuses.",
+    desc: "Каждое лечение по игроку снижается на единицу. Также все негативные эффекты от отравления удваиваются. Пока вы отравлены, вы не можете пользоваться бонусами стойки.[NL]На {Минамото} не действует.",
+    enDesc: "Every point of healing on this player is reduced by 1, and every penalty from Poison is doubled. While you are Poisoned, you cannot use Stance bonuses.[NL]Has no effect on {Minamoto}.",
     img: "cards/card_92_ukus_zmeyi.png"
   },
   {
@@ -1634,9 +1634,9 @@ const CARDS = [
     qty: 1,
     group: "effect",
     icons: [],
-    tags: ["trash"],
-    desc: "Атаки игрока не могут бить дальше расстояния в единицу. TODO: на новом словаре это буквально «нельзя атаковать» — запрещённый замедляющий denial (мета-правило №7). Нужен другой эффект, не перевод. Вариант: «сложность всех ваших атак увеличивается на 2, эффект спадает в начале вашего следующего хода» — ослепление как вспышка, в отличие от постоянного +1 у Капкана #43.",
-    enDesc: "This player's attacks cannot reach beyond range 1. TODO: in the new vocabulary this literally reads «you cannot attack» — banned slowing denial (meta-rule 7). Needs a different effect, not a translation. Option: «all your attacks are 2 harder; the Effect wears off at the start of your next turn» — blinding as a flash, unlike the permanent +1 on the Trap #43.",
+    tags: ["toPrint"],
+    desc: "Ваши атаки могут брать только сложность 1, и вы не можете использовать метательное оружие.",
+    enDesc: "Your attacks may only take complexity 1, and you cannot use thrown weapons.",
     img: "cards/card_97_pyl_v_glaza.png"
   },
   {
