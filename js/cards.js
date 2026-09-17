@@ -2318,10 +2318,10 @@ const CARDS = [
     qty: 1,
     group: "character",
     icons: [],
-    tags: [],
-    desc: "Каждый раз, получая раны, вы берёте одну карту из колоды. Вместо вынужденного сброса карты можно тратить жетон жизни." +
+    tags: ["toPrint"],
+    desc: "Каждый раз, получая раны, вы берёте одну карту из колоды. «На пороге смерти» для вас наступает уже при двух жетонах жизни." +
           "[NL]{После вашей смерти} враги получают 1 рану.",
-    enDesc: "Every time you take wounds, you draw a card from the deck. You may spend a life instead of any forced discard.[NL]{After your death} enemies take 1 wound.",
+    enDesc: "Every time you take wounds, you draw a card from the deck. For you, “at death's door” begins at two life tokens, not one.[NL]{After your death} enemies take 1 wound.",
     img: "cards/card_135_usivaka.png"
   },
   {
@@ -2335,10 +2335,10 @@ const CARDS = [
     group: "character",
     icons: [],
     tags: ["toPrint"],
-    desc: "В фазе набора берите на одну карту больше; до двух карт набора можете взять у союзников по согласию вместо колоды. " +
+    desc: "В фазе набора берите на одну карту больше; до двух карт набора можете взять у союзников по согласию вместо колоды. После вашего хода враги карту не берут. " +
           "Лишние карты перед началом хода не сбрасывайте, а раздайте союзникам по одной в закрытую. Раз в ход можете передвинуть свою активную ауру к союзнику или выложить ауру с руки перед любым союзником." +
           "[NL]{После вашей смерти} ваши союзники берут по одной карте из колоды.",
-    enDesc: "In the draw phase, draw one extra card; up to two of the cards you draw may come from allies' hands, by agreement, instead of the deck. Before your turn, instead of discarding down to the hand limit, hand the extra cards to allies, one each, face down. Once per turn you may move your active Aura to an ally, or play an Aura from your hand in front of any ally.[NL]{After your death} your allies each draw a card from the deck.",
+    enDesc: "In the draw phase, draw one extra card; up to two of the cards you draw may come from allies' hands, by agreement, instead of the deck. After your turn, enemies draw no card. Before your turn, instead of discarding down to the hand limit, hand the extra cards to allies, one each, face down. Once per turn you may move your active Aura to an ally, or play an Aura from your hand in front of any ally.[NL]{After your death} your allies each draw a card from the deck.",
     img: "cards/card_136_taranaga.png"
   },
   {
@@ -2352,9 +2352,9 @@ const CARDS = [
     group: "character",
     icons: [],
     tags: ["toPrint"],
-    desc: "Когда любой игрок умирает, вы можете забрать его стойку и выставить себе, вернув свою в руку. В фазе набора за каждую стойку на столе (не более трёх) берите дополнительно 1 карту." +
+    desc: "Когда любой игрок умирает, вы можете забрать его стойку и выставить себе, вернув свою в руку. Ваша атака в рукопашную наносит 2 раны. В фазе набора за каждую стойку на столе (не более трёх) берите дополнительно 1 карту." +
           "[NL]{После вашей смерти} ваша стойка остаётся на столе, а все враги возвращают свои стойки в руку.",
-    enDesc: "When any player dies, you may take their Stance and put it in front of you, returning your own to your hand. In the draw phase, take 1 extra card for every Stance on the table (no more than three).[NL]{After your death} your Stance stays on the table, and every enemy returns their Stance to hand.",
+    enDesc: "When any player dies, you may take their Stance and put it in front of you, returning your own to your hand. Your bare-handed attack deals 2 wounds. In the draw phase, take 1 extra card for every Stance on the table (no more than three).[NL]{After your death} your Stance stays on the table, and every enemy returns their Stance to hand.",
     img: "cards/card_138_kokoro.png"
   },
   {
@@ -2401,9 +2401,9 @@ const CARDS = [
     group: "character",
     icons: [],
     tags: ["toPrint"],
-    desc: "Раз в ход можете передвинуть свою активную ловушку к союзнику без ловушки или поменять местами две любые ловушки на столе, не открывая их. В фазе набора за каждую ловушку на столе (не более трёх) берите дополнительно 1 карту." +
+    desc: "Раз в ход можете передвинуть свою активную ловушку к союзнику без ловушки или поменять местами две любые ловушки на столе, не открывая их. Ловушка перед вами срабатывает и от метательных атак. В фазе набора за каждую ловушку на столе (не более трёх) берите дополнительно 1 карту." +
           "[NL]{После вашей смерти} ловушки врагов просвещаются.",
-    enDesc: "Once per turn you may move your active Trap to an ally who has none, or swap any two Traps on the table without revealing them. In the draw phase, take 1 extra card for every Trap on the table (no more than three).[NL]{After your death} enemy Traps are revealed.",
+    enDesc: "Once per turn you may move your active Trap to an ally who has none, or swap any two Traps on the table without revealing them. The Trap in front of you is triggered by thrown attacks too. In the draw phase, take 1 extra card for every Trap on the table (no more than three).[NL]{After your death} enemy Traps are revealed.",
     img: "cards/card_140_iyo.png"
   },
   {
@@ -2449,9 +2449,9 @@ const CARDS = [
     group: "character",
     icons: [],
     tags: ["toPrint"],
-    desc: "Яд не отнимает у вас жизни. {Если вы отравлены}, ваши атаки отравлены, у вас три попытки атаки за ход, а ранивший вас прямой атакой отравляется. В фазе набора за каждого отравленного игрока на столе (не более трёх) берите дополнительно одну карту." +
+    desc: "Яд не отнимает у вас жизни, а очко умершего от яда достаётся вам, а не сбросу. {Если вы отравлены}, ваши атаки отравлены, у вас три попытки атаки за ход, а ранивший вас прямой атакой отравляется. В фазе набора за каждого отравленного игрока на столе (не более трёх) берите дополнительно одну карту." +
           "[NL]{После вашей смерти} все враги отравляются ядом, а союзники исцеляются от яда.",
-    enDesc: "Poison costs you no life. {If you are poisoned}, your attacks are poisoned, you have three attack attempts per turn, and anyone who wounds you with a direct attack is poisoned. In the draw phase, take an extra card for every poisoned player at the table (no more than three).[NL]{After your death} every enemy is poisoned and every ally is cured of poison.",
+    enDesc: "Poison costs you no life, and the point of anyone who dies of poison goes to you instead of the discard. {If you are poisoned}, your attacks are poisoned, you have three attack attempts per turn, and anyone who wounds you with a direct attack is poisoned. In the draw phase, take an extra card for every poisoned player at the table (no more than three).[NL]{After your death} every enemy is poisoned and every ally is cured of poison.",
     img: "cards/card_minamoto.png"
   },
 
