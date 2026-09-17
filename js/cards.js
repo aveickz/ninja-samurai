@@ -1280,10 +1280,10 @@ const CARDS = [
     types: ["modifier"],
     qty: 1,
     group: "modifier",
-    icons: [],
+    icons: ["charctx"],
     tags: ["toPrint"],
-    desc: "+1 к силе атаки. При убийстве врага этой атакой вы можете забрать себе его стойку, ауру и любые эффекты.",
-    enDesc: "+1 attack power. If this attack kills the enemy, you may take their Stance, Aura and any Effects for yourself.",
+    desc: "+1 к силе атаки. При убийстве врага этой атакой вы можете забрать себе его стойку, ауру и любые эффекты.[NL]Единственный способ отнять стойку у {Сайго}.",
+    enDesc: "+1 attack power. If this attack kills the enemy, you may take their Stance, Aura and any Effects for yourself.[NL]The only way to take {Saigo}'s Stance.",
     img: "cards/card_1083_kubitori.png"
   },
   {
