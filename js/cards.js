@@ -2425,8 +2425,8 @@ const CARDS = [
     group: "character",
     icons: [],
     tags: ["toPrint"],
-    desc: "Ваше лечение поднимает любого на 1 жетон выше сердца; для карт и пометок предел — по сердцу. Когда кто-то в вашей команде лечится, берите карту — сколько бы жетонов ни вернулось.[NL]{После вашей смерти} каждый союзник восстанавливает 1 жетон и исцеляется от яда.",
-    enDesc: "Your healing may raise anyone 1 life above their heart; for cards and markers the heart stays the limit. Whenever a teammate heals, draw a card — however much was restored.[NL]{After your death} every ally restores 1 life and is cured of poison.",
+    desc: "Ваше лечение поднимает любого на 1 жетон выше лимита жизней; для карт и пометок лимит прежний. Когда кто-то в вашей команде лечится, берите карту — сколько бы жетонов ни вернулось.[NL]{После вашей смерти} каждый союзник восстанавливает 1 жетон и исцеляется от яда.",
+    enDesc: "Your healing may raise anyone 1 life above their life limit; for cards and markers the limit is unchanged. Whenever a teammate heals, draw a card — however much was restored.[NL]{After your death} every ally restores 1 life and is cured of poison.",
     img: "cards/card_145_manase.png"
   },
   {
