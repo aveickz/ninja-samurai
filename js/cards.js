@@ -1936,8 +1936,8 @@ const CARDS = [
     group: "action",
     icons: ["charctx"],
     tags: ["toPrint"],
-    desc: "Сыграв эту карту, берите за каждый сброшенный жетон жизни (кроме последнего, не более трёх) новую карту из колоды. {Усивака} берёт по две карты за жетон.",
-    enDesc: "Play this card and draw a new card for every life you spend (never your last, no more than three). {Ushiwaka} draws two cards per life.",
+    desc: "Сыграв эту карту, берите за каждый сброшенный жетон жизни (кроме последнего, не более трёх) новую карту из колоды. {Усивака} может сыграть её в любой момент, даже в чужой ход.",
+    enDesc: "Play this card and draw a new card for every life you spend (never your last, no more than three). {Ushiwaka} may play it at any moment, even on another player's turn.",
     img: "cards/card_119_zhertva_krovi.png"
   },
   {
