@@ -1346,10 +1346,10 @@ const CARDS = [
     types: ["aoe"],
     qty: 1,
     group: "aoe",
-    icons: [],
-    tags: [],
-    desc: "Все остальные активные игроки теряют свою стойку и сбрасывают свою ловушку.",
-    enDesc: "Every other living player loses their Stance and discards their Trap.",
+    icons: ["charctx"],
+    tags: ["toPrint"],
+    desc: "Все остальные активные игроки теряют свою стойку и сбрасывают свою ловушку.[NL]{Сайго} в потасовке не участвует.",
+    enDesc: "Every other living player loses their Stance and discards their Trap.[NL]{Saigo} stays out of the brawl.",
     img: "cards/card_83_potasovka.png"
   },
   {
