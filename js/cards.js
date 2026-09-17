@@ -690,9 +690,9 @@ const CARDS = [
     qty: 2,
     group: "trap",
     icons: [],
-    tags: [],
-    desc: "Вы забираете у атакующего две карты.",
-    enDesc: "Take two cards from the attacker.",
+    tags: ["toPrint"],
+    desc: "Вы забираете у атакующего три карты.",
+    enDesc: "Take three cards from the attacker.",
     img: "cards/card_41_silok.png"
   },
   {
