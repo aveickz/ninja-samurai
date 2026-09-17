@@ -2199,8 +2199,8 @@ const CARDS = [
     group: "action",
     icons: ["charctx"],
     tags: ["toPrint"],
-    desc: "Заберите одну случайную карту с руки любого активного игрока. {Така} смотрит руку и выбирает карту сама.",
-    enDesc: "Take one random card from the hand of any living player. {Taka} looks at the hand and picks the card herself.",
+    desc: "Заберите одну случайную карту с руки любого активного игрока. {Така} забирает две.",
+    enDesc: "Take one random card from the hand of any living player. {Taka} takes two.",
     img: "cards/card_128_vorovstvo.png"
   },
   {
