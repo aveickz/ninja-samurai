@@ -2290,8 +2290,8 @@ const CARDS = [
     group: "action",
     icons: [],
     tags: ["toPrint"],
-    desc: "Заберите любую карту со стола — открытую или закрытую, свою или чужую — себе в руку.",
-    enDesc: "Take any card from the table — face up or face down, yours or anyone's — into your hand.",
+    desc: "Заберите любую чужую карту со стола — открытую или закрытую — себе в руку.",
+    enDesc: "Take any other player's card from the table — face up or face down — into your hand.",
     img: "cards/card_ekai.png"
   },
   {
