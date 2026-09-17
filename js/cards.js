@@ -610,8 +610,8 @@ const CARDS = [
     group: "weapon",
     icons: ["ranged", "dmg0", "poison", "charctx"],
     tags: ["toPrint", "poison"],
-    desc: "Атака игнорирует ловушки и защиту, и вы берёте карту из колоды.[NL]Любимое оружие {Минамото}.",
-    enDesc: "This attack ignores Traps and Defense, and you draw a card.[NL]Favourite weapon of {Minamoto}.",
+    desc: "Атака игнорирует ловушки и защиту, и вы берёте карту из колоды.[NL]{Минамото} наносит им две раны.",
+    enDesc: "This attack ignores Traps and Defense, and you draw a card.[NL]{Minamoto} deals two wounds with it.",
     img: "cards/card_39_drotik_s_yadom.png"
   },
   {
