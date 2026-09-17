@@ -2364,8 +2364,8 @@ const CARDS = [
     group: "character",
     icons: [],
     tags: ["toPrint"],
-    desc: "Можете защищаться от прямых атак оружием, получая 1 рану. Можете сбросить карту защиты и взять 2 из колоды.[NL]{После вашей смерти} убийца не получает победное очко — оно уходит в сброс.",
-    enDesc: "You may block direct attacks with a weapon, taking 1 wound. You may discard a Defense to draw 2.[NL]{After your death} the killer gets no victory point — it goes to the discard.",
+    desc: "Можете защищаться от прямых атак оружием, получая 1 рану. Можете сбросить карту защиты и взять 2 из колоды.",
+    enDesc: "You may block direct attacks with a weapon, taking 1 wound. You may discard a Defense to draw 2.",
     img: "cards/card_139_handzo.png"
   },
 
