@@ -2440,8 +2440,8 @@ const CARDS = [
     group: "character",
     icons: [],
     tags: ["toPrint"],
-    desc: "Яд не отнимает у вас жизни, а очко умершего от яда достаётся вам, а не сбросу. {Если вы отравлены}: атаки отравлены, 3 попытки атаки за ход, ранивший вас прямой атакой отравляется. В фазе набора +1 карта за каждого отравленного (до 3).[NL]{После вашей смерти} враги отравляются, союзники исцеляются от яда.",
-    enDesc: "Poison costs you no life, and the point of anyone who dies of poison goes to you, not the discard. {If you are poisoned}: your attacks are poisoned, you have 3 attack attempts, and whoever wounds you with a direct attack is poisoned. In the draw phase, +1 card per poisoned player (up to 3).[NL]{After your death} enemies are poisoned, allies cured.",
+    desc: "Яд не отнимает у вас жизни, а очко умершего от яда достаётся вам, а не сбросу. {Если вы отравлены}: атаки отравлены, 3 попытки атаки за ход, ранивший вас прямой атакой отравляется. В фазе набора +1 карта за каждого отравленного (до 3).[NL]{После вашей смерти} все враги отравляются.",
+    enDesc: "Poison costs you no life, and the point of anyone who dies of poison goes to you, not the discard. {If you are poisoned}: your attacks are poisoned, you have 3 attack attempts, and whoever wounds you with a direct attack is poisoned. In the draw phase, +1 card per poisoned player (up to 3).[NL]{After your death} every enemy is poisoned.",
     img: "cards/card_minamoto.png"
   },
 
