@@ -24,7 +24,7 @@ const CARDS = [
     enTitle: "Samurai",
     titleBgColor: "#891511",
     types: ["role"],
-    qty: 3,
+    qty: 2,
     group: "role",
     icons: [],
     tags: ["toPrint"],
@@ -2364,8 +2364,8 @@ const CARDS = [
     group: "character",
     icons: [],
     tags: ["toPrint"],
-    desc: "Можете защищаться от прямых атак оружием, получая 1 рану. Можете сбросить карту защиты и взять 2 из колоды.[NL]{После вашей смерти} раздайте союзникам любые карты защиты в открытую — хоть все одному.",
-    enDesc: "You may block direct attacks with a weapon, taking 1 wound. You may discard a Defense to draw 2.[NL]{After your death} hand any Defense cards to allies, face up — even all to one.",
+    desc: "Можете защищаться от прямых атак оружием, получая 1 рану. Можете сбросить карту защиты и взять 2 из колоды.[NL]{После вашей смерти} убийца не получает победное очко — оно уходит в сброс.",
+    enDesc: "You may block direct attacks with a weapon, taking 1 wound. You may discard a Defense to draw 2.[NL]{After your death} the killer gets no victory point — it goes to the discard.",
     img: "cards/card_139_handzo.png"
   },
 
@@ -2380,8 +2380,8 @@ const CARDS = [
     group: "character",
     icons: [],
     tags: ["toPrint"],
-    desc: "Вместо попытки атаки берите 2 карты или верните 1 жетон жизни любому игроку. {Древковое} оружие можете сыграть как защиту — за себя или за любого.[NL]{После вашей смерти} раздайте союзникам любые карты оружия в открытую — хоть все одному.",
-    enDesc: "Instead of an attack attempt, draw 2 cards or restore 1 life to any player. You may play any {Polearm} as a Defense — for yourself or anyone.[NL]{After your death} hand any Weapon cards to allies, face up — even all to one.",
+    desc: "Вместо попытки атаки берите 2 карты или верните 1 жетон жизни любому игроку. {Древковое} оружие можете сыграть как защиту — за себя или за любого.[NL]{После вашей смерти} каждый союзник может снять с себя один эффект.",
+    enDesc: "Instead of an attack attempt, draw 2 cards or restore 1 life to any player. You may play any {Polearm} as a Defense — for yourself or anyone.[NL]{After your death} each ally may remove one Effect from themselves.",
     img: "cards/card_142_norio.png"
   },
   {
@@ -2425,8 +2425,8 @@ const CARDS = [
     group: "character",
     icons: [],
     tags: ["toPrint"],
-    desc: "Ваше лечение поднимает любого на 1 жетон выше сердца; для карт и пометок предел — по сердцу. Когда кто-то в вашей команде лечится, берите карту — сколько бы жетонов ни вернулось.[NL]{После вашей смерти} каждый союзник восстанавливает 2 жетона.",
-    enDesc: "Your healing may raise anyone 1 life above their heart; for cards and markers the heart stays the limit. Whenever a teammate heals, draw a card — however much was restored.[NL]{After your death} every ally restores 2 life.",
+    desc: "Ваше лечение поднимает любого на 1 жетон выше сердца; для карт и пометок предел — по сердцу. Когда кто-то в вашей команде лечится, берите карту — сколько бы жетонов ни вернулось.[NL]{После вашей смерти} каждый союзник восстанавливает 1 жетон и исцеляется от яда.",
+    enDesc: "Your healing may raise anyone 1 life above their heart; for cards and markers the heart stays the limit. Whenever a teammate heals, draw a card — however much was restored.[NL]{After your death} every ally restores 1 life and is cured of poison.",
     img: "cards/card_145_manase.png"
   },
   {
