@@ -2380,8 +2380,8 @@ const CARDS = [
     group: "character",
     icons: [],
     tags: ["toPrint"],
-    desc: "Вместо попытки атаки берите 2 карты или верните 1 жетон жизни любому игроку. {Древковое} оружие можете сыграть как защиту — за себя или за любого.[NL]{После вашей смерти} каждый союзник может снять с себя один эффект.",
-    enDesc: "Instead of an attack attempt, draw 2 cards or restore 1 life to any player. You may play any {Polearm} as a Defense — for yourself or anyone.[NL]{After your death} each ally may remove one Effect from themselves.",
+    desc: "Вместо попытки атаки берите 2 карты или верните 1 жетон жизни любому игроку. {Древковое} оружие можете сыграть как карту защиты или вмешательства — за себя или за любого игрока.[NL]{После вашей смерти} каждый союзник может снять с себя один эффект.",
+    enDesc: "Instead of an attack attempt, draw 2 cards or restore 1 life to any player. You may play any {Polearm} as a Defense or an Intervention — for yourself or anyone.[NL]{After your death} each ally may remove one Effect from themselves.",
     img: "cards/card_142_norio.png"
   },
   {
