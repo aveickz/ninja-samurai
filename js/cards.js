@@ -2349,8 +2349,8 @@ const CARDS = [
     group: "character",
     icons: [],
     tags: ["toPrint"],
-    desc: "Стойку умершего можете забрать в руку. Рукопашная бьёт на 2. В фазе набора +1 карта за стойку на столе (до 3).[NL]{После вашей смерти} ваша стойка остаётся, враги возвращают свои в руку.",
-    enDesc: "You may take a dead player's Stance into your hand. Bare hands deal 2. In the draw phase, +1 card per Stance on the table (up to 3).[NL]{After your death} your Stance stays; enemies return theirs to hand.",
+    desc: "Стойку умершего можете забрать в руку. Рукопашная бьёт на 2. В фазе набора +1 карта за стойку на столе (до 3).[NL]{После вашей смерти} ваша стойка остаётся, а враги возвращают свои стойки в руку.",
+    enDesc: "You may take a dead player's Stance into your hand. Bare hands deal 2. In the draw phase, +1 card per Stance on the table (up to 3).[NL]{After your death} your Stance stays, and enemies return their Stances to hand.",
     img: "cards/card_138_kokoro.png"
   },
   {
