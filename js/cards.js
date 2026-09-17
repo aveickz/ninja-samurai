@@ -2040,9 +2040,9 @@ const CARDS = [
     qty: 1,
     group: "intervention",
     icons: [],
-    tags: [],
-    desc: "Вы можете передать свою ауру союзнику, или по согласию забрать себе его ауру.",
-    enDesc: "You may pass your Aura to an ally, or take theirs with their consent.",
+    tags: ["toPrint"],
+    desc: "Передвиньте активную ауру от одного {союзника} к другому — по согласию обоих. Один из них может быть вами.",
+    enDesc: "Move an active Aura from one {ally} to another, with the consent of both. Either of them may be you.",
     img: "cards/card_baton.png"
   },
   {
