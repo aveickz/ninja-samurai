@@ -529,10 +529,10 @@ const CARDS = [
     types: ["weapon"],
     qty: 2,
     group: "weapon",
-    icons: ["ranged", "dmg2"],
-    tags: [],
-    desc: "",
-    enDesc: "",
+    icons: ["ranged", "dmg3"],
+    tags: ["toPrint"],
+    desc: "Стреляет только вместе с модификатором.",
+    enDesc: "Fires only together with a Modifier.",
     img: "cards/card_teppo_umi.png"
   },
   {
