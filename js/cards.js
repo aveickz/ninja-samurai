@@ -2141,7 +2141,7 @@ const CARDS = [
     title: "Симулянт",
     enTitle: "Feigned Death",
     types: ["intervention", "effect"],
-    qty: 3,
+    qty: 2,
     group: "intervention",
     icons: ["effect8"],
     tags: ["toPrint"],
