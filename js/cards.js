@@ -1934,10 +1934,10 @@ const CARDS = [
     types: ["action"],
     qty: 1,
     group: "action",
-    icons: [],
-    tags: [],
-    desc: "Сыграв эту карту, берите за каждый сброшенный жетон жизни (кроме последнего, не более трёх) новую карту из колоды.",
-    enDesc: "Play this card and draw a new card for every life you spend (never your last, no more than three).",
+    icons: ["charctx"],
+    tags: ["toPrint"],
+    desc: "Сыграв эту карту, берите за каждый сброшенный жетон жизни (кроме последнего, не более трёх) новую карту из колоды. {Усивака} берёт по две карты за жетон.",
+    enDesc: "Play this card and draw a new card for every life you spend (never your last, no more than three). {Ushiwaka} draws two cards per life.",
     img: "cards/card_119_zhertva_krovi.png"
   },
   {
