@@ -189,9 +189,9 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["complexity1", "dmg1"],
-    tags: [],
-    desc: "Атакуемый игрок скидывает случайную карту в случае успешной атаки.",
-    enDesc: "On a successful attack, the target discards a random card.",
+    tags: ["draft", "toPrint"],
+    desc: "Атакуемый игрок скидывает случайную карту в случае успешной атаки. TODO: полный близнец Явары #19 — развести или убрать (в черновике с 18.09.2026).",
+    enDesc: "On a successful attack, the target discards a random card. TODO: exact twin of Yawara #19 — differentiate or remove (draft since 18.09.2026).",
     img: "cards/card_10_tonfa.png"
   },
   {
@@ -332,9 +332,9 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["complexity1", "dmg1"],
-    tags: [],
-    desc: "Атакуемый игрок скидывает случайную карту в случае успешной атаки.",
-    enDesc: "On a successful attack, the target discards a random card.",
+    tags: ["draft", "toPrint"],
+    desc: "Атакуемый игрок скидывает случайную карту в случае успешной атаки. TODO: полный близнец Тонфы #10 — развести или убрать (в черновике с 18.09.2026).",
+    enDesc: "On a successful attack, the target discards a random card. TODO: exact twin of Tonfa #10 — differentiate or remove (draft since 18.09.2026).",
     img: "cards/card_23_yavara.png"
   },
   {
