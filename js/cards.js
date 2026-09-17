@@ -1307,7 +1307,7 @@ const CARDS = [
     qty: 1,
     group: "intervention",
     icons: ["modifier"],
-    tags: ["draft", "toPrint"],
+    tags: ["toPrint"],
     desc: "Сыграйте на свою атаку или атаку {союзника}. После этого любой союзник может положить поверх свой модификатор как вмешательство.",
     enDesc: "Play it on your attack or an {ally}'s attack. Any ally may then put a Modifier on top of it as an Intervention.",
     img: "cards/card_1032_renkei.png"

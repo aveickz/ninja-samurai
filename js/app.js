@@ -640,13 +640,15 @@ $(function () {
       if (isThrust) {
         $target.prepend($('<span>', {
           class: 'card-block-thrust',
-          text: (LANG === 'en' ? 'Thrust' : 'Выпад') + ' ·'
+          text: (LANG === 'en' ? 'Thrust' : 'Выпад') + '\u00A0·'
         }));
       }
       if (blockLabels.length) {
         $target.prepend($('<span>', {
           class: 'card-block-types',
-          text: blockLabels.join(' · ') + ' ·'
+          // Перед точкой-разделителем NBSP: точка не отрывается от слова
+          // и не уезжает одна на новую строку (Вмешательство · Модификатор).
+          text: blockLabels.join('\u00A0· ') + '\u00A0·'
         }));
       }
     }
