@@ -33,9 +33,9 @@ LABELS = [
     ('trap',      (500, 645), (458, 612)),    # под ловушкой левого игрока, между жетонами и колодой
     ('character', (470, 445), (365, 532)),    # верхняя левая четверть
     ('deck',      (500, 500), (560, 565)),    # слева-сверху от колоды
-    ('discard',   (720, 490), (672, 530)),    # справа-сверху от сброса
+    ('discard',   (712, 614), (668, 588)),    # справа-снизу от сброса
     ('effect',    (790, 430), (856, 462)),    # над столбиком эффектов — к верхней карте («Пыль в глаза»)
-    ('intervention', (748, 642), (637, 650)),  # справа от карты вмешательства союзника, под сбросом
+    ('intervention', (716, 390), (708, 412)),  # над «Щитоломом» верхнего самурая, между «Картой роли» и «Рукой»
     ('poison',    (800, 540), (862, 552)),    # бутылка яда на карте роли
     ('defense',   (815, 762), (812, 732)),    # под картой защиты
     ('attack',    (540, 722), (688, 714)),    # слева от выложенной атаки
@@ -55,7 +55,7 @@ TXT = {
   'hand': 'Рука', 'discard': 'Сброс', 'effect': 'Эффекты', 'life': 'Жизни',
   'vp': 'Победные очки', 'attack': 'Атака: оружие|+ модификатор',
   'poison': 'Яд', 'defense': 'Защита', 'trap': 'Ловушка', 'attacks': 'Атакует',
-  'intervention': 'Вмешательство|союзника',
+  'intervention': 'Вмешательство',
   'samurai': 'Самурай', 'ninja': 'Ниндзя',
   'h4': 'Стол',
   'intro': 'Так выглядит стол в середине партии на четверых: у каждого игрока перед собой своя зона, посреди стола — общие стопки. Игроки сидят через одного, поэтому напротив — союзник, а по бокам — противники.',
@@ -71,7 +71,7 @@ TXT = {
    ('discard',   'рядом с колодой, картинкой вверх. Из сброса карты не возвращаются.'),
    ('attack',    'оружие и модификатор выкладываются на стол в сторону цели, после расчёта уходят в сброс.'),
   ],
-  'outro': 'Ловушка кладётся перед собой рубашкой вверх, сверху — фигурка капкана; яд отмечают фигуркой-бутылкой на карте роли. Аура кладётся перед собой в открытую, сверху — фигурка знамени; на этой картинке её нет.',
+  'outro': 'Ловушка кладётся перед собой рубашкой вверх, сверху — фигурка капкана; яд отмечают фигуркой-бутылкой на карте роли. Аура кладётся перед собой в открытую, сверху — фигурка знамени; на этой картинке её нет. Верхний самурай подкрепляет атаку союзника вмешательством — «Щитоломом».',
   'caption': 'Стол на четверых: самурай — ниндзя — самурай — ниндзя.',
   'note': 'За большим столом — на восьмерых — колоду и сброс удобно разделить на две стопки и поставить с разных сторон, чтобы каждому было легко дотянуться: колода перетасована, а порядок карт в сбросе не важен.',
  },
@@ -80,7 +80,7 @@ TXT = {
   'hand': 'Hand', 'discard': 'Discard', 'effect': 'Effects', 'life': 'Life',
   'vp': 'Victory points', 'attack': 'Attack: weapon|+ modifier',
   'poison': 'Poison', 'defense': 'Defense', 'trap': 'Trap', 'attacks': 'Attacks',
-  'intervention': "Ally's|intervention",
+  'intervention': 'Intervention',
   'samurai': 'Samurai', 'ninja': 'Ninja',
   'h4': 'The Table',
   'intro': 'This is what a four-player table looks like mid-game: every player has their own area in front of them, and the shared piles sit in the middle. Seats alternate, so the player opposite is your ally and the players on either side are enemies.',
@@ -96,7 +96,7 @@ TXT = {
    ('discard',   'next to the deck, face up. Cards never come back from the discard.'),
    ('attack',    'weapon and modifier are laid on the table towards the target; once resolved they go to the discard.'),
   ],
-  'outro': 'A trap is placed face down in front of you with the trap figure on top; poison is marked by a bottle figure on the role card. An aura goes face up in front of you with the banner figure on top; it is not shown in this picture.',
+  'outro': 'A trap is placed face down in front of you with the trap figure on top; poison is marked by a bottle figure on the role card. An aura goes face up in front of you with the banner figure on top; it is not shown in this picture. The top samurai backs his ally’s attack with an intervention — «Shieldbreaker».',
   'caption': 'A table for four: samurai — ninja — samurai — ninja.',
   'note': 'At a big table — eight players — it is convenient to split the deck and the discard pile in two and place them on opposite sides so that everyone can reach: the deck is shuffled, and the order of cards in the discard pile does not matter.',
  },
