@@ -1646,10 +1646,10 @@ const CARDS = [
     types: ["action"],
     qty: 3,
     group: "action",
-    icons: ["charges"],
+    icons: ["charges", "charctx"],
     tags: ["toPrint"],
-    desc: "Выбранный игрок скидывает указанный вами эффект. За каждую дополнительно сброшенную карту можно скинуть ещё 1 эффект. За каждый такой скинутый эффект, вы восстанавливаете 1 жетон жизни любому игроку.",
-    enDesc: "The chosen player discards an Effect you name. For each extra card discarded, one more Effect may be removed. For every Effect removed this way, restore 1 life to any player.",
+    desc: "Выбранный игрок скидывает указанный вами эффект. За каждую дополнительно сброшенную карту можно скинуть ещё 1 эффект. За каждый такой скинутый эффект, вы восстанавливаете 1 жетон жизни любому игроку. {Норио} снимает любое число эффектов, не сбрасывая карт.",
+    enDesc: "The chosen player discards an Effect you name. For each extra card discarded, one more Effect may be removed. For every Effect removed this way, restore 1 life to any player. {Norio} removes any number of Effects without discarding cards.",
     img: "cards/card_98_chasha_blagovoniy.png"
   },
   {
