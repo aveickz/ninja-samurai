@@ -1308,8 +1308,8 @@ const CARDS = [
     group: "intervention",
     icons: ["modifier"],
     tags: ["draft", "toPrint"],
-    desc: "Сама по себе ничего не делает. Сыграйте на свою атаку или на атаку {союзника}: любой союзник может тут же выложить в неё свой модификатор с руки — он действует, как будто сыгран атакующим.",
-    enDesc: "Does nothing by itself. Play it on your attack or on an {ally}'s attack: any ally may immediately add a Modifier from their hand to it — it works as if the attacker had played it.",
+    desc: "Сыграйте на свою атаку или атаку {союзника}. После этого любой союзник может положить поверх свой модификатор как вмешательство.",
+    enDesc: "Play it on your attack or an {ally}'s attack. Any ally may then put a Modifier on top of it as an Intervention.",
     img: "cards/card_1032_renkei.png"
   },
   // ── ГРУППОВЫЕ ДЕЙСТВИЯ (стр. 12) ─────────────────────────────────
