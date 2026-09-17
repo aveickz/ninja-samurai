@@ -101,7 +101,7 @@
           <div class="side-cards fan n2"><div class="card-embed" style="--k:-0.5;--i:0"><img src="media/cards/109.webp" alt=""></div><div class="card-embed" style="--k:0.5;--i:1"><img src="media/cards/84.webp" alt=""></div></div>
         </aside>
 <p>Ход устроен так: в начале хода игрок сбрасывает лишние карты, чтобы на руке осталось не больше девяти (между ходами рука не ограничена — что сбросить, вы решаете, уже зная всё, что случилось за столом); затем действует; в конце хода набирает карты.</p>
-<p>В свой ход игрок может: провести до двух попыток атаки оружием по любому живому игроку, разыгрывать карты групповых и обычных действий, обмениваться картами, выставлять перед собой ловушку, накладывать эффекты, менять стойку и ауру.</p>
+<p>В свой ход игрок может: провести до двух попыток атаки оружием по любому живому игроку, разыгрывать карты групповых <i class="ic" data-b="aoe"></i> и обычных <i class="ic" data-b="action"></i> действий, обмениваться картами, выставлять перед собой ловушку, накладывать эффекты, менять стойку и ауру.</p>
         </div>
       </section>
       <section class="chapter continued" id="turn-2">
@@ -214,11 +214,10 @@
         <aside class="chapter-side">
           <div class="side-cards fan n2"><div class="card-embed" style="--k:-0.5;--i:0"><img src="media/cards/43.webp" alt=""></div><div class="card-embed" style="--k:0.5;--i:1"><img src="media/cards/41.webp" alt=""></div></div>
         </aside>
-<p>Во время своего хода любой игрок может выставлять перед собой максимум одну ловушку, положив специальную карту ловушки рубашкой вверх и поставив на неё фигурку ловушки <img class="mk fig-inline trap" src="media/fig/trap.webp" alt="">. Во время своего хода можно неоднократно менять активную ловушку перед собой на новую из руки, забирая текущую обратно в руку.</p>
-<p>При атаке по вам ловушка срабатывает всегда, если вы не защищаетесь, — кроме атак метательным оружием: они ловушку не активируют. Если же от неметательной атаки вы защищаетесь картой защиты, срабатывать ловушке или нет — решаете вы сами.</p>
-<p>Существуют карты просвещения ловушек — тогда надо перевернуть карту ловушки картинкой вверх, оставив сверху фигурку ловушки.</p>
+<p>В свой ход игрок может выставить перед собой одну ловушку: карта кладётся рубашкой вверх, сверху ставится фигурка ловушки <img class="mk fig-inline trap" src="media/fig/trap.webp" alt="">. В свой ход активную ловушку можно менять на другую из руки, забирая прежнюю обратно.</p>
+<p>При атаке по вам ловушка срабатывает всегда, если вы не защищаетесь, — кроме атак метательным оружием: они ловушку не активируют. Если от неметательной атаки вы защищаетесь, срабатывать ловушке или нет — решаете вы. Карты просветления переворачивают ловушку картинкой вверх, фигурка остаётся сверху.</p>
 <div class="fig-row"><div class="fig-text" style="padding-right:24mm">
-<aside class="note">Если при просветлении, воровстве или активации выяснится, что под ловушкой лежит не карта ловушки, игрок сразу умирает, отдав победное очко инициатору. Ловушка срабатывает, даже если атака летальна.</aside>
+<aside class="note">Если при просветлении, воровстве или активации под фигуркой окажется не карта ловушки, игрок сразу умирает, отдав победное очко инициатору. Ловушка срабатывает, даже если атака летальна.</aside>
 </div><img class="chapter-fig" src="media/fig/ink/trap-fig.webp" style="width:17mm;right:4mm;bottom:0mm" alt=""></div>
         </div>
       </section>
@@ -232,13 +231,15 @@
 <p>Одномоментно может действовать только одна стойка. Если во время разыгрывания карты стойки у вас уже была активная стойка, прежнюю карту вы забираете обратно в руку.</p>
         </div>
       </section>
-      <section class="chapter" id="group">
+      <section class="chapter" id="effects" style="--bg:url(media/bg/effects.webp)">
         <div class="chapter-body">
-          <h2 class="chapter-title">Групповые действия<span class="kanji" aria-hidden="true">群</span><span class="h-icons"><i class="ic" data-b="aoe"></i></span></h2>
+          <h2 class="chapter-title">Эффекты<span class="kanji" aria-hidden="true">術</span><span class="h-icons"><i class="ic" data-b="effect"></i></span></h2>
         <aside class="chapter-side">
-          <div class="side-cards fan n2"><div class="card-embed" style="--k:-0.5;--i:0"><img src="media/cards/83.webp" alt=""></div><div class="card-embed" style="--k:0.5;--i:1"><img src="media/cards/82.webp" alt=""></div></div>
+          <div class="side-cards fan n2"><div class="card-embed" style="--k:-0.5;--i:0"><img src="media/cards/92.webp" alt=""></div><div class="card-embed" style="--k:0.5;--i:1"><img src="media/cards/91.webp" alt=""></div></div>
         </aside>
-<p>Групповые действия — карты, действующие сразу на нескольких игроков: на всех активных (то есть живых), на всех соперников или на всех союзников. Разыгрываются в свой ход и атакой не являются: попытку атаки не тратят, ловушки не активируют, картой защиты не блокируются — если сама карта не говорит иначе.</p>
+<p>Эффекты — карты, которые накладываются на любого живого игрока и действуют до его смерти; чаще всего они вредны. Карта эффекта кладётся в открытую справа от карты персонажа. Эффектов может быть сколько угодно, но не два одноимённых.</p>
+<p>Эффекты можно воровать, перемещать и снимать особыми картами — палочками благовоний.</p>
+<aside class="note">При смерти игрок теряет все эффекты и сбрасывает их карты.</aside>
         </div>
       </section>
       </div>
@@ -246,18 +247,6 @@
     </section>
     <section class="sheet right page" id="p8" data-page="8">
       <div class="content">
-      <section class="chapter" id="effects" style="--bg:url(media/bg/effects.webp)">
-        <div class="chapter-body">
-          <h2 class="chapter-title">Эффекты<span class="kanji" aria-hidden="true">術</span><span class="h-icons"><i class="ic" data-b="effect"></i></span></h2>
-        <aside class="chapter-side">
-          <div class="side-cards fan n2"><div class="card-embed" style="--k:-0.5;--i:0"><img src="media/cards/92.webp" alt=""></div><div class="card-embed" style="--k:0.5;--i:1"><img src="media/cards/91.webp" alt=""></div></div>
-        </aside>
-<p>Наподобие длительного действия яда, на игрока можно накладывать карты специального типа, называемые эффекты. Эффект действует до смерти игрока. Чаще всего эффекты несут негативный характер.</p>
-<p>Эффекты можно воровать, перемещать или убирать с помощью специальных карт палочек благовоний. Эффекты можно накладывать на любого живого игрока.</p>
-<p>Когда карта эффекта разыгрывается, она ставится справа от карты персонажа игрока в открытую. Любой игрок может иметь неограниченное количество эффектов, однако невозможно иметь два одноимённых эффекта.</p>
-<aside class="note">При смерти игрок теряет все эффекты и сбрасывает их карты.</aside>
-        </div>
-      </section>
       <section class="chapter" id="poison" style="--bg:url(media/bg/poison.webp)">
         <div class="chapter-body">
           <h2 class="chapter-title">Яд<span class="kanji" aria-hidden="true">毒</span><span class="h-icons"><i class="ic" data-b="poison"></i></span></h2>
@@ -276,25 +265,6 @@
 </div><img class="chapter-fig" src="media/fig/ink/poison-fig.webp" style="width:22mm;right:3mm;bottom:-6mm" alt=""></div>
         </div>
       </section>
-      </div>
-      <span class="folio">8</span>
-    </section>
-  </div>
-  <div class="spread">
-    <section class="sheet left page" id="p9" data-page="9">
-      <div class="content">
-      <section class="chapter" id="interventions" style="--bg:url(media/bg/interventions.webp)">
-        <div class="chapter-body">
-          <h2 class="chapter-title">Вмешательство<span class="kanji" aria-hidden="true">介</span><span class="h-icons"><i class="ic" data-b="intervention"></i></span></h2>
-        <aside class="chapter-side">
-          <div class="side-cards stack n2"><div class="card-embed" style="--k:-0.5;--i:0"><img src="media/cards/121.webp" alt=""></div><div class="card-embed" style="--k:0.5;--i:1"><img src="media/cards/124.webp" alt=""></div></div>
-        </aside>
-<p>Вмешательство — особый тип карт, которые можно играть в любой момент партии, даже не в свой ход (в свой — тоже, и иногда это имеет смысл). Карту вмешательства можно сыграть как посреди чужого действия — атаки, розыгрыша эффекта или иной карты, — так и в любой момент, когда на столе ничего не происходит. Это основная механика вовлечения игроков в события за пределами их собственного хода.</p>
-<p>Когда любой игрок разыгрывает карту вмешательства, открывается <strong>транзакция вмешательств</strong>. Пока она открыта, любой игрок (в том числе ключевой) может выложить в общий открытый пул свою карту вмешательства (или иную карту, играемую как вмешательство). Все карты в транзакции считаются сыгранными одновременно — ни скорость, ни очерёдность выкладывания не имеют значения. Транзакция закрывается сама собой, когда никто больше не желает добавить вмешательство.</p>
-<p>При разрешении <strong>ключевой игрок</strong> — защищающийся при прямой атаке либо тот, чья жизнь под угрозой по итогам транзакции — сам определяет порядок и способ применения сыгранных карт, выбирая наиболее выгодный для себя итог. Все противоречия (одновременное лечение и ранение, перенаправление атаки и добавочный удар, наложение и снятие эффекта) толкуются в его пользу.</p>
-<aside class="note">Вмешательство задумано как стратегическое решение, а не состязание в реакции — обсуждать, торговаться и обдумывать ход не запрещено.</aside>
-        </div>
-      </section>
       <section class="chapter" id="auras" style="--bg:url(media/bg/auras.webp)">
         <div class="chapter-body">
           <h2 class="chapter-title">Ауры<span class="kanji" aria-hidden="true">陣</span><span class="h-icons"><i class="ic" data-b="aura"></i></span></h2>
@@ -309,39 +279,24 @@
         </div>
       </section>
       </div>
-      <span class="folio">9</span>
-    </section>
-    <section class="sheet right page" id="p10" data-page="10">
-      <div class="content">
-      <section class="chapter" id="conditional" style="--bg:url(media/bg/conditional.webp)">
-        <div class="chapter-body">
-          <h2 class="chapter-title">Условия<span class="kanji" aria-hidden="true">条</span><span class="h-icons"><i class="ic" data-b="rolectx"></i><i class="ic" data-b="hpctx"></i><i class="ic" data-b="charges"></i><i class="ic" data-b="charctx"></i></span></h2>
-        <aside class="chapter-side">
-          <div class="side-cards stack n3"><div class="card-embed" style="--k:-1;--i:0"><img src="media/cards/125.webp" alt=""></div><div class="card-embed" style="--k:0;--i:1"><img src="media/cards/3094.webp" alt=""></div><div class="card-embed" style="--k:1;--i:2"><img src="media/cards/112.webp" alt=""></div></div>
-        </aside>
-<p>Многие карты в колоде работают по-разному в зависимости от ситуации на столе — кто ими играет, в каком состоянии игрок и что лежит у него перед собой. Такие карты несут <strong>условные бонусы</strong>: базовый эффект срабатывает всегда, а к нему добавляются (или вычитаются) дополнительные модификаторы при выполнении определённого условия. Условия выделены на карте явно — на это стоит обращать внимание ещё на этапе чтения.</p>
-<h4>Бонусы по фракции<span class="h-icons"><i class="ic" data-b="rolectx"></i></span></h4>
-<p>Часть карт по-разному ведёт себя в руках самурая и ниндзя: одна сторона получает усиление, другая — штраф (сброс карты, потеря жизни, ограничение действия). Пример: оружие, от удара которого <em class="card-term">ниндзи</em> нельзя защититься, а <em class="card-term">самураи</em> за атаку платят сбросом карты.</p>
-<h4>Контекст здоровья<span class="h-icons"><i class="ic" data-b="hpctx"></i></span></h4>
-<p>Карта может ссылаться на два состояния игрока:</p>
-<ul>
-        <li><em class="card-term">На пороге смерти</em> — у игрока остался последний жетон жизни. В этом состоянии открываются «отчаянные» бонусы: добавочный урон, лечение союзников, защитные эффекты, риск-награда.</li>
-        <li><em class="card-term">При полном здоровье</em> — у игрока максимальное количество жизней по карте персонажа. Здесь обычно появляются «инициативные» бонусы: дополнительный добор карт, усиленные атаки, расширенный набор действий.</li>
-      </ul>
-<h4>Счёт по столу<span class="h-icons"><i class="ic" data-b="charges"></i></span></h4>
-<p>Карты со значком счётчика масштабируются от того, что видно на столе в момент розыгрыша: <em class="card-term">за каждого</em> отравленного, за каждую ловушку врагов, за каждого живого союзника. Считается только то, что лежит открыто, и только один раз — в момент, когда карта играется.</p>
-<h4>Условие по имени<span class="h-icons"><i class="ic" data-b="charctx"></i></span></h4>
-<p>Карта со значком безликого бюста называет персонажа: <em class="card-term">Така</em>, <em class="card-term">Любимое оружие: Норио</em>. Такая строка работает только у названного игрока — карта персонажа лежит перед ним открыто, и проверка делается взглядом на стол. В чужих руках карта остаётся обычной, именная строка просто не читается.</p>
-<p>Условия по яду, стойке и прочим обстоятельствам тоже встречаются — они записаны прямо на карте и читаются как написано.</p>
-        </div>
-      </section>
-      </div>
-      <span class="folio">10</span>
+      <span class="folio">8</span>
     </section>
   </div>
   <div class="spread">
-    <section class="sheet left page" id="p11" data-page="11">
+    <section class="sheet left page" id="p9" data-page="9">
       <div class="content">
+      <section class="chapter" id="interventions" style="--bg:url(media/bg/interventions.webp)">
+        <div class="chapter-body">
+          <h2 class="chapter-title">Вмешательство<span class="kanji" aria-hidden="true">介</span><span class="h-icons"><i class="ic" data-b="intervention"></i></span></h2>
+        <aside class="chapter-side">
+          <div class="side-cards fan n2"><div class="card-embed" style="--k:-0.5;--i:0"><img src="media/cards/124.webp" alt=""></div><div class="card-embed" style="--k:0.5;--i:1"><img src="media/cards/121.webp" alt=""></div></div>
+        </aside>
+<p>Вмешательство — особый тип карт, которые можно играть в абсолютно любой момент партии: в свой ход и в чужой, посреди чужого действия или когда на столе ничего не происходит.</p>
+<p>Когда любой игрок разыгрывает карту вмешательства, открывается <strong>транзакция вмешательств</strong>. Пока она открыта, любой игрок (в том числе ключевой) может выложить в общий открытый пул свою карту вмешательства (или иную карту, играемую как вмешательство). Все карты в транзакции считаются сыгранными одновременно — ни скорость, ни очерёдность выкладывания не имеют значения. Транзакция закрывается сама собой, когда никто больше не желает добавить вмешательство.</p>
+<p>При разрешении <strong>ключевой игрок</strong> — защищающийся при прямой атаке либо тот, чья жизнь под угрозой по итогам транзакции — сам определяет порядок и способ применения сыгранных карт, выбирая наиболее выгодный для себя итог. Все противоречия (одновременное лечение и ранение, перенаправление атаки и добавочный удар, наложение и снятие эффекта) толкуются в его пользу.</p>
+<aside class="note">Вмешательство задумано как стратегическое решение, а не состязание в реакции — обсуждать, торговаться и обдумывать ход не запрещено.</aside>
+        </div>
+      </section>
       <section class="chapter" id="order" style="--bg:url(media/bg/order.webp)">
         <div class="chapter-body">
           <h2 class="chapter-title">Порядок расчёта<span class="kanji" aria-hidden="true">順</span></h2>
@@ -351,6 +306,24 @@
 <h4>Защищающийся</h4>
 <div class="chain"><span class="st"><i class="ic" data-b="character"></i>персонаж</span><span class="arr">→</span><span class="st"><i class="ic" data-b="stance"></i>стойка</span><span class="arr">→</span><span class="st"><i class="ic" data-b="aura"></i>аура</span><span class="arr">→</span><span class="st"><i class="ic" data-b="poison"></i>яд</span><span class="arr">→</span><span class="st"><i class="ic" data-b="effect"></i>эффект</span><span class="arr">→</span><span class="st"><i class="ic" data-b="trap"></i>ловушка</span><span class="arr">→</span><span class="st"><i class="ic" data-b="defense"></i>защита</span></div>
 <aside class="note">Не так важно заучить порядок, как понять правило лимитов: встретившись в цепочке однажды, лимит действует до её конца; новый лимит может только сузить прежний, а расширить его не может ни одна карта. Исключение — прямая отмена чужих бонусов, как у модификатора «Насквозь». Оружие с базовой силой в ноль может наносить ноль даже при ограничении «не менее единицы».</aside>
+        </div>
+      </section>
+      </div>
+      <span class="folio">9</span>
+    </section>
+    <section class="sheet right page" id="p10" data-page="10">
+      <div class="content">
+      <section class="chapter" id="conditional" style="--bg:url(media/bg/conditional.webp)">
+        <div class="chapter-body">
+          <h2 class="chapter-title">Условия<span class="kanji" aria-hidden="true">条</span><span class="h-icons"><i class="ic" data-b="rolectx"></i><i class="ic" data-b="hpctx"></i><i class="ic" data-b="charges"></i><i class="ic" data-b="charctx"></i></span></h2>
+        <aside class="chapter-side">
+          <div class="side-cards fan n3"><div class="card-embed" style="--k:-1;--i:0"><img src="media/cards/125.webp" alt=""></div><div class="card-embed" style="--k:0;--i:1"><img src="media/cards/3094.webp" alt=""></div><div class="card-embed" style="--k:1;--i:2"><img src="media/cards/112.webp" alt=""></div></div>
+        </aside>
+<p>Многие карты работают по-разному в зависимости от ситуации на столе: базовый эффект срабатывает всегда, а <strong>условный бонус</strong> — только при выполнении условия. Условие выделено на карте явно и читается как написано; зависеть оно может от фракции, персонажа, здоровья, стойки, ауры и так далее. Пояснения требуют лишь два состояния здоровья:</p>
+<ul>
+        <li><em class="card-term">На пороге смерти</em> — у игрока остался последний жетон жизни.</li>
+        <li><em class="card-term">При полном здоровье</em> — у игрока максимум жизней по карте персонажа.</li>
+      </ul>
         </div>
       </section>
       <section class="chapter" id="players">
@@ -395,25 +368,11 @@
         </div>
       </section>
       </div>
-      <span class="folio">11</span>
-    </section>
-    <section class="sheet right blank" id="p12" data-page="12">
-      <div class="content">
-      </div>
-    </section>
-  </div>
-  <div class="spread">
-    <section class="sheet left blank" id="p13" data-page="13">
-      <div class="content">
-      </div>
-    </section>
-    <section class="sheet right blank" id="p14" data-page="14">
-      <div class="content">
-      </div>
+      <span class="folio">10</span>
     </section>
   </div>
   <div class="spread single">
-    <section class="sheet right end" id="p15" data-page="15">
+    <section class="sheet right end" id="p11" data-page="11">
       <div class="content">
       <div class="end-page">
         <p class="end-kanji" aria-hidden="true">終</p>

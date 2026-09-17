@@ -72,12 +72,11 @@ CH = {
  'thrust':        dict(icons=[[('ic','thrust')]],                       cards=[90, 124]),   # «Боевой крик» и «Удар дракона» — карты с выпадом
  'traps':         dict(icons=[[('ic','trap')]],                         cards=[43, 41], fig=('trap-fig', 17, 1, 4)),   # фигурка макибиси тушью — в углу главы, чуть левее края
  'stances':       dict(icons=[[('ic','stance')]],                       cards=[60, 1166]),   # «Лучник» справа, сверху — виден целиком
- 'group':         dict(icons=[[('ic','aoe')]],                          cards=[83, 82]),   # «Потасовка» и «Миротворцы» сверху
  'effects':       dict(icons=[[('ic','effect')]],                       cards=[92, 91]),   # «Противоядие» внутри, «Метка убийцы» сверху
  'poison':        dict(icons=[[('ic','poison')]],                       cards=[116, 64], fig=('poison-fig', 22, 1, 3, 6)),   # фигурка яда тушью — крупно, под картами, чуть ниже и правее списка
- 'interventions': dict(layout='stack', icons=[[('ic','intervention')]], cards=[121, 124]),
+ 'interventions': dict(layout='fan', icons=[[('ic','intervention')]], cards=[124, 121]),   # веером, «Удар дракона» слева
  'auras':         dict(icons=[[('ic','aura')]],                        cards=[1209, 1206], fig=('banner-fig', 13, 2)),   # «Часовой» внутри, «Дымовая завеса» сверху; фигурка знамени тушью — в углу
- 'conditional':   dict(layout='stack', icons=[[('ic','rolectx'),('ic','hpctx'),('ic','charges'),('ic','charctx')]], cards=[125, 3094, 112]),   # внизу «Сапёр» — пример условия по имени персонажа (Иё)
+ 'conditional':   dict(layout='fan', icons=[[('ic','rolectx'),('ic','hpctx'),('ic','charges'),('ic','charctx')]], cards=[125, 3094, 112]),   # веером: фракция, здоровье, «Сапёр» — условие по имени (Иё)
  'order':         dict(icons=[],                                        cards=[]),
 }
 
@@ -99,11 +98,10 @@ PAGES = [
     ['table'],                       # стол во время партии — один на странице
     [('weapons', 0, 10)],            # атака: оружие, два режима, сложность
     [('weapons', 10, None), 'defense', 'thrust'],   # модификатор и любимое оружие со своими картами; защита; выпад
-    ['traps', 'stances', 'group'],   # ловушки, стойки, групповые действия
-    ['effects', 'poison'],
-    ['interventions', 'auras'],
-    ['conditional'],
-    ['order', 'players'],           # неравные команды — редкость, в самый конец
+    ['traps', 'stances', 'effects'],   # ловушки, стойки, групповые действия
+    ['poison', 'auras'],                   # яд и ауры — фигурки на столе
+    ['interventions', 'order'],            # вмешательства и порядок расчёта — о чужом ходе
+    ['conditional', 'players'],            # условия коротко; неравные команды — редкость, в самый конец
     ['__end__'],                    # «Конец» — задняя обложка, одна по центру
 ]
 
@@ -189,13 +187,10 @@ INLINE = {
   ('weapons', 'картой-модификатором с красной плашкой;', 'картой-модификатором ' + ic('ic','modifier') + ' с красной плашкой;'),
   ('auras', 'сверху ставится фигурка знамени', 'сверху ставится фигурка знамени ' + BANNER),
   ('poison', 'помечается фигуркой яда поверх', 'помечается фигуркой яда ' + POISON + ' поверх'),
-  ('traps', 'и поставив на неё фигурку ловушки.', 'и поставив на неё фигурку ловушки ' + TRAP + '.'),
+  ('traps', 'сверху ставится фигурка ловушки.', 'сверху ставится фигурка ловушки ' + TRAP + '.'),
+  ('turn', 'разыгрывать карты групповых и обычных действий', 'разыгрывать карты групповых ' + ic('ic','aoe') + ' и обычных ' + ic('ic','action') + ' действий'),
   ('setup', 'Цифра внутри сердца — максимум', 'Цифра внутри сердца ' + ic('ic','hp') + ' — максимум'),
   ('setup', '<h4>Выставление жетонов</h4>', '<h4>Выставление жетонов<span class="h-icons">' + ic('mk','hp.png') + ic('mk','winpoint.png') + '</span></h4>'),   # сначала жизни, потом очки
-  ('conditional', '<h4>Бонусы по фракции</h4>', '<h4>Бонусы по фракции<span class="h-icons">' + ic('ic','rolectx') + '</span></h4>'),
-  ('conditional', '<h4>Контекст здоровья</h4>', '<h4>Контекст здоровья<span class="h-icons">' + ic('ic','hpctx') + '</span></h4>'),
-  ('conditional', '<h4>Счёт по столу</h4>', '<h4>Счёт по столу<span class="h-icons">' + ic('ic','charges') + '</span></h4>'),
-  ('conditional', '<h4>Условие по имени</h4>', '<h4>Условие по имени<span class="h-icons">' + ic('ic','charctx') + '</span></h4>'),
  ],
  'en': [
   ('weapons', 'the highest <b>complexity</b> it can handle and its attack power.', 'the highest <b>complexity</b> it can handle ' + ic('mk','icons/complexity1.svg') + ' and its attack power ' + ic('mk','icons/dmg2.svg') + '.'),
@@ -205,13 +200,10 @@ INLINE = {
   ('weapons', 'Modifier card with a red banner;', 'Modifier card ' + ic('ic','modifier') + ' with a red banner;'),
   ('auras', 'with the banner figurine on top', 'with the banner figurine ' + BANNER + ' on top'),
   ('poison', 'marked with the poison figurine placed', 'marked with the poison figurine ' + POISON + ' placed'),
-  ('traps', 'the trap figurine on top of it.', 'the trap figurine ' + TRAP + ' on top of it.'),
+  ('traps', 'with the trap figurine on top of it.', 'with the trap figurine ' + TRAP + ' on top of it.'),
+  ('turn', 'play group and ordinary action cards', 'play group ' + ic('ic','aoe') + ' and ordinary ' + ic('ic','action') + ' action cards'),
   ('setup', 'The number inside the heart is', 'The number inside the heart ' + ic('ic','hp') + ' is'),
   ('setup', '<h4>Setting out tokens</h4>', '<h4>Setting out tokens<span class="h-icons">' + ic('mk','hp.png') + ic('mk','winpoint.png') + '</span></h4>'),
-  ('conditional', '<h4>Faction bonuses</h4>', '<h4>Faction bonuses<span class="h-icons">' + ic('ic','rolectx') + '</span></h4>'),
-  ('conditional', '<h4>Health context</h4>', '<h4>Health context<span class="h-icons">' + ic('ic','hpctx') + '</span></h4>'),
-  ('conditional', '<h4>Counting the table</h4>', '<h4>Counting the table<span class="h-icons">' + ic('ic','charges') + '</span></h4>'),
-  ('conditional', '<h4>Named condition</h4>', '<h4>Named condition<span class="h-icons">' + ic('ic','charctx') + '</span></h4>'),
  ],
 }
 
@@ -371,7 +363,7 @@ def build(lang):
     t = L[lang]
     src = open(t['src'], encoding='utf-8').read()
     chapters = {cid: (mark, title, body) for cid, mark, title, body in sec_re.findall(src)}
-    assert len(chapters) == 18, (lang, len(chapters))
+    assert len(chapters) == 17, (lang, len(chapters))
     # глава «Стол во время партии» собирается из table_fig: h4 там становится заголовком главы
     tsec = table_fig.section(lang)
     ttitle = re.search(r'<h4>([^<]*)</h4>', tsec).group(1)
