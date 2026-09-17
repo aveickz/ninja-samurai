@@ -2380,8 +2380,8 @@ const CARDS = [
     group: "character",
     icons: [],
     tags: ["toPrint"],
-    desc: "Вместо попытки атаки берите 2 карты или верните 1 жетон любому. Раз в ход можете переместить любой эффект на столе. {Древковое} оружие играет как защита или вмешательство — за себя или за любого.[NL]{После вашей смерти} каждый союзник может снять с себя эффект.",
-    enDesc: "Instead of an attack attempt, draw 2 cards or restore 1 life to anyone. Once per turn, you may move any Effect on the table. A {Polearm} plays as a Defense or an Intervention — for you or anyone.[NL]{After your death} each ally may remove an Effect from themselves.",
+    desc: "Вместо попытки атаки берите 2 карты или верните 1 жетон любому. Раз в ход можете переместить любой эффект на столе. {Древковое} оружие может защитить от атаки в виде вмешательства.[NL]{После вашей смерти} каждый союзник может снять с себя эффект.",
+    enDesc: "Instead of an attack attempt, draw 2 cards or restore 1 life to anyone. Once per turn, you may move any Effect on the table. A {Polearm} may block an attack as an Intervention.[NL]{After your death} each ally may remove an Effect from themselves.",
     img: "cards/card_142_norio.png"
   },
   {
