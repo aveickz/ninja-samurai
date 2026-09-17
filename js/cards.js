@@ -1832,8 +1832,8 @@ const CARDS = [
     group: "action",
     icons: ["charctx"],
     tags: ["toPrint"],
-    desc: "Обезвредьте любую ловушку на столе; {Иё} вместо этого может забрать её себе в руку.[NL]Либо скиньте эту карту, чтобы взять две новых из колоды.",
-    enDesc: "Disarm any Trap on the table; {Iyo} may take it into her hand instead.[NL]Or discard this card to draw two new ones.",
+    desc: "Обезвредьте любую ловушку на столе; {Иё} вместо этого может забрать её себе в руку.[NL]Либо скиньте две карты с одинаковым названием, чтобы взять две новых из колоды; отравленное и обычное оружие считаются одинаковыми.",
+    enDesc: "Disarm any Trap on the table; {Iyo} may take it into her hand instead.[NL]Or discard two cards with the same name to draw two new ones; a poisoned and a plain version of a weapon count as the same.",
     img: "cards/card_111_sapyor.png"
   },
   {
