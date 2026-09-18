@@ -2633,4 +2633,17 @@ const CARDS = [
     enDesc: "On their turn any ally may tuck one thrown weapon face up under the Aura. For every full set — one weapon per living player on your team — thrown attacks by {allies} deal +1 wound, up to +3 in total.",
     img: "cards/card_1212_high_ground.png"
   },
+  {
+    id: 1213,
+    title: "Обоз",
+    enTitle: "Baggage Train",
+    types: ["aura"],
+    qty: 1,
+    group: "aura",
+    icons: [],
+    tags: ["draft", "toPrint"],
+    desc: "Рука {носителя} лежит перед ним в открытую. Любой {союзник} в свой ход может сыграть карту из неё как свою.",
+    enDesc: "The {Bearer}'s hand lies face up in front of them. On their turn any {ally} may play a card from it as their own.",
+    img: "cards/card_1213_baggage_train.png"
+  },
 ];
