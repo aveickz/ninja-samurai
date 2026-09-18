@@ -142,7 +142,7 @@ LH = 29          # шаг строк в многострочной подпис�
 def lines(text):
     return text.split('|')
 def box_w(text):
-    return int(max(len(l) for l in lines(text)) * FS * 0.44) + 18   # узкий обычный ≈ 0.44 кегля на знак + узкие поля плашки
+    return int(max(len(l) for l in lines(text)) * FS * 0.5) + 18    # PT Sans обычный ≈ 0.5 кегля на знак + узкие поля плашки
 def box_h(text):
     return BH + (len(lines(text)) - 1) * LH
 
@@ -173,7 +173,7 @@ def svg(lang):
     for key, (lx, ly), _ in LABELS:
         w = box_w(t[key]); h = box_h(t[key]); ls = lines(t[key])
         x0, y0 = lx - w / 2, ly - h / 2
-        out.append(f'<g transform="translate({x0:.0f},{y0:.0f})"><rect width="{w}" height="{h}" rx="7"/>')
+        out.append(f'<g transform="translate({x0:.0f},{y0:.0f})"><rect width="{w}" height="{h}" rx="8"/>')
         for i, l in enumerate(ls):
             out.append(f'<text class="tf-txt" x="{w/2}" y="{BH/2 + 1 + i*LH}">{esc(l)}</text>')
         out.append('</g>')
@@ -181,7 +181,7 @@ def svg(lang):
     for key, _, a0, a1, _, rl in FLOWS:
       lx, ly = polar((a0 + a1) / 2, rl) if rl else {'defends': DEF_LABEL, 'aura': AURA_LABEL}[key]
       w = box_w(t[key]); h = box_h(t[key])
-      out.append(f'<g transform="translate({lx - w/2:.0f},{ly - h/2:.0f})"><rect width="{w}" height="{h}" rx="7"/><text class="tf-txt" x="{w/2}" y="{BH/2 + 1}">{esc(t[key])}</text></g>')
+      out.append(f'<g transform="translate({lx - w/2:.0f},{ly - h/2:.0f})"><rect width="{w}" height="{h}" rx="8"/><text class="tf-txt" x="{w/2}" y="{BH/2 + 1}">{esc(t[key])}</text></g>')
     out.append('</g>')
     out.append('<g class="tf-tags">')
     for key, (cx, cy) in TAGS:

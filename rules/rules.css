@@ -621,8 +621,9 @@ section.chapter::after { content: ""; display: block; clear: both; }
   height: 100%;
   font-family: 'PT Sans Narrow', 'PT Sans', Arial, sans-serif;
 }
-.table-overlay .tf-lines line { stroke: var(--vermilion-dk); stroke-width: 3.5; marker-end: url(#tf-arrow); }
-.table-overlay #tf-arrow path, .table-overlay #tf-arrow-attack path { fill: var(--vermilion-dk); }
+.table-overlay .tf-lines line { stroke: #fff; stroke-width: 3.5; marker-end: url(#tf-arrow); }   /* указки белые, как плашки */
+.table-overlay #tf-arrow path { fill: #fff; }
+.table-overlay #tf-arrow-attack path { fill: var(--vermilion-dk); }
 /* Стрелка хода атаки: пунктир от атакующего к цели, поверх карт */
 .table-overlay .tf-flow { fill: none; stroke: var(--vermilion-dk); stroke-width: 10; stroke-dasharray: 18 11; stroke-linecap: round; opacity: .6; marker-end: url(#tf-arrow-attack); }
 .table-overlay .tf-flow-def { stroke: #b8860b; marker-end: url(#tf-arrow-def); }      /* защита — золото карт защиты */
@@ -635,7 +636,7 @@ section.chapter::after { content: ""; display: block; clear: both; }
 .table-overlay .tf-labels rect { fill: #fff; }   /* простая белая плашка без обводки */
 .table-overlay .tf-num { fill: var(--vermilion-dk); }
 .table-overlay .tf-numtxt { fill: var(--paper-light); font-size: 24px; font-weight: 700; text-anchor: middle; dominant-baseline: central; }
-.table-overlay .tf-txt { fill: var(--ink); font-size: 27px; font-weight: 400; text-anchor: middle; dominant-baseline: central; }
+.table-overlay .tf-txt { fill: var(--ink); font-family: 'PT Sans', 'PT Sans Narrow', Arial, sans-serif; font-size: 27px; font-weight: 400; text-anchor: middle; dominant-baseline: central; }   /* мелкие подписи — обычной ширины, читаются лучше узких */
 .table-overlay .tf-tags rect { fill: var(--vermilion-dk); }
 .table-overlay .tf-tags text { fill: var(--paper-light); font-size: 26px; font-weight: 700; letter-spacing: .04em; text-anchor: middle; dominant-baseline: central; }
 .table-figure figcaption {

@@ -426,7 +426,7 @@ def build(lang):
 <link rel="icon" type="image/svg+xml" href="../media/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@400;700&family=PT+Sans&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="rules.css">
 <link rel="stylesheet" href="rules-print.css" media="print">
 <script src="typograph.js" defer></script>
