@@ -2644,6 +2644,6 @@ const CARDS = [
     tags: ["draft", "toPrint"],
     desc: "Можно выложить перед собой в любой момент как вмешательство. Рука {носителя} лежит перед ним в открытую. Любой {союзник} в свой ход может сыграть карту из неё как свою.",
     enDesc: "May be played in front of you at any moment as an Intervention. The {Bearer}'s hand lies face up in front of them. On their turn any {ally} may play a card from it as their own.",
-    img: "cards/card_1213_yokai_slumber.png"
+    img: "cards/card_dream_of_ekai.png"
   },
 ];
