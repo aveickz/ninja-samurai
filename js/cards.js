@@ -2465,15 +2465,15 @@ const CARDS = [
   // №6 и mechanics/team_cards_ideas.html.
   {
     id: 1200,
-    title: "Знамя лидера",
-    enTitle: "Leader's Banner",
+    title: "Боевое мастерство",
+    enTitle: "Martial Mastery",
     types: ["aura"],
     qty: 1,
     group: "aura",
-    icons: [],
-    tags: [],
-    desc: "Все атаки {союзников} наносят +1 рану.",
-    enDesc: "All attacks by {allies} deal +1 wound.",
+    icons: ["charges"],
+    tags: ["toPrint"],
+    desc: "Все атаки {союзников} наносят +1 рану.[NL]Любой союзник в свой ход может подложить под ауру модификаторы в открытую: за каждые два — ещё +1 рана, всего не более +3.",
+    enDesc: "All attacks by {allies} deal +1 wound.[NL]On their turn any ally may tuck Modifiers face up under the Aura: for every two, +1 more wound, up to +3 in total.",
     img: "cards/card_leader.png"
   },
   {
@@ -2483,10 +2483,10 @@ const CARDS = [
     types: ["aura"],
     qty: 1,
     group: "aura",
-    icons: [],
-    tags: [],
-    desc: "Все {союзники} получают на одну рану меньше от любой прямой атаки (не менее 1).",
-    enDesc: "All {allies} take one wound less from any direct attack (never below 1).",
+    icons: ["charges"],
+    tags: ["toPrint"],
+    desc: "Все {союзники} получают на одну рану меньше от любой прямой атаки (не менее 1).[NL]Любой союзник в свой ход может подложить под ауру карты защиты в открытую: за каждые две — ещё на одну рану меньше, всего не более трёх.",
+    enDesc: "All {allies} take one wound less from any direct attack (never below 1).[NL]On their turn any ally may tuck Defense cards face up under the Aura: for every two, one wound less again, up to three in total.",
     img: "cards/card_rare.png"
   },
   {
