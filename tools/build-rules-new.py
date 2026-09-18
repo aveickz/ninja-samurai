@@ -75,7 +75,7 @@ CH = {
  'effects':       dict(icons=[[('ic','effect')]],                       cards=[92, 91]),   # «Противоядие» внутри, «Метка убийцы» сверху
  'poison':        dict(icons=[[('ic','poison')]],                       cards=[116, 64], fig=('poison-fig', 16, 1, 3, -2)),   # фигурка яда тушью — крупно, под картами, чуть ниже и правее списка
  'interventions': dict(layout='fan', icons=[[('ic','intervention')]], cards=[124, 121]),   # веером, «Удар дракона» слева
- 'auras':         dict(icons=[[('ic','aura')]],                        cards=[1209, 1206], fig=('banner-fig', 16, 2, 0, 24)),   # «Часовой» внутри, «Дымовая завеса» сверху; фигурка знамени тушью — в углу, опущена на 12 мм ниже карт
+ 'auras':         dict(icons=[[('ic','aura')]],                        cards=[1209, 1206], fig=('banner-fig', 16, 2, 0, 10)),   # «Часовой» внутри, «Дымовая завеса» сверху; фигурка знамени тушью — в углу, чуть ниже последнего абзаца
  'conditional':   dict(layout='fan', icons=[[('ic','rolectx'),('ic','hpctx'),('ic','charges'),('ic','charctx')]], cards=[125, 3094, 112]),   # веером: фракция, здоровье, «Сапёр» — условие по имени (Иё)
  'order':         dict(icons=[],                                        cards=[]),
 }
@@ -186,6 +186,7 @@ INLINE = {
   ('weapons', 'Оружие также может быть усилено ядом.', 'Оружие также может быть усилено ядом ' + ic('ic','poison') + '.'),
   ('weapons', 'картой-модификатором с красной плашкой;', 'картой-модификатором ' + ic('ic','modifier') + ' с красной плашкой;'),
   ('auras', 'сверху ставится фигурка знамени', 'сверху ставится фигурка знамени ' + BANNER),
+  ('auras', '<strong>Ауры с накоплением.</strong>', ic('ic','charges') + ' <strong>Ауры с накоплением.</strong>'),
   ('poison', 'помечается фигуркой яда поверх', 'помечается фигуркой яда ' + POISON + ' поверх'),
   ('traps', 'сверху ставится фигурка ловушки.', 'сверху ставится фигурка ловушки ' + TRAP + '.'),
   ('turn', 'разыгрывать карты групповых и обычных действий', 'разыгрывать карты групповых ' + ic('ic','aoe') + ' и обычных ' + ic('ic','action') + ' действий'),
@@ -199,6 +200,7 @@ INLINE = {
   ('weapons', 'Weapons can also be strengthened with poison.', 'Weapons can also be strengthened with poison ' + ic('ic','poison') + '.'),
   ('weapons', 'Modifier card with a red banner;', 'Modifier card ' + ic('ic','modifier') + ' with a red banner;'),
   ('auras', 'with the banner figurine on top', 'with the banner figurine ' + BANNER + ' on top'),
+  ('auras', '<strong>Charged Auras.</strong>', ic('ic','charges') + ' <strong>Charged Auras.</strong>'),
   ('poison', 'marked with the poison figurine placed', 'marked with the poison figurine ' + POISON + ' placed'),
   ('traps', 'with the trap figurine on top of it.', 'with the trap figurine ' + TRAP + ' on top of it.'),
   ('turn', 'play group and ordinary action cards', 'play group ' + ic('ic','aoe') + ' and ordinary ' + ic('ic','action') + ' action cards'),
