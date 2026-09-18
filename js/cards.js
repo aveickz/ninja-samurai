@@ -2471,7 +2471,7 @@ const CARDS = [
     qty: 1,
     group: "aura",
     icons: ["charges"],
-    tags: ["toPrint"],
+    tags: ["draft", "toPrint"],
     desc: "Все атаки {союзников} наносят +1 рану.[NL]Любой союзник в свой ход может подложить под ауру модификаторы в открытую: за каждые два — ещё +1 рана, всего не более +3.",
     enDesc: "All attacks by {allies} deal +1 wound.[NL]On their turn any ally may tuck Modifiers face up under the Aura: for every two, +1 more wound, up to +3 in total.",
     img: "cards/card_leader.png"
@@ -2484,7 +2484,7 @@ const CARDS = [
     qty: 1,
     group: "aura",
     icons: ["charges"],
-    tags: ["toPrint"],
+    tags: ["draft", "toPrint"],
     desc: "Все {союзники} получают на одну рану меньше от любой прямой атаки (не менее 1).[NL]Любой союзник в свой ход может подложить под ауру карты защиты в открытую: за каждые две — ещё на одну рану меньше, всего не более трёх.",
     enDesc: "All {allies} take one wound less from any direct attack (never below 1).[NL]On their turn any ally may tuck Defense cards face up under the Aura: for every two, one wound less again, up to three in total.",
     img: "cards/card_rare.png"
@@ -2629,8 +2629,8 @@ const CARDS = [
     group: "aura",
     icons: ["ranged", "charges"],
     tags: ["draft", "toPrint"],
-    desc: "Метательные атаки {союзников} наносят +1 рану за каждые два метательных оружия, подложенных под ауру, всего не более +3. Любой союзник в свой ход может подложить их в открытую.",
-    enDesc: "Thrown attacks by {allies} deal +1 wound for every two thrown weapons tucked under the Aura, up to +3 in total. On their turn any ally may tuck them face up.",
+    desc: "Любой союзник в свой ход может подложить под ауру метательное оружие в открытую. За каждый комплект — по одному оружию на каждого живого игрока команды — метательные атаки {союзников} наносят +1 рану, всего не более +3.",
+    enDesc: "On their turn any ally may tuck thrown weapons face up under the Aura. For every full set — one weapon per living player on your team — thrown attacks by {allies} deal +1 wound, up to +3 in total.",
     img: "cards/card_1212_quiver.png"
   },
 ];
