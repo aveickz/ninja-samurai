@@ -13,7 +13,7 @@ const CARDS = [
     qty: 4,
     group: "role",
     icons: [],
-    tags: ["toPrint"],
+    tags: [],
     desc: "",
     enDesc: "",
     img: "cards/card_role_ninja.png"
@@ -27,7 +27,7 @@ const CARDS = [
     qty: 2,
     group: "role",
     icons: [],
-    tags: ["toPrint"],
+    tags: [],
     desc: "",
     enDesc: "",
     img: "cards/card_role_samurai.png"
@@ -41,7 +41,7 @@ const CARDS = [
     qty: 1,
     group: "role",
     icons: [],
-    tags: ["toPrint"],
+    tags: [],
     desc: "",
     enDesc: "",
     img: "cards/card_role_samurai_first.png"   // знамя I: с этого самурая начинается партия и каждый раунд
@@ -83,7 +83,7 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["complexity1", "dmg1", "charctx"],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Любимое оружие {Усивака}.",
     enDesc: "Favourite weapon of {Ushiwaka}.",
     img: "cards/card_1_syuko.png"
@@ -96,7 +96,7 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["complexity1", "dmg3", "charctx"],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Атакуемый игрок скидывает случайную карту в случае успешной атаки.[NL]Любимое оружие {Сайго}.",
     enDesc: "On a successful attack, the target discards a random card.[NL]Favourite weapon of {Saigo}.",
     img: "cards/card_3_kanabo.png"
@@ -136,7 +136,7 @@ const CARDS = [
     group: "weapon",
     icons: ["complexity1", "dmg2", "charctx"],
     iconsOr: ["ranged", "dmg1"],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Любимое оружие {Манасэ}.",
     enDesc: "Favourite weapon of {Manase}.",
     img: "cards/card_6_boevoy_veer.png"
@@ -150,7 +150,7 @@ const CARDS = [
     group: "weapon",
     icons: ["complexity1", "dmg2", "charctx"],
     iconsOr: ["complexity2", "dmg1"],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Любимое оружие {Хандзо}.",
     enDesc: "Favourite weapon of {Hanzo}.",
     img: "cards/card_7_kusarigama.png"
@@ -163,7 +163,7 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["complexity1", "dmg2", "modifier"],
-    tags: ["toPrint"],
+    tags: [],
     desc: "При атаке Катаной можно сыграть как модификатор: +2 к силе атаки.",
     enDesc: "May be played as a modifier on a Katana attack: +2 attack power.",
     img: "cards/card_8_wakizashi.png"
@@ -189,7 +189,7 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["complexity1", "dmg1"],
-    tags: ["draft", "toPrint"],
+    tags: ["draft"],
     desc: "Атакуемый игрок скидывает случайную карту в случае успешной атаки. TODO: полный близнец Явары #19 — развести или убрать (в черновике с 18.09.2026).",
     enDesc: "On a successful attack, the target discards a random card. TODO: exact twin of Yawara #19 — differentiate or remove (draft since 18.09.2026).",
     img: "cards/card_10_tonfa.png"
@@ -332,7 +332,7 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["complexity1", "dmg1"],
-    tags: ["draft", "toPrint"],
+    tags: ["draft"],
     desc: "Атакуемый игрок скидывает случайную карту в случае успешной атаки. TODO: полный близнец Тонфы #10 — развести или убрать (в черновике с 18.09.2026).",
     enDesc: "On a successful attack, the target discards a random card. TODO: exact twin of Tonfa #10 — differentiate or remove (draft since 18.09.2026).",
     img: "cards/card_23_yavara.png"
@@ -346,7 +346,7 @@ const CARDS = [
     group: "weapon",
     icons: ["ranged", "dmg1", "poison"],
     iconsOr: ["complexity1", "dmg2", "poison"],
-    tags: ["poison", "toPrint"],
+    tags: ["poison"],
     desc: "",
     enDesc: "",
     img: "cards/card_6_boevoy_veer.png"
@@ -385,7 +385,7 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["complexity2", "dmg2", "charctx"],
-    tags: ["toPrint"],
+    tags: [],
     desc: "{Древковое}[NL]Любимое оружие {Таранага}.",
     enDesc: "{Polearm}[NL]Favourite weapon of {Taranaga}.",
     img: "cards/card_22_nunti.png"
@@ -398,7 +398,7 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["complexity2", "dmg1", "charctx"],
-    tags: ["toPrint"],
+    tags: [],
     desc: "{Древковое} Атакуемый игрок теряет стойку в случае успешной атаки; у {Сайго} стойку отнять нельзя.[NL]Любимое оружие {Норио}.",
     enDesc: "{Polearm} On a successful attack, the target loses their Stance; {Saigo} keeps his.[NL]Favourite weapon of {Norio}.",
     img: "cards/card_24_bo.png"
@@ -424,7 +424,7 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["complexity2", "dmg2", "charctx"],
-    tags: ["toPrint"],
+    tags: [],
     desc: "В случае успешной атаки вы забираете карту из руки врага.[NL]Любимое оружие {Така}.",
     enDesc: "On a successful attack, take a card from the enemy's hand.[NL]Favourite weapon of {Taka}.",
     img: "cards/card_26_kyoketsusyoge.png"
@@ -450,7 +450,7 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["complexity_any", "dmg2"],
-    tags: ["toPrint"],
+    tags: [],
     desc: "{Древковое} Бьёт при любой сложности атаки.",
     enDesc: "{Polearm} Strikes at any attack complexity.",
     img: "cards/card_28_naginata.png"
@@ -464,7 +464,7 @@ const CARDS = [
     group: "weapon",
     icons: ["complexity2", "dmg1"],
     iconsOr: ["ranged", "dmg1"],
-    tags: ["toPrint"],
+    tags: [],
     desc: "{Древковое} В стойке {всадника} наносит на одну рану больше.",
     enDesc: "{Polearm} In the {Horseman} stance, deals 1 extra wound.",
     img: "cards/card_29_yari.png"
@@ -477,7 +477,7 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["complexity2", "dmg1"],
-    tags: ["toPrint"],
+    tags: [],
     desc: "{Древковое} В стойке {всадника} наносит на одну рану больше.",
     enDesc: "{Polearm} In the {Horseman} stance, deals 1 extra wound.",
     img: "cards/card_31_kamayari.png"
@@ -491,7 +491,7 @@ const CARDS = [
     group: "weapon",
     icons: ["complexity2", "dmg1", "poison"],
     iconsOr: ["ranged", "dmg1", "poison"],
-    tags: ["poison", "toPrint"],
+    tags: ["poison"],
     desc: "{Древковое} В стойке {всадника} наносит на одну рану больше.",
     enDesc: "{Polearm} In the {Horseman} stance, deals 1 extra wound.",
     img: "cards/card_29_yari.png"
@@ -530,7 +530,7 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["ranged", "dmg3"],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Стреляет только вместе с модификатором.",
     enDesc: "Fires only together with a Modifier.",
     img: "cards/card_teppo_umi.png"
@@ -543,7 +543,7 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["ranged", "dmg1", "poison"],
-    tags: ["poison", ],
+    tags: ["poison"],
     desc: "",
     enDesc: "",
     img: "cards/card_34_syuriken.png"
@@ -596,7 +596,7 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["ranged", "dmg1", "trap", "charctx"],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Можно использовать как ловушку, которая наносит одну рану атакующему в ответ.[NL]Любимое оружие {Иё}.",
     enDesc: "May be played as a Trap that deals 1 wound back to the attacker.[NL]Favourite weapon of {Iyo}.",
     img: "cards/card_38_makibishi.png"
@@ -609,7 +609,7 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["ranged", "dmg0", "poison", "charctx"],
-    tags: ["toPrint", "poison"],
+    tags: ["poison"],
     desc: "Атака игнорирует ловушки и защиту, и вы берёте карту из колоды.[NL]{Минамото} наносит им две раны.",
     enDesc: "This attack ignores Traps and Defense, and you draw a card.[NL]{Minamoto} deals two wounds with it.",
     img: "cards/card_39_drotik_s_yadom.png"
@@ -636,7 +636,7 @@ const CARDS = [
     qty: 1,
     group: "weapon",
     icons: ["ranged", "dmg1"],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Если вашу атаку отразили защитой, оружие возвращается вам в руку по шнуру.",
     enDesc: "If your attack is stopped by a Defense, the weapon comes back to your hand along its cord.",
     img: "cards/card_318_utine.png"
@@ -649,7 +649,7 @@ const CARDS = [
     qty: 1,
     group: "weapon",
     icons: ["complexity2", "dmg1"],
-    tags: ["toPrint"],
+    tags: [],
     desc: "{Древковое} TODO: захват вместо урона. Задумано — вместо ран забирает карту из руки цели: рукавоплётом валили, не убивая. Развести с Манрики #27 и Кёкэцусёгэ #26, которые уже забирают карту при успешной атаке.",
     enDesc: "{Polearm} TODO: capture instead of damage. The intent — it takes a card from the target's hand instead of dealing wounds: the sleeve entangler brought a man down without killing him. Needs separating from the Manriki #27 and the Kyoketsu-shoge #26, which already take a card on a successful attack.",
     img: "cards/card_319_sodegarami.png"
@@ -662,7 +662,7 @@ const CARDS = [
     qty: 1,
     group: "weapon",
     icons: ["ranged", "dmg1"],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Выстрел не тратит попытку атаки.",
     enDesc: "The shot does not use up an attack.",
     img: "cards/card_320_fukiya.png"
@@ -690,7 +690,7 @@ const CARDS = [
     qty: 2,
     group: "trap",
     icons: [],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Вы забираете у атакующего три карты.",
     enDesc: "Take three cards from the attacker.",
     img: "cards/card_41_silok.png"
@@ -716,7 +716,7 @@ const CARDS = [
     qty: 2,
     group: "trap",
     icons: ["effect8"],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Атакующий получает две раны от владельца ловушки. Затем эта карта переходит на него эффектом: сложность атак по нему всегда равна 1 — Доспех и другие повышения сложности не спасают.",
     enDesc: "The attacker takes two wounds from the Trap's owner. Then this card moves onto them as an Effect: attacks against them are always complexity 1 — Armor and other complexity increases do not help.",
     img: "cards/card_43_kapkan.png"
@@ -742,7 +742,7 @@ const CARDS = [
     qty: 2,
     group: "trap",
     icons: ["rolectx", "effect8"],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Вы оскорбляете атакующего. Для {самурая} это хуже смерти, и он получает эту карту как эффект бешенства, сбрасывая каждый раз карту при прямой атаке.",
     enDesc: "You insult the attacker. For a {Samurai} this is worse than death: they take this card as an Effect of rage and must discard a card with every direct attack.",
     img: "cards/card_47_oskorblenie.png"
@@ -781,7 +781,7 @@ const CARDS = [
     qty: 2,
     group: "trap",
     icons: [],
-    tags: ["toPrint"],
+    tags: [],
     desc: "При срабатывании любой {союзник} может сыграть вместо неё свою ловушку с руки или со стола как вмешательство.",
     enDesc: "When it is triggered, any {ally} may play their own Trap in its place as an Intervention — from hand or from the table.",
     img: "cards/card_1050_tripwire.png"
@@ -848,7 +848,7 @@ const CARDS = [
     qty: 1,
     group: "defense",
     icons: ["charctx"],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Вы можете выбрать сколько ран вы хотите получить при атаке, и за каждую рану (не более трёх) берёте карту из колоды.[NL]{Усивака} также забирает оружие атакующего себе в руку.",
     enDesc: "Choose how many wounds you take from this attack, and draw a card for each wound taken (no more than three).[NL]{Ushiwaka} also takes the attacker's weapon into hand.",
     img: "cards/card_53_vyderzka_samuray.png"
@@ -887,7 +887,7 @@ const CARDS = [
     qty: 3,
     group: "defense",
     icons: ["charctx"],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Вы забираете неметательное оружие врага себе в руку; {Хандзо} забирает любое, в том числе метательное.[NL]{При наличии стойки} вы берёте дополнительно карту из колоды.",
     enDesc: "Take the enemy's non-thrown weapon into your hand; {Hanzo} takes any weapon, thrown ones included.[NL]{With a Stance in play} also draw a card.",
     img: "cards/card_55_zakhvat.png"
@@ -913,7 +913,7 @@ const CARDS = [
     qty: 3,
     group: "intervention",
     icons: ["defense"],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Можно сыграть в любой момент за любого игрока.",
     enDesc: "May be played at any time, for any player.",
     img: "cards/card_56_blok.png"
@@ -1018,7 +1018,7 @@ const CARDS = [
     types: ["stance"],
     qty: 1,
     group: "stance",
-    tags: ["toPrint"],
+    tags: [],
     desc: "В момент получения ран от оружия вы можете выбрать союзника, согласного с вами разделить в любой пропорции полученные раны.",
     enDesc: "When you take wounds from a weapon, you may choose a willing ally to share those wounds with you in any split.",
     img: "cards/card_1164_ketsuban.png",
@@ -1031,7 +1031,7 @@ const CARDS = [
     qty: 1,
     group: "stance",
     icons: ["hpctx"],
-    tags: ["toPrint"],
+    tags: [],
     desc: "{При полном здоровье} совершая прямые атаки вы берёте 2 карты из колоды.[NL]{На пороге смерти} ваши атаки наносят дополнительно 2 раны.",
     enDesc: "{At full health} draw 2 cards when you make a direct attack.[NL]{At death's door} your attacks deal 2 extra wounds.",
     img: "cards/card_musin.png",
@@ -1057,7 +1057,7 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     icons: ["poison"],
-    tags: ["poison", "toPrint"],
+    tags: ["poison"],
     desc: "Ваша атака теперь накладывает отравление и наносит на 1 рану больше.",
     enDesc: "Your attack now inflicts Poison and deals 1 extra wound.",
     img: "cards/card_64_flakon_yada.png"
@@ -1112,7 +1112,7 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     icons: [],
-    tags: ["toPrint"],
+    tags: [],
     desc: "+1 к силе атаки. Ваше оружие берёт сложность на 2 больше.[NL]{При наличии стойки} наносите ещё на 1 рану больше.",
     enDesc: "+1 attack power. Your weapon handles 2 more complexity.[NL]{With a Stance in play} deal 1 more wound.",
     img: "cards/card_68_vypad.png"
@@ -1151,7 +1151,7 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     icons: ["charctx"],
-    tags: ["toPrint"],
+    tags: [],
     desc: "В случае успешной атаки вы восстанавливаете себе столько жетонов жизни, сколько нанесли ран.[NL]{Така} вместо жетонов жизни может забрать у цели столько же карт из руки.",
     enDesc: "On a successful attack, restore as much life as the wounds you dealt.[NL]{Taka} may instead take that many cards from the target's hand.",
     img: "cards/card_71_celebnyy_klinok.png"
@@ -1177,7 +1177,7 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     icons: ["hpctx"],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Ваша атака берёт любую сложность и наносит на одну рану больше, но вы теряете один жетон жизни.[NL]{На пороге вашей смерти} применить нельзя.",
     enDesc: "Your attack handles any complexity and deals 1 extra wound, but you lose 1 life.[NL]{At death's door} it cannot be played.",
     img: "cards/card_73_povyazka_kamikadze.png"
@@ -1281,7 +1281,7 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     icons: [],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Финальная сила атаки равна количеству недостающих жетонов жизни цели.",
     enDesc: "The attack's final power equals the target's missing life.",
     img: "cards/card_1081_finalnyi_udar.png"
@@ -1294,7 +1294,7 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     icons: ["charctx"],
-    tags: ["toPrint"],
+    tags: [],
     desc: "+1 к силе атаки. При убийстве врага этой атакой вы можете забрать себе его стойку, ауру и любые эффекты.[NL]Единственный способ отнять стойку у {Сайго}.",
     enDesc: "+1 attack power. If this attack kills the enemy, you may take their Stance, Aura and any Effects for yourself.[NL]The only way to take {Saigo}'s Stance.",
     img: "cards/card_1083_kubitori.png"
@@ -1307,7 +1307,7 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     icons: [],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Ваше текущее количество жетонов победы добавляется к силе атаки.",
     enDesc: "Add your current victory points to the attack's power.",
     img: "cards/card_1084_pobednyi_udar.png"
@@ -1360,7 +1360,7 @@ const CARDS = [
     qty: 1,
     group: "aoe",
     icons: ["charctx"],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Все остальные активные игроки теряют свою стойку и сбрасывают свою ловушку.[NL]{Сайго} в потасовке не участвует.",
     enDesc: "Every other living player loses their Stance and discards their Trap.[NL]{Saigo} stays out of the brawl.",
     img: "cards/card_83_potasovka.png"
@@ -1425,7 +1425,7 @@ const CARDS = [
     qty: 1,
     group: "aoe",
     icons: ["thrust", "poison", "charges"],
-    tags: ["poison", "toPrint"],
+    tags: ["poison"],
     desc: "За каждое отравление на столе выбранный вами игрок теряет жетон жизни.[NL]{Под аурой Бочки зловония} можете взорвать её: аура остаётся на столе, а все враги получают отравление.",
     enDesc: "A player of your choice loses 1 life for every Poison on the table.[NL]{Under the Barrel of Stench} you may blow it up: the aura stays in play, and every enemy becomes Poisoned.",
     img: "cards/card_acid_explosion.png"
@@ -1451,7 +1451,7 @@ const CARDS = [
     qty: 2,
     group: "aoe",
     icons: ["thrust"],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Остальные активные игроки скидывают карту защиты или два жетона жизни. TODO: реворк. Открытый вопрос из туду — куда идёт победное очко, если крик добивает; по правилу выпада оно уходит сыгравшему карту, проверить, что это и хотели.",
     enDesc: "Each other living player discards a Defense card or loses 2 life. TODO: rework. Open question from the to-do list — who gets the victory point when the cry finishes a player; under the thrust rule it goes to whoever played the card, confirm that is the intent.",
     img: "cards/card_89_boevoy_krik.png"
@@ -1529,7 +1529,7 @@ const CARDS = [
     qty: 1,
     group: "aoe",
     icons: [],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Все живые союзники выкладывают одну карту в открытую перед собой, вы выбираете какой из союзников получит какую. Нельзя остаться при своей карте.",
     enDesc: "Every living ally lays out one card face up in front of them, and you decide which ally gets which. No one may keep their own card.",
     img: "cards/card_forum.png"
@@ -1555,7 +1555,7 @@ const CARDS = [
     qty: 1,
     group: "aoe",
     icons: ["thrust", "charges"],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Вы наносите 1 рану.[NL]Каждый союзник может сыграть карту оружия как вмешательство, добавив ещё 1 рану — не более одной карты с игрока.",
     enDesc: "You deal 1 wound.[NL]Each ally may play a weapon card as an Intervention to add 1 more wound - at most one card per player.",
     img: "cards/card_shoulder_to_shoulder.png"
@@ -1595,7 +1595,7 @@ const CARDS = [
     qty: 1,
     group: "effect",
     icons: [],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Каждое лечение по игроку снижается на единицу. Также все негативные эффекты от отравления удваиваются. Пока вы отравлены, вы не можете пользоваться бонусами стойки.[NL]На {Минамото} не действует.",
     enDesc: "Every point of healing on this player is reduced by 1, and every penalty from Poison is doubled. While you are Poisoned, you cannot use Stance bonuses.[NL]Has no effect on {Minamoto}.",
     img: "cards/card_92_ukus_zmeyi.png"
@@ -1608,7 +1608,7 @@ const CARDS = [
     qty: 3,
     group: "effect",
     icons: [],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Сложность атак по вам всегда равна 1 — Доспех и другие повышения сложности не спасают.",
     enDesc: "Attacks against you are always complexity 1 — Armor and other complexity increases do not help.",
     img: "cards/card_93_kaginava.png"
@@ -1660,7 +1660,7 @@ const CARDS = [
     qty: 3,
     group: "action",
     icons: ["charges", "charctx"],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Выбранный игрок скидывает указанный вами эффект. За каждую дополнительно сброшенную карту можно скинуть ещё 1 эффект. За каждый такой скинутый эффект, вы восстанавливаете 1 жетон жизни любому игроку. {Норио} снимает любое число эффектов, не сбрасывая карт.",
     enDesc: "The chosen player discards an Effect you name. For each extra card discarded, one more Effect may be removed. For every Effect removed this way, restore 1 life to any player. {Norio} removes any number of Effects without discarding cards.",
     img: "cards/card_98_chasha_blagovoniy.png"
@@ -1673,7 +1673,7 @@ const CARDS = [
     qty: 1,
     group: "effect",
     icons: [],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Ваши атаки не могут нанести больше одной раны.",
     enDesc: "Your attacks cannot deal more than one wound.",
     img: "cards/card_99_slabost.png"
@@ -1779,7 +1779,7 @@ const CARDS = [
     qty: 1,
     group: "aoe",
     icons: [],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Все живые игроки, включая вас, кладут перед собой по одной карте с руки в открытую. Вы забираете одну из них себе, остальные возвращаются владельцам.",
     enDesc: "Every living player, you included, lays one card from hand face up in front of them. You take one of them; the rest go back to their owners.",
     img: "cards/card_105_zov_predkov.png"
@@ -1857,7 +1857,7 @@ const CARDS = [
     qty: 3,
     group: "action",
     icons: ["charctx"],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Обезвредьте любую ловушку на столе; {Иё} вместо этого может забрать её себе в руку.[NL]Либо скиньте две карты с одинаковым названием, чтобы взять две новых из колоды; отравленное и обычное оружие считаются одинаковыми.",
     enDesc: "Disarm any Trap on the table; {Iyo} may take it into her hand instead.[NL]Or discard two cards with the same name to draw two new ones; a poisoned and a plain version of a weapon count as the same.",
     img: "cards/card_111_sapyor.png"
@@ -1909,7 +1909,7 @@ const CARDS = [
     qty: 1,
     group: "action",
     icons: ["poison", "charctx"],
-    tags: ["poison", "toPrint"],
+    tags: ["poison"],
     desc: "Отравляет выбранного активного игрока; {Минамото} может отравить и себя. Отравленная этой картой Минамото берёт две карты из колоды.",
     enDesc: "Poisons the chosen living player; {Minamoto} may poison herself. If Minamoto is poisoned by this card, she draws two cards.",
     img: "cards/card_116_yad_fugu.png"
@@ -1961,7 +1961,7 @@ const CARDS = [
     qty: 1,
     group: "action",
     icons: ["charctx"],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Сыграв эту карту, берите за каждый сброшенный жетон жизни (кроме последнего, не более трёх) новую карту из колоды. {Усивака} может сыграть её в любой момент, даже в чужой ход.",
     enDesc: "Play this card and draw a new card for every life you spend (never your last, no more than three). {Ushiwaka} may play it at any moment, even on another player's turn.",
     img: "cards/card_119_zhertva_krovi.png"
@@ -1974,7 +1974,7 @@ const CARDS = [
     qty: 1,
     group: "action",
     icons: [],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Сыграв эту карту, можете сбросить любое необходимое количество карт, восстановив за каждую 1 жизнь.",
     enDesc: "Play this card and discard as many cards as you need, restoring 1 life for each.",
     img: "cards/card_kampo.png"
@@ -1987,7 +1987,7 @@ const CARDS = [
     qty: 1,
     group: "action",
     icons: [],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Сыграв эту карту, возьмите по 1 карте из колоды за каждый недостающий жетон жизни (не более трёх).[NL]{Если вы отравлены}, возьмите дополнительно 1 карту ко всему добору.",
     enDesc: "Play this card and draw 1 card for every point of life you are missing.[NL]{If you are Poisoned}, draw 1 more card on top of that.",
     img: "cards/card_1122_smertnie_muki.png"
@@ -2053,7 +2053,7 @@ const CARDS = [
     qty: 1,
     group: "intervention",
     icons: [],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Передвиньте активную ауру от одного {союзника} к другому — по согласию обоих. Один из них может быть вами.",
     enDesc: "Move an active Aura from one {ally} to another, with the consent of both. Either of them may be you.",
     img: "cards/card_baton.png"
@@ -2066,7 +2066,7 @@ const CARDS = [
     qty: 1,
     group: "intervention",
     icons: [],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Восстановите все жетоны жизни отравленному ядом игроку и снимите само отравление.",
     enDesc: "Restore all life to a Poisoned player and clear the Poison itself.",
     img: "cards/card_120_istselenie.png"
@@ -2079,7 +2079,7 @@ const CARDS = [
     qty: 1,
     group: "intervention",
     icons: ["thrust"],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Сыграйте эту карту, чтобы нанести две раны отравленному ядом игроку.",
     enDesc: "Play this card to deal two wounds to a Poisoned player.",
     img: "cards/card_121_smert_ot_fugu.png"
@@ -2105,7 +2105,7 @@ const CARDS = [
     qty: 2,
     group: "intervention",
     icons: ["thrust"],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Сыграйте эту карту, чтобы нанести одну рану любому выбранному игроку.",
     enDesc: "Play this card to deal one wound to any player of your choice.",
     img: "cards/card_123_udar_drakona.png"
@@ -2157,7 +2157,7 @@ const CARDS = [
     qty: 2,
     group: "intervention",
     icons: ["effect8"],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Выбранный игрок с его согласия притворяется мёртвым до конца текущего хода: у него остаётся 1 жетон жизни, его аура не действует.",
     enDesc: "The chosen player, with their consent, plays dead until the end of the current turn: they keep 1 life, and their Aura does not work.",
     img: "cards/card_127_simulyant.png"
@@ -2170,7 +2170,7 @@ const CARDS = [
     qty: 1,
     group: "intervention",
     icons: [],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Уничтожает сыгранное оружие на столе, карта идёт в сброс, а атака отменяется, не тратя попытку. TODO: что происходит, если Осколками разбито оружие, которым защищается Хандзо (оружие как защита ценой раны) — отдельное взаимодействие.",
     enDesc: "Destroys a weapon played on the table: the card goes to the discard pile and the attack is cancelled without using up the attempt. TODO: what happens when Shards break a weapon Hanzo is defending with — a dedicated interaction.",
     img: "cards/card_shards.png"
@@ -2183,7 +2183,7 @@ const CARDS = [
     qty: 1,
     group: "intervention",
     icons: [],
-    tags: ["trash", "draft", "toPrint"],
+    tags: ["trash", "draft"],
     desc: "Следующее действие выбранного игрока завершит его ход. Сюда не входит скидывание парных карт. TODO: непонятно, что делать с картой — в черновик 18.09.2026.",
     enDesc: "The chosen player's next action ends their turn. Discarding paired cards does not count. TODO: unclear what to do with this card — moved to drafts 18.09.2026.",
     img: "cards/card_dream_of_ekai.png"
@@ -2211,7 +2211,7 @@ const CARDS = [
     qty: 2,
     group: "action",
     icons: ["charctx"],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Заберите одну случайную карту с руки любого активного игрока. {Така} забирает две.",
     enDesc: "Take one random card from the hand of any living player. {Taka} takes two.",
     img: "cards/card_128_vorovstvo.png"
@@ -2331,7 +2331,7 @@ const CARDS = [
     qty: 1,
     group: "character",
     icons: [],
-    tags: ["toPrint"],
+    tags: [],
     desc: "За каждую полученную рану берите карту. Порог смерти для вас: 1 или 2 жетона.[NL]{После вашей смерти} враги получают 1 рану.",
     enDesc: "Draw a card for every wound you take. Death's door for you: 1 or 2 life.[NL]{After your death} enemies take 1 wound.",
     img: "cards/card_135_usivaka.png"
@@ -2346,7 +2346,7 @@ const CARDS = [
     qty: 1,
     group: "character",
     icons: [],
-    tags: ["toPrint"],
+    tags: [],
     desc: "В фазе набора +1 карта. При воровстве, ошеломлении и групповых действиях отдаёте карту на свой выбор. Ауру можете выложить перед любым игроком.[NL]{После вашей смерти} передайте свою ауру живому союзнику.",
     enDesc: "In the draw phase, +1 card. When robbed, stunned or hit by a group action, you give a card of your choice. You may play an Aura in front of any player.[NL]{After your death} pass your Aura to a living ally.",
     img: "cards/card_136_taranaga.png"
@@ -2361,7 +2361,7 @@ const CARDS = [
     qty: 1,
     group: "character",
     icons: [],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Стойку умершего можете забрать в руку. Рукопашная бьёт на 2. В фазе набора +1 карта за стойку на столе (до 3).[NL]{После вашей смерти} ваша стойка остаётся, а враги возвращают свои стойки в руку.",
     enDesc: "You may take a dead player's Stance into your hand. Bare hands deal 2. In the draw phase, +1 card per Stance on the table (up to 3).[NL]{After your death} your Stance stays, and enemies return their Stances to hand.",
     img: "cards/card_138_kokoro.png"
@@ -2376,7 +2376,7 @@ const CARDS = [
     qty: 1,
     group: "character",
     icons: [],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Можете защищаться от прямых атак оружием ценой одной раны. Можете сбросить карту защиты и взять 2.[NL]{После вашей смерти} сбросьте любое число оружия: выпад на 1 рану за каждое, всё по одному врагу.",
     enDesc: "You may block direct attacks with a weapon at the cost of one wound. You may discard a Defense to draw 2.[NL]{After your death} discard any number of Weapons: a thrust for 1 wound each, all at one enemy.",
     img: "cards/card_139_handzo.png"
@@ -2392,7 +2392,7 @@ const CARDS = [
     qty: 1,
     group: "character",
     icons: [],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Вместо попытки атаки берите 2 карты или верните 1 жетон любому. Раз в ход можете переместить любой эффект на столе. {Древковое} оружие может защитить от атаки в виде вмешательства.[NL]{После вашей смерти} каждый союзник может снять с себя эффект.",
     enDesc: "Instead of an attack attempt, draw 2 cards or restore 1 life to anyone. Once per turn, you may move any Effect on the table. A {Polearm} may block an attack as an Intervention.[NL]{After your death} each ally may remove an Effect from themselves.",
     img: "cards/card_142_norio.png"
@@ -2407,7 +2407,7 @@ const CARDS = [
     qty: 1,
     group: "character",
     icons: [],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Раз в ход можете передвинуть свою ловушку к союзнику без ловушки или вслепую поменять местами две любые на столе. Ваша ловушка срабатывает и от метательных. В фазе набора +1 карта за ловушку на столе (до 3).[NL]{После вашей смерти} ловушки врагов просвещаются.",
     enDesc: "Once per turn, move your Trap to an ally without one, or swap any two Traps on the table unseen. Your Trap triggers on thrown attacks too. In the draw phase, +1 card per Trap on the table (up to 3).[NL]{After your death} enemy Traps are revealed.",
     img: "cards/card_140_iyo.png"
@@ -2422,7 +2422,7 @@ const CARDS = [
     qty: 1,
     group: "character",
     icons: [],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Раз в ход: забрать у игрока карту на его выбор или отдать ему свою. Раз в ход: сбросить 2 карты и взять 3.[NL]{После вашей смерти} можете отдать союзникам по карте в закрытую.",
     enDesc: "Once per turn: take a card of a player's choice from them, or give them one of yours. Once per turn: discard 2 cards to draw 3.[NL]{After your death} you may give allies a card each, face down.",
     img: "cards/card_141_taka.png"
@@ -2437,7 +2437,7 @@ const CARDS = [
     qty: 1,
     group: "character",
     icons: [],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Ваше лечение снимает яд и поднимает на 1 жетон выше лимита; для карт и пометок лимит прежний. Когда кто-то в команде лечится, берите карту, сколько бы жетонов ни вернулось.[NL]{После вашей смерти} союзники восстанавливают 1 жетон и исцеляются от яда.",
     enDesc: "Your healing cures poison and goes 1 life above the limit; for cards and markers the limit is unchanged. Whenever a teammate heals, draw a card, however much was restored.[NL]{After your death} allies restore 1 life and are cured of poison.",
     img: "cards/card_145_manase.png"
@@ -2452,7 +2452,7 @@ const CARDS = [
     qty: 1,
     group: "character",
     icons: [],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Яд не отнимает у вас жизни, а очко умершего от яда — ваше, не сброса. {Если вы отравлены}: атаки отравлены, 3 попытки за ход, ранивший вас прямой атакой отравляется. В фазе набора +1 карта за отравленного (до 3).[NL]{После вашей смерти} все враги отравляются.",
     enDesc: "Poison costs you no life, and a poison death's point is yours, not the discard's. {If you are poisoned}: your attacks are poisoned, 3 attempts per turn, and whoever wounds you with a direct attack is poisoned. In the draw phase, +1 card per poisoned player (up to 3).[NL]{After your death} every enemy is poisoned.",
     img: "cards/card_minamoto.png"
@@ -2471,7 +2471,7 @@ const CARDS = [
     qty: 1,
     group: "aura",
     icons: ["charges"],
-    tags: ["draft", "toPrint"],
+    tags: ["draft"],
     desc: "Любой союзник в свой ход может подложить под ауру любое число модификаторов в открытую. За каждые два все атаки {союзников} наносят +1 рану, всего не более +3.",
     enDesc: "On their turn any ally may tuck any number of Modifiers face up under the Aura. For every two, all attacks by {allies} deal +1 wound, up to +3 in total.",
     img: "cards/card_1200_dojo.png"
@@ -2484,7 +2484,7 @@ const CARDS = [
     qty: 1,
     group: "aura",
     icons: ["charges"],
-    tags: ["draft", "toPrint"],
+    tags: ["draft"],
     desc: "Любой союзник в свой ход может подложить под ауру одну карту защиты в открытую. За каждые две все {союзники} получают на одну рану меньше от любой прямой атаки (не менее 1), всего не более трёх.",
     enDesc: "On their turn any ally may tuck one Defense card face up under the Aura. For every two, all {allies} take one wound less from any direct attack (never below 1), up to three in total.",
     img: "cards/card_rare.png"
@@ -2523,7 +2523,7 @@ const CARDS = [
     qty: 1,
     group: "aura",
     icons: [],
-    tags: ["draft", "toPrint"],
+    tags: ["draft"],
     desc: "Любой {союзник} может сыграть карту защиты как вмешательство в защиту другого союзника — как полную защиту. Однако {носитель} ауры лишается возможности играть карты защиты в любом виде.",
     enDesc: "Any {ally} may play a Defense card as an Intervention to defend another ally — as a full defense. However, the Aura's {Bearer} loses the ability to play Defense cards in any form.",
     img: "cards/card_back_to_back.png"
@@ -2536,7 +2536,7 @@ const CARDS = [
     qty: 1,
     group: "aura",
     icons: ["charges"],
-    tags: ["draft", "toPrint"],
+    tags: ["draft"],
     desc: "Любой союзник в свой ход может подложить под ауру одно вмешательство или групповое действие в открытую. За каждые две карты в фазе набора каждый {союзник} берёт +1 карту из колоды, всего не более +2.",
     enDesc: "On their turn any ally may tuck one Intervention or Group Action face up under the Aura. For every two cards, in the draw phase each {ally} takes +1 card from the deck, up to +2 in total.",
     img: "cards/card_camp.png"
@@ -2549,7 +2549,7 @@ const CARDS = [
     qty: 1,
     group: "aura",
     icons: [],
-    tags: ["toPrint"],
+    tags: [],
     desc: "{Враги} не могут проводить метательные атаки.",
     enDesc: "{Enemies} cannot make ranged attacks.",
     img: "cards/card_1206_dymovaya_zavesa.png"
@@ -2575,7 +2575,7 @@ const CARDS = [
     qty: 1,
     group: "aura",
     icons: [],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Любое лечение {союзников} восстанавливает на 1 жетон жизни больше. Обмен, выравнивание и перенос жетонов лечением не считаются.",
     enDesc: "Any healing of {allies} restores 1 extra life. Swapping, equalising or moving life does not count as healing.",
     img: "cards/card_hospital.png"
@@ -2588,7 +2588,7 @@ const CARDS = [
     qty: 1,
     group: "aura",
     icons: [],
-    tags: ["toPrint"],
+    tags: [],
     desc: "{Враги} после нанесения ран прямой атакой по вашим союзникам получают от носителя ауры 1 рану, а если носитель в стойке {лучника} — 2.[NL]{Носитель} не может пользоваться метательным оружием.",
     enDesc: "{Enemies} who wound your allies with a direct attack take 1 wound from the Aura's bearer, or 2 if the bearer is in the {Archer} stance.[NL]The {Bearer} cannot use thrown weapons.",
     img: "cards/card_warden.png"
@@ -2601,7 +2601,7 @@ const CARDS = [
     qty: 1,
     group: "aura",
     icons: [],
-    tags: ["toPrint"],
+    tags: [],
     desc: "При совершении прямой атаки оружием (до действий защищающегося), любой {союзник} может с согласия атакующего выставить оружие (как вмешательство), а его забрать себе.",
     enDesc: "When a direct weapon attack is made (before the defender acts), any {ally} may, with the attacker's consent, put a weapon into play as an Intervention and take the attacker's weapon for themselves.",
     img: "cards/card_1210_arsenal.png"
@@ -2615,7 +2615,7 @@ const CARDS = [
     qty: 1,
     group: "aura",
     icons: [],
-    tags: ["toPrint"],
+    tags: [],
     desc: "Раз в свой ход любой {союзник} может обменяться с соратником в закрытую по согласию картами.",
     enDesc: "Once per turn any {ally} may swap cards face down with a comrade, by mutual consent.",
     img: "cards/card_discreete_deal.png"
@@ -2628,7 +2628,7 @@ const CARDS = [
     qty: 1,
     group: "aura",
     icons: ["charges"],
-    tags: ["draft", "toPrint"],
+    tags: ["draft"],
     desc: "Любой союзник в свой ход может подложить под ауру одно метательное оружие в открытую. За каждый комплект — по одному оружию на каждого живого игрока команды — метательные атаки {союзников} наносят +1 рану, всего не более +3.",
     enDesc: "On their turn any ally may tuck one thrown weapon face up under the Aura. For every full set — one weapon per living player on your team — thrown attacks by {allies} deal +1 wound, up to +3 in total.",
     img: "cards/card_1212_high_ground.png"
@@ -2641,7 +2641,7 @@ const CARDS = [
     qty: 1,
     group: "aura",
     icons: ["intervention"],
-    tags: ["draft", "toPrint"],
+    tags: ["draft"],
     desc: "Можно выложить перед собой в любой момент. Рука {носителя} лежит перед ним в открытую. {Союзники} могут играть эти карты как свои.",
     enDesc: "May be played in front of you at any moment. The {Bearer}'s hand lies face up in front of them. {Allies} may play these cards as their own.",
     img: "cards/card_1213_son_ekaya.png"
