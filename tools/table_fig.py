@@ -54,13 +54,12 @@ TAGS = [('samurai', (335, 150)), ('ninja', (1080, 395)), ('samurai', (760, 1060)
 CX, CY, R_ARC = 597, 582, 470
 R_AURA = 605              # дуга ауры — снаружи фигуры ниндзя
 FLOWS = [
-    ('attacks',    'attack',  68,  47, ['weapon', 'modifier'], 560),   # до середины между самураем и ниндзя
-    ('defends',    'def',     16,  43, ['defense'],            0),     # навстречу, до той же середины; подпись — DEF_LABEL
-
-    ('intervenes', 'int',    -66, -42, ['intervention'],       560),
+    ('attacks',    'attack',  68,  35, ['weapon', 'modifier'], 560),   # две трети пути от самурая к ниндзя
+    ('defends',    'def',     16,  31, ['defense'],            0),     # навстречу, одна треть; подпись — DEF_LABEL
+    ('intervenes', 'int',    -66, -33, ['intervention'],       560),   # до самого ниндзя
     ('aura',       'aura',   205, 155, ['aura'],               0),     # за спиной левого ниндзя (радиус R_AURA, на поле PAD): аура — на весь стол; подпись — AURA_LABEL
 ]
-AURA_LABEL = (100, 830)
+AURA_LABEL = (130, 930)   # сильно ниже нижнего конца дуги, у левой кромки
 DEF_LABEL = (1095, 870)   # «Защищается» — ниже дуги, не наезжая на значок   # плашка «Аура — на весь стол» под концом дуги, слева-снизу от ниндзя
 import math
 def polar(a, r=R_ARC):
@@ -158,7 +157,8 @@ def svg(lang):
                + '</defs>')
     out.append(f'<g transform="translate({PAD},0)">')   # все координаты — в пикселях фото, холст шире на PAD слева
     for key, cls, a0, a1, _, _ in FLOWS:
-        out.append(f'<path class="tf-flow tf-flow-{cls}" d="{arc_path(a0, a1, flow_r(key))}"/>')
+        both = ' marker-start="url(#tf-arrow-aura)"' if key == 'aura' else ''   # аура — в обе стороны
+        out.append(f'<path class="tf-flow tf-flow-{cls}" d="{arc_path(a0, a1, flow_r(key))}"{both}/>')
     # линии — под плашками
     out.append('<g class="tf-lines">')
     for key, (lx, ly), (tx, ty) in LABELS:
