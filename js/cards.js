@@ -2535,10 +2535,10 @@ const CARDS = [
     types: ["aura"],
     qty: 1,
     group: "aura",
-    icons: [],
-    tags: [],
-    desc: "В фазе набора каждый {союзник} берёт +1 карту из колоды.",
-    enDesc: "In the draw phase each {ally} takes +1 card from the deck.",
+    icons: ["charges"],
+    tags: ["draft", "toPrint"],
+    desc: "Любой союзник в свой ход может подложить под ауру карты в открытую. За каждые две в фазе набора каждый {союзник} берёт +1 карту из колоды, всего не более +2. TODO: решить, какие карты заряжают Стратега — групповые или вмешательства.",
+    enDesc: "On their turn any ally may tuck cards face up under the Aura. For every two, in the draw phase each {ally} takes +1 card from the deck, up to +2 in total. TODO: decide which cards charge the Strategist — group actions or interventions.",
     img: "cards/card_camp.png"
   },
   {
