@@ -54,9 +54,9 @@ TAGS = [('samurai', (335, 150)), ('ninja', (1080, 395)), ('samurai', (760, 1060)
 CX, CY, R_ARC = 597, 582, 470
 R_AURA = 605              # дуга ауры — снаружи фигуры ниндзя
 FLOWS = [
-    ('attacks',    'attack',  68,  35, ['weapon', 'modifier'], 560),   # две трети пути от самурая к ниндзя
-    ('defends',    'def',     16,  31, ['defense'],            0),     # навстречу, одна треть; подпись — DEF_LABEL
-    ('intervenes', 'int',    -66, -33, ['intervention'],       560),   # до самого ниндзя
+    ('attacks',    'attack',  68,  37, ['weapon', 'modifier'], 560),   # две трети пути от самурая к ниндзя; значки — от острия: оружие, за ним модификатор
+    ('defends',    'def',     16,  34, ['defense'],            0, -4), # навстречу, одна треть; значок ближе к ниндзя, чтобы не упирался в остриё; подпись — DEF_LABEL
+    ('intervenes', 'int',    -66, -22, ['intervention'],       560),   # до самого ниндзя, к его метке
     ('aura',       'aura',   205, 155, ['aura'],               0),     # за спиной левого ниндзя (радиус R_AURA, на поле PAD): аура — на весь стол; подпись — AURA_LABEL
 ]
 AURA_LABEL = (130, 930)   # сильно ниже нижнего конца дуги, у левой кромки
@@ -72,9 +72,9 @@ def flow_r(key):
 def flow_icons():
     """Значки типов на середине каждой дуги: (ключ, центр); два значка — по 5° в стороны от середины."""
     out = []
-    for key, cls, a0, a1, icons, _ in FLOWS:
-        mid = (a0 + a1) / 2
-        step = 5.5 if a1 > a0 else -5.5
+    for key, cls, a0, a1, icons, _, *rest in FLOWS:
+        mid = (a0 + a1) / 2 + (rest[0] if rest else 0)
+        step = -7 if a1 > a0 else 7        # первый значок — ближе к острию, следующие — за ним
         for i, ic in enumerate(icons):
             out.append((ic, polar(mid + (i - (len(icons) - 1) / 2) * step, flow_r(key))))
     return out
@@ -156,7 +156,7 @@ def svg(lang):
                + ''.join(f'<marker id="tf-arrow-{k}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z"/></marker>' for k in ('attack', 'def', 'int', 'aura'))
                + '</defs>')
     out.append(f'<g transform="translate({PAD},0)">')   # все координаты — в пикселях фото, холст шире на PAD слева
-    for key, cls, a0, a1, _, _ in FLOWS:
+    for key, cls, a0, a1, _, _, *_ in FLOWS:
         both = ' marker-start="url(#tf-arrow-aura)"' if key == 'aura' else ''   # аура — в обе стороны
         out.append(f'<path class="tf-flow tf-flow-{cls}" d="{arc_path(a0, a1, flow_r(key))}"{both}/>')
     # линии — под плашками
@@ -178,7 +178,7 @@ def svg(lang):
             out.append(f'<text class="tf-txt" x="{w/2}" y="{BH/2 + 1 + i*LH}">{esc(l)}</text>')
         out.append('</g>')
     # подписи у стрелок хода — та же плашка, без линии
-    for key, _, a0, a1, _, rl in FLOWS:
+    for key, _, a0, a1, _, rl, *_ in FLOWS:
       lx, ly = polar((a0 + a1) / 2, rl) if rl else {'defends': DEF_LABEL, 'aura': AURA_LABEL}[key]
       w = box_w(t[key]); h = box_h(t[key])
       out.append(f'<g transform="translate({lx - w/2:.0f},{ly - h/2:.0f})"><rect width="{w}" height="{h}" rx="8"/><text class="tf-txt" x="{w/2}" y="{BH/2 + 1}">{esc(t[key])}</text></g>')
