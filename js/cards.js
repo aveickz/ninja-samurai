@@ -2472,8 +2472,8 @@ const CARDS = [
     group: "aura",
     icons: ["charges"],
     tags: ["draft", "toPrint"],
-    desc: "Все атаки {союзников} наносят +1 рану.[NL]Любой союзник в свой ход может подложить под ауру модификаторы в открытую: за каждые два — ещё +1 рана, всего не более +3.",
-    enDesc: "All attacks by {allies} deal +1 wound.[NL]On their turn any ally may tuck Modifiers face up under the Aura: for every two, +1 more wound, up to +3 in total.",
+    desc: "Любой союзник в свой ход может подложить под ауру модификаторы в открытую. За каждые два все атаки {союзников} наносят +1 рану, всего не более +3.",
+    enDesc: "On their turn any ally may tuck Modifiers face up under the Aura. For every two, all attacks by {allies} deal +1 wound, up to +3 in total.",
     img: "cards/card_leader.png"
   },
   {
@@ -2485,8 +2485,8 @@ const CARDS = [
     group: "aura",
     icons: ["charges"],
     tags: ["draft", "toPrint"],
-    desc: "Все {союзники} получают на одну рану меньше от любой прямой атаки (не менее 1).[NL]Любой союзник в свой ход может подложить под ауру карты защиты в открытую: за каждые две — ещё на одну рану меньше, всего не более трёх.",
-    enDesc: "All {allies} take one wound less from any direct attack (never below 1).[NL]On their turn any ally may tuck Defense cards face up under the Aura: for every two, one wound less again, up to three in total.",
+    desc: "Любой союзник в свой ход может подложить под ауру карты защиты в открытую. За каждые две все {союзники} получают на одну рану меньше от любой прямой атаки (не менее 1), всего не более трёх.",
+    enDesc: "On their turn any ally may tuck Defense cards face up under the Aura. For every two, all {allies} take one wound less from any direct attack (never below 1), up to three in total.",
     img: "cards/card_rare.png"
   },
   {
