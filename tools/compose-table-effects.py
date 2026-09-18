@@ -48,8 +48,12 @@ paste_center(im, down(rot(card_face('rules/media/cards/1031.webp'), 180)), 705, 
 # левый игрок: аура — над персонажем и ролью (с его точки зрения «справа» — выше по картинке), с фигуркой знамени
 paste_center(im, down(rot(card_face('rules/media/cards/1209.webp', w=37*S, h=60*S), -90)), 349, 497)
 banner = Image.open('rules/media/fig/banner.webp').convert('RGBA')
-banner = ImageOps.contain(banner, (22*S, 34*S), Image.LANCZOS)
+banner = ImageOps.contain(banner, (22*S, 34*S), Image.LANCZOS).rotate(-90, Image.BICUBIC, expand=True)   # лежит «по игроку»: верх — к центру стола
 paste_center(im, down(banner), 349, 494)
+
+# холст шире на PAD слева — под дугу ауры за спиной левого ниндзя (table_fig.PAD)
+PAD = 110
+wide = Image.new('RGBA', (im.width + PAD, im.height), (0, 0, 0, 0)); wide.alpha_composite(im, (PAD, 0)); im = wide
 
 im.save(out, 'WEBP', quality=90, method=6)
 print('written', out, im.size)

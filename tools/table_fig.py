@@ -6,7 +6,9 @@ import os, re, math, shutil, sys
 sys.stdout.reconfigure(encoding='utf-8')
 os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-W, H = 1192, 1165
+W0, H = 1192, 1165        # фото стола; координаты подписей — в его пикселях
+PAD = 110                 # слева холст расширен под дугу ауры за спиной левого ниндзя (compose-table-effects.py)
+W = W0 + PAD              # ширина итоговой картинки rules/media/table.webp
 # Картинка стола — rules/media/table.webp (скриншот стола, белый фон вырезан
 # в прозрачность); координаты ниже — в её пикселях.
 
@@ -32,7 +34,6 @@ LABELS = [
     ('hand',      (850, 380), (760, 315)),    # справа-снизу от веера
     ('trap',      (500, 645), (458, 612)),    # под ловушкой левого игрока, между жетонами и колодой
     ('character', (470, 445), (365, 532)),    # верхняя левая четверть
-    ('aura',      (300, 432), (330, 480)),    # над аурой левого ниндзя, у кромки стола
     ('deck',      (500, 500), (560, 565)),    # слева-сверху от колоды
     ('discard',   (712, 614), (668, 588)),    # справа-снизу от сброса
     ('effect',    (790, 430), (856, 462)),    # над столбиком эффектов — к верхней карте («Пыль в глаза»)
@@ -44,16 +45,40 @@ LABELS = [
     ('vp',        (800, 812), (683, 812)),    # справа от очков нижнего игрока
 ]
 # фракционные метки у фигур: (текст-ключ, центр)
-TAGS = [('samurai', (860, 150)), ('ninja', (1080, 395)), ('samurai', (760, 1060)), ('ninja', (140, 400))]
-# стрелки хода: (ключ подписи, класс, путь, центр подписи). Атака — от нижнего самурая к правому
-# ниндзя снаружи стола, повторяя контур его тела; защита — от ниндзя навстречу атаке, на конце
-# значок защиты (ICON_AT); вмешательство — от верхнего самурая к ниндзя, через верхний правый край
+TAGS = [('samurai', (335, 150)), ('ninja', (1080, 395)), ('samurai', (760, 1060)), ('ninja', (140, 400))]   # верхний самурай — метка слева, справа идёт дуга вмешательства
+# стрелки хода — дуги снаружи стола, концентрично его кромке (центр CX,CY, радиус кромки ≈410):
+# (ключ подписи, класс, угол начала, угол конца, значки типов посередине дуги, радиус подписи).
+# Углы — от оси x по часовой (y вниз): 0° — правый ниндзя, 90° — нижний самурай, −90° — верхний.
+# Атака: нижний самурай → правый ниндзя; защита: короткая дуга от ниндзя навстречу атаке;
+# вмешательство: верхний самурай → ниндзя. Значки стоят на дуге, подписи — снаружи от неё.
+CX, CY, R_ARC = 597, 582, 470
+R_AURA = 605              # дуга ауры — снаружи фигуры ниндзя
 FLOWS = [
-    ('attacks',    'attack', 'M 790 1125 C 930 1100 1020 950 1005 775', (1085, 960)),
-    ('defends',    'def',    'M 1165 715 C 1175 770 1140 800 1082 800',  (1108, 862)),
-    ('intervenes', 'int',    'M 800 215 C 920 215 1010 260 1030 320',   (1015, 218)),
+    ('attacks',    'attack',  68,  47, ['weapon', 'modifier'], 560),   # до середины между самураем и ниндзя
+    ('defends',    'def',     16,  43, ['defense'],            0),     # навстречу, до той же середины; подпись — DEF_LABEL
+
+    ('intervenes', 'int',    -66, -42, ['intervention'],       560),
+    ('aura',       'aura',   205, 155, ['aura'],               0),     # за спиной левого ниндзя (радиус R_AURA, на поле PAD): аура — на весь стол; подпись — AURA_LABEL
 ]
-ICON_AT = ('defense', (1062, 800))   # значок типа на конце стрелки защиты
+AURA_LABEL = (100, 830)
+DEF_LABEL = (1095, 870)   # «Защищается» — ниже дуги, не наезжая на значок   # плашка «Аура — на весь стол» под концом дуги, слева-снизу от ниндзя
+import math
+def polar(a, r=R_ARC):
+    return (CX + r * math.cos(math.radians(a)), CY + r * math.sin(math.radians(a)))
+def arc_path(a0, a1, r=R_ARC):
+    (x0, y0), (x1, y1) = polar(a0, r), polar(a1, r)
+    return f'M {x0:.0f} {y0:.0f} A {r} {r} 0 0 {1 if a1 > a0 else 0} {x1:.0f} {y1:.0f}'
+def flow_r(key):
+    return R_AURA if key == 'aura' else R_ARC
+def flow_icons():
+    """Значки типов на середине каждой дуги: (ключ, центр); два значка — по 5° в стороны от середины."""
+    out = []
+    for key, cls, a0, a1, icons, _ in FLOWS:
+        mid = (a0 + a1) / 2
+        step = 5.5 if a1 > a0 else -5.5
+        for i, ic in enumerate(icons):
+            out.append((ic, polar(mid + (i - (len(icons) - 1) / 2) * step, flow_r(key))))
+    return out
 
 TXT = {
  'ru': {
@@ -61,7 +86,7 @@ TXT = {
   'hand': 'Рука', 'discard': 'Сброс', 'effect': 'Эффекты', 'life': 'Жизни',
   'vp': 'Победные очки', 'attack': 'Атака: оружие|+ модификатор',
   'poison': 'Яд', 'defense': 'Защита', 'trap': 'Ловушка', 'attacks': 'Атакует',
-  'defends': 'Защищается', 'intervenes': 'Вмешивается', 'aura': 'Аура',
+  'defends': 'Защищается', 'intervenes': 'Вмешивается', 'aura': 'Аура — на весь стол',
   'intervention': 'Вмешательство',
   'samurai': 'Самурай', 'ninja': 'Ниндзя',
   'h4': 'Стол',
@@ -87,7 +112,7 @@ TXT = {
   'hand': 'Hand', 'discard': 'Discard', 'effect': 'Effects', 'life': 'Life',
   'vp': 'Victory points', 'attack': 'Attack: weapon|+ modifier',
   'poison': 'Poison', 'defense': 'Defense', 'trap': 'Trap', 'attacks': 'Attacks',
-  'defends': 'Defends', 'intervenes': 'Intervenes', 'aura': 'Aura',
+  'defends': 'Defends', 'intervenes': 'Intervenes', 'aura': 'Aura — whole table',
   'intervention': 'Intervention',
   'samurai': 'Samurai', 'ninja': 'Ninja',
   'h4': 'The Table',
@@ -129,10 +154,11 @@ def svg(lang):
     out = []
     out.append(f'<svg class="table-overlay" viewBox="0 0 {W} {H}" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">')
     out.append('<defs><marker id="tf-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z"/></marker>'
-               + ''.join(f'<marker id="tf-arrow-{k}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z"/></marker>' for k in ('attack', 'def', 'int'))
+               + ''.join(f'<marker id="tf-arrow-{k}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z"/></marker>' for k in ('attack', 'def', 'int', 'aura'))
                + '</defs>')
-    for key, cls, path, _ in FLOWS:
-        out.append(f'<path class="tf-flow tf-flow-{cls}" d="{path}"/>')
+    out.append(f'<g transform="translate({PAD},0)">')   # все координаты — в пикселях фото, холст шире на PAD слева
+    for key, cls, a0, a1, _, _ in FLOWS:
+        out.append(f'<path class="tf-flow tf-flow-{cls}" d="{arc_path(a0, a1, flow_r(key))}"/>')
     # линии — под плашками
     out.append('<g class="tf-lines">')
     for key, (lx, ly), (tx, ty) in LABELS:
@@ -147,14 +173,15 @@ def svg(lang):
     for key, (lx, ly), _ in LABELS:
         w = box_w(t[key]); h = box_h(t[key]); ls = lines(t[key])
         x0, y0 = lx - w / 2, ly - h / 2
-        out.append(f'<g transform="translate({x0:.0f},{y0:.0f})"><rect width="{w}" height="{h}" rx="5"/>')
+        out.append(f'<g transform="translate({x0:.0f},{y0:.0f})"><rect width="{w}" height="{h}" rx="7"/>')
         for i, l in enumerate(ls):
             out.append(f'<text class="tf-txt" x="{w/2}" y="{BH/2 + 1 + i*LH}">{esc(l)}</text>')
         out.append('</g>')
     # подписи у стрелок хода — та же плашка, без линии
-    for key, _, _, (lx, ly) in FLOWS:
+    for key, _, a0, a1, _, rl in FLOWS:
+      lx, ly = polar((a0 + a1) / 2, rl) if rl else {'defends': DEF_LABEL, 'aura': AURA_LABEL}[key]
       w = box_w(t[key]); h = box_h(t[key])
-      out.append(f'<g transform="translate({lx - w/2:.0f},{ly - h/2:.0f})"><rect width="{w}" height="{h}" rx="5"/><text class="tf-txt" x="{w/2}" y="{BH/2 + 1}">{esc(t[key])}</text></g>')
+      out.append(f'<g transform="translate({lx - w/2:.0f},{ly - h/2:.0f})"><rect width="{w}" height="{h}" rx="7"/><text class="tf-txt" x="{w/2}" y="{BH/2 + 1}">{esc(t[key])}</text></g>')
     out.append('</g>')
     out.append('<g class="tf-tags">')
     for key, (cx, cy) in TAGS:
@@ -163,16 +190,17 @@ def svg(lang):
                    f'<rect width="{w}" height="{BH}" rx="23"/>'
                    f'<text x="{w/2}" y="{BH/2 + 1}">{esc(txt)}</text></g>')
     out.append('</g>')
-    out.append('</svg>')
+    out.append('</g></svg>')
     return ''.join(out)
 
 def section(lang):
     t = TXT[lang]
+    icons = ''.join(f'<i class="ic tf-icon" data-b="{k}" style="left:{(x + PAD)/W*100:.2f}%;top:{y/H*100:.2f}%"></i>'
+                    for k, (x, y) in flow_icons())   # значки типов на серединах дуг — поверх SVG
     return (f'\n      <h4>{esc(t["h4"])}</h4>\n'
             f'      <p>{esc(t["intro"])}</p>\n'
             f'      <figure class="table-figure">\n'
-            f'        <div class="table-pic"><img src="media/table.webp" alt="" width="{W}" height="{H}">{svg(lang)}'
-            f'<i class="ic tf-icon" data-b="{ICON_AT[0]}" style="left:{ICON_AT[1][0]/W*100:.2f}%;top:{ICON_AT[1][1]/H*100:.2f}%"></i></div>\n'
+            f'        <div class="table-pic"><img src="media/table.webp" alt="" width="{W}" height="{H}">{svg(lang)}{icons}</div>\n'
             f'        <figcaption>{esc(t["caption"])}</figcaption>\n'
             f'      </figure>\n'
             f'      <aside class="note">{esc(t["note"])}</aside>\n')   # outro (про фигурки) не печатается: это уже сказано в главах о ловушке, яде и ауре

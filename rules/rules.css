@@ -627,6 +627,8 @@ section.chapter::after { content: ""; display: block; clear: both; }
 .table-overlay .tf-flow { fill: none; stroke: var(--vermilion-dk); stroke-width: 10; stroke-dasharray: 18 11; stroke-linecap: round; opacity: .6; marker-end: url(#tf-arrow-attack); }
 .table-overlay .tf-flow-def { stroke: #b8860b; marker-end: url(#tf-arrow-def); }      /* защита — золото карт защиты */
 .table-overlay .tf-flow-int { stroke: #3B8476; marker-end: url(#tf-arrow-int); }      /* вмешательство — цвет его карт */
+.table-overlay .tf-flow-aura { stroke: #93a32e; marker-end: url(#tf-arrow-aura); }   /* аура — цвет её карт */
+.table-overlay #tf-arrow-aura path { fill: #93a32e; }
 .table-overlay #tf-arrow-def path { fill: #b8860b; }
 .table-overlay #tf-arrow-int path { fill: #3B8476; }
 .table-pic .tf-icon { position: absolute; --ic: 6.5mm; transform: translate(-50%, -50%); box-shadow: 0 0 0 .5mm #fff; }   /* значок типа на конце стрелки защиты */
