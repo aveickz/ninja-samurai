@@ -782,8 +782,8 @@ const CARDS = [
     group: "trap",
     icons: ["intervention"],
     tags: ["draft", "toPrint"],
-    desc: "Сама по себе ничего не делает. Когда срабатывает, любой {союзник} может сыграть ловушку из руки как вмешательство — она срабатывает на атакующего.",
-    enDesc: "Does nothing on its own. When it is triggered, any {ally} may play a Trap from hand as an Intervention — it fires at the attacker.",
+    desc: "Сама по себе ничего не делает. Когда срабатывает, любой {союзник} может сыграть как вмешательство ловушку из руки или свою ловушку со стола — она срабатывает на атакующего.",
+    enDesc: "Does nothing on its own. When it is triggered, any {ally} may play a Trap as an Intervention — from hand or their own Trap from the table — and it fires at the attacker.",
     img: "cards/card_1050_tripwire.png"
   },
 
