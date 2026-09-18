@@ -2524,8 +2524,8 @@ const CARDS = [
     group: "aura",
     icons: [],
     tags: ["draft", "toPrint"],
-    desc: "Любой {союзник} может сыграть карту защиты как вмешательство в защиту другого союзника — как полную защиту. Однако {носитель} ауры лишается возможности играть карты защиты.",
-    enDesc: "Any {ally} may play a Defense card as an Intervention to defend another ally — as a full defense. However, the Aura's {Bearer} loses the ability to play Defense cards.",
+    desc: "Любой {союзник} может сыграть карту защиты как вмешательство в защиту другого союзника — как полную защиту. Однако {носитель} ауры лишается возможности играть карты защиты в любом виде.",
+    enDesc: "Any {ally} may play a Defense card as an Intervention to defend another ally — as a full defense. However, the Aura's {Bearer} loses the ability to play Defense cards in any form.",
     img: "cards/card_back_to_back.png"
   },
   {
