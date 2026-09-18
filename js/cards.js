@@ -2472,8 +2472,8 @@ const CARDS = [
     group: "aura",
     icons: ["charges"],
     tags: ["draft", "toPrint"],
-    desc: "Любой союзник в свой ход может подложить под ауру модификаторы в открытую. За каждые два все атаки {союзников} наносят +1 рану, всего не более +3.",
-    enDesc: "On their turn any ally may tuck Modifiers face up under the Aura. For every two, all attacks by {allies} deal +1 wound, up to +3 in total.",
+    desc: "Любой союзник в свой ход может подложить под ауру любое число модификаторов в открытую. За каждые два все атаки {союзников} наносят +1 рану, всего не более +3.",
+    enDesc: "On their turn any ally may tuck any number of Modifiers face up under the Aura. For every two, all attacks by {allies} deal +1 wound, up to +3 in total.",
     img: "cards/card_leader.png"
   },
   {
@@ -2485,8 +2485,8 @@ const CARDS = [
     group: "aura",
     icons: ["charges"],
     tags: ["draft", "toPrint"],
-    desc: "Любой союзник в свой ход может подложить под ауру карты защиты в открытую. За каждые две все {союзники} получают на одну рану меньше от любой прямой атаки (не менее 1), всего не более трёх.",
-    enDesc: "On their turn any ally may tuck Defense cards face up under the Aura. For every two, all {allies} take one wound less from any direct attack (never below 1), up to three in total.",
+    desc: "Любой союзник в свой ход может подложить под ауру одну карту защиты в открытую. За каждые две все {союзники} получают на одну рану меньше от любой прямой атаки (не менее 1), всего не более трёх.",
+    enDesc: "On their turn any ally may tuck one Defense card face up under the Aura. For every two, all {allies} take one wound less from any direct attack (never below 1), up to three in total.",
     img: "cards/card_rare.png"
   },
   {
@@ -2622,15 +2622,15 @@ const CARDS = [
   },
   {
     id: 1212,
-    title: "Колчан",
-    enTitle: "Quiver",
+    title: "Высота",
+    enTitle: "High Ground",
     types: ["aura"],
     qty: 1,
     group: "aura",
     icons: ["charges"],
     tags: ["draft", "toPrint"],
-    desc: "Любой союзник в свой ход может подложить под ауру метательное оружие в открытую. За каждый комплект — по одному оружию на каждого живого игрока команды — метательные атаки {союзников} наносят +1 рану, всего не более +3.",
-    enDesc: "On their turn any ally may tuck thrown weapons face up under the Aura. For every full set — one weapon per living player on your team — thrown attacks by {allies} deal +1 wound, up to +3 in total.",
-    img: "cards/card_1212_quiver.png"
+    desc: "Любой союзник в свой ход может подложить под ауру одно метательное оружие в открытую. За каждый комплект — по одному оружию на каждого живого игрока команды — метательные атаки {союзников} наносят +1 рану, всего не более +3.",
+    enDesc: "On their turn any ally may tuck one thrown weapon face up under the Aura. For every full set — one weapon per living player on your team — thrown attacks by {allies} deal +1 wound, up to +3 in total.",
+    img: "cards/card_1212_high_ground.png"
   },
 ];
