@@ -2642,8 +2642,8 @@ const CARDS = [
     group: "aura",
     icons: ["intervention"],
     tags: ["draft", "toPrint"],
-    desc: "Можно выложить перед собой в любой момент. Рука {носителя} лежит перед ним в открытую. Любой {союзник} в свой ход может сыграть карту из неё как свою.",
-    enDesc: "May be played in front of you at any moment. The {Bearer}'s hand lies face up in front of them. On their turn any {ally} may play a card from it as their own.",
+    desc: "Можно выложить перед собой в любой момент. Рука {носителя} лежит перед ним в открытую. {Союзники} могут играть эти карты как свои.",
+    enDesc: "May be played in front of you at any moment. The {Bearer}'s hand lies face up in front of them. {Allies} may play these cards as their own.",
     img: "cards/card_dream_of_ekai.png"
   },
 ];
