@@ -2157,9 +2157,9 @@ const CARDS = [
     qty: 1,
     group: "intervention",
     icons: [],
-    tags: [],
-    desc: "Уничтожает сыгранное оружие на столе, карта идёт в сброс, а атака отменяется, не тратя попытку.",
-    enDesc: "Destroys a weapon played on the table: the card goes to the discard pile and the attack is cancelled without using up the attempt.",
+    tags: ["toPrint"],
+    desc: "Уничтожает сыгранное оружие на столе, карта идёт в сброс, а атака отменяется, не тратя попытку. TODO: что происходит, если Осколками разбито оружие, которым защищается Хандзо (оружие как защита ценой раны) — отдельное взаимодействие.",
+    enDesc: "Destroys a weapon played on the table: the card goes to the discard pile and the attack is cancelled without using up the attempt. TODO: what happens when Shards break a weapon Hanzo is defending with — a dedicated interaction.",
     img: "cards/card_shards.png"
   },
   {
