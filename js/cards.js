@@ -2425,8 +2425,8 @@ const CARDS = [
     group: "character",
     icons: [],
     tags: ["toPrint"],
-    desc: "Ваше лечение поднимает на 1 жетон выше лимита; для карт и пометок лимит прежний. Когда кто-то в команде лечится, берите карту, сколько бы жетонов ни вернулось.[NL]{После вашей смерти} союзники восстанавливают 1 жетон и исцеляются от яда.",
-    enDesc: "Your healing goes 1 life above the limit; for cards and markers the limit is unchanged. Whenever a teammate heals, draw a card, however much was restored.[NL]{After your death} allies restore 1 life and are cured of poison.",
+    desc: "Ваше лечение снимает яд и поднимает на 1 жетон выше лимита; для карт и пометок лимит прежний. Когда кто-то в команде лечится, берите карту, сколько бы жетонов ни вернулось.[NL]{После вашей смерти} союзники восстанавливают 1 жетон и исцеляются от яда.",
+    enDesc: "Your healing cures poison and goes 1 life above the limit; for cards and markers the limit is unchanged. Whenever a teammate heals, draw a card, however much was restored.[NL]{After your death} allies restore 1 life and are cured of poison.",
     img: "cards/card_145_manase.png"
   },
   {
