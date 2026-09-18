@@ -2620,4 +2620,17 @@ const CARDS = [
     enDesc: "Once per turn any {ally} may swap cards face down with a comrade, by mutual consent.",
     img: "cards/card_discreete_deal.png"
   },
+  {
+    id: 1212,
+    title: "Колчан",
+    enTitle: "Quiver",
+    types: ["aura"],
+    qty: 1,
+    group: "aura",
+    icons: ["ranged", "charges"],
+    tags: ["draft", "toPrint"],
+    desc: "Метательные атаки {союзников} наносят +1 рану за каждые два метательных оружия, подложенных под ауру, всего не более +3. Любой союзник в свой ход может подложить их в открытую.",
+    enDesc: "Thrown attacks by {allies} deal +1 wound for every two thrown weapons tucked under the Aura, up to +3 in total. On their turn any ally may tuck them face up.",
+    img: "cards/card_1212_quiver.png"
+  },
 ];
