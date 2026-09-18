@@ -781,8 +781,8 @@ const CARDS = [
     qty: 2,
     group: "trap",
     icons: [],
-    tags: ["draft", "toPrint"],
-    desc: "При срабатывании любой {союзник} может сыграть вместо неё свою ловушку с руки или со стола как вмешательство. TODO: доделать арт — стоит вариант 1 из четырёх ночных в стиле Сапёра (18.09.2026), кандидат на замену — вариант 2 со вторым колышком.",
+    tags: ["toPrint"],
+    desc: "При срабатывании любой {союзник} может сыграть вместо неё свою ловушку с руки или со стола как вмешательство.",
     enDesc: "When it is triggered, any {ally} may play their own Trap in its place as an Intervention — from hand or from the table.",
     img: "cards/card_1050_tripwire.png"
   },
