@@ -775,8 +775,8 @@ const CARDS = [
   },
   {
     id: 1050,
-    title: "Растяжка",
-    enTitle: "Tripwire",
+    title: "Колокольчик",
+    enTitle: "Bell",
     types: ["trap"],
     qty: 2,
     group: "trap",
