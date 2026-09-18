@@ -2474,7 +2474,7 @@ const CARDS = [
     tags: ["draft", "toPrint"],
     desc: "Любой союзник в свой ход может подложить под ауру любое число модификаторов в открытую. За каждые два все атаки {союзников} наносят +1 рану, всего не более +3.",
     enDesc: "On their turn any ally may tuck any number of Modifiers face up under the Aura. For every two, all attacks by {allies} deal +1 wound, up to +3 in total.",
-    img: "cards/card_leader.png"
+    img: "cards/card_1200_dojo.png"
   },
   {
     id: 1201,
