@@ -2644,6 +2644,6 @@ const CARDS = [
     tags: ["draft", "toPrint"],
     desc: "Можно выложить перед собой в любой момент. Рука {носителя} лежит перед ним в открытую. {Союзники} могут играть эти карты как свои.",
     enDesc: "May be played in front of you at any moment. The {Bearer}'s hand lies face up in front of them. {Allies} may play these cards as their own.",
-    img: "cards/card_dream_of_ekai.png"
+    img: "cards/card_1213_son_ekaya.png"
   },
 ];
