@@ -2637,7 +2637,7 @@ const CARDS = [
     id: 1213,
     title: "Сон Ёкая",
     enTitle: "Yokai's Slumber",
-    types: ["aura"],
+    types: ["aura", "intervention"],
     qty: 1,
     group: "aura",
     icons: ["intervention"],
