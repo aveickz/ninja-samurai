@@ -162,10 +162,10 @@ const CARDS = [
     types: ["weapon"],
     qty: 2,
     group: "weapon",
-    icons: ["complexity1", "dmg2"],
-    tags: [],
-    desc: "",
-    enDesc: "",
+    icons: ["complexity1", "dmg2", "modifier"],
+    tags: ["toPrint"],
+    desc: "При атаке Катаной можно сыграть как модификатор: +2 к силе атаки.",
+    enDesc: "May be played as a modifier on a Katana attack: +2 attack power.",
     img: "cards/card_8_wakizashi.png"
   },
   {
