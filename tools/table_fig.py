@@ -34,6 +34,7 @@ LABELS = [
     ('hand',      (850, 380), (760, 315)),    # справа-снизу от веера
     ('trap',      (500, 645), (458, 612)),    # под ловушкой левого игрока, между жетонами и колодой
     ('character', (470, 445), (365, 532)),    # верхняя левая четверть
+    ('auracard',  (300, 432), (330, 480)),    # над картой ауры левого ниндзя, у кромки стола
     ('deck',      (500, 500), (560, 565)),    # слева-сверху от колоды
     ('discard',   (712, 614), (668, 588)),    # справа-снизу от сброса
     ('effect',    (790, 430), (856, 462)),    # над столбиком эффектов — к верхней карте («Пыль в глаза»)
@@ -85,7 +86,7 @@ TXT = {
   'hand': 'Рука', 'discard': 'Сброс', 'effect': 'Эффекты', 'life': 'Жизни',
   'vp': 'Победные очки', 'attack': 'Атака: оружие|+ модификатор',
   'poison': 'Яд', 'defense': 'Защита', 'trap': 'Ловушка', 'attacks': 'Атакует',
-  'defends': 'Защищается', 'intervenes': 'Вмешивается', 'aura': 'Аура — на весь стол',
+  'defends': 'Защищается', 'intervenes': 'Вмешивается', 'aura': 'Аура — на весь стол', 'auracard': 'Аура',
   'intervention': 'Вмешательство',
   'samurai': 'Самурай', 'ninja': 'Ниндзя',
   'h4': 'Стол',
@@ -111,7 +112,7 @@ TXT = {
   'hand': 'Hand', 'discard': 'Discard', 'effect': 'Effects', 'life': 'Life',
   'vp': 'Victory points', 'attack': 'Attack: weapon|+ modifier',
   'poison': 'Poison', 'defense': 'Defense', 'trap': 'Trap', 'attacks': 'Attacks',
-  'defends': 'Defends', 'intervenes': 'Intervenes', 'aura': 'Aura — whole table',
+  'defends': 'Defends', 'intervenes': 'Intervenes', 'aura': 'Aura — whole table', 'auracard': 'Aura',
   'intervention': 'Intervention',
   'samurai': 'Samurai', 'ninja': 'Ninja',
   'h4': 'The Table',
