@@ -2183,7 +2183,7 @@ const CARDS = [
     qty: 1,
     group: "intervention",
     icons: [],
-    tags: ["draft", "toPrint"],
+    tags: ["trash", "draft", "toPrint"],
     desc: "Следующее действие выбранного игрока завершит его ход. Сюда не входит скидывание парных карт. TODO: непонятно, что делать с картой — в черновик 18.09.2026.",
     enDesc: "The chosen player's next action ends their turn. Discarding paired cards does not count. TODO: unclear what to do with this card — moved to drafts 18.09.2026.",
     img: "cards/card_dream_of_ekai.png"
@@ -2635,8 +2635,8 @@ const CARDS = [
   },
   {
     id: 1213,
-    title: "Обоз",
-    enTitle: "Baggage Train",
+    title: "Сон Ёкая",
+    enTitle: "Yokai's Slumber",
     types: ["aura"],
     qty: 1,
     group: "aura",
@@ -2644,6 +2644,6 @@ const CARDS = [
     tags: ["draft", "toPrint"],
     desc: "Рука {носителя} лежит перед ним в открытую. Любой {союзник} в свой ход может сыграть карту из неё как свою.",
     enDesc: "The {Bearer}'s hand lies face up in front of them. On their turn any {ally} may play a card from it as their own.",
-    img: "cards/card_1213_baggage_train.png"
+    img: "cards/card_1213_yokai_slumber.png"
   },
 ];
