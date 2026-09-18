@@ -773,6 +773,19 @@ const CARDS = [
     enDesc: "Passes to the attacker as an Effect: they can no longer use weapons for direct attacks.",
     img: "cards/card_glass_wounds.png"
   },
+  {
+    id: 1050,
+    title: "Растяжка",
+    enTitle: "Tripwire",
+    types: ["trap"],
+    qty: 2,
+    group: "trap",
+    icons: ["intervention"],
+    tags: ["draft", "toPrint"],
+    desc: "Сама по себе ничего не делает. Когда срабатывает, любой {союзник} может сыграть ловушку из руки как вмешательство — она срабатывает на атакующего.",
+    enDesc: "Does nothing on its own. When it is triggered, any {ally} may play a Trap from hand as an Intervention — it fires at the attacker.",
+    img: "cards/card_1050_tripwire.png"
+  },
 
   // ── ЗАЩИТА (стр. 8) ──────────────────────────────────────────────
   {
@@ -2364,8 +2377,8 @@ const CARDS = [
     group: "character",
     icons: [],
     tags: ["toPrint"],
-    desc: "Можете защищаться от прямых атак оружием ценой одной раны. Можете сбросить карту защиты и взять 2.",
-    enDesc: "You may block direct attacks with a weapon at the cost of one wound. You may discard a Defense to draw 2.",
+    desc: "Можете защищаться от прямых атак оружием ценой одной раны. Можете сбросить карту защиты и взять 2.[NL]{После вашей смерти} сбросьте любое число оружия: выпад на 1 рану за каждое, всё по одному врагу.",
+    enDesc: "You may block direct attacks with a weapon at the cost of one wound. You may discard a Defense to draw 2.[NL]{After your death} discard any number of Weapons: a thrust for 1 wound each, all at one enemy.",
     img: "cards/card_139_handzo.png"
   },
 
