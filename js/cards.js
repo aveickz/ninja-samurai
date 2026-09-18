@@ -2627,7 +2627,7 @@ const CARDS = [
     types: ["aura"],
     qty: 1,
     group: "aura",
-    icons: ["ranged", "charges"],
+    icons: ["charges"],
     tags: ["draft", "toPrint"],
     desc: "Любой союзник в свой ход может подложить под ауру метательное оружие в открытую. За каждый комплект — по одному оружию на каждого живого игрока команды — метательные атаки {союзников} наносят +1 рану, всего не более +3.",
     enDesc: "On their turn any ally may tuck thrown weapons face up under the Aura. For every full set — one weapon per living player on your team — thrown attacks by {allies} deal +1 wound, up to +3 in total.",
