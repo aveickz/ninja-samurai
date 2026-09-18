@@ -2,10 +2,11 @@
 """Стол: у правого игрока вместо эффекта «Мастер боя» из фото — «Метка убийцы», над ней второй эффект
 «Пыль в глаза» (столбик эффектов растёт от персонажа «вправо» с точки зрения игрока — вверх картинки);
 плюс пример вмешательства союзника: верхний самурай — союзник атакующего — кладёт «Щитолом»
-от себя к центру стола, ломая защиту правого ниндзя. Карты повёрнуты как остальные карты своего игрока (верх — к центру стола).
+от себя к центру стола, ломая защиту правого ниндзя; плюс аура «Часовой» с фигуркой знамени
+перед левым ниндзя, над его персонажем и ролью. Карты повёрнуты как остальные карты своего игрока (верх — к центру стола).
 Аргументы: <src.webp> <out.webp>. Хелперы — как в compose-table-trap.py."""
 import sys, os
-from PIL import Image, ImageDraw, ImageFilter
+from PIL import Image, ImageDraw, ImageFilter, ImageOps
 sys.stdout.reconfigure(encoding='utf-8')
 os.chdir(r'C:\ninja_samurai\cardboard')
 src, out = sys.argv[1:3]
@@ -43,6 +44,12 @@ paste_center(im, down(rot(card_face('rules/media/cards/91.webp', **E), 90)), 877
 paste_center(im, down(rot(card_face('rules/media/cards/97.webp', **E), 90)), 877, 469)    # «Пыль в глаза» — следующий эффект в столбике
 # верхний игрок: верх карт — вниз (к центру), поворот на 180°; вмешательство — от него к центру стола
 paste_center(im, down(rot(card_face('rules/media/cards/1031.webp'), 180)), 705, 447)  # «Щитолом» союзника — между его картами и сбросом
+
+# левый игрок: аура — над персонажем и ролью (с его точки зрения «справа» — выше по картинке), с фигуркой знамени
+paste_center(im, down(rot(card_face('rules/media/cards/1209.webp', w=37*S, h=60*S), -90)), 349, 497)
+banner = Image.open('rules/media/fig/banner.webp').convert('RGBA')
+banner = ImageOps.contain(banner, (22*S, 34*S), Image.LANCZOS)
+paste_center(im, down(banner), 349, 494)
 
 im.save(out, 'WEBP', quality=90, method=6)
 print('written', out, im.size)

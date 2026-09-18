@@ -622,13 +622,18 @@ section.chapter::after { content: ""; display: block; clear: both; }
   font-family: 'PT Sans Narrow', 'PT Sans', Arial, sans-serif;
 }
 .table-overlay .tf-lines line { stroke: var(--vermilion-dk); stroke-width: 3.5; marker-end: url(#tf-arrow); }
-.table-overlay #tf-arrow path, .table-overlay #tf-arrow-big path { fill: var(--vermilion-dk); }
+.table-overlay #tf-arrow path, .table-overlay #tf-arrow-attack path { fill: var(--vermilion-dk); }
 /* Стрелка хода атаки: пунктир от атакующего к цели, поверх карт */
-.table-overlay .tf-flow { fill: none; stroke: var(--vermilion-dk); stroke-width: 10; stroke-dasharray: 18 11; stroke-linecap: round; opacity: .6; marker-end: url(#tf-arrow-big); }
-.table-overlay .tf-labels rect { fill: var(--paper-light); stroke: var(--gold); stroke-width: 2; }
+.table-overlay .tf-flow { fill: none; stroke: var(--vermilion-dk); stroke-width: 10; stroke-dasharray: 18 11; stroke-linecap: round; opacity: .6; marker-end: url(#tf-arrow-attack); }
+.table-overlay .tf-flow-def { stroke: #b8860b; marker-end: url(#tf-arrow-def); }      /* защита — золото карт защиты */
+.table-overlay .tf-flow-int { stroke: #3B8476; marker-end: url(#tf-arrow-int); }      /* вмешательство — цвет его карт */
+.table-overlay #tf-arrow-def path { fill: #b8860b; }
+.table-overlay #tf-arrow-int path { fill: #3B8476; }
+.table-pic .tf-icon { position: absolute; --ic: 6.5mm; transform: translate(-50%, -50%); box-shadow: 0 0 0 .5mm #fff; }   /* значок типа на конце стрелки защиты */
+.table-overlay .tf-labels rect { fill: #fff; }   /* простая белая плашка без обводки */
 .table-overlay .tf-num { fill: var(--vermilion-dk); }
 .table-overlay .tf-numtxt { fill: var(--paper-light); font-size: 24px; font-weight: 700; text-anchor: middle; dominant-baseline: central; }
-.table-overlay .tf-txt { fill: var(--ink); font-size: 27px; font-weight: 700; text-anchor: middle; dominant-baseline: central; }
+.table-overlay .tf-txt { fill: var(--ink); font-size: 27px; font-weight: 400; text-anchor: middle; dominant-baseline: central; }
 .table-overlay .tf-tags rect { fill: var(--vermilion-dk); }
 .table-overlay .tf-tags text { fill: var(--paper-light); font-size: 26px; font-weight: 700; letter-spacing: .04em; text-anchor: middle; dominant-baseline: central; }
 .table-figure figcaption {
