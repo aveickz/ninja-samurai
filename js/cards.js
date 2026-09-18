@@ -1987,10 +1987,10 @@ const CARDS = [
     qty: 1,
     group: "action",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Сыграв эту карту, возьмите по 1 карте из колоды за каждый недостающий жетон жизни (не более трёх).[NL]{Если вы отравлены}, возьмите дополнительно 1 карту ко всему добору.",
     enDesc: "Play this card and draw 1 card for every point of life you are missing.[NL]{If you are Poisoned}, draw 1 more card on top of that.",
-    img: "cards/card_smertnie_muki.png"
+    img: "cards/card_1122_smertnie_muki.png"
   },
   {
     id: 31121,
@@ -2601,10 +2601,10 @@ const CARDS = [
     qty: 1,
     group: "aura",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "При совершении прямой атаки оружием (до действий защищающегося), любой {союзник} может с согласия атакующего выставить оружие (как вмешательство), а его забрать себе.",
     enDesc: "When a direct weapon attack is made (before the defender acts), any {ally} may, with the attacker's consent, put a weapon into play as an Intervention and take the attacker's weapon for themselves.",
-    img: "cards/card_arsenal.png"
+    img: "cards/card_1210_arsenal.png"
   },
 
   {
