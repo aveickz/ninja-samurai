@@ -2524,8 +2524,8 @@ const CARDS = [
     group: "aura",
     icons: [],
     tags: ["draft", "toPrint"],
-    desc: "Любой {союзник} может разыграть карту защиты с руки как вмешательство в защиту другого союзника. Бонусы карты защиты при этом не сохраняются. TODO: переделать — в черновике с 18.09.2026 (см. LAST_IDEAS: две защиты за полную или носитель ауры сам не защищается).",
-    enDesc: "Any {ally} may play a Defense card from hand as an Intervention to defend another ally. The Defense card's own bonuses do not carry over. TODO: rework — draft since 18.09.2026.",
+    desc: "Любой {союзник} может сыграть карту защиты как вмешательство в защиту другого союзника — как полную защиту. {Носитель} ауры сам карты защиты играть не может.",
+    enDesc: "Any {ally} may play a Defense card as an Intervention to defend another ally — as a full defense. The Aura's {Bearer} cannot play Defense cards at all.",
     img: "cards/card_back_to_back.png"
   },
   {
