@@ -691,7 +691,7 @@ const CARDS = [
     tags: ["draft", "toPrint"],
     desc: "Бьёт только первой попыткой атаки за ход.",
     enDesc: "Strikes only as your first attack of the turn.",
-    img: "cards/card_todo.png"
+    img: "cards/card_322_otsuchi.png"
   },
   {
     id: 323,
