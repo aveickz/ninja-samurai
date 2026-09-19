@@ -717,7 +717,7 @@ const CARDS = [
     tags: ["draft", "toPrint"],
     desc: "Бьёт только второй попыткой атаки за ход. Если атаку отразили, попытка не тратится.",
     enDesc: "Strikes only as your second attack of the turn. If the attack is stopped, the attempt is not used up.",
-    img: "cards/card_todo.png"
+    img: "cards/card_324_kodachi.png"
   },
 
   // ── ЛОВУШКИ (стр. 7) ─────────────────────────────────────────────
