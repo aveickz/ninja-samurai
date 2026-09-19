@@ -2145,8 +2145,8 @@ const CARDS = [
     group: "intervention",
     icons: ["thrust"],
     tags: ["toPrint"],
-    desc: "Сыграйте эту карту, чтобы нанести одну рану любому выбранному игроку.[NL]Сыгранная вместе с {Яри} наносит на одну рану больше.",
-    enDesc: "Play this card to deal one wound to any player of your choice.[NL]Played together with a {Yari}, it deals one wound more.",
+    desc: "Сыграйте эту карту, чтобы нанести одну рану любому выбранному игроку. Можете сыграть её в паре с {Яри} с руки — тогда ран две.",
+    enDesc: "Play this card to deal one wound to any player of your choice. You may play it paired with a {Yari} from your hand — then it deals two wounds.",
     img: "cards/card_123_udar_drakona.png"
   },
   {
