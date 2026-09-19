@@ -1999,10 +1999,10 @@ const CARDS = [
     types: ["action"],
     qty: 1,
     group: "action",
-    icons: [],
-    tags: [],
-    desc: "В открытую передайте эту карту любому активному игроку, взамен он обязан вам дать одну карту по своему желанию в закрытую. Эту карту нельзя положить в сброс, только обратно в колоду сверху.",
-    enDesc: "Pass this card face up to any living player; in exchange they must give you one card of their choice, face down. This card cannot go to the discard pile — only back on top of the deck.",
+    icons: ["rolectx"],
+    tags: ["toPrint"],
+    desc: "В открытую передайте эту карту живому врагу — от {Самурая} к {Ниндзя} или обратно, внутри команды никогда; взамен он обязан дать вам одну карту по своему желанию в закрытую. В сброс эта карта не идёт.",
+    enDesc: "Pass this card face up to a living enemy — from a {Samurai} to a {Ninja} or back, never within a team; in exchange they must give you one card of their choice, face down. This card never goes to the discard pile.",
     img: "cards/card_hot_potato.png"
   },
   {
