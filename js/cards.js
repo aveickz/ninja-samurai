@@ -680,6 +680,32 @@ const CARDS = [
     enDesc: "TODO: this is not a weapon. Attack power 0 — it cannot strike at all. The intent is that the baton commands: it decides who draws cards or who acts next. Decide whether the card stays in the weapon group or moves to actions.",
     img: "cards/card_321_saihai.png"
   },
+  {
+    id: 322,
+    title: "Оцути",
+    enTitle: "Otsuchi",
+    types: ["weapon"],
+    qty: 1,
+    group: "weapon",
+    icons: ["complexity1", "dmg3"],
+    tags: ["draft", "toPrint"],
+    desc: "Бьёт только первой попыткой атаки за ход.",
+    enDesc: "Strikes only as your first attack of the turn.",
+    img: "cards/card_todo.png"
+  },
+  {
+    id: 323,
+    title: "Нагамаки",
+    enTitle: "Nagamaki",
+    types: ["weapon"],
+    qty: 1,
+    group: "weapon",
+    icons: ["complexity2", "dmg2"],
+    tags: ["draft", "toPrint"],
+    desc: "Бьёт только первой попыткой атаки за ход.",
+    enDesc: "Strikes only as your first attack of the turn.",
+    img: "cards/card_todo.png"
+  },
 
   // ── ЛОВУШКИ (стр. 7) ─────────────────────────────────────────────
   {
