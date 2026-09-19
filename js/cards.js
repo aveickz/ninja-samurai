@@ -706,6 +706,19 @@ const CARDS = [
     enDesc: "Strikes only as your first attack of the turn.",
     img: "cards/card_323_nagamaki.png"
   },
+  {
+    id: 324,
+    title: "Кодати",
+    enTitle: "Kodachi",
+    types: ["weapon"],
+    qty: 1,
+    group: "weapon",
+    icons: ["complexity1", "dmg2"],
+    tags: ["draft", "toPrint"],
+    desc: "Бьёт только второй попыткой атаки за ход. Если атаку отразили, попытка не тратится.",
+    enDesc: "Strikes only as your second attack of the turn. If the attack is stopped, the attempt is not used up.",
+    img: "cards/card_todo.png"
+  },
 
   // ── ЛОВУШКИ (стр. 7) ─────────────────────────────────────────────
   {
