@@ -1567,10 +1567,10 @@ const CARDS = [
     types: ["aoe"],
     qty: 1,
     group: "aoe",
-    icons: [],
-    tags: [],
-    desc: "Все живые союзники выкладывают одну карту в открытую перед собой, вы выбираете какой из союзников получит какую. Нельзя остаться при своей карте.",
-    enDesc: "Every living ally lays out one card face up in front of them, and you decide which ally gets which. No one may keep their own card.",
+    icons: ["charctx"],
+    tags: ["toPrint"],
+    desc: "Каждый живой союзник может выложить одну карту в открытую. Выложенные карты союзники разбирают по общему согласию. Сыгравший её {Таранага} позволяет выложить по две.",
+    enDesc: "Each living ally may lay one card face up. The allies then share out the cards laid by common consent. If {Taranaga} plays it, allies may lay two each.",
     img: "cards/card_forum.png"
   },
   {
