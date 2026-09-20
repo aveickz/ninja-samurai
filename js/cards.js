@@ -2131,9 +2131,9 @@ const CARDS = [
     qty: 2,
     group: "intervention",
     icons: [],
-    tags: [],
-    desc: "Сыграйте эту карту, чтобы восстановить любому игроку один жетон жизни.",
-    enDesc: "Play this card to restore one life to any player.",
+    tags: ["toPrint"],
+    desc: "Сыграйте эту карту, чтобы восстановить любому игроку один жетон жизни. Можете сыграть её в паре с {Васаби} с руки — тогда жетонов два.",
+    enDesc: "Play this card to restore one life to any player. You may play it paired with a {Wasabi} from your hand — then it restores two.",
     img: "cards/card_122_imbir.png"
   },
   {
