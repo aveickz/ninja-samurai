@@ -1000,16 +1000,16 @@ const CARDS = [
   },
   {
     id: 60,
-    title: "Щитоносец",
-    enTitle: "Shield Bearer",
+    title: "О-ёрой",
+    enTitle: "Ō-yoroi",
     types: ["stance"],
     qty: 2,
     group: "stance",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Каждый раз при прямой атаке по вам снижаете урон на один. Дополнительно можете скинуть карту с руки за каждое снижение урона (не менее 1).[NL]Каждый раз, используя защиту, вы берёте одну карту из колоды.",
     enDesc: "Reduce every direct attack against you by 1 wound. You may discard a card from your hand for each further reduction (never below 1).[NL]Whenever you play a Defense, draw a card.",
-    img: "cards/card_60_shchitonosec.png"
+    img: "cards/card_60_oyoroi.png"
   },
   {
     id: 61,
