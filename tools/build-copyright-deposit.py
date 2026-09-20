@@ -5,21 +5,24 @@
 английская, в конце — двуязычный реестр карт. Реквизиты (название, автор,
 репозиторий) — из copyright.md, там же состав и журнал депонирований.
 
-Всё рендерит headless Chrome по file:// (правила и картотека — теми же
-print-css, что и обычная печать), склеивает PyMuPDF: каждая страница
-вписывается в A4, снизу справа — сквозной номер, по разделам — закладки.
+Два этапа. Сначала куски: каждый раздел — отдельный PDF в
+print/copyright_deposit_parts/<ключ>.pdf, рендерится headless Chrome по
+file:// (правила и картотека — теми же print-css, что и обычная печать),
+картинки сразу пережаты в JPEG. Куски независимы и рисуются параллельно,
+каждый в своём процессе. Потом сборка: титул и содержание по фактическим
+страницам, каждая страница вписана в A4, сквозной номер снизу справа,
+закладки по разделам.
 
-Разделы рендерятся по одному в кэш print/copyright_deposit_parts/<ключ>.pdf
-(уже с пережатыми картинками); сборка берёт готовые куски и перерисовывает
-только недостающие — полный прогон картотеки занимает минуту на язык.
-
-    py -3 tools/build-copyright-deposit.py                 # недостающие разделы + сборка → print/copyright_deposit_<дата>.pdf
-    py -3 tools/build-copyright-deposit.py --redo cards-ru,registry   # перерисовать эти разделы, остальные из кэша
-    py -3 tools/build-copyright-deposit.py --redo all      # всё заново
-    py -3 tools/build-copyright-deposit.py --list          # разделы и состояние кэша, без сборки
+    py -3 tools/build-copyright-deposit.py                 # недостающие куски + сборка → print/copyright_deposit_<дата>.pdf
+    py -3 tools/build-copyright-deposit.py list            # куски и состояние кэша
+    py -3 tools/build-copyright-deposit.py part cards-ru rules-ru   # перерисовать эти куски
+    py -3 tools/build-copyright-deposit.py part --all -j 6 # все куски заново, по шесть разом
+    py -3 tools/build-copyright-deposit.py assemble        # только склейка из кэша
     py -3 tools/build-copyright-deposit.py --out X.pdf --quality 75
 """
-import os, sys, re, json, html, zipfile, hashlib, argparse, datetime, subprocess
+import os, sys, re, json, html, zipfile, hashlib, argparse, datetime, subprocess, tempfile, shutil, time
+import concurrent.futures
+import importlib.util
 import fitz
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -115,11 +118,15 @@ def load_cards():
 
 def chrome_pdf(url, out, budget=10000):
     out = os.path.abspath(out)     # относительный путь Chrome разрешает не от нашего cwd
-    subprocess.run([CHROME, '--headless', '--disable-gpu', '--hide-scrollbars', '--no-pdf-header-footer',
-                    f'--virtual-time-budget={budget}', f'--print-to-pdf={out}', url],
-                   stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True)
+    profile = tempfile.mkdtemp(prefix='deposit_chrome_')   # свой профиль: параллельные Chrome не делят lock
+    try:
+        subprocess.run([CHROME, '--headless', '--disable-gpu', '--hide-scrollbars', '--no-pdf-header-footer',
+                        f'--user-data-dir={profile}', f'--virtual-time-budget={budget}', f'--print-to-pdf={out}', url],
+                       stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True)
+    finally:
+        shutil.rmtree(profile, ignore_errors=True)
     if not os.path.exists(out) or os.path.getsize(out) < 1000:
-        sys.exit(f'Chrome не напечатал {url}')
+        raise RuntimeError(f'Chrome не напечатал {url}')
     return out
 
 
@@ -184,6 +191,11 @@ tr { page-break-inside: avoid; break-inside: avoid; }
 .figr img { height: 28mm; width: auto; }
 .figink figure { width: 44mm; }
 .figink img { height: 46mm; width: auto; }
+/* 3D-модели */
+.models td { vertical-align: middle; text-align: center; padding: 3mm 2mm; }
+.models td.cap { text-align: left; width: 38mm; font-weight: 600; }
+.models td.cap span { display: block; font-weight: 400; font-family: Consolas, monospace; }
+.models img { max-width: 62mm; max-height: 52mm; display: block; margin: 0 auto; }
 """
 
 
@@ -270,10 +282,11 @@ def page_backs():
             f'по центру в пропорции 5:8. Одни на обе языковые версии.</p>' + gallery(items, 'backs'))
 
 
-def page_figures(work):
+def page_figures():
     items = []
+    os.makedirs(PARTS_DIR, exist_ok=True)
     for src, cap in MODELS_3MF:
-        png = os.path.join(work, os.path.basename(src) + '.png')
+        png = os.path.join(PARTS_DIR, os.path.basename(src) + '.png')
         with zipfile.ZipFile(src) as z:
             open(png, 'wb').write(z.read('Metadata/plate_1.png'))
         items.append((os.path.relpath(png, ROOT), cap))
@@ -285,7 +298,25 @@ def page_figures(work):
             f'<div class="blk"><h3>Тушевые иллюстрации фигурок (правила)</h3>{gallery(FIG_INK, "figink")}</div>')
 
 
-# ── Разделы: рендер по одному в кэш ─────────────────────────────────
+def page_models():
+    """Рендеры .glb заливкой и сеткой из 3d/preview/ (tools/render-glb.py); недостающие дорисовывает."""
+    spec = importlib.util.spec_from_file_location('render_glb', os.path.join(ROOT, 'tools', 'render-glb.py'))
+    rg = importlib.util.module_from_spec(spec); spec.loader.exec_module(rg)
+    subprocess.run([sys.executable, 'tools/render-glb.py'], check=True, stdout=subprocess.DEVNULL)
+    rows = ''
+    for key, src, cap, _color, _cam in rg.MODELS:
+        rows += (f'<tr><td class="cap">{html.escape(cap)}<span class="muted small">{html.escape(os.path.basename(src))}</span></td>'
+                 f'<td><img src="{file_url(f"{rg.OUT}/{key}.png")}" alt=""></td>'
+                 f'<td><img src="{file_url(f"{rg.OUT}/{key}-mesh.png")}" alt=""></td></tr>')
+    return (f'<h2>3D-модели фигурок · 3D models</h2>'
+            f'<p class="muted small">Каждая модель в двух видах: заливка с материалами из файла и сетка — '
+            f'светлая заливка с рёбрами треугольников. Рендер three.js в headless Chrome, один ракурс на все модели. · '
+            f'Each model shaded with its own materials and as a wireframe over a light fill.</p>'
+            f'<table class="models"><thead><tr><th>Фигурка · Figure</th><th>Заливка · Shaded</th><th>Сетка · Mesh</th></tr></thead>'
+            f'<tbody>{rows}</tbody></table>')
+
+
+# ── Разделы: каждый — отдельный PDF в кэше ──────────────────────────
 
 def recompress_images(doc, quality):
     """Flate-картинки (Chrome кладёт PNG как есть — 200 МБ на прогон картотеки)
@@ -325,31 +356,60 @@ def render_url(name, rel, query='', budget=10000):
     return chrome_pdf(file_url(rel, query), os.path.join(PARTS_DIR, name + '.raw.pdf'), budget=budget)
 
 
-def parts_spec(cards):
-    """Ключ → заголовок для содержания и закладок, рендер сырого PDF, язык подпунктов по группам карт."""
-    return [
-        ('rules-ru',    'Правила игры (рус.)',          lambda: render_url('rules-ru', 'rules/rules.html'), None),
-        ('cheat-ru',    'Памятка игрока (рус.)',         lambda: render_url('cheat-ru', 'rules/cheatsheet.html'), None),
-        ('cards-ru',    'Карты (рус.)',                  lambda: render_url('cards-ru', 'app.html', budget=30000), 'ru'),
-        ('backs',       'Рубашки карт',                  lambda: render_html('backs', page_backs(), 'Рубашки'), None),
-        ('figures',     'Фигурки и жетоны — 3D-модели',  lambda: render_html('figures', page_figures(PARTS_DIR), 'Фигурки'), None),
-        ('rules-en',    'Game rules (English)',          lambda: render_url('rules-en', 'rules/rules-en.html'), None),
-        ('cheat-en',    'Player cheat sheet (English)',  lambda: render_url('cheat-en', 'rules/cheatsheet-en.html'), None),
-        ('cards-en',    'Cards (English)',               lambda: render_url('cards-en', 'app.html', '?lang=en', budget=30000), 'en'),
-        ('registry',    'Реестр карт · Card registry',   lambda: render_html('registry', page_registry(cards), 'Реестр карт'), None),
-    ]
+# Раздел: ключ → заголовок (содержание, закладки), как рендерить, язык подпунктов по группам карт,
+# входит ли в книгу. Порядок списка = порядок в книге. Рендер описан данными, а не замыканиями:
+# куски рисуются в отдельных процессах, и спецификация должна переживать pickle.
+#   ('url', <файл относительно корня>, <query>, <virtual-time-budget>)  — страницы проекта как есть
+#   ('html', <имя функции page_*>)                                       — служебная страница
+PARTS = [
+    dict(key='rules-ru', title='Правила игры (рус.)',         how=('url', 'rules/rules.html', '', 10000)),
+    dict(key='cheat-ru', title='Памятка игрока (рус.)',        how=('url', 'rules/cheatsheet.html', '', 10000)),
+    dict(key='cards-ru', title='Карты (рус.)',                 how=('url', 'app.html', '', 30000), subs='ru'),
+    dict(key='backs',    title='Рубашки карт',                 how=('html', 'page_backs')),
+    dict(key='figures',  title='Фигурки и жетоны — 3D-модели', how=('html', 'page_figures')),
+    dict(key='rules-en', title='Game rules (English)',         how=('url', 'rules/rules-en.html', '', 10000)),
+    dict(key='cheat-en', title='Player cheat sheet (English)', how=('url', 'rules/cheatsheet-en.html', '', 10000)),
+    dict(key='cards-en', title='Cards (English)',              how=('url', 'app.html', '?lang=en', 30000), subs='en'),
+    dict(key='registry', title='Реестр карт · Card registry',  how=('html', 'page_registry')),
+    # Пока отдельным PDF, в книгу не входит: рендеры .glb заливкой и сеткой (tools/render-glb.py).
+    dict(key='models',   title='3D-модели фигурок · 3D models', how=('html', 'page_models'), book=False),
+]
+PART_BY_KEY = {p['key']: p for p in PARTS}
+CARDS_PER_PAGE = 9      # печать картотеки: сетка 3×3
 
 
-def build_part(key, render, quality):
-    """Сырой PDF от Chrome → пережатые картинки → print/copyright_deposit_parts/<key>.pdf."""
-    raw = render()
+def part_path(key):
+    return os.path.join(PARTS_DIR, key + '.pdf')
+
+
+def render_part(key, quality):
+    """Один раздел: сырой PDF от Chrome → пережатые картинки → print/copyright_deposit_parts/<key>.pdf.
+    Запускается в отдельном процессе — всё нужное берёт сам (карты через node, реквизиты из copyright.md)."""
+    os.makedirs(PARTS_DIR, exist_ok=True)
+    spec = PART_BY_KEY[key]
+    how = spec['how']
+    t0 = time.time()
+    if how[0] == 'url':
+        raw = render_url(key, how[1], how[2], how[3])
+    else:
+        builder = globals()[how[1]]
+        body = builder(load_cards()) if how[1] == 'page_registry' else builder()
+        raw = render_html(key, body, spec['title'])
     doc = fitz.open(raw)
-    recompress_images(doc, quality)
-    dst = os.path.join(PARTS_DIR, key + '.pdf')
-    doc.save(dst, garbage=4, deflate=True)
+    n = recompress_images(doc, quality)
+    doc.save(part_path(key), garbage=4, deflate=True)
+    pages = doc.page_count
     doc.close()
     os.remove(raw)
-    return dst
+    return key, pages, n, time.time() - t0
+
+
+def render_parts(keys, quality, jobs):
+    """Куски независимы — каждый в своём процессе с собственным Chrome."""
+    print(f'  рисую {len(keys)} разд.: {", ".join(keys)} (параллельно {min(jobs, len(keys))})', flush=True)
+    with concurrent.futures.ProcessPoolExecutor(max_workers=max(1, min(jobs, len(keys)))) as pool:
+        for key, pages, n, sec in pool.map(render_part, keys, [quality] * len(keys)):
+            print(f'  ✓ {key:9} {pages:3} стр., {n} картинок в JPEG, {sec:.0f} с', flush=True)
 
 
 def group_subs(cards, lang):
@@ -358,52 +418,25 @@ def group_subs(cards, lang):
     for i, c in enumerate(cards):
         g = c.get('group') or 'action'
         if g not in seen:
-            seen.add(g); subs.append((GROUP_LABEL[lang].get(g, g), i // 9))
+            seen.add(g); subs.append((GROUP_LABEL[lang].get(g, g), i // CARDS_PER_PAGE))
     return subs
 
 
-# ── Сборка ───────────────────────────────────────────────────────────
+# ── Сборка книги из кусков ───────────────────────────────────────────
 
-def main():
-    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument('--out', help='куда писать PDF (по умолчанию print/copyright_deposit_<дата>.pdf)')
-    ap.add_argument('--redo', default='', help='какие разделы перерисовать: ключи через запятую или all')
-    ap.add_argument('--list', action='store_true', help='показать разделы и состояние кэша, без сборки')
-    ap.add_argument('--quality', type=int, default=85, help='JPEG-качество картинок (85); действует на перерисовываемые разделы')
-    args = ap.parse_args()
-
-    if not os.path.exists(CHROME):
-        sys.exit(f'Нет Chrome: {CHROME}')
-    os.makedirs(PARTS_DIR, exist_ok=True)
+def assemble(out, quality):
     meta = read_meta()
     rev, rev_date = git_rev()
     cards = load_cards()
-    spec = parts_spec(cards)
-    keys = [k for k, *_ in spec]
-
-    redo = set(keys) if args.redo == 'all' else {k.strip() for k in args.redo.split(',') if k.strip()}
-    if redo - set(keys):
-        sys.exit(f'неизвестные разделы: {", ".join(sorted(redo - set(keys)))}; есть: {", ".join(keys)}')
-    if args.list:
-        for k, title, *_ in spec:
-            p = os.path.join(PARTS_DIR, k + '.pdf')
-            state = (f'{fitz.open(p).page_count} стр., {datetime.datetime.fromtimestamp(os.path.getmtime(p)):%d.%m %H:%M}'
-                     if os.path.exists(p) else 'нет')
-            print(f'  {k:12} {title:34} {state}')
-        return
-
-    # 1. Разделы: из кэша, недостающие и запрошенные — заново.
-    docs = []
-    for key, title, render, lang in spec:
-        dst = os.path.join(PARTS_DIR, key + '.pdf')
-        if key in redo or not os.path.exists(dst):
-            print(f'  … {key}' + (' (картотека, ~1 мин)' if key.startswith('cards') else ''), flush=True)
-            dst = build_part(key, render, args.quality)
-        docs.append((title, fitz.open(dst), group_subs(cards, lang) if lang else []))
+    book = [p for p in PARTS if p.get('book', True)]
+    missing = [p['key'] for p in book if not os.path.exists(part_path(p['key']))]
+    if missing:
+        sys.exit(f'нет кусков: {", ".join(missing)} — сначала  py -3 tools/build-copyright-deposit.py part {" ".join(missing)}')
+    docs = [(p['title'], fitz.open(part_path(p['key'])), group_subs(cards, p['subs']) if p.get('subs') else []) for p in book]
     content_pages = sum(d.page_count for _, d, _ in docs)
 
-    # 2. Титул + содержание: номера страниц зависят от длины самого содержания,
-    #    поэтому печатаем, считаем страницы и при расхождении печатаем ещё раз.
+    # Титул + содержание: номера страниц зависят от длины самого содержания,
+    # поэтому печатаем, считаем страницы и при расхождении печатаем ещё раз.
     front_pages, front = 2, None
     for _ in range(3):
         total = front_pages + content_pages
@@ -412,25 +445,26 @@ def main():
             entries.append((i, title, page))
             page += d.page_count
         body = page_cover(meta, rev, rev_date, total, len(cards)) + page_toc(entries)
-        print('  … титул и содержание', flush=True)
+        raw = render_html('front', body, meta['title'])
         if front:
             front.close()   # иначе Windows не даст перезаписать front.pdf
-        front = fitz.open(build_part('front', lambda: render_html('front', body, meta['title']), args.quality))
+        front = fitz.open(raw); recompress_images(front, quality)
+        front.save(part_path('front'), garbage=4, deflate=True); front.close(); os.remove(raw)
+        front = fitz.open(part_path('front'))
         if front.page_count == front_pages:
             break
         front_pages = front.page_count
     else:
         sys.exit('титул и содержание не сходятся по числу страниц')
 
-    # 3. Склейка: каждая страница вписывается в A4 (альбомные — в альбомный A4),
-    #    сквозной номер снизу справа, закладки по разделам; одинаковые картинки
-    #    (арт RU и EN карт — один JPEG) схлопывает garbage=4.
+    # Каждая страница вписывается в A4 (альбомные — в альбомный A4), сквозной номер
+    # снизу справа, закладки по разделам и группам карт; одинаковые картинки
+    # (арт RU и EN карт — один JPEG) схлопывает garbage=4.
     pdf = fitz.open()
     toc, footer_label = [], f'{meta["title"]} · депонирование'
     segoe = fitz.Font(fontfile=SEGOE)
-    def add(src, title=None, subs=()):
-        if title:
-            toc.append([1, title, pdf.page_count + 1])
+    def add(src, title, subs=()):
+        toc.append([1, title, pdf.page_count + 1])
         toc.extend([2, t, pdf.page_count + 1 + off] for t, off in subs)
         for i in range(src.page_count):
             r = src[i].rect
@@ -457,7 +491,6 @@ def main():
                           creator='tools/build-copyright-deposit.py', producer='PyMuPDF',
                           creationDate=fitz.get_pdf_now(), modDate=fitz.get_pdf_now()))
     pdf.subset_fonts()
-    out = args.out or os.path.join('print', f'copyright_deposit_{datetime.date.today():%Y-%m-%d}.pdf')
     os.makedirs(os.path.dirname(out) or '.', exist_ok=True)
     pdf.save(out, garbage=4, deflate=True)
     for _, d, _ in docs: d.close()
@@ -467,6 +500,50 @@ def main():
     size = os.path.getsize(out) / 1e6
     print(f'\n{out}\n{total} страниц · {size:.1f} МБ · {len(cards)} карт · git {rev}\nSHA-256 {sha}')
     print(f'\nСтрока для журнала в copyright.md:\n| {datetime.date.today():%d.%m.%Y} | nris.ru | — | {os.path.basename(out)} | {total} | {sha[:16]}… | {rev.split()[0]} |')
+    extra = [p for p in PARTS if not p.get('book', True) and os.path.exists(part_path(p['key']))]
+    for p in extra:
+        print(f'отдельно, в книгу не входит: {part_path(p["key"])} — {p["title"]}')
+
+
+def list_parts():
+    for p in PARTS:
+        path = part_path(p['key'])
+        state = (f'{fitz.open(path).page_count} стр., {datetime.datetime.fromtimestamp(os.path.getmtime(path)):%d.%m %H:%M}'
+                 if os.path.exists(path) else 'нет')
+        print(f'  {p["key"]:9} {p["title"]:34} {state}{"" if p.get("book", True) else "   (отдельно, в книгу не входит)"}')
+
+
+def main():
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument('cmd', nargs='?', choices=['part', 'assemble', 'list'], help='без подкоманды: недостающие куски + сборка')
+    ap.add_argument('keys', nargs='*', help='part: какие куски рисовать (пусто — недостающие)')
+    ap.add_argument('--all', action='store_true', help='part: все куски заново')
+    ap.add_argument('-j', '--jobs', type=int, default=4, help='сколько кусков рисовать одновременно (4)')
+    ap.add_argument('--out', help='assemble: куда писать PDF (по умолчанию print/copyright_deposit_<дата>.pdf)')
+    ap.add_argument('--quality', type=int, default=85, help='JPEG-качество картинок (85); действует на рисуемые куски')
+    args = ap.parse_args()
+    if not os.path.exists(CHROME):
+        sys.exit(f'Нет Chrome: {CHROME}')
+    os.makedirs(PARTS_DIR, exist_ok=True)
+    unknown = set(args.keys) - set(PART_BY_KEY)
+    if unknown:
+        sys.exit(f'неизвестные куски: {", ".join(sorted(unknown))}; есть: {", ".join(PART_BY_KEY)}')
+
+    if args.cmd == 'list':
+        list_parts(); return
+    if args.cmd in (None, 'part'):
+        if args.all:
+            keys = list(PART_BY_KEY)
+        elif args.keys:
+            keys = args.keys
+        else:
+            keys = [k for k in PART_BY_KEY if not os.path.exists(part_path(k))]
+        if keys:
+            render_parts(keys, args.quality, args.jobs)
+        else:
+            print('  все куски на месте — нечего рисовать (part --all или part <ключи>, чтобы заново)')
+    if args.cmd in (None, 'assemble'):
+        assemble(args.out or os.path.join('print', f'copyright_deposit_{datetime.date.today():%Y-%m-%d}.pdf'), args.quality)
 
 
 if __name__ == '__main__':

@@ -19,20 +19,29 @@
 ## Сборка PDF для депонирования
 
 ```
-py -3 tools/build-copyright-deposit.py                        # → print/copyright_deposit_<дата>.pdf
-py -3 tools/build-copyright-deposit.py --list                 # разделы и что уже в кэше
-py -3 tools/build-copyright-deposit.py --redo cards-ru        # перерисовать раздел, остальные из кэша
-py -3 tools/build-copyright-deposit.py --redo all             # всё заново
-py -3 tools/build-copyright-deposit.py --out my.pdf --quality 75
+py -3 tools/build-copyright-deposit.py                        # недостающие куски + сборка → print/copyright_deposit_<дата>.pdf
+py -3 tools/build-copyright-deposit.py list                   # куски и что уже в кэше
+py -3 tools/build-copyright-deposit.py part cards-ru registry # перерисовать эти куски
+py -3 tools/build-copyright-deposit.py part --all -j 6        # все куски заново, по шесть параллельно
+py -3 tools/build-copyright-deposit.py assemble               # только склейка из кэша (3 секунды)
+py -3 tools/build-copyright-deposit.py assemble --out my.pdf --quality 75
 ```
 
-Разделы рендерятся по одному и лежат в кэше `print/copyright_deposit_parts/`
-(в git не попадает): `rules-ru`, `cheat-ru`, `cards-ru`, `backs`, `figures`,
-`rules-en`, `cheat-en`, `cards-en`, `registry`. Сборка берёт готовые куски,
-рисует только недостающие и то, что названо в `--redo`; титул и содержание
-перерисовываются всегда (секунды). Поменял карту — `--redo
-cards-ru,cards-en,registry`; поправил правила — `--redo rules-ru` и так
-далее. Кусок можно открыть и проверить отдельно, не дожидаясь всей книги.
+Два этапа. **Куски** — каждый раздел отдельным PDF в кэше
+`print/copyright_deposit_parts/<ключ>.pdf` (в git не попадает): `rules-ru`,
+`cheat-ru`, `cards-ru`, `backs`, `figures`, `rules-en`, `cheat-en`,
+`cards-en`, `registry`, `models`. Куски независимы и рисуются параллельно,
+каждый в своём процессе со своим Chrome (`-j`, по умолчанию 4): все десять
+заново — около минуты вместо четырёх, упираются в два прогона картотеки по
+минуте. **Сборка** берёт готовые куски: титул и содержание по фактическим
+страницам, A4, нумерация, закладки. Поменял карту — `part cards-ru cards-en
+registry`; поправил правила — `part rules-ru`; потом `assemble`. Кусок можно
+открыть и проверить отдельно, не дожидаясь всей книги.
+
+`models` — 3D-модели фигурок заливкой и сеткой (`tools/render-glb.py`,
+превью в `3d/preview/`) — пока **отдельный PDF, в книгу не входит**:
+`print/copyright_deposit_parts/models.pdf`. Чтобы включить, убрать
+`book=False` у него в `PARTS`.
 
 Один самодостаточный PDF, все страницы A4, сквозная нумерация в нижнем
 правом углу, закладки по разделам. Порядок разделов:
@@ -55,9 +64,18 @@ cards-ru,cards-en,registry`; поправил правила — `--redo rules-r
    по-русски и по-английски, количество. Без текстов эффектов — они на
    самих картах. Из `js/cards.js`, порядок как на страницах карт.
 
+Отдельно: 3D-модели фигурок (`models`) — знамя, жетон жизни, очко победы,
+две ловушки, бутылка яда; каждая заливкой с материалами файла и сеткой.
+Рендер `tools/render-glb.py`: three.js-страница `tools/glb-view.html` в
+headless Chrome (WebGL через SwiftShader, прозрачный фон), превью лежат в
+`3d/preview/<key>.png` и `<key>-mesh.png`. У бутылки яда `.glb` нет — её
+меш вытаскивает из проекта Bambu `tools/mf2glb.py` (3MF → GLB без
+зависимостей, масштаб как напечатано). `fighers.glb` и `honor.glb` в
+список не входят.
+
 Нужны: Chrome (`C:\Program Files\Google\Chrome\Application\chrome.exe`),
-PyMuPDF, Pillow, node (читает `js/cards.js`), интернет — правила и
-картотека тянут Google Fonts и jQuery с CDN.
+PyMuPDF, Pillow, numpy, node (читает `js/cards.js`), интернет — правила и
+картотека тянут Google Fonts и jQuery с CDN, рендер моделей — three.js.
 
 Картинки пережимаются в JPEG в исходном разрешении (по умолчанию quality
 85) при рендере раздела: без этого один прогон картотеки весит 200 МБ.
