@@ -504,9 +504,9 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["ranged", "dmg1"],
-    tags: [],
-    desc: "",
-    enDesc: "",
+    tags: ["toPrint"],
+    desc: "{При наличии ловушки} наносит на одну рану больше.",
+    enDesc: "{With a Trap in play} deals one wound more.",
     img: "cards/card_34_syuriken.png"
   },
   {
@@ -543,9 +543,9 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["ranged", "dmg1", "poison"],
-    tags: ["poison"],
-    desc: "",
-    enDesc: "",
+    tags: ["poison", "toPrint"],
+    desc: "{При наличии ловушки} наносит на одну рану больше.",
+    enDesc: "{With a Trap in play} deals one wound more.",
     img: "cards/card_34_syuriken.png"
   },
   {
