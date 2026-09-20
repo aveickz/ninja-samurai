@@ -38,10 +38,9 @@ py -3 tools/build-copyright-deposit.py assemble --out my.pdf --quality 75
 registry`; поправил правила — `part rules-ru`; потом `assemble`. Кусок можно
 открыть и проверить отдельно, не дожидаясь всей книги.
 
-`models` — 3D-модели фигурок заливкой и сеткой (`tools/render-glb.py`,
-превью в `3d/preview/`) — пока **отдельный PDF, в книгу не входит**:
-`print/copyright_deposit_parts/models.pdf`. Чтобы включить, убрать
-`book=False` у него в `PARTS`.
+Кусок можно оставить отдельным PDF, не включая в книгу: `book=False` у
+него в `PARTS` — он рисуется в кэш, а сборка его пропускает и называет в
+конце.
 
 Один самодостаточный PDF, все страницы A4, сквозная нумерация в нижнем
 правом углу, закладки по разделам. Порядок разделов:
@@ -58,20 +57,19 @@ registry`; поправил правила — `part rules-ru`; потом `asse
 7. Фигурки и жетоны — превью с плиты из `3d/*.3mf`, рендеры из
    `rules/media/fig/`, тушевые иллюстрации `rules/media/fig/ink/`.
    Списков файлов в документе нет — только картинки с подписями.
-8–10. Английская версия: `rules/rules-en.html`, `rules/cheatsheet-en.html`,
+8. 3D-модели фигурок (`models`) — знамя, жетон жизни, очко победы, две
+   ловушки, бутылка яда; каждая заливкой с материалами файла и сеткой.
+   Рендер `tools/render-glb.py`: three.js-страница `tools/glb-view.html` в
+   headless Chrome (WebGL через SwiftShader, прозрачный фон), превью лежат
+   в `3d/preview/<key>.png` и `<key>-mesh.png`, кусок дорисовывает
+   недостающие сам. У бутылки яда `.glb` нет — её меш вытаскивает из
+   проекта Bambu `tools/mf2glb.py` (3MF → GLB без зависимостей, масштаб как
+   напечатано). `fighers.glb` и `honor.glb` в список не входят.
+9–11. Английская версия: `rules/rules-en.html`, `rules/cheatsheet-en.html`,
    `app.html?lang=en`.
-11. Реестр карт — один на оба языка, в самом конце: №, ID, название и тип
+12. Реестр карт — один на оба языка, в самом конце: №, ID, название и тип
    по-русски и по-английски, количество. Без текстов эффектов — они на
    самих картах. Из `js/cards.js`, порядок как на страницах карт.
-
-Отдельно: 3D-модели фигурок (`models`) — знамя, жетон жизни, очко победы,
-две ловушки, бутылка яда; каждая заливкой с материалами файла и сеткой.
-Рендер `tools/render-glb.py`: three.js-страница `tools/glb-view.html` в
-headless Chrome (WebGL через SwiftShader, прозрачный фон), превью лежат в
-`3d/preview/<key>.png` и `<key>-mesh.png`. У бутылки яда `.glb` нет — её
-меш вытаскивает из проекта Bambu `tools/mf2glb.py` (3MF → GLB без
-зависимостей, масштаб как напечатано). `fighers.glb` и `honor.glb` в
-список не входят.
 
 Нужны: Chrome (`C:\Program Files\Google\Chrome\Application\chrome.exe`),
 PyMuPDF, Pillow, numpy, node (читает `js/cards.js`), интернет — правила и

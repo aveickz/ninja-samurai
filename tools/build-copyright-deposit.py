@@ -357,7 +357,7 @@ def render_url(name, rel, query='', budget=10000):
 
 
 # Раздел: ключ → заголовок (содержание, закладки), как рендерить, язык подпунктов по группам карт,
-# входит ли в книгу. Порядок списка = порядок в книге. Рендер описан данными, а не замыканиями:
+# входит ли в книгу (book=False — кусок рисуется, но остаётся отдельным PDF). Порядок списка = порядок в книге. Рендер описан данными, а не замыканиями:
 # куски рисуются в отдельных процессах, и спецификация должна переживать pickle.
 #   ('url', <файл относительно корня>, <query>, <virtual-time-budget>)  — страницы проекта как есть
 #   ('html', <имя функции page_*>)                                       — служебная страница
@@ -367,12 +367,11 @@ PARTS = [
     dict(key='cards-ru', title='Карты (рус.)',                 how=('url', 'app.html', '', 30000), subs='ru'),
     dict(key='backs',    title='Рубашки карт',                 how=('html', 'page_backs')),
     dict(key='figures',  title='Фигурки и жетоны — 3D-модели', how=('html', 'page_figures')),
+    dict(key='models',   title='3D-модели фигурок · 3D models', how=('html', 'page_models')),   # рендеры .glb заливкой и сеткой (tools/render-glb.py)
     dict(key='rules-en', title='Game rules (English)',         how=('url', 'rules/rules-en.html', '', 10000)),
     dict(key='cheat-en', title='Player cheat sheet (English)', how=('url', 'rules/cheatsheet-en.html', '', 10000)),
     dict(key='cards-en', title='Cards (English)',              how=('url', 'app.html', '?lang=en', 30000), subs='en'),
     dict(key='registry', title='Реестр карт · Card registry',  how=('html', 'page_registry')),
-    # Пока отдельным PDF, в книгу не входит: рендеры .glb заливкой и сеткой (tools/render-glb.py).
-    dict(key='models',   title='3D-модели фигурок · 3D models', how=('html', 'page_models'), book=False),
 ]
 PART_BY_KEY = {p['key']: p for p in PARTS}
 CARDS_PER_PAGE = 9      # печать картотеки: сетка 3×3
