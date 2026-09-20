@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """Собирает единый PDF для депонирования авторских прав на игру (nris.ru):
-титул и содержание, правила и памятка, реестр и изображения всех карт,
-рубашки, фигурки и жетоны (3D) — сначала русская версия, потом общее
-(рубашки, фигурки), потом английская. Реквизиты (название, автор,
+титул и содержание, правила, памятка и изображения всех карт — сначала
+русская версия, потом общее (рубашки, фигурки и жетоны 3D), потом
+английская, в конце — двуязычный реестр карт. Реквизиты (название, автор,
 репозиторий) — из copyright.md, там же состав и журнал депонирований.
 
 Всё рендерит headless Chrome по file:// (правила и картотека — теми же
@@ -14,7 +14,7 @@ print-css, что и обычная печать), склеивает PyMuPDF: �
 только недостающие — полный прогон картотеки занимает минуту на язык.
 
     py -3 tools/build-copyright-deposit.py                 # недостающие разделы + сборка → print/copyright_deposit_<дата>.pdf
-    py -3 tools/build-copyright-deposit.py --redo cards-ru,registry-ru   # перерисовать эти разделы, остальные из кэша
+    py -3 tools/build-copyright-deposit.py --redo cards-ru,registry   # перерисовать эти разделы, остальные из кэша
     py -3 tools/build-copyright-deposit.py --redo all      # всё заново
     py -3 tools/build-copyright-deposit.py --list          # разделы и состояние кэша, без сборки
     py -3 tools/build-copyright-deposit.py --out X.pdf --quality 75
@@ -165,10 +165,9 @@ tr { page-break-inside: avoid; break-inside: avoid; }
 .toc .t { flex: none; }
 .toc .dots { flex: 1; border-bottom: .5pt dotted #999; margin: 0 2mm; transform: translateY(-1mm); }
 .toc .p { flex: none; font-variant-numeric: tabular-nums; }
-.toc .run { display: block; padding-left: 9mm; font-size: 9.5pt; color: #555; margin: -2mm 0 3.2mm; line-height: 1.5; }
-.toc .run b { font-weight: 400; color: #999; margin: 0 .5mm; }
 /* реестр */
 .reg { font-size: 8.5pt; table-layout: fixed; }
+.reg td, .reg th { padding: .8mm 1.6mm; }
 .reg td.id, .reg td.qty, .reg th.id, .reg th.qty { text-align: right; }
 .reg td.name { font-weight: 600; }
 /* рубашки, фигурки */
@@ -216,7 +215,7 @@ def page_cover(meta, rev, rev_date, total_pages, card_count):
     <p>В файле — всё произведение целиком, а не ссылки на него:</p>
     <ol>
       <li>правила игры и памятка игрока — русский оригинал и английский перевод;</li>
-      <li>реестр и изображения {card_count} карт колоды: название, тип, текст эффекта, иллюстрация;</li>
+      <li>изображения {card_count} карт колоды и их реестр (название и тип на двух языках);</li>
       <li>рубашки трёх групп карт;</li>
       <li>фигурки и жетоны: 3D-модели для печати, рендеры, тушевые иллюстрации.</li>
     </ol>
@@ -225,13 +224,9 @@ def page_cover(meta, rev, rev_date, total_pages, card_count):
 
 
 def page_toc(entries):
-    """entries: [(номер, название, страница, [(подпункт, страница)…])]; подпункты — одной строкой под разделом."""
-    li = ''
-    for n, title, page, subs in entries:
-        li += (f'<li><span class="n">{n}</span><span class="t">{html.escape(title)}</span>'
-               f'<span class="dots"></span><span class="p">{page}</span></li>')
-        if subs:
-            li += '<span class="run">' + '<b>·</b>'.join(f'{html.escape(t)}&nbsp;{p}' for t, p in subs) + '</span>'
+    """entries: [(номер, название, страница)]. Группы карт в печатное содержание не идут — только в закладки PDF."""
+    li = ''.join(f'<li><span class="n">{n}</span><span class="t">{html.escape(title)}</span>'
+                 f'<span class="dots"></span><span class="p">{page}</span></li>' for n, title, page in entries)
     return f'<div class="pb"><h2>Содержание</h2><ul class="toc">{li}</ul></div>'
 
 
@@ -241,30 +236,26 @@ def desc_html(text):
     return t.replace('[NL]', '<br>')
 
 
-def page_registry(cards, lang):
-    L = TYPE_LABEL[lang]
-    if lang == 'ru':
-        head, cols = 'Реестр карт', ('№', 'ID', 'Название', 'Тип', 'Кол-во', 'Текст эффекта')
-    else:
-        head, cols = 'Card registry', ('#', 'ID', 'Title', 'Type', 'Qty', 'Effect text')
+def page_registry(cards):
+    """Краткий двуязычный реестр: номер, ID, название RU/EN, тип RU/EN, количество — без текстов эффектов,
+    они на самих картах."""
     total = sum(c.get('qty') or 0 for c in cards)
-    intro = (f'{len(cards)} карт, {total} экземпляров в колоде. Порядок — как в картотеке и на страницах '
-             f'с изображениями ниже: по группам, внутри группы — в порядке базы карт. '
-             f'Корзина исключена, черновики включены.' if lang == 'ru' else
-             f'{len(cards)} cards, {total} copies in the deck. Same order as in the card browser and on the '
-             f'image pages below: by group, within a group — as in the card database.')
+    intro = (f'{len(cards)} карт, {total} экземпляров в колоде; порядок — как на страницах с изображениями: '
+             f'по группам, внутри группы — в порядке базы карт. Корзина исключена, черновики включены. · '
+             f'{len(cards)} cards, {total} copies in the deck; same order as on the image pages.')
     rows = ''
     for i, c in enumerate(cards, 1):
-        title = c.get('enTitle') if lang == 'en' and c.get('enTitle') else c.get('title', '')
-        desc = c.get('enDesc') if lang == 'en' and c.get('enDesc') else c.get('desc', '')
-        types = ', '.join(L.get(t, t) for t in (c.get('types') or []))
+        types = c.get('types') or []
         rows += (f'<tr><td class="id">{i}</td><td class="id">{c.get("id", "")}</td>'
-                 f'<td class="name">{html.escape(title)}</td><td>{html.escape(types)}</td>'
-                 f'<td class="qty">{c.get("qty", "")}</td><td>{desc_html(desc)}</td></tr>')
-    th = ''.join(f'<th class="{"id" if i in (0, 1) else "qty" if i == 4 else ""}">{h}</th>' for i, h in enumerate(cols))
-    colgroup = ''.join(f'<col style="width:{w}">' for w in ('7mm', '9mm', '34mm', '24mm', '12mm', 'auto'))
-    return (f'<h2>{head}</h2><p class="muted small">{intro}</p><table class="reg"><colgroup>{colgroup}</colgroup>'
-            f'<thead><tr>{th}</tr></thead><tbody>{rows}</tbody></table>')
+                 f'<td class="name">{html.escape(c.get("title") or "")}</td><td>{html.escape(c.get("enTitle") or "")}</td>'
+                 f'<td>{html.escape(", ".join(TYPE_LABEL["ru"].get(t, t) for t in types))}</td>'
+                 f'<td>{html.escape(", ".join(TYPE_LABEL["en"].get(t, t) for t in types))}</td>'
+                 f'<td class="qty">{c.get("qty", "")}</td></tr>')
+    cols = (('№', 'id'), ('ID', 'id'), ('Название', ''), ('Title', ''), ('Тип', ''), ('Type', ''), ('Кол-во', 'qty'))
+    th = ''.join(f'<th class="{cls}">{h}</th>' for h, cls in cols)
+    colgroup = ''.join(f'<col style="width:{w}">' for w in ('8mm', '10mm', 'auto', 'auto', '30mm', '30mm', '15mm'))
+    return (f'<h2>Реестр карт · Card registry</h2><p class="muted small">{intro}</p>'
+            f'<table class="reg"><colgroup>{colgroup}</colgroup><thead><tr>{th}</tr></thead><tbody>{rows}</tbody></table>')
 
 
 def gallery(items, cls):
@@ -339,14 +330,13 @@ def parts_spec(cards):
     return [
         ('rules-ru',    'Правила игры (рус.)',          lambda: render_url('rules-ru', 'rules/rules.html'), None),
         ('cheat-ru',    'Памятка игрока (рус.)',         lambda: render_url('cheat-ru', 'rules/cheatsheet.html'), None),
-        ('registry-ru', 'Реестр карт (рус.)',            lambda: render_html('registry-ru', page_registry(cards, 'ru'), 'Реестр карт'), None),
         ('cards-ru',    'Карты (рус.)',                  lambda: render_url('cards-ru', 'app.html', budget=30000), 'ru'),
         ('backs',       'Рубашки карт',                  lambda: render_html('backs', page_backs(), 'Рубашки'), None),
         ('figures',     'Фигурки и жетоны — 3D-модели',  lambda: render_html('figures', page_figures(PARTS_DIR), 'Фигурки'), None),
         ('rules-en',    'Game rules (English)',          lambda: render_url('rules-en', 'rules/rules-en.html'), None),
         ('cheat-en',    'Player cheat sheet (English)',  lambda: render_url('cheat-en', 'rules/cheatsheet-en.html'), None),
-        ('registry-en', 'Card registry (English)',       lambda: render_html('registry-en', page_registry(cards, 'en'), 'Card registry'), None),
         ('cards-en',    'Cards (English)',               lambda: render_url('cards-en', 'app.html', '?lang=en', budget=30000), 'en'),
+        ('registry',    'Реестр карт · Card registry',   lambda: render_html('registry', page_registry(cards), 'Реестр карт'), None),
     ]
 
 
@@ -418,8 +408,8 @@ def main():
     for _ in range(3):
         total = front_pages + content_pages
         entries, page = [], front_pages + 1
-        for i, (title, d, subs) in enumerate(docs, 1):
-            entries.append((i, title, page, [(t, page + off) for t, off in subs]))
+        for i, (title, d, _subs) in enumerate(docs, 1):
+            entries.append((i, title, page))
             page += d.page_count
         body = page_cover(meta, rev, rev_date, total, len(cards)) + page_toc(entries)
         print('  … титул и содержание', flush=True)
