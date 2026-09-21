@@ -1712,10 +1712,10 @@ const CARDS = [
     qty: 1,
     group: "effect",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Ваши атаки не могут нанести больше одной раны.",
     enDesc: "Your attacks cannot deal more than one wound.",
-    img: "cards/card_99_slabost.png"
+    img: "cards/card_100_slabost.png"
   },
   {
     id: 101,
