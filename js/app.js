@@ -1194,10 +1194,15 @@ $(function () {
 
     // ── Ряд 4: опции печати ──────────────────────────────────────────
     var $row4 = $('<div>', { class: 'filter-row filter-row--print-options' }).appendTo($bar);
+    // Опции печати можно включить из URL (?printqty=1, ?printbacks=1),
+    // как ?lang=en и ?proof=cmyk: так headless Chrome печатает очередь
+    // 🖨 без клика по чекбоксу — app.html?printqty=1#__print__.
+    var printParams = new URLSearchParams(window.location.search);
     var $cb = $('<input>', { type: 'checkbox', id: 'print-qty-checkbox', class: 'print-qty-checkbox' });
     $cb.on('change', function () {
       document.body.classList.toggle('print-qty-mode', this.checked);
     });
+    if (printParams.get('printqty') === '1') $cb.prop('checked', true).trigger('change');
     $('<label>', { class: 'print-qty-label', 'for': 'print-qty-checkbox' })
       .append($cb, $('<span>', { 'data-i18n': 'printQty', text: t('printQty') }))
       .appendTo($row4);
@@ -1212,6 +1217,7 @@ $(function () {
     $backsCb.on('change', function () {
       document.body.classList.toggle('print-backs-mode', this.checked);
     });
+    if (printParams.get('printbacks') === '1') $backsCb.prop('checked', true).trigger('change');
     $('<label>', {
       class: 'print-backs-label',
       'for': 'print-backs-checkbox',
