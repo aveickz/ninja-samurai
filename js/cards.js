@@ -754,10 +754,10 @@ const CARDS = [
     types: ["trap"],
     qty: 2,
     group: "trap",
-    icons: ["effect8"],
-    tags: [],
-    desc: "Атакующий получает две раны от владельца ловушки. Затем эта карта переходит на него эффектом: сложность атак по нему всегда равна 1 — Доспех и другие повышения сложности не спасают.",
-    enDesc: "The attacker takes two wounds from the Trap's owner. Then this card moves onto them as an Effect: attacks against them are always complexity 1 — Armor and other complexity increases do not help.",
+    icons: ["effect8", "charctx"],
+    tags: ["toPrint"],
+    desc: "Атакующий получает две раны от владельца ловушки. Затем эта карта переходит на него эффектом: сложность атак по нему всегда равна 1 — Доспех и другие повышения сложности не спасают.[NL]Капкан {Иё} наносит на одну рану больше. TODO: бонус Иё — временно.",
+    enDesc: "The attacker takes two wounds from the Trap's owner. Then this card moves onto them as an Effect: attacks against them are always complexity 1 — Armor and other complexity increases do not help.[NL]{Iyo}'s Trap deals one wound more. TODO: Iyo's bonus is a placeholder.",
     img: "cards/card_43_kapkan.png"
   },
   {
@@ -767,10 +767,10 @@ const CARDS = [
     types: ["trap"],
     qty: 2,
     group: "trap",
-    icons: ["poison"],
-    tags: ["poison"],
-    desc: "Атакующий отравляется ядом, но если он уже отравлен, то вы наносите ему три раны.",
-    enDesc: "The attacker is Poisoned; if they are Poisoned already, deal them 3 wounds instead.",
+    icons: ["poison", "charctx"],
+    tags: ["poison", "toPrint"],
+    desc: "Атакующий отравляется ядом, но если он уже отравлен, то вы наносите ему три раны.[NL]Поганка {Минамото} наносит на одну рану больше. TODO: бонус Минамото — временно.",
+    enDesc: "The attacker is Poisoned; if they are Poisoned already, deal them 3 wounds instead.[NL]{Minamoto}'s Toadstool deals one wound more. TODO: Minamoto's bonus is a placeholder.",
     img: "cards/card_45_poganka.png"
   },
   {
@@ -2117,10 +2117,10 @@ const CARDS = [
     types: ["intervention"],
     qty: 1,
     group: "intervention",
-    icons: ["thrust"],
-    tags: [],
-    desc: "Сыграйте эту карту, чтобы нанести две раны отравленному ядом игроку.",
-    enDesc: "Play this card to deal two wounds to a Poisoned player.",
+    icons: ["thrust", "charctx"],
+    tags: ["toPrint"],
+    desc: "Сыграйте эту карту, чтобы нанести две раны отравленному ядом игроку. TODO: бонус {Минамото} — придумать; вариант: по ней в любом случае одна рана и ещё одна от яда.",
+    enDesc: "Play this card to deal two wounds to a Poisoned player. TODO: {Minamoto}'s bonus — to be designed; option: against her always one wound plus one more from Poison.",
     img: "cards/card_121_smert_ot_fugu.png"
   },
   {
