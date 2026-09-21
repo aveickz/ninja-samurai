@@ -1751,10 +1751,10 @@ const CARDS = [
     qty: 1,
     group: "effect",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "За ход вы можете сделать на одну прямую атаку меньше.",
     enDesc: "You may make one fewer direct attack per turn.",
-    img: "cards/card_102_bessilie.png"
+    img: "cards/card_103_bessilie.png"
   },
   {
     id: 104,
