@@ -481,7 +481,7 @@ the frame; cold pale light, no dark wash, no black background.
 Подставь `<...>` и вытяни **в одну строку**:
 
 ```
-A vintage comic-style card illustration in Bang-style layout. Action: <КОМПОЗИЦИЯ С ОСИ A>, dynamic motion, impact moment frozen. Style: bold black outlines, flat shading, large simple shapes, retro comic poster, light paper grain. Restrictions: no icons in top-left corner, no gradients, no realism, no rubble fields, no detailed crowds. Complexity limit: at most two fully drawn figures and four props; one simple background element is allowed - a gate, a banner, a moon, a sun disc; short hatching only inside the shadows on the main figures, never on backgrounds; leave at least a fifth of the frame as empty flat colour with no linework; the picture must still read clearly as a silhouette at thumbnail size. Top banner title is the Cyrillic word <TITLE> - render exactly this string, letter for letter, and no other text anywhere in the image. Scene: <DESC>. DO NOT RENDER the bottom text area. Aspect ratio is 7:10. Colors: <НАЗВАНИЕ ПАЛИТРЫ> - <перечисление цветов>. Only these colors, no other hues. Use them at full poster saturation - vivid high-chroma flat fills, no muddy or greyed-down mixes, no dark wash laid over the whole picture. The background must be one large area of a bright light colour filling much of the frame. Draw this card!
+A vintage comic-style card illustration in Bang-style layout. Action: <КОМПОЗИЦИЯ С ОСИ A>, dynamic motion, impact moment frozen. Style: bold black outlines, flat shading, large simple shapes, retro comic poster, light paper grain. Restrictions: no icons in top-left corner, no gradients, no realism, no rubble fields, no detailed crowds. Complexity limit: at most two fully drawn figures and four props; one simple background element is allowed - a gate, a banner, a moon, a sun disc; short hatching only inside the shadows on the main figures, never on backgrounds; leave at least a fifth of the frame as empty flat colour with no linework; the picture must still read clearly as a silhouette at thumbnail size. Top banner title is the Cyrillic word <TITLE> - render exactly this string, letter for letter, and no other text anywhere in the image. Scene: <DESC>. Composition rule: the bottom 15 percent of the frame is reserved - keep it as plain ground, floor, water or empty flat colour with no figures, no faces, no weapon tips and no props there; the main subject and every important detail sit in the upper 80 percent of the picture. DO NOT RENDER the bottom text area. Aspect ratio is 7:10. Colors: <НАЗВАНИЕ ПАЛИТРЫ> - <перечисление цветов>. Only these colors, no other hues. Use them at full poster saturation - vivid high-chroma flat fills, no muddy or greyed-down mixes, no dark wash laid over the whole picture. The background must be one large area of a bright light colour filling much of the frame. Draw this card!
 ```
 
 **Блок «Complexity limit» - не украшение, а основная защита от перегруза.**
@@ -499,6 +499,17 @@ A vintage comic-style card illustration in Bang-style layout. Action: <КОМП�
 Просят «поменьше деталей» - снижай числа и возвращай `no stippling`,
 `no cross-hatching`; просят «побольше» - поднимай. Заменять всё это словами
 вроде `more detailed` бессмысленно, проверено.
+
+**Нижние 10-15% кадра в карте закрыты плашкой описания - планируй их пустыми.**
+Приложение кладёт жёлтую плашку `.card-desc-wrap` поверх низа арт-зоны, и чем
+длиннее текст карты, тем больше она съедает: у двух строк - около 10%, у четырёх -
+до четверти. Это известно заранее, поэтому в промпте стоит блок «Composition rule»:
+низ - плоская земля, пол или вода без единой важной детали, субъект целиком в
+верхних 80%. Проверено 21-22.09.2026 на Слабости и Бессилии: во всех финалах ноги,
+остриё клинка и группа врагов ложились в самый низ, и каждый раз нужна была либо
+правка «подними фигуру», либо сдвиг готового PNG (шаг 7). Дешевле попросить
+пустой низ сразу, чем поднимать сцену потом. Сюда же - выход гибкой части за
+кадр только вбок, не вниз (см. «Предметный этюд оружия»).
 
 **Сцена тоже должна быть скупой.** Перечисление вроде «брошенное снаряжение
 длинным следом, знамёна, строй врагов» модель отработает буквально и забьёт
@@ -702,6 +713,12 @@ py -3 .claude/skills/cardimg/gen4.py <финал>.json --tier final
 а не низ - 10% сверху поднимают фигуру над плашкой и заодно возвращают
 пропорцию к принятым в колоде ~0.76 (модель отдаёт 0.70). Проверять - открыв
 `app.html?embed=<ID>`, а не глядя на голый PNG.
+
+Если размер файла менять нельзя (арт кладётся `height: auto` от `top: 13%`, и
+укороченный файл оставит щель под плашкой), сцену поднимают **сдвигом с достройкой
+низа**: срезать верхние N% и подклеить снизу зеркальную копию нижней полосы той же
+высоты - под плашкой её не видно, а стык с землёй бесшовный. Так поднята Слабость
+#100 22.09.2026 (10%, Pillow, `ImageOps.flip` нижних 150 px), генерация не нужна.
 
 Дальше - `cards/card_<id>_<транслит>.png` и поле `img` в `js/cards.js`.
 Кроп и правку `cards.js` делай только по просьбе: пользователь может захотеть
