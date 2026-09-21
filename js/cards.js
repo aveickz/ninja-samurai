@@ -1777,10 +1777,10 @@ const CARDS = [
     qty: 1,
     group: "effect",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Получая любой вид урона, вы получаете на 2 раны больше. Проклятье переходит на убившего вас игрока.",
     enDesc: "You take 2 extra wounds from any kind of damage. The Curse passes to the player who kills you.",
-    img: "cards/card_curse.png"
+    img: "cards/card_4104_curse.png"
   },
   {
     id: 5104,
