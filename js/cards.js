@@ -2263,10 +2263,10 @@ const CARDS = [
     qty: 4,
     group: "action",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Можете выбрать отравление или любой эффект на столе и переложить его на любого игрока.",
     enDesc: "Choose a Poison or any Effect on the table and move it onto any player.",
-    img: "cards/card_129_kukla_vudu.png"
+    img: "cards/card_130_kukla_vudu.png"
   },
   {
     id: 131,
