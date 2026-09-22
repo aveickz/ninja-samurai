@@ -980,7 +980,7 @@ const CARDS = [
     qty: 2,
     group: "stance",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Сложность атак по вам увеличивается на 1. Ваше оружие берёт сложность на 1 больше. Атакуя сложность 1, вы наносите на 1 рану больше.",
     enDesc: "Attacks against you are 1 harder. Your weapon handles 1 more complexity. Attacking complexity 1, you deal 1 extra wound.",
     img: "cards/card_58_vsadnik.png"
