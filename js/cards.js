@@ -968,8 +968,8 @@ const CARDS = [
     group: "stance",
     icons: [],
     tags: ["toPrint"],
-    desc: "Вы считаетесь убитым для других игроков весь раунд, но в начале своего хода сбрасываете эту стойку.",
-    enDesc: "You count as dead to the other players for the whole round, but you discard this Stance at the start of your turn.",
+    desc: "Вы считаетесь убитым для других игроков весь раунд, но в начале своего хода сбрасываете эту стойку. Ваша аура при этом продолжает действовать.",
+    enDesc: "You count as dead to the other players for the whole round, but you discard this Stance at the start of your turn. Your Aura keeps working meanwhile.",
     img: "cards/card_57_ten.png"
   },
   {
