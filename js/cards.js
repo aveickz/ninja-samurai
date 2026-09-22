@@ -1857,10 +1857,10 @@ const CARDS = [
     qty: 4,
     group: "action",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Сбросьте эту карту, чтобы взять 1 новую из колоды. Далее за каждую сброшенную карту (не более двух) берите дополнительно 1 карту из колоды. {Союзники} могут вам помочь в доборе, сбрасывая свои карты, но не более двух каждый.",
     enDesc: "Discard this card to draw 1 new card. Then draw 1 more card for each card you discard (no more than two). {Allies} may help you draw by discarding cards of their own, but no more than two each.",
-    img: "cards/card_108_sake.png"
+    img: "cards/card_109_sake.png"
   },
   {
     id: 110,
