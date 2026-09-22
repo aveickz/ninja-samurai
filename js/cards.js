@@ -1412,7 +1412,7 @@ const CARDS = [
     qty: 2,
     group: "aoe",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Вы берёте 4 карты из колоды, остальные активные игроки берут по 1 карте. -ИЛИ- Все активные игроки берут по 2 карты из колоды.",
     enDesc: "You draw 4 cards and each other living player draws 1. -OR- Every living player draws 2 cards.",
     img: "cards/card_84_chaynaya_tseremoniya.png"
