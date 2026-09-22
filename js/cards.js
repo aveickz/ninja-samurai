@@ -1019,7 +1019,7 @@ const CARDS = [
     qty: 2,
     group: "stance",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "При совершении атаки можете выбрать нанести одну рану больше {ИЛИ} взять одну карту из колоды.[NL]{Совершая успешно прямую атаку} восстановите себе 1 жетон жизни.",
     enDesc: "When you attack, choose: deal 1 extra wound {OR} draw a card.[NL]{On a successful direct attack} restore 1 life.",
     img: "cards/card_61_master_boya.png"
@@ -1082,7 +1082,7 @@ const CARDS = [
     types: ["stance"],
     qty: 1,
     group: "stance",
-    tags: [],
+    tags: ["toPrint"],
     desc: "Ваши метательные атаки наносят +1 рану.[NL]Совершив успешную атаку по игроку с ловушкой, вы берёте 1 карту из колоды.",
     enDesc: "Your thrown attacks deal +1 wound.[NL]On a successful attack against a player who has a Trap, draw a card.",
     img: "cards/card_archer.png",
