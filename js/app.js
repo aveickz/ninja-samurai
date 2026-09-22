@@ -30,7 +30,7 @@ $(function () {
     weapon:       '#2E2A28',
     stance:       '#A78B6B',
     modifier:     '#ED1C24',
-    aoe:          '#2F3566',
+    aoe:          '#2E2A28',
     aura:     '#93a32e',
     effect:       '#5B4A7E',
     intervention: '#3B8476',
