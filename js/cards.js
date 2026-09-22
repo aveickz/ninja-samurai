@@ -1177,9 +1177,9 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     icons: [],
-    tags: [],
-    desc: "Атаку можно провести даже по игроку при смерти.",
-    enDesc: "This attack may be made even against a player at death's door.",
+    tags: ["draft", "toPrint"],
+    desc: "Атаку можно провести даже по игроку при смерти. TODO: переделать (22.09.2026) — Сёгуна в игре больше нет, да и «атака по мёртвому» после короткой смерти почти не случается; в черновике.",
+    enDesc: "This attack may be made even against a player at death's door. TODO: rework (22.09.2026) — the Shogun is gone from the game, and attacking the dead rarely comes up after short death; draft.",
     img: "cards/card_70_gnev_syoguna.png"
   },
   {
