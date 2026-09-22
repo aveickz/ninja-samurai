@@ -1621,7 +1621,7 @@ const CARDS = [
     qty: 1,
     group: "effect",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Вас нельзя отравить ядом. Текущее отравление снимается.",
     enDesc: "You cannot be Poisoned. Any Poison on you is cleared.",
     img: "cards/card_91_protivoyadie.png"
@@ -1922,10 +1922,10 @@ const CARDS = [
     qty: 3,
     group: "action",
     icons: ["hpctx"],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Восстановите все недостающие жетоны жизни. Любой другой игрок на ваш выбор берёт одну карту из колоды.[NL]{При полном здоровье} вместо одной карты — две, и можете взять карты себе.",
     enDesc: "Restore all your missing life. Any other player of your choice draws a card.[NL]{At full health} they draw two instead, and you may keep the cards yourself.",
-    img: "cards/card_113_peredyshka.png"
+    img: "cards/card_114_peredyshka.png"
   },
   {
     id: 115,
