@@ -1007,8 +1007,8 @@ const CARDS = [
     group: "stance",
     icons: [],
     tags: ["toPrint"],
-    desc: "Каждый раз при прямой атаке по вам снижаете урон на один. Дополнительно можете скинуть карту с руки за каждое снижение урона (не менее 1).[NL]Каждый раз, используя защиту, вы берёте одну карту из колоды.",
-    enDesc: "Reduce every direct attack against you by 1 wound. You may discard a card from your hand for each further reduction (never below 1).[NL]Whenever you play a Defense, draw a card.",
+    desc: "Каждая прямая атака по вам наносит на одну рану меньше.[NL]За каждую атаку по вам, которую вы не отразили защитой, вы берёте карту из колоды.",
+    enDesc: "Every direct attack against you deals one wound less.[NL]For every attack against you that you do not block with a Defense, draw a card.",
     img: "cards/card_60_oyoroi.png"
   },
   {
