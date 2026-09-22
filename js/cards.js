@@ -1805,7 +1805,7 @@ const CARDS = [
     qty: 3,
     group: "action",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Выбранный игрок избавляется от яда, получает жетон жизни и берёт одну карту из колоды.",
     enDesc: "The chosen player is cured of Poison, restores 1 life and draws a card.",
     img: "cards/card_104_vasabi.png"
