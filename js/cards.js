@@ -1373,10 +1373,10 @@ const CARDS = [
     qty: 1,
     group: "aoe",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Полностью восстановите себе здоровье и снимите с себя любые эффекты и яд, остальные активные игроки +1 ХП. -ИЛИ- Все активные игроки +2 ХП и снимают яд.",
     enDesc: "Fully restore your life and clear every Effect and Poison from yourself; each other living player gains 1 life. -OR- Every living player gains 2 life and clears Poison.",
-    img: "cards/card_81_celitelnyye_istochniki.png"
+    img: "cards/card_81_onsen.png"
   },
   {
     id: 82,
