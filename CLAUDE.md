@@ -106,6 +106,7 @@
 | `3d/` | Фигурки и штампы: `.max`, `.glb`, `.3mf` (Bambu), `.dxf`; `preview/` — рендеры моделей заливкой и сеткой (`tools/render-glb.py`) |
 | `copyright.md` | Авторские права: реквизиты произведения, состав PDF для депонирования (nris.ru), журнал депонирований. Собирает `tools/build-copyright-deposit.py` |
 | `ref/` | Референсы: оружие, образы, фото |
+| `simulation.md`, `simulations/` | Симуляция партий LLM-агентами: манифест протокола (`simulation.md`), движок-арбитр `simulations/engine/sim.py` (Python + SQLite), промпты игроков и судьи, оркестратор `simulations/workflow/play.js`, живой вьюер истории `simulations/viewer.html` (GSAP из `simulations/vendor/`, стол-фото, анимация каждого шага; вьюер, движок и отчёт правятся в чате, субагенты — только чтобы играть партии). Вход — только `enDesc` из `js/cards.js` и `rules/content-en.html`; весь стек на английском. Модели фиксированы: игроки Haiku, судья Sonnet |
 
 ### Отжившие файлы не удаляем — переносим в `obsolete/`
 
@@ -164,6 +165,7 @@ diff'у мучительно. Место дешевле времени.
 | Картотека: рендер, фильтры, печать       | Корень репозитория (см. ниже) |
 | Арт карты (`cards/*.png`)                | **только по явной просьбе** — см. ниже |
 | Депонирование (PDF для nris.ru)          | Реквизиты и состав — `copyright.md`; `py -3 tools/build-copyright-deposit.py part …` рисует куски параллельно в `print/copyright_deposit_parts/`, `assemble` склеивает; превью 3D-моделей — `tools/render-glb.py` → `3d/preview/`, 3MF → GLB — `tools/mf2glb.py` |
+| Симуляция партий (сыграть, посмотреть историю, отчёт по картам) | `simulation.md` §10–11: `node simulations/engine/export_cards.mjs` после правки `js/cards.js`, `py -3 simulations/engine/sim.py new/export/report`, партии играет Workflow `simulations/workflow/play.js` |
 
 ## Арт карт заменяется только по явной просьбе
 
@@ -551,7 +553,7 @@ Naginata). Порядок полей в файле фиксированный �
 | stance       | Стойки               | `#A78B6B`   |
 | modifier     | Модификаторы         | `#ED1C24`   |
 | aoe          | Групповые            | `#231F20`   |
-| effect       | Эффекты              | `#231F20`   |
+| effect       | Эффекты              | `#5B4A7E`   |
 | action       | Действия             | `#231F20`   |
 | intervention | Вмешательства        | `#3B8476`   |
 | character    | Персонажи            | `#6C8CC7`   |

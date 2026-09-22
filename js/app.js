@@ -32,7 +32,7 @@ $(function () {
     modifier:     '#ED1C24',
     aoe:          '#2E2A28',
     aura:     '#93a32e',
-    effect:       '#2E2A28',
+    effect:       '#5B4A7E',
     intervention: '#3B8476',
     character:    '#ddd',
     role:         '#5d3c75',
