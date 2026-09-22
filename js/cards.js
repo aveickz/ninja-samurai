@@ -1725,10 +1725,10 @@ const CARDS = [
     qty: 2,
     group: "effect",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Игрок не может защищаться от атак.",
     enDesc: "This player cannot defend against attacks.",
-    img: "cards/card_100_bezzashchitnost.png"
+    img: "cards/card_101_bezzashchitnost.png"
   },
   {
     id: 102,
