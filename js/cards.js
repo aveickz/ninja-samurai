@@ -1624,7 +1624,7 @@ const CARDS = [
     tags: ["toPrint"],
     desc: "Вас нельзя отравить ядом. Текущее отравление снимается.",
     enDesc: "You cannot be Poisoned. Any Poison on you is cleared.",
-    img: "cards/card_91_protivoyadie.png"
+    img: "cards/card_92_protivoyadie.png"
   },
   {
     id: 93,
