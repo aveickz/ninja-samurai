@@ -1791,8 +1791,8 @@ const CARDS = [
     group: "effect",
     icons: [],
     tags: ["toPrint"],
-    desc: "Сложность атак по вам увеличивается на 1.[NL]В стойке {О-ёрой} за каждую принятую атаку вы берёте ещё одну карту.",
-    enDesc: "Attacks against you are 1 harder.[NL]In the {Ō-yoroi} Stance, draw one more card for every attack you take.",
+    desc: "Сложность атак по вам увеличивается на 1. TODO: синергия со стойкой О-ёрой — какая, пока не решено.",
+    enDesc: "Attacks against you are 1 harder. TODO: synergy with the Ō-yoroi Stance — not yet decided.",
     img: "cards/card_armor.png"
   },
 
