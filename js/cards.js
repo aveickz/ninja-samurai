@@ -1790,9 +1790,9 @@ const CARDS = [
     qty: 2,
     group: "effect",
     icons: [],
-    tags: [],
-    desc: "Сложность атак по вам увеличивается на 1.",
-    enDesc: "Attacks against you are 1 harder.",
+    tags: ["toPrint"],
+    desc: "Сложность атак по вам увеличивается на 1.[NL]В стойке {О-ёрой} за каждую принятую атаку вы берёте ещё одну карту.",
+    enDesc: "Attacks against you are 1 harder.[NL]In the {Ō-yoroi} Stance, draw one more card for every attack you take.",
     img: "cards/card_armor.png"
   },
 
