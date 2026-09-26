@@ -1672,8 +1672,8 @@ const CARDS = [
     types: ["effect"],
     qty: 1,
     group: "effect",
-    icons: [],
-    tags: [],
+    icons: ["charctx"],
+    tags: ["toPrint"],
     desc: "Каждое лечение по игроку снижается на единицу. Также все негативные эффекты от отравления удваиваются. Пока вы отравлены, вы не можете пользоваться бонусами стойки.[NL]На {Минамото} не действует.",
     enDesc: "Every point of healing on this player is reduced by 1, and every penalty from Poison is doubled. While you are Poisoned, you cannot use Stance bonuses.[NL]Has no effect on {Minamoto}.",
     img: "cards/card_92_ukus_zmeyi.png"
