@@ -730,7 +730,7 @@ const CARDS = [
     tags: ["draft", "toPrint"],
     desc: "В случае успешной атаки Кабурая переходит на цель эффектом: следующая атака по ней наносит на одну рану больше, после чего карта уходит в сброс.",
     enDesc: "On a successful attack, the Kaburaya passes to the target as an Effect: the next attack against them deals one wound more, then the card is discarded.",
-    img: "cards/card_todo.png"
+    img: "cards/card_325_kaburaya.png"
   },
   {
     id: 326,
