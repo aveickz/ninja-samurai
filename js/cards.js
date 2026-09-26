@@ -2084,6 +2084,19 @@ const CARDS = [
     img: "cards/card_1122_smertnie_muki.png"
   },
   {
+    id: 1127,
+    title: "Кокю",
+    enTitle: "Kokyu",
+    types: ["action"],
+    qty: 1,
+    group: "action",
+    icons: ["hpctx"],
+    tags: ["draft", "toPrint"],
+    desc: "Восстановите 1 жизнь и возьмите 1 карту из колоды.[NL]{При полном здоровье} вместо этого сбросьте сколько угодно жетонов жизни, кроме последнего, и возьмите за каждый по карте из колоды.[NL]{На пороге смерти} вместо этого сбросьте сколько угодно карт с руки и восстановите за каждую 1 жизнь.",
+    enDesc: "Restore 1 life and draw a card.[NL]{At full health} instead, spend any amount of life, never your last, and draw a card for each.[NL]{At death's door} instead, discard any number of cards from your hand and restore 1 life for each.",
+    img: "cards/card_1127_kokyu.png"
+  },
+  {
     id: 31121,
     title: "Горячая картошка",
     enTitle: "Burning Coal",
