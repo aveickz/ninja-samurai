@@ -241,9 +241,9 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["complexity1", "dmg2"],
-    tags: [],
-    desc: "",
-    enDesc: "",
+    tags: ["toPrint"],
+    desc: "Удар нунчаками не тратит попытку атаки.",
+    enDesc: "A nunchaku strike does not use up an attack attempt.",
     img: "cards/card_14_nunchaki.png"
   },
   {
@@ -662,9 +662,9 @@ const CARDS = [
     qty: 1,
     group: "weapon",
     icons: ["ranged", "dmg1"],
-    tags: [],
-    desc: "Выстрел не тратит попытку атаки.",
-    enDesc: "The shot does not use up an attack.",
+    tags: ["toPrint"],
+    desc: "Выстрел по уже отравленному не тратит попытку атаки.",
+    enDesc: "A shot at an already poisoned player does not use up an attack attempt.",
     img: "cards/card_320_fukiya.png"
   },
   {
@@ -743,6 +743,19 @@ const CARDS = [
     tags: ["poison", "draft", "toPrint"],
     desc: "Атаковать им могут только женские персонажи.[NL]В случае успешной атаки по уже отравленному вы берёте карту из колоды.[NL]Любимое оружие {Минамото}.",
     enDesc: "Only female characters can attack with it.[NL]On a successful attack against an already poisoned player, you draw a card.[NL]Favourite weapon of {Minamoto}.",
+    img: "cards/card_326_kanzashi.png"
+  },
+  {
+    id: 327,
+    title: "Фукибари",
+    enTitle: "Fukibari",
+    types: ["weapon"],
+    qty: 1,
+    group: "weapon",
+    icons: ["ranged", "dmg0", "poison"],
+    tags: ["poison", "trash"],
+    desc: "В случае успешной атаки по уже отравленному Фукибари возвращается вам в руку. (ушло в Фукию #320: по отравленному выстрел не тратит попытку)",
+    enDesc: "On a successful attack against an already poisoned player, the Fukibari returns to your hand.",
     img: "cards/card_todo.png"
   },
 

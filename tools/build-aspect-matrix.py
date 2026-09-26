@@ -206,12 +206,29 @@ def build_model():
             if cid not in by_id:
                 sys.exit(f'{i["id"]}: карты #{cid} нет в js/cards.js')
         i['pair'] = sorted(i['pair'], key=keys.index)
+    reworks = ideas_doc.get('rework', [])
+    for r in reworks:
+        if r['card'] not in by_id:
+            sys.exit(f'{r["id"]}: карты #{r["card"]} нет в js/cards.js')
     return dict(aspects=aspects, keys=keys, cards=cards, has=has, pairs=pairs,
-                doc=ideas_doc.get('doc', {}), ideas=ideas, by_id=by_id)
+                doc=ideas_doc.get('doc', {}), ideas=ideas, reworks=reworks, by_id=by_id)
+
+
+def was_text(card):
+    """Текущий текст карты из cards.js — без хвоста «TODO: …», он для автора, а не для игры."""
+    return (card.get('desc') or '').split('TODO')[0].strip()
 
 
 def active(cs):
     return [c for c in cs if status(c) == 'active']
+
+
+def pair_status(cs):
+    """«сейчас N» по активным картам; пустая пара, которую уже несёт черновик, называет его."""
+    act, drafts = active(cs), [c for c in cs if status(c) == 'draft']
+    if act:
+        return f'сейчас {len(act)}'
+    return 'пусто' + (', черновик ' + ', '.join(f'#{c["id"]}' for c in drafts) if drafts else '')
 
 
 # ── разметка ─────────────────────────────────────────────────────────────────
@@ -292,7 +309,7 @@ def build_md(m):
     for i in ideas:
         a, b = i['pair']
         cov = active(pairs[(a, b)])
-        pair = f'`{a}` × `{b}`' + (f' · сейчас {len(cov)}' if cov else ' · пусто')
+        pair = f'`{a}` × `{b}` · ' + pair_status(pairs[(a, b)])
         name = f'**{i["name"]}**' + (f' {i["jp"]}' if i.get('jp') else '')
         card = f'{name}<br>{GROUP_RU.get(i["group"], i["group"])} · ×{i["qty"]} · {i["tilt"]}'
         kin = ', '.join(card_ref(m['by_id'][cid]) for cid in i.get('kin', []))
@@ -305,6 +322,21 @@ def build_md(m):
         L += ['## Проверка по мета-правилам', '']
         for i in checks:
             L.append(f'- **{i["id"]} {i["name"]}.** {i["check"].strip()}')
+        L += ['']
+    if m['reworks']:
+        L += [f'## Переделки карт колоды — {len(m["reworks"])}', '']
+        if doc.get('rework_intro'):
+            L += [doc['rework_intro'].strip(), '']
+        L += ['| № | Карта | Было | Станет | Флавор | Заметка |', '|---|---|---|---|---|---|']
+        for r in m['reworks']:
+            c = m['by_id'][r['card']]
+            card = f'**{card_ref(c)}**<br>{GROUP_RU.get(c["group"], c["group"])} → {r.get("becomes", "")}'
+            cells = [r['id'], card, was_text(c), r['text'], r['flavor'], r.get('note', '')]
+            L.append('| ' + ' | '.join(str(x).replace('|', '\\|').replace('\n', ' ') for x in cells) + ' |')
+        L += ['']
+        for r in m['reworks']:
+            if r.get('check'):
+                L.append(f'- **{r["id"]} {m["by_id"][r["card"]]["title"]}.** {r["check"].strip()}')
         L += ['']
     if doc.get('outro'):
         L += [doc['outro'].strip(), '']
@@ -385,6 +417,8 @@ CSS = """
     .pairtag.covered { background: #fbf1ee; border-color: #e4c2b8; }
     .idea-text { background: #fef3c9; border: 1px solid #efd98e; border-radius: 6px; padding: 8px 11px; }
     .idea-check { margin-top: 10px; font-size: 13px; color: #555; }
+    .was-text { background: #f0ece2; border: 1px solid #ddd6c6; border-radius: 6px; padding: 8px 11px; margin-bottom: 8px; color: #6b6352; }
+    .lbl { display: block; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: #8a7a55; margin-bottom: 2px; }
     td.flavor { color: #5a5344; font-style: italic; background: #f9f8f4; }
     td.kin { font-size: 13px; color: #444; }
 """
@@ -498,7 +532,7 @@ def build_html(m):
         else:
             cell = '<span class="card-name">родни в колоде нет</span>'
         pair_cls = 'pairtag covered' if cov else 'pairtag'
-        pair_txt = f'{a} × {b} · ' + (f'сейчас {len(cov)}' if cov else 'пусто')
+        pair_txt = f'{a} × {b} · ' + pair_status(pairs[(a, b)])
         jp = f'<span class="jp">{esc(i["jp"])}</span>' if i.get('jp') else ''
         gcol = GROUP_COLOR.get(i['group'], '#555')
         check = f'<div class="idea-check">{inline_html(i["check"].strip())}</div>' if i.get('check') else ''
@@ -514,6 +548,32 @@ def build_html(m):
               f'        <td class="kin">{inline_html(i.get("kin_note", ""))}</td>',
               '      </tr>']
     H += ['    </tbody>', '  </table>']
+
+    # переделки существующих карт
+    if m['reworks']:
+        H += [f'  <h2>Переделки карт колоды — {len(m["reworks"])}</h2>']
+        if doc.get('rework_intro'):
+            H.append(md_to_html(doc['rework_intro']))
+        H += ['  <table class="ideas">',
+              '    <colgroup><col class="col-num"><col class="col-card"><col class="col-idea"><col class="col-flavor"><col class="col-kin"></colgroup>',
+              '    <thead><tr><th>№</th><th>Карта сейчас</th><th>Было → станет</th><th>Флавор</th><th>Заметка</th></tr></thead>',
+              '    <tbody>']
+        for r in m['reworks']:
+            c = m['by_id'][r['card']]
+            check = f'<div class="idea-check">{inline_html(r["check"].strip())}</div>' if r.get('check') else ''
+            H += ['      <tr id="' + esc(r['id']) + '">',
+                  f'        <td class="num">{esc(r["id"])}</td>',
+                  f'        <td class="card-cell"><iframe class="card-frame" loading="lazy" src="../app.html?embed={c["id"]}" title="{esc(c["title"])}"></iframe>'
+                  f'<span class="card-name">{esc(card_ref(c))} <em>{esc(GROUP_RU.get(c["group"], ""))}</em></span></td>',
+                  f'        <td class="idea"><div class="idea-name">{esc(c["title"])}</div>'
+                  f'<div class="idea-meta"><span class="tag" style="background:{GROUP_COLOR.get(c["group"], "#555")}">{esc(GROUP_RU.get(c["group"], c["group"]))}</span>'
+                  f'<span class="tag q">→ {esc(r.get("becomes", ""))}</span></div>'
+                  f'<div class="was-text"><span class="lbl">было</span>{inline_html(was_text(c))}</div>'
+                  f'<div class="idea-text"><span class="lbl">станет</span>{inline_html(r["text"])}</div>{check}</td>',
+                  f'        <td class="flavor">{inline_html(r["flavor"])}</td>',
+                  f'        <td class="kin">{inline_html(r.get("note", ""))}</td>',
+                  '      </tr>']
+        H += ['    </tbody>', '  </table>']
 
     # покрытие аспектов
     H += ['  <h2>Аспекты в колоде</h2>',
