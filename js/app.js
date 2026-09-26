@@ -60,6 +60,7 @@ $(function () {
     role:         'Роли',
     aura:         'Аура',
     character:    'Персонажи',
+    demo:         'Демо',
     trash:        'Корзина'
   };
 
@@ -76,7 +77,16 @@ $(function () {
     role:         'Roles',
     aura:         'Auras',
     character:    'Characters',
+    demo:         'Demo',
     trash:        'Trash'
+  };
+
+  // ── Псевдо-группа «Демо» ──────────────────────────────────────────
+  // Копии всех персонажей с альтернативным артом: герой в своём окружении,
+  // а не портрет. Записи в cards.js не трогаем — арт подменяется только
+  // здесь, по id карты; у кого демо-арта ещё нет, копия идёт с обычным.
+  var DEMO_ART = {
+    145: 'cards/demo/card_145_manase.png'
   };
 
   // ── Игровые / неигровые карты ────────────────────────────────────
@@ -961,6 +971,20 @@ $(function () {
     });
   });
 
+  // Псевдо-группа «Демо» — копии персонажей с арт-подменой из DEMO_ART,
+  // помечены data-demo-pseudo="1". Видны только в режиме «Все», в счётчик
+  // и в печать не идут.
+  var demoCards = CARDS.filter(function (card) {
+    return card.group === 'character' && (card.tags || []).indexOf('trash') === -1;
+  });
+  if (demoCards.length > 0 && !EMBED_ID) {
+    $grid.append(buildGroupDivider('demo'));
+    $.each(demoCards, function (_, card) {
+      var demoCard = $.extend({}, card, { img: DEMO_ART[card.id] || card.img });
+      $grid.append(buildCard(demoCard).attr('data-demo-pseudo', '1'));
+    });
+  }
+
   // Псевдо-группа «Корзина» — те же trash-карты, помечены data-trash-pseudo="1"
   // По умолчанию видимы; скрываются при активном __trash__ фильтре.
   var trashCards = CARDS.filter(function (card) {
@@ -986,13 +1010,18 @@ $(function () {
       if ($el.hasClass('card-print-clone')) return; // клоны управляются отдельно
       var isReal    = !!$el.attr('data-trash-real');
       var isPseudo  = !!$el.attr('data-trash-pseudo');
+      var isDemo    = !!$el.attr('data-demo-pseudo');
       var cardTypes = $el.data('types').split(' ');
       var cardTags  = ($el.data('tags')  || '').toString().split(' ');
       var cardIcons = ($el.data('icons') || '').toString().split(' ');
 
       var visible;
 
-      if (isPseudo) {
+      if (isDemo) {
+        // Демо-копии персонажей: только в режиме «Все», как Корзина.
+        visible = !activeMode;
+
+      } else if (isPseudo) {
         // Pseudo-копии в Корзине: видны только в режиме «Все» — под любым
         // фильтром (черновики, печать, тип…) корзина не показывается вовсе,
         // а в __trash__ режиме их заменяют real-копии в родных группах.
@@ -1035,11 +1064,11 @@ $(function () {
       if (visible) {
         if (isPseudo) {
           trashTypes++;
-        } else {
+        } else if (!isDemo) {
           totalTypes++;
           totalQty += parseInt($el.data('qty'), 10) || 1;
         }
-        var g = isPseudo ? 'trash' : $el.data('group');
+        var g = isDemo ? 'demo' : isPseudo ? 'trash' : $el.data('group');
         visibleByGroup[g] = (visibleByGroup[g] || 0) + 1;
       }
     });
@@ -1066,7 +1095,8 @@ $(function () {
       });
       $('#grid .card-item').each(function () {
         var $el = $(this);
-        var g = $el.attr('data-trash-pseudo') ? 'trash' : $el.data('group');
+        var g = $el.attr('data-demo-pseudo') ? 'demo'
+              : $el.attr('data-trash-pseudo') ? 'trash' : $el.data('group');
         $el.css('order', g === activeMode ? -1 : '');
       });
     }
@@ -1383,7 +1413,7 @@ $(function () {
     if (isQtyMode) {
       // Открываем клоны для видимых не-trash карт, чтобы они попали
       // в выборку и разложились по print-page вместе с оригиналами.
-      $('#grid .card-item:not(.card--hidden):not([data-trash-real]):not([data-trash-pseudo]):not(.card-print-clone)')
+      $('#grid .card-item:not(.card--hidden):not([data-trash-real]):not([data-trash-pseudo]):not([data-demo-pseudo]):not(.card-print-clone)')
         .each(function () {
           var cardId = $(this).data('card-id');
           $('#grid .card-print-clone[data-card-id="' + cardId + '"]')
@@ -1479,7 +1509,7 @@ $(function () {
     if (cardId == null) return;
     // Предпочитаем настоящую карту из её родной группы; pseudo-копия
     // в Корзине — запасной вариант на случай если real-копии нет.
-    var $target = $('#grid .card-item[data-card-id="' + cardId + '"]:not([data-trash-pseudo]):not(.card-print-clone)').first();
+    var $target = $('#grid .card-item[data-card-id="' + cardId + '"]:not([data-trash-pseudo]):not([data-demo-pseudo]):not(.card-print-clone)').first();
     if (!$target.length) {
       $target = $('#grid .card-item[data-card-id="' + cardId + '"]:not(.card-print-clone)').first();
     }
