@@ -758,6 +758,19 @@ const CARDS = [
     enDesc: "On a successful attack against an already poisoned player, the Fukibari returns to your hand.",
     img: "cards/card_todo.png"
   },
+  {
+    id: 328,
+    title: "Цубутэ",
+    enTitle: "Tsubute",
+    types: ["weapon"],
+    qty: 1,
+    group: "weapon",
+    icons: ["ranged", "dmg0", "charges"],
+    tags: ["draft", "toPrint"],
+    desc: "Перед атакой сбросьте с руки любые карты: +1 к силе за каждую, но не больше трёх.",
+    enDesc: "Before attacking, discard any number of cards from your hand: +1 power for each, up to three.",
+    img: "cards/card_todo.png"
+  },
 
   // ── ЛОВУШКИ (стр. 7) ─────────────────────────────────────────────
   {
@@ -984,6 +997,19 @@ const CARDS = [
     img: "cards/card_44_rikoshet.png"
   },
   {
+    id: 1056,
+    title: "Укэ-нагаси",
+    enTitle: "Uke-nagashi",
+    types: ["defense"],
+    qty: 1,
+    group: "defense",
+    icons: [],
+    tags: ["draft", "toPrint"],
+    desc: "Атака не проходит, и вы берёте карту из колоды. -ИЛИ- Отведите удар на любого из своих соседей: атака идёт по нему с той же силой, и он может защищаться.",
+    enDesc: "The attack fails and you draw a card. -OR- Deflect the blow onto either of your neighbours: the attack hits them with the same power, and they may defend.",
+    img: "cards/card_todo.png"
+  },
+  {
     id: 56,
     title: "Блок",
     enTitle: "Block",
@@ -1125,6 +1151,32 @@ const CARDS = [
     desc: "Ваши метательные атаки наносят +1 рану.[NL]Совершив успешную атаку по игроку с ловушкой, вы берёте 1 карту из колоды.",
     enDesc: "Your thrown attacks deal +1 wound.[NL]On a successful attack against a player who has a Trap, draw a card.",
     img: "cards/card_archer.png",
+  },
+  {
+    id: 1167,
+    title: "Сэйган-но камаэ",
+    enTitle: "Seigan no Kamae",
+    types: ["stance"],
+    qty: 1,
+    group: "stance",
+    icons: [],
+    tags: ["draft", "toPrint"],
+    desc: "Раз в ход, когда вас атакуют, можете отбить атаку любой картой с руки, как картой Защиты; её собственный эффект при этом не срабатывает.",
+    enDesc: "Once per turn, when you are attacked, you may block the attack with any card from your hand as if it were a Defense card; that card's own effect does not apply.",
+    img: "cards/card_todo.png"
+  },
+  {
+    id: 1168,
+    title: "Макото",
+    enTitle: "Makoto",
+    types: ["stance"],
+    qty: 1,
+    group: "stance",
+    icons: [],
+    tags: ["draft", "toPrint"],
+    desc: "Пока вы в этой стойке, ваша рука лежит перед вами в открытую. Ваши атаки наносят на 1 рану больше, и в фазе набора вы берёте на одну карту больше.",
+    enDesc: "While in this Stance, your hand lies face up in front of you. Your attacks deal 1 extra wound, and you draw one extra card in the draw phase.",
+    img: "cards/card_todo.png"
   },
   // ── МОДИФИКАТОРЫ (стр. 10–11) ─────────────────────────────────────
   {
@@ -2134,6 +2186,19 @@ const CARDS = [
     desc: "Заберите у выбранного игрока случайные карты с руки — по одной за каждые два его недостающих жетона жизни.[NL]{Ниндзя} забирают по карте за каждый недостающий жетон, но не больше трёх.",
     enDesc: "Take random cards from a chosen player's hand — one for every two lives they are missing.[NL]{Ninja} take one card for every missing life, up to three.",
     img: "cards/card_1129_oihagi.png"
+  },
+  {
+    id: 1130,
+    title: "Кэйтэки-сю",
+    enTitle: "Keiteki-shu",
+    types: ["action"],
+    qty: 1,
+    group: "action",
+    icons: ["charctx"],
+    tags: ["draft", "toPrint"],
+    desc: "Выбранный игрок восстанавливает половину своих недостающих жетонов жизни, с округлением вверх.[NL]{Манасэ} может разделить эти жетоны между любыми ранеными игроками.",
+    enDesc: "The chosen player restores half of their missing life, rounded up.[NL]{Manase} may split that life among any wounded players.",
+    img: "cards/card_todo.png"
   },
   {
     id: 31121,

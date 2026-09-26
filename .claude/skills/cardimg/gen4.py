@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 """gen4.py - пакетная генерация вариантов арта карты через img_gen.py.
 
-Запускает варианты волнами по два. Ровно по два: ~/.claude/skills/img/SKILL.md
+Запускает варианты волнами по три (было по два; лимит поднят 27.09.2026 по
+просьбе пользователя). Больше трёх не даёт: ~/.claude/skills/img/SKILL.md
 говорит, что Codex всё равно сериализует запуски у себя, так что от большей
 параллельности выигрыша нет, а риск словить ошибку квоты или перепутанные
 файлы сессии - есть.
@@ -105,8 +106,8 @@ def main():
     ap.add_argument("--dry-run", action="store_true",
                     help="прогнать валидацию и показать план, ничего не генерируя "
                          "и не тратя квоту")
-    ap.add_argument("--jobs", type=int, default=2, choices=(1, 2), metavar="N",
-                    help="сколько запусков параллельно (по умолчанию 2; "
+    ap.add_argument("--jobs", type=int, default=3, choices=(1, 2, 3), metavar="N",
+                    help="сколько запусков параллельно (по умолчанию 3; "
                          "1 исключает подмену файлов между сессиями Codex)")
     args = ap.parse_args()
 
@@ -140,7 +141,7 @@ def main():
     if args.dry_run:
         model, effort, size, timeout = TIERS[args.tier]
         print(f"tier={args.tier} model={model} effort={effort} size={size} "
-              f"timeout={timeout}s, вариантов {total}, волнами по 2")
+              f"timeout={timeout}s, вариантов {total}, волнами по {args.jobs}")
         for i, v in enumerate(variants, 1):
             print(f"[{i}/{total}] {v['name']}")
             for r in v.get("refs", []):
