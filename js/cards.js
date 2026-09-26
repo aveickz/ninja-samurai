@@ -2344,6 +2344,19 @@ const CARDS = [
     enDesc: "Play in response to a Defense card: it is destroyed and the attack resolves as if undefended.",
     img: "cards/card_1031_shchitolom.png"
   },
+  {
+    id: 1141,
+    title: "Хикяку",
+    enTitle: "Hikyaku",
+    types: ["intervention"],
+    qty: 2,
+    group: "intervention",
+    icons: [],
+    tags: ["draft", "toPrint"],
+    desc: "Сыграйте эту карту, чтобы любой игрок на ваш выбор взял две карты из колоды.",
+    enDesc: "Play this card to have any player of your choice draw two cards.",
+    img: "cards/card_1141_hikyaku.png"
+  },
 
   // ── ПРОЧИЕ ДЕЙСТВИЯ (стр. 18) ─────────────────────────────────────
   {
