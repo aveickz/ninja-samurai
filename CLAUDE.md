@@ -71,7 +71,8 @@
 
 - `mechanics/new-mechanics-ideas.md` — ~18 мета-механик (Deathrattle, Charges, Team Aura, Self-harm, Curses, Spare cost, On-Kill, On-Hit, Selfish→Ally Conversion и др.).
 - `mechanics/new-cards-ideas.md` — ~20 идей конкретных карт (Засада лучника, Память предков, Кубитори, Кампо, Куноити, Военный совет, Wave и др.).
-- `mechanics/aspect_matrix_draft.md` — матрица 100+ пересечений с метками ✓ Воплощено / ⚠ Отклонено.
+- `mechanics/aspect_matrix_draft.md` — матрица 100+ пересечений с метками ✓ в колоде / ◐ частично / ⌛ устарело / ⚠ отклонено.
+- `mechanics/aspect_matrix_card_ideas.md` — покрытие пар аспектов по колоде и 40 новых карт на пустых парах (N1–N40).
 - `mechanics/aspects.md` — словарь аспектов игры для построения матриц.
 
 ## Стиль предложений новых идей
@@ -134,10 +135,16 @@ diff'у мучительно. Место дешевле времени.
 - `cards.md` — текстовый реестр всех карт с типами и эффектами.
 - `meta_mechanics.md` — мета-правила (North Star + 12+ правил +
   антипаттерны). Главный документ для любых решений по дизайну.
-- `aspects.md` — плоский словарь аспектов игры (hp, trap, stance, charges
-  и т. д.) для построения матриц «механика × аспект».
-- `aspect_matrix_draft.md` — матрица 100+ пересечений аспектов с метками
-  ✓ Воплощено / ⚠ Отклонено. Реестр дизайнерских решений.
+- `aspects.md` — плоский словарь аспектов игры (complexity, trap, stance,
+  charges и т. д.) для построения матриц «механика × аспект». Сверен с
+  правилами 26.09.2026; он же — вход генератора матрицы.
+- `aspect_matrix_draft.md` — первая матрица, 101 пересечение, май 2026.
+  Реестр дизайнерских решений: статусы ✓ в колоде / ◐ частично /
+  ⌛ устарело / ⚠ отклонено пересмотрены 26.09.2026.
+- `aspect_matrix_card_ideas.md` / `.html` — вторая матрица: покрытие всех
+  пар аспектов по `js/cards.js` (тепловая карта) и 40 новых карт на пустых
+  парах. Собирается `tools/build-aspect-matrix.py` из `aspects.md`,
+  `js/cards.js` и `aspect_matrix_card_ideas.toml`; руками не править.
 - `new-mechanics-ideas.md` — копилка мета-механик (~18 пунктов). В начале
   файла — оглавление всех зафиксированных механик.
 - `new-cards-ideas.md` — копилка конкретных идей карт (~20 пунктов). В
@@ -165,6 +172,7 @@ diff'у мучительно. Место дешевле времени.
 | Картотека: рендер, фильтры, печать       | Корень репозитория (см. ниже) |
 | Арт карты (`cards/*.png`)                | **только по явной просьбе** — см. ниже |
 | Депонирование (PDF для nris.ru)          | Реквизиты и состав — `copyright.md`; `py -3 tools/build-copyright-deposit.py part …` рисует куски параллельно в `print/copyright_deposit_parts/`, `assemble` склеивает; превью 3D-моделей — `tools/render-glb.py` → `3d/preview/`, 3MF → GLB — `tools/mf2glb.py` |
+| Матрица аспектов (словарь, покрытие пар, идеи на пустых парах) | Словарь — `mechanics/aspects.md` (строка ``- `ключ` — описание``, новому ключу нужен детектор в `DETECT` скрипта); идеи — `mechanics/aspect_matrix_card_ideas.toml`; затем `py -3 tools/build-aspect-matrix.py` (`--list` — какие карты нашёл каждый детектор). Пересобирать и после правок `js/cards.js` |
 | Симуляция партий (сыграть, посмотреть историю, отчёт по картам) | `simulation.md` §10–11: `node simulations/engine/export_cards.mjs` после правки `js/cards.js`, `py -3 simulations/engine/sim.py new/export/report`, партии играет Workflow `simulations/workflow/play.js` |
 
 ## Арт карт заменяется только по явной просьбе
