@@ -136,9 +136,9 @@ const CARDS = [
     group: "weapon",
     icons: ["complexity1", "dmg2", "charctx"],
     iconsOr: ["ranged", "dmg1"],
-    tags: [],
-    desc: "Любимое оружие {Манасэ}.",
-    enDesc: "Favourite weapon of {Manase}.",
+    tags: ["toPrint"],
+    desc: "Атаковать им могут только женские персонажи.[NL]Любимое оружие {Манасэ}.",
+    enDesc: "Only female characters can attack with it.[NL]Favourite weapon of {Manase}.",
     img: "cards/card_6_boevoy_veer.png"
   },
   {
@@ -344,11 +344,11 @@ const CARDS = [
     types: ["weapon"],
     qty: 2,
     group: "weapon",
-    icons: ["ranged", "dmg1", "poison"],
+    icons: ["ranged", "dmg1", "poison", "charctx"],
     iconsOr: ["complexity1", "dmg2", "poison"],
-    tags: ["poison"],
-    desc: "",
-    enDesc: "",
+    tags: ["poison", "toPrint"],
+    desc: "Атаковать им могут только женские персонажи.",
+    enDesc: "Only female characters can attack with it.",
     img: "cards/card_6_boevoy_veer.png"
   },
   {
@@ -719,6 +719,32 @@ const CARDS = [
     enDesc: "Strikes only as your second attack of the turn. If the attack is stopped, the attempt is not used up.",
     img: "cards/card_324_kodachi.png"
   },
+  {
+    id: 325,
+    title: "Кабурая",
+    enTitle: "Kaburaya",
+    types: ["weapon"],
+    qty: 1,
+    group: "weapon",
+    icons: ["ranged", "dmg1", "effect8"],
+    tags: ["draft", "toPrint"],
+    desc: "В случае успешной атаки Кабурая переходит на цель эффектом: следующая атака по ней наносит на одну рану больше, после чего карта уходит в сброс.",
+    enDesc: "On a successful attack, the Kaburaya passes to the target as an Effect: the next attack against them deals one wound more, then the card is discarded.",
+    img: "cards/card_todo.png"
+  },
+  {
+    id: 326,
+    title: "Кансаси",
+    enTitle: "Kanzashi",
+    types: ["weapon"],
+    qty: 1,
+    group: "weapon",
+    icons: ["complexity1", "dmg1", "poison", "charctx"],
+    tags: ["poison", "draft", "toPrint"],
+    desc: "Атаковать им могут только женские персонажи.[NL]В случае успешной атаки по уже отравленному вы берёте карту из колоды.[NL]Любимое оружие {Минамото}.",
+    enDesc: "Only female characters can attack with it.[NL]On a successful attack against an already poisoned player, you draw a card.[NL]Favourite weapon of {Minamoto}.",
+    img: "cards/card_todo.png"
+  },
 
   // ── ЛОВУШКИ (стр. 7) ─────────────────────────────────────────────
   {
@@ -1020,8 +1046,8 @@ const CARDS = [
     group: "stance",
     icons: [],
     tags: ["toPrint"],
-    desc: "При совершении атаки можете выбрать нанести одну рану больше {ИЛИ} взять одну карту из колоды.[NL]{Совершая успешно прямую атаку} восстановите себе 1 жетон жизни.",
-    enDesc: "When you attack, choose: deal 1 extra wound {OR} draw a card.[NL]{On a successful direct attack} restore 1 life.",
+    desc: "За ход вы можете провести на одну попытку атаки больше.",
+    enDesc: "You may make one more attack attempt per turn.",
     img: "cards/card_61_master_boya.png"
   },
   {
@@ -1599,6 +1625,19 @@ const CARDS = [
     enDesc: "You deal 1 wound.[NL]Each ally may play a weapon card as an Intervention to add 1 more wound - at most one card per player.",
     img: "cards/card_shoulder_to_shoulder.png"
   },
+  {
+    id: 1140,
+    title: "Бундори",
+    enTitle: "Bundori",
+    types: ["aoe"],
+    qty: 1,
+    group: "aoe",
+    icons: [],
+    tags: ["draft", "toPrint"],
+    desc: "Выложите из колоды в открытую по одной карте на каждого живого игрока своей команды, считая себя. Раздайте их игрокам своей команды по своему усмотрению — себе тоже можно, и одному можно дать несколько.",
+    enDesc: "Reveal one card from the deck for each living player on your team, yourself included. Share them out among your team as you see fit — you may keep some yourself, and one player may receive several.",
+    img: "cards/card_todo.png"
+  },
   // ── ЭФФЕКТЫ постоянные/разовые (стр. 13–14) ──────────────────────
   {
     id: 91,
@@ -1794,6 +1833,19 @@ const CARDS = [
     desc: "Сложность атак по вам увеличивается на 1. TODO: синергия со стойкой О-ёрой — какая, пока не решено.",
     enDesc: "Attacks against you are 1 harder. TODO: synergy with the Ō-yoroi Stance — not yet decided.",
     img: "cards/card_armor.png"
+  },
+  {
+    id: 6104,
+    title: "Тяжёлые доспехи",
+    enTitle: "Heavy Armor",
+    types: ["effect"],
+    qty: 1,
+    group: "effect",
+    icons: ["rolectx"],
+    tags: ["draft", "toPrint"],
+    desc: "{Самураю} сложность атак по вам увеличивается на 2.[NL]{Ниндзя} доспехом пользоваться не умеет. TODO: решить — ниндзя вовсе не может носить или получает лишь +1.",
+    enDesc: "For a {Samurai}, attacks against you are 2 harder.[NL]A {Ninja} cannot wear it. TODO: decide — the ninja cannot wear it at all, or only gets +1.",
+    img: "cards/card_todo.png"
   },
 
   // ── ДЕЙСТВИЯ (стр. 15–16) ─────────────────────────────────────────
@@ -2096,6 +2148,19 @@ const CARDS = [
     desc: "Передвиньте активную ауру от одного {союзника} к другому — по согласию обоих. Один из них может быть вами.",
     enDesc: "Move an active Aura from one {ally} to another, with the consent of both. Either of them may be you.",
     img: "cards/card_baton.png"
+  },
+  {
+    id: 1126,
+    title: "Вайро",
+    enTitle: "Wairo",
+    types: ["intervention"],
+    qty: 1,
+    group: "intervention",
+    icons: ["rolectx"],
+    tags: ["draft", "toPrint"],
+    desc: "Сыграйте, когда атакуют вас или вашего {союзника}: отдайте атакующему в открытую по карте с руки за каждую рану этой атаки, но не меньше одной. Атака отменяется, попытка сгорает. Откупиться можно даже от атаки, от которой нельзя защититься.[NL]{Самурай} вправе отказаться от взятки — тогда карты остаются у вас.",
+    enDesc: "Play when you or an {ally} are attacked: openly give the attacker one card from your hand per wound of this attack, at least one. The attack is cancelled and the attempt is used up. You can buy off even an attack that cannot be defended.[NL]A {Samurai} may refuse the bribe — then you keep the cards.",
+    img: "cards/card_1126_wairo.png"
   },
   {
     id: 121,
