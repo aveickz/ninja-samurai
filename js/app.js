@@ -534,6 +534,10 @@ $(function () {
     // ловушку, не тратит попытку атаки. Вспомогательная пометка, не тип;
     // в плашке описания дублируется подписью (см. buildDescWrap).
     thrust:  { color: '#8B1E2D', glyph: 'media/icons/thrust.svg' },
+    // Приказ — карта даёт союзнику сыграть в ваш ход: атаку (Сасидзу) или
+    // другую карту. Тоже свойство, а не тип, с подписью в плашке. Силуэт —
+    // сайхай, жезл полководца с кистью полос.
+    command: { color: '#2F3566', glyph: 'media/icons/command.svg' },
     // raw: цветного слоя нет, середина остаётся белой, а цвет несёт сам
     // рисунок — сердце красное, тайцзи красно-синее, монеты чёрные.
     rolectx: { glyph: 'media/icons/rolectx.svg', raw: true },
@@ -543,6 +547,13 @@ $(function () {
     charctx: { glyph: 'media/icons/charctx.svg', raw: true },
     charges: { glyph: 'media/icons/charges.svg', raw: true },
     hp:      { png: 'media/hp.png' }
+  };
+
+  // Пометки-свойства, которые кроме бейджа в стопке подписываются в
+  // плашке описания, перед текстом.
+  var MARK_LABELS = {
+    thrust:  { ru: 'Выпад',  en: 'Thrust' },
+    command: { ru: 'Приказ', en: 'Command' }
   };
 
   // Старые имена пометок, которые на деле означают группу карт.
@@ -638,21 +649,22 @@ $(function () {
 
     var $descContent = buildDescContent(desc);
 
-    // Подпись «выпад» рядом с типами — выводится из пометки thrust в
-    // icons[], чтобы текст и бейдж не могли разойтись. Это свойство, а
-    // не тип, поэтому отдельный span своим цветом (цвет бейджа).
-    var isThrust = (card.icons || []).indexOf('thrust') !== -1;
+    // Подписи «выпад», «приказ» рядом с типами — выводятся из пометок в
+    // icons[], чтобы текст и бейдж не могли разойтись. Это свойства, а
+    // не типы, поэтому отдельный span своим цветом (цвет бейджа).
+    var marks = (card.icons || []).filter(function (icon) { return MARK_LABELS[icon]; });
 
-    if (blockLabels.length || isThrust) {
+    if (blockLabels.length || marks.length) {
       var $target = $descContent.hasClass('card-desc--split')
         ? $descContent.find('.card-desc-part').first()
         : $descContent;
-      if (isThrust) {
+      // prepend ставит в начало, поэтому идём с конца — порядок как в icons[]
+      marks.slice().reverse().forEach(function (icon) {
         $target.prepend($('<span>', {
-          class: 'card-block-thrust',
-          text: (LANG === 'en' ? 'Thrust' : 'Выпад') + '\u00A0·'
+          class: 'card-block-' + icon,
+          text: MARK_LABELS[icon][LANG === 'en' ? 'en' : 'ru'] + '\u00A0·'
         }));
-      }
+      });
       if (blockLabels.length) {
         $target.prepend($('<span>', {
           class: 'card-block-types',

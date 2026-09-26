@@ -2110,6 +2110,19 @@ const CARDS = [
     img: "cards/card_1127_kokyu.png"
   },
   {
+    id: 1128,
+    title: "Сасидзу",
+    enTitle: "Sashizu",
+    types: ["action"],
+    qty: 1,
+    group: "action",
+    icons: ["command"],
+    tags: ["draft", "toPrint"],
+    desc: "Потратьте одну свою попытку атаки: выбранный {союзник} немедленно проводит атаку оружием со своей руки — вне своего хода. TODO: перерисовать арт — нынешний временный.",
+    enDesc: "Spend one of your attack attempts: a chosen {ally} immediately makes a weapon attack from their own hand, outside their turn. TODO: redraw the art — the current one is temporary.",
+    img: "cards/card_1128_sashizu.png"
+  },
+  {
     id: 1129,
     title: "Оихаги",
     enTitle: "Oihagi",
