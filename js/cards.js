@@ -2097,6 +2097,19 @@ const CARDS = [
     img: "cards/card_1127_kokyu.png"
   },
   {
+    id: 1129,
+    title: "Оихаги",
+    enTitle: "Oihagi",
+    types: ["action"],
+    qty: 1,
+    group: "action",
+    icons: ["rolectx"],
+    tags: ["draft", "toPrint"],
+    desc: "Заберите у выбранного игрока случайные карты с руки — по одной за каждые два его недостающих жетона жизни.[NL]{Ниндзя} забирают по карте за каждый недостающий жетон, но не больше трёх.",
+    enDesc: "Take random cards from a chosen player's hand — one for every two lives they are missing.[NL]{Ninja} take one card for every missing life, up to three.",
+    img: "cards/card_1129_oihagi.png"
+  },
+  {
     id: 31121,
     title: "Горячая картошка",
     enTitle: "Burning Coal",
