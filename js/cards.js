@@ -2158,8 +2158,8 @@ const CARDS = [
     group: "intervention",
     icons: ["rolectx"],
     tags: ["draft", "toPrint"],
-    desc: "Сыграйте, когда атакуют вас или вашего {союзника}: отдайте атакующему в открытую по карте с руки за каждую рану этой атаки, но не меньше одной. Атака отменяется, попытка сгорает. Откупиться можно даже от атаки, от которой нельзя защититься.[NL]{Самурай} вправе отказаться от взятки — тогда карты остаются у вас.",
-    enDesc: "Play when you or an {ally} are attacked: openly give the attacker one card from your hand per wound of this attack, at least one. The attack is cancelled and the attempt is used up. You can buy off even an attack that cannot be defended.[NL]A {Samurai} may refuse the bribe — then you keep the cards.",
+    desc: "Сыграйте, когда атакуют вас или вашего {союзника}: отдайте атакующему в открытую по карте с руки за каждую рану этой атаки, но не меньше одной. Атака отменяется, попытка сгорает. Откупиться можно даже от атаки, от которой нельзя защититься.[NL]{Самурай} вправе отказаться от взятки — тогда карты остаются у вас. TODO: цена откупа — по карте за рану или твёрдые две карты, решить на плейтесте. Проверить, не мёртвая ли карта против самураев: они вправе отказаться от взятки (№6).",
+    enDesc: "Play when you or an {ally} are attacked: openly give the attacker one card from your hand per wound of this attack, at least one. The attack is cancelled and the attempt is used up. You can buy off even an attack that cannot be defended.[NL]A {Samurai} may refuse the bribe — then you keep the cards. TODO: bribe price — one card per wound or a flat two cards, settle in playtest. Check the card is not dead against Samurai, who may refuse the bribe (rule 6).",
     img: "cards/card_1126_wairo.png"
   },
   {
