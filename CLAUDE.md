@@ -72,7 +72,7 @@
 - `mechanics/new-mechanics-ideas.md` — ~18 мета-механик (Deathrattle, Charges, Team Aura, Self-harm, Curses, Spare cost, On-Kill, On-Hit, Selfish→Ally Conversion и др.).
 - `mechanics/new-cards-ideas.md` — ~20 идей конкретных карт (Засада лучника, Память предков, Кубитори, Кампо, Куноити, Военный совет, Wave и др.).
 - `mechanics/aspect_matrix_draft.md` — матрица 100+ пересечений с метками ✓ в колоде / ◐ частично / ⌛ устарело / ⚠ отклонено.
-- `mechanics/aspect_matrix_card_ideas.md` — покрытие пар аспектов по колоде и 60 новых карт на пустых парах (N1–N60).
+- `mechanics/aspect_matrix_card_ideas.md` — покрытие пар аспектов по колоде и 70 новых карт на пустых парах (N1–N70).
 - `mechanics/aspects.md` — словарь аспектов игры для построения матриц.
 
 ## Стиль предложений новых идей
@@ -142,7 +142,7 @@ diff'у мучительно. Место дешевле времени.
   Реестр дизайнерских решений: статусы ✓ в колоде / ◐ частично /
   ⌛ устарело / ⚠ отклонено пересмотрены 26.09.2026.
 - `aspect_matrix_card_ideas.md` / `.html` — вторая матрица: покрытие всех
-  пар аспектов по `js/cards.js` (тепловая карта) и 60 новых карт на пустых
+  пар аспектов по `js/cards.js` (тепловая карта) и 70 новых карт на пустых
   парах. Собирается `tools/build-aspect-matrix.py` из `aspects.md`,
   `js/cards.js` и `aspect_matrix_card_ideas.toml`; руками не править.
 - `new-mechanics-ideas.md` — копилка мета-механик (~18 пунктов). В начале

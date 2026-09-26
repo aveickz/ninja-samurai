@@ -663,8 +663,8 @@ const CARDS = [
     group: "weapon",
     icons: ["ranged", "dmg1"],
     tags: ["toPrint"],
-    desc: "Выстрел по уже отравленному не тратит попытку атаки.",
-    enDesc: "A shot at an already poisoned player does not use up an attack attempt.",
+    desc: "Выстрел по уже отравленному не тратит попытку атаки. TODO: сделать фракционной — на ниндзя; у Ханкю #329 {Ниндзя} тоже стреляют, не тратя попытку.",
+    enDesc: "A shot at an already poisoned player does not use up an attack attempt. TODO: make it faction-bound to the Ninja; Hankyu #329 also lets {Ninja} shoot without using up an attempt.",
     img: "cards/card_320_fukiya.png"
   },
   {
@@ -770,6 +770,19 @@ const CARDS = [
     desc: "Перед атакой сбросьте с руки любые карты: +1 к силе за каждую, но не больше трёх.",
     enDesc: "Before attacking, discard any number of cards from your hand: +1 power for each, up to three.",
     img: "cards/card_todo.png"
+  },
+  {
+    id: 329,
+    title: "Ханкю",
+    enTitle: "Hankyu",
+    types: ["weapon"],
+    qty: 1,
+    group: "weapon",
+    icons: ["ranged", "dmg1", "rolectx"],
+    tags: ["draft", "toPrint"],
+    desc: "{Самураи} наносят на одну рану больше.[NL]{Ниндзя} стреляют, не тратя попытку атаки.[NL]В стойке {лучника} наносит на одну рану больше.",
+    enDesc: "{Samurai} deal 1 extra wound.[NL]{Ninja} shoot without using up an attack attempt.[NL]In the {Archer} stance, deals 1 extra wound.",
+    img: "cards/card_329_hankyu.png"
   },
 
   // ── ЛОВУШКИ (стр. 7) ─────────────────────────────────────────────
@@ -1441,6 +1454,19 @@ const CARDS = [
     desc: "Ваше текущее количество жетонов победы добавляется к силе атаки.",
     enDesc: "Add your current victory points to the attack's power.",
     img: "cards/card_1084_pobednyi_udar.png"
+  },
+  {
+    id: 1085,
+    title: "Кайсяку",
+    enTitle: "Kaishaku",
+    types: ["modifier"],
+    qty: 1,
+    group: "modifier",
+    icons: [],
+    tags: ["draft", "toPrint"],
+    desc: "+1 к силе атаки.[NL]{Если атака убивает} посмертный эффект персонажа цели не срабатывает.",
+    enDesc: "+1 attack power.[NL]{If the attack kills} the target character's death effect does not fire.",
+    img: "cards/card_todo.png"
   },
   {
     id: 1032,
