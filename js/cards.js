@@ -1636,7 +1636,7 @@ const CARDS = [
     tags: ["draft", "toPrint"],
     desc: "Выложите из колоды в открытую по одной карте на каждого живого игрока своей команды, считая себя. Раздайте их игрокам своей команды по своему усмотрению — себе тоже можно, и одному можно дать несколько.",
     enDesc: "Reveal one card from the deck for each living player on your team, yourself included. Share them out among your team as you see fit — you may keep some yourself, and one player may receive several.",
-    img: "cards/card_todo.png"
+    img: "cards/card_1140_bundori.png"
   },
   // ── ЭФФЕКТЫ постоянные/разовые (стр. 13–14) ──────────────────────
   {
