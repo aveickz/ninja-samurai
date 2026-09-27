@@ -401,7 +401,7 @@ const CARDS = [
     tags: ["poison", "toPrint"],
     desc: "Атаковать им могут только женские персонажи.",
     enDesc: "Only female characters can attack with it.",
-    img: "cards/card_6_boevoy_veer.png"
+    img: "cards/card_20_boevoy_veer_yad.png"
   },
   {
     id: 21,
@@ -411,10 +411,10 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["ranged", "dmg1", "poison"],
-    tags: ["poison"],
+    tags: ["poison", "toPrint"],
     desc: "",
     enDesc: "",
-    img: "cards/card_18_say.png"
+    img: "cards/card_21_say_yad.png"
   },
   {
     id: 22,
@@ -543,10 +543,10 @@ const CARDS = [
     group: "weapon",
     icons: ["complexity2", "dmg1", "poison"],
     iconsOr: ["ranged", "dmg1", "poison"],
-    tags: ["poison"],
+    tags: ["poison", "toPrint"],
     desc: "{Древковое} В стойке {всадника} наносит на одну рану больше.",
     enDesc: "{Polearm} In the {Horseman} stance, deals 1 extra wound.",
-    img: "cards/card_29_yari.png"
+    img: "cards/card_31_yari_yad.png"
   },
   {
     id: 32,
@@ -661,10 +661,10 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["ranged", "dmg2", "poison"],
-    tags: ["poison"],
+    tags: ["poison", "toPrint"],
     desc: "В стойке {лучника} наносит на одну рану больше.",
     enDesc: "In the {Archer} stance, deals 1 extra wound.",
-    img: "cards/card_33_dayku.png"
+    img: "cards/card_37_dayku_yad.png"
   },
   {
     id: 38,
@@ -701,10 +701,10 @@ const CARDS = [
     group: "weapon",
     icons: ["ranged", "dmg1", "poison"],
     iconsOr: ["complexity1", "dmg2", "poison"],
-    tags: ["poison"],
+    tags: ["poison", "toPrint"],
     desc: "",
     enDesc: "",
-    img: "cards/card_36_kunay.png"
+    img: "cards/card_40_kunay_yad.png"
   },
   {
     id: 318,
