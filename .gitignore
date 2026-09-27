@@ -1,2 +1,13 @@
 __pycache__/
 print/copyright_deposit_parts/
+
+# Макеты печати тяжелее лимита GitHub (100 МБ на файл) — живут только на диске.
+# CDR — весенняя вёрстка колоды в CorelDRAW, всё перенесено в картотеку.
+corel/main.cdr
+corel/Резервная_копия_main.cdr
+print/all_19_06_2026.pdf
+print/all_19_06_2026_cmyk_fogra39.pdf
+
+# Транзитное сообщение агента симуляции, записанное мимо simulations/games/inbox/
+# (путь склеился без разделителей); содержимое inbox в git не хранится.
+/C*simulationsgamesinbox*.json
