@@ -1699,7 +1699,7 @@ const CARDS = [
     qty: 1,
     group: "aoe",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Остальные активные игроки выкладывают перед собой на своё усмотрение любую карту в открытую. Изучив карты, вы можете взять любую из них себе в руку.",
     enDesc: "Each other living player lays out one card of their choice face up. After looking them over, you may take any one of those cards into your hand.",
     img: "cards/card_obisk.png"
