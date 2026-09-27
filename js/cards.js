@@ -1279,7 +1279,7 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     icons: ["poison"],
-    tags: ["poison"],
+    tags: ["poison", "toPrint"],
     desc: "Ваша атака теперь накладывает отравление и наносит на 1 рану больше.",
     enDesc: "Your attack now inflicts Poison and deals 1 extra wound.",
     img: "cards/card_64_flakon_yada.png"
@@ -1292,7 +1292,7 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Ваша атака наносит на одну рану больше.",
     enDesc: "Your attack deals 1 extra wound.",
     img: "cards/card_65_tochilo.png"
@@ -1318,7 +1318,7 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     icons: ["rolectx"],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Ваша атака игнорирует ловушки и от неё невозможно защититься.[NL]{Ниндзя} наносят на 1 рану больше.[NL]{Самураи} штрафуются сбросом карты.",
     enDesc: "Your attack ignores Traps and cannot be defended.[NL]{Ninja} deal 1 extra wound.[NL]{Samurai} pay the price of a discarded card.",
     img: "cards/card_67_udar_teni.png"
@@ -1334,7 +1334,7 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "+1 к силе атаки. Ваше оружие берёт сложность на 2 больше.[NL]{При наличии стойки} наносите ещё на 1 рану больше.",
     enDesc: "+1 attack power. Your weapon handles 2 more complexity.[NL]{With a Stance in play} deal 1 more wound.",
     img: "cards/card_68_vypad.png"
@@ -1373,7 +1373,7 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     icons: ["charctx"],
-    tags: [],
+    tags: ["toPrint"],
     desc: "В случае успешной атаки вы восстанавливаете себе столько жетонов жизни, сколько нанесли ран.[NL]{Така} вместо жетонов жизни может забрать у цели столько же карт из руки.",
     enDesc: "On a successful attack, restore as much life as the wounds you dealt.[NL]{Taka} may instead take that many cards from the target's hand.",
     img: "cards/card_71_celebnyy_klinok.png"
@@ -1412,7 +1412,7 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Меняет ваше оружие на метательное с базовой силой атаки 1.",
     enDesc: "Turns your weapon into a thrown weapon with base power 1.",
     img: "cards/card_75_brosok.png"
@@ -1425,7 +1425,7 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Итоговая сила атаки становится равна вашему количеству жетонов жизни.",
     enDesc: "The attack's final power equals your current life.",
     img: "cards/card_74_sokrushitelnyy_udar.png"
@@ -1438,7 +1438,7 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Отравленный противник получит на две раны больше.",
     enDesc: "A Poisoned target takes 2 extra wounds.",
     img: "cards/card_76_kipyashchiy_yad.png"
@@ -1451,7 +1451,7 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     icons: ["rolectx"],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Вы не тратите свою попытку атаки в данном ударе.[NL]{Самураи} наносят дополнительно 1 рану.[NL]{Ниндзя} штрафуются сбросом карты.",
     enDesc: "This strike does not use up your attack.[NL]{Samurai} deal 1 extra wound.[NL]{Ninja} pay the price of a discarded card.",
     img: "cards/card_77_dlan_syoguna.png"
@@ -1477,7 +1477,7 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Ваша атака оружием полностью игнорирует все бонусы от стойки, персонажа и эффектов цели.",
     enDesc: "Your weapon attack completely ignores every bonus from the target's Stance, Character and Effects.",
     img: "cards/card_80_pronzitelnyy_udar.png"
@@ -1490,7 +1490,7 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Сила атаки увеличивается на 2.",
     enDesc: "+2 attack power.",
     img: "cards/card_79_kriticheskiy_udar.png"
