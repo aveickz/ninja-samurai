@@ -374,7 +374,7 @@ and the cord reads as very long, far longer than the frame
 
 Сверх обязательной пары - **0-2 PNG из `cards/`**, это реальный продакшн-арт и
 лучший носитель стиля. Подбирай близкие по смыслу и по группе, а не первые
-попавшиеся: для клинка - `card_2_katana.png`, `card_11_kama.png`; для сцены с
+попавшиеся: для клинка - `card_1_katana_kuro.png`, `card_11_kama.png`; для сцены с
 двумя фигурами - что-нибудь из `action`. Имена там говорящие
 (`card_<id>_<транслит>.png`), ищи по `ls cards | grep`.
 
