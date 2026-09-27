@@ -1555,9 +1555,9 @@ const CARDS = [
     qty: 2,
     group: "aoe",
     icons: [],
-    tags: ["draft"],
-    desc: "Играется в паре с картой неметательного оружия, берущего сложность 2 или выше. Минуя ловушки, активные игроки получают урон от оружия (без бонусов) или скидывают защиту. Тратит атаку. TODO: реворк. Условие «неметательное оружие сложности 2+» после отмены рассадки описывает только пробивное оружие и ничего не говорит о замахе — вариант привязать к классу {Древковое}: вихрь и есть круговой удар древком. Заодно решить, бьёт ли он союзников (сейчас — всех активных).",
-    enDesc: "Played together with a non-thrown weapon that handles complexity 2 or higher. Ignoring Traps, every living player takes the weapon's damage (no bonuses) or discards a Defense. Uses up your attack. TODO: rework. Since seating no longer matters, «a non-thrown weapon of complexity 2+» only describes armour-piercing weapons and says nothing about the sweep — consider tying it to the {Polearm} class instead: the whirlwind is a circular polearm strike. Also decide whether it hits allies (currently every living player).",
+    tags: ["draft", "toPrint"],
+    desc: "Играется вместе с {Древковым} оружием или Нодати и тратит попытку атаки. Минуя ловушки, каждый враг получает атаку силой этого оружия (без бонусов, но с его ядом) — от неё можно защититься.",
+    enDesc: "Played together with a {Polearm} weapon or a Nodachi; uses up an attack attempt. Ignoring Traps, every enemy takes an attack at that weapon's power (no bonuses, but with its Poison) — it may be defended.",
     img: "cards/card_86_vikhr_yarosti.png"
   },
   {
@@ -1568,9 +1568,9 @@ const CARDS = [
     qty: 2,
     group: "aoe",
     icons: [],
-    tags: [],
-    desc: "Сыграйте эту карту и за счёт каждой другой карты с руки метните в других метательным оружием силой 1. От этого можно защититься. Максимум 1 удар в одну цель. Тратит атаку. TODO: реворк. Из туду: переделать под shared spare — союзники доплачивают метательным оружием с руки, — либо убрать «тратит атаку».",
-    enDesc: "Play this card and spend any other cards from your hand to throw a ranged attack of power 1 at another player for each one. These may be defended. At most 1 hit per target. Uses up your attack. TODO: rework. From the to-do list: turn it into a shared spare — allies chip in thrown weapons from their hands — or drop «uses up your attack».",
+    tags: ["toPrint"],
+    desc: "Тратит попытку атаки. Сбросьте с руки до трёх других карт: каждая — бросок метательным оружием силой 1 во врага, цели распределяете как угодно. От каждого броска защищаются отдельно.",
+    enDesc: "Uses up an attack attempt. Discard up to three other cards from your hand: each one is a thrown attack of power 1 against an enemy, split among targets as you like. Each throw is defended separately.",
     img: "cards/card_shkval_ognya.png"
   },
   {
