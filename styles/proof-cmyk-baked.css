@@ -93,10 +93,12 @@ body.proof-cmyk-baked .filter-btn:hover { color: #e8d6a4 !important; }
 
 /* ── Плашки заголовков по группам (перекрываем inline background) ── */
 body.proof-cmyk-baked .card-item[data-group="weapon"]      .card-title-wrap,
-body.proof-cmyk-baked .card-item[data-group="aoe"]         .card-title-wrap,
 body.proof-cmyk-baked .card-item[data-group="effect"]      .card-title-wrap,
 body.proof-cmyk-baked .card-item[data-group="action"]      .card-title-wrap {
   background: #201e24 !important;
+}
+body.proof-cmyk-baked .card-item[data-group="aoe"]         .card-title-wrap {
+  background: #155e84 !important;
 }
 body.proof-cmyk-baked .card-item[data-group="trap"]        .card-title-wrap {
   background: #43525b !important;

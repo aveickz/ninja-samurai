@@ -41,6 +41,7 @@ palette = [
     ('#2a1c0a', 'header gradient stop / panel bg'),
     ('#231a0e', 'filter button bg'),
     ('#231F20', 'card title bar — default'),
+    ('#165E83', 'aoe title bar — ai-iro'),
     ('#3a2a10', 'thin divider line'),
     ('#5a3e1b', 'paper text accent'),
     ('#6a5030', 'muted text / border'),
@@ -184,10 +185,12 @@ body.proof-cmyk-baked .filter-btn:hover { color: %(c_e8d5a3)s !important; }
 
 /* ── Плашки заголовков по группам (перекрываем inline background) ── */
 body.proof-cmyk-baked .card-item[data-group="weapon"]      .card-title-wrap,
-body.proof-cmyk-baked .card-item[data-group="aoe"]         .card-title-wrap,
 body.proof-cmyk-baked .card-item[data-group="effect"]      .card-title-wrap,
 body.proof-cmyk-baked .card-item[data-group="action"]      .card-title-wrap {
   background: %(c_231F20)s !important;
+}
+body.proof-cmyk-baked .card-item[data-group="aoe"]         .card-title-wrap {
+  background: %(c_165E83)s !important;
 }
 body.proof-cmyk-baked .card-item[data-group="trap"]        .card-title-wrap {
   background: %(c_43525A)s !important;

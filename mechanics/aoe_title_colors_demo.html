@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Групповые: цвет плашки</title>
+<style>
+  :root { --bg: #f4efe4; --ink: #2E2A28; --muted: #6b6259; --line: #d8cfbf; }
+  body { margin: 0; padding: 24px; background: var(--bg); color: var(--ink);
+         font-family: -apple-system, "Segoe UI", Roboto, sans-serif; }
+  h1 { font-size: 22px; margin: 0 0 6px; }
+  p.lead { margin: 0 0 20px; color: var(--muted); max-width: 900px; line-height: 1.45; }
+  table { border-collapse: collapse; }
+  td { padding: 10px; vertical-align: middle; border-top: 1px solid var(--line); }
+  td.name { width: 220px; }
+  .swatch { width: 64px; height: 28px; border-radius: 4px; margin-bottom: 8px; }
+  .title { font-weight: 600; font-size: 16px; }
+  .jp { color: var(--muted); font-size: 14px; margin-left: 4px; }
+  .hex { font-family: Consolas, monospace; font-size: 13px; color: var(--muted); margin: 2px 0 6px; }
+  .note { font-size: 13px; line-height: 1.4; color: var(--muted); }
+  tr.current td { background: rgba(46, 42, 40, .05); }
+  iframe { width: 300px; height: 470px; border: 0; background: #fff; display: block; }
+  .warn { display: none; background: #fff3cd; border: 1px solid #e0c36a; padding: 8px 12px;
+          margin-bottom: 16px; font-size: 14px; }
+</style>
+</head>
+<body>
+<h1 id="heading"></h1>
+<p class="lead"><span id="lead"></span> Цвет
+подменяется только на этой странице, в картотеке он прежний. Вместе с плашкой перекрашивается
+и кружок значка группы: в приложении у них всегда один цвет. Наборы: <a href="?set=mix">разные цвета</a>
+· <a href="?set=blue">синие</a>.</p>
+<div class="warn" id="warn">Цвет не подменился: страницу нужно открывать через локальный сервер
+(например <code>http://localhost:9061/mechanics/aoe_title_colors_demo.html</code>), а не двойным
+кликом — из <code>file://</code> браузер не пускает в iframe.</div>
+<table id="grid"></table>
+
+<script>
+  var CARDS_SHOWN = [90, 1139, 84];
+  var CURRENT = { name: 'Прежний: тушь', jp: '', hex: '#2E2A28', current: true,
+      note: 'Цвет до 27.09, совпадает с плашкой оружия и действий. С 27.09 в картотеке — Аи-иро.' };
+  var HANADA = { name: 'Ханада', jp: '縹', hex: '#2C6590',
+      note: 'Чистый средний синий, светлее отменённого индиго и без фиолетового. От голубых персонажей отличается глубиной.' };
+  var SETS = {
+    mix: {
+      heading: 'Групповые карты: четыре варианта цвета плашки',
+      lead: 'В верхней строке — прежняя плашка, для сравнения. Ниже четыре варианта. Не взяты занятые цвета: чёрный (оружие, действия), грифель (ловушки), золото (защита), песок (стойки), красный (модификаторы), сирень (эффекты), бирюза (вмешательства), салатовый (ауры). Индиго тоже не взят: его пробовали и отменили 22.09.',
+      variants: null
+    },
+    blue: {
+      heading: 'Групповые карты: пять синих',
+      lead: 'В верхней строке — прежняя плашка, во второй — Ханада из первого набора, ниже пять новых синих: от тёмного к светлому и от зелёного оттенка к фиолетовому. Рядом из занятых — голубые персонажи #6C8CC7 и грифельные ловушки #43525A; отменённое индиго было #2F3566.',
+      variants: [CURRENT, HANADA,
+        { name: 'Кати-иро', jp: '褐色', hex: '#1F3A5F',
+          note: '«Цвет победы»: самураи носили этот тёмный синий, потому что кати созвучно 勝ち — победа. Самый тёмный, почти тушь, но холодный.' },
+        { name: 'Аи-иро', jp: '藍色', hex: '#165E83',
+          note: 'Японская синь из индигоноски — хлопок крестьян и ниндзя. Глубокий синий с зеленцой; от бирюзы вмешательств отличается синевой.' },
+        { name: 'Рури-иро', jp: '瑠璃色', hex: '#1E50A2',
+          note: 'Лазурит, камень из буддийских семи сокровищ. Звонкий королевский синий, самый насыщенный из пяти.' },
+        { name: 'Гундзё', jp: '群青', hex: '#3D5FA8',
+          note: 'Ультрамарин, толчёный азурит из живописи на ширмах. Светлее рури, но глубже голубых персонажей.' },
+        { name: 'Кикё', jp: '桔梗色', hex: '#4F4FA0',
+          note: 'Колокольчик-кикё, мон клана Акэти. Сине-фиолетовый, светлее и ярче отменённого индиго; от сирени эффектов отличается синевой.' }
+      ]
+    }
+  };
+  var SET_KEY = new URLSearchParams(location.search).get('set') || 'mix';
+  if (!SETS[SET_KEY]) SET_KEY = 'mix';
+  var VARIANTS_MIX = [
+    CURRENT,
+    { name: 'Бэнгара', jp: '紅柄', hex: '#8E3A22',
+      note: 'Красная окись железа — краска ворот, замков и лакированных доспехов. Тёплый ржаво-красный, заметно темнее и глуше модификаторов.' },
+    { name: 'Кохаку', jp: '琥珀', hex: '#B5651D',
+      note: 'Янтарь. Огненный оранжевый. От золота защиты отличается краснотой и темнотой.' },
+    { name: 'Суо', jp: '蘇芳', hex: '#7B2440',
+      note: 'Отвар сапанового дерева, цвет парадных одежд. Винно-бордовый, холоднее красного модификаторов.' },
+    HANADA
+  ];
+  SETS.mix.variants = VARIANTS_MIX;
+  var SET = SETS[SET_KEY];
+  var VARIANTS = SET.variants;
+  document.getElementById('heading').textContent = SET.heading;
+  document.getElementById('lead').textContent = SET.lead;
+  document.title = SET.heading.replace('Групповые карты: ', 'Групповые: ');
+
+  var grid = document.getElementById('grid');
+  VARIANTS.forEach(function (v) {
+    var tr = document.createElement('tr');
+    if (v.current) tr.className = 'current';
+    var td = document.createElement('td');
+    td.className = 'name';
+    td.innerHTML = '<div class="swatch" style="background:' + v.hex + '"></div>' +
+      '<div class="title">' + v.name + (v.jp ? '<span class="jp">' + v.jp + '</span>' : '') + '</div>' +
+      '<div class="hex">' + v.hex + '</div><div class="note">' + v.note + '</div>';
+    tr.appendChild(td);
+    CARDS_SHOWN.forEach(function (id) {
+      var cell = document.createElement('td');
+      var fr = document.createElement('iframe');
+      fr.loading = 'lazy';
+      fr.src = '../app.html?embed=' + id;
+      fr.addEventListener('load', function () { paint(fr, v.hex); });
+      cell.appendChild(fr);
+      tr.appendChild(cell);
+    });
+    grid.appendChild(tr);
+  });
+
+  function paint(fr, hex) {
+    try {
+      var doc = fr.contentDocument;
+      var st = doc.createElement('style');
+      st.textContent = '.card-title-wrap, .card-group-fill { background: ' + hex + ' !important; }';
+      doc.head.appendChild(st);
+    } catch (e) {
+      document.getElementById('warn').style.display = 'block';
+    }
+  }
+</script>
+</body>
+</html>

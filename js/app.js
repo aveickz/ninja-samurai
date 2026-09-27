@@ -30,7 +30,7 @@ $(function () {
     weapon:       '#2E2A28',
     stance:       '#A78B6B',
     modifier:     '#ED1C24',
-    aoe:          '#2E2A28',
+    aoe:          '#165E83',
     aura:     '#93a32e',
     effect:       '#5B4A7E',
     intervention: '#3B8476',
@@ -86,7 +86,15 @@ $(function () {
   // а не портрет. Записи в cards.js не трогаем — арт подменяется только
   // здесь, по id карты; у кого демо-арта ещё нет, копия идёт с обычным.
   var DEMO_ART = {
-    145: 'cards/demo/card_145_manase.png'
+    135: 'cards/demo/card_135_usivaka.png',
+    136: 'cards/demo/card_136_taranaga.png',
+    137: 'cards/demo/card_137_saigo.png',
+    138: 'cards/demo/card_138_hanzo.png',
+    139: 'cards/demo/card_139_iyo.png',
+    140: 'cards/demo/card_140_taka.png',
+    142: 'cards/demo/card_142_norio.png',
+    145: 'cards/demo/card_145_manase.png',
+    146: 'cards/demo/card_146_minamoto.png'
   };
 
   // ── Игровые / неигровые карты ────────────────────────────────────
@@ -534,10 +542,6 @@ $(function () {
     // ловушку, не тратит попытку атаки. Вспомогательная пометка, не тип;
     // в плашке описания дублируется подписью (см. buildDescWrap).
     thrust:  { color: '#8B1E2D', glyph: 'media/icons/thrust.svg' },
-    // Приказ — карта даёт союзнику сыграть в ваш ход: атаку (Сасидзу) или
-    // другую карту. Тоже свойство, а не тип, с подписью в плашке. Силуэт —
-    // сайхай, жезл полководца с кистью полос.
-    command: { color: '#2F3566', glyph: 'media/icons/command.svg' },
     // raw: цветного слоя нет, середина остаётся белой, а цвет несёт сам
     // рисунок — сердце красное, тайцзи красно-синее, монеты чёрные.
     rolectx: { glyph: 'media/icons/rolectx.svg', raw: true },
@@ -552,8 +556,7 @@ $(function () {
   // Пометки-свойства, которые кроме бейджа в стопке подписываются в
   // плашке описания, перед текстом.
   var MARK_LABELS = {
-    thrust:  { ru: 'Выпад',  en: 'Thrust' },
-    command: { ru: 'Приказ', en: 'Command' }
+    thrust:  { ru: 'Выпад',  en: 'Thrust' }
   };
 
   // Старые имена пометок, которые на деле означают группу карт.
@@ -649,7 +652,7 @@ $(function () {
 
     var $descContent = buildDescContent(desc);
 
-    // Подписи «выпад», «приказ» рядом с типами — выводятся из пометок в
+    // Подписи вроде «выпад» рядом с типами — выводятся из пометок в
     // icons[], чтобы текст и бейдж не могли разойтись. Это свойства, а
     // не типы, поэтому отдельный span своим цветом (цвет бейджа).
     var marks = (card.icons || []).filter(function (icon) { return MARK_LABELS[icon]; });

@@ -568,11 +568,10 @@
   margin-right: 3px;
 }
 
-/* Подписи «выпад», «приказ» — свойства карты, а не типы: тот же ряд и та
+/* Подписи вроде «выпад» — свойства карты, а не типы: тот же ряд и та
    же гарнитура, что у типов, но цвет своего бейджа, чтобы глаз связал
    подпись со значком в стопке. */
-.card-block-thrust,
-.card-block-command {
+.card-block-thrust {
   font-family: 'Salma Pro Med Narrow', 'Georgia', sans-serif;
   font-variant: small-caps;
   text-transform: uppercase;
@@ -580,7 +579,6 @@
   margin-right: 3px;
 }
 .card-block-thrust  { color: #8B1E2D; }
-.card-block-command { color: #2F3566; }
 
 /* Метки в описании: {текст} → выделенный span без скобок.
    Базовый класс + опциональный модификатор вида. */
