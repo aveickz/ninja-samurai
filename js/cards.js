@@ -1545,7 +1545,7 @@ const CARDS = [
     tags: ["draft", "toPrint"],
     desc: "+1 к силе атаки.[NL]{Если атака убивает} посмертный эффект персонажа цели не срабатывает.",
     enDesc: "+1 attack power.[NL]{If the attack kills} the target character's death effect does not fire.",
-    img: "cards/card_todo.png"
+    img: "cards/card_1085_podavlenie.png"
   },
   {
     id: 1032,
