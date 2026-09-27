@@ -844,7 +844,7 @@ const CARDS = [
     qty: 1,
     group: "weapon",
     icons: ["ranged", "dmg0", "charges"],
-    tags: ["draft", "toPrint"],
+    tags: ["trash"],
     desc: "Перед атакой сбросьте с руки любые карты: +1 к силе за каждую, но не больше трёх.",
     enDesc: "Before attacking, discard any number of cards from your hand: +1 power for each, up to three.",
     img: "cards/card_todo.png"
