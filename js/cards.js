@@ -674,7 +674,7 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["ranged", "dmg1", "trap", "charctx"],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Можно использовать как ловушку, которая наносит одну рану атакующему в ответ.[NL]Любимое оружие {Иё}.",
     enDesc: "May be played as a Trap that deals 1 wound back to the attacker.[NL]Favourite weapon of {Iyo}.",
     img: "cards/card_38_makibishi.png"
