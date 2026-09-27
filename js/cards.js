@@ -501,13 +501,26 @@ const CARDS = [
     title: "Сюрикен",
     enTitle: "Shuriken",
     types: ["weapon"],
-    qty: 2,
+    qty: 1,
     group: "weapon",
     icons: ["ranged", "dmg1"],
     tags: ["toPrint"],
     desc: "{При наличии ловушки} наносит на одну рану больше.",
     enDesc: "{With a Trap in play} deals one wound more.",
-    img: "cards/card_34_syuriken.png"
+    img: "cards/card_32_syuriken_roppo.png"
+  },
+  {
+    id: 330,
+    title: "Сюрикен",
+    enTitle: "Shuriken",
+    types: ["weapon"],
+    qty: 1,
+    group: "weapon",
+    icons: ["ranged", "dmg1"],
+    tags: ["toPrint"],
+    desc: "{При наличии ловушки} наносит на одну рану больше.",
+    enDesc: "{With a Trap in play} deals one wound more.",
+    img: "cards/card_330_syuriken_mandzi.png"
   },
   {
     id: 33,
@@ -540,13 +553,26 @@ const CARDS = [
     title: "Сюрикен",
     enTitle: "Shuriken",
     types: ["weapon"],
-    qty: 2,
+    qty: 1,
     group: "weapon",
     icons: ["ranged", "dmg1", "poison"],
     tags: ["poison", "toPrint"],
     desc: "{При наличии ловушки} наносит на одну рану больше.",
     enDesc: "{With a Trap in play} deals one wound more.",
-    img: "cards/card_34_syuriken.png"
+    img: "cards/card_34_syuriken_dzyumondzi.png"
+  },
+  {
+    id: 331,
+    title: "Сюрикен",
+    enTitle: "Shuriken",
+    types: ["weapon"],
+    qty: 1,
+    group: "weapon",
+    icons: ["ranged", "dmg1", "poison"],
+    tags: ["poison", "toPrint"],
+    desc: "{При наличии ловушки} наносит на одну рану больше.",
+    enDesc: "{With a Trap in play} deals one wound more.",
+    img: "cards/card_331_syuriken_sampo.png"
   },
   {
     id: 35,
