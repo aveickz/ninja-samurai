@@ -2040,7 +2040,7 @@ const CARDS = [
     qty: 1,
     group: "aoe",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Все живые игроки, включая вас, кладут перед собой по одной карте с руки в открытую. Вы забираете одну из них себе, остальные возвращаются владельцам.",
     enDesc: "Every living player, you included, lays one card from hand face up in front of them. You take one of them; the rest go back to their owners.",
     img: "cards/card_105_zov_predkov.png"
