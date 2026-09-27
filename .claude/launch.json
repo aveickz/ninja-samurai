@@ -4,8 +4,134 @@
     {
       "name": "cardboard-static",
       "runtimeExecutable": "py",
-      "runtimeArgs": ["-3", "-m", "http.server", "8817"],
+      "runtimeArgs": [
+        "-3",
+        "-m",
+        "http.server",
+        "8817"
+      ],
       "port": 8817
+    },
+    {
+      "name": "cardboard-static-3",
+      "runtimeExecutable": "py",
+      "runtimeArgs": [
+        "-3",
+        "-m",
+        "http.server",
+        "8873"
+      ],
+      "port": 8873
+    },
+    {
+      "name": "cardboard-static-command",
+      "runtimeExecutable": "py",
+      "runtimeArgs": [
+        "-3",
+        "-m",
+        "http.server",
+        "8891"
+      ],
+      "port": 8891
+    },
+    {
+      "name": "cardboard-static-armor",
+      "runtimeExecutable": "py",
+      "runtimeArgs": [
+        "-3",
+        "-m",
+        "http.server",
+        "8929"
+      ],
+      "port": 8929
+    },
+    {
+      "name": "cardboard-static-oihagi",
+      "runtimeExecutable": "py",
+      "runtimeArgs": [
+        "-3",
+        "-m",
+        "http.server",
+        "8957"
+      ],
+      "port": 8957
+    },
+    {
+      "name": "cardboard-static-kaishaku",
+      "runtimeExecutable": "py",
+      "runtimeArgs": [
+        "-3",
+        "-m",
+        "http.server",
+        "8983"
+      ],
+      "port": 8983
+    },
+    {
+      "name": "cardboard-static-tewake",
+      "runtimeExecutable": "py",
+      "runtimeArgs": [
+        "-3",
+        "-m",
+        "http.server",
+        "9037"
+      ],
+      "port": 9037
+    },
+    {
+      "name": "cardboard-static-whirl",
+      "runtimeExecutable": "py",
+      "runtimeArgs": [
+        "-3",
+        "-m",
+        "http.server",
+        "9061"
+      ],
+      "port": 9061
+    },
+    {
+      "name": "cardboard-static-kanzashi",
+      "runtimeExecutable": "py",
+      "runtimeArgs": [
+        "-3",
+        "-m",
+        "http.server",
+        "9089"
+      ],
+      "port": 9089
+    },
+    {
+      "name": "cardboard-static-swords",
+      "runtimeExecutable": "py",
+      "runtimeArgs": [
+        "-3",
+        "-m",
+        "http.server",
+        "9113"
+      ],
+      "port": 9113
+    },
+    {
+      "name": "cardboard-static-shuriken",
+      "runtimeExecutable": "py",
+      "runtimeArgs": [
+        "-3",
+        "-m",
+        "http.server",
+        "9141"
+      ],
+      "port": 9141
+    },
+    {
+      "name": "sim-viewer",
+      "runtimeExecutable": "py",
+      "runtimeArgs": [
+        "-3",
+        "-m",
+        "http.server",
+        "8844"
+      ],
+      "port": 8844
     }
   ]
 }
