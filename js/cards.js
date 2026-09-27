@@ -161,7 +161,7 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["complexity1", "dmg0"],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Вы берёте карту из колоды для себя или союзника в случае успешной атаки.",
     enDesc: "On a successful attack, you or an ally draws a card.",
     img: "cards/card_4_bokken.png"
@@ -215,7 +215,7 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["complexity1", "dmg2", "modifier"],
-    tags: [],
+    tags: ["toPrint"],
     desc: "При атаке Катаной можно сыграть как модификатор: +2 к силе атаки.",
     enDesc: "May be played as a modifier on a Katana attack: +2 attack power.",
     img: "cards/card_8_wakizashi.png"
@@ -228,9 +228,9 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["complexity1", "dmg1", "defense"],
-    tags: [],
-    desc: "Можно использовать как карту Защиты. В стойке {щитоносца} наносит на одну рану больше.",
-    enDesc: "May be played as a Defense card. In the {Shield Bearer} stance, deals 1 extra wound.",
+    tags: ["toPrint"],
+    desc: "Можно использовать как карту Защиты. В стойке {латника} наносит на одну рану больше.",
+    enDesc: "May be played as a Defense card. In the {Ironclad} stance, deals 1 extra wound.",
     img: "cards/card_9_shipastyy_shchit.png"
   },
   {
@@ -306,7 +306,7 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["complexity1", "dmg2"],
-    tags: [],
+    tags: ["toPrint"],
     desc: "",
     enDesc: "",
     img: "cards/card_15_mango.png"
@@ -1056,9 +1056,9 @@ const CARDS = [
     qty: 2,
     group: "defense",
     icons: [],
-    tags: [],
-    desc: "Атакующий сбрасывает случайную карту.[NL]В стойке {щитоносца} вы берёте 1 карту из колоды.",
-    enDesc: "The attacker discards a random card.[NL]In the {Shield Bearer} stance, draw a card.",
+    tags: ["toPrint"],
+    desc: "Атакующий сбрасывает случайную карту.[NL]В стойке {латника} вы берёте 1 карту из колоды.",
+    enDesc: "The attacker discards a random card.[NL]In the {Ironclad} stance, draw a card.",
     img: "cards/card_54_oshelomlenie.png"
   },
   {
@@ -1082,15 +1082,15 @@ const CARDS = [
     qty: 1,
     group: "defense",
     icons: [],
-    tags: [],
-    desc: "Атака не проходит и обращается обратно, равная базовой силе оружия. Атакующий может защититься от рикошета.",
-    enDesc: "The attack fails and rebounds at the weapon's base power. The attacker may defend against the ricochet.",
+    tags: ["toPrint"],
+    desc: "Только от метательной атаки: она не проходит и летит обратно в атакующего с базовой силой оружия. Атакующий может защититься от рикошета.",
+    enDesc: "Thrown attacks only: the attack fails and flies back at the attacker at the weapon's base power. The attacker may defend against the ricochet.",
     img: "cards/card_44_rikoshet.png"
   },
   {
     id: 1056,
-    title: "Укэ-нагаси",
-    enTitle: "Uke-nagashi",
+    title: "Отвод",
+    enTitle: "Deflect",
     types: ["defense"],
     qty: 1,
     group: "defense",
@@ -1156,8 +1156,8 @@ const CARDS = [
   },
   {
     id: 60,
-    title: "О-ёрой",
-    enTitle: "Ō-yoroi",
+    title: "Латник",
+    enTitle: "Ironclad",
     types: ["stance"],
     qty: 2,
     group: "stance",
@@ -1208,8 +1208,8 @@ const CARDS = [
   },
   {
     id: 1164,
-    title: "Кэцубан",
-    enTitle: "Ketsuban",
+    title: "Побратим",
+    enTitle: "Sworn Brother",
     types: ["stance"],
     qty: 1,
     group: "stance",
@@ -1244,32 +1244,6 @@ const CARDS = [
     enDesc: "Your thrown attacks deal +1 wound.[NL]On a successful attack against a player who has a Trap, draw a card.",
     img: "cards/card_archer.png",
   },
-  {
-    id: 1167,
-    title: "Сэйган-но камаэ",
-    enTitle: "Seigan no Kamae",
-    types: ["stance"],
-    qty: 1,
-    group: "stance",
-    icons: [],
-    tags: ["draft", "toPrint"],
-    desc: "Раз в ход, когда вас атакуют, можете отбить атаку любой картой с руки, как картой Защиты; её собственный эффект при этом не срабатывает.",
-    enDesc: "Once per turn, when you are attacked, you may block the attack with any card from your hand as if it were a Defense card; that card's own effect does not apply.",
-    img: "cards/card_todo.png"
-  },
-  {
-    id: 1168,
-    title: "Макото",
-    enTitle: "Makoto",
-    types: ["stance"],
-    qty: 1,
-    group: "stance",
-    icons: [],
-    tags: ["draft", "toPrint"],
-    desc: "Пока вы в этой стойке, ваша рука лежит перед вами в открытую. Ваши атаки наносят на 1 рану больше, и в фазе набора вы берёте на одну карту больше.",
-    enDesc: "While in this Stance, your hand lies face up in front of you. Your attacks deal 1 extra wound, and you draw one extra card in the draw phase.",
-    img: "cards/card_todo.png"
-  },
   // ── МОДИФИКАТОРЫ (стр. 10–11) ─────────────────────────────────────
   {
     id: 64,
@@ -1286,8 +1260,8 @@ const CARDS = [
   },
   {
     id: 65,
-    title: "Тамасэгири",
-    enTitle: "Tameshigiri",
+    title: "Чистый разрез",
+    enTitle: "Clean Cut",
     types: ["modifier"],
     qty: 1,
     group: "modifier",
@@ -1325,10 +1299,11 @@ const CARDS = [
   },
   {
     id: 68,
-    // Было «Выпад» — переименована 14.09.2026, чтобы не путаться с
-    // пометкой «выпад» (thrust, раны мимо атаки). Фумикоми 踏み込み —
-    // шаг-впрыгивание из кэндо, которым достают дальнюю цель.
-    title: "Фумикоми",
+    // Было «Выпад» — 14.09.2026 стала «Фумикоми» 踏み込み (шаг-впрыгивание
+    // из кэндо, которым достают дальнюю цель), чтобы не путаться с
+    // пометкой «выпад» (thrust, раны мимо атаки). 27.09.2026 — «Рывок»:
+    // японских названий вне оружия стало слишком много.
+    title: "Рывок",
     enTitle: "Lunge",
     types: ["modifier"],
     qty: 1,
@@ -1393,13 +1368,13 @@ const CARDS = [
   },
   {
     id: 73,
-    title: "Хатимаки",
-    enTitle: "Hachimaki",
+    title: "Решимость",
+    enTitle: "Resolve",
     types: ["modifier"],
     qty: 1,
     group: "modifier",
     icons: ["hpctx"],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Ваша атака берёт любую сложность и наносит на одну рану больше, но вы теряете один жетон жизни.[NL]{На пороге вашей смерти} применить нельзя.",
     enDesc: "Your attack handles any complexity and deals 1 extra wound, but you lose 1 life.[NL]{At death's door} it cannot be played.",
     img: "cards/card_73_povyazka_kamikadze.png"
@@ -1510,13 +1485,13 @@ const CARDS = [
   },
   {
     id: 1083,
-    title: "Кубитори",
-    enTitle: "Kubitori",
+    title: "Трофей",
+    enTitle: "Trophy",
     types: ["modifier"],
     qty: 1,
     group: "modifier",
     icons: ["charctx"],
-    tags: [],
+    tags: ["toPrint"],
     desc: "+1 к силе атаки. При убийстве врага этой атакой вы можете забрать себе его стойку, ауру и любые эффекты.[NL]Единственный способ отнять стойку у {Сайго}.",
     enDesc: "+1 attack power. If this attack kills the enemy, you may take their Stance, Aura and any Effects for yourself.[NL]The only way to take {Saigo}'s Stance.",
     img: "cards/card_1083_kubitori.png"
@@ -1536,8 +1511,8 @@ const CARDS = [
   },
   {
     id: 1085,
-    title: "Кайсяку",
-    enTitle: "Kaishaku",
+    title: "Подавление",
+    enTitle: "Suppression",
     types: ["modifier"],
     qty: 1,
     group: "modifier",
@@ -1549,8 +1524,8 @@ const CARDS = [
   },
   {
     id: 1032,
-    title: "Рэнкэй",
-    enTitle: "Renkei",
+    title: "Совместный удар",
+    enTitle: "Joint Strike",
     types: ["intervention", "modifier"],
     qty: 1,
     group: "intervention",
@@ -1646,7 +1621,7 @@ const CARDS = [
     types: ["aoe"],
     qty: 2,
     group: "aoe",
-    icons: [],
+    icons: ["charges"],
     tags: ["toPrint"],
     desc: "Тратит попытку атаки. Сбросьте с руки до трёх других карт: каждая — бросок метательным оружием силой 1 во врага, цели распределяете как угодно. От каждого броска защищаются отдельно.",
     enDesc: "Uses up an attack attempt. Discard up to three other cards from your hand: each one is a thrown attack of power 1 against an enemy, split among targets as you like. Each throw is defended separately.",
@@ -1685,10 +1660,10 @@ const CARDS = [
     types: ["aoe"],
     qty: 2,
     group: "aoe",
-    icons: ["thrust"],
-    tags: [],
-    desc: "Остальные активные игроки скидывают карту защиты или два жетона жизни. TODO: реворк. Открытый вопрос из туду — куда идёт победное очко, если крик добивает; по правилу выпада оно уходит сыгравшему карту, проверить, что это и хотели.",
-    enDesc: "Each other living player discards a Defense card or loses 2 life. TODO: rework. Open question from the to-do list — who gets the victory point when the cry finishes a player; under the thrust rule it goes to whoever played the card, confirm that is the intent.",
+    icons: ["thrust", "charges"],
+    tags: ["toPrint"],
+    desc: "Остальные живые игроки сбрасывают по две карты оружия; за каждую несброшенную — одна рана.",
+    enDesc: "Each other living player discards two Weapon cards; for each one they don't discard, they take 1 wound.",
     img: "cards/card_89_boevoy_krik.png"
   },
   {
@@ -1737,10 +1712,10 @@ const CARDS = [
     types: ["aoe"],
     qty: 1,
     group: "aoe",
-    icons: ["charges"],
+    icons: ["thrust", "charges"],
     tags: ["draft", "toPrint"],
-    desc: "Каждый враг получает атаку равную по силе количеству ваших союзников при смерти. От этого нельзя защититься. TODO: полностью переделать (22.09.2026) — каскадный урон от числа мёртвых союзников, антипаттерн; в черновике.",
-    enDesc: "Every enemy takes an attack with power equal to the number of your allies at death's door. This cannot be defended. TODO: full rework (22.09.2026) — cascading damage scaled by dead allies is an anti-pattern; draft.",
+    desc: "Вы наносите по ране за каждого раненого союзника и по две — за каждого союзника на пороге смерти. Раны распределите между врагами как угодно, хоть все в одного.",
+    enDesc: "Deal 1 wound for each wounded ally and 2 for each ally at death's door. Split the wounds among enemies as you like — all into one is fine.",
     img: "cards/card_3094_krik_vozmezdiya.png"
   },
   {
@@ -1797,8 +1772,8 @@ const CARDS = [
   },
   {
     id: 1140,
-    title: "Бундори",
-    enTitle: "Bundori",
+    title: "Делёж добычи",
+    enTitle: "Spoils of War",
     types: ["aoe"],
     qty: 1,
     group: "aoe",
@@ -1807,6 +1782,19 @@ const CARDS = [
     desc: "Выложите из колоды в открытую по одной карте на каждого живого игрока своей команды, считая себя. Раздайте их игрокам своей команды по своему усмотрению — себе тоже можно, и одному можно дать несколько.",
     enDesc: "Reveal one card from the deck for each living player on your team, yourself included. Share them out among your team as you see fit — you may keep some yourself, and one player may receive several.",
     img: "cards/card_1140_bundori.png"
+  },
+  {
+    id: 1142,
+    title: "По местам!",
+    enTitle: "To Your Posts!",
+    types: ["aoe"],
+    qty: 1,
+    group: "aoe",
+    icons: [],
+    tags: ["draft", "toPrint"],
+    desc: "Каждый ваш живой {союзник} может сразу сыграть с руки одну любую карту, кроме атаки: выставить стойку, ловушку или ауру, наложить эффект, сыграть действие. Союзники играют одновременно, не дожидаясь друг друга.",
+    enDesc: "Each of your living {allies} may immediately play one card from their hand — anything but an attack: set up a stance, a trap or an aura, place an effect, play an action. Allies play at the same time, without waiting for each other.",
+    img: "cards/card_1142_tewake.png"
   },
   // ── ЭФФЕКТЫ постоянные/разовые (стр. 13–14) ──────────────────────
   {
@@ -1993,16 +1981,16 @@ const CARDS = [
   },
   {
     id: 5104,
-    title: "Доспех",
-    enTitle: "Armor",
+    title: "Лёгкие доспехи",
+    enTitle: "Light Armor",
     types: ["effect"],
     qty: 2,
     group: "effect",
     icons: [],
     tags: ["toPrint"],
-    desc: "Сложность атак по вам увеличивается на 1. TODO: синергия со стойкой О-ёрой — какая, пока не решено.",
-    enDesc: "Attacks against you are 1 harder. TODO: synergy with the Ō-yoroi Stance — not yet decided.",
-    img: "cards/card_armor.png"
+    desc: "Сложность атак по вам увеличивается на 1. TODO: синергия со стойкой Латник — какая, пока не решено.",
+    enDesc: "Attacks against you are 1 harder. TODO: synergy with the Ironclad Stance — not yet decided.",
+    img: "cards/card_todo.png"
   },
   {
     id: 6104,
@@ -2015,7 +2003,7 @@ const CARDS = [
     tags: ["draft", "toPrint"],
     desc: "{Самураю} сложность атак по вам увеличивается на 2.[NL]{Ниндзя} доспехом пользоваться не умеет. TODO: решить — ниндзя вовсе не может носить или получает лишь +1.",
     enDesc: "For a {Samurai}, attacks against you are 2 harder.[NL]A {Ninja} cannot wear it. TODO: decide — the ninja cannot wear it at all, or only gets +1.",
-    img: "cards/card_todo.png"
+    img: "cards/card_armor.png"
   },
 
   // ── ДЕЙСТВИЯ (стр. 15–16) ─────────────────────────────────────────
@@ -2041,8 +2029,8 @@ const CARDS = [
     group: "aoe",
     icons: [],
     tags: ["toPrint"],
-    desc: "Все живые игроки, включая вас, кладут перед собой по одной карте с руки в открытую. Вы забираете одну из них себе, остальные возвращаются владельцам.",
-    enDesc: "Every living player, you included, lays one card from hand face up in front of them. You take one of them; the rest go back to their owners.",
+    desc: "Все остальные живые игроки кладут перед собой по одной карте с руки в открытую. Вы забираете одну из них себе, остальные возвращаются владельцам.",
+    enDesc: "Every other living player lays one card from hand face up in front of them. You take one of them; the rest go back to their owners.",
     img: "cards/card_105_zov_predkov.png"
   },
   {
@@ -2229,13 +2217,13 @@ const CARDS = [
   },
   {
     id: 1121,
-    title: "Кампо",
-    enTitle: "Kampo",
+    title: "Травяной сбор",
+    enTitle: "Herbal Remedy",
     types: ["action"],
     qty: 1,
     group: "action",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Сыграв эту карту, можете сбросить любое необходимое количество карт, восстановив за каждую 1 жизнь.",
     enDesc: "Play this card and discard as many cards as you need, restoring 1 life for each.",
     img: "cards/card_kampo.png"
@@ -2255,8 +2243,8 @@ const CARDS = [
   },
   {
     id: 1127,
-    title: "Кокю",
-    enTitle: "Kokyu",
+    title: "Второе дыхание",
+    enTitle: "Second Wind",
     types: ["action"],
     qty: 1,
     group: "action",
@@ -2268,12 +2256,12 @@ const CARDS = [
   },
   {
     id: 1128,
-    title: "Сасидзу",
-    enTitle: "Sashizu",
+    title: "По моему знаку",
+    enTitle: "On My Signal",
     types: ["action"],
     qty: 1,
     group: "action",
-    icons: ["command"],
+    icons: [],
     tags: ["draft", "toPrint"],
     desc: "Потратьте одну свою попытку атаки: выбранный {союзник} немедленно проводит атаку оружием со своей руки — вне своего хода. TODO: перерисовать арт — нынешний временный.",
     enDesc: "Spend one of your attack attempts: a chosen {ally} immediately makes a weapon attack from their own hand, outside their turn. TODO: redraw the art — the current one is temporary.",
@@ -2281,8 +2269,8 @@ const CARDS = [
   },
   {
     id: 1129,
-    title: "Оихаги",
-    enTitle: "Oihagi",
+    title: "Разбойник",
+    enTitle: "Highwayman",
     types: ["action"],
     qty: 1,
     group: "action",
@@ -2294,8 +2282,8 @@ const CARDS = [
   },
   {
     id: 1130,
-    title: "Кэйтэки-сю",
-    enTitle: "Keiteki-shu",
+    title: "Трактат лекаря",
+    enTitle: "Healer's Treatise",
     types: ["action"],
     qty: 1,
     group: "action",
@@ -2373,8 +2361,8 @@ const CARDS = [
   },
   {
     id: 1126,
-    title: "Вайро",
-    enTitle: "Wairo",
+    title: "Взятка",
+    enTitle: "Bribe",
     types: ["intervention"],
     qty: 1,
     group: "intervention",
@@ -2529,8 +2517,8 @@ const CARDS = [
   },
   {
     id: 1141,
-    title: "Хикяку",
-    enTitle: "Hikyaku",
+    title: "Гонец",
+    enTitle: "Courier",
     types: ["intervention"],
     qty: 2,
     group: "intervention",
@@ -2583,13 +2571,13 @@ const CARDS = [
   },
   {
     id: 132,
-    title: "Кэцу нуги",
-    enTitle: "Ketsu Nugi",
+    title: "Кровопийца",
+    enTitle: "Leech",
     types: ["action"],
     qty: 1,
     group: "action",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Забираете у игрока жетон жизни и добавляете его себе.[NL]{Если вы отравлены}, то передаёте игроку отравление.",
     enDesc: "Take one life from a player and add it to your own.[NL]{If you are Poisoned}, you pass the Poison to that player instead.",
     img: "cards/card_131_sifon_zhizni.png"

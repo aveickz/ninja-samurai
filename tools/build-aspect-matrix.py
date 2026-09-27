@@ -105,7 +105,7 @@ DETECT = {
     'intervention': dict(group=['intervention'], type=['intervention'], icon=['intervention'],
                          re=r'вмешательств|в любой момент|в чужой ход'),
     'redirect':     dict(re=r'перенаправ|на себя \(|переложить|переместить|передвин|переходит на убивш'
-                           r'|вместо неё свою ловушку|обращается обратно|передаёте игроку отравление|ауру можете выложить перед любым'),
+                           r'|вместо неё свою ловушку|обратно в атакующего|передаёте игроку отравление|ауру можете выложить перед любым'),
     # Разовые действия
     'aoe':          dict(group=['aoe'], icon=['aoe']),
     'action':       dict(group=['action']),
@@ -133,7 +133,7 @@ GROUP_RU = {
 }
 GROUP_COLOR = {  # те же, что GROUP_TITLE_COLOR в js/app.js
     'weapon': '#231F20', 'trap': '#43525A', 'defense': '#dca300', 'stance': '#A78B6B',
-    'modifier': '#ED1C24', 'aoe': '#2E2A28', 'effect': '#5B4A7E', 'action': '#231F20',
+    'modifier': '#ED1C24', 'aoe': '#165E83', 'effect': '#5B4A7E', 'action': '#231F20',
     'intervention': '#3B8476', 'aura': '#8a5a2b', 'character': '#6C8CC7', 'role': '#5d3c75',
 }
 
