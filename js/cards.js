@@ -1071,9 +1071,9 @@ const CARDS = [
     qty: 2,
     group: "stance",
     icons: [],
-    tags: [],
-    desc: "При выставлении восстановить два жетона жизни.[NL]Перед каждой фазой набора вы можете: восстановить жетон жизни любому игроку {ИЛИ} взять карту из колоды.",
-    enDesc: "When played, restore 2 life.[NL]Before each draw phase you may: restore 1 life to any player {OR} draw a card.",
+    tags: ["toPrint"],
+    desc: "При выставлении восстановить два жетона жизни.[NL]Всякий раз, когда вы берёте карты из колоды — в фазе набора, обменом или по эффекту карты, — берите на одну больше.",
+    enDesc: "When played, restore 2 life.[NL]Whenever you draw cards from the deck — in the draw phase, by exchange or from a card effect — draw one more.",
     img: "cards/card_59_lotos.png"
   },
   {
@@ -1109,10 +1109,10 @@ const CARDS = [
     types: ["stance"],
     qty: 2,
     group: "stance",
-    icons: ["rolectx"],
-    tags: [],
-    desc: "Раз в свой ход вы можете: восстановить жетон жизни любому игроку -ИЛИ- снять яд или один эффект любому игроку, сбросив карту.[NL]{Самураи} не обязаны скидывать карту.",
-    enDesc: "Once per turn you may: restore 1 life to any player -OR- discard a card to clear Poison or one Effect from any player.[NL]{Samurai} do not have to discard.",
+    icons: [],
+    tags: ["toPrint"],
+    desc: "В начале своего хода восстановите жетон жизни любому игроку.[NL]Любое ваше лечение заодно снимает с игрока яд и один эффект на ваш выбор.",
+    enDesc: "At the start of your turn, restore 1 life to any player.[NL]Whenever you restore life to a player, also clear their Poison and one Effect of your choice.",
     img: "cards/card_62_kapellan.png"
   },
   {
@@ -1122,10 +1122,10 @@ const CARDS = [
     types: ["stance"],
     qty: 2,
     group: "stance",
-    icons: ["rolectx"],
-    tags: [],
-    desc: "При атаке по врагу вы можете: сделать вашу атаку отравленной ядом -ИЛИ- сбросив 2 карты, сделать врага беззащитным от атаки.[NL]{Ниндзя} обязаны скинуть лишь 1 карту.[NL]{Убив игрока} возьмите 2 карты из колоды. ",
-    enDesc: "When you attack an enemy you may: make your attack Poisoned -OR- discard 2 cards to leave the enemy defenseless against it.[NL]{Ninja} discard only 1 card.[NL]{On killing a player} draw 2 cards.",
+    icons: ["poison"],
+    tags: ["poison", "toPrint"],
+    desc: "Ваши атаки отравлены ядом.[NL]{Убив игрока} возьмите 2 карты из колоды.",
+    enDesc: "Your attacks are Poisoned.[NL]{On killing a player} draw 2 cards.",
     img: "cards/card_63_assassin.png"
   },
   {
