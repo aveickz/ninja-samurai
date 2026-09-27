@@ -148,7 +148,7 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["complexity1", "dmg3", "charctx"],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Атакуемый игрок скидывает случайную карту в случае успешной атаки.[NL]Любимое оружие {Сайго}.",
     enDesc: "On a successful attack, the target discards a random card.[NL]Favourite weapon of {Saigo}.",
     img: "cards/card_3_kanabo.png"
