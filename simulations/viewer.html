@@ -1,0 +1,2170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Samurai vs Ninja — Simulation Viewer</title>
+<link rel="preload" as="image" href="media/cards/back.png">
+<link rel="preload" as="image" href="media/cards/back-role.png">
+<link rel="preload" as="image" href="media/cards/back-character.png">
+<style>
+  :root{
+    --font: -apple-system, "Segoe UI", Roboto, sans-serif;
+    --bg:#1b1d22; --panel:#24272e; --panel2:#2a2e37; --panel3:#31353f;
+    --text:#e8e8ec; --muted:#9aa0ab; --border:#3a3f4a;
+    --samurai:#c0413c; --ninja:#4a7bb5;
+    --samurai-bg:#891511; --ninja-bg:#0D233C;
+    --accent:#c9a15a;
+    --hit:#c0392b; --partial:#e08e2b; --blocked:#3b7ea1; --resolved:#3b8476; --pending:#888;
+    --stance:#A78B6B; --trap:#5a6672; --aura:#7d6bb0; --effect:#5a5a5a;
+  }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; overflow-x:hidden; background:var(--bg); color:var(--text);
+    font-family:var(--font); height:100%; }
+  #app{ display:flex; flex-direction:column; height:100vh; height:100dvh; }
+
+  /* ---------- header ---------- */
+  header#hdr{ background:var(--panel); border-bottom:1px solid var(--border);
+    padding:.5rem .75rem; display:flex; flex-wrap:wrap; align-items:center; gap:.4rem .9rem; font-size:.82rem; }
+  header#hdr b{ color:var(--accent); font-weight:600; }
+  #hdr-players{ display:flex; flex-wrap:wrap; gap:.3rem; margin-left:auto; }
+  .legend-chip{ border-radius:5px; padding:.1rem .45rem; font-size:.72rem; border:1px solid var(--border); }
+  .legend-chip.samurai{ border-color:var(--samurai); color:var(--samurai); }
+  .legend-chip.ninja{ border-color:var(--ninja); color:var(--ninja); }
+  #game-select{ display:none; background:var(--panel2); color:var(--text); border:1px solid var(--border);
+    border-radius:5px; padding:.2rem .3rem; font-family:var(--font); font-size:.78rem; }
+  #hdr-pos, #hdr-deck{ color:var(--muted); }
+
+  /* ---------- main split ---------- */
+  #main{ flex:1 1 auto; min-height:0; display:flex; overflow:hidden; }
+  #table-panel{ flex:1 1 58%; min-width:0; overflow:auto; padding:.75rem; display:flex; flex-direction:column; gap:.5rem; }
+  #log-panel{ flex:1 1 42%; min-width:0; border-left:1px solid var(--border); display:flex; flex-direction:column; overflow:hidden; }
+  @media (max-width: 820px){
+    #main{ flex-direction:column; overflow:auto; }
+    #log-panel{ border-left:none; border-top:1px solid var(--border); flex:0 0 auto; max-height:52vh; }
+    #table-panel{ flex:0 0 auto; }
+  }
+
+  /* ---------- turn jumper ---------- */
+  #turn-jumper{ display:flex; gap:.25rem; overflow-x:auto; padding:.1rem .1rem .35rem; flex:0 0 auto; }
+  .turn-jump-btn{ background:var(--panel2); color:var(--text); border:1px solid var(--border); border-radius:6px;
+    padding:.15rem .5rem; font-size:.72rem; cursor:pointer; white-space:nowrap; font-family:var(--font); }
+  .turn-jump-btn.current{ background:var(--accent); color:#241d0e; border-color:var(--accent); font-weight:600; }
+
+  /* ---------- table stage (photographed-table look) ---------- */
+  #stage-wrap{ position:relative; width:100%; max-width:900px; margin:0 auto; flex:0 0 auto;
+    aspect-ratio:1192/1165; overflow:hidden; border-radius:10px; background:#2d2418; }
+  #stage{ position:relative; width:1192px; height:1165px; transform-origin:top left; }
+  #stage-bg{ position:absolute; inset:0; width:1192px; height:1165px; display:block; user-select:none; }
+  #seats-layer, #center-layer{ position:absolute; inset:0; width:1192px; height:1165px; }
+  #arrow-svg{ position:absolute; inset:0; width:1192px; height:1165px; pointer-events:none; }
+
+  .tslot{ position:absolute; }
+  .tcard-img{ width:100%; height:100%; object-fit:cover; border-radius:3px;
+    box-shadow:0 1px 4px rgba(0,0,0,.55); cursor:pointer; display:block; }
+  .tback-img{ width:100%; height:100%; object-fit:cover; border-radius:3px;
+    box-shadow:0 1px 3px rgba(0,0,0,.5); display:block; }
+  .tslot-fallback{ display:flex; align-items:center; justify-content:center; overflow:hidden;
+    background:rgba(20,20,24,.85); border-radius:3px; border:1px solid rgba(255,255,255,.15); }
+  .tslot-fallback .chip{ font-size:7px; line-height:1.1; padding:0 2px; max-width:100%;
+    white-space:normal; text-align:center; }
+  .tempty-outline{ position:absolute; border:1.5px dashed rgba(255,255,255,.35); border-radius:4px; }
+  .tbadge{ position:absolute; transform:translate(-50%,-50%); background:rgba(0,0,0,.72); color:#fff;
+    font-size:9px; border-radius:8px; padding:0 4px; line-height:14px; white-space:nowrap; pointer-events:none; }
+  .tbadge-charges{ background:var(--aura); color:#fff; }
+  .tbadge-hand{ background:var(--accent); color:#241d0e; font-weight:700; }
+  .tlabel{ position:absolute; transform:translate(-50%,-50%); background:rgba(10,10,14,.72); color:#fff;
+    padding:1px 6px; border-radius:5px; font-size:11px; white-space:nowrap; cursor:pointer;
+    border:1px solid var(--fc,#666); }
+  .tlabel.dead{ opacity:.6; text-decoration:line-through; }
+  .tpin{ cursor:pointer; opacity:.55; margin-right:2px; }
+  .tpin.active{ opacity:1; filter:drop-shadow(0 0 3px var(--accent)); }
+  .tpin-btn{ position:absolute; transform:translate(-50%,-50%); width:18px; height:18px; border-radius:50%;
+    background:rgba(10,10,14,.72); border:1px solid var(--border); display:flex; align-items:center;
+    justify-content:center; font-size:10px; cursor:pointer; user-select:none; }
+  .tpin-btn.active{ background:var(--accent); border-color:var(--accent); }
+  .thearts, .tvp{ position:absolute; display:flex; gap:3px; transform:translate(-50%,-50%); flex-wrap:wrap;
+    max-width:190px; align-items:center; }
+  .tmini-icon{ display:block; flex:0 0 auto; filter:drop-shadow(0 1.5px 1.5px rgba(0,0,0,.65)); }
+  .tskull{ position:absolute; transform:translate(-50%,-50%); background:#000; color:#fff; font-size:11px;
+    border-radius:50%; width:18px; height:18px; display:flex; align-items:center; justify-content:center; }
+  .tfig{ position:absolute; object-fit:contain; pointer-events:none; }
+  .seat-dead .tcard-img, .seat-dead .tback-img{ filter:grayscale(1) brightness(.5); }
+  .vp-neg{ color:var(--hit); font-weight:600; font-size:11px; }
+  .vp-token-many{ color:var(--accent); font-weight:600; font-size:11px; margin-left:2px; }
+  .muted{ color:var(--muted); }
+
+  /* ---------- scene v2: open hands, action spots ---------- */
+  .thand{ position:absolute; left:0; top:0; width:0; height:0; }
+  .thand .tslot{ transition:left .15s ease, top .15s ease; }
+  .thand{ transition:transform .2s ease; }
+  .thand:hover, .thand.zoomed{ z-index:80; }
+  .thand.zoomed{ transform:scale(1.5); }
+  .tcard-img.raised{ outline:3px solid var(--accent); outline-offset:1px; box-shadow:0 6px 14px rgba(0,0,0,.6); }
+  .tspot{ position:absolute; transform:translate(-50%,-50%); pointer-events:none; white-space:nowrap; }
+  .tthink{ background:#fff; color:#222; border-radius:14px; padding:2px 9px; font-size:15px; font-weight:700;
+    letter-spacing:2px; box-shadow:0 2px 6px rgba(0,0,0,.5); animation:tthink 1.1s ease-in-out infinite; }
+  .tthink::after{ content:''; position:absolute; left:8px; bottom:-6px; border:6px solid transparent;
+    border-top-color:#fff; border-bottom:0; }
+  @keyframes tthink{ 0%,100%{ transform:translate(-50%,-50%) scale(1); } 50%{ transform:translate(-50%,-50%) scale(1.12); } }
+  .treact{ background:rgba(10,10,14,.82); color:#fff; border-radius:10px; padding:1px 8px; font-size:11px;
+    font-weight:600; border:1px solid rgba(255,255,255,.25); }
+  .treact-take{ border-color:var(--hit); color:#ffb3b3; }
+  .treact-defend{ border-color:#5fb0ff; color:#bfe0ff; }
+  .treact-intervene{ border-color:#7fe0c0; color:#c9f5e6; }
+  .treact-pass{ opacity:.7; }
+  .treact-respond{ border-color:var(--accent); color:#ffe7a8; }
+  .tturn-ring{ position:absolute; transform:translate(-50%,-50%); border:3px solid var(--accent); border-radius:6px;
+    pointer-events:none; box-shadow:0 0 10px rgba(255,200,80,.6); animation:tring 1.6s ease-in-out infinite; }
+  @keyframes tring{ 0%,100%{ box-shadow:0 0 8px rgba(255,200,80,.45); } 50%{ box-shadow:0 0 20px rgba(255,200,80,.95); } }
+
+  /* ---------- live layer: ghosts in flight, floating numbers, impact flashes ---------- */
+  #fx-layer{ position:absolute; inset:0; width:1192px; height:1165px; pointer-events:none; z-index:90; }
+  .tghost{ position:absolute; pointer-events:none; }
+  .tghost img{ width:100%; height:100%; object-fit:cover; border-radius:3px; display:block;
+    box-shadow:0 8px 18px rgba(0,0,0,.65); }
+  .tfloat{ position:absolute; font-weight:800; font-size:24px; color:#fff; white-space:nowrap; pointer-events:none;
+    text-shadow:0 2px 3px rgba(0,0,0,.9), 0 0 10px rgba(0,0,0,.6); }
+  .tfloat.dmg{ color:#ff5a5a; } .tfloat.heal{ color:#7dffa0; } .tfloat.vp{ color:#ffd76a; } .tfloat.poison{ color:#b8ff5a; }
+  .timpact{ position:absolute; border-radius:50%; pointer-events:none; mix-blend-mode:screen;
+    background:radial-gradient(circle, #fff 0%, var(--impact,#ff5a3c) 35%, rgba(255,90,60,0) 70%); }
+  #anim-label{ font-size:.78rem; color:var(--muted); display:flex; align-items:center; gap:.25rem; cursor:pointer;
+    user-select:none; }
+  .tlabel{ z-index:70; }
+  .tpin-btn{ z-index:71; }
+  .tspot{ z-index:65; }
+  .tbadge{ z-index:30; }                 /* deck / discard counters sit on top of the stacks */
+  /* one card of a zoomed hand grows to 200 % of its table size (1.5 × 1.333) */
+  .thand .tcard-img, .thand .tback-img{ transition:transform .15s ease; transform-origin:50% 50%; }
+  .thand.zoomed .tslot:hover{ z-index:99 !important; }
+  .thand.zoomed .tslot:hover .tcard-img, .thand.zoomed .tslot:hover .tback-img{ transform:scale(1.3333);
+    box-shadow:0 10px 22px rgba(0,0,0,.7); }
+  /* what the player says: the step's "why" or the reaction note, at the right shoulder */
+  .tsay{ position:absolute; max-width:175px; background:rgba(255,255,255,.96); color:#1d1f25; font-size:11px;
+    line-height:1.3; padding:4px 8px; border-radius:9px; border:1.5px solid var(--fc,#888); z-index:75;
+    box-shadow:0 3px 8px rgba(0,0,0,.5); font-style:italic; white-space:normal; }
+  .tsay::before{ content:'\201C'; color:var(--fc,#888); font-weight:700; margin-right:1px; }
+  .tsay::after{ content:'\201D'; color:var(--fc,#888); font-weight:700; margin-left:1px; }
+  .log-why{ color:var(--accent); font-style:italic; opacity:.85; }
+  .why-line{ background:rgba(201,161,90,.12); border-left:3px solid var(--accent); padding:.25rem .5rem;
+    margin-bottom:.35rem; border-radius:4px; line-height:1.35; }
+
+  #arrow-legend{ font-size:.68rem; color:var(--muted); text-align:center; flex:0 0 auto; }
+  #arrow-legend span{ margin:0 .35rem; white-space:nowrap; }
+
+  /* ---------- decision panel: "what the player saw" ---------- */
+  #decision-panel{ background:var(--panel2); border:1px solid var(--border); border-radius:8px;
+    padding:.5rem .65rem; flex:0 0 auto; font-size:.8rem; }
+  #decision-header{ display:flex; align-items:center; gap:.5rem; flex-wrap:wrap; }
+  #decision-toggle{ background:none; border:1px solid var(--border); color:var(--text); border-radius:4px;
+    cursor:pointer; font-size:.7rem; padding:0 .35rem; line-height:1.5; }
+  #decision-title{ font-weight:700; color:var(--accent); }
+  #decision-privacy{ font-size:.66rem; color:var(--muted); margin-left:auto; font-style:italic; }
+  #decision-panel.collapsed #decision-body{ display:none; }
+  #decision-panel.collapsed #decision-toggle{ transform:rotate(-90deg); }
+  #decision-panel.dimmed #decision-notes, #decision-panel.dimmed #decision-hand{ opacity:.6; }
+  #decision-notes{ margin:.4rem 0; line-height:1.4; }
+  .decision-context-label{ font-size:.66rem; color:var(--muted); font-style:italic; text-transform:uppercase;
+    letter-spacing:.03em; margin-bottom:.2rem; }
+  .hand-row{ display:flex; gap:.4rem; overflow-x:auto; padding:.15rem 0 .3rem; }
+  .hand-card{ position:relative; flex:0 0 auto; width:72px; height:115px; border-radius:5px; cursor:pointer; }
+  .hand-card img{ width:100%; height:100%; object-fit:cover; border-radius:5px; box-shadow:0 1px 4px rgba(0,0,0,.5);
+    display:block; }
+  .hand-card.played{ outline:3px solid var(--accent); outline-offset:1px; border-radius:5px; }
+  .hand-card .played-badge{ position:absolute; left:50%; bottom:-3px; transform:translateX(-50%);
+    background:var(--accent); color:#241d0e; font-size:.55rem; font-weight:700; border-radius:6px;
+    padding:0 4px; white-space:nowrap; }
+  .pin-block{ margin-top:.45rem; padding-top:.4rem; border-top:1px dashed var(--border); }
+  .pin-block-hdr{ display:flex; justify-content:space-between; align-items:center; font-size:.72rem;
+    color:var(--muted); margin-bottom:.2rem; }
+  .pin-unbtn{ background:none; border:1px solid var(--border); color:var(--text); border-radius:4px;
+    cursor:pointer; font-size:.65rem; padding:0 .3rem; }
+  @media (max-width: 820px){
+    .hand-card{ width:58px; height:93px; }
+  }
+  .legend-dot{ display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:2px; vertical-align:middle; }
+
+  /* ---------- fallback chips (also used inline in card popover text) ---------- */
+  .chip{ display:inline-block; border:1px solid rgba(255,255,255,.25); border-radius:6px; padding:1px 5px;
+    font-size:.62rem; cursor:pointer; color:#fff; background:#555; }
+  .chip-stance{ background:var(--stance); color:#241d0e; }
+  .chip-trap{ background:var(--trap); }
+  .chip-trap.facedown{ font-style:italic; opacity:.85; }
+  .chip-aura{ background:var(--aura); }
+  .chip-effect{ background:var(--effect); }
+
+  /* ---------- log ---------- */
+  #log-list{ flex:1 1 auto; overflow:auto; padding:.25rem .1rem; }
+  .log-row{ padding:.32rem .55rem; border-left:3px solid transparent; cursor:pointer; font-size:.78rem;
+    border-bottom:1px solid rgba(255,255,255,.05); word-wrap:break-word; overflow-wrap:break-word; }
+  .log-row:hover{ background:rgba(255,255,255,.04); }
+  .log-row.current{ background:rgba(201,161,90,.14); border-left-color:var(--accent); }
+  .turn-badge{ display:inline-block; background:rgba(0,0,0,.35); border-radius:4px; padding:0 5px;
+    margin-right:.4rem; font-size:.65rem; color:var(--muted); }
+  .kind-tag{ text-transform:uppercase; font-size:.6rem; letter-spacing:.03em; color:var(--muted); margin-right:.35rem; }
+  .card-ref{ color:var(--accent); cursor:pointer; margin-left:.3rem; }
+  .log-row details{ margin-top:.25rem; font-size:.74rem; color:var(--muted); }
+  .log-row summary{ cursor:pointer; }
+  .detail-body{ margin-top:.15rem; padding-left:.4rem; border-left:2px solid var(--border); }
+
+  /* ---------- controls ---------- */
+  footer#controls{ background:var(--panel); border-top:1px solid var(--border); padding:.45rem .6rem;
+    display:flex; flex-wrap:wrap; align-items:center; gap:.4rem; flex:0 0 auto; }
+  footer#controls button{ background:var(--panel3); color:var(--text); border:1px solid var(--border);
+    border-radius:6px; padding:.3rem .6rem; font-size:.85rem; cursor:pointer; font-family:var(--font); }
+  footer#controls button:hover{ background:#3a3f4a; }
+  footer#controls select{ background:var(--panel3); color:var(--text); border:1px solid var(--border);
+    border-radius:6px; padding:.3rem .4rem; font-family:var(--font); font-size:.78rem; }
+  #scrubber{ flex:1 1 140px; min-width:80px; }
+
+  /* ---------- popover ---------- */
+  #card-popover{ position:fixed; z-index:60; max-width:280px; background:#14161a; border:1px solid var(--accent);
+    border-radius:8px; padding:.55rem .7rem; font-size:.76rem; box-shadow:0 8px 24px rgba(0,0,0,.55); display:none; }
+  #card-popover.show{ display:block; }
+  .pop-title{ font-weight:700; margin-bottom:.2rem; }
+  .pop-types{ margin-bottom:.25rem; }
+  .type-tag{ display:inline-block; background:var(--panel3); border-radius:4px; padding:0 5px; font-size:.65rem;
+    margin-right:3px; color:var(--muted); }
+  .pop-icons{ margin-bottom:.3rem; }
+  .icon-badge{ display:inline-block; background:var(--panel3); border-radius:4px; padding:0 5px; font-size:.65rem;
+    margin:0 3px 3px 0; }
+  .or-sep{ color:var(--muted); font-size:.65rem; margin:0 3px; }
+  .pop-text{ line-height:1.35; }
+  .or-divider{ text-align:center; color:var(--muted); font-size:.68rem; margin:.3rem 0; }
+  .tagged{ color:var(--accent); font-style:normal; }
+
+  /* ---------- loader ---------- */
+  #loader{ position:fixed; inset:0; background:var(--bg); display:flex; align-items:center; justify-content:center;
+    flex-direction:column; gap:1rem; z-index:100; text-align:center; padding:1rem; }
+  #loader h1{ font-size:1.3rem; margin:0; }
+  #dropzone{ border:2px dashed var(--border); border-radius:14px; padding:2rem 2.2rem; max-width:90vw; }
+  #dropzone.dragover{ border-color:var(--accent); background:rgba(255,255,255,.04); }
+  #loader-msg{ max-width:60ch; }
+  #btn-choose{ background:var(--panel3); color:var(--text); border:1px solid var(--border); border-radius:6px;
+    padding:.45rem 1rem; font-size:.9rem; cursor:pointer; font-family:var(--font); }
+</style>
+</head>
+<body>
+
+<!-- shared gradients for the volumetric hearts and victory tokens -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <radialGradient id="g-heart" cx="35%" cy="30%" r="75%">
+    <stop offset="0" stop-color="#ff96a3"/><stop offset=".45" stop-color="#e0303f"/><stop offset="1" stop-color="#7c0a12"/>
+  </radialGradient>
+  <radialGradient id="g-heart-off" cx="35%" cy="30%" r="75%">
+    <stop offset="0" stop-color="#5c6069"/><stop offset="1" stop-color="#1d1f25"/>
+  </radialGradient>
+  <radialGradient id="g-coin" cx="35%" cy="30%" r="75%">
+    <stop offset="0" stop-color="#fff4c8"/><stop offset=".55" stop-color="#d8b15e"/><stop offset="1" stop-color="#7a5619"/>
+  </radialGradient>
+  <linearGradient id="g-coin-rim" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#fff8dc"/><stop offset="1" stop-color="#5e4110"/>
+  </linearGradient>
+</defs></svg>
+
+<div id="loader">
+  <h1>Samurai vs Ninja — Simulation Viewer</h1>
+  <div id="dropzone">
+    <p>Drag &amp; drop a game history JSON file here</p>
+    <p class="muted">— or —</p>
+    <button id="btn-choose">Choose file…</button>
+    <input type="file" id="file-input" accept="application/json,.json" style="display:none">
+    <p id="loader-msg" class="muted"></p>
+  </div>
+</div>
+
+<div id="app">
+  <header id="hdr">
+    <span id="hdr-game"><b>Game —</b></span>
+    <span id="hdr-seed"></span>
+    <span id="hdr-result"></span>
+    <span id="hdr-pos"></span>
+    <span id="hdr-deck"></span>
+    <select id="game-select" title="Switch game"></select>
+    <span id="hdr-players"></span>
+  </header>
+
+  <div id="main">
+    <section id="table-panel">
+      <div id="turn-jumper"></div>
+      <div id="stage-wrap">
+        <div id="stage">
+          <img id="stage-bg" src="media/table-bg.webp" alt="Table" onerror="this.style.display='none';">
+          <div id="seats-layer"></div>
+          <div id="center-layer"></div>
+          <svg id="arrow-svg" viewBox="0 0 1192 1165" preserveAspectRatio="xMidYMid meet">
+            <defs id="arrow-defs">
+              <marker id="arrowhead" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                <path id="arrow-marker-path" d="M0,0 L8,4 L0,8 Z" fill="#888"></path>
+              </marker>
+            </defs>
+            <g id="arrow-extra"></g>
+            <line id="arrow-line" x1="0" y1="0" x2="0" y2="0" stroke="#888" stroke-width="4"
+                  marker-end="url(#arrowhead)" style="display:none"></line>
+          </svg>
+          <div id="fx-layer"></div>
+        </div>
+      </div>
+      <div id="arrow-legend">
+        <span><i class="legend-dot" style="background:#888"></i>pending</span>
+        <span><i class="legend-dot" style="background:#c0392b"></i>hit</span>
+        <span><i class="legend-dot" style="background:#e08e2b"></i>partial</span>
+        <span><i class="legend-dot" style="background:#3b7ea1"></i>blocked</span>
+        <span><i class="legend-dot" style="background:#3b8476"></i>resolved</span>
+      </div>
+
+      <section id="decision-panel">
+        <div id="decision-header">
+          <button id="decision-toggle" title="Collapse / expand">▾</button>
+          <span id="decision-title">What the player saw</span>
+          <span id="decision-privacy">replay view — players never saw each other's hands</span>
+        </div>
+        <div id="decision-body">
+          <div id="decision-notes" class="muted">Step through the log to see a decision.</div>
+          <div id="decision-hand"></div>
+          <div id="decision-pins"></div>
+        </div>
+      </section>
+    </section>
+
+    <section id="log-panel">
+      <div id="log-list"></div>
+    </section>
+  </div>
+
+  <footer id="controls">
+    <button id="btn-home" title="Jump to first event (Home)">⏮</button>
+    <button id="btn-prev" title="Previous event (←)">◀</button>
+    <button id="btn-play" title="Play / pause (Space)">▶</button>
+    <button id="btn-next" title="Next event (→)">▶▶</button>
+    <button id="btn-end" title="Jump to last event (End)">⏭</button>
+    <select id="speed-select" title="Autoplay speed">
+      <option value="0.5">0.5×</option>
+      <option value="1" selected>1×</option>
+      <option value="2">2×</option>
+      <option value="4">4×</option>
+    </select>
+    <input type="range" id="scrubber" min="0" max="0" value="0" step="1">
+    <label id="anim-label" title="Animate transitions between events (GSAP)"><input type="checkbox" id="anim-toggle" checked> live</label>
+  </footer>
+</div>
+
+<div id="card-popover"></div>
+
+<script src="vendor/gsap.min.js"></script>
+<script>if (!window.gsap) document.write('<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"><\/script>');</script>
+<script>
+'use strict';
+
+/* ======================= data / state ======================= */
+var gameData = null;   // { game, cards, events }
+var events = [];
+var currentIndex = 0;
+var autoplayTimer = null;
+var autoplaySpeed = 1;
+var popoverPinned = false;
+var pinnedSeats = {};   // seat number -> true; hand pinned in the decision panel
+
+/* Inlined default table layout so the viewer works from file:// with no server.
+   When served, tryLoadLayout() fetches media/table-layout.json and overrides this
+   if it parses and has the expected shape. Coordinates are in the background
+   photo's own pixel space (see media/table-layout.json). */
+var LAYOUT_DEFAULT = {
+  "image": { "w": 1192, "h": 1165 },
+  "table": { "cx": 612, "cy": 582, "r": 407 },
+  "card": { "w": 66, "h": 99 },
+  "center": { "deck": { "x": 578, "y": 567 }, "discard": { "x": 649, "y": 566 } },
+  "seats": [
+    { "seat": 0, "side": "bottom", "rotation": 0,
+      "character": { "x": 590, "y": 852 }, "role": { "x": 632, "y": 854 },
+      "hearts": { "x": 582, "y": 797 }, "vp": { "x": 657, "y": 816 },
+      "hand": { "x": 486, "y": 880 }, "objects": { "x": 674, "y": 855 },
+      "inplay": { "x": 722, "y": 728 } },
+    { "seat": 1, "side": "left", "rotation": 90,
+      "character": { "x": 354, "y": 559 }, "role": { "x": 352, "y": 604 },
+      "hearts": { "x": 400, "y": 567 }, "vp": { "x": 400, "y": 633 },
+      "hand": { "x": 296, "y": 683 }, "objects": { "x": 351, "y": 649 },
+      "inplay": { "x": 472, "y": 687 } },
+    { "seat": 2, "side": "top", "rotation": 180,
+      "character": { "x": 543, "y": 295 }, "role": { "x": 633, "y": 297 },
+      "hearts": { "x": 552, "y": 352 }, "vp": { "x": 662, "y": 345 },
+      "hand": { "x": 716, "y": 287 }, "objects": { "x": 588, "y": 298 },
+      "inplay": { "x": 483, "y": 438 } },
+    { "seat": 3, "side": "right", "rotation": -90,
+      "character": { "x": 879, "y": 604 }, "role": { "x": 875, "y": 559 },
+      "hearts": { "x": 817, "y": 598 }, "vp": { "x": 926, "y": 614 },
+      "hand": { "x": 945, "y": 695 }, "objects": { "x": 877, "y": 514 },
+      "inplay": { "x": 755, "y": 473 } }
+  ]
+};
+var LAYOUT = LAYOUT_DEFAULT;
+
+var ICON_LABELS = {
+  dmg0:'⚔ 0', dmg1:'⚔ 1', dmg2:'⚔ 2', dmg3:'⚔ 3',
+  complexity1:'◆ 1', complexity2:'◆ 2', complexity_any:'◆ any',
+  ranged:'➘ ranged', poison:'☠ poison', charges:'⚡ charges',
+  defense:'Ὦ1 defense', trap:'⛏ trap', thrust:'⚔ thrust',
+  modifier:'✦ modifier', hpctx:'♥ context', charctx:'★ favourite',
+  rolectx:'⚑ role', effect8:'⬟ effect'
+};
+
+/* ======================= small helpers ======================= */
+function escapeHtml(s){
+  return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
+    return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c];
+  });
+}
+function uidToCardId(uid){
+  if (!uid) return null;
+  var m = /^c(-?\d+)-/.exec(String(uid));
+  return m ? Number(m[1]) : null;
+}
+function resolveCardByUid(uid){
+  var id = uidToCardId(uid);
+  if (id == null || !gameData) return null;
+  return gameData.cards[String(id)] || null;
+}
+function cardMetaById(id){
+  return (gameData && gameData.cards && gameData.cards[String(id)]) || null;
+}
+function cardNameForFallback(id){
+  var m = cardMetaById(id);
+  if (m) return m.name;
+  var ch = findCharacterById(id);
+  if (ch) return ch.name;
+  return id == null ? '?' : ('#' + id);
+}
+function findCharacterById(id){
+  if (id == null || !gameData || !gameData.game || !Array.isArray(gameData.game.players)) return null;
+  for (var i = 0; i < gameData.game.players.length; i++){
+    var c = gameData.game.players[i].character;
+    if (c && c.id === id) return c;
+  }
+  return null;
+}
+function fmtLines(s){
+  var esc = escapeHtml(s);
+  esc = esc.split('\n').join('<br>');
+  esc = esc.replace(/\{([^}]+)\}/g, '<em class="tagged">$1</em>');
+  return esc;
+}
+function fmtCardText(text){
+  if (!text) return '<span class="muted">(no text)</span>';
+  var parts = String(text).split(/-OR-/);
+  return parts.map(fmtLines).join('<div class="or-divider">— OR —</div>');
+}
+function iconBadge(icon){
+  var label = ICON_LABELS[icon] || icon;
+  return '<span class="icon-badge">' + escapeHtml(label) + '</span>';
+}
+
+/* ======================= fallback chip builders (old-style; also used onerror) ======================= */
+function chip(type, label, uid, extraClass){
+  var cardId = uidToCardId(uid);
+  var cls = 'chip chip-' + type + (extraClass ? ' ' + extraClass : '');
+  return '<span class="' + cls + '" data-card="' + (cardId == null ? '' : cardId) + '" tabindex="0">' +
+         escapeHtml(label) + '</span>';
+}
+function chipById(type, label, id, extraClass){
+  var cls = 'chip chip-' + type + (extraClass ? ' ' + extraClass : '');
+  return '<span class="' + cls + '" data-card="' + (id == null ? '' : id) + '" tabindex="0">' +
+         escapeHtml(label) + '</span>';
+}
+
+/* ======================= popover ======================= */
+function showCardPopover(anchor, cardId){
+  if (cardId == null || isNaN(cardId)) return;
+  var pop = document.getElementById('card-popover');
+  var html = '';
+  var c = gameData && gameData.cards[String(cardId)];
+  if (c){
+    html = '<div class="pop-title">' + escapeHtml(c.name) + '</div>' +
+      '<div class="pop-types">' + (c.types || []).map(function(t){ return '<span class="type-tag">' + escapeHtml(t) + '</span>'; }).join('') + '</div>' +
+      '<div class="pop-icons">' + (c.icons || []).map(iconBadge).join('') +
+        ((c.icons_or && c.icons_or.length) ? '<span class="or-sep">or</span>' + c.icons_or.map(iconBadge).join('') : '') +
+      '</div>' +
+      '<div class="pop-text">' + fmtCardText(c.text) + '</div>';
+  } else {
+    var ch = findCharacterById(cardId);
+    if (ch){
+      html = '<div class="pop-title">' + escapeHtml(ch.name) + '</div>' +
+        '<div class="pop-types"><span class="type-tag">character</span></div>' +
+        '<div class="pop-text">HP ' + escapeHtml(ch.hp != null ? ch.hp : '?') + '<br>' + fmtCardText(ch.text) + '</div>';
+    } else {
+      html = '<div class="pop-text muted">No data for card #' + escapeHtml(cardId) + '.</div>';
+    }
+  }
+  pop.innerHTML = html;
+  pop.classList.add('show');
+  positionPopover(pop, anchor);
+}
+function positionPopover(pop, anchor){
+  var r = anchor.getBoundingClientRect();
+  var vw = window.innerWidth, vh = window.innerHeight;
+  var pw = pop.offsetWidth || 260, ph = pop.offsetHeight || 100;
+  var left = r.left + r.width / 2 - pw / 2;
+  left = Math.max(8, Math.min(left, vw - pw - 8));
+  var top = r.bottom + 8;
+  if (top + ph > vh - 8) top = Math.max(8, r.top - ph - 8);
+  pop.style.left = left + 'px';
+  pop.style.top = top + 'px';
+}
+function hideCardPopover(){
+  popoverPinned = false;
+  var pop = document.getElementById('card-popover');
+  pop.classList.remove('show');
+}
+
+/* ======================= table layout helpers ======================= */
+function seatByIndex(i){
+  var seats = (LAYOUT && Array.isArray(LAYOUT.seats) && LAYOUT.seats.length === 4) ? LAYOUT.seats : LAYOUT_DEFAULT.seats;
+  for (var k = 0; k < seats.length; k++) if (seats[k].seat === i) return seats[k];
+  return seats[i] || LAYOUT_DEFAULT.seats[i];
+}
+function tableCircle(){
+  return (LAYOUT && LAYOUT.table) ? LAYOUT.table : LAYOUT_DEFAULT.table;
+}
+function cardSize(){
+  return (LAYOUT && LAYOUT.card && LAYOUT.card.w && LAYOUT.card.h) ? LAYOUT.card : LAYOUT_DEFAULT.card;
+}
+function imageDims(){
+  return (LAYOUT && LAYOUT.image && LAYOUT.image.w && LAYOUT.image.h) ? LAYOUT.image : LAYOUT_DEFAULT.image;
+}
+/* Seat-local frame. Everything at a seat is placed by (radial, lateral):
+   radial = distance from the table centre toward the player, lateral = offset to the
+   player's right. The frame follows the seat's CSS rotation, so one set of numbers
+   lays out all four seats identically as seen by each player. */
+function seatFrame(seat){
+  var L = seatByIndex(seat);
+  var rot = (L.rotation || 0) * Math.PI / 180;
+  var right = { x: Math.cos(rot), y: Math.sin(rot) };          /* player's right hand */
+  var out = { x: -Math.sin(rot), y: Math.cos(rot) };           /* from the centre toward the player */
+  var t = tableCircle();
+  return {
+    rot: L.rotation || 0,
+    pos: function(radial, lateral){
+      return { x: t.cx + out.x * radial + right.x * lateral, y: t.cy + out.y * radial + right.y * lateral };
+    }
+  };
+}
+/* Rows of a seat, as radial distances (image px). Card 66×99, table radius 407. */
+var ROW = {
+  rim: 347,      /* character · role · stance / aura / effects / trap */
+  status: 284,   /* hearts and victory points */
+  trap: 234,     /* the trap: face down, sideways, centred in front of the player, above the hearts */
+  badge: 234,    /* thinking bubble / reaction badge, beside the trap (or centred when there is none) */
+  spot: 145,     /* the player's action spot: cards in play (weapon, modifier, defense…) */
+  hand: 468,     /* the open hand — held by the player, drawn over the figure outside the rim */
+  label: 395,    /* seat label, at the rim beside the player's shoulder */
+  labelLat: -178
+};
+var HAND_MAX_WIDTH = 320;     /* lateral extent of a compact fan (keeps neighbours apart) */
+function roleCardId(staticP){
+  if (!staticP) return null;
+  if (staticP.faction === 'ninja') return 200;
+  return staticP.first ? 202 : 201;
+}
+function uidsOf(list){
+  return (list || []).map(function(x){ return (x && typeof x === 'object') ? x.uid : x; }).filter(Boolean);
+}
+
+/* ======================= tiny SVG icons (hearts / VP) ======================= */
+function heartIconSVG(filled){
+  /* a glossy heart with a highlight; a lost life is the same heart in dark stone */
+  return '<svg class="tmini-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">' +
+    '<path d="M12 21s-7.4-4.8-9.9-9.2C.6 8.6 2 5 5.5 5 8 5 10 6.4 12 8.9 14 6.4 16 5 18.5 5 22 5 23.4 8.6 21.9 11.8 19.4 16.2 12 21 12 21z" ' +
+    'fill="url(#' + (filled ? 'g-heart' : 'g-heart-off') + ')" stroke="' + (filled ? '#5e0810' : '#33363d') + '" stroke-width="1.1" stroke-linejoin="round"/>' +
+    (filled ? '<ellipse cx="8.2" cy="8.8" rx="2.3" ry="1.3" fill="#fff" opacity=".55" transform="rotate(-28 8.2 8.8)"/>'
+            : '<ellipse cx="8.2" cy="8.8" rx="2.3" ry="1.3" fill="#fff" opacity=".12" transform="rotate(-28 8.2 8.8)"/>') +
+    '</svg>';
+}
+function heartsRowHTML(hp, maxHp){
+  maxHp = Math.max(0, Number(maxHp) || 0);
+  hp = Math.max(0, Math.min(Number(hp) || 0, maxHp));
+  if (!maxHp) return '<span class="muted" style="font-size:10px">—</span>';
+  var s = '';
+  for (var i = 0; i < maxHp; i++) s += heartIconSVG(i < hp);
+  return s;
+}
+function yinYangSVG(){
+  /* a gold coin: bevelled rim, domed face, the yin-yang stamped in the middle */
+  return '<svg class="tmini-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">' +
+    '<circle cx="12" cy="12" r="11" fill="url(#g-coin-rim)"/>' +
+    '<circle cx="12" cy="12" r="9.3" fill="url(#g-coin)"/>' +
+    '<circle cx="12" cy="12" r="7" fill="#f4f1e6"/>' +
+    '<path d="M12 5a7 7 0 000 14 3.5 3.5 0 010-7 3.5 3.5 0 000-7z" fill="#1f2128"/>' +
+    '<circle cx="12" cy="8.5" r="1.15" fill="#1f2128"/><circle cx="12" cy="15.5" r="1.15" fill="#f4f1e6"/>' +
+    '<ellipse cx="8.3" cy="6.8" rx="3" ry="1.2" fill="#fff" opacity=".4" transform="rotate(-35 8.3 6.8)"/>' +
+    '</svg>';
+}
+function vpRowHTML(vp){
+  vp = Number(vp);
+  if (isNaN(vp)) return '<span class="muted" style="font-size:10px">—</span>';
+  if (vp < 0) return '<span class="vp-neg">' + vp + '</span>';
+  if (vp > 8) return yinYangSVG() + '<span class="vp-token-many">×' + vp + '</span>';
+  var s = '';
+  for (var i = 0; i < vp; i++) s += yinYangSVG();
+  return s || '<span class="muted" style="font-size:10px">0</span>';
+}
+
+/* ======================= DOM builders for table cards ======================= */
+function mkSlot(x, y, w, h, rotation){
+  var d = document.createElement('div');
+  d.className = 'tslot';
+  d.style.left = (x - w / 2) + 'px';
+  d.style.top = (y - h / 2) + 'px';
+  d.style.width = w + 'px';
+  d.style.height = h + 'px';
+  d.setAttribute('data-rot', String(rotation || 0));
+  /* rotation goes through GSAP when it is present, so later tweens start from an exact cached value */
+  if (rotation){
+    if (window.gsap) gsap.set(d, { rotation: rotation });
+    else d.style.transform = 'rotate(' + rotation + 'deg)';
+  }
+  return d;
+}
+function tagSlot(slot, uid, face){
+  if (uid != null) slot.setAttribute('data-uid', String(uid));
+  slot.setAttribute('data-face', face || 'up');
+  return slot;
+}
+function fillCardImg(slot, cardId, name, fallbackHtml){
+  if (cardId == null){
+    slot.classList.add('tslot-fallback');
+    slot.innerHTML = fallbackHtml;
+    return slot;
+  }
+  var img = document.createElement('img');
+  img.className = 'tcard-img';
+  img.src = 'media/cards/' + cardId + '.png';
+  img.alt = name || ('#' + cardId);
+  img.setAttribute('data-card', cardId);
+  img.onerror = function(){
+    slot.classList.add('tslot-fallback');
+    slot.innerHTML = fallbackHtml;
+  };
+  slot.appendChild(img);
+  return slot;
+}
+function fillBackImg(slot, src){
+  var img = document.createElement('img');
+  img.className = 'tback-img';
+  img.src = src;
+  img.alt = '';
+  img.onerror = function(){ slot.style.visibility = 'hidden'; };
+  slot.appendChild(img);
+  return slot;
+}
+function mkBadge(x, y, text, cls){
+  var b = document.createElement('span');
+  b.className = 'tbadge ' + (cls || '');
+  b.style.left = x + 'px';
+  b.style.top = y + 'px';
+  b.textContent = text;
+  return b;
+}
+var FIG_ASPECT = { poison: 1.304, trap: 1.098, banner: 1.69, 'banner-green': 1.69 };
+/* A figurine centred on (cx, cy) and rotated with its seat. The height is explicit so a
+   transform never depends on whether the image has loaded yet. */
+function mkFig(name, cx, cy, w, rot, alt){
+  var img = document.createElement('img');
+  img.className = 'tfig';
+  img.src = 'media/fig/' + name + '.webp';
+  img.alt = alt || '';
+  var h = w * (FIG_ASPECT[name] || 1);
+  img.style.width = w + 'px'; img.style.height = h + 'px';
+  img.style.left = (cx - w / 2) + 'px'; img.style.top = (cy - h / 2) + 'px';
+  img.setAttribute('data-rot', String(rot || 0));
+  if (rot){
+    if (window.gsap) gsap.set(img, { rotation: rot });
+    else img.style.transform = 'rotate(' + rot + 'deg)';
+  }
+  img.onerror = function(){ img.style.display = 'none'; };
+  return img;
+}
+
+/* ======================= seat rendering ======================= */
+/* Which cards of a seat are "in play" right now (weapon / modifier / defense / intervention
+   of the open transaction). Snapshot entries are {uid, seat} in new exports and bare uids
+   in old ones; bare uids are attributed to the transaction's opener. */
+function inPlayBySeat(ev, ctxTx){
+  var out = { 0: [], 1: [], 2: [], 3: [] };
+  var list = (ev && ev.state && Array.isArray(ev.state.in_play)) ? ev.state.in_play : [];
+  /* old exports: a bare uid belongs to whoever held it just before the transaction opened */
+  var before = (ctxTx && ctxTx.openIdx > 0 && events[ctxTx.openIdx - 1] && events[ctxTx.openIdx - 1].state) ? events[ctxTx.openIdx - 1].state.hands : null;
+  function ownerOf(uid){
+    if (!before) return null;
+    for (var k in before){ if (Array.isArray(before[k]) && before[k].indexOf(uid) >= 0) return Number(k); }
+    return null;
+  }
+  list.forEach(function(x){
+    var uid = (x && typeof x === 'object') ? x.uid : x;
+    var seat = (x && typeof x === 'object' && x.seat != null) ? x.seat : ownerOf(uid);
+    if (uid == null) return;
+    if (seat == null || !out[seat]) seat = (ctxTx && ctxTx.opener != null) ? ctxTx.opener : 0;
+    out[seat].push(uid);
+  });
+  return out;
+}
+
+function buildSeatGroup(seat, staticP, ps, ev, tx, inPlay){
+  var F = seatFrame(seat);
+  var card = cardSize();
+  var cw = card.w, ch = card.h;
+  var rot = F.rot;
+  var faction = (staticP && staticP.faction === 'ninja') ? 'ninja' : 'samurai';
+  var factionColor = faction === 'ninja' ? 'var(--ninja)' : 'var(--samurai)';
+  var alive = ps ? ps.alive !== false : true;
+  var character = (staticP && staticP.character) || {};
+  var charId = character.id != null ? character.id : null;
+  var charName = character.name || '?';
+  var maxHp = character.hp != null ? character.hp : (ps && ps.hp != null ? ps.hp : 1);
+
+  var wrap = document.createElement('div');
+  wrap.className = 'seat-group' + (!alive ? ' seat-dead' : '');
+  wrap.setAttribute('data-seat', String(seat));
+
+  function slotAt(radial, lateral, extraRot){
+    var c = F.pos(radial, lateral);
+    return mkSlot(c.x, c.y, cw, ch, rot + (extraRot || 0));
+  }
+
+  /* ── rim row: character, role, then stance / aura / effects / trap ── */
+  var rimStep = cw + 6;
+  var cslot = slotAt(ROW.rim, -rimStep / 2);
+  cslot.setAttribute('data-role', 'char');
+  fillCardImg(cslot, charId, charName, chipById('effect', charName, charId));
+  wrap.appendChild(cslot);
+  var charCenter = F.pos(ROW.rim, -rimStep / 2);
+
+  var roleId = roleCardId(staticP);
+  var roleName = faction === 'ninja' ? 'Ninja' : ((staticP && staticP.first) ? 'Samurai (I)' : 'Samurai');
+  var rslot = slotAt(ROW.rim, rimStep / 2);
+  fillCardImg(rslot, roleId, roleName, chipById('effect', roleName, roleId));
+  wrap.appendChild(rslot);
+  if (ps && ps.poisoned){
+    var pc = F.pos(ROW.rim - ch * 0.16, rimStep / 2);
+    var pfig = mkFig('poison', pc.x, pc.y, cw * 0.6, rot, 'Poisoned');
+    pfig.setAttribute('data-role', 'poison');
+    wrap.appendChild(pfig);
+  }
+
+  var items = [];
+  if (ps && ps.stance) items.push({ kind: 'stance', uid: ps.stance });
+  if (ps && ps.aura && ps.aura.uid) items.push({ kind: 'aura', uid: ps.aura.uid, charges: ps.aura.charges_n });
+  if (ps && Array.isArray(ps.effects)) ps.effects.forEach(function(uid){ items.push({ kind: 'effect', uid: uid }); });
+  items.forEach(function(item, idx){
+    var lateral = rimStep / 2 + rimStep * (idx + 1);
+    /* effects sit a third of a card closer to the centre than the stance / aura, as a group of their own */
+    var radial = item.kind === 'effect' ? ROW.rim - ch / 3 : ROW.rim;
+    var c = F.pos(radial, lateral);
+    var slot = mkSlot(c.x, c.y, cw, ch, rot);
+    tagSlot(slot, item.uid, 'up');
+    var cid = uidToCardId(item.uid);
+    if (item.kind === 'trap' && !item.faceUp){
+      fillBackImg(slot, 'media/cards/back.png');
+    } else {
+      var meta = cid != null ? cardMetaById(cid) : null;
+      var nm = meta ? meta.name : (item.kind === 'trap' ? 'Trap' : item.kind);
+      var typeCls = item.kind === 'aura' ? 'aura' : (item.kind === 'trap' ? 'trap' : (item.kind === 'stance' ? 'stance' : 'effect'));
+      fillCardImg(slot, cid, nm, chip(typeCls, nm, item.uid));
+    }
+    wrap.appendChild(slot);
+    if (item.kind === 'aura'){
+      var n = Number(item.charges) || 0;
+      if (n > 0){
+        var cb = mkBadge(c.x + cw / 2, c.y - ch / 2, '×' + n, 'tbadge-charges');
+        cb.setAttribute('data-role', 'charges');
+        wrap.appendChild(cb);
+      }
+      var bc = F.pos(radial - ch * 0.02, lateral - cw * 0.3);
+      var afig = mkFig('banner', bc.x, bc.y, cw * 0.5, rot, 'Aura');
+      afig.setAttribute('data-role', 'aurafig');
+      wrap.appendChild(afig);
+    }
+  });
+
+  /* ── the trap: sideways in front of the player, the figurine on top ── */
+  var hasTrap = !!(ps && ps.trap && ps.trap.uid);
+  if (hasTrap){
+    var tc = F.pos(ROW.trap, 0);
+    var tslot = mkSlot(tc.x, tc.y, cw, ch, rot + 90);
+    tagSlot(tslot, ps.trap.uid, ps.trap.face_up ? 'up' : 'down');
+    if (ps.trap.face_up){
+      var tcid = uidToCardId(ps.trap.uid);
+      var tmeta = tcid != null ? cardMetaById(tcid) : null;
+      fillCardImg(tslot, tcid, tmeta ? tmeta.name : 'Trap', chip('trap', tmeta ? tmeta.name : 'Trap', ps.trap.uid));
+    } else {
+      fillBackImg(tslot, 'media/cards/back.png');
+    }
+    wrap.appendChild(tslot);
+    var tfig = mkFig('trap', tc.x, tc.y, cw * 0.72, rot, 'Trap');
+    tfig.setAttribute('data-role', 'trapfig');
+    wrap.appendChild(tfig);
+  }
+
+  /* ── status row: hearts under the character, VP tokens under the role — rotated with the seat ── */
+  var hc = F.pos(ROW.status, -cw * 0.95);
+  var hdiv = document.createElement('div');
+  hdiv.className = 'thearts';
+  hdiv.setAttribute('data-role', 'hearts');
+  hdiv.style.left = hc.x + 'px'; hdiv.style.top = hc.y + 'px';
+  hdiv.style.transform = 'translate(-50%,-50%) rotate(' + rot + 'deg)';
+  hdiv.innerHTML = heartsRowHTML(ps && ps.hp, maxHp);
+  wrap.appendChild(hdiv);
+
+  var vc = F.pos(ROW.status, cw * 0.95);
+  var vdiv = document.createElement('div');
+  vdiv.className = 'tvp';
+  vdiv.setAttribute('data-role', 'vp');
+  vdiv.style.left = vc.x + 'px'; vdiv.style.top = vc.y + 'px';
+  vdiv.style.transform = 'translate(-50%,-50%) rotate(' + rot + 'deg)';
+  vdiv.innerHTML = vpRowHTML(ps && ps.vp);
+  wrap.appendChild(vdiv);
+
+  /* ── the open hand: face-up fan from the replay's hands; backs when the export has none ── */
+  var hands = ev && ev.state && ev.state.hands;
+  var handArr = hands ? hands[String(seat)] : null;
+  var handN = handArr ? handArr.length : ((ps && ps.hand_n != null) ? Number(ps.hand_n) : 0);
+  var raised = {};
+  if (tx && tx.phase === 'react' && inPlay && inPlay[seat] && seat !== tx.opener){
+    /* a reactor's card stays in the hand, raised, until the referee resolves */
+    inPlay[seat].forEach(function(uid){ raised[uid] = true; });
+    handArr = (handArr || []).concat(inPlay[seat]);
+    handN = handArr.length;
+  }
+  if (handN > 0){
+    var hand = document.createElement('div');
+    hand.className = 'thand';
+    hand.setAttribute('data-role', 'hand');
+    /* the zoom grows toward the table (origin a third of a card inside the hand) so the 2× card stays on the stage */
+    var handOrigin = F.pos(ROW.hand - ch * 0.32, 0);
+    hand.style.transformOrigin = handOrigin.x + 'px ' + handOrigin.y + 'px';
+    var layoutHand = function(expanded){
+      hand.innerHTML = '';
+      var n = handN;
+      var step = expanded ? Math.min(cw * 0.62, n > 1 ? (HAND_MAX_WIDTH * 1.3 - cw) / (n - 1) : cw)
+                          : Math.min(cw * 0.5, n > 1 ? (HAND_MAX_WIDTH - cw) / (n - 1) : cw);
+      for (var i = 0; i < n; i++){
+        var lateral = (i - (n - 1) / 2) * step;
+        var radialBump = raised[handArr && handArr[i]] ? -14 : 0;
+        var c = F.pos(ROW.hand + radialBump, lateral);
+        var tilt = expanded ? 0 : (i - (n - 1) / 2) * 1.5;
+        var hslot = mkSlot(c.x, c.y, cw, ch, rot + tilt);
+        hslot.style.zIndex = String(i + 1);
+        if (handArr){
+          var uid = handArr[i];
+          tagSlot(hslot, uid, 'up');
+          var cid = uidToCardId(uid);
+          var meta = cid != null ? cardMetaById(cid) : null;
+          fillCardImg(hslot, cid, meta ? meta.name : cardNameForFallback(cid), chip('effect', meta ? meta.name : ('#' + cid), uid));
+          if (raised[uid]){
+            var img = hslot.querySelector('img'); if (img) img.classList.add('raised');
+            hslot.style.zIndex = String(n + 5);
+          }
+        } else {
+          fillBackImg(hslot, 'media/cards/back.png');
+        }
+        hand.appendChild(hslot);
+      }
+    };
+    layoutHand(false);
+    /* pointing at a hand spreads it and zooms it to 150 % around its own centre */
+    hand.addEventListener('mouseenter', function(){ layoutHand(true); hand.classList.add('zoomed'); });
+    hand.addEventListener('mouseleave', function(){ layoutHand(false); hand.classList.remove('zoomed'); });
+    wrap.appendChild(hand);
+  }
+
+  /* ── action spot: cards this seat has in play, or what they are doing right now ── */
+  var mine = (inPlay && inPlay[seat]) ? inPlay[seat] : [];
+  var showCards = mine.length && (seat === tx.opener || tx.phase !== 'react');
+  if (showCards){
+    mine.forEach(function(uid, i){
+      var lateral = (i - (mine.length - 1) / 2) * (cw * 0.6);
+      var c = F.pos(ROW.spot, lateral);
+      var slot = mkSlot(c.x, c.y, cw, ch, rot);
+      slot.style.zIndex = String(20 + i);
+      tagSlot(slot, uid, 'up');
+      var cid = uidToCardId(uid);
+      var meta = cid != null ? cardMetaById(cid) : null;
+      fillCardImg(slot, cid, meta ? meta.name : ('#' + cid), chip('effect', meta ? meta.name : ('#' + cid), uid));
+      wrap.appendChild(slot);
+    });
+  }
+  var spotStatus = tx ? tx.status[seat] : null;
+  if (spotStatus){
+    var sc = F.pos(ROW.badge, hasTrap ? ch * 0.5 + 44 : 0);
+    var sp = document.createElement('div');
+    sp.setAttribute('data-role', 'status');
+    if (spotStatus === 'thinking'){
+      sp.className = 'tspot tthink';
+      sp.textContent = '···';
+    } else if (spotStatus === 'planning'){
+      sp.className = 'tspot tthink';
+      sp.textContent = '···';
+      sp.title = 'planning the turn';
+    } else {
+      sp.className = 'tspot treact treact-' + spotStatus;
+      sp.textContent = ({ take: 'takes it', defend: 'defends', pass: 'passes', intervene: 'intervenes', respond: 'responds' })[spotStatus] || spotStatus;
+    }
+    sp.style.left = sc.x + 'px'; sp.style.top = sc.y + 'px';
+    wrap.appendChild(sp);
+  }
+
+  /* ── active player ring around the character card ── */
+  if (ev && ev.active === seat && alive){
+    var ring = document.createElement('div');
+    ring.className = 'tturn-ring';
+    ring.setAttribute('data-role', 'ring');
+    ring.style.left = charCenter.x + 'px'; ring.style.top = charCenter.y + 'px';
+    ring.style.width = (cw + 8) + 'px'; ring.style.height = (ch + 8) + 'px';
+    ring.style.transform = 'translate(-50%,-50%) rotate(' + rot + 'deg)';
+    wrap.appendChild(ring);
+  }
+
+  /* ── label outside the rim, upright, with the pin toggle ── */
+  var lc = F.pos(ROW.label, ROW.labelLat);
+  var label = document.createElement('div');
+  label.className = 'tlabel' + (!alive ? ' dead' : '');
+  label.style.left = lc.x + 'px'; label.style.top = lc.y + 'px';
+  label.style.setProperty('--fc', factionColor);
+  if (charId != null) label.setAttribute('data-card', charId);
+  /* the pin lives inside the label: click it to keep this seat's hand in the decision panel */
+  var pin = document.createElement('span');
+  pin.className = 'tpin' + (pinnedSeats[seat] ? ' active' : '');
+  pin.textContent = '📌';
+  pin.title = pinnedSeats[seat] ? 'Unpin this seat’s hand' : 'Pin this seat’s hand in the decision panel';
+  (function(seatNum){
+    pin.addEventListener('click', function(e){
+      e.stopPropagation(); e.preventDefault();
+      if (pinnedSeats[seatNum]) delete pinnedSeats[seatNum]; else pinnedSeats[seatNum] = true;
+      renderAt(currentIndex);
+    });
+  })(seat);
+  label.appendChild(pin);
+  label.appendChild(document.createTextNode(' P' + seat + ' · ' + charName + (handN ? ' · ' + handN + ' in hand' : '')));
+  wrap.appendChild(label);
+
+  /* ── speech bubble: the step's "why" (or the reaction's note) at the right shoulder, upright ── */
+  var say = sayFor(seat, ev);
+  if (say){
+    var bc2 = F.pos(ROW.label, 140);
+    var tc0 = tableCircle();
+    var xp = bc2.x < tc0.cx ? -100 : 0, yp = bc2.y < tc0.cy ? -100 : 0;   /* grows away from the table */
+    var bub = document.createElement('div');
+    bub.className = 'tsay';
+    bub.setAttribute('data-role', 'say');
+    bub.textContent = say.length > 150 ? say.slice(0, 147) + '…' : say;
+    bub.title = say;
+    bub.style.left = bc2.x + 'px'; bub.style.top = bc2.y + 'px';
+    bub.style.setProperty('--fc', factionColor);
+    bub.style.transformOrigin = (xp ? '100%' : '0%') + ' ' + (yp ? '100%' : '0%');
+    if (window.gsap) gsap.set(bub, { xPercent: xp, yPercent: yp });
+    else bub.style.transform = 'translate(' + xp + '%,' + yp + '%)';
+    wrap.appendChild(bub);
+  }
+
+  if (!alive){
+    var skull = document.createElement('div');
+    skull.className = 'tskull';
+    skull.setAttribute('data-role', 'skull');
+    skull.textContent = '💀';
+    skull.style.left = (charCenter.x + cw / 2) + 'px';
+    skull.style.top = (charCenter.y - ch / 2) + 'px';
+    wrap.appendChild(skull);
+  }
+  return wrap;
+}
+/* Event kinds whose `notes` is the player's own short "why" for that step. */
+var SAY_KINDS = { attack_declared: 1, stance_set: 1, trap_set: 1, aura_set: 1, aura_charged: 1, trade: 1,
+  effect_placed: 1, card_played: 1, ability_used: 1, step_skipped: 1, plan: 1 };
+/* What a seat says at the event on screen: its step's "why", or — during a run of
+   reactions, which is one viewing step — its own reaction note. */
+function sayFor(seat, ev){
+  if (!ev) return null;
+  if (isReactionKind(ev.kind)){
+    var a = runStart(currentIndex), b = runEnd(currentIndex);
+    for (var r = b; r >= a; r--){
+      var re = events[r];
+      if (re && re.actor === seat){
+        var n = re.notes || (re.data && re.data.notes);
+        return n ? String(n) : null;
+      }
+    }
+    return null;
+  }
+  if (ev.actor === seat && SAY_KINDS[ev.kind] && ev.notes) return String(ev.notes);
+  return null;
+}
+function whyOf(ev){
+  if (!ev || !ev.notes || !SAY_KINDS[ev.kind] || ev.kind === 'plan' || ev.actor == null) return null;
+  return { actor: ev.actor, kind: ev.kind, text: String(ev.notes) };
+}
+function findPlayerBySeat(list, seat){
+  if (!Array.isArray(list)) return null;
+  for (var i = 0; i < list.length; i++){
+    if (list[i] && list[i].seat === seat) return list[i];
+  }
+  return list[seat] || null; // defensive fallback if 'seat' is missing on entries
+}
+
+/* ======================= decision panel: "what the player saw" ======================= */
+/* Event kinds that move a card while acting for a given seat, and the badge label
+   shown on the outlined hand card for each. First match wins when scanning a turn
+   forward, so a more specific kind (e.g. effect_placed) beats a generic one
+   (card_played) that references the same uid moments later. */
+var PLAYED_STEP_KINDS = {
+  attack_declared: 'attack', stance_set: 'stance', trap_set: 'trap', aura_set: 'aura',
+  effect_placed: 'effect', card_played: 'play', trade: 'trade', discard_to_limit: 'discard'
+};
+function collectEventUids(e){
+  var uids = [];
+  if (e.card) uids.push(e.card);
+  var d = e.data || {};
+  if (Array.isArray(d.uids)) uids = uids.concat(d.uids);
+  if (Array.isArray(d.cards)) uids = uids.concat(d.cards);
+  if (typeof d.card === 'string') uids.push(d.card);
+  if (Array.isArray(d.batch)){
+    d.batch.forEach(function(b){ if (b && typeof b.card === 'string') uids.push(b.card); });
+  }
+  return uids;
+}
+function handDiff(beforeArr, afterArr){
+  var after = {};
+  (afterArr || []).forEach(function(u){ after[u] = true; });
+  return (beforeArr || []).filter(function(u){ return !after[u]; });
+}
+/* every uid this seat played during `turn`, mapped to the step that played it */
+function findTurnPlays(turn, actor){
+  var out = {};
+  for (var i = 0; i < events.length; i++){
+    var e = events[i];
+    if (e.turn !== turn || e.actor !== actor) continue;
+    var label = PLAYED_STEP_KINDS[e.kind];
+    if (!label) continue;
+    collectEventUids(e).forEach(function(uid){ if (!out[uid]) out[uid] = label; });
+  }
+  return out;
+}
+function actorLabel(seat){
+  if (seat == null || !gameData) return '?';
+  var p = findPlayerBySeat(gameData.game.players, seat);
+  var cname = (p && p.character && p.character.name) || '?';
+  return 'P' + seat + ' · ' + cname;
+}
+/* Resolve what the panel should show for the event at `idx`: the plan/reaction/
+   ruling itself, or (for any other kind) the nearest earlier plan/reaction of the
+   same turn, marked dimmed so it reads as leftover context rather than the
+   current decision. */
+function computeDecisionContext(idx){
+  var ev = events[idx];
+  if (!ev) return null;
+  if (ev.kind === 'plan'){
+    var actor = ev.actor;
+    var prev = events[idx - 1];
+    var prevHands = prev && prev.state && prev.state.hands;
+    var handArr = prevHands ? prevHands[String(actor)] : null;
+    if (!handArr){
+      /* a plan doesn't itself move cards, so its own post-state hand is the same hand */
+      var ownHands = ev.state && ev.state.hands;
+      handArr = ownHands ? ownHands[String(actor)] : null;
+    }
+    return { kind: 'plan', sourceIdx: idx, dimmed: false, actor: actor, handArr: handArr,
+      badgeMap: findTurnPlays(ev.turn, actor), notesText: ev.notes || ev.text };
+  }
+  if (ev.kind === 'reaction' || ev.kind === 'reaction_auto'){
+    /* one step = every reaction to the same attack: list them all, each with the hand it held */
+    var a = runStart(idx), b = runEnd(idx), items = [];
+    for (var r = a; r <= b; r++){
+      var re = events[r];
+      var prevR = events[r - 1];
+      var beforeHand = prevR && prevR.state && prevR.state.hands ? prevR.state.hands[String(re.actor)] : null;
+      var afterHand = re.state && re.state.hands ? re.state.hands[String(re.actor)] : null;
+      var bm = {};
+      handDiff(beforeHand, afterHand).forEach(function(u){ bm[u] = (re.data && re.data.action) || 'react'; });
+      items.push({ actor: re.actor, action: (re.data && re.data.action) || '', auto: re.kind === 'reaction_auto',
+        notes: (re.data && re.data.notes) || re.notes || re.text, handArr: beforeHand, badgeMap: bm });
+    }
+    return { kind: 'reactions', sourceIdx: b, dimmed: false, items: items, turn: ev.turn };
+  }
+  if (ev.kind === 'ruling'){
+    return { kind: 'ruling', sourceIdx: idx, dimmed: false, ev: ev };
+  }
+  for (var i = idx - 1; i >= 0; i--){
+    var e2 = events[i];
+    if (e2.turn !== ev.turn) break;
+    if (e2.kind === 'plan' || e2.kind === 'reaction' || e2.kind === 'reaction_auto'){
+      var ctx = computeDecisionContext(i);
+      if (ctx){ ctx.dimmed = true; ctx.why = whyOf(ev); }
+      return ctx;
+    }
+  }
+  return { kind: 'none', why: whyOf(ev) };
+}
+function whyHTML(ctx){
+  if (!ctx || !ctx.why) return '';
+  return '<div class="why-line">💬 <b>' + escapeHtml(actorLabel(ctx.why.actor)) + '</b> <span class="kind-tag">' +
+    escapeHtml(ctx.why.kind) + '</span> ' + fmtLines(ctx.why.text) + '</div>';
+}
+function buildHandCardEl(uid, badgeMap){
+  var cid = uidToCardId(uid);
+  var meta = cid != null ? cardMetaById(cid) : null;
+  var name = meta ? meta.name : cardNameForFallback(cid);
+  var label = badgeMap ? badgeMap[uid] : null;
+  var div = document.createElement('div');
+  div.className = 'hand-card' + (label ? ' played' : '');
+  if (cid != null){
+    var img = document.createElement('img');
+    img.src = 'media/cards/' + cid + '.png';
+    img.alt = name;
+    img.setAttribute('data-card', cid);
+    img.onerror = function(){
+      div.classList.add('tslot-fallback');
+      div.innerHTML = chip('effect', name, cid);
+      appendPlayedBadge();
+    };
+    div.appendChild(img);
+  } else {
+    div.classList.add('tslot-fallback');
+    div.innerHTML = chip('effect', name, cid);
+  }
+  function appendPlayedBadge(){
+    if (!label) return;
+    var b = document.createElement('span');
+    b.className = 'played-badge';
+    b.textContent = label;
+    div.appendChild(b);
+  }
+  appendPlayedBadge();
+  return div;
+}
+function renderHandRow(container, handArr, badgeMap){
+  container.innerHTML = '';
+  if (!handArr){
+    container.innerHTML = '<span class="muted">no hand data in this replay</span>';
+    return;
+  }
+  var row = document.createElement('div');
+  row.className = 'hand-row';
+  handArr.forEach(function(uid){ row.appendChild(buildHandCardEl(uid, badgeMap)); });
+  container.appendChild(row);
+}
+function renderPins(idx){
+  var wrap = document.getElementById('decision-pins');
+  wrap.innerHTML = '';
+  var ev = events[idx];
+  var hands = ev && ev.state && ev.state.hands;
+  Object.keys(pinnedSeats).forEach(function(seatKey){
+    var seat = Number(seatKey);
+    var block = document.createElement('div');
+    block.className = 'pin-block';
+    var hdr = document.createElement('div');
+    hdr.className = 'pin-block-hdr';
+    var label = document.createElement('span');
+    label.textContent = '📌 ' + actorLabel(seat) + '’s hand';
+    var btn = document.createElement('button');
+    btn.className = 'pin-unbtn';
+    btn.textContent = 'Unpin';
+    btn.onclick = function(){ delete pinnedSeats[seat]; renderAt(currentIndex); };
+    hdr.appendChild(label); hdr.appendChild(btn);
+    block.appendChild(hdr);
+    var handEl = document.createElement('div');
+    renderHandRow(handEl, hands ? hands[String(seat)] : null, null);
+    block.appendChild(handEl);
+    wrap.appendChild(block);
+  });
+}
+function renderDecisionPanel(idx){
+  var panel = document.getElementById('decision-panel');
+  var titleEl = document.getElementById('decision-title');
+  var notesEl = document.getElementById('decision-notes');
+  var handEl = document.getElementById('decision-hand');
+  var ctx = computeDecisionContext(idx);
+  panel.classList.toggle('dimmed', !!(ctx && ctx.dimmed));
+
+  if (!ctx || ctx.kind === 'none'){
+    titleEl.textContent = 'What the player saw';
+    notesEl.innerHTML = whyHTML(ctx) + '<span class="muted">No plan or reaction recorded yet this turn.</span>';
+    handEl.innerHTML = '';
+    renderPins(idx);
+    return;
+  }
+  if (ctx.kind === 'ruling'){
+    var rev = ctx.ev;
+    titleEl.textContent = 'Referee ruling — Turn ' + rev.turn;
+    var html;
+    if (rev.data && rev.data.question){
+      html = '<div><b>Q:</b> ' + fmtLines(rev.data.question) + '</div>' +
+             '<div><b>A:</b> ' + fmtLines(rev.data.ruling || rev.text || '') + '</div>';
+    } else {
+      html = '<div>' + fmtLines(rev.text || rev.notes || '') + '</div>';
+    }
+    notesEl.innerHTML = html;
+    handEl.innerHTML = '';
+    renderPins(idx);
+    return;
+  }
+  if (ctx.kind === 'reactions'){
+    titleEl.textContent = 'Reactions — Turn ' + ctx.turn + (ctx.dimmed ? '' : '');
+    notesEl.innerHTML = whyHTML(ctx) + (ctx.dimmed ? '<div class="decision-context-label">decision context</div>' : '');
+    handEl.innerHTML = '';
+    ctx.items.forEach(function(it){
+      var block = document.createElement('div');
+      block.className = 'pin-block';
+      var hdr = document.createElement('div');
+      hdr.className = 'pin-block-hdr';
+      hdr.innerHTML = '<span><b>' + escapeHtml(actorLabel(it.actor)) + '</b> — ' + escapeHtml(it.action || '?') +
+        (it.auto ? ' <i>(automatic)</i>' : '') + '</span>';
+      block.appendChild(hdr);
+      if (it.notes){
+        var n = document.createElement('div'); n.className = 'muted'; n.style.fontSize = '.74rem';
+        n.innerHTML = fmtLines(it.notes); block.appendChild(n);
+      }
+      var h = document.createElement('div');
+      renderHandRow(h, it.handArr, it.badgeMap);
+      block.appendChild(h);
+      handEl.appendChild(block);
+    });
+    renderPins(idx);
+    return;
+  }
+  var kindLabel = 'Plan';
+  titleEl.textContent = kindLabel + ' — Turn ' + events[ctx.sourceIdx].turn + ' — ' + actorLabel(ctx.actor);
+  var notesHTML = ctx.notesText ? fmtLines(ctx.notesText) : '<span class="muted">(no notes)</span>';
+  if (ctx.dimmed) notesHTML = '<div class="decision-context-label">decision context</div>' + notesHTML;
+  notesEl.innerHTML = whyHTML(ctx) + notesHTML;
+  renderHandRow(handEl, ctx.handArr, ctx.badgeMap);
+  renderPins(idx);
+}
+
+/* ======================= transaction context ======================= */
+/* Reactions of one attack are one viewing step: `runEnd`/`runStart` find the run of
+   consecutive reaction events around an index; navigation always lands on a run's end. */
+function isReactionKind(k){ return k === 'reaction' || k === 'reaction_auto'; }
+function runEnd(idx){
+  if (!events[idx] || !isReactionKind(events[idx].kind)) return idx;
+  while (idx + 1 < events.length && isReactionKind(events[idx + 1].kind)) idx++;
+  return idx;
+}
+function runStart(idx){
+  if (!events[idx] || !isReactionKind(events[idx].kind)) return idx;
+  while (idx - 1 >= 0 && isReactionKind(events[idx - 1].kind)) idx--;
+  return idx;
+}
+function stepNext(idx){ return runEnd(Math.min(idx + 1, events.length - 1)); }
+function stepPrev(idx){ return runEnd(Math.max(runStart(idx) - 1, 0)); }
+
+/* What is going on at event `idx`: the open transaction (if any), who opened it, its
+   phase (react / resolve / none), and a per-seat status: 'planning', 'thinking',
+   or the reaction the seat gave. */
+function txContext(idx){
+  var ev = events[idx];
+  var ctx = { opener: null, kind: null, phase: 'none', status: {}, target: null, openIdx: -1 };
+  if (!ev) return ctx;
+  if (ev.kind === 'plan'){ ctx.status[ev.actor] = 'planning'; return ctx; }
+  if (ev.kind === 'turn_start' || ev.kind === 'discard_to_limit' || ev.kind === 'recovery' || ev.kind === 'revive'){
+    if (ev.active != null) ctx.status[ev.active] = 'planning';
+    return ctx;
+  }
+  var open = -1;
+  for (var i = idx; i >= 0; i--){
+    var e = events[i];
+    if (e.kind === 'transaction_closed' || e.kind === 'turn_start' || e.kind === 'game_over') { if (i !== idx) break; }
+    if (e.kind === 'attack_declared' || (e.kind === 'card_played' && e.data && Array.isArray(e.data.reactors))){ open = i; break; }
+    if (e.kind === 'card_played' && e.data && e.data.batch){ open = i; break; }
+  }
+  if (open < 0 || events[idx].kind === 'transaction_closed') return ctx;
+  var oe = events[open];
+  ctx.openIdx = open;
+  ctx.opener = oe.actor; ctx.kind = oe.kind === 'attack_declared' ? 'attack' : (oe.data && oe.data.batch ? 'batch' : 'card');
+  ctx.target = oe.target;
+  var expected = (oe.data && Array.isArray(oe.data.reactors)) ? oe.data.reactors.slice() : null;
+  var reacted = {};
+  var resolved = false;
+  for (var j = open + 1; j <= idx; j++){
+    var e2 = events[j];
+    if (isReactionKind(e2.kind)) reacted[e2.actor] = (e2.data && e2.data.action) || 'pass';
+    else if (e2.kind === 'ruling' || e2.kind === 'damage' || e2.kind === 'heal' || e2.kind === 'move' || e2.kind === 'draw' ||
+             e2.kind === 'poison' || e2.kind === 'transfer' || e2.kind === 'death' || e2.kind === 'discard' || e2.kind === 'vp') resolved = true;
+  }
+  ctx.phase = resolved ? 'resolve' : (ctx.kind === 'batch' ? 'resolve' : 'react');
+  /* older exports carry no reactor list: then nobody is shown as thinking, only actual reactions */
+  Object.keys(reacted).forEach(function(k){ ctx.status[k] = reacted[k]; });
+  if (ctx.phase === 'react' && expected){
+    expected.forEach(function(seat){ if (ctx.status[seat] == null) ctx.status[seat] = 'thinking'; });
+  }
+  return ctx;
+}
+
+/* ======================= centre: deck / discard ======================= */
+function buildCenterLayer(ev){
+  var layer = document.createDocumentFragment();
+  var t = tableCircle();
+  var card = cardSize();
+  var st = (ev && ev.state) || {};
+  var anchors = centerAnchors();
+  var deckC = anchors.deck;
+  var discC = anchors.disc;
+
+  for (var i = 0; i < 3; i++){
+    var dslot = mkSlot(deckC.x + (i - 1) * 2, deckC.y + (i - 1) * 2, card.w, card.h, 0);
+    dslot.style.zIndex = String(10 + i);
+    dslot.setAttribute('data-role', 'deck');
+    fillBackImg(dslot, 'media/cards/back.png');
+    layer.appendChild(dslot);
+  }
+  if (st.deck_n != null){
+    var dn = mkBadge(deckC.x - card.w / 2, deckC.y - card.h / 2, String(st.deck_n), '');   /* top-left corner, away from the discard */
+    dn.setAttribute('data-role', 'deck-n');
+    layer.appendChild(dn);
+  }
+
+  var topUid = st.discard_top;
+  var cid = topUid ? uidToCardId(topUid) : null;
+  if (cid != null){
+    var meta = cardMetaById(cid);
+    var slot = mkSlot(discC.x, discC.y, card.w, card.h, discC.rot);
+    slot.style.zIndex = '5';
+    tagSlot(slot, topUid, 'up');
+    slot.setAttribute('data-role', 'discard');
+    fillCardImg(slot, cid, meta ? meta.name : ('#' + cid), chip('effect', meta ? meta.name : ('#' + cid), topUid));
+    layer.appendChild(slot);
+  } else {
+    var outline = document.createElement('div');
+    outline.className = 'tempty-outline';
+    outline.style.left = (discC.x - card.w / 2) + 'px'; outline.style.top = (discC.y - card.h / 2) + 'px';
+    outline.style.width = card.w + 'px'; outline.style.height = card.h + 'px';
+    outline.style.transform = 'rotate(' + discC.rot + 'deg)';
+    layer.appendChild(outline);
+  }
+  if (st.discard_n != null){
+    var cn = mkBadge(discC.x + card.w / 2 + 4, discC.y + card.h / 2 - 8, String(st.discard_n), '');   /* bottom corner: out of the deck's way */
+    cn.setAttribute('data-role', 'discard-n');
+    layer.appendChild(cn);
+  }
+  return layer;
+}
+
+
+/* ======================= live layer: GSAP transitions between events ======================= */
+/* The table is rebuilt from scratch at every event; the live layer makes the rebuild look
+   like play. Before a render it notes where every card (by uid) and every seat's numbers
+   are; after the render it tweens each card from its old place to its new one, flies the
+   new cards in from the deck and the vanished ones out to the discard, shakes hearts
+   that were lost, pops tokens that were won, and so on. Everything degrades to the plain
+   instant render when GSAP is missing or the "live" box is unticked. */
+var animEnabled = true;
+var liveTl = null;            /* timeline of the transition on screen; killed by the next render */
+var lastIndexShown = -1;
+var lastArrow = null;         /* {from, to, result} of the attack arrow currently drawn */
+var lastExtraKeys = {};       /* keys of the secondary arrows currently drawn */
+function hasGsap(){ return animEnabled && typeof window.gsap !== 'undefined'; }
+function fxLayer(){ return document.getElementById('fx-layer'); }
+function sceneLayers(){ return [document.getElementById('seats-layer'), document.getElementById('center-layer')]; }
+function clearFx(){
+  var fx = fxLayer(); if (fx) fx.innerHTML = '';
+  if (liveTl){ liveTl.kill(); liveTl = null; }
+  /* a crossfade still running on the layers themselves must not leave them half-hidden */
+  if (window.gsap){ var L = sceneLayers(); gsap.killTweensOf(L); gsap.set(L, { clearProps: 'opacity,visibility' }); }
+}
+function normRot(d){ return ((d + 180) % 360 + 360) % 360 - 180; }
+/* The deck sits in front, covering half of the discard, which lies a little askew behind it. */
+function centerAnchors(){
+  var t = tableCircle(), c = cardSize();
+  return { deck: { x: t.cx - c.w * 0.25, y: t.cy, rot: 0 }, disc: { x: t.cx + c.w * 0.25, y: t.cy - 4, rot: -9 } };
+}
+/* a slot's box in stage pixels (top-left), its rotation, its face and the image it shows */
+function slotRect(el){
+  var img = el.querySelector('img');
+  return { x: parseFloat(el.style.left) || 0, y: parseFloat(el.style.top) || 0,
+    w: parseFloat(el.style.width) || 0, h: parseFloat(el.style.height) || 0,
+    rot: Number(el.getAttribute('data-rot')) || 0, face: el.getAttribute('data-face') || 'up',
+    src: img ? img.getAttribute('src') : null };
+}
+/* the centre of a translate(-50%,-50%) element */
+function elCenter(el){ return { x: parseFloat(el.style.left) || 0, y: parseFloat(el.style.top) || 0 }; }
+function seatEl(seat, role){
+  return document.querySelector('#seats-layer .seat-group[data-seat="' + seat + '"] [data-role="' + role + '"]');
+}
+/* two event indices are one viewing step apart (reaction runs count as one step) */
+function isNearStep(a, b){ return b > a ? runStart(b) <= a + 1 : runStart(a) <= b + 1; }
+function snapshotScene(){
+  var s = { cards: {}, seats: {}, deckN: null, discN: null };
+  document.querySelectorAll('#seats-layer [data-uid], #center-layer [data-uid]').forEach(function(el){
+    var uid = el.getAttribute('data-uid');
+    if (!s.cards[uid]) s.cards[uid] = slotRect(el);
+  });
+  document.querySelectorAll('#seats-layer .seat-group').forEach(function(g){
+    var st = g.querySelector('[data-role="status"]');
+    var sy = g.querySelector('[data-role="say"]');
+    s.seats[g.getAttribute('data-seat')] = { status: st ? st.textContent : null, ring: !!g.querySelector('[data-role="ring"]'),
+      say: sy ? sy.textContent : null };
+  });
+  var dn = document.querySelector('#center-layer [data-role="deck-n"]');
+  var cn = document.querySelector('#center-layer [data-role="discard-n"]');
+  s.deckN = dn ? dn.textContent : null;
+  s.discN = cn ? cn.textContent : null;
+  return s;
+}
+function mkGhost(r, src){
+  var g = document.createElement('div');
+  g.className = 'tghost';
+  g.style.left = r.x + 'px'; g.style.top = r.y + 'px';
+  g.style.width = r.w + 'px'; g.style.height = r.h + 'px';
+  var img = document.createElement('img'); img.src = src; img.alt = '';
+  g.appendChild(img);
+  gsap.set(g, { rotation: r.rot || 0 });
+  fxLayer().appendChild(g);
+  return g;
+}
+function removeEl(el){ if (el && el.parentNode) el.parentNode.removeChild(el); }
+function floatText(tl, x, y, text, cls, at){
+  var d = document.createElement('div');
+  d.className = 'tfloat ' + (cls || '');
+  d.textContent = text;
+  d.style.left = x + 'px'; d.style.top = y + 'px';
+  fxLayer().appendChild(d);
+  gsap.set(d, { xPercent: -50, yPercent: -50 });
+  tl.fromTo(d, { autoAlpha: 0, y: 12, scale: .5 }, { autoAlpha: 1, y: -6, scale: 1.15, duration: .3, ease: 'back.out(2)' }, at)
+    .to(d, { autoAlpha: 0, y: -48, duration: .9, ease: 'power1.in', onComplete: function(){ removeEl(d); } }, at + .55);
+}
+function impactFlash(tl, x, y, w, h, color, at){
+  var d = document.createElement('div');
+  d.className = 'timpact';
+  d.style.left = x + 'px'; d.style.top = y + 'px';
+  d.style.width = (w * 1.8) + 'px'; d.style.height = (h * 1.5) + 'px';
+  if (color) d.style.setProperty('--impact', color);
+  fxLayer().appendChild(d);
+  gsap.set(d, { xPercent: -50, yPercent: -50 });
+  tl.fromTo(d, { scale: .3, autoAlpha: 1 }, { scale: 1.3, autoAlpha: 0, duration: .5, ease: 'power2.out',
+    onComplete: function(){ removeEl(d); } }, at);
+}
+function shake(tl, targets, amp, at){
+  if (!targets || (targets.length !== undefined && !targets.length)) return;
+  tl.fromTo(targets, { x: -amp }, { x: amp, duration: .05, repeat: 5, yoyo: true, ease: 'none' }, at)
+    .set(targets, { x: 0 }, at + .32);
+}
+function crossfadeScene(){
+  gsap.from(sceneLayers(), { autoAlpha: 0, duration: .25, clearProps: 'opacity,visibility' });
+}
+/* The transition from the previous event to the one just rendered. `forward` tells where
+   cards come from and go to: forward, new cards are drawn from the deck and lost cards
+   fall onto the discard; stepping backward undoes that. */
+function animateTransition(before, ev, prevEv, forward){
+  var G = window.gsap;
+  var tl = G.timeline();
+  liveTl = tl;
+  var A = centerAnchors(), card = cardSize();
+  var after = {}, fresh = [], flyN = 0, landed = {};
+  document.querySelectorAll('#seats-layer [data-uid], #center-layer [data-uid]').forEach(function(el){
+    var uid = el.getAttribute('data-uid');
+    if (after[uid]) return;
+    var r = slotRect(el); after[uid] = r;
+    var b = before.cards[uid];
+    if (!b){ fresh.push({ el: el, r: r, uid: uid }); return; }
+    var dx = b.x - r.x, dy = b.y - r.y, drot = normRot(b.rot - r.rot);
+    if (Math.abs(dx) > .5 || Math.abs(dy) > .5 || Math.abs(drot) > .5){
+      var far = Math.sqrt(dx * dx + dy * dy) > card.h * 0.8;   /* a real move, not the hand re-fanning */
+      var at = far ? .05 + .08 * (flyN++) : 0;
+      tl.from(el, { x: dx, y: dy, rotation: r.rot + drot, duration: far ? .6 : .3, ease: far ? 'power2.inOut' : 'power1.out' }, at);
+      if (far){
+        /* a card in flight passes over everything else on the table */
+        tl.set(el, { zIndex: 400 }, at).set(el, { zIndex: el.style.zIndex || 'auto' }, at + .6);
+        landed[uid] = at + .6;
+      }
+    }
+    if (b.face !== r.face) tl.from(el, { rotationY: 90, duration: .35, ease: 'power1.out' }, landed[uid] != null ? landed[uid] - .2 : .1);
+  });
+  /* a whole deal or a big discard keeps its stagger, but never takes longer than about a second */
+  var freshStep = Math.min(.12, 1.2 / Math.max(1, fresh.length));
+  fresh.forEach(function(f, i){
+    var r = f.r, el = f.el;
+    if (forward){
+      /* a back flies from the deck and turns into the card on landing */
+      var from = { x: A.deck.x - r.w / 2, y: A.deck.y - r.h / 2, w: r.w, h: r.h, rot: 0 };
+      var g = mkGhost(from, 'media/cards/back.png');
+      var at = .05 + i * freshStep;
+      G.set(el, { autoAlpha: 0 });
+      tl.to(g, { x: r.x - from.x, y: r.y - from.y, rotation: r.rot, duration: .5, ease: 'power2.inOut' }, at)
+        .to(el, { autoAlpha: 1, duration: .15 }, at + .45)
+        .to(g, { autoAlpha: 0, duration: .15, onComplete: function(){ removeEl(g); } }, at + .45);
+      landed[f.uid] = at + .55;
+    } else {
+      var at2 = .05 + i * freshStep;
+      tl.from(el, { x: (A.disc.x - r.w / 2) - r.x, y: (A.disc.y - r.h / 2) - r.y, rotation: A.disc.rot, duration: .5, ease: 'power2.inOut' }, at2);
+      tl.set(el, { zIndex: 400 }, at2).set(el, { zIndex: el.style.zIndex || 'auto' }, at2 + .5);
+      landed[f.uid] = at2 + .5;
+    }
+  });
+  var gone = Object.keys(before.cards).filter(function(uid){ return !after[uid]; });
+  var goneStep = Math.min(.08, 1 / Math.max(1, gone.length));
+  gone.forEach(function(uid, i){
+    var b = before.cards[uid];
+    var cid = uidToCardId(uid);
+    var face = b.src || (cid != null ? 'media/cards/' + cid + '.png' : 'media/cards/back.png');
+    var src = forward ? (b.face === 'down' ? 'media/cards/back.png' : face) : 'media/cards/back.png';
+    var g = mkGhost(b, src);
+    var dst = forward ? A.disc : A.deck;
+    var at3 = .05 + i * goneStep;
+    tl.to(g, { x: (dst.x - b.w / 2) - b.x, y: (dst.y - b.h / 2) - b.y, rotation: dst.rot, duration: .5, ease: 'power2.inOut',
+      onComplete: function(){ removeEl(g); } }, at3);
+    /* the ghost fades on the last stretch, so it seems to slide under the deck that fronts the pile */
+    tl.to(g, { autoAlpha: 0, duration: .18 }, at3 + .32);
+  });
+  var dn = document.querySelector('#center-layer [data-role="deck-n"]');
+  if (dn && before.deckN !== null && dn.textContent !== before.deckN) tl.from(dn, { scale: 1.8, duration: .35, ease: 'back.out(2)' }, .45);
+  var cn = document.querySelector('#center-layer [data-role="discard-n"]');
+  if (cn && before.discN !== null && cn.textContent !== before.discN) tl.from(cn, { scale: 1.8, duration: .35, ease: 'back.out(2)' }, .5);
+
+  /* per-seat consequences: life, tokens, poison, death, badges, figurines */
+  var prevStates = (prevEv && prevEv.state && prevEv.state.players) || [];
+  var curStates = (ev && ev.state && ev.state.players) || [];
+  var badgeN = 0;
+  for (var seat = 0; seat < 4; seat++){
+    var p0 = findPlayerBySeat(prevStates, seat), p1 = findPlayerBySeat(curStates, seat);
+    var hearts = seatEl(seat, 'hearts'), vp = seatEl(seat, 'vp'), cslot = seatEl(seat, 'char');
+    var icons = hearts ? hearts.querySelectorAll('.tmini-icon') : [];
+    if (p0 && p1){
+      var hp0 = Number(p0.hp) || 0, hp1 = Number(p1.hp) || 0, k;
+      if (hp1 < hp0 && hearts){
+        var hc = elCenter(hearts);
+        var poison = ev.kind === 'end_turn_poison' || (ev.data && ev.data.source === 'poison');
+        floatText(tl, hc.x, hc.y - 16, '−' + (hp0 - hp1), poison ? 'poison' : 'dmg', .1);
+        shake(tl, icons, 3, .1);
+        var lost = []; for (k = hp1; k < Math.min(hp0, icons.length); k++) lost.push(icons[k]);
+        if (lost.length) tl.from(lost, { scale: 1.9, duration: .45, ease: 'power2.out' }, .1);
+        if (cslot){
+          var cc = { x: parseFloat(cslot.style.left) + card.w / 2, y: parseFloat(cslot.style.top) + card.h / 2 };
+          impactFlash(tl, cc.x, cc.y, card.w, card.h, poison ? '#9cff4d' : '#ff5a3c', .05);
+          shake(tl, cslot, 5, .05);
+        }
+      } else if (hp1 > hp0 && hearts){
+        var hc2 = elCenter(hearts);
+        floatText(tl, hc2.x, hc2.y - 16, '+' + (hp1 - hp0), 'heal', .1);
+        var gained = []; for (k = hp0; k < Math.min(hp1, icons.length); k++) gained.push(icons[k]);
+        if (gained.length) tl.from(gained, { scale: 0, duration: .45, ease: 'back.out(3)', stagger: .08 }, .1);
+      }
+      var vp0 = Number(p0.vp) || 0, vp1 = Number(p1.vp) || 0;
+      if (vp1 !== vp0 && vp){
+        var vc = elCenter(vp);
+        floatText(tl, vc.x, vc.y - 16, (vp1 > vp0 ? '+' : '−') + Math.abs(vp1 - vp0) + ' ☯', 'vp', .15);
+        tl.from(vp.querySelectorAll('.tmini-icon'), { scale: 1.6, duration: .4, ease: 'back.out(2)', stagger: .04 }, .15);
+      }
+      if (!p0.poisoned && p1.poisoned){
+        var pf = seatEl(seat, 'poison');
+        if (pf) tl.from(pf, { scale: 0, rotation: '-=40', duration: .5, ease: 'back.out(2)' }, .2);
+      }
+      var alive0 = p0.alive !== false, alive1 = p1.alive !== false;
+      var grp = document.querySelector('#seats-layer .seat-group[data-seat="' + seat + '"]');
+      var imgs = grp ? grp.querySelectorAll('.tcard-img, .tback-img') : [];
+      if (alive0 && !alive1){
+        if (imgs.length) tl.from(imgs, { filter: 'grayscale(0) brightness(1)', duration: .9 }, .3);
+        var sk = seatEl(seat, 'skull');
+        if (sk) tl.from(sk, { scale: 3, autoAlpha: 0, duration: .6, ease: 'bounce.out' }, .4);
+      } else if (!alive0 && alive1){
+        if (imgs.length) tl.from(imgs, { filter: 'grayscale(1) brightness(.5)', duration: .8 }, .1);
+        if (icons.length) tl.from(icons, { scale: 0, duration: .4, ease: 'back.out(2)', stagger: .06 }, .2);
+      }
+      /* figurines land right after the card they sit on */
+      var tuid = p1.trap && p1.trap.uid, tf = seatEl(seat, 'trapfig');
+      if (tf && tuid && landed[tuid] != null) tl.from(tf, { scale: 0, duration: .4, ease: 'back.out(2)' }, landed[tuid]);
+      var auid = p1.aura && p1.aura.uid, af = seatEl(seat, 'aurafig'), cb = seatEl(seat, 'charges');
+      if (auid && landed[auid] != null){
+        if (af) tl.from(af, { scale: 0, duration: .4, ease: 'back.out(2)' }, landed[auid]);
+        if (cb) tl.from(cb, { scale: 0, duration: .3, ease: 'back.out(2)' }, landed[auid] + .1);
+      }
+    }
+    /* reaction badges and thinking bubbles appear when they are new */
+    var b0 = before.seats[String(seat)];
+    var st = seatEl(seat, 'status');
+    if (st && (!b0 || b0.status !== st.textContent)){
+      if (st.classList.contains('tthink')) tl.from(st, { autoAlpha: 0, duration: .3 }, .35);
+      else tl.from(st, { scale: 0, duration: .35, ease: 'back.out(2.5)' }, .3 + .08 * (badgeN++));
+    }
+    var rg = seatEl(seat, 'ring');
+    if (rg && !(b0 && b0.ring)) tl.from(rg, { scale: 1.6, autoAlpha: 0, duration: .5, ease: 'power2.out' }, .1);
+    var sy = seatEl(seat, 'say');
+    if (sy && (!b0 || b0.say !== sy.textContent)) tl.from(sy, { scale: 0, autoAlpha: 0, duration: .35, ease: 'back.out(1.7)' }, .25 + .06 * badgeN);
+  }
+  tl.timeScale(autoplayTimer ? Math.max(1, autoplaySpeed) : 1);
+  return tl;
+}
+
+/* ======================= secondary arrows: interventions, effects, thrusts ======================= */
+function markerFor(color){
+  var id = 'ah-' + color.replace(/[^a-z0-9]/gi, '');
+  if (!document.getElementById(id)){
+    var NS = 'http://www.w3.org/2000/svg';
+    var m = document.createElementNS(NS, 'marker');
+    m.setAttribute('id', id); m.setAttribute('markerWidth', '8'); m.setAttribute('markerHeight', '8');
+    m.setAttribute('refX', '7'); m.setAttribute('refY', '4'); m.setAttribute('orient', 'auto');
+    var p = document.createElementNS(NS, 'path');
+    p.setAttribute('d', 'M0,0 L8,4 L0,8 Z'); p.setAttribute('fill', color);
+    m.appendChild(p);
+    document.getElementById('arrow-defs').appendChild(m);
+  }
+  return id;
+}
+function computeExtraArrows(idx){
+  var list = [];
+  var ev = events[idx];
+  if (!ev) return list;
+  var card = cardSize(), rimStep = card.w + 6;
+  var tx = txContext(idx);
+  if (tx.kind === 'attack' && tx.target != null){
+    Object.keys(tx.status).forEach(function(s){
+      var seat = Number(s);
+      if (tx.status[s] !== 'intervene' || seat === tx.target || seat === tx.opener) return;
+      list.push({ key: 'iv' + tx.openIdx + '-' + seat, from: seatFrame(seat).pos(ROW.spot, 0),
+        to: seatFrame(tx.target).pos(ROW.status, -card.w * 0.95), color: '#5fd9b0', dashed: tx.phase === 'react' });
+    });
+  }
+  /* effects placed on another player and thrusts, while their transaction is open */
+  for (var i = idx; i >= 0; i--){
+    var e = events[i];
+    if (e.kind === 'turn_start' || e.kind === 'transaction_closed') break;
+    if (e.kind === 'effect_placed' && e.target != null && e.actor != null && e.target !== e.actor){
+      list.push({ key: 'ef' + i, from: seatFrame(e.actor).pos(ROW.spot, 0),
+        to: seatFrame(e.target).pos(ROW.rim - card.h / 3, rimStep * 1.5), color: '#e0b04a', dashed: false });
+    }
+    if (e.kind === 'damage' && e.data && e.data.source === 'thrust' && e.data.by != null && e.target != null && e.data.by !== e.target){
+      list.push({ key: 'th' + i, from: seatFrame(e.data.by).pos(ROW.spot, 0),
+        to: seatFrame(e.target).pos(ROW.rim, -rimStep / 2), color: '#c0392b', dashed: false });
+    }
+  }
+  return list;
+}
+function renderExtraArrows(idx, animate){
+  var g = document.getElementById('arrow-extra');
+  if (!g) return;
+  var G = window.gsap;
+  if (G) G.killTweensOf(g.querySelectorAll('line'));
+  g.innerHTML = '';
+  var keys = {};
+  computeExtraArrows(idx).forEach(function(a){
+    keys[a.key] = true;
+    var seg = shrinkSegment(a.from, a.to, 30);
+    var ln = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    ln.setAttribute('x1', seg.x1); ln.setAttribute('y1', seg.y1);
+    ln.setAttribute('x2', seg.x2); ln.setAttribute('y2', seg.y2);
+    ln.setAttribute('stroke', a.color); ln.setAttribute('stroke-width', '3');
+    ln.setAttribute('stroke-linecap', 'round');
+    ln.setAttribute('marker-end', 'url(#' + markerFor(a.color) + ')');
+    if (a.dashed) ln.setAttribute('stroke-dasharray', '8,6');
+    g.appendChild(ln);
+    if (G && animate && !lastExtraKeys[a.key]) G.from(ln, { attr: { x2: seg.x1, y2: seg.y1 }, duration: .45, ease: 'power2.out' });
+    if (G && animEnabled && a.dashed) G.to(ln, { strokeDashoffset: -28, duration: .9, ease: 'none', repeat: -1 });
+  });
+  lastExtraKeys = keys;
+}
+
+/* ======================= main table render ======================= */
+function renderTable(ev){
+  var players = (gameData.game && gameData.game.players) || [];
+  var states = (ev.state && ev.state.players) || [];
+  var seatsLayer = document.getElementById('seats-layer');
+  var centerLayer = document.getElementById('center-layer');
+  seatsLayer.innerHTML = '';
+  centerLayer.innerHTML = '';
+  var tx = txContext(currentIndex);
+  var inPlay = inPlayBySeat(ev, tx);
+  for (var seat = 0; seat < 4; seat++){
+    var staticP = findPlayerBySeat(players, seat);
+    var ps = findPlayerBySeat(states, seat);
+    try {
+      seatsLayer.appendChild(buildSeatGroup(seat, staticP, ps, ev, tx, inPlay));
+    } catch (err){ /* one seat's bad data must never blank the whole table */ }
+  }
+  try { centerLayer.appendChild(buildCenterLayer(ev)); } catch (err){ /* ignore */ }
+}
+
+/* ======================= attack arrow ======================= */
+function arrowColor(result){
+  switch (result){
+    case 'hit': return '#c0392b';
+    case 'partial': return '#e08e2b';
+    case 'blocked': return '#3b7ea1';
+    case 'resolved': return '#3b8476';
+    default: return '#888';
+  }
+}
+function shrinkSegment(p1, p2, amt){
+  var dx = p2.x - p1.x, dy = p2.y - p1.y;
+  var len = Math.sqrt(dx * dx + dy * dy) || 1;
+  var ux = dx / len, uy = dy / len;
+  return { x1: p1.x + ux * amt, y1: p1.y + uy * amt, x2: p2.x - ux * amt, y2: p2.y - uy * amt };
+}
+/* The arrow lives for the whole attack transaction: from the attacker's action spot to
+   the target's character card; grey and dashed while reactions are pending, coloured
+   by outcome once the referee has spoken. */
+function computeArrowInfo(idx){
+  var tx = txContext(idx);
+  if (tx.kind !== 'attack' || tx.opener == null || tx.target == null || tx.opener === tx.target) return null;
+  var result = null;
+  if (tx.phase === 'resolve'){
+    result = 'blocked';
+    for (var i = idx; i >= 0; i--){
+      var e = events[i];
+      if (e.kind === 'attack_declared') break;
+      if (e.kind === 'damage' && e.data && e.data.source === 'attack'){ result = 'hit'; break; }
+    }
+  }
+  return { from: tx.opener, to: tx.target, result: result };
+}
+function renderArrow(idx, animate){
+  var info = computeArrowInfo(idx);
+  var line = document.getElementById('arrow-line');
+  var head = document.getElementById('arrow-marker-path');
+  var G = window.gsap;
+  if (G){ G.killTweensOf(line); G.set(line, { clearProps: 'opacity,visibility,strokeDashoffset' }); }
+  if (!info){
+    if (lastArrow && animate && G){
+      G.to(line, { autoAlpha: 0, duration: .3, onComplete: function(){
+        line.style.display = 'none'; G.set(line, { clearProps: 'opacity,visibility' }); } });
+    } else line.style.display = 'none';
+    lastArrow = null;
+    return;
+  }
+  var card = cardSize();
+  var p1 = seatFrame(info.from).pos(ROW.spot, 0);
+  var p2 = seatFrame(info.to).pos(ROW.rim, -(card.w + 6) / 2);
+  var seg = shrinkSegment(p1, p2, 40);
+  var color = arrowColor(info.result);
+  var same = !!(lastArrow && lastArrow.from === info.from && lastArrow.to === info.to);
+  var prevColor = same ? arrowColor(lastArrow.result) : null;
+  line.style.display = 'block';
+  line.setAttribute('x1', seg.x1); line.setAttribute('y1', seg.y1);
+  line.setAttribute('x2', seg.x2); line.setAttribute('y2', seg.y2);
+  line.setAttribute('stroke', color);
+  line.setAttribute('stroke-dasharray', info.result ? '0' : '10,7');
+  if (head) head.setAttribute('fill', color);
+  if (G && animate){
+    if (!same){
+      /* the arrow draws itself from the attacker to the target */
+      G.from(line, { attr: { x2: seg.x1, y2: seg.y1 }, duration: .45, ease: 'power2.out' });
+    } else if (prevColor !== color){
+      /* the ruling lands: the arrow takes its colour with a pulse */
+      G.fromTo(line, { attr: { stroke: prevColor, 'stroke-width': 10 } }, { attr: { stroke: color, 'stroke-width': 4 }, duration: .5, ease: 'power2.out' });
+      if (head) G.fromTo(head, { attr: { fill: prevColor } }, { attr: { fill: color }, duration: .35 });
+    }
+  }
+  /* while reactions are pending the dashes crawl toward the target */
+  if (G && animEnabled && !info.result) G.to(line, { strokeDashoffset: -34, duration: .9, ease: 'none', repeat: -1 });
+  lastArrow = info;
+}
+
+/* ======================= stage scaling ======================= */
+function resizeStage(){
+  var wrap = document.getElementById('stage-wrap');
+  var stage = document.getElementById('stage');
+  if (!wrap || !stage) return;
+  var img = imageDims();
+  var w = img.w, h = img.h;
+  stage.style.width = w + 'px';
+  stage.style.height = h + 'px';
+  document.getElementById('stage-bg').style.width = w + 'px';
+  document.getElementById('stage-bg').style.height = h + 'px';
+  document.getElementById('seats-layer').style.width = w + 'px';
+  document.getElementById('seats-layer').style.height = h + 'px';
+  document.getElementById('center-layer').style.width = w + 'px';
+  document.getElementById('center-layer').style.height = h + 'px';
+  var svg = document.getElementById('arrow-svg');
+  svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
+  svg.style.width = w + 'px';
+  svg.style.height = h + 'px';
+  var cw = wrap.clientWidth || w;
+  var k = cw / w;
+  stage.style.transform = 'scale(' + k + ')';
+}
+
+/* ======================= layout loading ======================= */
+function applyLayoutOverride(json){
+  if (json && json.image && json.table && json.card && Array.isArray(json.seats) && json.seats.length === 4){
+    LAYOUT = json;
+    resizeStage();
+    if (events.length) renderAt(currentIndex);
+  }
+}
+function tryLoadLayout(){
+  fetch('media/table-layout.json').then(function(r){
+    if (!r.ok) throw new Error('no layout');
+    return r.json();
+  }).then(applyLayoutOverride).catch(function(){ /* file://, missing, or bad JSON: keep the inlined default */ });
+}
+
+/* ======================= log ======================= */
+function logRowHTML(e, i){
+  var turnBadge = '<span class="turn-badge">T' + e.turn + '</span>';
+  var kindTag = '<span class="kind-tag">' + escapeHtml(e.kind) + '</span>';
+  var cardBtn = '';
+  if (e.card_id != null){
+    var c = gameData.cards[String(e.card_id)];
+    var ch = c ? null : findCharacterById(e.card_id);
+    var label = c ? c.name : (ch ? ch.name : ('#' + e.card_id));
+    cardBtn = ' <span class="card-ref" data-card="' + e.card_id + '">[' + escapeHtml(label) + ']</span>';
+  }
+  var extra = '';
+  if (e.notes && e.notes !== e.text){
+    /* a step's short "why" reads inline; long notes (the whole plan) fold away */
+    if (e.kind !== 'plan' && String(e.notes).length <= 160) extra += ' <span class="log-why">— “' + escapeHtml(e.notes) + '”</span>';
+    else extra += '<details><summary>notes</summary><div class="detail-body">' + escapeHtml(e.notes) + '</div></details>';
+  }
+  if (e.kind === 'ruling' && e.data && e.data.question){
+    extra += '<details><summary>question</summary><div class="detail-body">' + escapeHtml(e.data.question) + '</div></details>';
+  }
+  return '<div class="log-row" data-idx="' + i + '">' + turnBadge + kindTag + escapeHtml(e.text || '') + cardBtn + extra + '</div>';
+}
+function renderLogAll(){
+  var list = document.getElementById('log-list');
+  var out = [];
+  for (var i = 0; i < events.length; i++) out.push(logRowHTML(events[i], i));
+  list.innerHTML = out.join('');
+}
+function renderLogHighlight(idx){
+  var prevRows = document.querySelectorAll('.log-row.current');
+  for (var k = 0; k < prevRows.length; k++) prevRows[k].classList.remove('current');
+  var a = runStart(idx), b = runEnd(idx), first = null;
+  for (var i = a; i <= b; i++){
+    var row = document.querySelector('.log-row[data-idx="' + i + '"]');
+    if (row){ row.classList.add('current'); if (!first) first = row; }
+  }
+  if (first) first.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+}
+
+/* ======================= turn jumper ======================= */
+function buildTurnJumper(){
+  var wrap = document.getElementById('turn-jumper');
+  wrap.innerHTML = '';
+  for (var i = 0; i < events.length; i++){
+    if (events[i].kind === 'turn_start'){
+      (function(idx, turnNum){
+        var btn = document.createElement('button');
+        btn.className = 'turn-jump-btn';
+        btn.textContent = 'T' + turnNum;
+        btn.dataset.idx = idx;
+        btn.dataset.turn = turnNum;
+        btn.addEventListener('click', function(){ renderAt(idx); });
+        wrap.appendChild(btn);
+      })(i, events[i].turn);
+    }
+  }
+}
+function renderTurnJumperHighlight(ev){
+  var btns = document.querySelectorAll('.turn-jump-btn');
+  for (var i = 0; i < btns.length; i++){
+    btns[i].classList.toggle('current', Number(btns[i].dataset.turn) === ev.turn);
+  }
+}
+
+/* ======================= header ======================= */
+function formatResult(r){
+  if (!r) return 'in progress';
+  var winner = r.winner ? (r.winner === 'tie' ? 'tie' : r.winner + ' wins') : '—';
+  var score = '';
+  if (r.score && typeof r.score === 'object'){
+    var parts = [];
+    for (var k in r.score) if (Object.prototype.hasOwnProperty.call(r.score, k)) parts.push(k + ' ' + r.score[k]);
+    score = parts.join(' · ');
+  }
+  return (r.reason ? r.reason + ': ' : '') + winner + (score ? ' (' + score + ')' : '');
+}
+function renderHeaderStatic(){
+  var g = gameData.game || {};
+  document.getElementById('hdr-game').innerHTML = '<b>Game ' + escapeHtml(g.id != null ? g.id : '—') + '</b>';
+  document.getElementById('hdr-seed').textContent = 'Seed ' + (g.seed != null ? g.seed : '—');
+  document.getElementById('hdr-result').textContent = formatResult(g.result);
+  var players = Array.isArray(g.players) ? g.players : [];
+  document.getElementById('hdr-players').innerHTML = players.map(function(p){
+    var faction = p.faction === 'ninja' ? 'ninja' : 'samurai';
+    var cname = (p.character && p.character.name) || '?';
+    return '<span class="legend-chip ' + faction + '">P' + p.seat + ' ' + escapeHtml(p.name || '') + ' — ' + escapeHtml(cname) + '</span>';
+  }).join('');
+}
+function renderHeaderPosition(ev){
+  document.getElementById('hdr-pos').textContent = 'Turn ' + ev.turn + ' · Event ' + (currentIndex + 1) + '/' + events.length;
+  var st = ev.state;
+  document.getElementById('hdr-deck').textContent = st ? ('Deck ' + st.deck_n + ' · Discard ' + st.discard_n) : '';
+}
+
+/* ======================= main render ======================= */
+function renderAt(idx, opts){
+  if (!events.length) return;
+  opts = opts || {};
+  idx = Math.max(0, Math.min(idx, events.length - 1));
+  var prevIdx = lastIndexShown;
+  var ev = events[idx];
+  /* one viewing step away → animate the difference; a jump → a quick crossfade */
+  var live = hasGsap() && opts.animate !== false && prevIdx >= 0 && prevIdx < events.length && prevIdx !== idx;
+  var stepwise = live && isNearStep(prevIdx, idx);
+  var before = stepwise ? snapshotScene() : null;
+  clearFx();
+  currentIndex = idx;
+  renderHeaderPosition(ev);
+  renderTable(ev);
+  renderArrow(idx, stepwise);
+  renderExtraArrows(idx, stepwise);
+  if (stepwise){
+    try { animateTransition(before, ev, events[prevIdx], idx > prevIdx); } catch (err){ clearFx(); }
+  } else if (live) crossfadeScene();
+  lastIndexShown = idx;
+  renderDecisionPanel(idx);
+  renderLogHighlight(idx);
+  renderTurnJumperHighlight(ev);
+  var scrubber = document.getElementById('scrubber');
+  if (Number(scrubber.value) !== idx) scrubber.value = idx;
+  try { history.replaceState(null, '', location.pathname + location.search + '#e=' + idx); } catch (e) { /* file:// may refuse */ }
+}
+
+/* ======================= autoplay ======================= */
+function startAutoplay(){
+  if (!events.length) return;
+  if (currentIndex >= events.length - 1) renderAt(0);
+  stopAutoplay();
+  autoplayTimer = setInterval(function(){
+    if (currentIndex >= events.length - 1){ stopAutoplay(); return; }
+    renderAt(stepNext(currentIndex));
+  }, Math.max(120, (hasGsap() ? 1500 : 900) / autoplaySpeed));
+  document.getElementById('btn-play').textContent = '⏸';
+}
+function stopAutoplay(){
+  if (autoplayTimer){ clearInterval(autoplayTimer); autoplayTimer = null; }
+  document.getElementById('btn-play').textContent = '▶';
+}
+function toggleAutoplay(){
+  if (autoplayTimer) stopAutoplay(); else startAutoplay();
+}
+
+/* ======================= loading / normalizing ======================= */
+function normalizeEvent(e, i){
+  e = (e && typeof e === 'object') ? e : {};
+  return {
+    seq: e.seq != null ? e.seq : i,
+    turn: e.turn != null ? e.turn : 0,
+    active: e.active != null ? e.active : null,
+    kind: e.kind || 'unknown',
+    actor: e.actor != null ? e.actor : null,
+    target: e.target != null ? e.target : null,
+    card: e.card || null,
+    card_id: e.card_id != null ? e.card_id : null,
+    text: e.text || '',
+    data: (e.data && typeof e.data === 'object') ? e.data : {},
+    notes: e.notes || null,
+    state: (e.state && typeof e.state === 'object') ? e.state : null
+  };
+}
+function normalizeGameData(data){
+  data = (data && typeof data === 'object') ? data : {};
+  var game = (data.game && typeof data.game === 'object') ? data.game : {};
+  var cards = (data.cards && typeof data.cards === 'object') ? data.cards : {};
+  var evs = Array.isArray(data.events) ? data.events : [];
+  evs = evs.map(normalizeEvent);
+  game.players = Array.isArray(game.players) ? game.players.slice() : [];
+  for (var i = 0; i < 4; i++){
+    if (!game.players[i]){
+      game.players[i] = { seat: i, name: 'P' + i, faction: (i % 2 === 0 ? 'samurai' : 'ninja'),
+        character: { id: null, name: '?', hp: 1, text: '' } };
+    }
+  }
+  return { game: game, cards: cards, events: evs };
+}
+function loadGame(data, label){
+  try {
+    var normalized = normalizeGameData(data);
+    if (!normalized.events.length){
+      showLoaderMessage('That file has no events to show.');
+      return;
+    }
+    gameData = normalized;
+    events = gameData.events;
+    currentIndex = 0;
+    lastIndexShown = -1; lastArrow = null; lastExtraKeys = {};
+    clearFx();
+    stopAutoplay();
+    document.getElementById('scrubber').max = Math.max(0, events.length - 1);
+    renderHeaderStatic();
+    buildTurnJumper();
+    renderLogAll();
+    hideLoader();
+    resizeStage();
+    /* #e=<index> opens the replay at that event (shareable link to a moment);
+       #e=<index>&p=<0..1> freezes the transition into it at that progress (a still of the motion) */
+    var m = /(?:^|[#&])e=(\d+)/.exec(location.hash || '');
+    var pm = /(?:^|[#&])p=(\d*\.?\d+)/.exec(location.hash || '');
+    var target = m ? runEnd(Number(m[1])) : 0;
+    if (pm && m && target > 0){
+      renderAt(stepPrev(target), { animate: false });
+      renderAt(target);
+      if (liveTl){ liveTl.pause(); liveTl.seek(Math.max(0, Math.min(1, Number(pm[1]))) * liveTl.duration(), false); }
+    } else renderAt(target);
+  } catch (err){
+    showLoaderMessage('Could not load this game: ' + (err && err.message ? err.message : err));
+    showLoader();
+  }
+}
+
+/* ======================= loader UI ======================= */
+function showLoader(){ document.getElementById('loader').style.display = 'flex'; }
+function hideLoader(){ document.getElementById('loader').style.display = 'none'; }
+function showLoaderMessage(msg){ document.getElementById('loader-msg').textContent = msg || ''; }
+
+function readFile(file){
+  var reader = new FileReader();
+  reader.onload = function(){
+    try {
+      var data = JSON.parse(reader.result);
+      loadGame(data, file.name);
+    } catch (err){
+      showLoaderMessage('That file is not valid JSON: ' + err.message);
+    }
+  };
+  reader.onerror = function(){ showLoaderMessage('Could not read that file.'); };
+  reader.readAsText(file);
+}
+function fetchAndLoad(src){
+  showLoaderMessage('Loading ' + src + ' …');
+  fetch(src).then(function(r){
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return r.json();
+  }).then(function(data){
+    loadGame(data, src);
+  }).catch(function(err){
+    showLoaderMessage('Could not load "' + src + '": ' + err.message + '. Choose a file instead.');
+    showLoader();
+  });
+}
+function populateGameDropdown(games){
+  var sel = document.getElementById('game-select');
+  var opts = ['<option value="">— choose a game —</option>'];
+  for (var i = 0; i < games.length; i++){
+    var g = games[i] || {};
+    opts.push('<option value="' + escapeHtml(g.file || '') + '">Game ' + escapeHtml(g.id) +
+      ' (seed ' + escapeHtml(g.seed) + ', ' + escapeHtml(g.turns_played != null ? g.turns_played : '?') + ' turns)</option>');
+  }
+  sel.innerHTML = opts.join('');
+  sel.style.display = 'inline-block';
+  sel.onchange = function(){
+    if (sel.value) location.search = '?src=' + encodeURIComponent(sel.value);
+  };
+  var currentSrc = new URLSearchParams(location.search).get('src');
+  if (currentSrc) sel.value = currentSrc;
+}
+function tryLoadIndex(){
+  fetch('games/index.json').then(function(r){
+    if (!r.ok) throw new Error('no index');
+    return r.json();
+  }).then(function(j){
+    if (j && Array.isArray(j.games) && j.games.length) populateGameDropdown(j.games);
+  }).catch(function(){ /* file://, missing, or no games yet: silently ignore */ });
+}
+
+/* ======================= wiring ======================= */
+function attachListeners(){
+  document.getElementById('decision-toggle').onclick = function(){
+    document.getElementById('decision-panel').classList.toggle('collapsed');
+  };
+  document.getElementById('btn-home').onclick = function(){ stopAutoplay(); renderAt(0); };
+  document.getElementById('btn-prev').onclick = function(){ stopAutoplay(); renderAt(stepPrev(currentIndex)); };
+  document.getElementById('btn-next').onclick = function(){ stopAutoplay(); renderAt(stepNext(currentIndex)); };
+  document.getElementById('btn-end').onclick = function(){ stopAutoplay(); renderAt(events.length - 1); };
+  document.getElementById('btn-play').onclick = toggleAutoplay;
+  document.getElementById('speed-select').onchange = function(e){
+    autoplaySpeed = Number(e.target.value) || 1;
+    if (autoplayTimer) startAutoplay();
+  };
+  document.getElementById('anim-toggle').onchange = function(e){
+    animEnabled = !!e.target.checked;
+    if (!animEnabled) clearFx();
+    if (autoplayTimer) startAutoplay();
+  };
+  document.getElementById('scrubber').addEventListener('input', function(e){
+    stopAutoplay();
+    renderAt(runEnd(Number(e.target.value)));
+  });
+
+  document.getElementById('log-list').addEventListener('click', function(e){
+    if (e.target.closest('[data-card]') || e.target.closest('details')) return;
+    var row = e.target.closest('.log-row');
+    if (row) { stopAutoplay(); renderAt(runEnd(Number(row.dataset.idx))); }
+  });
+
+  document.getElementById('btn-choose').onclick = function(){ document.getElementById('file-input').click(); };
+  document.getElementById('file-input').addEventListener('change', function(e){
+    var f = e.target.files && e.target.files[0];
+    if (f) readFile(f);
+  });
+  var dropzone = document.getElementById('dropzone');
+  ['dragover', 'dragenter'].forEach(function(evt){
+    dropzone.addEventListener(evt, function(e){ e.preventDefault(); dropzone.classList.add('dragover'); });
+  });
+  ['dragleave', 'drop'].forEach(function(evt){
+    dropzone.addEventListener(evt, function(e){ e.preventDefault(); dropzone.classList.remove('dragover'); });
+  });
+  dropzone.addEventListener('drop', function(e){
+    var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+    if (f) readFile(f);
+  });
+  window.addEventListener('dragover', function(e){ e.preventDefault(); });
+  window.addEventListener('drop', function(e){
+    e.preventDefault();
+    var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+    if (f) readFile(f);
+  });
+
+  window.addEventListener('resize', resizeStage);
+
+  document.addEventListener('mouseover', function(e){
+    if (popoverPinned) return;
+    var el = e.target.closest && e.target.closest('[data-card]');
+    if (el){
+      var id = Number(el.getAttribute('data-card'));
+      if (!isNaN(id)) showCardPopover(el, id);
+    }
+  });
+  document.addEventListener('mouseout', function(e){
+    if (popoverPinned) return;
+    var el = e.target.closest && e.target.closest('[data-card]');
+    if (el) hideCardPopover();
+  });
+  document.addEventListener('click', function(e){
+    var el = e.target.closest && e.target.closest('[data-card]');
+    if (el){
+      var id = Number(el.getAttribute('data-card'));
+      if (!isNaN(id)){ popoverPinned = true; showCardPopover(el, id); }
+      e.stopPropagation();
+      return;
+    }
+    if (!e.target.closest || !e.target.closest('#card-popover')) hideCardPopover();
+  });
+
+  document.addEventListener('keydown', function(e){
+    var tag = (document.activeElement && document.activeElement.tagName) || '';
+    if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') {
+      if (e.key === 'Escape') hideCardPopover();
+      return;
+    }
+    if (!events.length) return;
+    if (e.key === 'ArrowRight'){ stopAutoplay(); renderAt(stepNext(currentIndex)); e.preventDefault(); }
+    else if (e.key === 'ArrowLeft'){ stopAutoplay(); renderAt(stepPrev(currentIndex)); e.preventDefault(); }
+    else if (e.key === 'Home'){ stopAutoplay(); renderAt(0); e.preventDefault(); }
+    else if (e.key === 'End'){ stopAutoplay(); renderAt(events.length - 1); e.preventDefault(); }
+    else if (e.key === ' '){ toggleAutoplay(); e.preventDefault(); }
+    else if (e.key === 'Escape'){ hideCardPopover(); }
+  });
+}
+
+function init(){
+  attachListeners();
+  resizeStage();
+  tryLoadLayout();
+  tryLoadIndex();
+  var params = new URLSearchParams(location.search);
+  var src = params.get('src');
+  if (src) fetchAndLoad(src);
+}
+
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+else init();
+
+</script>
+</body>
+</html>

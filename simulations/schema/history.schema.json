@@ -1,0 +1,155 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://samurai-vs-ninja/simulation/history.schema.json",
+  "title": "History",
+  "description": "Output of `sim.py export --game N`, written to simulations/games/game_<N>.json — the viewer's input (simulation.md §9).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["game", "cards", "events"],
+  "properties": {
+    "game": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "seed", "players_n", "max_turns", "turns_played", "players", "result", "assumptions"],
+      "properties": {
+        "id": { "type": "integer" },
+        "seed": { "type": "integer" },
+        "players_n": { "type": "integer" },
+        "max_turns": { "type": "integer" },
+        "turns_played": { "type": "integer" },
+        "players": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["seat", "name", "faction", "first", "character"],
+            "properties": {
+              "seat": { "type": "integer" },
+              "name": { "type": "string" },
+              "faction": { "type": "string", "enum": ["samurai", "ninja"] },
+              "first": { "type": "boolean" },
+              "character": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["id", "name", "hp", "text"],
+                "properties": {
+                  "id": { "type": "integer" },
+                  "name": { "type": "string" },
+                  "hp": { "type": "integer" },
+                  "text": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "result": {
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "object",
+              "properties": {
+                "reason": { "type": "string", "enum": ["vp_zero", "deck_empty", "turn_cap"] },
+                "winner": { "type": "string", "enum": ["samurai", "ninja", "tie"] },
+                "score": { "type": "object" }
+              }
+            }
+          ]
+        },
+        "assumptions": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "cards": {
+      "type": "object",
+      "description": "Every card referenced anywhere, keyed by id as a string.",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["id", "name", "types", "icons", "icons_or", "text"],
+        "properties": {
+          "id": { "type": "integer" },
+          "name": { "type": "string" },
+          "types": { "type": "array", "items": { "type": "string" } },
+          "icons": { "type": "array", "items": { "type": "string" } },
+          "icons_or": { "type": ["array", "null"], "items": { "type": "string" } },
+          "text": { "type": "string" }
+        }
+      }
+    },
+    "events": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/event" }
+    }
+  },
+  "$defs": {
+    "event": {
+      "type": "object",
+      "required": ["seq", "turn", "active", "kind", "text", "data", "state"],
+      "additionalProperties": false,
+      "properties": {
+        "seq": { "type": "integer" },
+        "turn": { "type": "integer" },
+        "active": { "type": "integer" },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "game_start", "turn_start", "revive", "recovery", "discard_to_limit",
+            "plan", "step_skipped", "stance_set", "trap_set", "aura_set", "aura_charged", "trade",
+            "attack_declared", "card_played", "effect_placed", "ability_used", "reaction", "reaction_auto",
+            "ruling", "damage", "heal", "poison", "draw", "discard", "transfer", "move", "reveal", "vp", "death",
+            "transaction_closed", "rejected", "end_turn_poison", "draw_phase", "deck_empty", "game_over"
+          ]
+        },
+        "actor": { "type": ["integer", "null"] },
+        "target": { "type": ["integer", "null"] },
+        "card": { "type": ["string", "null"], "pattern": "^c[0-9]+-[0-9]+$" },
+        "card_id": { "type": ["integer", "null"] },
+        "text": { "type": "string" },
+        "notes": { "type": ["string", "null"] },
+        "data": { "type": "object" },
+        "state": {
+          "type": "object",
+          "description": "Public snapshot AFTER this event — the viewer never re-simulates.",
+          "required": ["deck_n", "discard_n", "players"],
+          "properties": {
+            "deck_n": { "type": "integer" },
+            "discard_n": { "type": "integer" },
+            "players": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["seat", "hp", "vp", "poisoned", "alive", "hand_n", "stance", "trap", "aura", "effects"],
+                "properties": {
+                  "seat": { "type": "integer" },
+                  "hp": { "type": "integer" },
+                  "vp": { "type": "integer" },
+                  "poisoned": { "type": "boolean" },
+                  "alive": { "type": "boolean" },
+                  "hand_n": { "type": "integer" },
+                  "stance": { "type": ["string", "null"] },
+                  "trap": {
+                    "oneOf": [
+                      { "type": "null" },
+                      {
+                        "type": "object",
+                        "properties": { "uid": { "type": "string" }, "face_up": { "type": "boolean" } }
+                      }
+                    ]
+                  },
+                  "aura": {
+                    "oneOf": [
+                      { "type": "null" },
+                      {
+                        "type": "object",
+                        "properties": { "uid": { "type": "string" }, "charges_n": { "type": "integer" } }
+                      }
+                    ]
+                  },
+                  "effects": { "type": "array", "items": { "type": "string" } }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

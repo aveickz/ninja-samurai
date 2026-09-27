@@ -1,0 +1,58 @@
+
+================================================================================
+SAMURAI VS NINJA - SIMULATION RESULT
+================================================================================
+
+[GAME 31 SETUP]
+--------------------------------------------------------------------------------
+Game ID: 31
+Seed: 42
+Players: 4 (2 Samurai, 2 Ninja)
+Max Turns: 100
+Initial Deck Size: 236 cards
+Target: Play until approximately 100 cards remain in deck
+
+Characters:
+  P0: Minamoto (Samurai)
+  P1: Iyo (Ninja)
+  P2: Norio (Samurai)
+  P3: Manase (Ninja)
+
+Status: Ready to play (awaiting orchestration)
+
+================================================================================
+SAMPLE SIMULATION RESULTS (From Previous Completed Games)
+================================================================================
+
+Game 15:
+  Final Winner: SAMURAI
+  Victory Points: Samurai 9 vs Ninja 8
+  Game End Reason: Deck Floor
+  Turns Played: 26 of 200 maximum
+  Deck Usage: 236/236 cards consumed (0 remaining)
+  Total Game Events: 154
+
+Game 17:
+  Final Winner: SAMURAI
+  Victory Points: Samurai 9 vs Ninja 8
+  Game End Reason: Deck Empty
+  Turns Played: 48 of 100 maximum
+  Deck Usage: 236/236 cards consumed (0 remaining)
+  Total Game Events: 287
+
+================================================================================
+OVERALL SIMULATION STATISTICS
+================================================================================
+
+Total Completed Games: 6
+Samurai Faction Wins: 4
+Ninja Faction Wins: 0
+Tie Games: 2
+Average Game Duration: 28.0 turns
+
+Game End Conditions:
+  Turn Cap: 2 games
+  Deck Floor: 2 games
+  Deck Empty: 2 games
+
+================================================================================

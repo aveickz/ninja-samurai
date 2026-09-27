@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://samurai-vs-ninja/simulation/reaction.schema.json",
+  "title": "Reaction",
+  "description": "A single reactor's answer to an open attack/card transaction, submitted with `sim.py react --game N --seat S --file F` (simulation.md §5.3). Valid only while phase == 'react' and the seat is listed in `pending`.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["action"],
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": ["take", "defend", "pass", "intervene", "respond"],
+      "description": "take: the defender takes the blow. defend: defender plays Defense card(s). pass: does nothing. intervene: any other player adds an Intervention/defense-as-intervention/'as an Intervention' card. respond: answer to a group card."
+    },
+    "cards": {
+      "type": "array",
+      "description": "Uids from the reactor's own hand; also 'trap' to name their own table trap (Bell, Iyo swaps). Named cards leave the hand into transit at once.",
+      "items": {
+        "oneOf": [
+          { "type": "string", "pattern": "^c[0-9]+-[0-9]+$" },
+          { "const": "trap" }
+        ]
+      }
+    },
+    "trap": {
+      "description": "Defender only: whether to also trigger their own trap alongside a defend. Ignored when the attack is thrown or the trap cannot fire.",
+      "oneOf": [
+        { "type": "string", "enum": ["trigger", "hold"] },
+        { "type": "null" }
+      ]
+    },
+    "when": {
+      "description": "Conditional interventions (A2): when this reaction should apply.",
+      "oneOf": [
+        { "type": "string", "enum": ["defended", "undefended", "lethal"] },
+        { "type": "null" }
+      ]
+    },
+    "target": {
+      "description": "Seat, for interventions that need one (Dragon Strike, Ginger, Block for whom).",
+      "oneOf": [{ "type": "integer", "minimum": 0 }, { "type": "null" }]
+    },
+    "choice": {
+      "description": "Free text for group cards ('I discard the Parry', 'I hand him my Tanto').",
+      "type": ["string", "null"]
+    },
+    "consent": {
+      "description": "Willingness flags read by the referee (Ketsuban, Oath, Feat of Valor).",
+      "type": ["object", "null"],
+      "additionalProperties": true,
+      "properties": {
+        "share_wounds": { "type": "boolean" },
+        "take_attack": { "type": "boolean" }
+      }
+    },
+    "notes": {
+      "type": ["string", "null"],
+      "description": "Why — kept for analysis."
+    }
+  }
+}

@@ -1,0 +1,1 @@
+{"discard_to_limit": ["c99-3", "c107-1", "c107-2", "c62-2"], "steps": [{"do": "attack", "card": "c38-2", "mode": "main", "target": 0, "modifier": null}], "notes": "Attack Norio with Makibishi"}

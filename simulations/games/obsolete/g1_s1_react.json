@@ -1,0 +1,10 @@
+{
+  "action": "take",
+  "cards": null,
+  "trap": null,
+  "when": null,
+  "target": null,
+  "choice": null,
+  "consent": {"share_wounds": false, "take_attack": false},
+  "notes": "Taking 2 damage. Can afford it; will have 3 HP remaining."
+}

@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://samurai-vs-ninja/simulation/status.schema.json",
+  "title": "Status",
+  "description": "The status object (simulation.md §4.1). `sim.py status --game N` prints it merged with {\"ok\": true}; `plan`/`react`/`resolve` embed it, unwrapped, as their \"status\" field.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["game", "turn", "phase", "over"],
+  "properties": {
+    "ok": { "const": true, "description": "Present only on the standalone `status` command's top-level output." },
+    "game": { "type": "integer" },
+    "turn": { "type": "integer", "minimum": 1 },
+    "phase": { "type": "string", "enum": ["plan", "react", "resolve", "over"] },
+    "over": { "type": "boolean" },
+    "seat": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "phase 'plan': the active player. phase 'react'/'resolve': the transaction's actor."
+    },
+    "continuing": {
+      "type": "boolean",
+      "description": "phase 'plan' only: true when this is a replan continuation, not a fresh turn (skip recovery/discard_to_limit prompts)."
+    },
+    "pending_id": {
+      "type": "integer",
+      "description": "phase 'react'/'resolve' only: the open transaction's id."
+    },
+    "reactors": {
+      "type": "array",
+      "items": { "type": "integer", "minimum": 0 },
+      "description": "phase 'react'/'resolve' only: seats still expected to answer (empty once phase flips to resolve)."
+    },
+    "result": {
+      "description": "Present once over == true.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "reason": { "type": "string", "enum": ["vp_zero", "deck_empty", "turn_cap"] },
+        "winner": { "type": "string", "enum": ["samurai", "ninja", "tie"] },
+        "score": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "samurai": { "type": "integer" },
+            "ninja": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

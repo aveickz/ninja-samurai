@@ -1,0 +1,385 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://samurai-vs-ninja/simulation/plan.schema.json",
+  "title": "Plan",
+  "description": "The active player's whole turn, submitted with `sim.py plan --game N --seat S --file F` (simulation.md §5.2).",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "discard_to_limit": {
+      "type": "array",
+      "description": "Uids to discard when the hand exceeds 9 cards. Mandatory (and must bring the hand to <=9) whenever the hand is over the limit.",
+      "items": {
+        "$ref": "#/$defs/uid"
+      }
+    },
+    "recovery": {
+      "type": "object",
+      "description": "Only valid when 'you' needs_recovery is true (died since your last turn and were not killed by poison).",
+      "additionalProperties": false,
+      "required": [
+        "discard"
+      ],
+      "properties": {
+        "discard": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/uid"
+          }
+        }
+      }
+    },
+    "steps": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/step"
+      }
+    },
+    "end_turn": {
+      "type": "object",
+      "description": "Only meaningful while the Lotus stance (card id 59) is active.",
+      "additionalProperties": false,
+      "properties": {
+        "lotus": {
+          "type": "string",
+          "enum": [
+            "heal",
+            "draw"
+          ]
+        },
+        "target": {
+          "type": "integer",
+          "description": "Seat to heal 1. Required when lotus == 'heal'."
+        }
+      }
+    },
+    "notes": {
+      "type": "string",
+      "description": "Free text: why this turn was played this way. Stored on the `plan` event for analysis."
+    }
+  },
+  "$defs": {
+    "uid": {
+      "type": "string",
+      "pattern": "^c[0-9]+-[0-9]+$",
+      "description": "A physical card copy, e.g. 'c48-3' (the third Parry)."
+    },
+    "seat": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "reactorsSpec": {
+      "description": "Who is asked to react to a `play` step. Defaults to 'others' for an aoe card, [] otherwise.",
+      "oneOf": [
+        {
+          "type": "string",
+          "enum": [
+            "others",
+            "enemies",
+            "allies"
+          ]
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/seat"
+          }
+        }
+      ]
+    },
+    "step": {
+      "type": "object",
+      "required": [
+        "do"
+      ],
+      "oneOf": [
+        {
+          "properties": {
+            "do": {
+              "const": "stance"
+            },
+            "card": {
+              "$ref": "#/$defs/uid"
+            },
+            "why": {
+              "type": "string",
+              "maxLength": 200,
+              "description": "the player's short thought behind this very move; stored on the move's event"
+            }
+          },
+          "required": [
+            "do",
+            "card"
+          ]
+        },
+        {
+          "properties": {
+            "do": {
+              "const": "trap"
+            },
+            "card": {
+              "$ref": "#/$defs/uid"
+            },
+            "why": {
+              "type": "string",
+              "maxLength": 200,
+              "description": "the player's short thought behind this very move; stored on the move's event"
+            }
+          },
+          "required": [
+            "do",
+            "card"
+          ]
+        },
+        {
+          "properties": {
+            "do": {
+              "const": "aura"
+            },
+            "card": {
+              "$ref": "#/$defs/uid"
+            },
+            "in_front_of": {
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/seat"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Only Taranaga may set this to a seat other than their own."
+            },
+            "why": {
+              "type": "string",
+              "maxLength": 200,
+              "description": "the player's short thought behind this very move; stored on the move's event"
+            }
+          },
+          "required": [
+            "do",
+            "card"
+          ]
+        },
+        {
+          "properties": {
+            "do": {
+              "const": "charge_aura"
+            },
+            "card": {
+              "$ref": "#/$defs/uid"
+            },
+            "aura_owner": {
+              "$ref": "#/$defs/seat"
+            },
+            "why": {
+              "type": "string",
+              "maxLength": 200,
+              "description": "the player's short thought behind this very move; stored on the move's event"
+            }
+          },
+          "required": [
+            "do",
+            "card",
+            "aura_owner"
+          ]
+        },
+        {
+          "properties": {
+            "do": {
+              "const": "trade"
+            },
+            "discard": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/uid"
+              },
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "why": {
+              "type": "string",
+              "maxLength": 200,
+              "description": "the player's short thought behind this very move; stored on the move's event"
+            }
+          },
+          "required": [
+            "do",
+            "discard"
+          ]
+        },
+        {
+          "description": "attacks_used < attacks_max is enforced at plan-validation time from the current table state; bare hands cost both attempts.",
+          "properties": {
+            "do": {
+              "const": "attack"
+            },
+            "mode": {
+              "type": "string",
+              "enum": [
+                "main",
+                "or",
+                "bare"
+              ],
+              "default": "main"
+            },
+            "card": {
+              "$ref": "#/$defs/uid",
+              "description": "Omitted only when mode == 'bare'."
+            },
+            "target": {
+              "$ref": "#/$defs/seat"
+            },
+            "modifier": {
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/uid"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "note": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "why": {
+              "type": "string",
+              "maxLength": 200,
+              "description": "the player's short thought behind this very move; stored on the move's event"
+            }
+          },
+          "required": [
+            "do",
+            "target"
+          ]
+        },
+        {
+          "properties": {
+            "do": {
+              "const": "effect"
+            },
+            "card": {
+              "$ref": "#/$defs/uid"
+            },
+            "target": {
+              "$ref": "#/$defs/seat"
+            },
+            "why": {
+              "type": "string",
+              "maxLength": 200,
+              "description": "the player's short thought behind this very move; stored on the move's event"
+            }
+          },
+          "required": [
+            "do",
+            "card",
+            "target"
+          ]
+        },
+        {
+          "properties": {
+            "do": {
+              "const": "play"
+            },
+            "card": {
+              "$ref": "#/$defs/uid"
+            },
+            "target": {
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/seat"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "mode": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "choice": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "reactors": {
+              "$ref": "#/$defs/reactorsSpec"
+            },
+            "ask": {
+              "type": "string",
+              "description": "Free text told to the reactors for a group card."
+            },
+            "why": {
+              "type": "string",
+              "maxLength": 200,
+              "description": "the player's short thought behind this very move; stored on the move's event"
+            }
+          },
+          "required": [
+            "do",
+            "card"
+          ]
+        },
+        {
+          "properties": {
+            "do": {
+              "const": "ability"
+            },
+            "source": {
+              "type": "string",
+              "description": "'character', or 'stance:<uid>' / 'aura:<uid>' naming a card on the actor's own table.",
+              "pattern": "^(character|stance:c[0-9]+-[0-9]+|aura:c[0-9]+-[0-9]+)$"
+            },
+            "choice": {
+              "type": "string"
+            },
+            "target": {
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/seat"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "why": {
+              "type": "string",
+              "maxLength": 200,
+              "description": "the player's short thought behind this very move; stored on the move's event"
+            }
+          },
+          "required": [
+            "do",
+            "source",
+            "choice"
+          ]
+        },
+        {
+          "description": "Stops execution here; `status` returns phase 'plan' for the same seat with continuing:true. The remainder of this plan's steps is discarded — the player submits a fresh plan for the rest of the turn.",
+          "properties": {
+            "do": {
+              "const": "replan"
+            },
+            "why": {
+              "type": "string",
+              "maxLength": 200,
+              "description": "the player's short thought behind this very move; stored on the move's event"
+            }
+          },
+          "required": [
+            "do"
+          ]
+        }
+      ]
+    }
+  }
+}

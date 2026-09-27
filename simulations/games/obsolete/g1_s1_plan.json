@@ -1,0 +1,6 @@
+{
+  "steps": [
+    {"do": "attack", "card": "c9-1", "mode": "main", "target": 2, "modifier": null}
+  ],
+  "notes": "Attack ally Iyo with Spiked Shield (defense weapon, 1 complexity, 1 dmg)"
+}

@@ -1,0 +1,10 @@
+{
+  "result": "hit",
+  "uses_attack": true,
+  "ops": [
+    {"op": "damage", "seat": 2, "n": 1, "source": "attack", "by": 1}
+  ],
+  "narrative": "P1 strikes with Spiked Shield.",
+  "rulings": [],
+  "flags": {"ambiguous": false}
+}

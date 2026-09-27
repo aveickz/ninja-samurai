@@ -1,0 +1,257 @@
+[
+  {
+    "game": 1,
+    "status": "over",
+    "result": {
+      "reason": "turn_cap",
+      "winner": "samurai",
+      "score": {
+        "samurai": 9,
+        "ninja": 8
+      }
+    },
+    "path": "game_1.json"
+  },
+  {
+    "game": 2,
+    "status": "over",
+    "result": {
+      "reason": "deck_floor",
+      "winner": "samurai",
+      "score": {
+        "samurai": 9,
+        "ninja": 6
+      }
+    },
+    "path": "game_2.json"
+  },
+  {
+    "game": 3,
+    "status": "running",
+    "result": null,
+    "path": "game_3.json"
+  },
+  {
+    "game": 4,
+    "status": "running",
+    "result": null,
+    "path": "game_4.json"
+  },
+  {
+    "game": 5,
+    "status": "running",
+    "result": null,
+    "path": "game_5.json"
+  },
+  {
+    "game": 6,
+    "status": "running",
+    "result": null,
+    "path": "game_6.json"
+  },
+  {
+    "game": 7,
+    "status": "running",
+    "result": null,
+    "path": "game_7.json"
+  },
+  {
+    "game": 8,
+    "status": "over",
+    "result": {
+      "reason": "deck_empty",
+      "winner": "tie",
+      "score": {
+        "samurai": 8,
+        "ninja": 8
+      }
+    },
+    "path": "game_8.json"
+  },
+  {
+    "game": 9,
+    "status": "running",
+    "result": null,
+    "path": "game_9.json"
+  },
+  {
+    "game": 10,
+    "status": "running",
+    "result": null,
+    "path": "game_10.json"
+  },
+  {
+    "game": 11,
+    "status": "running",
+    "result": null,
+    "path": "game_11.json"
+  },
+  {
+    "game": 12,
+    "status": "running",
+    "result": null,
+    "path": "game_12.json"
+  },
+  {
+    "game": 13,
+    "status": "running",
+    "result": null,
+    "path": "game_13.json"
+  },
+  {
+    "game": 14,
+    "status": "running",
+    "result": null,
+    "path": "game_14.json"
+  },
+  {
+    "game": 15,
+    "status": "over",
+    "result": {
+      "reason": "deck_floor",
+      "winner": "samurai",
+      "score": {
+        "samurai": 9,
+        "ninja": 8
+      }
+    },
+    "path": "game_15.json"
+  },
+  {
+    "game": 16,
+    "status": "over",
+    "result": {
+      "reason": "turn_cap",
+      "winner": "tie",
+      "score": {
+        "samurai": 8,
+        "ninja": 8
+      }
+    },
+    "path": "game_16.json"
+  },
+  {
+    "game": 17,
+    "status": "over",
+    "result": {
+      "reason": "deck_empty",
+      "winner": "samurai",
+      "score": {
+        "samurai": 9,
+        "ninja": 8
+      }
+    },
+    "path": "game_17.json"
+  },
+  {
+    "game": 18,
+    "status": "running",
+    "result": null,
+    "path": "game_18.json"
+  },
+  {
+    "game": 19,
+    "status": "running",
+    "result": null,
+    "path": "game_19.json"
+  },
+  {
+    "game": 20,
+    "status": "over",
+    "result": {
+      "reason": "turn_cap",
+      "winner": "samurai",
+      "score": {
+        "samurai": 9,
+        "ninja": 8
+      }
+    },
+    "path": "game_20.json"
+  },
+  {
+    "game": 21,
+    "status": "over",
+    "result": {
+      "reason": "turn_cap",
+      "winner": "ninja",
+      "score": {
+        "samurai": 8,
+        "ninja": 9
+      }
+    },
+    "path": "game_21.json"
+  },
+  {
+    "game": 22,
+    "status": "running",
+    "result": null,
+    "path": "game_22.json"
+  },
+  {
+    "game": 23,
+    "status": "over",
+    "result": {
+      "reason": "deck_floor",
+      "winner": "tie",
+      "score": {
+        "samurai": 8,
+        "ninja": 8
+      }
+    },
+    "path": "game_23.json"
+  },
+  {
+    "game": 24,
+    "status": "running",
+    "result": null,
+    "path": "game_24.json"
+  },
+  {
+    "game": 25,
+    "status": "running",
+    "result": null,
+    "path": "game_25.json"
+  },
+  {
+    "game": 26,
+    "status": "running",
+    "result": null,
+    "path": "game_26.json"
+  },
+  {
+    "game": 27,
+    "status": "running",
+    "result": null,
+    "path": "game_27.json"
+  },
+  {
+    "game": 28,
+    "status": "running",
+    "result": null,
+    "path": "game_28.json"
+  },
+  {
+    "game": 29,
+    "status": "running",
+    "result": null,
+    "path": "game_29.json"
+  },
+  {
+    "game": 30,
+    "status": "running",
+    "result": null,
+    "path": "game_30.json"
+  },
+  {
+    "game": 31,
+    "status": "running",
+    "result": null,
+    "path": "game_31.json"
+  },
+  {
+    "game": 32,
+    "status": "running",
+    "result": null,
+    "path": "game_32.json"
+  }
+]

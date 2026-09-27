@@ -1,0 +1,7 @@
+{
+  "steps": [
+    {"do": "trap", "card": "c1049-1"},
+    {"do": "attack", "card": "c11-1", "mode": "main", "target": 3, "modifier": null}
+  ],
+  "notes": "Set Puncture Wounds as trap (blocks weapons later), attack Saigo with Kama for 3 damage"
+}

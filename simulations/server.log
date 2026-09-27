@@ -1,0 +1,23 @@
+::1 - - [20/Sep/2026 04:20:41] "GET /viewer.html HTTP/1.1" 200 -
+::1 - - [20/Sep/2026 04:20:59] "GET /viewer.html?src=schema/history.example.json HTTP/1.1" 200 -
+::1 - - [20/Sep/2026 04:20:59] "GET /media/cards/back.png HTTP/1.1" 200 -
+::1 - - [20/Sep/2026 04:20:59] "GET /media/cards/back-role.png HTTP/1.1" 200 -
+::1 - - [20/Sep/2026 04:20:59] "GET /media/table-bg.webp HTTP/1.1" 200 -
+::1 - - [20/Sep/2026 04:20:59] "GET /games/index.json HTTP/1.1" 200 -
+::1 - - [20/Sep/2026 04:20:59] "GET /schema/history.example.json HTTP/1.1" 200 -
+::1 - - [20/Sep/2026 04:20:59] "GET /media/table-layout.json HTTP/1.1" 200 -
+::1 - - [20/Sep/2026 04:20:59] "GET /media/cards/back-character.png HTTP/1.1" 200 -
+::1 - - [20/Sep/2026 04:20:59] code 404, message File not found
+::1 - - [20/Sep/2026 04:20:59] "GET /favicon.ico HTTP/1.1" 404 -
+::1 - - [20/Sep/2026 04:20:59] "GET /media/cards/137.png HTTP/1.1" 200 -
+::1 - - [20/Sep/2026 04:20:59] "GET /media/cards/202.png HTTP/1.1" 200 -
+::1 - - [20/Sep/2026 04:20:59] "GET /media/cards/138.png HTTP/1.1" 200 -
+::1 - - [20/Sep/2026 04:20:59] "GET /media/cards/135.png HTTP/1.1" 200 -
+::1 - - [20/Sep/2026 04:20:59] "GET /media/cards/200.png HTTP/1.1" 200 -
+::1 - - [20/Sep/2026 04:20:59] "GET /media/cards/201.png HTTP/1.1" 200 -
+::1 - - [20/Sep/2026 04:20:59] "GET /media/cards/139.png HTTP/1.1" 200 -
+::1 - - [20/Sep/2026 04:21:04] "GET /viewer.html?src=schema/history.example.json HTTP/1.1" 304 -
+::1 - - [20/Sep/2026 04:21:04] code 404, message File not found
+::1 - - [20/Sep/2026 04:21:04] "GET /favicon.ico HTTP/1.1" 404 -
+::1 - - [20/Sep/2026 04:21:41] "GET /media/cards/58.png HTTP/1.1" 200 -
+::1 - - [20/Sep/2026 04:21:41] "GET /media/fig/trap.webp HTTP/1.1" 200 -

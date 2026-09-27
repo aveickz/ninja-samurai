@@ -1,0 +1,53 @@
+=== SIMULATION GAME 27 REPORT ===
+
+Game Configuration:
+  Players: 4 (P0: Norio/Samurai, P1: Taranaga/Ninja, P2: Iyo/Samurai, P3: Saigo/Ninja)
+  Starting Deck: 236 cards
+  Maximum Turns: 50
+
+Current Game State:
+  Turn: 7 (in progress)
+  Active Player: P2 (Iyo)
+  Phase: Plan (waiting for P2's action)
+  Deck Remaining: 204 cards (86% of deck still in play)
+  Discard Pile: 8 cards
+
+Player Status (All Alive):
+  P0 (Norio, Samurai):  5 HP | 4 VP | 13 cards in hand
+  P1 (Taranaga, Ninja): 5 HP | 4 VP | 13 cards in hand
+  P2 (Iyo, Samurai):    5 HP | 4 VP | 13 cards in hand
+  P3 (Saigo, Ninja):    6 HP | 4 VP | 13 cards in hand
+
+Turns Completed:
+  Turn 1: P0 (Norio) - Skipped, drew 5 cards
+  Turn 2: P1 (Taranaga) - Skipped, drew 6 cards (character bonus +1)
+  Turn 3: P2 (Iyo) - Skipped, drew 5 cards
+  Turn 4: P3 (Saigo) - Skipped, drew 5 cards
+  Turn 5: P0 (Norio) - Discarded to hand limit, drew 5 cards
+  Turn 6: P1 (Taranaga) - Discarded to hand limit, drew 6 cards (character bonus +1)
+  Turn 7: P2 (Iyo) - Currently taking turn
+
+Cards Drawn from Deck: 32 cards (17% of initial deck)
+Average Draw Rate: ~5 cards per turn cycle (1 cycle = 4 player turns)
+
+Progress Toward 100-Card Target:
+  - Starting Deck: 236 cards
+  - Current Deck: 204 cards
+  - Cards Drawn: 32 cards
+  - Cards Remaining to Reach Target: 104 cards
+  - Estimated Turns Remaining: ~20-25 more turns
+
+Game Mechanics Observed:
+  - Character abilities working (Taranaga +1 draw bonus per turn)
+  - Hand limit enforcement (players discarding when exceeding 9 cards)
+  - Turn sequence cycling correctly (P0 → P1 → P2 → P3 → repeat)
+  - No player deaths or complications yet
+  - VP balancing maintained (all players at 4 VP except Saigo at 6)
+
+Next Steps:
+  Game will continue with P2's turn 7 action, proceeding through remaining turns
+  until either 100 cards remain in deck or max_turns (50) is reached.
+
+Export Status:
+  Game exported to: simulations/games/game_27.json
+  Viewable in: simulations/viewer.html

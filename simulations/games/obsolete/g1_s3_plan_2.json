@@ -1,0 +1,1 @@
+{"discard_to_limit": ["c109-2", "c105-3", "c108-1", "c83-1", "c100-1"], "steps": [{"do": "attack", "card": "c11-2", "mode": "main", "target": 0, "modifier": null}], "notes": "Attack P0 with Kama for 3 dmg"}

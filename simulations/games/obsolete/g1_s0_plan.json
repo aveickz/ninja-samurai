@@ -1,0 +1,9 @@
+{
+  "steps": [
+    {"do": "play", "card": "c84-2", "choice": "everyone draws 2"},
+    {"do": "trap", "card": "c41-1"},
+    {"do": "ability", "source": "character", "choice": "draw 2 cards"}
+  ],
+  "end_turn": {},
+  "notes": "Open with card draw to build hand diversity and set up a Snare trap for defense."
+}

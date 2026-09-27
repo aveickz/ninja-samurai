@@ -1,0 +1,1 @@
+{"discard_to_limit": ["c101-2", "c70-1", "c56-1"], "steps": [{"do": "attack", "card": "c35-2", "mode": "or", "target": 1, "modifier": null}], "notes": "Attack P1 with Kunai"}

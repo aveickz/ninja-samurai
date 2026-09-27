@@ -1,0 +1,1 @@
+{"discard_to_limit": ["c1032-1", "c84-2", "c53-1", "c122-1"], "steps": [{"do": "attack", "card": "c8-2", "mode": "main", "target": 1, "modifier": null}], "notes": "Attack P1 with Wakizashi for 2 dmg"}

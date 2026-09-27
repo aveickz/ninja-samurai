@@ -1,0 +1,10 @@
+{
+  "action": "take",
+  "cards": null,
+  "trap": null,
+  "when": null,
+  "target": null,
+  "choice": null,
+  "consent": {"share_wounds": false, "take_attack": false},
+  "notes": "Taking 1 damage from Spiked Shield. Still healthy."
+}

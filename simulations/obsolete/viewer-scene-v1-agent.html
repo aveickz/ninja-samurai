@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Samurai vs Ninja — Simulation Viewer</title>
+<link rel="preload" as="image" href="media/cards/back.png">
+<link rel="preload" as="image" href="media/cards/back-role.png">
+<link rel="preload" as="image" href="media/cards/back-character.png">
+<style>
+  :root{
+    --font: -apple-system, "Segoe UI", Roboto, sans-serif;
+    --bg:#1b1d22; --panel:#24272e; --panel2:#2a2e37; --panel3:#31353f;
+    --text:#e8e8ec; --muted:#9aa0ab; --border:#3a3f4a;
+    --samurai:#c0413c; --ninja:#4a7bb5;
+    --samurai-bg:#891511; --ninja-bg:#0D233C;
+    --accent:#c9a15a;
+    --hit:#c0392b; --partial:#e08e2b; --blocked:#3b7ea1; --resolved:#3b8476; --pending:#888;
+    --stance:#A78B6B; --trap:#5a6672; --aura:#7d6bb0; --effect:#5a5a5a;
+  }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; overflow-x:hidden; background:var(--bg); color:var(--text);
+    font-family:var(--font); height:100%; }
+  #app{ display:flex; flex-direction:column; height:100vh; height:100dvh; }
+
+  /* ---------- header ---------- */
+  header#hdr{ background:var(--panel); border-bottom:1px solid var(--border);
+    padding:.5rem .75rem; display:flex; flex-wrap:wrap; align-items:center; gap:.4rem .9rem; font-size:.82rem; }
+  header#hdr b{ color:var(--accent); font-weight:600; }
+  #hdr-players{ display:flex; flex-wrap:wrap; gap:.3rem; margin-left:auto; }
+  .legend-chip{ border-radius:5px; padding:.1rem .45rem; font-size:.72rem; border:1px solid var(--border); }
+  .legend-chip.samurai{ border-color:var(--samurai); color:var(--samurai); }
+  .legend-chip.ninja{ border-color:var(--ninja); color:var(--ninja); }
+  #game-select{ display:none; background:var(--panel2); color:var(--text); border:1px solid var(--border);
+    border-radius:5px; padding:.2rem .3rem; font-family:var(--font); font-size:.78rem; }
+  #hdr-pos, #hdr-deck{ color:var(--muted); }
+
+  /* ---------- main split ---------- */
+  #main{ flex:1 1 auto; min-height:0; display:flex; overflow:hidden; }
+  #table-panel{ flex:1 1 58%; min-width:0; overflow:auto; padding:.75rem; display:flex; flex-direction:column; gap:.5rem; }
+  #log-panel{ flex:1 1 42%; min-width:0; border-left:1px solid var(--border); display:flex; flex-direction:column; overflow:hidden; }
+  @media (max-width: 820px){
+    #main{ flex-direction:column; overflow:auto; }
+    #log-panel{ border-left:none; border-top:1px solid var(--border); flex:0 0 auto; max-height:52vh; }
+    #table-panel{ flex:0 0 auto; }
+  }
+
+  /* ---------- turn jumper ---------- */
+  #turn-jumper{ display:flex; gap:.25rem; overflow-x:auto; padding:.1rem .1rem .35rem; flex:0 0 auto; }
+  .turn-jump-btn{ background:var(--panel2); color:var(--text); border:1px solid var(--border); border-radius:6px;
+    padding:.15rem .5rem; font-size:.72rem; cursor:pointer; white-space:nowrap; font-family:var(--font); }
+  .turn-jump-btn.current{ background:var(--accent); color:#241d0e; border-color:var(--accent); font-weight:600; }
+
+  /* ---------- table stage (photographed-table look) ---------- */
+  #stage-wrap{ position:relative; width:100%; max-width:900px; margin:0 auto; flex:0 0 auto;
+    aspect-ratio:1192/1165; overflow:hidden; border-radius:10px; background:#2d2418; }
+  #stage{ position:relative; width:1192px; height:1165px; transform-origin:top left; }
+  #stage-bg{ position:absolute; inset:0; width:1192px; height:1165px; display:block; user-select:none; }
+  #seats-layer, #center-layer{ position:absolute; inset:0; width:1192px; height:1165px; }
+  #arrow-svg{ position:absolute; inset:0; width:1192px; height:1165px; pointer-events:none; }
+
+  .tslot{ position:absolute; }
+  .tcard-img{ width:100%; height:100%; object-fit:cover; border-radius:3px;
+    box-shadow:0 1px 4px rgba(0,0,0,.55); cursor:pointer; display:block; }
+  .tback-img{ width:100%; height:100%; object-fit:cover; border-radius:3px;
+    box-shadow:0 1px 3px rgba(0,0,0,.5); display:block; }
+  .tslot-fallback{ display:flex; align-items:center; justify-content:center; overflow:hidden;
+    background:rgba(20,20,24,.85); border-radius:3px; border:1px solid rgba(255,255,255,.15); }
+  .tslot-fallback .chip{ font-size:7px; line-height:1.1; padding:0 2px; max-width:100%;
+    white-space:normal; text-align:center; }
+  .tempty-outline{ position:absolute; border:1.5px dashed rgba(255,255,255,.35); border-radius:4px; }
+  .tbadge{ position:absolute; transform:translate(-50%,-50%); background:rgba(0,0,0,.72); color:#fff;
+    font-size:9px; border-radius:8px; padding:0 4px; line-height:14px; white-space:nowrap; pointer-events:none; }
+  .tbadge-charges{ background:var(--aura); color:#fff; }
+  .tbadge-hand{ background:var(--accent); color:#241d0e; font-weight:700; }
+  .tlabel{ position:absolute; transform:translate(-50%,-50%); background:rgba(10,10,14,.72); color:#fff;
+    padding:1px 6px; border-radius:5px; font-size:11px; white-space:nowrap; cursor:pointer;
+    border:1px solid var(--fc,#666); }
+  .tlabel.dead{ opacity:.6; text-decoration:line-through; }
+  .tpin-btn{ position:absolute; transform:translate(-50%,-50%); width:18px; height:18px; border-radius:50%;
+    background:rgba(10,10,14,.72); border:1px solid var(--border); display:flex; align-items:center;
+    justify-content:center; font-size:10px; cursor:pointer; user-select:none; }
+  .tpin-btn.active{ background:var(--accent); border-color:var(--accent); }
+  .thearts, .tvp{ position:absolute; display:flex; gap:3px; transform:translate(-50%,-50%); flex-wrap:wrap;
+    max-width:190px; align-items:center; }
+  .tmini-icon{ display:block; flex:0 0 auto; }
+  .tskull{ position:absolute; transform:translate(-50%,-50%); background:#000; color:#fff; font-size:11px;
+    border-radius:50%; width:18px; height:18px; display:flex; align-items:center; justify-content:center; }
+  .tfig{ position:absolute; object-fit:contain; pointer-events:none; }
+  .seat-dead .tcard-img, .seat-dead .tback-img{ filter:grayscale(1) brightness(.5); }
+  .vp-neg{ color:var(--hit); font-weight:600; font-size:11px; }
+  .vp-token-many{ color:var(--accent); font-weight:600; font-size:11px; margin-left:2px; }
+  .muted{ color:var(--muted); }
+
+  #arrow-legend{ font-size:.68rem; color:var(--muted); text-align:center; flex:0 0 auto; }
+  #arrow-legend span{ margin:0 .35rem; white-space:nowrap; }
+
+  /* ---------- decision panel: "what the player saw" ---------- */
+  #decision-panel{ background:var(--panel2); border:1px solid var(--border); border-radius:8px;
+    padding:.5rem .65rem; flex:0 0 auto; font-size:.8rem; }
+  #decision-header{ display:flex; align-items:center; gap:.5rem; flex-wrap:wrap; }
+  #decision-toggle{ background:none; border:1px solid var(--border); color:var(--text); border-radius:4px;
+    cursor:pointer; font-size:.7rem; padding:0 .35rem; line-height:1.5; }
+  #decision-title{ font-weight:700; color:var(--accent); }
+  #decision-privacy{ font-size:.66rem; color:var(--muted); margin-left:auto; font-style:italic; }
+  #decision-panel.collapsed #decision-body{ display:none; }
+  #decision-panel.collapsed #decision-toggle{ transform:rotate(-90deg); }
+  #decision-panel.dimmed #decision-notes, #decision-panel.dimmed #decision-hand{ opacity:.6; }
+  #decision-notes{ margin:.4rem 0; line-height:1.4; }
+  .decision-context-label{ font-size:.66rem; color:var(--muted); font-style:italic; text-transform:uppercase;
+    letter-spacing:.03em; margin-bottom:.2rem; }
+  .hand-row{ display:flex; gap:.4rem; overflow-x:auto; padding:.15rem 0 .3rem; }
+  .hand-card{ position:relative; flex:0 0 auto; width:72px; height:115px; border-radius:5px; cursor:pointer; }
+  .hand-card img{ width:100%; height:100%; object-fit:cover; border-radius:5px; box-shadow:0 1px 4px rgba(0,0,0,.5);
+    display:block; }
+  .hand-card.played{ outline:3px solid var(--accent); outline-offset:1px; border-radius:5px; }
+  .hand-card .played-badge{ position:absolute; left:50%; bottom:-3px; transform:translateX(-50%);
+    background:var(--accent); color:#241d0e; font-size:.55rem; font-weight:700; border-radius:6px;
+    padding:0 4px; white-space:nowrap; }
+  .pin-block{ margin-top:.45rem; padding-top:.4rem; border-top:1px dashed var(--border); }
+  .pin-block-hdr{ display:flex; justify-content:space-between; align-items:center; font-size:.72rem;
+    color:var(--muted); margin-bottom:.2rem; }
+  .pin-unbtn{ background:none; border:1px solid var(--border); color:var(--text); border-radius:4px;
+    cursor:pointer; font-size:.65rem; padding:0 .3rem; }
+  @media (max-width: 820px){
+    .hand-card{ width:58px; height:93px; }
+  }
+  .legend-dot{ display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:2px; vertical-align:middle; }
+
+  /* ---------- fallback chips (also used inline in card popover text) ---------- */
+  .chip{ display:inline-block; border:1px solid rgba(255,255,255,.25); border-radius:6px; padding:1px 5px;
+    font-size:.62rem; cursor:pointer; color:#fff; background:#555; }
+  .chip-stance{ background:var(--stance); color:#241d0e; }
+  .chip-trap{ background:var(--trap); }
+  .chip-trap.facedown{ font-style:italic; opacity:.85; }
+  .chip-aura{ background:var(--aura); }
+  .chip-effect{ background:var(--effect); }
+
+  /* ---------- log ---------- */
+  #log-list{ flex:1 1 auto; overflow:auto; padding:.25rem .1rem; }
+  .log-row{ padding:.32rem .55rem; border-left:3px solid transparent; cursor:pointer; font-size:.78rem;
+    border-bottom:1px solid rgba(255,255,255,.05); word-wrap:break-word; overflow-wrap:break-word; }
+  .log-row:hover{ background:rgba(255,255,255,.04); }
+  .log-row.current{ background:rgba(201,161,90,.14); border-left-color:var(--accent); }
+  .turn-badge{ display:inline-block; background:rgba(0,0,0,.35); border-radius:4px; padding:0 5px;
+    margin-right:.4rem; font-size:.65rem; color:var(--muted); }
+  .kind-tag{ text-transform:uppercase; font-size:.6rem; letter-spacing:.03em; color:var(--muted); margin-right:.35rem; }
+  .card-ref{ color:var(--accent); cursor:pointer; margin-left:.3rem; }
+  .log-row details{ margin-top:.25rem; font-size:.74rem; color:var(--muted); }
+  .log-row summary{ cursor:pointer; }
+  .detail-body{ margin-top:.15rem; padding-left:.4rem; border-left:2px solid var(--border); }
+
+  /* ---------- controls ---------- */
+  footer#controls{ background:var(--panel); border-top:1px solid var(--border); padding:.45rem .6rem;
+    display:flex; flex-wrap:wrap; align-items:center; gap:.4rem; flex:0 0 auto; }
+  footer#controls button{ background:var(--panel3); color:var(--text); border:1px solid var(--border);
+    border-radius:6px; padding:.3rem .6rem; font-size:.85rem; cursor:pointer; font-family:var(--font); }
+  footer#controls button:hover{ background:#3a3f4a; }
+  footer#controls select{ background:var(--panel3); color:var(--text); border:1px solid var(--border);
+    border-radius:6px; padding:.3rem .4rem; font-family:var(--font); font-size:.78rem; }
+  #scrubber{ flex:1 1 140px; min-width:80px; }
+
+  /* ---------- popover ---------- */
+  #card-popover{ position:fixed; z-index:60; max-width:280px; background:#14161a; border:1px solid var(--accent);
+    border-radius:8px; padding:.55rem .7rem; font-size:.76rem; box-shadow:0 8px 24px rgba(0,0,0,.55); display:none; }
+  #card-popover.show{ display:block; }
+  .pop-title{ font-weight:700; margin-bottom:.2rem; }
+  .pop-types{ margin-bottom:.25rem; }
+  .type-tag{ display:inline-block; background:var(--panel3); border-radius:4px; padding:0 5px; font-size:.65rem;
+    margin-right:3px; color:var(--muted); }
+  .pop-icons{ margin-bottom:.3rem; }
+  .icon-badge{ display:inline-block; background:var(--panel3); border-radius:4px; padding:0 5px; font-size:.65rem;
+    margin:0 3px 3px 0; }
+  .or-sep{ color:var(--muted); font-size:.65rem; margin:0 3px; }
+  .pop-text{ line-height:1.35; }
+  .or-divider{ text-align:center; color:var(--muted); font-size:.68rem; margin:.3rem 0; }
+  .tagged{ color:var(--accent); font-style:normal; }
+
+  /* ---------- loader ---------- */
+  #loader{ position:fixed; inset:0; background:var(--bg); display:flex; align-items:center; justify-content:center;
+    flex-direction:column; gap:1rem; z-index:100; text-align:center; padding:1rem; }
+  #loader h1{ font-size:1.3rem; margin:0; }
+  #dropzone{ border:2px dashed var(--border); border-radius:14px; padding:2rem 2.2rem; max-width:90vw; }
+  #dropzone.dragover{ border-color:var(--accent); background:rgba(255,255,255,.04); }
+  #loader-msg{ max-width:60ch; }
+  #btn-choose{ background:var(--panel3); color:var(--text); border:1px solid var(--border); border-radius:6px;
+    padding:.45rem 1rem; font-size:.9rem; cursor:pointer; font-family:var(--font); }
+</style>
+</head>
+<body>
+
+<div id="loader">
+  <h1>Samurai vs Ninja — Simulation Viewer</h1>
+  <div id="dropzone">
+    <p>Drag &amp; drop a game history JSON file here</p>
+    <p class="muted">— or —</p>
+    <button id="btn-choose">Choose file…</button>
+    <input type="file" id="file-input" accept="application/json,.json" style="display:none">
+    <p id="loader-msg" class="muted"></p>
+  </div>
+</div>
+
+<div id="app">
+  <header id="hdr">
+    <span id="hdr-game"><b>Game —</b></span>
+    <span id="hdr-seed"></span>
+    <span id="hdr-result"></span>
+    <span id="hdr-pos"></span>
+    <span id="hdr-deck"></span>
+    <select id="game-select" title="Switch game"></select>
+    <span id="hdr-players"></span>
+  </header>
+
+  <div id="main">
+    <section id="table-panel">
+      <div id="turn-jumper"></div>
+      <div id="stage-wrap">
+        <div id="stage">
+          <img id="stage-bg" src="media/table-bg.webp" alt="Table" onerror="this.style.display='none';">
+          <div id="seats-layer"></div>
+          <div id="center-layer"></div>
+          <svg id="arrow-svg" viewBox="0 0 1192 1165" preserveAspectRatio="xMidYMid meet">
+            <defs>
+              <marker id="arrowhead" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                <path id="arrow-marker-path" d="M0,0 L8,4 L0,8 Z" fill="#888"></path>
+              </marker>
+            </defs>
+            <line id="arrow-line" x1="0" y1="0" x2="0" y2="0" stroke="#888" stroke-width="4"
+                  marker-end="url(#arrowhead)" style="display:none"></line>
+          </svg>
+        </div>
+      </div>
+      <div id="arrow-legend">
+        <span><i class="legend-dot" style="background:#888"></i>pending</span>
+        <span><i class="legend-dot" style="background:#c0392b"></i>hit</span>
+        <span><i class="legend-dot" style="background:#e08e2b"></i>partial</span>
+        <span><i class="legend-dot" style="background:#3b7ea1"></i>blocked</span>
+        <span><i class="legend-dot" style="background:#3b8476"></i>resolved</span>
+      </div>
+
+      <section id="decision-panel">
+        <div id="decision-header">
+          <button id="decision-toggle" title="Collapse / expand">▾</button>
+          <span id="decision-title">What the player saw</span>
+          <span id="decision-privacy">replay view — players never saw each other's hands</span>
+        </div>
+        <div id="decision-body">
+          <div id="decision-notes" class="muted">Step through the log to see a decision.</div>
+          <div id="decision-hand"></div>
+          <div id="decision-pins"></div>
+        </div>
+      </section>
+    </section>
+
+    <section id="log-panel">
+      <div id="log-list"></div>
+    </section>
+  </div>
+
+  <footer id="controls">
+    <button id="btn-home" title="Jump to first event (Home)">⏮</button>
+    <button id="btn-prev" title="Previous event (←)">◀</button>
+    <button id="btn-play" title="Play / pause (Space)">▶</button>
+    <button id="btn-next" title="Next event (→)">▶▶</button>
+    <button id="btn-end" title="Jump to last event (End)">⏭</button>
+    <select id="speed-select" title="Autoplay speed">
+      <option value="0.5">0.5×</option>
+      <option value="1" selected>1×</option>
+      <option value="2">2×</option>
+      <option value="4">4×</option>
+    </select>
+    <input type="range" id="scrubber" min="0" max="0" value="0" step="1">
+  </footer>
+</div>
+
+<div id="card-popover"></div>
+
+<script>
+'use strict';
+
+/* ======================= data / state ======================= */
+var gameData = null;   // { game, cards, events }
+var events = [];
+var currentIndex = 0;
+var autoplayTimer = null;
+var autoplaySpeed = 1;
+var popoverPinned = false;
+var pinnedSeats = {};   // seat number -> true; hand pinned in the decision panel
+
+/* Inlined default table layout so the viewer works from file:// with no server.
+   When served, tryLoadLayout() fetches media/table-layout.json and overrides this
+   if it parses and has the expected shape. Coordinates are in the background
+   photo's own pixel space (see media/table-layout.json). */
+var LAYOUT_DEFAULT = {
+  "image": { "w": 1192, "h": 1165 },
+  "table": { "cx": 612, "cy": 582, "r": 407 },
+  "card": { "w": 66, "h": 99 },
+  "center": { "deck": { "x": 578, "y": 567 }, "discard": { "x": 649, "y": 566 } },
+  "seats": [
+    { "seat": 0, "side": "bottom", "rotation": 0,
+      "character": { "x": 590, "y": 852 }, "role": { "x": 632, "y": 854 },
+      "hearts": { "x": 582, "y": 797 }, "vp": { "x": 657, "y": 816 },
+      "hand": { "x": 486, "y": 880 }, "objects": { "x": 674, "y": 855 },
+      "inplay": { "x": 722, "y": 728 } },
+    { "seat": 1, "side": "left", "rotation": 90,
+      "character": { "x": 354, "y": 559 }, "role": { "x": 352, "y": 604 },
+      "hearts": { "x": 400, "y": 567 }, "vp": { "x": 400, "y": 633 },
+      "hand": { "x": 296, "y": 683 }, "objects": { "x": 351, "y": 649 },
+      "inplay": { "x": 472, "y": 687 } },
+    { "seat": 2, "side": "top", "rotation": 180,
+      "character": { "x": 543, "y": 295 }, "role": { "x": 633, "y": 297 },
+      "hearts": { "x": 552, "y": 352 }, "vp": { "x": 662, "y": 345 },
+      "hand": { "x": 716, "y": 287 }, "objects": { "x": 588, "y": 298 },
+      "inplay": { "x": 483, "y": 438 } },
+    { "seat": 3, "side": "right", "rotation": -90,
+      "character": { "x": 879, "y": 604 }, "role": { "x": 875, "y": 559 },
+      "hearts": { "x": 817, "y": 598 }, "vp": { "x": 926, "y": 614 },
+      "hand": { "x": 945, "y": 695 }, "objects": { "x": 877, "y": 514 },
+      "inplay": { "x": 755, "y": 473 } }
+  ]
+};
+var LAYOUT = LAYOUT_DEFAULT;
+
+var ICON_LABELS = {
+  dmg0:'⚔ 0', dmg1:'⚔ 1', dmg2:'⚔ 2', dmg3:'⚔ 3',
+  complexity1:'◆ 1', complexity2:'◆ 2', complexity_any:'◆ any',
+  ranged:'➘ ranged', poison:'☠ poison', charges:'⚡ charges',
+  defense:'Ὦ1 defense', trap:'⛏ trap', thrust:'⚔ thrust',
+  modifier:'✦ modifier', hpctx:'♥ context', charctx:'★ favourite',
+  rolectx:'⚑ role', effect8:'⬟ effect'
+};
+
+/* ======================= small helpers ======================= */
+function escapeHtml(s){
+  return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
+    return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c];
+  });
+}
+function uidToCardId(uid){
+  if (!uid) return null;
+  var m = /^c(-?\d+)-/.exec(String(uid));
+  return m ? Number(m[1]) : null;
+}
+function resolveCardByUid(uid){
+  var id = uidToCardId(uid);
+  if (id == null || !gameData) return null;
+  return gameData.cards[String(id)] || null;
+}
+function cardMetaById(id){
+  return (gameData && gameData.cards && gameData.cards[String(id)]) || null;
+}
+function cardNameForFallback(id){
+  var m = cardMetaById(id);
+  if (m) return m.name;
+  var ch = findCharacterById(id);
+  if (ch) return ch.name;
+  return id == null ? '?' : ('#' + id);
+}
+function findCharacterById(id){
+  if (id == null || !gameData || !gameData.game || !Array.isArray(gameData.game.players)) return null;
+  for (var i = 0; i < gameData.game.players.length; i++){
+    var c = gameData.game.players[i].character;
+    if (c && c.id === id) return c;
+  }
+  return null;
+}
+function fmtLines(s){
+  var esc = escapeHtml(s);
+  esc = esc.split('\n').join('<br>');
+  esc = esc.replace(/\{([^}]+)\}/g, '<em class="tagged">$1</em>');
+  return esc;
+}
+function fmtCardText(text){
+  if (!text) return '<span class="muted">(no text)</span>';
+  var parts = String(text).split(/-OR-/);
+  return parts.map(fmtLines).join('<div class="or-divider">— OR —</div>');
+}
+function iconBadge(icon){
+  var label = ICON_LABELS[icon] || icon;
+  return '<span class="icon-badge">' + escapeHtml(label) + '</span>';
+}
+
+/* ======================= fallback chip builders (old-style; also used onerror) ======================= */
+function chip(type, label, uid, extraClass){
+  var cardId = uidToCardId(uid);
+  var cls = 'chip chip-' + type + (extraClass ? ' ' + extraClass : '');
+  return '<span class="' + cls + '" data-card="' + (cardId == null ? '' : cardId) + '" tabindex="0">' +
+         escapeHtml(label) + '</span>';
+}
+function chipById(type, label, id, extraClass){
+  var cls = 'chip chip-' + type + (extraClass ? ' ' + extraClass : '');
+  return '<span class="' + cls + '" data-card="' + (id == null ? '' : id) + '" tabindex="0">' +
+         escapeHtml(label) + '</span>';
+}
+
+/* ======================= popover ======================= */
+function showCardPopover(anchor, cardId){
+  if (cardId == null || isNaN(cardId)) return;
+  var pop = document.getElementById('card-popover');
+  var html = '';
+  var c = gameData && gameData.cards[String(cardId)];
+  if (c){
+    html = '<div class="pop-title">' + escapeHtml(c.name) + '</div>' +
+      '<div class="pop-types">' + (c.types || []).map(function(t){ return '<span class="type-tag">' + escapeHtml(t) + '</span>'; }).join('') + '</div>' +
+      '<div class="pop-icons">' + (c.icons || []).map(iconBadge).join('') +
+        ((c.icons_or && c.icons_or.length) ? '<span class="or-sep">or</span>' + c.icons_or.map(iconBadge).join('') : '') +
+      '</div>' +
+      '<div class="pop-text">' + fmtCardText(c.text) + '</div>';
+  } else {
+    var ch = findCharacterById(cardId);
+    if (ch){
+      html = '<div class="pop-title">' + escapeHtml(ch.name) + '</div>' +
+        '<div class="pop-types"><span class="type-tag">character</span></div>' +
+        '<div class="pop-text">HP ' + escapeHtml(ch.hp != null ? ch.hp : '?') + '<br>' + fmtCardText(ch.text) + '</div>';
+    } else {
+      html = '<div class="pop-text muted">No data for card #' + escapeHtml(cardId) + '.</div>';
+    }
+  }
+  pop.innerHTML = html;
+  pop.classList.add('show');
+  positionPopover(pop, anchor);
+}
+function positionPopover(pop, anchor){
+  var r = anchor.getBoundingClientRect();
+  var vw = window.innerWidth, vh = window.innerHeight;
+  var pw = pop.offsetWidth || 260, ph = pop.offsetHeight || 100;
+  var left = r.left + r.width / 2 - pw / 2;
+  left = Math.max(8, Math.min(left, vw - pw - 8));
+  var top = r.bottom + 8;
+  if (top + ph > vh - 8) top = Math.max(8, r.top - ph - 8);
+  pop.style.left = left + 'px';
+  pop.style.top = top + 'px';
+}
+function hideCardPopover(){
+  popoverPinned = false;
+  var pop = document.getElementById('card-popover');
+  pop.classList.remove('show');
+}
+
+/* ======================= table layout helpers ======================= */
+function seatByIndex(i){
+  var seats = (LAYOUT && Array.isArray(LAYOUT.seats) && LAYOUT.seats.length === 4) ? LAYOUT.seats : LAYOUT_DEFAULT.seats;
+  for (var k = 0; k < seats.length; k++) if (seats[k].seat === i) return seats[k];
+  return seats[i] || LAYOUT_DEFAULT.seats[i];
+}
+function tableCircle(){
+  return (LAYOUT && LAYOUT.table) ? LAYOUT.table : LAYOUT_DEFAULT.table;
+}
+function cardSize(){
+  return (LAYOUT && LAYOUT.card && LAYOUT.card.w && LAYOUT.card.h) ? LAYOUT.card : LAYOUT_DEFAULT.card;
+}
+function imageDims(){
+  return (LAYOUT && LAYOUT.image && LAYOUT.image.w && LAYOUT.image.h) ? LAYOUT.image : LAYOUT_DEFAULT.image;
+}
+function vecNorm(dx, dy){
+  var len = Math.sqrt(dx * dx + dy * dy) || 1;
+  return { x: dx / len, y: dy / len };
+}
+function outward(anchor, dist){
+  var t = tableCircle();
+  var n = vecNorm(anchor.x - t.cx, anchor.y - t.cy);
+  return { x: anchor.x + n.x * dist, y: anchor.y + n.y * dist };
+}
+/* Pull an anchor inward along the seat's own radial line (never outward) so that a
+   row of cards spreading up to `offsetExtent` px from it, at the current (possibly
+   enlarged) card size, stays inside the table circle instead of being shrunk. */
+function clampRadial(anchor, offsetExtent){
+  var t = tableCircle();
+  var card = cardSize();
+  var half = Math.max(card.w, card.h) / 2;
+  var rx = anchor.x - t.cx, ry = anchor.y - t.cy;
+  var radial = Math.sqrt(rx * rx + ry * ry) || 0.0001;
+  var budget = (t.r - half) * (t.r - half) - offsetExtent * offsetExtent;
+  var maxRadial = budget > 0 ? Math.sqrt(budget) : 0;
+  if (maxRadial >= radial) return anchor;
+  var ux = rx / radial, uy = ry / radial;
+  return { x: t.cx + ux * maxRadial, y: t.cy + uy * maxRadial };
+}
+function rowAxis(seatL){
+  if (seatL.character && seatL.role){
+    return vecNorm(seatL.role.x - seatL.character.x, seatL.role.y - seatL.character.y);
+  }
+  return { x: 1, y: 0 };
+}
+function roleCardId(staticP){
+  if (!staticP) return null;
+  if (staticP.faction === 'ninja') return 200;
+  return staticP.first ? 202 : 201;
+}
+
+/* ======================= tiny SVG icons (hearts / VP) ======================= */
+function heartIconSVG(filled){
+  var fill = filled ? '#e0475c' : 'none';
+  var stroke = filled ? '#e0475c' : '#9aa0ab';
+  return '<svg class="tmini-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">' +
+    '<path d="M12 21s-7.4-4.8-9.9-9.2C.6 8.6 2 5 5.5 5 8 5 10 6.4 12 8.9 14 6.4 16 5 18.5 5 22 5 23.4 8.6 21.9 11.8 19.4 16.2 12 21 12 21z" ' +
+    'fill="' + fill + '" stroke="' + stroke + '" stroke-width="1.8"/></svg>';
+}
+function heartsRowHTML(hp, maxHp){
+  maxHp = Math.max(0, Number(maxHp) || 0);
+  hp = Math.max(0, Math.min(Number(hp) || 0, maxHp));
+  if (!maxHp) return '<span class="muted" style="font-size:10px">—</span>';
+  var s = '';
+  for (var i = 0; i < maxHp; i++) s += heartIconSVG(i < hp);
+  return s;
+}
+function yinYangSVG(){
+  return '<svg class="tmini-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">' +
+    '<circle cx="12" cy="12" r="10.5" fill="#f2f2f2" stroke="#c9a15a" stroke-width="1"/>' +
+    '<path d="M12 1.5a10.5 10.5 0 000 21 5.25 5.25 0 010-10.5 5.25 5.25 0 000-10.5z" fill="#20222a"/>' +
+    '<circle cx="12" cy="6.75" r="1.6" fill="#20222a"/><circle cx="12" cy="17.25" r="1.6" fill="#f2f2f2"/></svg>';
+}
+function vpRowHTML(vp){
+  vp = Number(vp);
+  if (isNaN(vp)) return '<span class="muted" style="font-size:10px">—</span>';
+  if (vp < 0) return '<span class="vp-neg">' + vp + '</span>';
+  if (vp > 8) return yinYangSVG() + '<span class="vp-token-many">×' + vp + '</span>';
+  var s = '';
+  for (var i = 0; i < vp; i++) s += yinYangSVG();
+  return s || '<span class="muted" style="font-size:10px">0</span>';
+}
+
+/* ======================= DOM builders for table cards ======================= */
+function mkSlot(x, y, w, h, rotation){
+  var d = document.createElement('div');
+  d.className = 'tslot';
+  d.style.left = (x - w / 2) + 'px';
+  d.style.top = (y - h / 2) + 'px';
+  d.style.width = w + 'px';
+  d.style.height = h + 'px';
+  if (rotation) d.style.transform = 'rotate(' + rotation + 'deg)';
+  return d;
+}
+function fillCardImg(slot, cardId, name, fallbackHtml){
+  if (cardId == null){
+    slot.classList.add('tslot-fallback');
+    slot.innerHTML = fallbackHtml;
+    return slot;
+  }
+  var img = document.createElement('img');
+  img.className = 'tcard-img';
+  img.src = 'media/cards/' + cardId + '.png';
+  img.alt = name || ('#' + cardId);
+  img.setAttribute('data-card', cardId);
+  img.onerror = function(){
+    slot.classList.add('tslot-fallback');
+    slot.innerHTML = fallbackHtml;
+  };
+  slot.appendChild(img);
+  return slot;
+}
+function fillBackImg(slot, src){
+  var img = document.createElement('img');
+  img.className = 'tback-img';
+  img.src = src;
+  img.alt = '';
+  img.onerror = function(){ slot.style.visibility = 'hidden'; };
+  slot.appendChild(img);
+  return slot;
+}
+function mkBadge(x, y, text, cls){
+  var b = document.createElement('span');
+  b.className = 'tbadge ' + (cls || '');
+  b.style.left = x + 'px';
+  b.style.top = y + 'px';
+  b.textContent = text;
+  return b;
+}
+function mkFig(src, x, y, w, alt){
+  var img = document.createElement('img');
+  img.className = 'tfig';
+  img.src = src;
+  img.alt = alt || '';
+  img.style.width = w + 'px';
+  img.style.height = 'auto';
+  img.style.left = x + 'px';
+  img.style.top = y + 'px';
+  img.onerror = function(){ img.style.display = 'none'; };
+  return img;
+}
+
+/* ======================= seat rendering ======================= */
+function buildSeatGroup(seat, staticP, ps){
+  var seatL = seatByIndex(seat);
+  var card = cardSize();
+  var cw = card.w, ch = card.h;
+  var rot = seatL.rotation || 0;
+  var faction = (staticP && staticP.faction === 'ninja') ? 'ninja' : 'samurai';
+  var factionColor = faction === 'ninja' ? 'var(--ninja)' : 'var(--samurai)';
+  var alive = ps ? ps.alive !== false : true;
+  var character = (staticP && staticP.character) || {};
+  var charId = character.id != null ? character.id : null;
+  var charName = character.name || '?';
+  var maxHp = character.hp != null ? character.hp : (ps && ps.hp != null ? ps.hp : 1);
+  var name = (staticP && staticP.name) || ('P' + seat);
+
+  var wrap = document.createElement('div');
+  wrap.className = 'seat-group' + (!alive ? ' seat-dead' : '');
+
+  /* character card */
+  if (seatL.character){
+    var cslot = mkSlot(seatL.character.x, seatL.character.y, cw, ch, rot);
+    fillCardImg(cslot, charId, charName, chipById('effect', charName, charId));
+    wrap.appendChild(cslot);
+  }
+
+  /* role card */
+  var roleId = roleCardId(staticP);
+  if (seatL.role){
+    var rslot = mkSlot(seatL.role.x, seatL.role.y, cw, ch, rot);
+    var roleName = faction === 'ninja' ? 'Ninja' : ((staticP && staticP.first) ? 'Samurai (I)' : 'Samurai');
+    fillCardImg(rslot, roleId, roleName, chipById('effect', roleName, roleId));
+    wrap.appendChild(rslot);
+
+    /* poison figurine stands on the role card */
+    if (ps && ps.poisoned){
+      wrap.appendChild(mkFig('media/fig/poison.webp',
+        seatL.role.x - cw * 0.32, seatL.role.y - ch * 0.46, cw * 0.64, 'Poisoned'));
+    }
+  }
+
+  /* hearts */
+  if (seatL.hearts){
+    var hdiv = document.createElement('div');
+    hdiv.className = 'thearts';
+    hdiv.style.left = seatL.hearts.x + 'px';
+    hdiv.style.top = seatL.hearts.y + 'px';
+    hdiv.innerHTML = heartsRowHTML(ps && ps.hp, maxHp);
+    wrap.appendChild(hdiv);
+  }
+
+  /* victory points */
+  if (seatL.vp){
+    var vdiv = document.createElement('div');
+    vdiv.className = 'tvp';
+    vdiv.style.left = seatL.vp.x + 'px';
+    vdiv.style.top = seatL.vp.y + 'px';
+    vdiv.innerHTML = vpRowHTML(ps && ps.vp);
+    wrap.appendChild(vdiv);
+  }
+
+  /* hand fan */
+  if (seatL.hand){
+    var handN = (ps && ps.hand_n != null) ? Number(ps.hand_n) : 0;
+    var shown = Math.max(0, Math.min(handN, 12));
+    var axis = rowAxis(seatL);
+    var handOffsetExtent = Math.max(0, shown - 1) / 2 * (cw * 0.42) + cw * 0.55;
+    var handAnchor = clampRadial(seatL.hand, handOffsetExtent);
+    for (var i = 0; i < shown; i++){
+      var off = (i - (shown - 1) / 2) * (cw * 0.42);
+      var hx = handAnchor.x + axis.x * off;
+      var hy = handAnchor.y + axis.y * off;
+      var hslot = mkSlot(hx, hy, cw, ch, rot + (i - (shown - 1) / 2) * 4);
+      hslot.style.zIndex = String(i);
+      fillBackImg(hslot, 'media/cards/back.png');
+      wrap.appendChild(hslot);
+    }
+    if (handN > 12){
+      var lastX = handAnchor.x + axis.x * ((shown - 1) / 2) * (cw * 0.42) + axis.x * cw * 0.55;
+      var lastY = handAnchor.y + axis.y * ((shown - 1) / 2) * (cw * 0.42) + axis.y * cw * 0.55;
+      wrap.appendChild(mkBadge(lastX, lastY, '+' + (handN - 12), 'tbadge-hand'));
+    }
+  }
+
+  /* objects row: stance, aura (+ charges + banner), effects, trap */
+  if (seatL.objects){
+    var axis2 = rowAxis(seatL);
+    var step = cw + 4;
+    var items = [];
+    if (ps && ps.stance) items.push({ kind: 'stance', uid: ps.stance });
+    if (ps && ps.aura && ps.aura.uid) items.push({ kind: 'aura', uid: ps.aura.uid, charges: ps.aura.charges_n });
+    if (ps && Array.isArray(ps.effects)) ps.effects.forEach(function(uid){ items.push({ kind: 'effect', uid: uid }); });
+    if (ps && ps.trap && ps.trap.uid) items.push({ kind: 'trap', uid: ps.trap.uid, faceUp: !!ps.trap.face_up });
+
+    var objAnchor = clampRadial(seatL.objects, Math.max(0, items.length - 1) * step);
+    items.forEach(function(item, idx){
+      var x = objAnchor.x + axis2.x * step * idx;
+      var y = objAnchor.y + axis2.y * step * idx;
+      var slot = mkSlot(x, y, cw, ch, rot);
+      var cid = uidToCardId(item.uid);
+
+      if (item.kind === 'trap' && !item.faceUp){
+        fillBackImg(slot, 'media/cards/back.png');
+      } else {
+        var meta = cid != null ? cardMetaById(cid) : null;
+        var nm = meta ? meta.name : (item.kind === 'trap' ? 'Trap' : item.kind);
+        var typeCls = item.kind === 'aura' ? 'aura' : (item.kind === 'trap' ? 'trap' : (item.kind === 'stance' ? 'stance' : 'effect'));
+        fillCardImg(slot, cid, nm, chip(typeCls, nm, item.uid));
+      }
+      wrap.appendChild(slot);
+
+      if (item.kind === 'aura'){
+        var n = Number(item.charges) || 0;
+        if (n > 0) wrap.appendChild(mkBadge(x + cw / 2, y - ch / 2, '×' + n, 'tbadge-charges'));
+        wrap.appendChild(mkFig('media/fig/banner.webp', x - cw * 0.7, y - ch * 0.3, cw * 0.55, 'Aura'));
+      }
+      if (item.kind === 'trap'){
+        wrap.appendChild(mkFig('media/fig/trap.webp', x - cw * 0.42, y - ch * 0.46, cw * 0.85, 'Trap'));
+      }
+    });
+  }
+
+  /* label: "P<seat> · <character name>" — kept upright for readability */
+  var labelAnchor = { x: seatL.character ? seatL.character.x : 0, y: seatL.character ? seatL.character.y : 0 };
+  if (seatL.character && seatL.role){
+    labelAnchor = outward({ x: (seatL.character.x + seatL.role.x) / 2, y: (seatL.character.y + seatL.role.y) / 2 }, cw * 1.15);
+  }
+  var label = document.createElement('div');
+  label.className = 'tlabel' + (!alive ? ' dead' : '');
+  label.style.left = labelAnchor.x + 'px';
+  label.style.top = labelAnchor.y + 'px';
+  label.style.setProperty('--fc', factionColor);
+  if (charId != null) label.setAttribute('data-card', charId);
+  label.textContent = 'P' + seat + ' · ' + charName;
+  wrap.appendChild(label);
+
+  /* pin toggle: click a seat to pin its hand (from the current event) in the decision panel */
+  var pinAnchor = outward(labelAnchor, 22);
+  var pinBtn = document.createElement('div');
+  pinBtn.className = 'tpin-btn' + (pinnedSeats[seat] ? ' active' : '');
+  pinBtn.style.left = pinAnchor.x + 'px';
+  pinBtn.style.top = pinAnchor.y + 'px';
+  pinBtn.title = pinnedSeats[seat] ? 'Unpin this seat’s hand' : 'Pin this seat’s hand in the decision panel';
+  pinBtn.textContent = '📌';
+  (function(seatNum){
+    pinBtn.addEventListener('click', function(e){
+      e.stopPropagation();
+      if (pinnedSeats[seatNum]) delete pinnedSeats[seatNum]; else pinnedSeats[seatNum] = true;
+      renderAt(currentIndex);
+    });
+  })(seat);
+  wrap.appendChild(pinBtn);
+
+  /* dead: greyed (via .seat-dead on ancestor) + skull badge */
+  if (!alive && seatL.character){
+    var skull = document.createElement('div');
+    skull.className = 'tskull';
+    skull.textContent = '💀'; /* skull emoji */
+    skull.style.left = (seatL.character.x + cw / 2) + 'px';
+    skull.style.top = (seatL.character.y - ch / 2) + 'px';
+    wrap.appendChild(skull);
+  }
+
+  return wrap;
+}
+function findPlayerBySeat(list, seat){
+  if (!Array.isArray(list)) return null;
+  for (var i = 0; i < list.length; i++){
+    if (list[i] && list[i].seat === seat) return list[i];
+  }
+  return list[seat] || null; // defensive fallback if 'seat' is missing on entries
+}
+
+/* ======================= decision panel: "what the player saw" ======================= */
+/* Event kinds that move a card while acting for a given seat, and the badge label
+   shown on the outlined hand card for each. First match wins when scanning a turn
+   forward, so a more specific kind (e.g. effect_placed) beats a generic one
+   (card_played) that references the same uid moments later. */
+var PLAYED_STEP_KINDS = {
+  attack_declared: 'attack', stance_set: 'stance', trap_set: 'trap', aura_set: 'aura',
+  effect_placed: 'effect', card_played: 'play', trade: 'trade', discard_to_limit: 'discard'
+};
+function collectEventUids(e){
+  var uids = [];
+  if (e.card) uids.push(e.card);
+  var d = e.data || {};
+  if (Array.isArray(d.uids)) uids = uids.concat(d.uids);
+  if (Array.isArray(d.cards)) uids = uids.concat(d.cards);
+  if (typeof d.card === 'string') uids.push(d.card);
+  if (Array.isArray(d.batch)){
+    d.batch.forEach(function(b){ if (b && typeof b.card === 'string') uids.push(b.card); });
+  }
+  return uids;
+}
+function handDiff(beforeArr, afterArr){
+  var after = {};
+  (afterArr || []).forEach(function(u){ after[u] = true; });
+  return (beforeArr || []).filter(function(u){ return !after[u]; });
+}
+/* every uid this seat played during `turn`, mapped to the step that played it */
+function findTurnPlays(turn, actor){
+  var out = {};
+  for (var i = 0; i < events.length; i++){
+    var e = events[i];
+    if (e.turn !== turn || e.actor !== actor) continue;
+    var label = PLAYED_STEP_KINDS[e.kind];
+    if (!label) continue;
+    collectEventUids(e).forEach(function(uid){ if (!out[uid]) out[uid] = label; });
+  }
+  return out;
+}
+function actorLabel(seat){
+  if (seat == null || !gameData) return '?';
+  var p = findPlayerBySeat(gameData.game.players, seat);
+  var cname = (p && p.character && p.character.name) || '?';
+  return 'P' + seat + ' · ' + cname;
+}
+/* Resolve what the panel should show for the event at `idx`: the plan/reaction/
+   ruling itself, or (for any other kind) the nearest earlier plan/reaction of the
+   same turn, marked dimmed so it reads as leftover context rather than the
+   current decision. */
+function computeDecisionContext(idx){
+  var ev = events[idx];
+  if (!ev) return null;
+  if (ev.kind === 'plan'){
+    var actor = ev.actor;
+    var prev = events[idx - 1];
+    var prevHands = prev && prev.state && prev.state.hands;
+    var handArr = prevHands ? prevHands[String(actor)] : null;
+    if (!handArr){
+      /* a plan doesn't itself move cards, so its own post-state hand is the same hand */
+      var ownHands = ev.state && ev.state.hands;
+      handArr = ownHands ? ownHands[String(actor)] : null;
+    }
+    return { kind: 'plan', sourceIdx: idx, dimmed: false, actor: actor, handArr: handArr,
+      badgeMap: findTurnPlays(ev.turn, actor), notesText: ev.notes || ev.text };
+  }
+  if (ev.kind === 'reaction' || ev.kind === 'reaction_auto'){
+    var actor2 = ev.actor;
+    var prev2 = events[idx - 1];
+    var beforeHand = prev2 && prev2.state && prev2.state.hands ? prev2.state.hands[String(actor2)] : null;
+    var afterHand = ev.state && ev.state.hands ? ev.state.hands[String(actor2)] : null;
+    var badgeMap2 = {};
+    handDiff(beforeHand, afterHand).forEach(function(u){ badgeMap2[u] = 'react'; });
+    var notes2 = (ev.data && ev.data.notes) || ev.notes || ev.text;
+    return { kind: ev.kind, sourceIdx: idx, dimmed: false, actor: actor2, handArr: beforeHand,
+      badgeMap: badgeMap2, notesText: notes2 };
+  }
+  if (ev.kind === 'ruling'){
+    return { kind: 'ruling', sourceIdx: idx, dimmed: false, ev: ev };
+  }
+  for (var i = idx - 1; i >= 0; i--){
+    var e2 = events[i];
+    if (e2.turn !== ev.turn) break;
+    if (e2.kind === 'plan' || e2.kind === 'reaction' || e2.kind === 'reaction_auto'){
+      var ctx = computeDecisionContext(i);
+      if (ctx) ctx.dimmed = true;
+      return ctx;
+    }
+  }
+  return { kind: 'none' };
+}
+function buildHandCardEl(uid, badgeMap){
+  var cid = uidToCardId(uid);
+  var meta = cid != null ? cardMetaById(cid) : null;
+  var name = meta ? meta.name : cardNameForFallback(cid);
+  var label = badgeMap ? badgeMap[uid] : null;
+  var div = document.createElement('div');
+  div.className = 'hand-card' + (label ? ' played' : '');
+  if (cid != null){
+    var img = document.createElement('img');
+    img.src = 'media/cards/' + cid + '.png';
+    img.alt = name;
+    img.setAttribute('data-card', cid);
+    img.onerror = function(){
+      div.classList.add('tslot-fallback');
+      div.innerHTML = chip('effect', name, cid);
+      appendPlayedBadge();
+    };
+    div.appendChild(img);
+  } else {
+    div.classList.add('tslot-fallback');
+    div.innerHTML = chip('effect', name, cid);
+  }
+  function appendPlayedBadge(){
+    if (!label) return;
+    var b = document.createElement('span');
+    b.className = 'played-badge';
+    b.textContent = label;
+    div.appendChild(b);
+  }
+  appendPlayedBadge();
+  return div;
+}
+function renderHandRow(container, handArr, badgeMap){
+  container.innerHTML = '';
+  if (!handArr){
+    container.innerHTML = '<span class="muted">no hand data in this replay</span>';
+    return;
+  }
+  var row = document.createElement('div');
+  row.className = 'hand-row';
+  handArr.forEach(function(uid){ row.appendChild(buildHandCardEl(uid, badgeMap)); });
+  container.appendChild(row);
+}
+function renderPins(idx){
+  var wrap = document.getElementById('decision-pins');
+  wrap.innerHTML = '';
+  var ev = events[idx];
+  var hands = ev && ev.state && ev.state.hands;
+  Object.keys(pinnedSeats).forEach(function(seatKey){
+    var seat = Number(seatKey);
+    var block = document.createElement('div');
+    block.className = 'pin-block';
+    var hdr = document.createElement('div');
+    hdr.className = 'pin-block-hdr';
+    var label = document.createElement('span');
+    label.textContent = '📌 ' + actorLabel(seat) + '’s hand';
+    var btn = document.createElement('button');
+    btn.className = 'pin-unbtn';
+    btn.textContent = 'Unpin';
+    btn.onclick = function(){ delete pinnedSeats[seat]; renderAt(currentIndex); };
+    hdr.appendChild(label); hdr.appendChild(btn);
+    block.appendChild(hdr);
+    var handEl = document.createElement('div');
+    renderHandRow(handEl, hands ? hands[String(seat)] : null, null);
+    block.appendChild(handEl);
+    wrap.appendChild(block);
+  });
+}
+function renderDecisionPanel(idx){
+  var panel = document.getElementById('decision-panel');
+  var titleEl = document.getElementById('decision-title');
+  var notesEl = document.getElementById('decision-notes');
+  var handEl = document.getElementById('decision-hand');
+  var ctx = computeDecisionContext(idx);
+  panel.classList.toggle('dimmed', !!(ctx && ctx.dimmed));
+
+  if (!ctx || ctx.kind === 'none'){
+    titleEl.textContent = 'What the player saw';
+    notesEl.innerHTML = '<span class="muted">No plan or reaction recorded yet this turn.</span>';
+    handEl.innerHTML = '';
+    renderPins(idx);
+    return;
+  }
+  if (ctx.kind === 'ruling'){
+    var rev = ctx.ev;
+    titleEl.textContent = 'Referee ruling — Turn ' + rev.turn;
+    var html;
+    if (rev.data && rev.data.question){
+      html = '<div><b>Q:</b> ' + fmtLines(rev.data.question) + '</div>' +
+             '<div><b>A:</b> ' + fmtLines(rev.data.ruling || rev.text || '') + '</div>';
+    } else {
+      html = '<div>' + fmtLines(rev.text || rev.notes || '') + '</div>';
+    }
+    notesEl.innerHTML = html;
+    handEl.innerHTML = '';
+    renderPins(idx);
+    return;
+  }
+  var kindLabel = ctx.kind === 'plan' ? 'Plan' : (ctx.kind === 'reaction_auto' ? 'Auto-reaction' : 'Reaction');
+  titleEl.textContent = kindLabel + ' — Turn ' + events[ctx.sourceIdx].turn + ' — ' + actorLabel(ctx.actor);
+  var notesHTML = ctx.notesText ? fmtLines(ctx.notesText) : '<span class="muted">(no notes)</span>';
+  if (ctx.dimmed) notesHTML = '<div class="decision-context-label">decision context</div>' + notesHTML;
+  notesEl.innerHTML = notesHTML;
+  renderHandRow(handEl, ctx.handArr, ctx.badgeMap);
+  renderPins(idx);
+}
+
+/* ======================= centre: deck / discard / in-play ======================= */
+function buildCenterLayer(ev){
+  var layer = document.createDocumentFragment();
+  var center = (LAYOUT && LAYOUT.center) ? LAYOUT.center : LAYOUT_DEFAULT.center;
+  var card = cardSize();
+  var st = (ev && ev.state) || {};
+
+  if (center && center.deck){
+    for (var i = 0; i < 3; i++){
+      var dx = center.deck.x + (i - 1) * 2, dy = center.deck.y + (i - 1) * 2;
+      var dslot = mkSlot(dx, dy, card.w, card.h, 0);
+      dslot.style.zIndex = String(i);
+      fillBackImg(dslot, 'media/cards/back.png');
+      layer.appendChild(dslot);
+    }
+    if (st.deck_n != null){
+      layer.appendChild(mkBadge(center.deck.x + card.w / 2, center.deck.y - card.h / 2, String(st.deck_n), ''));
+    }
+  }
+
+  if (center && center.discard){
+    var topUid = st.discard_top;
+    var cid = topUid ? uidToCardId(topUid) : null;
+    if (cid != null){
+      var meta = cardMetaById(cid);
+      var slot = mkSlot(center.discard.x, center.discard.y, card.w, card.h, 0);
+      fillCardImg(slot, cid, meta ? meta.name : ('#' + cid), chip('effect', meta ? meta.name : ('#' + cid), topUid));
+      layer.appendChild(slot);
+    } else {
+      var outline = document.createElement('div');
+      outline.className = 'tempty-outline';
+      outline.style.left = (center.discard.x - card.w / 2) + 'px';
+      outline.style.top = (center.discard.y - card.h / 2) + 'px';
+      outline.style.width = card.w + 'px';
+      outline.style.height = card.h + 'px';
+      layer.appendChild(outline);
+    }
+    if (st.discard_n != null){
+      layer.appendChild(mkBadge(center.discard.x + card.w / 2, center.discard.y - card.h / 2, String(st.discard_n), ''));
+    }
+  }
+
+  var inPlay = Array.isArray(st.in_play) ? st.in_play : [];
+  if (inPlay.length){
+    var actorSeat = (ev && ev.actor != null) ? ev.actor : ((ev && ev.data && ev.data.actor != null) ? ev.data.actor : null);
+    var seatL = actorSeat != null ? seatByIndex(actorSeat) : null;
+    var t = tableCircle();
+    var anchor = (seatL && seatL.inplay) ? seatL.inplay : { x: t.cx, y: t.cy };
+    var rot = seatL ? (seatL.rotation || 0) : 0;
+    inPlay.forEach(function(uid, i){
+      var cid2 = uidToCardId(uid);
+      var meta2 = cid2 != null ? cardMetaById(cid2) : null;
+      var off = (i - (inPlay.length - 1) / 2) * (card.w * 0.55);
+      var slot2 = mkSlot(anchor.x + off, anchor.y, card.w, card.h, rot);
+      slot2.style.zIndex = String(10 + i);
+      fillCardImg(slot2, cid2, meta2 ? meta2.name : ('#' + cid2), chip('effect', meta2 ? meta2.name : ('#' + cid2), uid));
+      layer.appendChild(slot2);
+    });
+  }
+
+  return layer;
+}
+
+/* ======================= main table render ======================= */
+function renderTable(ev){
+  var players = (gameData.game && gameData.game.players) || [];
+  var states = (ev.state && ev.state.players) || [];
+  var seatsLayer = document.getElementById('seats-layer');
+  var centerLayer = document.getElementById('center-layer');
+  seatsLayer.innerHTML = '';
+  centerLayer.innerHTML = '';
+  for (var seat = 0; seat < 4; seat++){
+    var staticP = findPlayerBySeat(players, seat);
+    var ps = findPlayerBySeat(states, seat);
+    try {
+      seatsLayer.appendChild(buildSeatGroup(seat, staticP, ps));
+    } catch (err){ /* one seat's bad data must never blank the whole table */ }
+  }
+  try { centerLayer.appendChild(buildCenterLayer(ev)); } catch (err){ /* ignore */ }
+}
+
+/* ======================= attack arrow ======================= */
+function arrowColor(result){
+  switch (result){
+    case 'hit': return '#c0392b';
+    case 'partial': return '#e08e2b';
+    case 'blocked': return '#3b7ea1';
+    case 'resolved': return '#3b8476';
+    default: return '#888';
+  }
+}
+function shrinkSegment(p1, p2, amt){
+  var dx = p2.x - p1.x, dy = p2.y - p1.y;
+  var len = Math.sqrt(dx * dx + dy * dy) || 1;
+  var ux = dx / len, uy = dy / len;
+  return { x1: p1.x + ux * amt, y1: p1.y + uy * amt, x2: p2.x - ux * amt, y2: p2.y - uy * amt };
+}
+function computeArrowInfo(idx){
+  var ev = events[idx];
+  if (!ev) return null;
+  var a = ev.actor, t = ev.target;
+  if (a == null || t == null || a === t) return null;
+  if (a < 0 || a > 3 || t < 0 || t > 3) return null;
+  var tx = ev.data && ev.data.tx;
+  var result = null;
+  if (tx){
+    for (var i = 0; i <= idx; i++){
+      var e2 = events[i];
+      if (e2.data && e2.data.tx === tx){
+        if (e2.kind === 'transaction_closed') result = e2.data.result || 'resolved';
+        else if (e2.kind === 'damage' && result == null) result = 'hit';
+      }
+    }
+  } else if (ev.kind === 'damage') {
+    result = 'hit';
+  }
+  return { from: a, to: t, result: result };
+}
+function renderArrow(idx){
+  var info = computeArrowInfo(idx);
+  var line = document.getElementById('arrow-line');
+  var head = document.getElementById('arrow-marker-path');
+  if (!info){ line.style.display = 'none'; return; }
+  var fromL = seatByIndex(info.from), toL = seatByIndex(info.to);
+  var p1 = fromL.inplay || fromL.character || { x: 0, y: 0 };
+  var p2 = toL.character || { x: 0, y: 0 };
+  var seg = shrinkSegment(p1, p2, 26);
+  line.style.display = 'block';
+  line.setAttribute('x1', seg.x1); line.setAttribute('y1', seg.y1);
+  line.setAttribute('x2', seg.x2); line.setAttribute('y2', seg.y2);
+  var color = arrowColor(info.result);
+  line.setAttribute('stroke', color);
+  line.setAttribute('stroke-dasharray', info.result ? '0' : '10,7');
+  if (head) head.setAttribute('fill', color);
+}
+
+/* ======================= stage scaling ======================= */
+function resizeStage(){
+  var wrap = document.getElementById('stage-wrap');
+  var stage = document.getElementById('stage');
+  if (!wrap || !stage) return;
+  var img = imageDims();
+  var w = img.w, h = img.h;
+  stage.style.width = w + 'px';
+  stage.style.height = h + 'px';
+  document.getElementById('stage-bg').style.width = w + 'px';
+  document.getElementById('stage-bg').style.height = h + 'px';
+  document.getElementById('seats-layer').style.width = w + 'px';
+  document.getElementById('seats-layer').style.height = h + 'px';
+  document.getElementById('center-layer').style.width = w + 'px';
+  document.getElementById('center-layer').style.height = h + 'px';
+  var svg = document.getElementById('arrow-svg');
+  svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
+  svg.style.width = w + 'px';
+  svg.style.height = h + 'px';
+  var cw = wrap.clientWidth || w;
+  var k = cw / w;
+  stage.style.transform = 'scale(' + k + ')';
+}
+
+/* ======================= layout loading ======================= */
+function applyLayoutOverride(json){
+  if (json && json.image && json.table && json.card && Array.isArray(json.seats) && json.seats.length === 4){
+    LAYOUT = json;
+    resizeStage();
+    if (events.length) renderAt(currentIndex);
+  }
+}
+function tryLoadLayout(){
+  fetch('media/table-layout.json').then(function(r){
+    if (!r.ok) throw new Error('no layout');
+    return r.json();
+  }).then(applyLayoutOverride).catch(function(){ /* file://, missing, or bad JSON: keep the inlined default */ });
+}
+
+/* ======================= log ======================= */
+function logRowHTML(e, i){
+  var turnBadge = '<span class="turn-badge">T' + e.turn + '</span>';
+  var kindTag = '<span class="kind-tag">' + escapeHtml(e.kind) + '</span>';
+  var cardBtn = '';
+  if (e.card_id != null){
+    var c = gameData.cards[String(e.card_id)];
+    var ch = c ? null : findCharacterById(e.card_id);
+    var label = c ? c.name : (ch ? ch.name : ('#' + e.card_id));
+    cardBtn = ' <span class="card-ref" data-card="' + e.card_id + '">[' + escapeHtml(label) + ']</span>';
+  }
+  var extra = '';
+  if (e.notes){
+    extra += '<details><summary>notes</summary><div class="detail-body">' + escapeHtml(e.notes) + '</div></details>';
+  }
+  if (e.kind === 'ruling' && e.data && e.data.question){
+    extra += '<details><summary>question</summary><div class="detail-body">' + escapeHtml(e.data.question) + '</div></details>';
+  }
+  return '<div class="log-row" data-idx="' + i + '">' + turnBadge + kindTag + escapeHtml(e.text || '') + cardBtn + extra + '</div>';
+}
+function renderLogAll(){
+  var list = document.getElementById('log-list');
+  var out = [];
+  for (var i = 0; i < events.length; i++) out.push(logRowHTML(events[i], i));
+  list.innerHTML = out.join('');
+}
+function renderLogHighlight(idx){
+  var prev = document.querySelector('.log-row.current');
+  if (prev) prev.classList.remove('current');
+  var row = document.querySelector('.log-row[data-idx="' + idx + '"]');
+  if (row){
+    row.classList.add('current');
+    row.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  }
+}
+
+/* ======================= turn jumper ======================= */
+function buildTurnJumper(){
+  var wrap = document.getElementById('turn-jumper');
+  wrap.innerHTML = '';
+  for (var i = 0; i < events.length; i++){
+    if (events[i].kind === 'turn_start'){
+      (function(idx, turnNum){
+        var btn = document.createElement('button');
+        btn.className = 'turn-jump-btn';
+        btn.textContent = 'T' + turnNum;
+        btn.dataset.idx = idx;
+        btn.dataset.turn = turnNum;
+        btn.addEventListener('click', function(){ renderAt(idx); });
+        wrap.appendChild(btn);
+      })(i, events[i].turn);
+    }
+  }
+}
+function renderTurnJumperHighlight(ev){
+  var btns = document.querySelectorAll('.turn-jump-btn');
+  for (var i = 0; i < btns.length; i++){
+    btns[i].classList.toggle('current', Number(btns[i].dataset.turn) === ev.turn);
+  }
+}
+
+/* ======================= header ======================= */
+function formatResult(r){
+  if (!r) return 'in progress';
+  var winner = r.winner ? (r.winner === 'tie' ? 'tie' : r.winner + ' wins') : '—';
+  var score = '';
+  if (r.score && typeof r.score === 'object'){
+    var parts = [];
+    for (var k in r.score) if (Object.prototype.hasOwnProperty.call(r.score, k)) parts.push(k + ' ' + r.score[k]);
+    score = parts.join(' · ');
+  }
+  return (r.reason ? r.reason + ': ' : '') + winner + (score ? ' (' + score + ')' : '');
+}
+function renderHeaderStatic(){
+  var g = gameData.game || {};
+  document.getElementById('hdr-game').innerHTML = '<b>Game ' + escapeHtml(g.id != null ? g.id : '—') + '</b>';
+  document.getElementById('hdr-seed').textContent = 'Seed ' + (g.seed != null ? g.seed : '—');
+  document.getElementById('hdr-result').textContent = formatResult(g.result);
+  var players = Array.isArray(g.players) ? g.players : [];
+  document.getElementById('hdr-players').innerHTML = players.map(function(p){
+    var faction = p.faction === 'ninja' ? 'ninja' : 'samurai';
+    var cname = (p.character && p.character.name) || '?';
+    return '<span class="legend-chip ' + faction + '">P' + p.seat + ' ' + escapeHtml(p.name || '') + ' — ' + escapeHtml(cname) + '</span>';
+  }).join('');
+}
+function renderHeaderPosition(ev){
+  document.getElementById('hdr-pos').textContent = 'Turn ' + ev.turn + ' · Event ' + (currentIndex + 1) + '/' + events.length;
+  var st = ev.state;
+  document.getElementById('hdr-deck').textContent = st ? ('Deck ' + st.deck_n + ' · Discard ' + st.discard_n) : '';
+}
+
+/* ======================= main render ======================= */
+function renderAt(idx){
+  if (!events.length) return;
+  idx = Math.max(0, Math.min(idx, events.length - 1));
+  currentIndex = idx;
+  var ev = events[idx];
+  renderHeaderPosition(ev);
+  renderTable(ev);
+  renderArrow(idx);
+  renderDecisionPanel(idx);
+  renderLogHighlight(idx);
+  renderTurnJumperHighlight(ev);
+  var scrubber = document.getElementById('scrubber');
+  if (Number(scrubber.value) !== idx) scrubber.value = idx;
+}
+
+/* ======================= autoplay ======================= */
+function startAutoplay(){
+  if (!events.length) return;
+  if (currentIndex >= events.length - 1) renderAt(0);
+  stopAutoplay();
+  autoplayTimer = setInterval(function(){
+    if (currentIndex >= events.length - 1){ stopAutoplay(); return; }
+    renderAt(currentIndex + 1);
+  }, Math.max(120, 900 / autoplaySpeed));
+  document.getElementById('btn-play').textContent = '⏸';
+}
+function stopAutoplay(){
+  if (autoplayTimer){ clearInterval(autoplayTimer); autoplayTimer = null; }
+  document.getElementById('btn-play').textContent = '▶';
+}
+function toggleAutoplay(){
+  if (autoplayTimer) stopAutoplay(); else startAutoplay();
+}
+
+/* ======================= loading / normalizing ======================= */
+function normalizeEvent(e, i){
+  e = (e && typeof e === 'object') ? e : {};
+  return {
+    seq: e.seq != null ? e.seq : i,
+    turn: e.turn != null ? e.turn : 0,
+    active: e.active != null ? e.active : null,
+    kind: e.kind || 'unknown',
+    actor: e.actor != null ? e.actor : null,
+    target: e.target != null ? e.target : null,
+    card: e.card || null,
+    card_id: e.card_id != null ? e.card_id : null,
+    text: e.text || '',
+    data: (e.data && typeof e.data === 'object') ? e.data : {},
+    notes: e.notes || null,
+    state: (e.state && typeof e.state === 'object') ? e.state : null
+  };
+}
+function normalizeGameData(data){
+  data = (data && typeof data === 'object') ? data : {};
+  var game = (data.game && typeof data.game === 'object') ? data.game : {};
+  var cards = (data.cards && typeof data.cards === 'object') ? data.cards : {};
+  var evs = Array.isArray(data.events) ? data.events : [];
+  evs = evs.map(normalizeEvent);
+  game.players = Array.isArray(game.players) ? game.players.slice() : [];
+  for (var i = 0; i < 4; i++){
+    if (!game.players[i]){
+      game.players[i] = { seat: i, name: 'P' + i, faction: (i % 2 === 0 ? 'samurai' : 'ninja'),
+        character: { id: null, name: '?', hp: 1, text: '' } };
+    }
+  }
+  return { game: game, cards: cards, events: evs };
+}
+function loadGame(data, label){
+  try {
+    var normalized = normalizeGameData(data);
+    if (!normalized.events.length){
+      showLoaderMessage('That file has no events to show.');
+      return;
+    }
+    gameData = normalized;
+    events = gameData.events;
+    currentIndex = 0;
+    stopAutoplay();
+    document.getElementById('scrubber').max = Math.max(0, events.length - 1);
+    renderHeaderStatic();
+    buildTurnJumper();
+    renderLogAll();
+    hideLoader();
+    resizeStage();
+    renderAt(0);
+  } catch (err){
+    showLoaderMessage('Could not load this game: ' + (err && err.message ? err.message : err));
+    showLoader();
+  }
+}
+
+/* ======================= loader UI ======================= */
+function showLoader(){ document.getElementById('loader').style.display = 'flex'; }
+function hideLoader(){ document.getElementById('loader').style.display = 'none'; }
+function showLoaderMessage(msg){ document.getElementById('loader-msg').textContent = msg || ''; }
+
+function readFile(file){
+  var reader = new FileReader();
+  reader.onload = function(){
+    try {
+      var data = JSON.parse(reader.result);
+      loadGame(data, file.name);
+    } catch (err){
+      showLoaderMessage('That file is not valid JSON: ' + err.message);
+    }
+  };
+  reader.onerror = function(){ showLoaderMessage('Could not read that file.'); };
+  reader.readAsText(file);
+}
+function fetchAndLoad(src){
+  showLoaderMessage('Loading ' + src + ' …');
+  fetch(src).then(function(r){
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return r.json();
+  }).then(function(data){
+    loadGame(data, src);
+  }).catch(function(err){
+    showLoaderMessage('Could not load "' + src + '": ' + err.message + '. Choose a file instead.');
+    showLoader();
+  });
+}
+function populateGameDropdown(games){
+  var sel = document.getElementById('game-select');
+  var opts = ['<option value="">— choose a game —</option>'];
+  for (var i = 0; i < games.length; i++){
+    var g = games[i] || {};
+    opts.push('<option value="' + escapeHtml(g.file || '') + '">Game ' + escapeHtml(g.id) +
+      ' (seed ' + escapeHtml(g.seed) + ', ' + escapeHtml(g.turns_played != null ? g.turns_played : '?') + ' turns)</option>');
+  }
+  sel.innerHTML = opts.join('');
+  sel.style.display = 'inline-block';
+  sel.onchange = function(){
+    if (sel.value) location.search = '?src=' + encodeURIComponent(sel.value);
+  };
+  var currentSrc = new URLSearchParams(location.search).get('src');
+  if (currentSrc) sel.value = currentSrc;
+}
+function tryLoadIndex(){
+  fetch('games/index.json').then(function(r){
+    if (!r.ok) throw new Error('no index');
+    return r.json();
+  }).then(function(j){
+    if (j && Array.isArray(j.games) && j.games.length) populateGameDropdown(j.games);
+  }).catch(function(){ /* file://, missing, or no games yet: silently ignore */ });
+}
+
+/* ======================= wiring ======================= */
+function attachListeners(){
+  document.getElementById('decision-toggle').onclick = function(){
+    document.getElementById('decision-panel').classList.toggle('collapsed');
+  };
+  document.getElementById('btn-home').onclick = function(){ stopAutoplay(); renderAt(0); };
+  document.getElementById('btn-prev').onclick = function(){ stopAutoplay(); renderAt(currentIndex - 1); };
+  document.getElementById('btn-next').onclick = function(){ stopAutoplay(); renderAt(currentIndex + 1); };
+  document.getElementById('btn-end').onclick = function(){ stopAutoplay(); renderAt(events.length - 1); };
+  document.getElementById('btn-play').onclick = toggleAutoplay;
+  document.getElementById('speed-select').onchange = function(e){
+    autoplaySpeed = Number(e.target.value) || 1;
+    if (autoplayTimer) startAutoplay();
+  };
+  document.getElementById('scrubber').addEventListener('input', function(e){
+    stopAutoplay();
+    renderAt(Number(e.target.value));
+  });
+
+  document.getElementById('log-list').addEventListener('click', function(e){
+    if (e.target.closest('[data-card]') || e.target.closest('details')) return;
+    var row = e.target.closest('.log-row');
+    if (row) { stopAutoplay(); renderAt(Number(row.dataset.idx)); }
+  });
+
+  document.getElementById('btn-choose').onclick = function(){ document.getElementById('file-input').click(); };
+  document.getElementById('file-input').addEventListener('change', function(e){
+    var f = e.target.files && e.target.files[0];
+    if (f) readFile(f);
+  });
+  var dropzone = document.getElementById('dropzone');
+  ['dragover', 'dragenter'].forEach(function(evt){
+    dropzone.addEventListener(evt, function(e){ e.preventDefault(); dropzone.classList.add('dragover'); });
+  });
+  ['dragleave', 'drop'].forEach(function(evt){
+    dropzone.addEventListener(evt, function(e){ e.preventDefault(); dropzone.classList.remove('dragover'); });
+  });
+  dropzone.addEventListener('drop', function(e){
+    var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+    if (f) readFile(f);
+  });
+  window.addEventListener('dragover', function(e){ e.preventDefault(); });
+  window.addEventListener('drop', function(e){
+    e.preventDefault();
+    var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+    if (f) readFile(f);
+  });
+
+  window.addEventListener('resize', resizeStage);
+
+  document.addEventListener('mouseover', function(e){
+    if (popoverPinned) return;
+    var el = e.target.closest && e.target.closest('[data-card]');
+    if (el){
+      var id = Number(el.getAttribute('data-card'));
+      if (!isNaN(id)) showCardPopover(el, id);
+    }
+  });
+  document.addEventListener('mouseout', function(e){
+    if (popoverPinned) return;
+    var el = e.target.closest && e.target.closest('[data-card]');
+    if (el) hideCardPopover();
+  });
+  document.addEventListener('click', function(e){
+    var el = e.target.closest && e.target.closest('[data-card]');
+    if (el){
+      var id = Number(el.getAttribute('data-card'));
+      if (!isNaN(id)){ popoverPinned = true; showCardPopover(el, id); }
+      e.stopPropagation();
+      return;
+    }
+    if (!e.target.closest || !e.target.closest('#card-popover')) hideCardPopover();
+  });
+
+  document.addEventListener('keydown', function(e){
+    var tag = (document.activeElement && document.activeElement.tagName) || '';
+    if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') {
+      if (e.key === 'Escape') hideCardPopover();
+      return;
+    }
+    if (!events.length) return;
+    if (e.key === 'ArrowRight'){ stopAutoplay(); renderAt(currentIndex + 1); e.preventDefault(); }
+    else if (e.key === 'ArrowLeft'){ stopAutoplay(); renderAt(currentIndex - 1); e.preventDefault(); }
+    else if (e.key === 'Home'){ stopAutoplay(); renderAt(0); e.preventDefault(); }
+    else if (e.key === 'End'){ stopAutoplay(); renderAt(events.length - 1); e.preventDefault(); }
+    else if (e.key === ' '){ toggleAutoplay(); e.preventDefault(); }
+    else if (e.key === 'Escape'){ hideCardPopover(); }
+  });
+}
+
+function init(){
+  attachListeners();
+  resizeStage();
+  tryLoadLayout();
+  tryLoadIndex();
+  var params = new URLSearchParams(location.search);
+  var src = params.get('src');
+  if (src) fetchAndLoad(src);
+}
+
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+else init();
+
+</script>
+</body>
+</html>

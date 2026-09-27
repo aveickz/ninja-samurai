@@ -1,0 +1,10 @@
+{
+  "result": "hit",
+  "uses_attack": true,
+  "ops": [
+    {"op": "damage", "seat": 1, "n": 2, "source": "attack", "by": 0}
+  ],
+  "narrative": "P0 (Norio) swings the Kusarigama, striking P1 (Taranaga) for 2 wounds.",
+  "rulings": [],
+  "flags": {"ambiguous": false}
+}

@@ -1,0 +1,138 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://samurai-vs-ninja/simulation/resolve.schema.json",
+  "title": "Resolve",
+  "description": "The referee's ruling on the open transaction, submitted with `sim.py resolve --game N --file F` (simulation.md §5.5). Ops are validated then applied all-or-nothing.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "result": {
+      "type": ["string", "null"],
+      "description": "Free-form label such as 'hit' / 'blocked' / 'rejected' — informational, not interpreted by sim.py."
+    },
+    "uses_attack": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether this closes out one of the attacker's attempts (bare hands always cost both, regardless of this flag)."
+    },
+    "ops": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/op" }
+    },
+    "narrative": { "type": ["string", "null"] },
+    "rulings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "card": {},
+          "question": { "type": "string" },
+          "ruling": { "type": "string" }
+        }
+      }
+    },
+    "flags": { "type": ["object", "null"], "additionalProperties": true }
+  },
+  "$defs": {
+    "uid": { "type": "string", "pattern": "^c[0-9]+-[0-9]+$" },
+    "seat": { "type": "integer", "minimum": 0 },
+    "op": {
+      "type": "object",
+      "required": ["op"],
+      "oneOf": [
+        {
+          "properties": {
+            "op": { "const": "damage" }, "seat": { "$ref": "#/$defs/seat" }, "n": { "type": "integer", "minimum": 0 },
+            "source": { "type": "string", "enum": ["attack", "thrust", "trap", "poison", "other"] },
+            "by": { "oneOf": [{ "$ref": "#/$defs/seat" }, { "type": "null" }] }
+          },
+          "required": ["op", "seat", "n"]
+        },
+        {
+          "properties": {
+            "op": { "const": "heal" }, "seat": { "$ref": "#/$defs/seat" }, "n": { "type": "integer", "minimum": 0 },
+            "over_max": { "type": "integer", "minimum": 0, "default": 0 }
+          },
+          "required": ["op", "seat", "n"]
+        },
+        {
+          "properties": { "op": { "const": "set_hp" }, "seat": { "$ref": "#/$defs/seat" }, "hp": { "type": "integer", "minimum": 0 } },
+          "required": ["op", "seat", "hp"]
+        },
+        {
+          "properties": { "op": { "const": "poison" }, "seat": { "$ref": "#/$defs/seat" }, "value": { "type": "boolean" } },
+          "required": ["op", "seat", "value"]
+        },
+        {
+          "properties": { "op": { "const": "draw" }, "seat": { "$ref": "#/$defs/seat" }, "n": { "type": "integer", "minimum": 1 } },
+          "required": ["op", "seat", "n"]
+        },
+        {
+          "properties": {
+            "op": { "const": "discard" }, "seat": { "$ref": "#/$defs/seat" },
+            "uids": { "type": "array", "items": { "$ref": "#/$defs/uid" } }
+          },
+          "required": ["op", "seat", "uids"]
+        },
+        {
+          "properties": { "op": { "const": "discard_random" }, "seat": { "$ref": "#/$defs/seat" }, "n": { "type": "integer", "minimum": 1 } },
+          "required": ["op", "seat", "n"]
+        },
+        {
+          "properties": {
+            "op": { "const": "transfer" }, "from": { "$ref": "#/$defs/seat" }, "to": { "$ref": "#/$defs/seat" },
+            "uid": { "$ref": "#/$defs/uid" }
+          },
+          "required": ["op", "from", "to", "uid"]
+        },
+        {
+          "properties": {
+            "op": { "const": "transfer_random" }, "from": { "$ref": "#/$defs/seat" }, "to": { "$ref": "#/$defs/seat" },
+            "n": { "type": "integer", "minimum": 1, "default": 1 }
+          },
+          "required": ["op", "from", "to"]
+        },
+        {
+          "properties": {
+            "op": { "const": "move" }, "uid": { "$ref": "#/$defs/uid" },
+            "to": { "type": "string", "enum": ["hand", "discard", "removed", "stance", "trap", "aura", "effects", "charges"] },
+            "seat": { "$ref": "#/$defs/seat" },
+            "face_up": { "type": "boolean", "default": false }
+          },
+          "required": ["op", "uid", "to"]
+        },
+        {
+          "properties": {
+            "op": { "const": "reveal" }, "seat": { "$ref": "#/$defs/seat" },
+            "what": { "type": "string", "enum": ["hand", "trap"] }
+          },
+          "required": ["op", "seat", "what"]
+        },
+        {
+          "properties": { "op": { "const": "vp" }, "seat": { "$ref": "#/$defs/seat" }, "delta": { "type": "integer" } },
+          "required": ["op", "seat", "delta"]
+        },
+        {
+          "properties": { "op": { "const": "kill" }, "seat": { "$ref": "#/$defs/seat" }, "by": { "oneOf": [{ "$ref": "#/$defs/seat" }, { "type": "null" }] } },
+          "required": ["op", "seat"]
+        },
+        {
+          "properties": {
+            "op": { "const": "flag" }, "seat": { "$ref": "#/$defs/seat" }, "key": { "type": "string" }, "value": {}
+          },
+          "required": ["op", "seat", "key", "value"]
+        },
+        {
+          "properties": { "op": { "const": "note" }, "text": { "type": "string" } },
+          "required": ["op", "text"]
+        },
+        {
+          "description": "Voids the whole transaction: cards return to hand, no attempt is used. Must be the ONLY op in the list.",
+          "properties": { "op": { "const": "reject" }, "reason": { "type": "string" } },
+          "required": ["op", "reason"]
+        }
+      ]
+    }
+  }
+}
