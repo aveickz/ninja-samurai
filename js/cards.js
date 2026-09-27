@@ -1650,7 +1650,7 @@ const CARDS = [
     tags: ["toPrint"],
     desc: "Тратит попытку атаки. Сбросьте с руки до трёх других карт: каждая — бросок метательным оружием силой 1 во врага, цели распределяете как угодно. От каждого броска защищаются отдельно.",
     enDesc: "Uses up an attack attempt. Discard up to three other cards from your hand: each one is a thrown attack of power 1 against an enemy, split among targets as you like. Each throw is defended separately.",
-    img: "cards/card_shkval_ognya.png"
+    img: "cards/card_87_shkval_ognya.png"
   },
   {
     id: 88,
