@@ -1741,7 +1741,7 @@ const CARDS = [
     tags: ["draft", "toPrint"],
     desc: "Каждый враг получает атаку равную по силе количеству ваших союзников при смерти. От этого нельзя защититься. TODO: полностью переделать (22.09.2026) — каскадный урон от числа мёртвых союзников, антипаттерн; в черновике.",
     enDesc: "Every enemy takes an attack with power equal to the number of your allies at death's door. This cannot be defended. TODO: full rework (22.09.2026) — cascading damage scaled by dead allies is an anti-pattern; draft.",
-    img: "cards/card_redemption_cry.png"
+    img: "cards/card_3094_krik_vozmezdiya.png"
   },
   {
     id: 1094,
