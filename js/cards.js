@@ -1044,10 +1044,10 @@ const CARDS = [
     types: ["stance"],
     qty: 1,
     group: "stance",
-    icons: [],
+    icons: ["rolectx"],
     tags: ["toPrint"],
-    desc: "Вы считаетесь убитым для других игроков весь раунд, но в начале своего хода сбрасываете эту стойку. Ваша аура при этом продолжает действовать.",
-    enDesc: "You count as dead to the other players for the whole round, but you discard this Stance at the start of your turn. Your Aura keeps working meanwhile.",
+    desc: "Выставить эту стойку могут только {ниндзя}.[NL]Вы считаетесь убитым для других игроков весь раунд, но в начале своего хода сбрасываете эту стойку. Ваша аура при этом продолжает действовать.",
+    enDesc: "Only {Ninja} may take this Stance.[NL]You count as dead to the other players for the whole round, but you discard this Stance at the start of your turn. Your Aura keeps working meanwhile.",
     img: "cards/card_57_ten.png"
   },
   {
@@ -1072,8 +1072,8 @@ const CARDS = [
     group: "stance",
     icons: [],
     tags: ["toPrint"],
-    desc: "При выставлении восстановить два жетона жизни.[NL]Всякий раз, когда вы берёте карты из колоды — в фазе набора, обменом или по эффекту карты, — берите на одну больше.",
-    enDesc: "When played, restore 2 life.[NL]Whenever you draw cards from the deck — in the draw phase, by exchange or from a card effect — draw one more.",
+    desc: "Всякий раз, когда вы берёте карты из колоды — в фазе набора, обменом или по эффекту карты, — берите на одну больше.",
+    enDesc: "Whenever you draw cards from the deck — in the draw phase, by exchange or from a card effect — draw one more.",
     img: "cards/card_59_lotos.png"
   },
   {
@@ -1111,8 +1111,8 @@ const CARDS = [
     group: "stance",
     icons: [],
     tags: ["toPrint"],
-    desc: "В начале своего хода восстановите жетон жизни любому игроку.[NL]Любое ваше лечение заодно снимает с игрока яд и один эффект на ваш выбор.",
-    enDesc: "At the start of your turn, restore 1 life to any player.[NL]Whenever you restore life to a player, also clear their Poison and one Effect of your choice.",
+    desc: "Раз в свой ход вы можете восстановить жетон жизни любому игроку.[NL]Любое ваше лечение заодно снимает с игрока яд и один эффект на ваш выбор.",
+    enDesc: "Once per turn you may restore 1 life to any player.[NL]Whenever you restore life to a player, also clear their Poison and one Effect of your choice.",
     img: "cards/card_62_kapellan.png"
   },
   {
@@ -1135,9 +1135,10 @@ const CARDS = [
     types: ["stance"],
     qty: 1,
     group: "stance",
-    tags: [],
-    desc: "В момент получения ран от оружия вы можете выбрать союзника, согласного с вами разделить в любой пропорции полученные раны.",
-    enDesc: "When you take wounds from a weapon, you may choose a willing ally to share those wounds with you in any split.",
+    icons: ["rolectx"],
+    tags: ["toPrint"],
+    desc: "Выставить эту стойку могут только {самураи}.[NL]В момент получения ран от оружия вы можете выбрать союзника, согласного с вами разделить в любой пропорции полученные раны.",
+    enDesc: "Only {Samurai} may take this Stance.[NL]When you take wounds from a weapon, you may choose a willing ally to share those wounds with you in any split.",
     img: "cards/card_1164_ketsuban.png",
   },
   {
