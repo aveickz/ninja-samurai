@@ -123,6 +123,17 @@
       "port": 9141
     },
     {
+      "name": "cardboard-static-kama",
+      "runtimeExecutable": "py",
+      "runtimeArgs": [
+        "-3",
+        "-m",
+        "http.server",
+        "9173"
+      ],
+      "port": 9173
+    },
+    {
       "name": "sim-viewer",
       "runtimeExecutable": "py",
       "runtimeArgs": [
