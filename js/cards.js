@@ -319,7 +319,7 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["complexity1", "dmg3"],
-    tags: [],
+    tags: ["toPrint"],
     desc: "",
     enDesc: "",
     img: "cards/card_16_mekko.png"
