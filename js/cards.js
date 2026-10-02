@@ -1095,7 +1095,7 @@ const CARDS = [
     qty: 1,
     group: "defense",
     icons: [],
-    tags: ["draft", "toPrint"],
+    tags: ["trash"],
     desc: "Атака не проходит, и вы берёте карту из колоды. -ИЛИ- Отведите удар на любого из своих соседей: атака идёт по нему с той же силой, и он может защищаться.",
     enDesc: "The attack fails and you draw a card. -OR- Deflect the blow onto either of your neighbours: the attack hits them with the same power, and they may defend.",
     img: "cards/card_todo.png"
