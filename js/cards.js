@@ -529,10 +529,10 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["complexity2", "dmg1"],
-    tags: [],
+    tags: ["toPrint"],
     desc: "{Древковое} В стойке {всадника} наносит на одну рану больше.",
     enDesc: "{Polearm} In the {Horseman} stance, deals 1 extra wound.",
-    img: "cards/card_31_kamayari.png"
+    img: "cards/card_30_kamayari.png"
   },
   {
     id: 31,
