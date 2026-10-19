@@ -19,7 +19,9 @@ PDF, CMYK FOGRA39, 300 ppi, все слои сведены в один Backgroun
     от рваного края рамки до реза 2,2–3,0 мм — запас и ножу, и глазу.
   • Карты стоят с промежутком GAP (6 мм), по линии реза каждой лица —
     серый пунктир (50 % K, 1 CSS-пиксель = 0,26 мм) со скруглёнными
-    углами R 3 мм: видно, какой выйдет карта. Рубашки — без пунктира.
+    углами R 3 мм: видно, какой выйдет карта. Рубашки — без пунктира,
+    рисунок рубашки уменьшен до BACK_SCALE (90 %) и стоит по центру кадра:
+    к краям меньше прилегает, белого больше.
   • sRGB → FOGRA39 тем же профилем и интентом (perceptual), что
     CMYK-превью картотеки (tools/bake-cmyk-css.py).
   • Лист собирается в CMYK: сетка 3×3 по центру листа, метки реза, кресты
@@ -69,6 +71,7 @@ RADIUS_MM = 3.0          # скругление углов карты, как у
 OUTLINE_MM = 25.4 / 96   # пунктир по линии реза: 1 CSS-пиксель = 0,26 мм
 OUTLINE_K = 0.5          # …серый, 50 % K
 DASH_MM, DASH_GAP_MM = 1.5, 1.0
+BACK_SCALE = 0.9         # рисунок рубашки — 90 % кадра, по центру
 
 # Печатный режим картотеки, приколоченный к пикселю: карта в (0,0),
 # ширина 611/300 дюйма (при device scale 300/96 это ровно 611 px),
@@ -159,16 +162,29 @@ def render(cards_wanted, lang, k):
     return out
 
 
-def back_image(k):
-    """Рубашка в кадре рамки: центр 5:8 из media/backs (по бокам там белое)."""
+def back_image(k, scale):
+    """Рубашка в кадре рамки CARD×k: рисунок из media/backs уменьшен до
+    scale и стоит ровно по центру, вокруг — белое. Размер рисунка
+    подогнан под целые пиксели с чётным остатком (центр без сдвига на
+    полпикселя), а вырез из исходника — под его пропорцию, так что
+    уменьшение изотропное, без растяжки."""
     im = Image.open(BACK).convert('RGB')
     # Фон рисунка — 252–254, а не 255: после профиля это 1–2 % краски
     # сплошным прямоугольником с жёстким краем вокруг рисунка. Это бумага,
     # а не тон, поэтому белая точка поднимается до 250.
     im = im.point(lambda v: min(255, round(v * 255 / 250)))
-    w = round(im.height * CARD[0] / CARD[1])
-    x0 = (im.width - w) // 2
-    return im.crop((x0, 0, x0 + w, im.height)).resize((CARD[0] * k, CARD[1] * k), Image.LANCZOS)
+    W, H = CARD[0] * k, CARD[1] * k
+
+    def fit(n):
+        v = round(n * scale)
+        return v - (n - v) % 2
+    w, h = fit(W), fit(H)
+    cw = round(im.height * w / h)                      # центр исходника в пропорции рисунка
+    x0 = (im.width - cw) // 2
+    art = im.crop((x0, 0, x0 + cw, im.height)).resize((w, h), Image.LANCZOS)
+    out = Image.new('RGB', (W, H), 'white')
+    out.paste(art, ((W - w) // 2, (H - h) // 2))
+    return out
 
 
 # ── Геометрия листа ───────────────────────────────────────────────────
@@ -522,6 +538,7 @@ def main():
     ap.add_argument('--sheet-bleed', type=float, default=5.0, help='белый вылет листа, мм (ottisk: 5)')
     ap.add_argument('--gap', type=float, default=GAP_MM, help='промежуток между картами, мм')
     ap.add_argument('--radius', type=float, default=RADIUS_MM, help='радиус скругления углов пунктира, мм')
+    ap.add_argument('--back-scale', type=float, default=BACK_SCALE, help='размер рисунка рубашки от кадра')
     ap.add_argument('--out', default='print', help='папка для PDF')
     ap.add_argument('--name', help='база имени файлов; по умолчанию sheets_<lang>[_test<N>]_<дата>')
     ap.add_argument('--preview', help='папка для PNG soft-proof листов и проверки «на просвет»')
@@ -561,7 +578,7 @@ def main():
         cmyk = burn_gray(cmyk, sheet.outlines(len(chunk)))
         label = f'Samurai vs Ninja · {a.lang.upper()} · faces {n}/{len(chunks)} · {today}'
         faces.append(burn_k(cmyk, draw_label(sheet, label)))
-    back_card = back_image(k)
+    back_card = back_image(k, a.back_scale)
     back = burn_k(to_cmyk(sheet.compose([back_card] * per), to_cmyk_t), marks)
 
     os.makedirs(a.out, exist_ok=True)
