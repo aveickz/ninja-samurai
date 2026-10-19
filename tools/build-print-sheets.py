@@ -15,12 +15,15 @@ PDF, CMYK FOGRA39, 300 ppi, все слои сведены в один Backgroun
     шрифты карты заданы в pt, и экранная карта шириной 240 px разложила бы
     текст иначе, чем бумажная. Ширина — 611/300 дюйма, ровно 611 px маски
     при 300 ppi, так что рамка ложится пиксель в пиксель.
-  • Вокруг рамки — белое поле PAD (2,1 мм): ячейка 661×1028 px = 56×87 мм,
+  • Вокруг рамки — белое поле PAD (2,1 мм): карта 661×1028 px = 56×87 мм,
     от рваного края рамки до реза 2,2–3,0 мм — запас и ножу, и глазу.
+  • Карты стоят с промежутком GAP (6 мм), по линии реза каждой лица —
+    серый пунктир (50 % K, 1 CSS-пиксель = 0,26 мм) со скруглёнными
+    углами R 3 мм: видно, какой выйдет карта. Рубашки — без пунктира.
   • sRGB → FOGRA39 тем же профилем и интентом (perceptual), что
     CMYK-превью картотеки (tools/bake-cmyk-css.py).
-  • Лист собирается в CMYK: сетка 3×3 встык по центру листа, метки реза,
-    кресты приводки и подпись рисуются прямо в канал K — чистый 100K без
+  • Лист собирается в CMYK: сетка 3×3 по центру листа, метки реза, кресты
+    приводки и подпись рисуются прямо в канал K — чистый 100K без
     пересчёта профилем.
   • Сетка, метки и кресты симметричны относительно вертикальной оси листа
     до пикселя, поэтому лист рубашек ложится на любой лист лиц при
@@ -36,12 +39,13 @@ PDF, CMYK FOGRA39, 300 ppi, все слои сведены в один Backgroun
 
 Пишет print/sheets_<lang>[_test<N>]_<дата>_faces.pdf и …_backs.pdf.
 """
-import argparse, datetime, io, os, re, sys, zlib
+import argparse, datetime, io, math, os, re, sys, zlib
 
 import numpy as np
 from PIL import Image, ImageChops, ImageCms, ImageDraw, ImageFont
 
 sys.stdout.reconfigure(encoding='utf-8')
+sys.stderr.reconfigure(encoding='utf-8')
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(ROOT)
 CHROME = r'C:\Program Files\Google\Chrome\Application\chrome.exe'
@@ -54,13 +58,17 @@ NON_PLAYABLE = ('role', 'character')
 # Все размеры — в пикселях при 300 ppi; при --dpi 600 умножаются на K=2,
 # поэтому симметрия раскладки сохраняется на любом разрешении.
 CARD = (611, 978)        # рамка карты = mask_*.png, 51,73 × 82,80 мм
-PAD = 25                 # белое поле вокруг рамки, 2,12 мм → ячейка 56 × 87 мм
+PAD = 25                 # белое поле вокруг рамки, 2,12 мм → карта 56 × 87 мм
 COLS, ROWS = 3, 3
 A4_MM = (210.0, 297.0)
 SAFE_MM = 5.0            # «влёты»: ничего ближе к краю A4
-MARK_OFF_MM = 2.0        # метка реза начинается в 2 мм от сетки
-MARK_LEN_MM = 6.0
+MARK_OFF_MM = 2.0        # метка реза — не ближе 2 мм к карте
 LINE_MM = 0.2            # минимум ottisk для одноцветной линии
+GAP_MM = 6.0             # белый промежуток между картами
+RADIUS_MM = 3.0          # скругление углов карты, как у игральных карт
+OUTLINE_MM = 25.4 / 96   # пунктир по линии реза: 1 CSS-пиксель = 0,26 мм
+OUTLINE_K = 0.5          # …серый, 50 % K
+DASH_MM, DASH_GAP_MM = 1.5, 1.0
 
 # Печатный режим картотеки, приколоченный к пикселю: карта в (0,0),
 # ширина 611/300 дюйма (при device scale 300/96 это ровно 611 px),
@@ -165,10 +173,18 @@ def back_image(k):
 
 # ── Геометрия листа ───────────────────────────────────────────────────
 class Sheet:
-    def __init__(self, k, sheet_bleed_mm):
+    """Лист: страница W×H px, сетка ячеек COLS×ROWS по центру. Ячейка —
+    карта (обрезной формат tw×th) плюс по полпромежутка g2 со всех сторон,
+    так что ячейки стоят встык, а карты — с промежутком 2·g2. Метки,
+    кресты и подпись — только снаружи сетки ячеек."""
+
+    def __init__(self, k, sheet_bleed_mm, gap_mm=GAP_MM, radius_mm=RADIUS_MM):
         self.k = k
         self.px_mm = 300 * k / 25.4
-        self.cw, self.ch = (CARD[0] + 2 * PAD) * k, (CARD[1] + 2 * PAD) * k
+        self.radius_mm = radius_mm
+        self.tw, self.th = (CARD[0] + 2 * PAD) * k, (CARD[1] + 2 * PAD) * k
+        self.g2 = round(self.mm(gap_mm) / 2)
+        self.cw, self.ch = self.tw + 2 * self.g2, self.th + 2 * self.g2
         gw, gh = self.cw * COLS, self.ch * ROWS
 
         def fit(mm, grid):   # целые пиксели листа с чётным остатком — сетка встаёт ровно по центру
@@ -183,6 +199,13 @@ class Sheet:
         # край A4 внутри страницы (дробный: страница в целых пикселях)
         self.tx = (self.W - A4_MM[0] * self.px_mm) / 2
         self.ty = (self.H - A4_MM[1] * self.px_mm) / 2
+        # полосы полей под метки: от «влёта» до сетки (и не ближе MARK_OFF к карте)
+        off = self.mm(MARK_OFF_MM)
+        self.band_y = (self.ty + self.mm(SAFE_MM), min(self.gy, self.gy + self.g2 - off))
+        self.band_x = (self.tx + self.mm(SAFE_MM), min(self.gx, self.gx + self.g2 - off))
+        if min(self.band_y[1] - self.band_y[0], self.band_x[1] - self.band_x[0]) < self.mm(2):
+            sys.exit(f'на метки реза не осталось поля: промежуток {gap_mm} мм слишком велик')
+        self._outline = None
 
     def cell(self, i):
         r, c = divmod(i, COLS)
@@ -194,11 +217,62 @@ class Sheet:
     def compose(self, images):
         """images: до 9 RGB-картинок кадра CARD×k → RGB-лист, белое вокруг."""
         sheet = Image.new('RGB', (self.W, self.H), 'white')
-        p = PAD * self.k
+        p = self.g2 + PAD * self.k
         for i, im in enumerate(images):
             x, y = self.cell(i)
             sheet.paste(im, (x + p, y + p))
         return sheet
+
+    def outline(self):
+        """L-маска одной ячейки: пунктир по линии реза со скруглёнными
+        углами. Центр линии — на границе обрезного формата; штрих стоит
+        по центру каждого угла, шаг подогнан, чтобы контур замкнулся без
+        обрубка. Рисуется в 4× и ужимается — края сглажены."""
+        if self._outline is not None:
+            return self._outline
+        ss = 4
+        s = self.px_mm * ss
+        x0 = y0 = self.g2 * ss
+        x1, y1 = (self.g2 + self.tw) * ss, (self.g2 + self.th) * ss
+        R = self.radius_mm * s
+
+        def arc(cx, cy, a0):
+            n = max(8, int(R * math.pi / 2))
+            return [(cx + R * math.cos(math.radians(a0 + 90 * t / n)),
+                     cy + R * math.sin(math.radians(a0 + 90 * t / n))) for t in range(n + 1)]
+
+        def seg(p, q):
+            n = max(1, int(math.dist(p, q)))
+            return [(p[0] + (q[0] - p[0]) * t / n, p[1] + (q[1] - p[1]) * t / n) for t in range(1, n)]
+        corners = [arc(x0 + R, y0 + R, 180), arc(x1 - R, y0 + R, 270),
+                   arc(x1 - R, y1 - R, 0), arc(x0 + R, y1 - R, 90)]
+        path = []
+        for i, c in enumerate(corners):
+            path += c + seg(c[-1], corners[(i + 1) % 4][0])
+        pts = np.array(path + path)                         # дважды — штрих может перейти через начало
+        cum = np.concatenate([[0], np.cumsum(np.hypot(*np.diff(pts, axis=0).T))])
+        per = cum[len(path)]
+        n = max(16, round(per / ((DASH_MM + DASH_GAP_MM) * s)))
+        period = per / n
+        dash = period * DASH_MM / (DASH_MM + DASH_GAP_MM)
+        start = R * math.pi / 4 - dash / 2                   # первый штрих — по центру левого верхнего угла
+        m = Image.new('L', (self.cw * ss, self.ch * ss), 0)
+        d = ImageDraw.Draw(m)
+        width = round(OUTLINE_MM * s)
+        for j in range(n):
+            a, b = start + j * period, start + j * period + dash
+            sel = pts[(cum >= a) & (cum <= b)]
+            if len(sel) > 1:
+                d.line([tuple(q) for q in sel], fill=255, width=width, joint='curve')
+        self._outline = m.resize((self.cw, self.ch), Image.BOX)
+        return self._outline
+
+    def outlines(self, n):
+        """Пунктиры первых n ячеек листа, L-маска листа."""
+        m = Image.new('L', (self.W, self.H), 0)
+        for i in range(n):
+            m.paste(self.outline(), self.cell(i))
+        return m
 
     def marks(self):
         """Метки реза и кресты приводки, маска L. Рисуется левая половина
@@ -209,39 +283,43 @@ class Sheet:
         lw = max(2, round(self.mm(LINE_MM) + 0.5))
         lw += lw % 2                                   # чётная — линия встаёт ровно на границу пикселей
         h = lw // 2
-        off, ln = self.mm(MARK_OFF_MM), self.mm(MARK_LEN_MM)
-        gw, gh = self.cw * COLS, self.ch * ROWS
-        # вертикальные линии реза (левая половина, включая центр) — метки сверху и снизу
-        for c in range(COLS + 1):
-            x = self.gx + c * self.cw
-            if 2 * x > self.W:
-                continue
-            for y0, y1 in ((self.gy - off - ln, self.gy - off), (self.gy + gh + off, self.gy + gh + off + ln)):
-                d.rectangle((x - h, round(y0), x + h - 1, round(y1)), fill=255)
+        # полосы — полуоткрытые [от, до): последняя строка перед сеткой — до − 1
+        (by0, by1), (bx0, bx1) = self.band_y, self.band_x
+        ty0, ty1 = math.ceil(by0), math.floor(by1) - 1          # верхнее поле, включительно
+        yb0, yb1 = self.H - 1 - ty1, self.H - 1 - ty0           # нижнее — зеркало верхнего
+        # вертикальные линии реза: левый и правый край каждой карты; метки сверху и снизу
+        for c in range(COLS):
+            for x in (self.gx + c * self.cw + self.g2, self.gx + c * self.cw + self.g2 + self.tw):
+                if 2 * x > self.W:
+                    continue
+                for y0, y1 in ((ty0, ty1), (yb0, yb1)):
+                    d.rectangle((x - h, y0, x + h - 1, y1), fill=255)
         # горизонтальные линии реза — метки в левом поле
-        for r in range(ROWS + 1):
-            y = self.gy + r * self.ch
-            d.rectangle((round(self.gx - off - ln), y - h, round(self.gx - off), y + h - 1), fill=255)
+        for r in range(ROWS):
+            for y in (self.gy + r * self.ch + self.g2, self.gy + r * self.ch + self.g2 + self.th):
+                d.rectangle((math.ceil(bx0), y - h, math.floor(bx1) - 1, y + h - 1), fill=255)
+
         # кресты приводки: по центру верхнего и нижнего поля, середина левого
-        rad, arm = self.mm(2.0), self.mm(3.5)
-        cx = (self.W - 1) / 2
-        top_y = (self.ty + self.gy) / 2
-        bot_y = self.H - 1 - top_y
-        left_x = (self.tx + self.gx) / 2
-        for x, y in ((cx, top_y), (cx, bot_y), (left_x, (self.H - 1) / 2)):
+        def cross(x, y, band):
+            arm = min(self.mm(3.5), band / 2 - lw)
+            rad = arm * 0.57
             x, y = round(x * 2) / 2, round(y * 2) / 2
             d.ellipse((x - rad, y - rad, x + rad, y + rad), outline=255, width=lw)
             d.rectangle((x - arm, y - h + 0.5, x + arm, y + h - 0.5), fill=255)
             d.rectangle((x - h + 0.5, y - arm, x + h - 0.5, y + arm), fill=255)
+        cx, cy = (self.W - 1) / 2, (by0 + by1) / 2
+        cross(cx, cy, by1 - by0)
+        cross(cx, self.H - 1 - cy, by1 - by0)
+        cross((bx0 + bx1) / 2, (self.H - 1) / 2, bx1 - bx0)
         return ImageChops.lighter(m, m.transpose(Image.FLIP_LEFT_RIGHT))
 
     def label_box(self):
-        """Место подписи: нижнее поле, от левой метки до центрального креста.
-        По высоте подпись ниже меток реза, так что линию реза она не задевает."""
-        x0 = round(self.gx + self.mm(3))
-        x1 = round((self.W - 1) / 2 - self.mm(6))
-        y1 = round(self.H - self.ty - self.mm(SAFE_MM))
-        y0 = round(y1 - self.mm(3.2))
+        """Место подписи: нижнее поле под первой картой — между метками её
+        левого и правого края, от «влёта» до сетки."""
+        x0 = round(self.gx + self.g2 + self.mm(2))
+        x1 = round(self.gx + self.g2 + self.tw - self.mm(2))
+        y0 = self.H - math.floor(self.band_y[1])
+        y1 = self.H - 1 - math.ceil(self.band_y[0])
         return x0, y0, x1, y1
 
 
@@ -258,15 +336,22 @@ def burn_k(cmyk, mask):
     return Image.merge('CMYK', (c, m, y, kk))
 
 
+def burn_gray(cmyk, mask, level=OUTLINE_K):
+    """Маску — в K долей level (серый пунктир); CMY не трогаются."""
+    c, m, y, kk = cmyk.split()
+    return Image.merge('CMYK', (c, m, y, ImageChops.lighter(kk, mask.point(lambda v: round(v * level)))))
+
+
 def draw_label(sheet, text):
     x0, y0, x1, y1 = sheet.label_box()
-    m = Image.new('L', (sheet.W, sheet.H), 0)
-    font = ImageFont.truetype(LABEL_FONT, round(7 / 72 * 300 * sheet.k))   # 7 pt
-    ImageDraw.Draw(m).text((x0, y1), text, font=font, fill=255, anchor='ls')
-    bbox = m.getbbox()
-    if bbox and (bbox[2] > x1 or bbox[1] < y0 - sheet.mm(1)):
-        raise RuntimeError(f'подпись не влезла в поле: {bbox} vs {(x0, y0, x1, y1)}')
-    return m
+    for pt in (7, 6.5, 6):                             # 6 pt — минимум ottisk
+        m = Image.new('L', (sheet.W, sheet.H), 0)
+        font = ImageFont.truetype(LABEL_FONT, round(pt / 72 * 300 * sheet.k))
+        ImageDraw.Draw(m).text((x0, y1), text, font=font, fill=255, anchor='ls')
+        bbox = m.getbbox()
+        if bbox and bbox[2] <= x1 and bbox[1] >= y0:
+            return m
+    raise RuntimeError(f'подпись не влезла в поле: {bbox} vs {(x0, y0, x1, y1)}')
 
 
 # ── PDF: одна CMYK-картинка на страницу ───────────────────────────────
@@ -377,31 +462,33 @@ def check_registration(faces, back, sheet, marks, face_cards, back_card, transfo
         (xf, yf), (xb, yb) = sheet.cell(i), sheet.cell(r * COLS + COLS - 1 - c)
         assert (xf, yf) == (sheet.W - xb - sheet.cw, yb), f'ячейка {i + 1}: лицо и рубашка разъехались'
 
-    p = PAD * sheet.k
+    p = sheet.g2 + PAD * sheet.k
     cache = {}
 
-    def expected(img):
-        if id(img) not in cache:
+    def expected(img, outlined):
+        if (id(img), outlined) not in cache:
             cell = Image.new('RGB', (sheet.cw, sheet.ch), 'white')
             cell.paste(img, (p, p))
-            cache[id(img)] = np.array(to_cmyk(cell, transform))
-        return cache[id(img)]
+            cell = to_cmyk(cell, transform)
+            cache[id(img), outlined] = np.array(burn_gray(cell, sheet.outline()) if outlined else cell)
+        return cache[id(img), outlined]
     blank = np.zeros((sheet.ch, sheet.cw, 4), np.uint8)
-    sheets = [('рубашки', back, [back_card] * (COLS * ROWS))]
-    sheets += [(f'лица {n}', f, cards) for n, (f, cards) in enumerate(zip(faces, face_cards), 1)]
-    for name, im, cards in sheets:
+    sheets = [('рубашки', back, [back_card] * (COLS * ROWS), False)]
+    sheets += [(f'лица {n}', f, cards, True) for n, (f, cards) in enumerate(zip(faces, face_cards), 1)]
+    for name, im, cards, outlined in sheets:
         a = np.array(im)
         for i in range(COLS * ROWS):
             x, y = sheet.cell(i)
-            want = expected(cards[i]) if i < len(cards) else blank
-            assert np.array_equal(a[y:y + sheet.ch, x:x + sheet.cw], want),                 f'{name}, ячейка {i + 1}: карта не на своём месте или не та'
+            want = expected(cards[i], outlined) if i < len(cards) else blank
+            assert np.array_equal(a[y:y + sheet.ch, x:x + sheet.cw], want), \
+                f'{name}, ячейка {i + 1}: карта не на своём месте или не та'
 
     x0, y0, x1, y1 = sheet.label_box()
     keep = np.ones((sheet.H, sheet.W), bool)
     keep[sheet.gy:sheet.H - sheet.gy, sheet.gx:sheet.W - sheet.gx] = False
     keep[y0 - sheet.k * 10:y1 + sheet.k * 10, x0:x1] = False
     k_marks = np.array(marks) > 0
-    for name, im, _ in sheets:
+    for name, im, _, _ in sheets:
         a = np.array(im)
         kch = (a[..., 3] > 0) & keep
         assert np.array_equal(kch, k_marks & keep), f'{name}: метки не совпали с эталоном'
@@ -409,7 +496,7 @@ def check_registration(faces, back, sheet, marks, face_cards, back_card, transfo
         assert not ((a.max(axis=2) > 0) & keep & ~k_marks).any(), f'{name}: краска вне сетки и меток'
 
     # белый фон рубашки: кайма кадра шириной 2 px почти вся без краски
-    fr = expected(back_card)[p:-p, p:-p].max(axis=2) > 0
+    fr = expected(back_card, False)[p:-p, p:-p].max(axis=2) > 0
     ring = np.concatenate([fr[:2].ravel(), fr[-2:].ravel(), fr[:, :2].ravel(), fr[:, -2:].ravel()])
     assert ring.mean() < 0.1, f'фон рубашки не белый: {ring.mean():.0%} каймы кадра в краске'
 
@@ -433,6 +520,8 @@ def main():
     ap.add_argument('--qty', action='store_true', help='каждую карту — в количестве qty')
     ap.add_argument('--dpi', type=int, choices=(300, 600), default=300)
     ap.add_argument('--sheet-bleed', type=float, default=5.0, help='белый вылет листа, мм (ottisk: 5)')
+    ap.add_argument('--gap', type=float, default=GAP_MM, help='промежуток между картами, мм')
+    ap.add_argument('--radius', type=float, default=RADIUS_MM, help='радиус скругления углов пунктира, мм')
     ap.add_argument('--out', default='print', help='папка для PDF')
     ap.add_argument('--name', help='база имени файлов; по умолчанию sheets_<lang>[_test<N>]_<дата>')
     ap.add_argument('--preview', help='папка для PNG soft-proof листов и проверки «на просвет»')
@@ -458,7 +547,7 @@ def main():
     print(f'{len(picked)} карт -> {-(-len(picked) // (COLS * ROWS))} лист(ов) A4, {a.dpi} ppi, {a.lang.upper()}')
 
     shots = render(picked, a.lang, k)
-    sheet = Sheet(k, a.sheet_bleed)
+    sheet = Sheet(k, a.sheet_bleed, a.gap, a.radius)
     to_cmyk_t = ImageCms.buildTransform(ImageCms.createProfile('sRGB'), ImageCms.getOpenProfile(ICC),
                                         'RGB', 'CMYK', renderingIntent=ImageCms.Intent.PERCEPTUAL)
     marks = sheet.marks()
@@ -469,6 +558,7 @@ def main():
     for n, chunk in enumerate(chunks, 1):
         face_cards.append([shots[c['id']] for c in chunk])
         cmyk = burn_k(to_cmyk(sheet.compose(face_cards[-1]), to_cmyk_t), marks)
+        cmyk = burn_gray(cmyk, sheet.outlines(len(chunk)))
         label = f'Samurai vs Ninja · {a.lang.upper()} · faces {n}/{len(chunks)} · {today}'
         faces.append(burn_k(cmyk, draw_label(sheet, label)))
     back_card = back_image(k)
@@ -486,8 +576,9 @@ def main():
 
     mm = lambda v: v / sheet.px_mm
     print(f'страница {mm(sheet.W):.2f} x {mm(sheet.H):.2f} мм, TrimBox A4; '
-          f'карта {mm(sheet.cw):.2f} x {mm(sheet.ch):.2f} мм; поля до сетки от края A4: '
-          f'{mm(sheet.gx) - mm(sheet.tx):.2f} мм слева/справа, {mm(sheet.gy) - mm(sheet.ty):.2f} мм сверху/снизу')
+          f'карта {mm(sheet.tw):.2f} x {mm(sheet.th):.2f} мм, углы R {sheet.radius_mm:g}, '
+          f'промежуток {mm(2 * sheet.g2):.2f} мм; от края A4 до карт '
+          f'{mm(sheet.gx + sheet.g2 - sheet.tx):.2f} мм слева/справа, {mm(sheet.gy + sheet.g2 - sheet.ty):.2f} мм сверху/снизу')
     print('проверка: одна CMYK-картинка на страницу, ни шрифтов, ни векторов; '
           'метки и сетка зеркальны, рубашка ложится на каждое лицо — OK')
 
