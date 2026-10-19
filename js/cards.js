@@ -899,8 +899,8 @@ const CARDS = [
     group: "trap",
     icons: ["effect8", "charctx"],
     tags: ["toPrint"],
-    desc: "Атакующий получает две раны от владельца ловушки. Затем эта карта переходит на него эффектом: сложность атак по нему всегда равна 1 — Доспех и другие повышения сложности не спасают.[NL]Капкан {Иё} наносит на одну рану больше. TODO: бонус Иё — временно.",
-    enDesc: "The attacker takes two wounds from the Trap's owner. Then this card moves onto them as an Effect: attacks against them are always complexity 1 — Armor and other complexity increases do not help.[NL]{Iyo}'s Trap deals one wound more. TODO: Iyo's bonus is a placeholder.",
+    desc: "Атакующий получает две раны от владельца ловушки. Затем эта карта переходит на него эффектом: сложность атак по нему всегда равна 1 — Доспех и другие повышения сложности не спасают.[NL]Капкан {Иё} наносит на одну рану больше.",
+    enDesc: "The attacker takes two wounds from the Trap's owner. Then this card moves onto them as an Effect: attacks against them are always complexity 1 — Armor and other complexity increases do not help.[NL]{Iyo}'s Trap deals one wound more.",
     img: "cards/card_43_kapkan.png"
   },
   {
@@ -912,8 +912,8 @@ const CARDS = [
     group: "trap",
     icons: ["poison", "charctx"],
     tags: ["poison", "toPrint"],
-    desc: "Атакующий отравляется ядом, но если он уже отравлен, то вы наносите ему три раны.[NL]Поганка {Минамото} наносит на одну рану больше. TODO: бонус Минамото — временно.",
-    enDesc: "The attacker is Poisoned; if they are Poisoned already, deal them 3 wounds instead.[NL]{Minamoto}'s Toadstool deals one wound more. TODO: Minamoto's bonus is a placeholder.",
+    desc: "Атакующий отравляется ядом, но если он уже отравлен, то вы наносите ему три раны.[NL]Поганка {Минамото} наносит на одну рану больше.",
+    enDesc: "The attacker is Poisoned; if they are Poisoned already, deal them 3 wounds instead.[NL]{Minamoto}'s Toadstool deals one wound more.",
     img: "cards/card_45_poganka.png"
   },
   {
@@ -1988,9 +1988,9 @@ const CARDS = [
     group: "effect",
     icons: [],
     tags: ["toPrint"],
-    desc: "Сложность атак по вам увеличивается на 1. TODO: синергия со стойкой Латник — какая, пока не решено.",
-    enDesc: "Attacks against you are 1 harder. TODO: synergy with the Ironclad Stance — not yet decided.",
-    img: "cards/card_todo.png"
+    desc: "Сложность атак по вам увеличивается на 1.",
+    enDesc: "Attacks against you are 1 harder.",
+    img: "cards/card_5104_lyogkie_dospehi.png"
   },
   {
     id: 6104,
@@ -2394,8 +2394,8 @@ const CARDS = [
     group: "intervention",
     icons: ["thrust", "charctx"],
     tags: ["toPrint"],
-    desc: "Сыграйте эту карту, чтобы нанести две раны отравленному ядом игроку. TODO: бонус {Минамото} — придумать; вариант: по ней в любом случае одна рана и ещё одна от яда.",
-    enDesc: "Play this card to deal two wounds to a Poisoned player. TODO: {Minamoto}'s bonus — to be designed; option: against her always one wound plus one more from Poison.",
+    desc: "Сыграйте эту карту, чтобы нанести две раны отравленному ядом игроку.[NL]По {Минамото} — одна рана в любом случае и ещё одна, если она отравлена.",
+    enDesc: "Play this card to deal two wounds to a Poisoned player.[NL]Against {Minamoto}: one wound in any case, plus one more if she is Poisoned.",
     img: "cards/card_121_smert_ot_fugu.png"
   },
   {
@@ -2484,9 +2484,9 @@ const CARDS = [
     qty: 1,
     group: "intervention",
     icons: [],
-    tags: [],
-    desc: "Уничтожает сыгранное оружие на столе, карта идёт в сброс, а атака отменяется, не тратя попытку. TODO: что происходит, если Осколками разбито оружие, которым защищается Хандзо (оружие как защита ценой раны) — отдельное взаимодействие.",
-    enDesc: "Destroys a weapon played on the table: the card goes to the discard pile and the attack is cancelled without using up the attempt. TODO: what happens when Shards break a weapon Hanzo is defending with — a dedicated interaction.",
+    tags: ["toPrint"],
+    desc: "Уничтожает сыгранное оружие на столе, карта идёт в сброс, а атака отменяется, не тратя попытку.",
+    enDesc: "Destroys a weapon played on the table: the card goes to the discard pile and the attack is cancelled without using up the attempt.",
     img: "cards/card_shards.png"
   },
   {
