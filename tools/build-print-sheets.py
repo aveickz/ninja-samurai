@@ -39,6 +39,7 @@ PDF, CMYK FOGRA39, 300 ppi, все слои сведены в один Backgroun
     py -3 tools/build-print-sheets.py --ids 1 49 57           # конкретные карты
     py -3 tools/build-print-sheets.py --per-group 0 --qty --exclude 319 321   # без недоделанных
     py -3 tools/build-print-sheets.py --preview DIR           # + PNG soft-proof листов и «на просвет»
+    py -3 tools/build-print-sheets.py --split print/X.pdf     # порезать готовый PDF на части до 20 МБ под почту
 
 Пишет print/sheets_<lang>[_test<N>]_<дата>_faces.pdf и …_backs.pdf.
 """
@@ -99,7 +100,7 @@ def group_order():
     return re.findall(r"'(\w+)'", re.search(r'GROUP_ORDER\s*=\s*\[(.*?)\]', src, re.S).group(1))
 
 
-def select(cards, lang, per_group, ids, qty, exclude=()):
+def select(cards, lang, per_group, ids, qty, exclude=(), drafts=False):
     if ids:
         by_id = {c['id']: c for c in cards}
         missing = [i for i in ids if i not in by_id]
@@ -117,7 +118,7 @@ def select(cards, lang, per_group, ids, qty, exclude=()):
             seen = set()
             for c in cards:
                 tags = c.get('tags') or []
-                if c.get('group') != g or 'trash' in tags or 'draft' in tags:
+                if c.get('group') != g or 'trash' in tags or ('draft' in tags and not drafts):
                     continue
                 if per_group and title(c) in seen:
                     continue
@@ -382,16 +383,30 @@ def pdf_str(s):
 
 
 def write_pdf(path, pages, sheet, title):
-    """pages: CMYK Image, одинаковые объекты кладутся в файл один раз.
-    OutputIntent — зарегистрированное условие FOGRA39 без вшитого профиля
-    (8 МБ): для DeviceCMYK этого достаточно, профиль у типографии свой."""
+    """pages: CMYK Image листа, одинаковые объекты кладутся в файл один раз."""
     W, H = sheet.W, sheet.H
     k = 72 / (300 * sheet.k)
     wpt, hpt = W * k, H * k
     a4w, a4h = A4_MM[0] / 25.4 * 72, A4_MM[1] / 25.4 * 72
     tx, ty = (wpt - a4w) / 2, (hpt - a4h) / 2
-    num = lambda v: f'{v:.4f}'.rstrip('0').rstrip('.')
+    cache, raw = {}, []
+    for im in pages:
+        if id(im) not in cache:
+            assert im.mode == 'CMYK' and im.size == (W, H)
+            cache[id(im)] = zlib.compress(im.tobytes(), 6)
+        raw.append(dict(data=cache[id(im)], w=W, h=H, media=(0, 0, wpt, hpt),
+                        trim=(tx, ty, tx + a4w, ty + a4h)))
+    write_pdf_raw(path, raw, title)
 
+
+def write_pdf_raw(path, pages, title):
+    """pages: dict(data — Flate-поток CMYK-картинки, w, h — её пиксели,
+    media, trim — прямоугольники в pt). Одинаковые data (один объект)
+    кладутся в файл один раз. OutputIntent — зарегистрированное условие
+    FOGRA39 без вшитого профиля (8 МБ): для DeviceCMYK этого достаточно,
+    профиль у типографии свой."""
+    num = lambda v: f'{v:.4f}'.rstrip('0').rstrip('.')
+    arr = lambda r: '[' + ' '.join(num(v) for v in r) + ']'
     objs = [None] * 4    # 1 catalog, 2 pages, 3 output intent, 4 info
 
     def add(body):
@@ -402,17 +417,16 @@ def write_pdf(path, pages, sheet, title):
         return f'<< {dict_body} /Length {len(data)} >>\nstream\n'.encode() + data + b'\nendstream'
 
     img_ref, kids = {}, []
-    for im in pages:
-        if id(im) not in img_ref:
-            assert im.mode == 'CMYK' and im.size == (W, H)
-            data = zlib.compress(im.tobytes(), 6)
-            img_ref[id(im)] = add(stream(f'/Type /XObject /Subtype /Image /Width {W} /Height {H} '
-                                         f'/ColorSpace /DeviceCMYK /BitsPerComponent 8 /Filter /FlateDecode', data))
-        content = add(stream('', f'q {num(wpt)} 0 0 {num(hpt)} 0 0 cm /Im0 Do Q'.encode()))
-        box = f'[0 0 {num(wpt)} {num(hpt)}]'
-        kids.append(add(f'<< /Type /Page /Parent 2 0 R /MediaBox {box} /BleedBox {box} '
-                        f'/TrimBox [{num(tx)} {num(ty)} {num(tx + a4w)} {num(ty + a4h)}] '
-                        f'/Resources << /XObject << /Im0 {img_ref[id(im)]} 0 R >> >> '
+    for pg in pages:
+        if id(pg['data']) not in img_ref:
+            img_ref[id(pg['data'])] = add(stream(
+                f'/Type /XObject /Subtype /Image /Width {pg["w"]} /Height {pg["h"]} '
+                f'/ColorSpace /DeviceCMYK /BitsPerComponent 8 /Filter /FlateDecode', pg['data']))
+        x0, y0, x1, y1 = pg['media']
+        content = add(stream('', f'q {num(x1 - x0)} 0 0 {num(y1 - y0)} {num(x0)} {num(y0)} cm /Im0 Do Q'.encode()))
+        kids.append(add(f'<< /Type /Page /Parent 2 0 R /MediaBox {arr(pg["media"])} /BleedBox {arr(pg["media"])} '
+                        f'/TrimBox {arr(pg["trim"])} '
+                        f'/Resources << /XObject << /Im0 {img_ref[id(pg["data"])]} 0 R >> >> '
                         f'/Contents {content} 0 R >>'.encode()))
     objs[0] = b'<< /Type /Catalog /Pages 2 0 R /OutputIntents [3 0 R] >>'
     objs[1] = f'<< /Type /Pages /Kids [{" ".join(f"{i} 0 R" for i in kids)}] /Count {len(kids)} >>'.encode()
@@ -438,6 +452,49 @@ def write_pdf(path, pages, sheet, title):
               f'startxref\n{xref}\n%%EOF\n'.encode())
     with open(path, 'wb') as f:
         f.write(out.getvalue())
+
+
+def split_pdf(path, limit_mb):
+    """Режет готовый PDF на части не больше limit_mb (вложения почты: у
+    Gmail 25 МБ на письмо). Порядок листов сохраняется, страница не
+    дробится; поток картинки, размеры и TrimBox копируются байт в байт,
+    после записи каждая часть сверяется с исходником."""
+    import fitz
+    src = fitz.open(path)
+    nums = lambda key, x: tuple(float(v) for v in src.xref_get_key(x, key)[1].strip('[]').split())
+    pages = []
+    for p in src:
+        x = p.get_images(full=True)[0][0]
+        pages.append(dict(data=src.xref_stream_raw(x), w=int(src.xref_get_key(x, 'Width')[1]),
+                          h=int(src.xref_get_key(x, 'Height')[1]),
+                          media=nums('MediaBox', p.xref), trim=nums('TrimBox', p.xref)))
+    title = src.metadata.get('title') or ''
+    limit = limit_mb * 1e6 - 100_000                      # запас на обвязку PDF
+    groups, cur, size = [], [], 0
+    for i, pg in enumerate(pages):
+        if cur and size + len(pg['data']) > limit:
+            groups.append(cur)
+            cur, size = [], 0
+        cur.append(i)
+        size += len(pg['data'])
+    groups.append(cur)
+    base = os.path.splitext(path)[0]
+    out = []
+    for n, g in enumerate(groups, 1):
+        part = f'{base}_part{n:02d}of{len(groups):02d}.pdf'
+        write_pdf_raw(part, [pages[i] for i in g], f'{title} — part {n}/{len(groups)}')
+        d = fitz.open(part)
+        assert len(d) == len(g), part
+        for pp, i in zip(d, g):
+            x = pp.get_images(full=True)[0][0]
+            assert d.xref_stream_raw(x) == pages[i]['data'], f'{part}: лист {i + 1} не совпал с исходником'
+            assert abs(pp.trimbox.width - src[i].trimbox.width) < 0.01, f'{part}: TrimBox листа {i + 1}'
+        d.close()
+        mb = os.path.getsize(part) / 1e6
+        assert mb <= limit_mb or len(g) == 1, f'{part}: {mb:.1f} МБ'
+        out.append(part)
+        print(f'  {os.path.basename(part)}: листы {g[0] + 1}–{g[-1] + 1}, {mb:.1f} МБ')
+    return out
 
 
 # ── Самопроверка ──────────────────────────────────────────────────────
@@ -541,6 +598,7 @@ def main():
     ap.add_argument('--ids', type=int, nargs='+', help='конкретные ID вместо отбора по группам')
     ap.add_argument('--qty', action='store_true', help='каждую карту — в количестве qty')
     ap.add_argument('--exclude', type=int, nargs='+', default=[], help='ID, которые в этот раз не печатать')
+    ap.add_argument('--drafts', action='store_true', help='печатать и черновики (тег draft)')
     ap.add_argument('--dpi', type=int, choices=(300, 600), default=300)
     ap.add_argument('--sheet-bleed', type=float, default=5.0, help='белый вылет листа, мм (ottisk: 5)')
     ap.add_argument('--gap', type=float, default=GAP_MM, help='промежуток между картами, мм')
@@ -549,8 +607,14 @@ def main():
     ap.add_argument('--out', default='print', help='папка для PDF')
     ap.add_argument('--name', help='база имени файлов; по умолчанию sheets_<lang>[_test<N>]_<дата>')
     ap.add_argument('--preview', help='папка для PNG soft-proof листов и проверки «на просвет»')
+    ap.add_argument('--split', metavar='PDF', help='не собирать, а порезать готовый PDF на части под почту')
+    ap.add_argument('--split-mb', type=float, default=20, help='предел части для --split, МБ (Gmail — 25 на письмо)')
     a = ap.parse_args()
     k = a.dpi // 300
+    if a.split:
+        print(f'{a.split} -> части до {a.split_mb:g} МБ')
+        split_pdf(a.split, a.split_mb)
+        return
 
     from playwright.sync_api import sync_playwright
     with sync_playwright() as p:   # колода — из самой картотеки, как её видит браузер
@@ -559,7 +623,7 @@ def main():
         pg.goto(f'file:///{ROOT.replace(os.sep, "/")}/app.html?embed=0', wait_until='load')
         cards = pg.evaluate('() => CARDS')
         b.close()
-    picked = select(cards, a.lang, a.per_group, a.ids, a.qty, set(a.exclude))
+    picked = select(cards, a.lang, a.per_group, a.ids, a.qty, set(a.exclude), a.drafts)
     if not picked:
         sys.exit('нечего печатать')
     shown = (lambda c: c.get('enDesc') or c.get('desc') or '') if a.lang == 'en' else (lambda c: c.get('desc') or '')
