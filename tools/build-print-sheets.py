@@ -37,6 +37,7 @@ PDF, CMYK FOGRA39, 300 ppi, все слои сведены в один Backgroun
     py -3 tools/build-print-sheets.py --lang ru --per-group 0 # вся колода, по карте каждого вида
     py -3 tools/build-print-sheets.py --per-group 0 --qty     # вся колода в количестве qty
     py -3 tools/build-print-sheets.py --ids 1 49 57           # конкретные карты
+    py -3 tools/build-print-sheets.py --per-group 0 --qty --exclude 319 321   # без недоделанных
     py -3 tools/build-print-sheets.py --preview DIR           # + PNG soft-proof листов и «на просвет»
 
 Пишет print/sheets_<lang>[_test<N>]_<дата>_faces.pdf и …_backs.pdf.
@@ -98,7 +99,7 @@ def group_order():
     return re.findall(r"'(\w+)'", re.search(r'GROUP_ORDER\s*=\s*\[(.*?)\]', src, re.S).group(1))
 
 
-def select(cards, lang, per_group, ids, qty):
+def select(cards, lang, per_group, ids, qty, exclude=()):
     if ids:
         by_id = {c['id']: c for c in cards}
         missing = [i for i in ids if i not in by_id]
@@ -111,15 +112,20 @@ def select(cards, lang, per_group, ids, qty):
         for g in group_order():
             if g in NON_PLAYABLE:
                 continue
+            # в тестовой выборке — разные названия (5 вариантов Катаны тест
+            # не украшают); во всей колоде — каждый вид, хоть и тёзка
             seen = set()
             for c in cards:
                 tags = c.get('tags') or []
-                if c.get('group') != g or 'trash' in tags or 'draft' in tags or title(c) in seen:
+                if c.get('group') != g or 'trash' in tags or 'draft' in tags:
+                    continue
+                if per_group and title(c) in seen:
                     continue
                 if per_group and len(seen) >= per_group:
                     break
                 seen.add(title(c))
                 picked.append(c)
+    picked = [c for c in picked if c['id'] not in exclude]
     if qty:
         picked = [c for c in picked for _ in range(max(1, c.get('qty') or 1))]
     return picked
@@ -534,6 +540,7 @@ def main():
     ap.add_argument('--per-group', type=int, default=5, help='разных названий из группы; 0 — все')
     ap.add_argument('--ids', type=int, nargs='+', help='конкретные ID вместо отбора по группам')
     ap.add_argument('--qty', action='store_true', help='каждую карту — в количестве qty')
+    ap.add_argument('--exclude', type=int, nargs='+', default=[], help='ID, которые в этот раз не печатать')
     ap.add_argument('--dpi', type=int, choices=(300, 600), default=300)
     ap.add_argument('--sheet-bleed', type=float, default=5.0, help='белый вылет листа, мм (ottisk: 5)')
     ap.add_argument('--gap', type=float, default=GAP_MM, help='промежуток между картами, мм')
@@ -552,7 +559,7 @@ def main():
         pg.goto(f'file:///{ROOT.replace(os.sep, "/")}/app.html?embed=0', wait_until='load')
         cards = pg.evaluate('() => CARDS')
         b.close()
-    picked = select(cards, a.lang, a.per_group, a.ids, a.qty)
+    picked = select(cards, a.lang, a.per_group, a.ids, a.qty, set(a.exclude))
     if not picked:
         sys.exit('нечего печатать')
     shown = (lambda c: c.get('enDesc') or c.get('desc') or '') if a.lang == 'en' else (lambda c: c.get('desc') or '')
