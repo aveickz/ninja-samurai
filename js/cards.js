@@ -1478,7 +1478,7 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Финальная сила атаки равна количеству недостающих жетонов жизни цели.",
     enDesc: "The attack's final power equals the target's missing life.",
     img: "cards/card_1081_finalnyi_udar.png"
@@ -1504,7 +1504,7 @@ const CARDS = [
     qty: 1,
     group: "modifier",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Ваше текущее количество жетонов победы добавляется к силе атаки.",
     enDesc: "Add your current victory points to the attack's power.",
     img: "cards/card_1084_pobednyi_udar.png"
