@@ -229,6 +229,15 @@ html, body {
   justify-content: center;
 }
 .title-sub::before, .title-sub::after { content: "·"; color: var(--gold); font-size: 14pt; line-height: 1; letter-spacing: 0; }
+/* Автор — под подзаголовком, мельче и без капители */
+.title-author {
+  margin: 9mm 0 0;
+  font-family: 'PT Sans Narrow', 'PT Sans', Arial, sans-serif;
+  font-size: 11pt;
+  letter-spacing: .08em;
+  color: var(--ink-soft);
+  text-indent: 0;
+}
 /* «Конец» — те же точки, но штрихи по бокам, как у «против» */
 .end-page .title-sub::before, .end-page .title-sub::after {
   content: "";
