@@ -198,7 +198,7 @@ INLINE = {
   ('weapons', 'Thrown weapons handle any complexity.', 'Thrown weapons ' + ic('mk','ranged.png') + ' handle any complexity.'),
   ('weapons', 'or blocks the attack with a Defense card', 'or blocks the attack with a Defense card ' + ic('ic','defense')),
   ('weapons', 'Weapons can also be strengthened with poison.', 'Weapons can also be strengthened with poison ' + ic('ic','poison') + '.'),
-  ('weapons', 'Modifier card with a red banner;', 'Modifier card ' + ic('ic','modifier') + ' with a red banner;'),
+  ('weapons', 'Modifier card with a red title bar;', 'Modifier card ' + ic('ic','modifier') + ' with a red title bar;'),
   ('auras', 'with the banner figurine on top', 'with the banner figurine ' + BANNER + ' on top'),
   ('auras', '<strong>Charged Auras.</strong>', ic('ic','charges') + ' <strong>Charged Auras.</strong>'),
   ('poison', 'marked with the poison figurine placed', 'marked with the poison figurine ' + POISON + ' placed'),
