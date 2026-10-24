@@ -2432,9 +2432,9 @@ const CARDS = [
     qty: 1,
     group: "intervention",
     icons: ["hpctx", "rolectx"],
-    tags: [],
-    desc: "Сыграйте эту карту, чтобы перенаправить прямую атаку оружия на себя.[NL]{На пороге вашей смерти} ваши союзники берут по 1 карте из колоды.[NL]{Самураи} при этом получают на одну рану меньше.",
-    enDesc: "Play this card to take a direct weapon attack onto yourself.[NL]{At death's door} your allies each draw a card.[NL]{Samurai} take one wound less doing so.",
+    tags: ["toPrint"],
+    desc: "Сыграйте эту карту, чтобы перенаправить прямую атаку оружия на себя — от неё можно защищаться.[NL]{На пороге вашей смерти} ваши союзники берут по 1 карте из колоды.[NL]{Самураи} при этом получают на одну рану меньше.",
+    enDesc: "Play this card to take a direct weapon attack onto yourself — you may defend against it.[NL]{At death's door} your allies each draw a card.[NL]{Samurai} take one wound less doing so.",
     img: "cards/card_124_podvig.png"
   },
   {
