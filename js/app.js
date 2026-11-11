@@ -179,6 +179,13 @@ $(function () {
       tagPrint:      'На печать',
       tagDraft:      'Черновик',
       tagTrash:      'Корзина',
+      artPending:    'Арт: на проверке',
+      artOk:         'Арт: одобрен',
+      artRedraw:     'Арт: на перерисовку',
+      artLoading:    'Загрузка статуса…',
+      artUnavailable: 'Статус арта недоступен',
+      artSaving:     'Сохранение…',
+      artSaveFailed: 'Не удалось сохранить',
       langTitle:     'Interface language'
     },
     en: {
@@ -233,6 +240,13 @@ $(function () {
       tagPrint:      'To print',
       tagDraft:      'Draft',
       tagTrash:      'Trash',
+      artPending:    'Art: Pending',
+      artOk:         'Art: Approved',
+      artRedraw:     'Art: Needs redraw',
+      artLoading:    'Loading status…',
+      artUnavailable: 'Art status unavailable',
+      artSaving:     'Saving…',
+      artSaveFailed: 'Could not save',
       langTitle:     'Язык интерфейса'
     }
   };
@@ -684,6 +698,102 @@ $(function () {
     );
   }
 
+  // ── Проверка арта ─────────────────────────────────────────────────
+  var ART_KEY_PREFIX = 'art_status_';
+  var ART_LABEL_KEYS = {
+    [ART_STATUS.PENDING]: 'artPending',
+    [ART_STATUS.OK]: 'artOk',
+    [ART_STATUS.REQUIRES_REDRAW]: 'artRedraw'
+  };
+  var artBucket;
+  var artLoadMessage = 'artLoading';
+  var artSaveMessages = new Map();
+
+  function syncArtReview($items, card) {
+    var label = ART_LABEL_KEYS[card.art];
+    var message = artLoadMessage || artSaveMessages.get(card.id);
+    var busy = !!artLoadMessage || message === 'artSaving';
+
+    $items.attr('data-art-status', card.art);
+    $items.find('.card-art-status').attr('data-i18n', label).text(t(label));
+    $items.find('.card-art-feedback')
+      .attr('data-i18n', message || null)
+      .text(message ? t(message) : '');
+    $items.find('.card-art-action').each(function () {
+      $(this).attr({
+        'aria-pressed': String(this.value === card.art),
+        'aria-disabled': String(busy)
+      });
+    });
+  }
+
+  async function loadArtStatuses() {
+    var cfg = window.KVDB_CONFIG || {};
+    try {
+      if (window.KVdb && cfg.bucket) {
+        artBucket = window.KVdb.bucket(cfg.bucket, cfg.writeKey);
+        var entries = await artBucket.list({ prefix: ART_KEY_PREFIX, values: true });
+        entries.forEach(function (entry) {
+          if (!Array.isArray(entry)) return;
+          var key = entry[0];
+          var status = entry[1];
+          if (typeof key !== 'string' || !key.startsWith(ART_KEY_PREFIX)) return;
+          var id = key.slice(ART_KEY_PREFIX.length);
+          if (Object.hasOwn(CARD_BY_ID, id) && typeof status === 'string' &&
+              Object.hasOwn(ART_LABEL_KEYS, status)) {
+            CARD_BY_ID[id].art = status;
+          }
+        });
+        artLoadMessage = null;
+      } else {
+        artLoadMessage = 'artUnavailable';
+      }
+    } catch (err) {
+      artLoadMessage = 'artUnavailable';
+      console.warn('[art] Не удалось загрузить статусы:', err.message);
+    }
+
+    $grid.find('.card-item[data-card-id]').each(function () {
+      var $item = $(this);
+      syncArtReview($item, CARD_BY_ID[$item.attr('data-card-id')]);
+    });
+  }
+
+  async function saveArtStatus(card, status) {
+    if (artLoadMessage || artSaveMessages.get(card.id) === 'artSaving' || card.art === status) return;
+    var $items = $grid.find('.card-item[data-card-id="' + card.id + '"]');
+    artSaveMessages.set(card.id, 'artSaving');
+    syncArtReview($items, card);
+    try {
+      await artBucket.set(ART_KEY_PREFIX + card.id, status);
+      card.art = status;
+      artSaveMessages.delete(card.id);
+    } catch (err) {
+      artSaveMessages.set(card.id, 'artSaveFailed');
+      console.warn('[art] Не удалось сохранить статус карты ' + card.id + ':', err.message);
+    } finally {
+      syncArtReview($items, card);
+    }
+  }
+
+  function buildArtReview(cardId) {
+    return $('<div>', { class: 'card-art-review' }).append(
+      $('<span>', { class: 'card-art-status' }),
+      $('<button>', {
+        class: 'card-art-action', type: 'button', value: ART_STATUS.OK, text: 'OK'
+      }),
+      $('<button>', {
+        class: 'card-art-action', type: 'button', value: ART_STATUS.REQUIRES_REDRAW, text: 'REDRAW'
+      }),
+      $('<span>', { class: 'card-art-feedback', role: 'status' })
+    ).on('click', '.card-art-action', function (e) {
+      e.stopPropagation();
+      saveArtStatus(CARD_BY_ID[cardId], this.value);
+    }).on('click mousedown', function (e) {
+      e.stopPropagation();
+    });
+  }
+
   // ── Построение карточки ───────────────────────────────────────────
   function buildCard(card) {
     var typeClasses = $.map(card.types, function (t) { return 'type-' + t; }).join(' ');
@@ -874,7 +984,8 @@ $(function () {
     var $footer = $('<div>', { class: 'card-footer' }).append(
       buildTypeTags(card.types, card.tags || []),
       $('<div>', { class: 'card-qty', text: '×' + (card.qty || 1) }),
-      $shareBtn
+      $shareBtn,
+      EMBED_ID ? null : buildArtReview(card.id)
     );
 
     var $item = $('<div>', {
@@ -896,6 +1007,8 @@ $(function () {
       $card,
       $footer
     );
+
+    if (!EMBED_ID) syncArtReview($item, card);
 
     $item.on('click', function (e) {
       var $this = $(this);
@@ -1720,18 +1833,19 @@ $(function () {
   // ── Embed-режим: ?embed=<ID> ──────────────────────────────────────
   // Скрывает весь UI и показывает одну карту на белом фоне —
   // удобно для вставки в <iframe> на других страницах.
-  var embedId = (new URLSearchParams(window.location.search)).get('embed');
-  if (embedId) {
+  if (EMBED_ID) {
     document.body.classList.add('embed-mode');
     $('#grid .card-item').each(function () {
       var $el = $(this);
-      if (String($el.data('card-id')) !== String(embedId)) {
+      if (String($el.data('card-id')) !== EMBED_ID) {
         $el.addClass('card--hidden');
       } else {
         $el.removeClass('card--hidden');
       }
     });
     $('[data-group-divider]').addClass('group-divider--hidden');
+  } else {
+    loadArtStatuses();
   }
 
 });

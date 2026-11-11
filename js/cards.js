@@ -2974,3 +2974,14 @@ const CARDS = [
     img: "cards/card_1213_son_ekaya.png"
   },
 ];
+
+// Статус проверки арта. Сохранённые значения картотека загружает из KVDB.
+const ART_STATUS = Object.freeze({
+  PENDING: 'pending',
+  OK: 'ok',
+  REQUIRES_REDRAW: 'requires_redraw'
+});
+
+CARDS.forEach(function (card) {
+  card.art = ART_STATUS.PENDING;
+});
