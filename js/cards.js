@@ -1570,7 +1570,7 @@ const CARDS = [
     qty: 1,
     group: "aoe",
     icons: ["charctx"],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Все остальные активные игроки теряют свою стойку и сбрасывают свою ловушку.[NL]{Сайго} в потасовке не участвует.",
     enDesc: "Every other living player loses their Stance and discards their Trap.[NL]{Saigo} stays out of the brawl.",
     img: "cards/card_83_potasovka.png"
@@ -2041,7 +2041,7 @@ const CARDS = [
     qty: 4,
     group: "action",
     icons: ["hpctx"],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Любой выбранный активный игрок восстанавливает 2 жетона жизни. В стойке {капеллана} восстанавливает на 1 жизнь больше.[NL]{На пороге вашей смерти} вы можете вылечить другого игрока на 3 жизни.",
     enDesc: "Any living player of your choice restores 2 life. In the {Chaplain} stance, restore 1 life more.[NL]{At death's door} you may heal another player for 3 life.",
     img: "cards/card_106_shvy.png"
@@ -2145,7 +2145,7 @@ const CARDS = [
     qty: 1,
     group: "action",
     icons: ["rolectx"],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Выбранный игрок показывает всем свои карты с руки до следующего действия.[NL]{Ниндзя} может забрать любую из карт себе.",
     enDesc: "The chosen player reveals their hand to everyone until the next action.[NL]A {Ninja} may take any one of those cards.",
     img: "cards/card_114_yasnovidenie.png"
@@ -2340,7 +2340,7 @@ const CARDS = [
     qty: 1,
     group: "action",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Вы забираете себе ауру выбранного активного игрока.",
     enDesc: "You take the Aura of the chosen living player for yourself.",
     img: "cards/card_spy.png"
@@ -2889,7 +2889,7 @@ const CARDS = [
     qty: 1,
     group: "aura",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Любой живой {союзник} может по согласию принять прямую атаку оружия по другому союзнику на себя (как Подвиг), но получает на 1 рану больше.",
     enDesc: "Any living {ally} may consent to take a direct weapon attack aimed at another ally onto themselves (as with Feat of Valor), but takes one wound more.",
     img: "cards/card_war_duty.png"
