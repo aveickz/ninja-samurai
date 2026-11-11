@@ -991,7 +991,7 @@ const CARDS = [
     qty: 3,
     group: "defense",
     icons: ["hpctx"],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Атакующий получает 1 рану от вас. {На пороге вашей смерти} враг получает 3 раны.[NL]{При наличии ловушки} вы наносите ещё на одну рану больше.",
     enDesc: "The attacker takes 1 wound from you. {At death's door} the enemy takes 3 wounds instead.[NL]{With a Trap in play} deal 1 more wound.",
     img: "cards/card_49_skrytyy_kinzhal.png"
@@ -1017,7 +1017,7 @@ const CARDS = [
     qty: 3,
     group: "defense",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Вы также берёте карту из колоды.",
     enDesc: "You also draw a card.",
     img: "cards/card_52_idealnyy_moment.png"
@@ -1857,7 +1857,7 @@ const CARDS = [
     qty: 1,
     group: "effect",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Выбранный игрок не может производить прямые атаки оружием.[NL]{Самураи} чтобы атаковать вас должны сбросить 1 карту.",
     enDesc: "The chosen player cannot make direct weapon attacks.[NL]{Samurai} must discard a card to attack you.",
     img: "cards/card_94_razoruzhenie.png"
@@ -2054,7 +2054,7 @@ const CARDS = [
     qty: 1,
     group: "action",
     icons: ["rolectx"],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Вы выкладываете все карты перед собой в открытую, ваши активные союзники могут забрать любые ваши карты себе, не превышая ограничение в 8 карт, остальное идёт в сброс. Потом вы умираете и победное очко другому игроку. Таким образом нельзя потерять последнее победное очко.[NL]{Ниндзя} не могут совершать Сэппуку.",
     enDesc: "Lay all your cards face up in front of you. Your living allies may take any of them, up to the limit of 8 cards; the rest go to the discard pile. You then die and another player scores a victory point. You cannot lose your last victory point this way.[NL]{Ninja} cannot commit Seppuku.",
     img: "cards/card_107_seppuku.png"
@@ -2837,7 +2837,7 @@ const CARDS = [
     qty: 1,
     group: "aura",
     icons: ["poison"],
-    tags: ["poison"],
+    tags: ["poison", "toPrint"],
     desc: "Все прямые атаки {союзников} оружием автоматически отравлены, как будто использовалось ядовитое оружие.[NL]{Носитель} получает отравление ядом.",
     enDesc: "All direct weapon attacks by {allies} are automatically Poisoned, as if a poisoned weapon had been used.[NL]The {Bearer} becomes Poisoned.",
     img: "cards/card_87_bochka_zlovoniya.png"
