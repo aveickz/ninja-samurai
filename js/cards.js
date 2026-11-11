@@ -2915,7 +2915,7 @@ const CARDS = [
     qty: 1,
     group: "aura",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "{Враги} после нанесения ран прямой атакой по вашим союзникам получают от носителя ауры 1 рану, а если носитель в стойке {лучника} — 2.[NL]{Носитель} не может пользоваться метательным оружием.",
     enDesc: "{Enemies} who wound your allies with a direct attack take 1 wound from the Aura's bearer, or 2 if the bearer is in the {Archer} stance.[NL]The {Bearer} cannot use thrown weapons.",
     img: "cards/card_warden.png"
