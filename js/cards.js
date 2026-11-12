@@ -885,7 +885,7 @@ const CARDS = [
     qty: 2,
     group: "trap",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Атака не проходит, защищающийся берёт 2 карты из колоды.",
     enDesc: "The attack fails and the defender draws 2 cards.",
     img: "cards/card_42_chuchelo.png"
@@ -924,7 +924,7 @@ const CARDS = [
     qty: 2,
     group: "trap",
     icons: ["rolectx", "effect8"],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Вы оскорбляете атакующего. Для {самурая} это хуже смерти, и он получает эту карту как эффект бешенства, сбрасывая каждый раз карту при прямой атаке.",
     enDesc: "You insult the attacker. For a {Samurai} this is worse than death: they take this card as an Effect of rage and must discard a card with every direct attack.",
     img: "cards/card_47_oskorblenie.png"
@@ -937,7 +937,7 @@ const CARDS = [
     qty: 2,
     group: "trap",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Если вы остались в живых после атаки, восстановите все жетоны жизни.",
     enDesc: "If you survive the attack, restore all your life.",
     img: "cards/card_phoenix_breath.png"
@@ -2863,7 +2863,7 @@ const CARDS = [
     qty: 1,
     group: "aura",
     icons: ["charges"],
-    tags: ["draft"],
+    tags: ["draft", "toPrint"],
     desc: "Любой союзник в свой ход может подложить под ауру одно вмешательство или групповое действие в открытую. За каждые две карты в фазе набора каждый {союзник} берёт +1 карту из колоды, всего не более +2.",
     enDesc: "On their turn any ally may tuck one Intervention or Group Action face up under the Aura. For every two cards, in the draw phase each {ally} takes +1 card from the deck, up to +2 in total.",
     img: "cards/card_camp.png"
