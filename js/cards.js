@@ -1030,7 +1030,7 @@ const CARDS = [
     qty: 1,
     group: "defense",
     icons: ["charctx"],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Вы можете выбрать сколько ран вы хотите получить при атаке, и за каждую рану (не более трёх) берёте карту из колоды.[NL]{Усивака} также забирает оружие атакующего себе в руку.",
     enDesc: "Choose how many wounds you take from this attack, and draw a card for each wound taken (no more than three).[NL]{Ushiwaka} also takes the attacker's weapon into hand.",
     img: "cards/card_53_vyderzka_samuray.png"
@@ -2171,7 +2171,7 @@ const CARDS = [
     qty: 1,
     group: "action",
     icons: ["rolectx"],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Вы меняетесь с выбранным игроком количеством жетонов жизни.[NL]{Самурай} должен сбросить одну карту для совершения действия.",
     enDesc: "You and the chosen player swap life totals.[NL]A {Samurai} must discard a card to take this action.",
     img: "cards/card_115_obmen_dush.png"
@@ -2471,7 +2471,7 @@ const CARDS = [
     qty: 2,
     group: "intervention",
     icons: ["effect8"],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Выбранный игрок с его согласия притворяется мёртвым до конца текущего хода: у него остаётся 1 жетон жизни, его аура не действует.",
     enDesc: "The chosen player, with their consent, plays dead until the end of the current turn: they keep 1 life, and their Aura does not work.",
     img: "cards/card_127_simulyant.png"
@@ -2538,7 +2538,7 @@ const CARDS = [
     qty: 2,
     group: "action",
     icons: ["charctx"],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Заберите одну случайную карту с руки любого активного игрока. {Така} забирает две.",
     enDesc: "Take one random card from the hand of any living player. {Taka} takes two.",
     img: "cards/card_128_vorovstvo.png"
