@@ -1557,7 +1557,7 @@ const CARDS = [
     qty: 2,
     group: "aoe",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Остальные активные игроки скидывают карту защиты или оружия, либо отдают вам карту из руки на свой выбор.",
     enDesc: "Each other living player discards a Defense or a Weapon, or hands you a card of their choice from their hand.",
     img: "cards/card_82_mirotvortsy.png"
