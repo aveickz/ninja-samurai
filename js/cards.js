@@ -1844,7 +1844,7 @@ const CARDS = [
     qty: 3,
     group: "effect",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Сложность атак по вам всегда равна 1 — Доспех и другие повышения сложности не спасают.",
     enDesc: "Attacks against you are always complexity 1 — Armor and other complexity increases do not help.",
     img: "cards/card_93_kaginava.png"
@@ -2158,7 +2158,7 @@ const CARDS = [
     qty: 1,
     group: "action",
     icons: ["poison", "charctx"],
-    tags: ["poison"],
+    tags: ["poison", "toPrint"],
     desc: "Отравляет выбранного активного игрока; {Минамото} может отравить и себя. Отравленная этой картой Минамото берёт две карты из колоды.",
     enDesc: "Poisons the chosen living player; {Minamoto} may poison herself. If Minamoto is poisoned by this card, she draws two cards.",
     img: "cards/card_116_yad_fugu.png"
