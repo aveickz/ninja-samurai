@@ -1635,7 +1635,7 @@ const CARDS = [
     qty: 1,
     group: "aoe",
     icons: ["thrust", "poison", "charges"],
-    tags: ["poison"],
+    tags: ["poison", "toPrint"],
     desc: "За каждое отравление на столе выбранный вами игрок теряет жетон жизни.[NL]{Под аурой Бочки зловония} можете взорвать её: аура остаётся на столе, а все враги получают отравление.",
     enDesc: "A player of your choice loses 1 life for every Poison on the table.[NL]{Under the Barrel of Stench} you may blow it up: the aura stays in play, and every enemy becomes Poisoned.",
     img: "cards/card_acid_explosion.png"
