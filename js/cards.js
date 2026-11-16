@@ -2902,7 +2902,7 @@ const CARDS = [
     qty: 1,
     group: "aura",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Любое лечение {союзников} восстанавливает на 1 жетон жизни больше. Обмен, выравнивание и перенос жетонов лечением не считаются.",
     enDesc: "Any healing of {allies} restores 1 extra life. Swapping, equalising or moving life does not count as healing.",
     img: "cards/card_hospital.png"
