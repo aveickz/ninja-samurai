@@ -249,6 +249,7 @@
     "icons": [
       "complexity1",
       "dmg2",
+      "poison",
       "charctx"
     ],
     "icons_or": [
@@ -519,6 +520,7 @@
     "icons": [
       "complexity1",
       "dmg2",
+      "poison",
       "defense"
     ],
     "icons_or": [
@@ -762,7 +764,8 @@
     "qty": 4,
     "icons": [
       "complexity2",
-      "dmg1"
+      "dmg1",
+      "poison"
     ],
     "icons_or": [
       "ranged",
@@ -834,7 +837,8 @@
     "qty": 2,
     "icons": [
       "ranged",
-      "dmg1"
+      "dmg1",
+      "poison"
     ],
     "icons_or": [
       "ranged",
@@ -879,7 +883,8 @@
     "qty": 4,
     "icons": [
       "ranged",
-      "dmg2"
+      "dmg2",
+      "poison"
     ],
     "icons_or": [
       "ranged",
@@ -967,7 +972,8 @@
     "qty": 4,
     "icons": [
       "complexity2",
-      "dmg2"
+      "dmg2",
+      "poison"
     ],
     "icons_or": [
       "ranged",
