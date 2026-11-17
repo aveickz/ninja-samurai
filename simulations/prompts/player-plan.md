@@ -31,7 +31,7 @@ Run every command from the repository root `C:/ninja_samurai/cardboard`.
    py -3 C:/ninja_samurai/cardboard/simulations/engine/sim.py view --game <GAME> --seat <SEAT> --token <TOKEN>
    ```
    Read it carefully: `you.hand` (each card with its text and, for weapons,
-   `reach` — the seats you may legally attack with it), `you.attacks_left`,
+   `reach` — the seats it can reach before adding a modifier), `you.attacks_left`,
    `you.hand_limit_excess`, `you.needs_recovery`, every player's
    `complexity_to_attack`, life, VP, poison, stance / trap / aura / effects, and
    `log_this_turn` (if you are continuing an interrupted turn).
@@ -84,8 +84,10 @@ Rules of the format:
   empty is not.
 - `attack`: `card` is a weapon uid; `mode` is `"main"`, or `"or"` for the second
   mode when the card has `icons_or`, or `"bare"` with no card (power 1, costs
-  both attack attempts). `target` must be in that weapon's `reach` for that
-  mode. `modifier` is a modifier uid or null (one per attack). At most
+  both attack attempts). The weapon's `reach` shows the eligible targets for
+  that mode before adding a modifier. A modifier can extend reach. A Samurai
+  attacking with a Katana and Shogun's Wrath ignores target complexity.
+  `modifier` is a modifier uid or null (one per attack). At most
   `attacks_left` attacks in the turn. Attacking an ally is legal but gives no VP.
 - `stance`, `trap`, `aura`: once each per turn; the old card returns to your
   hand. Any card may be set face down as a trap (bluff), but if it is revealed

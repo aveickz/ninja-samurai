@@ -57,13 +57,16 @@ Run every command from the repository root `C:/ninja_samurai/cardboard`.
   - other player: `"pass"`, or `"intervene"` with the intervention card(s) in
     `cards` (also: a Defense card to soften an attack on your teammate — one
     card brings the wounds down to 1, two cards to 0; a card whose text says
-    «as an Intervention»);
+    «as an Intervention»). Once per direct attack, Hanzo may spend 1 life to
+    name a Weapon as a Defense card for a teammate.
   - answering a group card: `"respond"` with `cards` and/or `choice` in words.
 - `trap` (defender only, when you have a trap and the attack is not thrown):
   `"trigger"` or `"hold"`. If you do not defend, the trap fires anyway.
 - `when`: `null`, or `"defended"` / `"undefended"` / `"lethal"` for an
   intervention you want played only in that case (e.g. Shieldbreaker only if
-  the defender plays a Defense).
+  the defender plays a Defense). Use `"defended"` when playing Shattered Steel
+  to break the Weapon Hanzo uses to defend himself. State that choice in `notes`.
+  For Shieldbreaker with the optional Kanabo thrust, list both cards in `cards`.
 - `target`: a seat when your card needs one (Dragon Strike, Ginger, Block for a
   teammate).
 - `consent`: `share_wounds` (you agree to share the defender's wounds via

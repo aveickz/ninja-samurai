@@ -1337,10 +1337,10 @@ const CARDS = [
     types: ["modifier"],
     qty: 1,
     group: "modifier",
-    icons: [],
+    icons: ["rolectx"],
     tags: ["draft", "toPrint"],
-    desc: "Атаку можно провести даже по игроку при смерти. TODO: переделать (22.09.2026) — Сёгуна в игре больше нет, да и «атака по мёртвому» после короткой смерти почти не случается; в черновике.",
-    enDesc: "This attack may be made even against a player at death's door. TODO: rework (22.09.2026) — the Shogun is gone from the game, and attacking the dead rarely comes up after short death; draft.",
+    desc: "Этот модификатор может сыграть только {Самурай}, атакующий Катаной. Цель атаки сразу умирает при любой сложности. Защита и вмешательства невозможны. Ловушки не срабатывают.",
+    enDesc: "Only a {Samurai} attacking with a Katana may play this Modifier. The target dies immediately regardless of complexity. Defense and Interventions cannot be played. Traps do not trigger.",
     img: "cards/card_70_gnev_syoguna.png"
   },
   {
@@ -1678,8 +1678,8 @@ const CARDS = [
     group: "aoe",
     icons: [],
     tags: ["toPrint"],
-    desc: "Остальные активные игроки выкладывают перед собой на своё усмотрение любую карту в открытую. Изучив карты, вы можете взять любую из них себе в руку.",
-    enDesc: "Each other living player lays out one card of their choice face up. After looking them over, you may take any one of those cards into your hand.",
+    desc: "Каждый живой враг выкладывает в открытую 2 карты с руки на свой выбор (все, если их меньше двух). Сначала вы можете забрать себе одну из них. Затем каждый ваш {союзник} по очереди может забрать себе одну из оставшихся. Остальные карты возвращаются владельцам.",
+    enDesc: "Each living enemy lays 2 cards of their choice from their hand face up (all of them if they have fewer than 2). You may take one first. Then your {allies} may each take one of the remaining cards in turn. Return the rest to their owners.",
     img: "cards/card_obisk.png"
   },
   {
@@ -2017,10 +2017,10 @@ const CARDS = [
     types: ["action"],
     qty: 3,
     group: "action",
-    icons: [],
+    icons: ["charctx"],
     tags: ["toPrint"],
-    desc: "Выбранный игрок избавляется от яда, получает жетон жизни и берёт одну карту из колоды.",
-    enDesc: "The chosen player is cured of Poison, restores 1 life and draws a card.",
+    desc: "Выбранный игрок избавляется от яда, получает жетон жизни и берёт одну карту из колоды.[NL]Если карту играет {Манасэ}, это групповое действие и эффект получает каждый её союзник.",
+    enDesc: "The chosen player is cured of Poison, restores 1 life and draws a card.[NL]When {Manase} plays this card, it becomes a Group Action affecting all her allies instead.",
     img: "cards/card_104_vasabi.png"
   },
   {
@@ -2043,10 +2043,10 @@ const CARDS = [
     types: ["action"],
     qty: 4,
     group: "action",
-    icons: ["hpctx"],
+    icons: ["hpctx", "charctx"],
     tags: ["toPrint"],
-    desc: "Любой выбранный активный игрок восстанавливает 2 жетона жизни. В стойке {капеллана} восстанавливает на 1 жизнь больше.[NL]{На пороге вашей смерти} вы можете вылечить другого игрока на 3 жизни.",
-    enDesc: "Any living player of your choice restores 2 life. In the {Chaplain} stance, restore 1 life more.[NL]{At death's door} you may heal another player for 3 life.",
+    desc: "Любой выбранный активный игрок восстанавливает 2 жетона жизни. В стойке {капеллана} восстанавливает на 1 жизнь больше.[NL]{На пороге вашей смерти} вы можете вылечить другого игрока на 3 жизни.[NL]Если карту играет {Манасэ}, это групповое действие и выбранное лечение получает каждый её союзник.",
+    enDesc: "Any living player of your choice restores 2 life. In the {Chaplain} stance, restore 1 life more.[NL]{At death's door} you may heal another player for 3 life.[NL]When {Manase} plays this card, it becomes a Group Action and all her allies receive the chosen healing instead.",
     img: "cards/card_106_shvy.png"
   },
   {
@@ -2342,10 +2342,10 @@ const CARDS = [
     types: ["action"],
     qty: 1,
     group: "action",
-    icons: [],
+    icons: ["charctx"],
     tags: ["toPrint"],
-    desc: "Вы забираете себе ауру выбранного активного игрока.",
-    enDesc: "You take the Aura of the chosen living player for yourself.",
+    desc: "Вы забираете себе ауру выбранного активного игрока.[NL]{Таранага} может вместо этого взять ауру в руку. У ауры с накоплением он также берёт первую карту из-под неё, а остальные сбрасывает.",
+    enDesc: "You take the Aura of the chosen living player for yourself.[NL]{Taranaga} may take it into his hand instead. If it is a Charged Aura, he also takes the first card tucked under it and discards the rest.",
     img: "cards/card_spy.png"
   },
   // ── ВМЕШАТЕЛЬСТВА (стр. 17) ───────────────────────────────────────
@@ -2488,8 +2488,8 @@ const CARDS = [
     group: "intervention",
     icons: [],
     tags: ["toPrint"],
-    desc: "Уничтожьте сыгранное оружие и модификатор этой атаки, если он есть. Уничтоженные карты уходят в сброс. Атака отменяется без траты попытки.",
-    enDesc: "Destroy the played Weapon and the attack's Modifier, if any. Put the destroyed cards in the discard pile. The attack is cancelled without spending an attempt.",
+    desc: "Сбросьте оружие атаки и её модификатор (если есть). Атака отменяется без траты попытки. -ИЛИ- Сбросьте оружие, которым Хандзо защищает себя. Защита отменяется, рана за неё остаётся. Хандзо больше не может сам защищаться от этой атаки. Союзники могут его защитить.",
+    enDesc: "Discard the attacking Weapon and its Modifier (if any). Cancel the attack without spending an attempt. -OR- Discard the Weapon Hanzo used to defend himself. Cancel his defense, but he still takes its wound. Hanzo cannot defend himself again against this attack. Allies may still defend him.",
     img: "cards/card_shards.png"
   },
   {
@@ -2514,8 +2514,8 @@ const CARDS = [
     group: "intervention",
     icons: [],
     tags: ["toPrint"],
-    desc: "Сыграйте в ответ на карту защиты и сбросьте её без эффекта. Цель больше не может сама защищаться от этой атаки. Союзники цели могут защищать её по обычным правилам.",
-    enDesc: "Play in response to a Defense card and discard it without effect. The target can no longer defend themselves against this attack. Their allies may defend them as usual.",
+    desc: "Сыграйте в ответ на карту защиты и сбросьте её без эффекта. Цель больше не может сама защищаться от этой атаки. Союзники цели могут защищать её по обычным правилам.[NL]Можете сыграть в паре с {Канабо} с руки, чтобы нанести цели 2 раны выпадом.",
+    enDesc: "Play in response to a Defense card and discard it without effect. The target can no longer defend themselves against this attack. Their allies may defend them as usual.[NL]You may pair this card with a {Kanabo} from your hand to deal 2 wounds to the target as a thrust.",
     img: "cards/card_1031_shchitolom.png"
   },
   {
@@ -2645,9 +2645,9 @@ const CARDS = [
     qty: 1,
     group: "action",
     icons: [],
-    tags: [],
-    desc: "У выбранного игрока текущее и недостающее количество жетонов жизни меняются местами.",
-    enDesc: "The chosen player's current and missing life swap places.",
+    tags: ["toPrint"],
+    desc: "У выбранного игрока текущее и недостающее количество жетонов жизни меняются местами. Если жетонов столько же или больше, чем указано в сердце, оставьте игроку ровно 1 жетон жизни.",
+    enDesc: "The chosen player's current and missing life swap places. If they have at least as much life as shown in their heart, leave them with exactly 1 life.",
     img: "cards/card_motusa.png"
   },
   // ── ПЕРСОНАЖИ (стр. 19) ───────────────────────────────────────────
@@ -2706,9 +2706,9 @@ const CARDS = [
     qty: 1,
     group: "character",
     icons: [],
-    tags: [],
-    desc: "Можете защищаться от прямых атак оружием ценой одной раны. Можете сбросить карту защиты и взять 2.[NL]{После вашей смерти} сбросьте любое число оружия: выпад на 1 рану за каждое, всё по одному врагу.",
-    enDesc: "You may block direct attacks with a weapon at the cost of one wound. You may discard a Defense to draw 2.[NL]{After your death} discard any number of Weapons: a thrust for 1 wound each, all at one enemy.",
+    tags: ["toPrint"],
+    desc: "Можете защищаться от прямых атак оружием ценой одной раны. Один раз за прямую атаку можете сыграть оружие как карту защиты за союзника, потратив 1 жетон жизни. Можете сбросить карту защиты и взять 2.[NL]{После вашей смерти} сбросьте любое число оружия: выпад на 1 рану за каждое, всё по одному врагу.",
+    enDesc: "You may defend yourself against direct attacks with a Weapon at the cost of 1 wound. Once per direct attack, you may spend 1 life to play a Weapon as a Defense card for an ally. You may discard a Defense to draw 2.[NL]{After your death} discard any number of Weapons: a thrust for 1 wound each, all at one enemy.",
     img: "cards/card_139_handzo.png"
   },
 
@@ -2919,8 +2919,8 @@ const CARDS = [
     group: "aura",
     icons: [],
     tags: ["toPrint"],
-    desc: "{Враги} после нанесения ран прямой атакой по вашим союзникам получают от носителя ауры 1 рану, а если носитель в стойке {лучника} — 2.[NL]{Носитель} не может пользоваться метательным оружием.",
-    enDesc: "{Enemies} who wound your allies with a direct attack take 1 wound from the Aura's bearer, or 2 if the bearer is in the {Archer} stance.[NL]The {Bearer} cannot use thrown weapons.",
+    desc: "{Враг}, ранивший вашего союзника прямой атакой, получает от носителя 1 рану, а если носитель в стойке {лучника} — 2.[NL]Когда ваш союзник ранит цель прямой атакой, носитель наносит ей ещё 1 рану.[NL]{Носитель} не может пользоваться метательным оружием.",
+    enDesc: "An {enemy} who wounds your ally with a direct attack takes 1 wound from the bearer, or 2 if the bearer is in the {Archer} stance.[NL]When your ally wounds a target with a direct attack, the bearer deals 1 more wound to that target.[NL]The {Bearer} cannot use thrown weapons.",
     img: "cards/card_warden.png"
   },
   {

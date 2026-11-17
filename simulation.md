@@ -256,7 +256,8 @@ When an attack or a `play` with reactors opens, `sim.py` lists **reactors**:
   `{"action": "take"}` is recorded automatically and no agent is spawned;
 - every other living player who *could* react: holds an `intervention` card, a
   card whose text says «as an Intervention», a Defense card while being the
-  defender's teammate (partial absorption rule), a Renkei, or has a table object
+  defender's teammate, is Hanzo on the defender's team with a Weapon and at
+  least 1 life, holds a Renkei, or has a table object
   that enables reactions (Oath / Armory / Back to Back auras, Ketsuban stance,
   Norio with a polearm, Bell trap on the defender). Others are auto-`pass`ed;
 - for `play` with reactors: exactly the listed seats, no pruning.
@@ -295,6 +296,9 @@ onto the attacker as an Effect).
   `ranged` any); +1 Horseman on the attacker, +2 Lunge, any with Hachimaki, any for
   a favourite weapon in its owner's hands. An attack is legal iff handles ≥ target
   complexity. Dust in the Eyes: only complexity-1 targets and nothing thrown.
+  Shogun's Wrath is restricted to a Samurai's Katana attack. It ignores target
+  complexity and kills the target immediately with no Defense, Traps or
+  Interventions. The attack spends one attempt.
 - **power** = dmg icon of the chosen mode (bare 1 / Saigo 2), + flat modifiers
   (Tameshigiri +1, Critical Strike +2, Lunge +1, Vial of Poison +1 and poison,
   Hachimaki +1, Kubitori +1, Wakizashi-on-Katana +2), + known stance / character
@@ -417,9 +421,6 @@ is tagged so it can be revisited.
   wish. No negotiation.
 - **A7 — plans are commitments.** A player's later steps run without re-asking
   unless they put `replan` in. Steps made illegal by earlier results are skipped.
-- **A8 — Shogun's Wrath** («may be made even against a player at death's door»)
-  refers to a rule the current text does not have; treated as a no-op modifier
-  and reported as a ruling.
 - **A9 — turn cap.** `max_turns` (default 10 player-turns) ends the game with a
   VP count; the report separates cap endings from natural ones.
 - **A10 — drafts** (`tags: draft`) are out of the deck unless `--include-drafts`.

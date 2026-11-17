@@ -518,6 +518,7 @@ def compute_baseline(cdb, state, attacker_seat, target_seat, weapon_uid, mode, m
     weapon_id = weapon["id"]
     modifier = card_of(cdb, modifier_uid) if modifier_uid else None
     modifier_id = modifier["id"] if modifier else None
+    instant_kill = modifier_id == cr.SHOGUN_WRATH_MODIFIER_ID
 
     icons = weapon["icons_or"] if mode == "or" else weapon["icons"]
     icon_complexity = None
@@ -552,6 +553,9 @@ def compute_baseline(cdb, state, attacker_seat, target_seat, weapon_uid, mode, m
         notes.append("Hachimaki: weapon handles any complexity")
     if is_favourite:
         notes.append("favourite weapon: handles any complexity, undefendable")
+    if instant_kill:
+        handles = "any"
+        notes.append("Shogun's Wrath: kills the target immediately")
 
     complexity = target_complexity(cdb, state, target_seat)
     if complexity > cr.COMPLEXITY_BASE:
@@ -591,13 +595,17 @@ def compute_baseline(cdb, state, attacker_seat, target_seat, weapon_uid, mode, m
         power += 1
         notes.append("poisoned attack vs poisoned target: +1")
 
-    undefendable = cr.attack_is_undefendable(weapon_id, modifier_id, attacker["faction"], attacker["character"])
+    undefendable = instant_kill or cr.attack_is_undefendable(
+        weapon_id, modifier_id, attacker["faction"], attacker["character"]
+    )
     # Rules, «Defense»: a defender under a defenceless Effect cannot defend, and then their allies
     # cannot defend them either — so the whole attack counts as undefendable (Defenseless, id 101).
     if any(card_id_of(u) == 101 for u in target.get("effects", [])):
         undefendable = True
         notes.append("target is Defenseless: nobody may defend this attack")
-    ignores_traps = cr.attack_ignores_traps(weapon_id, modifier_id, thrown, attacker["faction"], target["character"])
+    ignores_traps = instant_kill or cr.attack_ignores_traps(
+        weapon_id, modifier_id, thrown, attacker["faction"], target["character"]
+    )
     trap_may_fire = bool(target["trap"]) and not ignores_traps
 
     return {
@@ -606,6 +614,7 @@ def compute_baseline(cdb, state, attacker_seat, target_seat, weapon_uid, mode, m
         "handles": handles, "complexity": complexity,
         "power": power, "dmg_base": dmg, "thrown": thrown, "poisoned": poisoned,
         "undefendable": undefendable, "ignores_traps": ignores_traps,
+        "instant_kill": instant_kill,
         "trap_may_fire": trap_may_fire, "notes": notes,
     }
 
@@ -1156,10 +1165,11 @@ def build_pending_view(cdb, state):
         out["attack"]["weapon_text"] = cdb.get(b["weapon_id"])["text"] if b["weapon_id"] else "Bare hands: no card text."
         out["attack"]["modifier_text"] = cdb.get(b["modifier_id"])["text"] if b["modifier_id"] else None
         out["attack"]["note"] = step.get("note")
+        instant_kill = b.get("instant_kill", False)
         out["what_happens_if_undefended"] = {
-            "target": step["target"], "damage": b["power"],
-            "resulting_hp": max(0, target["hp"] - b["power"]),
-            "lethal": target["hp"] - b["power"] <= 0,
+            "target": step["target"], "damage": 0 if instant_kill else b["power"],
+            "resulting_hp": 0 if instant_kill else max(0, target["hp"] - b["power"]),
+            "lethal": instant_kill or target["hp"] - b["power"] <= 0,
         }
         out["attacker"] = {
             "seat": attacker["seat"], "character": character_view(cdb, attacker["character"]),
@@ -1176,6 +1186,8 @@ def build_pending_view(cdb, state):
         undefendable = bool(b.get("undefendable"))
         defended = (r.get("action") == "defend") and bool(r.get("cards")) and not undefendable
         hints = []
+        if instant_kill:
+            hints.append("Shogun's Wrath: use a kill op first, with the attacker as 'by'. Resolve after-death effects normally. The attack spends one attempt.")
         if undefendable:
             hints.append("This attack cannot be defended: Defense cards of the defender and of teammates have no effect; treat any 'defend' as 'take'.")
         if b.get("trap_may_fire"):
@@ -1210,6 +1222,7 @@ def build_pending_view(cdb, state):
         p = find_player(state, seat)
         return {
             "seat": seat, "character": character_view(cdb, p["character"]),
+            "hp": p["hp"],
             "stance": card_obj(cdb, p["stance"]) if p["stance"] else None,
             "trap": ({"present": True, "face_up": p["trap"]["face_up"],
                        "card": card_obj(cdb, p["trap"]["uid"])} if p["trap"] else {"present": False}),
@@ -1308,6 +1321,8 @@ def eligible_interveners(cdb, state, attacker_seat, target_seat, undefendable=Fa
         if seat in (attacker_seat, target_seat) or not p["alive"]:
             continue
         same_team_as_target = team_of(state, seat) == team_of(state, target_seat)
+        can_help_defend = same_team_as_target and not undefendable
+        hanzo_can_pay = p["character"] == cr.HANZO_CHARACTER_ID and p["hp"] >= 1
         eligible = False
         for uid in p["hand"]:
             c = card_of(cdb, uid)
@@ -1317,8 +1332,11 @@ def eligible_interveners(cdb, state, attacker_seat, target_seat, undefendable=Fa
             if "as an Intervention" in (c.get("text") or ""):
                 eligible = True
                 break
-            if "defense" in c["types"] and same_team_as_target and not undefendable:
-                eligible = True  # partial-absorption teammate defense
+            if can_help_defend and (
+                "defense" in c["types"]
+                or (hanzo_can_pay and "weapon" in c["types"])
+            ):
+                eligible = True
                 break
         if not eligible and same_team_as_target and target_team_has_reaction_aura:
             eligible = True
@@ -1601,6 +1619,15 @@ def _validate_step(cdb, state, sim, i, step, errors):
             errors.append(f"step {i}: an effect on you blocks weapon attacks")
             return
 
+        modifier_uid = step.get("modifier")
+        shogun_wrath = (
+            modifier_uid and sim.has(modifier_uid)
+            and card_id_of(modifier_uid) == cr.SHOGUN_WRATH_MODIFIER_ID
+        )
+        if shogun_wrath and (p["faction"] != "samurai" or mode == "bare"):
+            errors.append(f"step {i}: Shogun's Wrath requires a Samurai attacking with a Katana")
+            return
+
         thrown = False
         if mode == "bare":
             handles = 1
@@ -1620,7 +1647,6 @@ def _validate_step(cdb, state, sim, i, step, errors):
             if c["id"] in cr.WEAPON_REQUIRES_MODIFIER and not step.get("modifier"):
                 errors.append(f"step {i}: {uid} fires only together with a Modifier")
                 return
-            modifier_uid = step.get("modifier")
             if modifier_uid:
                 if not sim.has(modifier_uid) and modifier_uid != uid:
                     errors.append(f"step {i}: modifier {modifier_uid} not in hand")
@@ -1633,6 +1659,9 @@ def _validate_step(cdb, state, sim, i, step, errors):
                     return
                 if is_wakizashi_case and c["id"] != cr.KATANA_WEAPON_ID:
                     errors.append(f"step {i}: Wakizashi may only modify a Katana attack")
+                    return
+                if shogun_wrath and c["id"] != cr.KATANA_WEAPON_ID:
+                    errors.append(f"step {i}: Shogun's Wrath requires a Katana attack")
                     return
             icon_complexity = None
             thrown = False
@@ -1656,12 +1685,12 @@ def _validate_step(cdb, state, sim, i, step, errors):
                 return
 
         complexity = target_complexity(cdb, state, target)
-        if not cr.handles_meets(handles, complexity):
+        if not shogun_wrath and not cr.handles_meets(handles, complexity):
             errors.append(f"step {i}: weapon handles {handles} but target complexity is {complexity}")
             return
 
         if cr.DUST_IN_EYES_EFFECT_ID in actor_effect_ids:
-            if complexity != 1:
+            if complexity != 1 and not shogun_wrath:
                 errors.append(f"step {i}: Dust in the Eyes restricts you to complexity-1 targets")
                 return
             if thrown:
@@ -1772,13 +1801,29 @@ def validate_reaction(cdb, state, seat, reaction):
     if action not in ("take", "defend", "pass", "intervene", "respond"):
         raise ValidationError([f"invalid action {action!r}"])
     p = find_player(state, seat)
-    for uid in reaction.get("cards", []) or []:
+    cards = reaction.get("cards") or []
+    for uid in cards:
         if uid == "trap":
             if not p["trap"]:
                 raise ValidationError(["no trap to name"])
             continue
         if uid not in p["hand"]:
             raise ValidationError([f"card {uid} not in seat {seat}'s hand"])
+    if action == "intervene" and pend["kind"] == "attack" and p["character"] == cr.HANZO_CHARACTER_ID:
+        target = pend["step"]["target"]
+        team = team_of(state, seat)
+        # On friendly fire a Weapon can also support the attacker through Armory.
+        # The referee handles that case since the reaction does not label each card's use.
+        if target != seat and team == team_of(state, target) and team != team_of(state, pend["actor"]):
+            reaction_cards = [card_of(cdb, uid) for uid in cards if uid != "trap"]
+            weapons_as_defense = sum(
+                "weapon" in card["types"]
+                and "defense" not in card["types"]
+                and "as an Intervention" not in (card.get("text") or "")
+                for card in reaction_cards
+            )
+            if weapons_as_defense > 1:
+                raise ValidationError(["Hanzo can use his ally defense ability only once per attack"])
     return True
 
 
@@ -2190,7 +2235,10 @@ def _open_attack(ctx, seat, step, step_index):
 
     pid = state["next_pending_id"]
     state["next_pending_id"] += 1
-    reactors_all, reactions = attack_reactors(cdb, state, seat, target, undefendable=baseline["undefendable"])
+    if baseline.get("instant_kill"):
+        reactors_all, reactions = [], {}
+    else:
+        reactors_all, reactions = attack_reactors(cdb, state, seat, target, undefendable=baseline["undefendable"])
     pending = {
         "id": pid, "kind": "attack", "actor": seat, "step": {**step, "step_index": step_index},
         "batch": [], "resume_index": step_index + 1,
@@ -2407,6 +2455,12 @@ def apply_resolve(ctx, ops, result=None, uses_attack=True, narrative=None, rulin
     errors = validate_ops(ctx.cdb, state, ops)
     if errors:
         raise ValidationError(errors)
+
+    if pend["kind"] == "attack" and pend["baseline"].get("instant_kill"):
+        first = ops[0] if ops else {}
+        if first.get("op") != "kill" or first.get("seat") != pend["step"]["target"] or first.get("by") != pend["actor"]:
+            raise ValidationError(["Shogun's Wrath must kill the target credited to the attacker before any other op"])
+        uses_attack = True
 
     if len(ops) == 1 and ops[0].get("op") == "reject":
         _reject_pending(ctx)

@@ -76,6 +76,7 @@ FORCE_COMPLEXITY_1_EFFECTS = {KAGINAWA_EFFECT_ID, BEAR_TRAP_EFFECT_ID}
 
 LUNGE_MODIFIER_ID = 68          # modifier: attacker's weapon handles +2 complexity (also flat power, see below)
 HACHIMAKI_MODIFIER_ID = 73      # modifier: attacker's weapon handles ANY complexity (also flat power, see below)
+SHOGUN_WRATH_MODIFIER_ID = 70   # a Samurai's Katana attack kills the target immediately
 NAGINATA_WEAPON_ID = 28         # weapon: already icon complexity_any ({Polearm}) — listed for completeness only
 
 

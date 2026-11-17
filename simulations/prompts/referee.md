@@ -60,8 +60,8 @@ Run every command from the repository root `C:/ninja_samurai/cardboard`.
 
 `result`: `hit` / `blocked` / `cancelled` / `resolved` (for `card` and `batch`).
 `uses_attack`: true by default; false only when the text says the strike does
-not use up an attack (Fukiya, Shogun's Hand) or the attack was cancelled by
-Shattered Steel.
+not use up an attack (Fukiya, Shogun's Hand) or Shattered Steel was used to
+cancel the attack by discarding the attacking Weapon and its Modifier (if any).
 
 Ops (all fields required as shown; seats are numbers; uids like `c48-2`):
 
@@ -104,7 +104,10 @@ consequences as further ops.
    stance → aura → poison → effect → trap → defense for the defender. A limit
    met in the chain holds to the end (e.g. Weakness caps at one wound, Shield
    Bearer's floor is 1) unless a card explicitly cancels bonuses (Piercing
-   Strike).
+   Strike). Sentry's offensive effect happens after a direct attack by the
+   bearer's ally deals wounds. If the target survives the attack, deal 1 more
+   wound to that target with `source: "other"` and `by` set to the bearer.
+   The Archer stance increases only Sentry's retaliation against enemies.
 3. **Attack legality.** The bookkeeper already checked complexity with its
    table; if a card text you can see makes the attack illegal after all
    (an aura or effect the table missed), answer with a single `reject` and the
@@ -115,8 +118,16 @@ consequences as further ops.
    Dagger, Venom Bracers, Stagger, Pickpocket, Seize…). An `undefendable`
    attack ignores Defense cards and teammates' help. A teammate's Defense card
    played as an intervention reduces the final wounds to 1 (two cards: to 0)
-   and its own special effect does not fire. Shieldbreaker in response to a
-   Defense destroys it and the attack resolves as undefended.
+   and its own special effect does not fire. Once per direct attack, Hanzo can
+   spend 1 life with `set_hp` and play one Weapon as one Defense card for a
+   teammate. Shieldbreaker destroys the Defense played and stops the target
+   from defending themselves against that attack. Allies can still defend the target.
+   If Shieldbreaker is played with a Kanabo from the same player's hand, deal
+   2 wounds to the attack target as a separate thrust by the card player.
+   If Shattered Steel discards a Weapon Hanzo used to defend himself, apply the
+   same defense restrictions. Hanzo still takes the wound he paid, and the
+   attack continues and spends its attempt as usual. Resolve the Trap as for a
+   defender whose own defense did not succeed.
 5. **Traps** fire when the defender does not defend against a non-thrown
    attack (thrown attacks never trigger them, except against Iyo) and when the
    defender chose `trigger`; if the card under the figurine is not a Trap the
@@ -143,14 +154,22 @@ consequences as further ops.
     `respond` reactions (`choice`, `cards`). If a player's answer does not
     satisfy a mandatory effect, apply the least harmful legal fulfilment for
     them and note it. Self-only cards (Stitches, Wasabi, Tea Ceremony…) are
-    resolved fully from their text.
+    resolved fully from their text. For Blind Strike, set the target's life to
+    the number missing from their heart value, or exactly 1 if they already
+    meet or exceed that value. This is an exchange of life, not healing or damage.
+    When Manase plays Stitches or Wasabi, apply the card to every other living
+    member of her team. Stitches gives each ally the chosen amount of healing;
+    Wasabi clears each ally's poison, heals them for 1 and gives them 1 card.
+    Apply Manase's usual healing and draw effects for each ally who restores life.
+    If Taranaga takes an Aura into his hand with Infiltrator, move the first
+    tucked card to his hand and discard any additional tucked cards before
+    moving the Aura to his hand.
 11. **Illegal or impossible actions** (a card that cannot be played now, a
     target that does not fit the text) get a single `reject` with a clear
     reason — this is measured, players misreading cards is a finding.
 12. **Assumptions of the simulation** (`simulation.md` §8): revival at full
-    life; one reaction round; interventions only inside transactions or as a
-    played step; a replaced aura's charges go to the discard; Shogun's Wrath is
-    a no-op modifier (note it as a ruling).
+    life, one reaction round, interventions only inside transactions or as a
+    played step, and discarding a replaced aura's charges.
 
 Keep `narrative` to one to three sentences naming the players as `P<seat>
 (<character>)`, the cards, the numbers and the outcome.

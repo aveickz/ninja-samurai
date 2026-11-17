@@ -1974,13 +1974,15 @@
     ],
     "group": "modifier",
     "qty": 1,
-    "icons": [],
+    "icons": [
+      "rolectx"
+    ],
     "icons_or": null,
     "tags": [
       "draft",
       "toPrint"
     ],
-    "text": "This attack may be made even against a player at death's door. TODO: rework (22.09.2026) — the Shogun is gone from the game, and attacking the dead rarely comes up after short death; draft.",
+    "text": "Only a {Samurai} attacking with a Katana may play this Modifier. The target dies immediately regardless of complexity. Defense and Interventions cannot be played. Traps do not trigger.",
     "hp": null,
     "subtitle": null
   },
@@ -2450,7 +2452,7 @@
     "tags": [
       "toPrint"
     ],
-    "text": "Each other living player lays out one card of their choice face up. After looking them over, you may take any one of those cards into your hand.",
+    "text": "Each living enemy lays 2 cards of their choice from their hand face up (all of them if they have fewer than 2). You may take one first. Then your {allies} may each take one of the remaining cards in turn. Return the rest to their owners.",
     "hp": null,
     "subtitle": null
   },
@@ -2903,12 +2905,14 @@
     ],
     "group": "action",
     "qty": 3,
-    "icons": [],
+    "icons": [
+      "charctx"
+    ],
     "icons_or": null,
     "tags": [
       "toPrint"
     ],
-    "text": "The chosen player is cured of Poison, restores 1 life and draws a card.",
+    "text": "The chosen player is cured of Poison, restores 1 life and draws a card.\nWhen {Manase} plays this card, it becomes a Group Action affecting all her allies instead.",
     "hp": null,
     "subtitle": null
   },
@@ -2938,13 +2942,14 @@
     "group": "action",
     "qty": 4,
     "icons": [
-      "hpctx"
+      "hpctx",
+      "charctx"
     ],
     "icons_or": null,
     "tags": [
       "toPrint"
     ],
-    "text": "Any living player of your choice restores 2 life. In the {Chaplain} stance, restore 1 life more.\n{At death's door} you may heal another player for 3 life.",
+    "text": "Any living player of your choice restores 2 life. In the {Chaplain} stance, restore 1 life more.\n{At death's door} you may heal another player for 3 life.\nWhen {Manase} plays this card, it becomes a Group Action and all her allies receive the chosen healing instead.",
     "hp": null,
     "subtitle": null
   },
@@ -3349,12 +3354,14 @@
     ],
     "group": "action",
     "qty": 1,
-    "icons": [],
+    "icons": [
+      "charctx"
+    ],
     "icons_or": null,
     "tags": [
       "toPrint"
     ],
-    "text": "You take the Aura of the chosen living player for yourself.",
+    "text": "You take the Aura of the chosen living player for yourself.\n{Taranaga} may take it into his hand instead. If it is a Charged Aura, he also takes the first card tucked under it and discards the rest.",
     "hp": null,
     "subtitle": null
   },
@@ -3547,7 +3554,7 @@
     "tags": [
       "toPrint"
     ],
-    "text": "Destroy the played Weapon and the attack's Modifier, if any. Put the destroyed cards in the discard pile. The attack is cancelled without spending an attempt.",
+    "text": "Discard the attacking Weapon and its Modifier (if any). Cancel the attack without spending an attempt. -OR- Discard the Weapon Hanzo used to defend himself. Cancel his defense, but he still takes its wound. Hanzo cannot defend himself again against this attack. Allies may still defend him.",
     "hp": null,
     "subtitle": null
   },
@@ -3582,7 +3589,7 @@
     "tags": [
       "toPrint"
     ],
-    "text": "Play in response to a Defense card and discard it without effect. The target can no longer defend themselves against this attack. Their allies may defend them as usual.",
+    "text": "Play in response to a Defense card and discard it without effect. The target can no longer defend themselves against this attack. Their allies may defend them as usual.\nYou may pair this card with a {Kanabo} from your hand to deal 2 wounds to the target as a thrust.",
     "hp": null,
     "subtitle": null
   },
@@ -3750,8 +3757,10 @@
     "qty": 1,
     "icons": [],
     "icons_or": null,
-    "tags": [],
-    "text": "The chosen player's current and missing life swap places.",
+    "tags": [
+      "toPrint"
+    ],
+    "text": "The chosen player's current and missing life swap places. If they have at least as much life as shown in their heart, leave them with exactly 1 life.",
     "hp": null,
     "subtitle": null
   },
@@ -3810,8 +3819,10 @@
     "qty": 1,
     "icons": [],
     "icons_or": null,
-    "tags": [],
-    "text": "You may block direct attacks with a weapon at the cost of one wound. You may discard a Defense to draw 2.\n{After your death} discard any number of Weapons: a thrust for 1 wound each, all at one enemy.",
+    "tags": [
+      "toPrint"
+    ],
+    "text": "You may defend yourself against direct attacks with a Weapon at the cost of 1 wound. Once per direct attack, you may spend 1 life to play a Weapon as a Defense card for an ally. You may discard a Defense to draw 2.\n{After your death} discard any number of Weapons: a thrust for 1 wound each, all at one enemy.",
     "hp": 4,
     "subtitle": null
   },
@@ -4062,7 +4073,7 @@
     "tags": [
       "toPrint"
     ],
-    "text": "{Enemies} who wound your allies with a direct attack take 1 wound from the Aura's bearer, or 2 if the bearer is in the {Archer} stance.\nThe {Bearer} cannot use thrown weapons.",
+    "text": "An {enemy} who wounds your ally with a direct attack takes 1 wound from the bearer, or 2 if the bearer is in the {Archer} stance.\nWhen your ally wounds a target with a direct attack, the bearer deals 1 more wound to that target.\nThe {Bearer} cannot use thrown weapons.",
     "hp": null,
     "subtitle": null
   },

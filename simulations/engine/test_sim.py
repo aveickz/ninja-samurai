@@ -211,6 +211,53 @@ class SimTestCase(unittest.TestCase):
         with self.assertRaises(sim.ValidationError):
             sim.validate_plan(CDB, state, 0, plan)
 
+    def test_shoguns_wrath_requires_a_samurai_and_katana(self):
+        state = self.load(self.new_game(seed=5, include_drafts=True))
+        katana = self.give(state, 0, KATANA)
+        other_weapon = self.give(state, 0, BOKKEN)
+        modifier = self.give(state, 0, cr.SHOGUN_WRATH_MODIFIER_ID)
+        attack = {"do": "attack", "mode": "main", "target": 1, "modifier": modifier}
+
+        with self.assertRaisesRegex(sim.ValidationError, "requires a Katana attack"):
+            sim.validate_plan(CDB, state, 0, {"steps": [{**attack, "card": other_weapon}]})
+
+        state["players"][0]["faction"] = "ninja"
+        with self.assertRaisesRegex(sim.ValidationError, "requires a Samurai"):
+            sim.validate_plan(CDB, state, 0, {"steps": [{**attack, "card": katana}]})
+
+    def test_shoguns_wrath_kills_without_a_reaction(self):
+        state = self.load(self.new_game(seed=5, include_drafts=True))
+        weapon = self.give(state, 0, KATANA)
+        modifier = self.give(state, 0, cr.SHOGUN_WRATH_MODIFIER_ID)
+        armor = self.give(state, 1, ARMOR)
+        trap = self.give(state, 1, BEAR_TRAP)
+        sim.move_uid(state, armor, "effects", seat=1)
+        sim.move_uid(state, trap, "trap", seat=1)
+        self.give(state, 1, PARRY)
+        self.give(state, 3, 1029)  # Shattered Steel would usually let this player intervene.
+        vp_before = state["players"][0]["vp"]
+
+        ctx = self.ctx(state)
+        sim.start_plan(ctx, 0, {"steps": [
+            {"do": "attack", "mode": "main", "card": weapon, "modifier": modifier, "target": 1},
+            {"do": "replan"},
+        ]})
+        pending = sim.build_pending_view(CDB, ctx.state)
+        self.assertGreater(pending["attack"]["complexity"], 1)
+        self.assertEqual(pending["reactors_all"], [])
+        self.assertFalse(pending["attack"]["trap_may_fire"])
+        self.assertTrue(pending["what_happens_if_undefended"]["lethal"])
+        with self.assertRaisesRegex(sim.ValidationError, "must kill the target"):
+            sim.apply_resolve(ctx, [{"op": "reject", "reason": "intervened"}])
+        self.assertTrue(ctx.state["players"][1]["alive"])
+
+        sim.apply_resolve(ctx, [{"op": "kill", "seat": 1, "by": 0}], uses_attack=False)
+        self.assertFalse(ctx.state["players"][1]["alive"])
+        self.assertEqual(ctx.state["players"][0]["vp"], vp_before + 1)
+        self.assertEqual(ctx.state["players"][0]["attacks_used"], 1)
+        self.assertIn(weapon, ctx.state["discard"])
+        self.assertIn(modifier, ctx.state["discard"])
+
     # -- full attack loop --------------------------------------------------
 
     def test_full_attack_loop_with_defense_and_draws(self):
@@ -459,6 +506,48 @@ class SimTestCase(unittest.TestCase):
         # Ketsuban on the target makes their living ally eligible to share wounds.
         state["players"][1]["stance"] = "c1164-1"
         self.assertEqual(sim.eligible_interveners(CDB, state, 0, 1), [3])
+
+    def test_hanzo_can_react_with_a_weapon_to_defend_an_ally(self):
+        gid = self.new_game(seed=102)
+        state = self.load(gid)
+        self.avoid_reactive_characters(state)
+        hanzo = sim.find_player(state, 0)
+        hanzo["character"] = cr.HANZO_CHARACTER_ID
+        hanzo["hp"] = 1
+        for uid in list(hanzo["hand"]):
+            sim.move_uid(state, uid, "discard")
+        weapon = self.give(state, 0, KATANA)
+
+        self.assertIn(0, sim.eligible_interveners(CDB, state, 1, 2))
+        self.assertNotIn(0, sim.eligible_interveners(CDB, state, 1, 2, undefendable=True))
+        self.assertNotIn(0, sim.eligible_interveners(CDB, state, 2, 3))
+
+        sim.move_uid(state, weapon, "discard")
+        self.assertNotIn(0, sim.eligible_interveners(CDB, state, 1, 2))
+
+    def test_hanzo_can_turn_only_one_weapon_into_ally_defense_per_attack(self):
+        gid = self.new_game(seed=102)
+        state = self.load(gid)
+        self.avoid_reactive_characters(state)
+        hanzo = sim.find_player(state, 3)
+        hanzo["character"] = cr.HANZO_CHARACTER_ID
+        hanzo["hp"] = 2
+        attack_weapon = self.give(state, 0, KATANA)
+        weapon = self.give(state, 3, BOKKEN)
+        second_weapon = self.give(state, 3, SHUKO)
+        sai = self.give(state, 3, 18)  # Sai is already a Defense card.
+        ctx = self.ctx(state)
+        sim.start_plan(ctx, 0, {"steps": [{
+            "do": "attack", "mode": "main", "card": attack_weapon, "target": 1,
+        }]})
+
+        with self.assertRaisesRegex(sim.ValidationError, "only once per attack"):
+            sim.apply_reaction(ctx, 3, {"action": "intervene", "cards": [weapon, second_weapon]})
+        self.assertIn(3, ctx.state["pending"]["reactors_pending"])
+        self.assertEqual(hanzo["hp"], 2)
+
+        sim.apply_reaction(ctx, 3, {"action": "intervene", "cards": [weapon, sai]})
+        self.assertEqual(ctx.state["pending"]["reactions"]["3"]["cards"], [weapon, sai])
 
     def test_reaction_enabling_auras_require_targets_team(self):
         gid = self.new_game(seed=103)
