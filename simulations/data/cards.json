@@ -3340,15 +3340,13 @@
     ],
     "group": "intervention",
     "qty": 1,
-    "icons": [
-      "rolectx"
-    ],
+    "icons": [],
     "icons_or": null,
     "tags": [
       "draft",
       "toPrint"
     ],
-    "text": "Play when you or an {ally} are attacked: openly give the attacker one card from your hand per wound of this attack, at least one. The attack is cancelled and the attempt is used up. You can buy off even an attack that cannot be defended.\nA {Samurai} may refuse the bribe — then you keep the cards. TODO: bribe price — one card per wound or a flat two cards, settle in playtest. Check the card is not dead against Samurai, who may refuse the bribe (rule 6).",
+    "text": "You may bribe the attacker by giving them 1 card per wound. The attack is cancelled and its attempt is spent.",
     "hp": null,
     "subtitle": null
   },
