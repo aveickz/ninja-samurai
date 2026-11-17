@@ -346,6 +346,10 @@ class SimTestCase(unittest.TestCase):
     def test_max_turns_end_with_magatama_scoring(self):
         gid = self.new_game(seed=14, max_turns=1)
         state = self.load(gid)
+        # Isolate the scoring card from the initial deal and final draw.
+        for uid in state["_all_uids"]:
+            if sim.card_id_of(uid) == MAGATAMA:
+                sim.move_uid(state, uid, "discard")
         self.give(state, 0, MAGATAMA)
         ctx = self.ctx(state)
         sim.end_of_turn(ctx)

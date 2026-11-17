@@ -66,13 +66,95 @@
       "weapon"
     ],
     "group": "weapon",
-    "qty": 2,
+    "qty": 1,
     "icons": [
       "complexity1",
       "dmg2"
     ],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
+    "text": "While you hold a Stance, deal 1 extra wound.",
+    "hp": null,
+    "subtitle": null
+  },
+  {
+    "id": 332,
+    "name": "Katana",
+    "types": [
+      "weapon"
+    ],
+    "group": "weapon",
+    "qty": 1,
+    "icons": [
+      "complexity1",
+      "dmg2"
+    ],
+    "icons_or": null,
+    "tags": [
+      "toPrint"
+    ],
+    "text": "While you hold a Stance, deal 1 extra wound.",
+    "hp": null,
+    "subtitle": null
+  },
+  {
+    "id": 333,
+    "name": "Katana",
+    "types": [
+      "weapon"
+    ],
+    "group": "weapon",
+    "qty": 1,
+    "icons": [
+      "complexity1",
+      "dmg2"
+    ],
+    "icons_or": null,
+    "tags": [
+      "toPrint"
+    ],
+    "text": "While you hold a Stance, deal 1 extra wound.",
+    "hp": null,
+    "subtitle": null
+  },
+  {
+    "id": 334,
+    "name": "Katana",
+    "types": [
+      "weapon"
+    ],
+    "group": "weapon",
+    "qty": 1,
+    "icons": [
+      "complexity1",
+      "dmg2"
+    ],
+    "icons_or": null,
+    "tags": [
+      "toPrint"
+    ],
+    "text": "While you hold a Stance, deal 1 extra wound.",
+    "hp": null,
+    "subtitle": null
+  },
+  {
+    "id": 335,
+    "name": "Katana",
+    "types": [
+      "weapon"
+    ],
+    "group": "weapon",
+    "qty": 1,
+    "icons": [
+      "complexity1",
+      "dmg2"
+    ],
+    "icons_or": null,
+    "tags": [
+      "toPrint"
+    ],
     "text": "While you hold a Stance, deal 1 extra wound.",
     "hp": null,
     "subtitle": null
@@ -110,7 +192,9 @@
       "charctx"
     ],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "On a successful attack, the target discards a random card.\nFavourite weapon of {Saigo}.",
     "hp": null,
     "subtitle": null
@@ -128,7 +212,9 @@
       "dmg0"
     ],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "On a successful attack, you or an ally draws a card.",
     "hp": null,
     "subtitle": null
@@ -212,7 +298,9 @@
       "modifier"
     ],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "May be played as a modifier on a Katana attack: +2 attack power.",
     "hp": null,
     "subtitle": null
@@ -232,8 +320,10 @@
       "defense"
     ],
     "icons_or": null,
-    "tags": [],
-    "text": "May be played as a Defense card. In the {Shield Bearer} stance, deals 1 extra wound.",
+    "tags": [
+      "toPrint"
+    ],
+    "text": "May be played as a Defense card. In the {Ironclad} stance, deals 1 extra wound.",
     "hp": null,
     "subtitle": null
   },
@@ -270,7 +360,9 @@
       "dmg3"
     ],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "",
     "hp": null,
     "subtitle": null
@@ -346,7 +438,9 @@
       "dmg2"
     ],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "",
     "hp": null,
     "subtitle": null
@@ -364,7 +458,9 @@
       "dmg3"
     ],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "",
     "hp": null,
     "subtitle": null
@@ -509,7 +605,8 @@
     ],
     "icons_or": null,
     "tags": [
-      "poison"
+      "poison",
+      "toPrint"
     ],
     "text": "",
     "hp": null,
@@ -678,7 +775,9 @@
       "dmg1"
     ],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "{Polearm} In the {Horseman} stance, deals 1 extra wound.",
     "hp": null,
     "subtitle": null
@@ -702,7 +801,8 @@
       "poison"
     ],
     "tags": [
-      "poison"
+      "poison",
+      "toPrint"
     ],
     "text": "{Polearm} In the {Horseman} stance, deals 1 extra wound.",
     "hp": null,
@@ -715,7 +815,27 @@
       "weapon"
     ],
     "group": "weapon",
-    "qty": 2,
+    "qty": 1,
+    "icons": [
+      "ranged",
+      "dmg1"
+    ],
+    "icons_or": null,
+    "tags": [
+      "toPrint"
+    ],
+    "text": "{With a Trap in play} deals one wound more.",
+    "hp": null,
+    "subtitle": null
+  },
+  {
+    "id": 330,
+    "name": "Shuriken",
+    "types": [
+      "weapon"
+    ],
+    "group": "weapon",
+    "qty": 1,
     "icons": [
       "ranged",
       "dmg1"
@@ -771,7 +891,29 @@
       "weapon"
     ],
     "group": "weapon",
-    "qty": 2,
+    "qty": 1,
+    "icons": [
+      "ranged",
+      "dmg1",
+      "poison"
+    ],
+    "icons_or": null,
+    "tags": [
+      "poison",
+      "toPrint"
+    ],
+    "text": "{With a Trap in play} deals one wound more.",
+    "hp": null,
+    "subtitle": null
+  },
+  {
+    "id": 331,
+    "name": "Shuriken",
+    "types": [
+      "weapon"
+    ],
+    "group": "weapon",
+    "qty": 1,
     "icons": [
       "ranged",
       "dmg1",
@@ -840,7 +982,8 @@
     ],
     "icons_or": null,
     "tags": [
-      "poison"
+      "poison",
+      "toPrint"
     ],
     "text": "In the {Archer} stance, deals 1 extra wound.",
     "hp": null,
@@ -862,7 +1005,9 @@
       "charctx"
     ],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "May be played as a Trap that deals 1 wound back to the attacker.\nFavourite weapon of {Iyo}.",
     "hp": null,
     "subtitle": null
@@ -908,7 +1053,8 @@
       "poison"
     ],
     "tags": [
-      "poison"
+      "poison",
+      "toPrint"
     ],
     "text": "",
     "hp": null,
@@ -1134,8 +1280,7 @@
     ],
     "icons_or": null,
     "tags": [
-      "draft",
-      "toPrint"
+      "trash"
     ],
     "text": "Before attacking, discard any number of cards from your hand: +1 power for each, up to three.",
     "hp": null,
@@ -1188,7 +1333,9 @@
     "qty": 2,
     "icons": [],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "The attack fails and the defender draws 2 cards.",
     "hp": null,
     "subtitle": null
@@ -1209,7 +1356,7 @@
     "tags": [
       "toPrint"
     ],
-    "text": "The attacker takes two wounds from the Trap's owner. Then this card moves onto them as an Effect: attacks against them are always complexity 1 — Armor and other complexity increases do not help.\n{Iyo}'s Trap deals one wound more. TODO: Iyo's bonus is a placeholder.",
+    "text": "The attacker takes two wounds from the Trap's owner. Then this card moves onto them as an Effect: attacks against them are always complexity 1 — Armor and other complexity increases do not help.\n{Iyo}'s Trap deals one wound more.",
     "hp": null,
     "subtitle": null
   },
@@ -1230,7 +1377,7 @@
       "poison",
       "toPrint"
     ],
-    "text": "The attacker is Poisoned; if they are Poisoned already, deal them 3 wounds instead.\n{Minamoto}'s Toadstool deals one wound more. TODO: Minamoto's bonus is a placeholder.",
+    "text": "The attacker is Poisoned; if they are Poisoned already, deal them 3 wounds instead.\n{Minamoto}'s Toadstool deals one wound more.",
     "hp": null,
     "subtitle": null
   },
@@ -1247,7 +1394,9 @@
       "effect8"
     ],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "You insult the attacker. For a {Samurai} this is worse than death: they take this card as an Effect of rage and must discard a card with every direct attack.",
     "hp": null,
     "subtitle": null
@@ -1262,7 +1411,9 @@
     "qty": 2,
     "icons": [],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "If you survive the attack, restore all your life.",
     "hp": null,
     "subtitle": null
@@ -1327,7 +1478,9 @@
       "hpctx"
     ],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "The attacker takes 1 wound from you. {At death's door} the enemy takes 3 wounds instead.\n{With a Trap in play} deal 1 more wound.",
     "hp": null,
     "subtitle": null
@@ -1361,7 +1514,9 @@
     "qty": 3,
     "icons": [],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "You also draw a card.",
     "hp": null,
     "subtitle": null
@@ -1378,7 +1533,9 @@
       "charctx"
     ],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "Choose how many wounds you take from this attack, and draw a card for each wound taken (no more than three).\n{Ushiwaka} also takes the attacker's weapon into hand.",
     "hp": null,
     "subtitle": null
@@ -1408,8 +1565,10 @@
     "qty": 2,
     "icons": [],
     "icons_or": null,
-    "tags": [],
-    "text": "The attacker discards a random card.\nIn the {Shield Bearer} stance, draw a card.",
+    "tags": [
+      "toPrint"
+    ],
+    "text": "The attacker discards a random card.\nIn the {Ironclad} stance, draw a card.",
     "hp": null,
     "subtitle": null
   },
@@ -1449,7 +1608,7 @@
   },
   {
     "id": 1056,
-    "name": "Uke-nagashi",
+    "name": "Deflect",
     "types": [
       "defense"
     ],
@@ -1458,8 +1617,7 @@
     "icons": [],
     "icons_or": null,
     "tags": [
-      "draft",
-      "toPrint"
+      "trash"
     ],
     "text": "The attack fails and you draw a card. -OR- Deflect the blow onto either of your neighbours: the attack hits them with the same power, and they may defend.",
     "hp": null,
@@ -1491,12 +1649,14 @@
     ],
     "group": "stance",
     "qty": 1,
-    "icons": [],
+    "icons": [
+      "rolectx"
+    ],
     "icons_or": null,
     "tags": [
       "toPrint"
     ],
-    "text": "You count as dead to the other players for the whole round, but you discard this Stance at the start of your turn. Your Aura keeps working meanwhile.",
+    "text": "Only {Ninja} may take this Stance.\nYou count as dead to the other players for the whole round, but you discard this Stance at the start of your turn. Your Aura keeps working meanwhile.",
     "hp": null,
     "subtitle": null
   },
@@ -1527,14 +1687,16 @@
     "qty": 2,
     "icons": [],
     "icons_or": null,
-    "tags": [],
-    "text": "When played, restore 2 life.\nBefore each draw phase you may: restore 1 life to any player {OR} draw a card.",
+    "tags": [
+      "toPrint"
+    ],
+    "text": "Whenever you draw cards from the deck — in the draw phase, by exchange or from a card effect — draw one more.",
     "hp": null,
     "subtitle": null
   },
   {
     "id": 60,
-    "name": "Ō-yoroi",
+    "name": "Ironclad",
     "types": [
       "stance"
     ],
@@ -1574,12 +1736,12 @@
     ],
     "group": "stance",
     "qty": 2,
-    "icons": [
-      "rolectx"
-    ],
+    "icons": [],
     "icons_or": null,
-    "tags": [],
-    "text": "Once per turn you may: restore 1 life to any player -OR- discard a card to clear Poison or one Effect from any player.\n{Samurai} do not have to discard.",
+    "tags": [
+      "toPrint"
+    ],
+    "text": "Once per turn you may restore 1 life to any player.\nWhenever you restore life to a player, also clear their Poison and one Effect of your choice.",
     "hp": null,
     "subtitle": null
   },
@@ -1592,26 +1754,33 @@
     "group": "stance",
     "qty": 2,
     "icons": [
-      "rolectx"
+      "poison"
     ],
     "icons_or": null,
-    "tags": [],
-    "text": "When you attack an enemy you may: make your attack Poisoned -OR- discard 2 cards to leave the enemy defenseless against it.\n{Ninja} discard only 1 card.\n{On killing a player} draw 2 cards.",
+    "tags": [
+      "poison",
+      "toPrint"
+    ],
+    "text": "Your attacks are Poisoned.\n{On killing a player} draw 2 cards.",
     "hp": null,
     "subtitle": null
   },
   {
     "id": 1164,
-    "name": "Ketsuban",
+    "name": "Sworn Brother",
     "types": [
       "stance"
     ],
     "group": "stance",
     "qty": 1,
-    "icons": [],
+    "icons": [
+      "rolectx"
+    ],
     "icons_or": null,
-    "tags": [],
-    "text": "When you take wounds from a weapon, you may choose a willing ally to share those wounds with you in any split.",
+    "tags": [
+      "toPrint"
+    ],
+    "text": "Only {Samurai} may take this Stance.\nWhen you take wounds from a weapon, you may choose a willing ally to share those wounds with you in any split.",
     "hp": null,
     "subtitle": null
   },
@@ -1650,42 +1819,6 @@
     "subtitle": null
   },
   {
-    "id": 1167,
-    "name": "Seigan no Kamae",
-    "types": [
-      "stance"
-    ],
-    "group": "stance",
-    "qty": 1,
-    "icons": [],
-    "icons_or": null,
-    "tags": [
-      "draft",
-      "toPrint"
-    ],
-    "text": "Once per turn, when you are attacked, you may block the attack with any card from your hand as if it were a Defense card; that card's own effect does not apply.",
-    "hp": null,
-    "subtitle": null
-  },
-  {
-    "id": 1168,
-    "name": "Makoto",
-    "types": [
-      "stance"
-    ],
-    "group": "stance",
-    "qty": 1,
-    "icons": [],
-    "icons_or": null,
-    "tags": [
-      "draft",
-      "toPrint"
-    ],
-    "text": "While in this Stance, your hand lies face up in front of you. Your attacks deal 1 extra wound, and you draw one extra card in the draw phase.",
-    "hp": null,
-    "subtitle": null
-  },
-  {
     "id": 64,
     "name": "Vial of Poison",
     "types": [
@@ -1698,7 +1831,8 @@
     ],
     "icons_or": null,
     "tags": [
-      "poison"
+      "poison",
+      "toPrint"
     ],
     "text": "Your attack now inflicts Poison and deals 1 extra wound.",
     "hp": null,
@@ -1706,7 +1840,7 @@
   },
   {
     "id": 65,
-    "name": "Tameshigiri",
+    "name": "Clean Cut",
     "types": [
       "modifier"
     ],
@@ -1714,7 +1848,9 @@
     "qty": 1,
     "icons": [],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "Your attack deals 1 extra wound.",
     "hp": null,
     "subtitle": null
@@ -1748,7 +1884,9 @@
       "rolectx"
     ],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "Your attack ignores Traps and cannot be defended.\n{Ninja} deal 1 extra wound.\n{Samurai} pay the price of a discarded card.",
     "hp": null,
     "subtitle": null
@@ -1763,7 +1901,9 @@
     "qty": 1,
     "icons": [],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "+1 attack power. Your weapon handles 2 more complexity.\n{With a Stance in play} deal 1 more wound.",
     "hp": null,
     "subtitle": null
@@ -1815,7 +1955,9 @@
       "charctx"
     ],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "On a successful attack, restore as much life as the wounds you dealt.\n{Taka} may instead take that many cards from the target's hand.",
     "hp": null,
     "subtitle": null
@@ -1839,7 +1981,7 @@
   },
   {
     "id": 73,
-    "name": "Hachimaki",
+    "name": "Resolve",
     "types": [
       "modifier"
     ],
@@ -1849,7 +1991,9 @@
       "hpctx"
     ],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "Your attack handles any complexity and deals 1 extra wound, but you lose 1 life.\n{At death's door} it cannot be played.",
     "hp": null,
     "subtitle": null
@@ -1864,7 +2008,9 @@
     "qty": 1,
     "icons": [],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "Turns your weapon into a thrown weapon with base power 1.",
     "hp": null,
     "subtitle": null
@@ -1879,7 +2025,9 @@
     "qty": 1,
     "icons": [],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "The attack's final power equals your current life.",
     "hp": null,
     "subtitle": null
@@ -1894,7 +2042,9 @@
     "qty": 1,
     "icons": [],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "A Poisoned target takes 2 extra wounds.",
     "hp": null,
     "subtitle": null
@@ -1911,7 +2061,9 @@
       "rolectx"
     ],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "This strike does not use up your attack.\n{Samurai} deal 1 extra wound.\n{Ninja} pay the price of a discarded card.",
     "hp": null,
     "subtitle": null
@@ -1943,7 +2095,9 @@
     "qty": 1,
     "icons": [],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "Your weapon attack completely ignores every bonus from the target's Stance, Character and Effects.",
     "hp": null,
     "subtitle": null
@@ -1958,7 +2112,9 @@
     "qty": 1,
     "icons": [],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "+2 attack power.",
     "hp": null,
     "subtitle": null
@@ -1973,14 +2129,16 @@
     "qty": 1,
     "icons": [],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "The attack's final power equals the target's missing life.",
     "hp": null,
     "subtitle": null
   },
   {
     "id": 1083,
-    "name": "Kubitori",
+    "name": "Trophy",
     "types": [
       "modifier"
     ],
@@ -1990,7 +2148,9 @@
       "charctx"
     ],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "+1 attack power. If this attack kills the enemy, you may take their Stance, Aura and any Effects for yourself.\nThe only way to take {Saigo}'s Stance.",
     "hp": null,
     "subtitle": null
@@ -2005,14 +2165,16 @@
     "qty": 1,
     "icons": [],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "Add your current victory points to the attack's power.",
     "hp": null,
     "subtitle": null
   },
   {
     "id": 1085,
-    "name": "Kaishaku",
+    "name": "Suppression",
     "types": [
       "modifier"
     ],
@@ -2030,7 +2192,7 @@
   },
   {
     "id": 1032,
-    "name": "Renkei",
+    "name": "Joint Strike",
     "types": [
       "intervention",
       "modifier"
@@ -2075,7 +2237,9 @@
     "qty": 2,
     "icons": [],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "Each other living player discards a Defense or a Weapon, or hands you a card of their choice from their hand.",
     "hp": null,
     "subtitle": null
@@ -2092,8 +2256,10 @@
       "charctx"
     ],
     "icons_or": null,
-    "tags": [],
-    "text": "Every other living player loses their Stance and discards their Trap.\n{Saigo} stays out of the brawl.",
+    "tags": [
+      "toPrint"
+    ],
+    "text": "Every other living player discards their Stance and Trap.\n{Saigo} stays out of the brawl.",
     "hp": null,
     "subtitle": null
   },
@@ -2145,9 +2311,10 @@
     "icons": [],
     "icons_or": null,
     "tags": [
-      "draft"
+      "draft",
+      "toPrint"
     ],
-    "text": "Played together with a non-thrown weapon that handles complexity 2 or higher. Ignoring Traps, every living player takes the weapon's damage (no bonuses) or discards a Defense. Uses up your attack. TODO: rework. Since seating no longer matters, «a non-thrown weapon of complexity 2+» only describes armour-piercing weapons and says nothing about the sweep — consider tying it to the {Polearm} class instead: the whirlwind is a circular polearm strike. Also decide whether it hits allies (currently every living player).",
+    "text": "Played together with a {Polearm} weapon or a Nodachi; uses up an attack attempt. Ignoring Traps, every enemy takes an attack at that weapon's power (no bonuses, but with its Poison) — it may be defended.",
     "hp": null,
     "subtitle": null
   },
@@ -2159,10 +2326,14 @@
     ],
     "group": "aoe",
     "qty": 2,
-    "icons": [],
+    "icons": [
+      "charges"
+    ],
     "icons_or": null,
-    "tags": [],
-    "text": "Play this card and spend any other cards from your hand to throw a ranged attack of power 1 at another player for each one. These may be defended. At most 1 hit per target. Uses up your attack. TODO: rework. From the to-do list: turn it into a shared spare — allies chip in thrown weapons from their hands — or drop «uses up your attack».",
+    "tags": [
+      "toPrint"
+    ],
+    "text": "Uses up an attack attempt. Discard up to three other cards from your hand: each one is a thrown attack of power 1 against an enemy, split among targets as you like. Each throw is defended separately.",
     "hp": null,
     "subtitle": null
   },
@@ -2181,7 +2352,8 @@
     ],
     "icons_or": null,
     "tags": [
-      "poison"
+      "poison",
+      "toPrint"
     ],
     "text": "A player of your choice loses 1 life for every Poison on the table.\n{Under the Barrel of Stench} you may blow it up: the aura stays in play, and every enemy becomes Poisoned.",
     "hp": null,
@@ -2213,11 +2385,14 @@
     "group": "aoe",
     "qty": 2,
     "icons": [
-      "thrust"
+      "thrust",
+      "charges"
     ],
     "icons_or": null,
-    "tags": [],
-    "text": "Each other living player discards a Defense card or loses 2 life. TODO: rework. Open question from the to-do list — who gets the victory point when the cry finishes a player; under the thrust rule it goes to whoever played the card, confirm that is the intent.",
+    "tags": [
+      "toPrint"
+    ],
+    "text": "Each other living player discards two Weapon cards; for each one they don't discard, they take 1 wound.",
     "hp": null,
     "subtitle": null
   },
@@ -2231,7 +2406,9 @@
     "qty": 1,
     "icons": [],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "Each other living player lays out one card of their choice face up. After looking them over, you may take any one of those cards into your hand.",
     "hp": null,
     "subtitle": null
@@ -2285,6 +2462,7 @@
     "group": "aoe",
     "qty": 1,
     "icons": [
+      "thrust",
       "charges"
     ],
     "icons_or": null,
@@ -2292,7 +2470,7 @@
       "draft",
       "toPrint"
     ],
-    "text": "Every enemy takes an attack with power equal to the number of your allies at death's door. This cannot be defended. TODO: full rework (22.09.2026) — cascading damage scaled by dead allies is an anti-pattern; draft.",
+    "text": "Deal 1 wound for each wounded ally and 2 for each ally at death's door. Split the wounds among enemies as you like — all into one is fine.",
     "hp": null,
     "subtitle": null
   },
@@ -2365,7 +2543,7 @@
   },
   {
     "id": 1140,
-    "name": "Bundori",
+    "name": "Spoils of War",
     "types": [
       "aoe"
     ],
@@ -2383,7 +2561,7 @@
   },
   {
     "id": 1142,
-    "name": "Tewake",
+    "name": "To Your Posts!",
     "types": [
       "aoe"
     ],
@@ -2460,7 +2638,9 @@
     "qty": 3,
     "icons": [],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "Attacks against you are always complexity 1 — Armor and other complexity increases do not help.",
     "hp": null,
     "subtitle": null
@@ -2475,7 +2655,9 @@
     "qty": 1,
     "icons": [],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "The chosen player cannot make direct weapon attacks.\n{Samurai} must discard a card to attack you.",
     "hp": null,
     "subtitle": null
@@ -2648,7 +2830,7 @@
     "tags": [
       "toPrint"
     ],
-    "text": "Attacks against you are 1 harder. TODO: synergy with the Ō-yoroi Stance — not yet decided.",
+    "text": "Attacks against you are 1 harder.",
     "hp": null,
     "subtitle": null
   },
@@ -2699,8 +2881,10 @@
     "qty": 1,
     "icons": [],
     "icons_or": null,
-    "tags": [],
-    "text": "Every living player, you included, lays one card from hand face up in front of them. You take one of them; the rest go back to their owners.",
+    "tags": [
+      "toPrint"
+    ],
+    "text": "Every other living player lays one card from hand face up in front of them. You take one of them; the rest go back to their owners.",
     "hp": null,
     "subtitle": null
   },
@@ -2716,7 +2900,9 @@
       "hpctx"
     ],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "Any living player of your choice restores 2 life. In the {Chaplain} stance, restore 1 life more.\n{At death's door} you may heal another player for 3 life.",
     "hp": null,
     "subtitle": null
@@ -2733,7 +2919,9 @@
       "rolectx"
     ],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "Lay all your cards face up in front of you. Your living allies may take any of them, up to the limit of 8 cards; the rest go to the discard pile. You then die and another player scores a victory point. You cannot lose your last victory point this way.\n{Ninja} cannot commit Seppuku.",
     "hp": null,
     "subtitle": null
@@ -2855,7 +3043,9 @@
       "rolectx"
     ],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "The chosen player reveals their hand to everyone until the next action.\nA {Ninja} may take any one of those cards.",
     "hp": null,
     "subtitle": null
@@ -2874,7 +3064,8 @@
     ],
     "icons_or": null,
     "tags": [
-      "poison"
+      "poison",
+      "toPrint"
     ],
     "text": "Poisons the chosen living player; {Minamoto} may poison herself. If Minamoto is poisoned by this card, she draws two cards.",
     "hp": null,
@@ -2892,7 +3083,9 @@
       "rolectx"
     ],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "You and the chosen player swap life totals.\nA {Samurai} must discard a card to take this action.",
     "hp": null,
     "subtitle": null
@@ -2948,7 +3141,7 @@
   },
   {
     "id": 1121,
-    "name": "Kampo",
+    "name": "Herbal Remedy",
     "types": [
       "action"
     ],
@@ -2956,7 +3149,9 @@
     "qty": 1,
     "icons": [],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "Play this card and discard as many cards as you need, restoring 1 life for each.",
     "hp": null,
     "subtitle": null
@@ -2978,7 +3173,7 @@
   },
   {
     "id": 1127,
-    "name": "Kokyu",
+    "name": "Second Wind",
     "types": [
       "action"
     ],
@@ -2998,7 +3193,7 @@
   },
   {
     "id": 1128,
-    "name": "Sashizu",
+    "name": "On My Signal",
     "types": [
       "action"
     ],
@@ -3016,7 +3211,7 @@
   },
   {
     "id": 1129,
-    "name": "Oihagi",
+    "name": "Highwayman",
     "types": [
       "action"
     ],
@@ -3036,7 +3231,7 @@
   },
   {
     "id": 1130,
-    "name": "Keiteki-shu",
+    "name": "Healer's Treatise",
     "types": [
       "action"
     ],
@@ -3115,7 +3310,9 @@
     "qty": 1,
     "icons": [],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "You take the Aura of the chosen living player for yourself.",
     "hp": null,
     "subtitle": null
@@ -3137,7 +3334,7 @@
   },
   {
     "id": 1126,
-    "name": "Wairo",
+    "name": "Bribe",
     "types": [
       "intervention"
     ],
@@ -3186,7 +3383,7 @@
     "tags": [
       "toPrint"
     ],
-    "text": "Play this card to deal two wounds to a Poisoned player. TODO: {Minamoto}'s bonus — to be designed; option: against her always one wound plus one more from Poison.",
+    "text": "Play this card to deal two wounds to a Poisoned player.\nAgainst {Minamoto}: one wound in any case, plus one more if she is Poisoned.",
     "hp": null,
     "subtitle": null
   },
@@ -3239,8 +3436,10 @@
       "rolectx"
     ],
     "icons_or": null,
-    "tags": [],
-    "text": "Play this card to take a direct weapon attack onto yourself.\n{At death's door} your allies each draw a card.\n{Samurai} take one wound less doing so.",
+    "tags": [
+      "toPrint"
+    ],
+    "text": "Play this card to take a direct weapon attack onto yourself — you may defend against it.\n{At death's door} your allies each draw a card.\n{Samurai} take one wound less doing so.",
     "hp": null,
     "subtitle": null
   },
@@ -3289,7 +3488,9 @@
       "effect8"
     ],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "The chosen player, with their consent, plays dead until the end of the current turn: they keep 1 life, and their Aura does not work.",
     "hp": null,
     "subtitle": null
@@ -3304,8 +3505,10 @@
     "qty": 1,
     "icons": [],
     "icons_or": null,
-    "tags": [],
-    "text": "Destroys a weapon played on the table: the card goes to the discard pile and the attack is cancelled without using up the attempt. TODO: what happens when Shards break a weapon Hanzo is defending with — a dedicated interaction.",
+    "tags": [
+      "toPrint"
+    ],
+    "text": "Destroy the played Weapon and the attack's Modifier, if any. Put the destroyed cards in the discard pile. The attack is cancelled without spending an attempt.",
     "hp": null,
     "subtitle": null
   },
@@ -3340,13 +3543,13 @@
     "tags": [
       "toPrint"
     ],
-    "text": "Play in response to a Defense card: it is destroyed and the attack resolves as if undefended.",
+    "text": "Play in response to a Defense card and discard it without effect. The target can no longer defend themselves against this attack. Their allies may defend them as usual.",
     "hp": null,
     "subtitle": null
   },
   {
     "id": 1141,
-    "name": "Hikyaku",
+    "name": "Courier",
     "types": [
       "intervention"
     ],
@@ -3374,7 +3577,9 @@
       "charctx"
     ],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "Take one random card from the hand of any living player. {Taka} takes two.",
     "hp": null,
     "subtitle": null
@@ -3415,7 +3620,7 @@
   },
   {
     "id": 132,
-    "name": "Ketsu Nugi",
+    "name": "Leech",
     "types": [
       "action"
     ],
@@ -3423,7 +3628,9 @@
     "qty": 1,
     "icons": [],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "Take one life from a player and add it to your own.\n{If you are Poisoned}, you pass the Poison to that player instead.",
     "hp": null,
     "subtitle": null
@@ -3490,7 +3697,7 @@
     "tags": [
       "toPrint"
     ],
-    "text": "Take any other player's card from the table — face up or face down — into your hand.",
+    "text": "Take any other player's card from the table — face up or face down — into your hand. If you take a Charged Aura, take the card tucked under it when it was played. Discard any additional cards tucked under it.",
     "hp": null,
     "subtitle": null
   },
@@ -3657,9 +3864,10 @@
     ],
     "icons_or": null,
     "tags": [
-      "draft"
+      "draft",
+      "toPrint"
     ],
-    "text": "On their turn any ally may tuck any number of Modifiers face up under the Aura. For every two, all attacks by {allies} deal +1 wound, up to +3 in total.",
+    "text": "To play this Aura, tuck a Modifier from your hand under it. {Allies}' attacks deal +1 wound.\nOn their turn, an ally may tuck any number of Modifiers. Every two additional Modifiers add +1 wound, up to +3 in total.",
     "hp": null,
     "subtitle": null
   },
@@ -3676,9 +3884,10 @@
     ],
     "icons_or": null,
     "tags": [
-      "draft"
+      "draft",
+      "toPrint"
     ],
-    "text": "On their turn any ally may tuck one Defense card face up under the Aura. For every two, all {allies} take one wound less from any direct attack (never below 1), up to three in total.",
+    "text": "To play this Aura, tuck a Defense card from your hand under it. {Allies} take 1 wound less from direct attacks (minimum 1).\nOn their turn, an ally may tuck one Defense card. Every two additional Defense cards prevent 1 more wound, up to 3 in total.",
     "hp": null,
     "subtitle": null
   },
@@ -3710,7 +3919,8 @@
     ],
     "icons_or": null,
     "tags": [
-      "poison"
+      "poison",
+      "toPrint"
     ],
     "text": "All direct weapon attacks by {allies} are automatically Poisoned, as if a poisoned weapon had been used.\nThe {Bearer} becomes Poisoned.",
     "hp": null,
@@ -3741,14 +3951,13 @@
     ],
     "group": "aura",
     "qty": 1,
-    "icons": [
-      "charges"
-    ],
+    "icons": [],
     "icons_or": null,
     "tags": [
-      "draft"
+      "draft",
+      "toPrint"
     ],
-    "text": "On their turn any ally may tuck one Intervention or Group Action face up under the Aura. For every two cards, in the draw phase each {ally} takes +1 card from the deck, up to +2 in total.",
+    "text": "In the draw phase, each {ally} draws one extra card.",
     "hp": null,
     "subtitle": null
   },
@@ -3777,7 +3986,9 @@
     "qty": 1,
     "icons": [],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "Any living {ally} may consent to take a direct weapon attack aimed at another ally onto themselves (as with Feat of Valor), but takes one wound more.",
     "hp": null,
     "subtitle": null
@@ -3792,7 +4003,9 @@
     "qty": 1,
     "icons": [],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "Any healing of {allies} restores 1 extra life. Swapping, equalising or moving life does not count as healing.",
     "hp": null,
     "subtitle": null
@@ -3807,7 +4020,9 @@
     "qty": 1,
     "icons": [],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "{Enemies} who wound your allies with a direct attack take 1 wound from the Aura's bearer, or 2 if the bearer is in the {Archer} stance.\nThe {Bearer} cannot use thrown weapons.",
     "hp": null,
     "subtitle": null
@@ -3855,9 +4070,10 @@
     ],
     "icons_or": null,
     "tags": [
-      "draft"
+      "draft",
+      "toPrint"
     ],
-    "text": "On their turn any ally may tuck one thrown weapon face up under the Aura. For every full set — one weapon per living player on your team — thrown attacks by {allies} deal +1 wound, up to +3 in total.",
+    "text": "To play this Aura, tuck a thrown weapon from your hand under it. Thrown attacks by {allies} deal +1 wound.\nOn their turn, an ally may tuck one thrown weapon. Each additional set of one weapon per living teammate adds +1 wound, up to +3 in total.",
     "hp": null,
     "subtitle": null
   },

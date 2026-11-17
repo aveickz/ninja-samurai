@@ -1571,8 +1571,8 @@ const CARDS = [
     group: "aoe",
     icons: ["charctx"],
     tags: ["toPrint"],
-    desc: "Все остальные активные игроки теряют свою стойку и сбрасывают свою ловушку.[NL]{Сайго} в потасовке не участвует.",
-    enDesc: "Every other living player loses their Stance and discards their Trap.[NL]{Saigo} stays out of the brawl.",
+    desc: "Все остальные активные игроки сбрасывают свои стойки и ловушки.[NL]{Сайго} в потасовке не участвует.",
+    enDesc: "Every other living player discards their Stance and Trap.[NL]{Saigo} stays out of the brawl.",
     img: "cards/card_83_potasovka.png"
   },
   {
@@ -2485,8 +2485,8 @@ const CARDS = [
     group: "intervention",
     icons: [],
     tags: ["toPrint"],
-    desc: "Уничтожает сыгранное оружие на столе, карта идёт в сброс, а атака отменяется, не тратя попытку.",
-    enDesc: "Destroys a weapon played on the table: the card goes to the discard pile and the attack is cancelled without using up the attempt.",
+    desc: "Уничтожьте сыгранное оружие и модификатор этой атаки, если он есть. Уничтоженные карты уходят в сброс. Атака отменяется без траты попытки.",
+    enDesc: "Destroy the played Weapon and the attack's Modifier, if any. Put the destroyed cards in the discard pile. The attack is cancelled without spending an attempt.",
     img: "cards/card_shards.png"
   },
   {
@@ -2511,8 +2511,8 @@ const CARDS = [
     group: "intervention",
     icons: [],
     tags: ["toPrint"],
-    desc: "Сыграйте в ответ на карту защиты: она уничтожается, атака проходит как без защиты.",
-    enDesc: "Play in response to a Defense card: it is destroyed and the attack resolves as if undefended.",
+    desc: "Сыграйте в ответ на карту защиты и сбросьте её без эффекта. Цель больше не может сама защищаться от этой атаки. Союзники цели могут защищать её по обычным правилам.",
+    enDesc: "Play in response to a Defense card and discard it without effect. The target can no longer defend themselves against this attack. Their allies may defend them as usual.",
     img: "cards/card_1031_shchitolom.png"
   },
   {
@@ -2630,8 +2630,8 @@ const CARDS = [
     group: "action",
     icons: [],
     tags: ["toPrint"],
-    desc: "Заберите любую чужую карту со стола — открытую или закрытую — себе в руку.",
-    enDesc: "Take any other player's card from the table — face up or face down — into your hand.",
+    desc: "Заберите любую чужую карту со стола — открытую или закрытую — себе в руку. Если забрали ауру с накоплением, возьмите и карту, подложенную при её розыгрыше. Дополнительные карты из-под ауры сбросьте.",
+    enDesc: "Take any other player's card from the table — face up or face down — into your hand. If you take a Charged Aura, take the card tucked under it when it was played. Discard any additional cards tucked under it.",
     img: "cards/card_ekai.png"
   },
   {
@@ -2798,9 +2798,9 @@ const CARDS = [
     qty: 1,
     group: "aura",
     icons: ["charges"],
-    tags: ["draft"],
-    desc: "Любой союзник в свой ход может подложить под ауру любое число модификаторов в открытую. За каждые два все атаки {союзников} наносят +1 рану, всего не более +3.",
-    enDesc: "On their turn any ally may tuck any number of Modifiers face up under the Aura. For every two, all attacks by {allies} deal +1 wound, up to +3 in total.",
+    tags: ["draft", "toPrint"],
+    desc: "При розыгрыше подложите под ауру модификатор из руки. Атаки {союзников} наносят +1 рану.[NL]В свой ход союзник может подложить любое число модификаторов. Каждые два дополнительных модификатора дают ещё +1 рану, всего до +3.",
+    enDesc: "To play this Aura, tuck a Modifier from your hand under it. {Allies}' attacks deal +1 wound.[NL]On their turn, an ally may tuck any number of Modifiers. Every two additional Modifiers add +1 wound, up to +3 in total.",
     img: "cards/card_1200_dojo.png"
   },
   {
@@ -2811,9 +2811,9 @@ const CARDS = [
     qty: 1,
     group: "aura",
     icons: ["charges"],
-    tags: ["draft"],
-    desc: "Любой союзник в свой ход может подложить под ауру одну карту защиты в открытую. За каждые две все {союзники} получают на одну рану меньше от любой прямой атаки (не менее 1), всего не более трёх.",
-    enDesc: "On their turn any ally may tuck one Defense card face up under the Aura. For every two, all {allies} take one wound less from any direct attack (never below 1), up to three in total.",
+    tags: ["draft", "toPrint"],
+    desc: "При розыгрыше подложите под ауру карту защиты из руки. {Союзники} получают на 1 рану меньше от прямых атак (не менее 1).[NL]В свой ход союзник может подложить одну защиту. Каждые две дополнительные защиты отводят ещё 1 рану, всего до трёх.",
+    enDesc: "To play this Aura, tuck a Defense card from your hand under it. {Allies} take 1 wound less from direct attacks (minimum 1).[NL]On their turn, an ally may tuck one Defense card. Every two additional Defense cards prevent 1 more wound, up to 3 in total.",
     img: "cards/card_rare.png"
   },
   {
@@ -2862,10 +2862,10 @@ const CARDS = [
     types: ["aura"],
     qty: 1,
     group: "aura",
-    icons: ["charges"],
+    icons: [],
     tags: ["draft", "toPrint"],
-    desc: "Любой союзник в свой ход может подложить под ауру одно вмешательство или групповое действие в открытую. За каждые две карты в фазе набора каждый {союзник} берёт +1 карту из колоды, всего не более +2.",
-    enDesc: "On their turn any ally may tuck one Intervention or Group Action face up under the Aura. For every two cards, in the draw phase each {ally} takes +1 card from the deck, up to +2 in total.",
+    desc: "В фазе набора каждый {союзник} берёт +1 карту из колоды.",
+    enDesc: "In the draw phase, each {ally} draws one extra card.",
     img: "cards/card_camp.png"
   },
   {
@@ -2955,9 +2955,9 @@ const CARDS = [
     qty: 1,
     group: "aura",
     icons: ["charges"],
-    tags: ["draft"],
-    desc: "Любой союзник в свой ход может подложить под ауру одно метательное оружие в открытую. За каждый комплект — по одному оружию на каждого живого игрока команды — метательные атаки {союзников} наносят +1 рану, всего не более +3.",
-    enDesc: "On their turn any ally may tuck one thrown weapon face up under the Aura. For every full set — one weapon per living player on your team — thrown attacks by {allies} deal +1 wound, up to +3 in total.",
+    tags: ["draft", "toPrint"],
+    desc: "При розыгрыше подложите под ауру метательное оружие из руки. Метательные атаки {союзников} наносят +1 рану.[NL]В свой ход союзник может подложить одно метательное оружие. Каждый комплект дополнительных карт по числу живых в команде даёт ещё +1 рану, всего до +3.",
+    enDesc: "To play this Aura, tuck a thrown weapon from your hand under it. Thrown attacks by {allies} deal +1 wound.[NL]On their turn, an ally may tuck one thrown weapon. Each additional set of one weapon per living teammate adds +1 wound, up to +3 in total.",
     img: "cards/card_1212_high_ground.png"
   },
   {
