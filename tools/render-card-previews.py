@@ -22,7 +22,7 @@ OUT = 'rules/media/cards'
 os.makedirs(OUT, exist_ok=True)
 
 # ID карт-примеров — те же, что в rules-new (см. tools/build-rules-new.py)
-DEFAULT_IDS = [201, 200, 202, 137, 1, 32, 33, 31, 70, 48, 43, 41, 1166, 60, 135, 138,
+DEFAULT_IDS = [201, 200, 202, 137, 1, 32, 33, 29, 70, 48, 43, 41, 1166, 60, 135, 138,
                91, 116, 64, 121, 124, 1200, 1204, 125, 1165]
 
 SCALE = 2          # device scale factor: 240px карты → 480px PNG

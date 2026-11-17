@@ -184,14 +184,14 @@ const CARDS = [
     title: "Боевой веер",
     enTitle: "War Fan",
     types: ["weapon"],
-    qty: 2,
+    qty: 4,
     group: "weapon",
     icons: ["complexity1", "dmg2", "charctx"],
-    iconsOr: ["ranged", "dmg1"],
-    tags: ["toPrint"],
+    iconsOr: ["ranged", "dmg1", "poison"],
+    tags: ["poison", "toPrint"],
     desc: "Атаковать им могут только женские персонажи.[NL]Любимое оружие {Манасэ}.",
     enDesc: "Only female characters can attack with it.[NL]Favourite weapon of {Manase}.",
-    img: "cards/card_6_boevoy_veer.png"
+    img: "cards/card_20_boevoy_veer_yad.png"
   },
   {
     id: 7,
@@ -355,13 +355,14 @@ const CARDS = [
     title: "Сай",
     enTitle: "Sai",
     types: ["weapon", "defense"],
-    qty: 2,
+    qty: 4,
     group: "weapon",
     icons: ["complexity1", "dmg2", "defense"],
-    tags: [],
+    iconsOr: ["ranged", "dmg1", "poison"],
+    tags: ["poison", "toPrint"],
     desc: "Это оружие можно использовать как Защиту.",
     enDesc: "This weapon may be played as a Defense.",
-    img: "cards/card_18_say.png"
+    img: "cards/card_21_say_yad.png"
   },
   {
     id: 1018,
@@ -398,7 +399,7 @@ const CARDS = [
     group: "weapon",
     icons: ["ranged", "dmg1", "poison", "charctx"],
     iconsOr: ["complexity1", "dmg2", "poison"],
-    tags: ["poison", "toPrint"],
+    tags: ["poison", "toPrint", "trash"],
     desc: "Атаковать им могут только женские персонажи.",
     enDesc: "Only female characters can attack with it.",
     img: "cards/card_20_boevoy_veer_yad.png"
@@ -411,7 +412,7 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["ranged", "dmg1", "poison"],
-    tags: ["poison", "toPrint"],
+    tags: ["poison", "toPrint", "trash"],
     desc: "",
     enDesc: "",
     img: "cards/card_21_say_yad.png"
@@ -512,14 +513,14 @@ const CARDS = [
     title: "Яри",
     enTitle: "Yari",
     types: ["weapon"],
-    qty: 2,
+    qty: 4,
     group: "weapon",
     icons: ["complexity2", "dmg1"],
-    iconsOr: ["ranged", "dmg1"],
-    tags: [],
+    iconsOr: ["ranged", "dmg0", "poison"],
+    tags: ["poison", "toPrint"],
     desc: "{Древковое} В стойке {всадника} наносит на одну рану больше.",
     enDesc: "{Polearm} In the {Horseman} stance, deals 1 extra wound.",
-    img: "cards/card_29_yari.png"
+    img: "cards/card_31_yari_yad.png"
   },
   {
     id: 30,
@@ -543,7 +544,7 @@ const CARDS = [
     group: "weapon",
     icons: ["complexity2", "dmg1", "poison"],
     iconsOr: ["ranged", "dmg1", "poison"],
-    tags: ["poison", "toPrint"],
+    tags: ["poison", "toPrint", "trash"],
     desc: "{Древковое} В стойке {всадника} наносит на одну рану больше.",
     enDesc: "{Polearm} In the {Horseman} stance, deals 1 extra wound.",
     img: "cards/card_31_yari_yad.png"
@@ -553,13 +554,14 @@ const CARDS = [
     title: "Сюрикен",
     enTitle: "Shuriken",
     types: ["weapon"],
-    qty: 1,
+    qty: 2,
     group: "weapon",
     icons: ["ranged", "dmg1"],
-    tags: ["toPrint"],
+    iconsOr: ["ranged", "dmg0", "poison"],
+    tags: ["poison", "toPrint"],
     desc: "{При наличии ловушки} наносит на одну рану больше.",
     enDesc: "{With a Trap in play} deals one wound more.",
-    img: "cards/card_32_syuriken_roppo.png"
+    img: "cards/card_34_syuriken_dzyumondzi.png"
   },
   {
     id: 330,
@@ -579,13 +581,14 @@ const CARDS = [
     title: "Дайкю",
     enTitle: "Daikyu",
     types: ["weapon"],
-    qty: 2,
+    qty: 4,
     group: "weapon",
     icons: ["ranged", "dmg2"],
-    tags: [],
+    iconsOr: ["ranged", "dmg1", "poison"],
+    tags: ["poison", "toPrint"],
     desc: "В стойке {лучника} наносит на одну рану больше.",
     enDesc: "In the {Archer} stance, deals 1 extra wound.",
-    img: "cards/card_33_dayku.png"
+    img: "cards/card_37_dayku_yad.png"
   },
   {
     id: 1033,
@@ -608,7 +611,7 @@ const CARDS = [
     qty: 1,
     group: "weapon",
     icons: ["ranged", "dmg1", "poison"],
-    tags: ["poison", "toPrint"],
+    tags: ["poison", "toPrint", "trash"],
     desc: "{При наличии ловушки} наносит на одну рану больше.",
     enDesc: "{With a Trap in play} deals one wound more.",
     img: "cards/card_34_syuriken_dzyumondzi.png"
@@ -631,14 +634,14 @@ const CARDS = [
     title: "Кунай",
     enTitle: "Kunai",
     types: ["weapon"],
-    qty: 2,
+    qty: 4,
     group: "weapon",
-    icons: ["ranged", "dmg1"],
-    iconsOr: ["complexity2", "dmg2"],
-    tags: [],
+    icons: ["complexity2", "dmg2"],
+    iconsOr: ["ranged", "dmg1", "poison"],
+    tags: ["poison", "toPrint"],
     desc: "",
     enDesc: "",
-    img: "cards/card_36_kunay.png"
+    img: "cards/card_40_kunay_yad.png"
   },
   {
     id: 36,
@@ -661,7 +664,7 @@ const CARDS = [
     qty: 2,
     group: "weapon",
     icons: ["ranged", "dmg2", "poison"],
-    tags: ["poison", "toPrint"],
+    tags: ["poison", "toPrint", "trash"],
     desc: "В стойке {лучника} наносит на одну рану больше.",
     enDesc: "In the {Archer} stance, deals 1 extra wound.",
     img: "cards/card_37_dayku_yad.png"
@@ -701,7 +704,7 @@ const CARDS = [
     group: "weapon",
     icons: ["ranged", "dmg1", "poison"],
     iconsOr: ["complexity1", "dmg2", "poison"],
-    tags: ["poison", "toPrint"],
+    tags: ["poison", "toPrint", "trash"],
     desc: "",
     enDesc: "",
     img: "cards/card_40_kunay_yad.png"

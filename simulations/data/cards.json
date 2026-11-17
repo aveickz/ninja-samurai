@@ -245,7 +245,7 @@
       "weapon"
     ],
     "group": "weapon",
-    "qty": 2,
+    "qty": 4,
     "icons": [
       "complexity1",
       "dmg2",
@@ -253,9 +253,11 @@
     ],
     "icons_or": [
       "ranged",
-      "dmg1"
+      "dmg1",
+      "poison"
     ],
     "tags": [
+      "poison",
       "toPrint"
     ],
     "text": "Only female characters can attack with it.\nFavourite weapon of {Manase}.",
@@ -513,14 +515,21 @@
       "defense"
     ],
     "group": "weapon",
-    "qty": 2,
+    "qty": 4,
     "icons": [
       "complexity1",
       "dmg2",
       "defense"
     ],
-    "icons_or": null,
-    "tags": [],
+    "icons_or": [
+      "ranged",
+      "dmg1",
+      "poison"
+    ],
+    "tags": [
+      "poison",
+      "toPrint"
+    ],
     "text": "This weapon may be played as a Defense.",
     "hp": null,
     "subtitle": null
@@ -584,7 +593,8 @@
     ],
     "tags": [
       "poison",
-      "toPrint"
+      "toPrint",
+      "trash"
     ],
     "text": "Only female characters can attack with it.",
     "hp": null,
@@ -606,7 +616,8 @@
     "icons_or": null,
     "tags": [
       "poison",
-      "toPrint"
+      "toPrint",
+      "trash"
     ],
     "text": "",
     "hp": null,
@@ -748,16 +759,20 @@
       "weapon"
     ],
     "group": "weapon",
-    "qty": 2,
+    "qty": 4,
     "icons": [
       "complexity2",
       "dmg1"
     ],
     "icons_or": [
       "ranged",
-      "dmg1"
+      "dmg0",
+      "poison"
     ],
-    "tags": [],
+    "tags": [
+      "poison",
+      "toPrint"
+    ],
     "text": "{Polearm} In the {Horseman} stance, deals 1 extra wound.",
     "hp": null,
     "subtitle": null
@@ -802,7 +817,8 @@
     ],
     "tags": [
       "poison",
-      "toPrint"
+      "toPrint",
+      "trash"
     ],
     "text": "{Polearm} In the {Horseman} stance, deals 1 extra wound.",
     "hp": null,
@@ -815,13 +831,18 @@
       "weapon"
     ],
     "group": "weapon",
-    "qty": 1,
+    "qty": 2,
     "icons": [
       "ranged",
       "dmg1"
     ],
-    "icons_or": null,
+    "icons_or": [
+      "ranged",
+      "dmg0",
+      "poison"
+    ],
     "tags": [
+      "poison",
       "toPrint"
     ],
     "text": "{With a Trap in play} deals one wound more.",
@@ -855,13 +876,20 @@
       "weapon"
     ],
     "group": "weapon",
-    "qty": 2,
+    "qty": 4,
     "icons": [
       "ranged",
       "dmg2"
     ],
-    "icons_or": null,
-    "tags": [],
+    "icons_or": [
+      "ranged",
+      "dmg1",
+      "poison"
+    ],
+    "tags": [
+      "poison",
+      "toPrint"
+    ],
     "text": "In the {Archer} stance, deals 1 extra wound.",
     "hp": null,
     "subtitle": null
@@ -900,7 +928,8 @@
     "icons_or": null,
     "tags": [
       "poison",
-      "toPrint"
+      "toPrint",
+      "trash"
     ],
     "text": "{With a Trap in play} deals one wound more.",
     "hp": null,
@@ -935,16 +964,20 @@
       "weapon"
     ],
     "group": "weapon",
-    "qty": 2,
+    "qty": 4,
     "icons": [
-      "ranged",
-      "dmg1"
-    ],
-    "icons_or": [
       "complexity2",
       "dmg2"
     ],
-    "tags": [],
+    "icons_or": [
+      "ranged",
+      "dmg1",
+      "poison"
+    ],
+    "tags": [
+      "poison",
+      "toPrint"
+    ],
     "text": "",
     "hp": null,
     "subtitle": null
@@ -983,7 +1016,8 @@
     "icons_or": null,
     "tags": [
       "poison",
-      "toPrint"
+      "toPrint",
+      "trash"
     ],
     "text": "In the {Archer} stance, deals 1 extra wound.",
     "hp": null,
@@ -1054,7 +1088,8 @@
     ],
     "tags": [
       "poison",
-      "toPrint"
+      "toPrint",
+      "trash"
     ],
     "text": "",
     "hp": null,
