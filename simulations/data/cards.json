@@ -1359,7 +1359,9 @@
     "qty": 2,
     "icons": [],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "Take three cards from the attacker.",
     "hp": null,
     "subtitle": null
