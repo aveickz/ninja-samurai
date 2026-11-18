@@ -2565,7 +2565,9 @@
     "qty": 1,
     "icons": [],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "Redistribute life among your living allies however you see fit.",
     "hp": null,
     "subtitle": null

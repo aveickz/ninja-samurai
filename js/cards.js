@@ -1755,10 +1755,10 @@ const CARDS = [
     qty: 1,
     group: "aoe",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "На ваше усмотрение вы перераспределяете жетоны жизни между живыми союзниками.",
     enDesc: "Redistribute life among your living allies however you see fit.",
-    img: "cards/card_blood_bound.png"
+    img: "cards/card_1138_krovnoe_rodstvo.png"
   },
   {
     id: 1139,
