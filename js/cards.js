@@ -2827,10 +2827,10 @@ const CARDS = [
     qty: 1,
     group: "aura",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Сложность атак по вашей команде увеличивается на 1.",
     enDesc: "Attacks against your team are 1 harder.",
-    img: "cards/card_march.png"
+    img: "cards/card_1202_rovny_stroy.png"
   },
   {
     id: 1203,
