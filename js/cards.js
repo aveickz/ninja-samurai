@@ -1072,7 +1072,7 @@ const CARDS = [
     qty: 3,
     group: "defense",
     icons: ["charctx"],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Вы забираете неметательное оружие врага себе в руку; {Хандзо} забирает любое, в том числе метательное.[NL]{При наличии стойки} вы берёте дополнительно карту из колоды.",
     enDesc: "Take the enemy's non-thrown weapon into your hand; {Hanzo} takes any weapon, thrown ones included.[NL]{With a Stance in play} also draw a card.",
     img: "cards/card_55_zakhvat.png"

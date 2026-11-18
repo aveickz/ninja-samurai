@@ -1625,7 +1625,9 @@
       "charctx"
     ],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "Take the enemy's non-thrown weapon into your hand; {Hanzo} takes any weapon, thrown ones included.\n{With a Stance in play} also draw a card.",
     "hp": null,
     "subtitle": null
