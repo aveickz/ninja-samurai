@@ -1729,10 +1729,10 @@ const CARDS = [
     qty: 1,
     group: "aoe",
     icons: [],
-    tags: [],
+    tags: ["toPrint"],
     desc: "Каждый активный игрок выбирает 1 карту со своей руки и кладёт её закрытой перед собой. Когда все выложили — карты сдвигаются на одну позицию по часовой стрелке (каждый получает закрытую карту соседа справа).",
     enDesc: "Every living player picks 1 card from their hand and places it face down in front of them. Once all are down, the cards shift one seat clockwise (each player takes the face-down card of the neighbour on their right).",
-    img: "cards/card_wave.png"
+    img: "cards/card_1094_estafeta_mechey.png"
   },
   {
     id: 1137,

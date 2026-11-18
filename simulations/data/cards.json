@@ -2531,7 +2531,9 @@
     "qty": 1,
     "icons": [],
     "icons_or": null,
-    "tags": [],
+    "tags": [
+      "toPrint"
+    ],
     "text": "Every living player picks 1 card from their hand and places it face down in front of them. Once all are down, the cards shift one seat clockwise (each player takes the face-down card of the neighbour on their right).",
     "hp": null,
     "subtitle": null
